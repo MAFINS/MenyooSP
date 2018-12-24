@@ -1,0 +1,323 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|x64">
+      <Configuration>Debug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|x64">
+      <Configuration>Release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\external\pugixml\src\pugixml.cpp" />
+    <ClCompile Include="Menu\FolderPreviewBmps.cpp" />
+    <ClCompile Include="Menu\MenuConfig.cpp" />
+    <ClCompile Include="Menu\Routine.cpp" />
+    <ClCompile Include="Menu\submenu_switch.cpp" />
+    <ClCompile Include="Misc\FlameThrower.cpp" />
+    <ClCompile Include="Misc\FpsCounter.cpp" />
+    <ClCompile Include="Misc\GenericLoopedMode.cpp" />
+    <ClCompile Include="Misc\Gta2Cam.cpp" />
+    <ClCompile Include="Misc\JumpAroundMode.cpp" />
+    <ClCompile Include="Misc\MagnetGun.cpp" />
+    <ClCompile Include="Misc\ManualRespawn.cpp" />
+    <ClCompile Include="Misc\MeteorShower.cpp" />
+    <ClCompile Include="Misc\RopeGun.cpp" />
+    <ClCompile Include="Misc\SmashAbility.cpp" />
+    <ClCompile Include="Misc\VehicleCruise.cpp" />
+    <ClCompile Include="Misc\VehicleFly.cpp" />
+    <ClCompile Include="Misc\VehicleTow.cpp" />
+    <ClCompile Include="Scripting\Camera.cpp" />
+    <ClCompile Include="Scripting\Checkpoint.cpp" />
+    <ClCompile Include="Scripting\CustomHelpText.cpp" />
+    <ClCompile Include="Scripting\DxHookIMG.cpp" />
+    <ClCompile Include="Scripting\enums.cpp" />
+    <ClCompile Include="Submenus\AnimalRiding.cpp" />
+    <ClCompile Include="Submenus\BreatheStuff.cpp" />
+    <ClCompile Include="Submenus\CutscenePlayer.cpp" />
+    <ClCompile Include="Submenus\FunnyVehicles.cpp" />
+    <ClCompile Include="Submenus\GhostRiderMode.cpp" />
+    <ClCompile Include="Submenus\MainMenu.cpp" />
+    <ClCompile Include="Submenus\MiscMapMods.cpp" />
+    <ClCompile Include="Submenus\MiscOptions.cpp" />
+    <ClCompile Include="Submenus\PedAnimation.cpp" />
+    <ClCompile Include="Submenus\PedComponentChanger.cpp" />
+    <ClCompile Include="Submenus\PedModelChanger.cpp" />
+    <ClCompile Include="Submenus\PedSpeech.cpp" />
+    <ClCompile Include="Submenus\PlayerOptions.cpp" />
+    <ClCompile Include="Submenus\Players.cpp" />
+    <ClCompile Include="Submenus\PtfxSubs.cpp" />
+    <ClCompile Include="Submenus\Settings.cpp" />
+    <ClCompile Include="Submenus\Spooner\BlipManagement.cpp" />
+    <ClCompile Include="Submenus\Spooner\Databases.cpp" />
+    <ClCompile Include="Submenus\Spooner\EntityManagement.cpp" />
+    <ClCompile Include="Submenus\Spooner\FavouritesManagement.cpp" />
+    <ClCompile Include="Submenus\Spooner\FileManagement.cpp" />
+    <ClCompile Include="Submenus\Spooner\MarkerManagement.cpp" />
+    <ClCompile Include="Submenus\Spooner\MenuOptions.cpp" />
+    <ClCompile Include="Submenus\Spooner\RelationshipManagement.cpp" />
+    <ClCompile Include="Submenus\Spooner\SpoonerEntity.cpp" />
+    <ClCompile Include="Submenus\Spooner\SpoonerMarker.cpp" />
+    <ClCompile Include="Submenus\Spooner\SpoonerMode.cpp" />
+    <ClCompile Include="Submenus\Spooner\SpoonerSettings.cpp" />
+    <ClCompile Include="Submenus\Spooner\SpoonerTaskSequence.cpp" />
+    <ClCompile Include="Submenus\Spooner\STSTask.cpp" />
+    <ClCompile Include="Submenus\Spooner\STSTasks.cpp" />
+    <ClCompile Include="Submenus\Spooner\Submenus.cpp" />
+    <ClCompile Include="Submenus\Spooner\Submenus_TaskSequence.cpp" />
+    <ClCompile Include="Submenus\StatManager.cpp" />
+    <ClCompile Include="Submenus\Teleport\ArenaWar.cpp" />
+    <ClCompile Include="Submenus\Teleport\BikerInteriors.cpp" />
+    <ClCompile Include="Submenus\Teleport\Facilities.cpp" />
+    <ClCompile Include="Submenus\Teleport\GunRunningInteriors.cpp" />
+    <ClCompile Include="Submenus\Teleport\Hangars.cpp" />
+    <ClCompile Include="Submenus\Teleport\IeVehicleWarehouses.cpp" />
+    <ClCompile Include="Submenus\Teleport\Locations.cpp" />
+    <ClCompile Include="Submenus\Teleport\Nightclubs.cpp" />
+    <ClCompile Include="Submenus\Teleport\OfficeGarages.cpp" />
+    <ClCompile Include="Submenus\Teleport\TeleLocation.cpp" />
+    <ClCompile Include="Submenus\Teleport\TeleMethods.cpp" />
+    <ClCompile Include="Submenus\Teleport\Teleport_Submenus.cpp" />
+    <ClCompile Include="Submenus\Teleport\Yachts.cpp" />
+    <ClCompile Include="Submenus\TimeOptions.cpp" />
+    <ClCompile Include="Submenus\VehicleModShop.cpp" />
+    <ClCompile Include="Submenus\VehicleOptions.cpp" />
+    <ClCompile Include="Submenus\VehicleSpawner.cpp" />
+    <ClCompile Include="Submenus\WeaponOptions.cpp" />
+    <ClCompile Include="Submenus\WeatherOptions.cpp" />
+    <ClCompile Include="Util\ExePath.cpp" />
+    <ClCompile Include="Util\FileLogger.cpp" />
+    <ClCompile Include="Scripting\Game.cpp" />
+    <ClCompile Include="Scripting\GameplayCamera.cpp" />
+    <ClCompile Include="Scripting\GTAblip.cpp" />
+    <ClCompile Include="Scripting\GTAentity.cpp" />
+    <ClCompile Include="Util\GTAmath.cpp" />
+    <ClCompile Include="Scripting\GTAped.cpp" />
+    <ClCompile Include="Scripting\GTAprop.cpp" />
+    <ClCompile Include="Menu\Menu.cpp" />
+    <ClCompile Include="Scripting\Model.cpp">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">NotUsing</PrecompiledHeader>
+      <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Release|x64'">script.h</PrecompiledHeaderFile>
+    </ClCompile>
+    <ClCompile Include="Scripting\ModelNames.cpp" />
+    <ClCompile Include="Natives\natives2.cpp" />
+    <ClCompile Include="Scripting\PTFX.cpp" />
+    <ClCompile Include="Scripting\Raycast.cpp" />
+    <ClCompile Include="Scripting\GTAplayer.cpp" />
+    <ClCompile Include="Scripting\GTAvehicle.cpp" />
+    <ClCompile Include="Util\keyboard.cpp" />
+    <ClCompile Include="main.cpp" />
+    <ClCompile Include="Memory\GTAmemory.cpp" />
+    <ClCompile Include="Scripting\Rope.cpp" />
+    <ClCompile Include="Scripting\Scaleform.cpp" />
+    <ClCompile Include="Scripting\Tasks.cpp" />
+    <ClCompile Include="Scripting\TimecycleModification.cpp" />
+    <ClCompile Include="Scripting\WeaponIndivs.cpp" />
+    <ClCompile Include="Scripting\World.cpp" />
+    <ClCompile Include="Util\StringManip.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\external\pugixml\src\pugiconfig.hpp" />
+    <ClInclude Include="..\external\pugixml\src\pugixml.hpp" />
+    <ClInclude Include="Menu\FolderPreviewBmps.h" />
+    <ClInclude Include="Menu\MenuConfig.h" />
+    <ClInclude Include="Menu\Routine.h" />
+    <ClInclude Include="Menu\submenu_enum.h" />
+    <ClInclude Include="Menu\submenu_switch.h" />
+    <ClInclude Include="Misc\FlameThrower.h" />
+    <ClInclude Include="Misc\FpsCounter.h" />
+    <ClInclude Include="Misc\GenericLoopedMode.h" />
+    <ClInclude Include="Misc\Gta2Cam.h" />
+    <ClInclude Include="Misc\JumpAroundMode.h" />
+    <ClInclude Include="Misc\MagnetGun.h" />
+    <ClInclude Include="Misc\ManualRespawn.h" />
+    <ClInclude Include="Misc\MeteorShower.h" />
+    <ClInclude Include="Misc\RopeGun.h" />
+    <ClInclude Include="Misc\SmashAbility.h" />
+    <ClInclude Include="Misc\VehicleCruise.h" />
+    <ClInclude Include="Misc\VehicleFly.h" />
+    <ClInclude Include="Misc\VehicleTow.h" />
+    <ClInclude Include="Scripting\Camera.h" />
+    <ClInclude Include="Scripting\Checkpoint.h" />
+    <ClInclude Include="Scripting\CustomHelpText.h" />
+    <ClInclude Include="Scripting\DxHookIMG.h" />
+    <ClInclude Include="Scripting\enums.h" />
+    <ClInclude Include="Submenus\AnimalRiding.h" />
+    <ClInclude Include="Submenus\BreatheStuff.h" />
+    <ClInclude Include="Submenus\CutscenePlayer.h" />
+    <ClInclude Include="Submenus\FunnyVehicles.h" />
+    <ClInclude Include="Submenus\GhostRiderMode.h" />
+    <ClInclude Include="Submenus\MainMenu.h" />
+    <ClInclude Include="Submenus\MiscMapMods.h" />
+    <ClInclude Include="Submenus\MiscOptions.h" />
+    <ClInclude Include="Submenus\PedAnimation.h" />
+    <ClInclude Include="Submenus\PedComponentChanger.h" />
+    <ClInclude Include="Submenus\PedModelChanger.h" />
+    <ClInclude Include="Submenus\PedSpeech.h" />
+    <ClInclude Include="Submenus\PlayerOptions.h" />
+    <ClInclude Include="Submenus\Players.h" />
+    <ClInclude Include="Submenus\PtfxSubs.h" />
+    <ClInclude Include="Submenus\Settings.h" />
+    <ClInclude Include="Submenus\Spooner\BlipManagement.h" />
+    <ClInclude Include="Submenus\Spooner\Databases.h" />
+    <ClInclude Include="Submenus\Spooner\EntityManagement.h" />
+    <ClInclude Include="Submenus\Spooner\FavouritesManagement.h" />
+    <ClInclude Include="Submenus\Spooner\FileManagement.h" />
+    <ClInclude Include="Submenus\Spooner\MarkerManagement.h" />
+    <ClInclude Include="Submenus\Spooner\MenuOptions.h" />
+    <ClInclude Include="Submenus\Spooner\RelationshipManagement.h" />
+    <ClInclude Include="Submenus\Spooner\SpoonerEntity.h" />
+    <ClInclude Include="Submenus\Spooner\SpoonerMarker.h" />
+    <ClInclude Include="Submenus\Spooner\SpoonerMode.h" />
+    <ClInclude Include="Submenus\Spooner\SpoonerSettings.h" />
+    <ClInclude Include="Submenus\Spooner\SpoonerTaskSequence.h" />
+    <ClInclude Include="Submenus\Spooner\STSTask.h" />
+    <ClInclude Include="Submenus\Spooner\STSTasks.h" />
+    <ClInclude Include="Submenus\Spooner\Submenus.h" />
+    <ClInclude Include="Submenus\Spooner\Submenus_TaskSequence.h" />
+    <ClInclude Include="Submenus\StatManager.h" />
+    <ClInclude Include="Submenus\Teleport\ArenaWar.h" />
+    <ClInclude Include="Submenus\Teleport\BikerInteriors.h" />
+    <ClInclude Include="Submenus\Teleport\Facilities.h" />
+    <ClInclude Include="Submenus\Teleport\GunRunningInteriors.h" />
+    <ClInclude Include="Submenus\Teleport\Hangars.h" />
+    <ClInclude Include="Submenus\Teleport\IeVehicleWarehouses.h" />
+    <ClInclude Include="Submenus\Teleport\Locations.h" />
+    <ClInclude Include="Submenus\Teleport\Nightclubs.h" />
+    <ClInclude Include="Submenus\Teleport\OfficeGarages.h" />
+    <ClInclude Include="Submenus\Teleport\TeleLocation.h" />
+    <ClInclude Include="Submenus\Teleport\TeleMethods.h" />
+    <ClInclude Include="Submenus\Teleport\Teleport_Submenus.h" />
+    <ClInclude Include="Submenus\Teleport\Yachts.h" />
+    <ClInclude Include="Submenus\TimeOptions.h" />
+    <ClInclude Include="Submenus\VehicleModShop.h" />
+    <ClInclude Include="Submenus\VehicleOptions.h" />
+    <ClInclude Include="Submenus\VehicleSpawner.h" />
+    <ClInclude Include="Submenus\WeaponOptions.h" />
+    <ClInclude Include="Submenus\WeatherOptions.h" />
+    <ClInclude Include="Util\ExePath.h" />
+    <ClInclude Include="Util\FileLogger.h" />
+    <ClInclude Include="Scripting\Game.h" />
+    <ClInclude Include="Scripting\GameplayCamera.h" />
+    <ClInclude Include="Scripting\GTAblip.h" />
+    <ClInclude Include="Scripting\GTAentity.h" />
+    <ClInclude Include="Scripting\GTAprop.h" />
+    <ClInclude Include="main.h" />
+    <ClInclude Include="Menu\Menu.h" />
+    <ClInclude Include="Scripting\Model.h" />
+    <ClInclude Include="Scripting\GTAped.h" />
+    <ClInclude Include="macros.h" />
+    <ClInclude Include="Natives\nativeCaller.h" />
+    <ClInclude Include="Natives\natives.h" />
+    <ClInclude Include="Natives\natives2.h" />
+    <ClInclude Include="Scripting\PTFX.h" />
+    <ClInclude Include="Scripting\Tasks.h" />
+    <ClInclude Include="Scripting\ModelNames.h" />
+    <ClInclude Include="Scripting\Raycast.h" />
+    <ClInclude Include="Scripting\GTAplayer.h" />
+    <ClInclude Include="Scripting\GTAvehicle.h" />
+    <ClInclude Include="Util\keyboard.h" />
+    <ClInclude Include="Memory\GTAmemory.h" />
+    <ClInclude Include="Scripting\Rope.h" />
+    <ClInclude Include="Scripting\Scaleform.h" />
+    <ClInclude Include="Util\GTAmath.h" />
+    <ClInclude Include="Scripting\TimecycleModification.h" />
+    <ClInclude Include="Natives\types.h" />
+    <ClInclude Include="Scripting\WeaponIndivs.h" />
+    <ClInclude Include="Scripting\World.h" />
+    <ClInclude Include="Util\StringManip.h" />
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{8D82F34A-1D64-465B-84B1-37F89AD3D20B}</ProjectGuid>
+    <Keyword>Win32Proj</Keyword>
+    <RootNamespace>Menyoo</RootNamespace>
+    <ProjectName>Menyoo</ProjectName>
+    <WindowsTargetPlatformVersion>10.0.17763.0</WindowsTargetPlatformVersion>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v141</PlatformToolset>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v141</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <LinkIncremental>true</LinkIncremental>
+    <TargetExt>.asi</TargetExt>
+    <OutDir>bin\$(Configuration)\</OutDir>
+    <IntDir>tmp\$(Configuration)\</IntDir>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <LinkIncremental>false</LinkIncremental>
+    <TargetExt>.asi</TargetExt>
+    <OutDir>_Build\bin\$(Configuration)\</OutDir>
+    <IntDir>_Build\tmp\$(Configuration)\</IntDir>
+    <LibraryPath>$(LibraryPath)</LibraryPath>
+    <IncludePath>$(SolutionDir)\external;$(IncludePath)</IncludePath>
+    <LibraryWPath>$(LibraryWPath)</LibraryWPath>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <ClCompile>
+      <PrecompiledHeader>
+      </PrecompiledHeader>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>Disabled</Optimization>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;_USRDLL;NativeTrainer_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <Optimization>Disabled</Optimization>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_WINDOWS;_USRDLL;NativeTrainer_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
+      <FloatingPointModel>Fast</FloatingPointModel>
+      <AdditionalIncludeDirectories>%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <WholeProgramOptimization>true</WholeProgramOptimization>
+      <AdditionalOptions>/bigobj %(AdditionalOptions)</AdditionalOptions>
+      <LanguageStandard>stdcpp17</LanguageStandard>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <GenerateDebugInformation>false</GenerateDebugInformation>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+      <AdditionalOptions>
+      </AdditionalOptions>
+      <AdditionalLibraryDirectories>%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>$(SolutionDir)\external\ScriptHookV\SDK\lib\ScriptHookV.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <GenerateMapFile>true</GenerateMapFile>
+      <LinkTimeCodeGeneration>UseLinkTimeCodeGeneration</LinkTimeCodeGeneration>
+    </Link>
+  </ItemDefinitionGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>

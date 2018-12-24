@@ -1,0 +1,5 @@
+/menyooStuff/Spooner
+
+Add Object Spooner 'map-mod' xml files here.
+
+If you create new folders in this directory, you can include a 'preview.png' in the new folder to act as a preview of said Folder in Menyoo.

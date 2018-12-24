@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<AnimalRidingData>
+  <Peds>
+    <Ped modelName="a_c_deer">
+      <Bone>24816</Bone>
+      <Position X="-0.3" Y="0.0" Z="0.3" />
+      <Rotation X="180.0" Y="0.0" Z="90.0" />
+    </Ped>
+    <Ped modelName="a_c_cow">
+      <Bone>24816</Bone>
+      <Position X="-0.3" Y="0.0" Z="0.1" />
+      <Rotation X="180.0" Y="0.0" Z="90.0" />
+    </Ped>
+    <Ped modelName="a_c_mtlion">
+      <Bone>24816</Bone>
+      <Position X="-0.3" Y="0.0" Z="0.24" />
+      <Rotation X="180.0" Y="0.0" Z="90.0" />
+    </Ped>
+  </Peds>
+</AnimalRidingData>

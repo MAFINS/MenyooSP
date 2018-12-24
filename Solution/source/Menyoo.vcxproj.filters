@@ -1,0 +1,703 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="Util\ExePath.cpp">
+      <Filter>Util</Filter>
+    </ClCompile>
+    <ClCompile Include="Util\FileLogger.cpp">
+      <Filter>Util</Filter>
+    </ClCompile>
+    <ClCompile Include="main.cpp">
+      <Filter>Main</Filter>
+    </ClCompile>
+    <ClCompile Include="Scripting\enums.cpp">
+      <Filter>Scripting</Filter>
+    </ClCompile>
+    <ClCompile Include="Natives\natives2.cpp">
+      <Filter>Natives</Filter>
+    </ClCompile>
+    <ClCompile Include="Scripting\ModelNames.cpp">
+      <Filter>Scripting</Filter>
+    </ClCompile>
+    <ClCompile Include="Scripting\TimecycleModification.cpp">
+      <Filter>Scripting</Filter>
+    </ClCompile>
+    <ClCompile Include="Scripting\WeaponIndivs.cpp">
+      <Filter>Scripting</Filter>
+    </ClCompile>
+    <ClCompile Include="Scripting\World.cpp">
+      <Filter>Scripting</Filter>
+    </ClCompile>
+    <ClCompile Include="Scripting\Camera.cpp">
+      <Filter>Scripting\Classes</Filter>
+    </ClCompile>
+    <ClCompile Include="Scripting\Checkpoint.cpp">
+      <Filter>Scripting\Classes</Filter>
+    </ClCompile>
+    <ClCompile Include="Scripting\DxHookIMG.cpp">
+      <Filter>Scripting\Classes</Filter>
+    </ClCompile>
+    <ClCompile Include="Scripting\Game.cpp">
+      <Filter>Scripting</Filter>
+    </ClCompile>
+    <ClCompile Include="Scripting\GameplayCamera.cpp">
+      <Filter>Scripting\Classes</Filter>
+    </ClCompile>
+    <ClCompile Include="Scripting\GTAblip.cpp">
+      <Filter>Scripting\Classes</Filter>
+    </ClCompile>
+    <ClCompile Include="Scripting\GTAentity.cpp">
+      <Filter>Scripting\Classes</Filter>
+    </ClCompile>
+    <ClCompile Include="Scripting\GTAped.cpp">
+      <Filter>Scripting\Classes</Filter>
+    </ClCompile>
+    <ClCompile Include="Scripting\GTAplayer.cpp">
+      <Filter>Scripting\Classes</Filter>
+    </ClCompile>
+    <ClCompile Include="Scripting\GTAprop.cpp">
+      <Filter>Scripting\Classes</Filter>
+    </ClCompile>
+    <ClCompile Include="Scripting\GTAvehicle.cpp">
+      <Filter>Scripting\Classes</Filter>
+    </ClCompile>
+    <ClCompile Include="Scripting\Model.cpp">
+      <Filter>Scripting\Classes</Filter>
+    </ClCompile>
+    <ClCompile Include="Scripting\PTFX.cpp">
+      <Filter>Scripting\Classes</Filter>
+    </ClCompile>
+    <ClCompile Include="Scripting\Raycast.cpp">
+      <Filter>Scripting\Classes</Filter>
+    </ClCompile>
+    <ClCompile Include="Scripting\Rope.cpp">
+      <Filter>Scripting\Classes</Filter>
+    </ClCompile>
+    <ClCompile Include="Scripting\Scaleform.cpp">
+      <Filter>Scripting\Classes</Filter>
+    </ClCompile>
+    <ClCompile Include="Scripting\Tasks.cpp">
+      <Filter>Scripting\Classes</Filter>
+    </ClCompile>
+    <ClCompile Include="Menu\Menu.cpp">
+      <Filter>Menu</Filter>
+    </ClCompile>
+    <ClCompile Include="Util\GTAmath.cpp">
+      <Filter>Util</Filter>
+    </ClCompile>
+    <ClCompile Include="Util\keyboard.cpp">
+      <Filter>Util</Filter>
+    </ClCompile>
+    <ClCompile Include="Memory\GTAmemory.cpp">
+      <Filter>Memory</Filter>
+    </ClCompile>
+    <ClCompile Include="Menu\MenuConfig.cpp">
+      <Filter>Menu</Filter>
+    </ClCompile>
+    <ClCompile Include="Menu\Routine.cpp">
+      <Filter>Menu</Filter>
+    </ClCompile>
+    <ClCompile Include="Menu\submenu_switch.cpp">
+      <Filter>Menu</Filter>
+    </ClCompile>
+    <ClCompile Include="Misc\GenericLoopedMode.cpp">
+      <Filter>Misc\Looped</Filter>
+    </ClCompile>
+    <ClCompile Include="Misc\FpsCounter.cpp">
+      <Filter>Misc\Looped</Filter>
+    </ClCompile>
+    <ClCompile Include="Misc\Gta2Cam.cpp">
+      <Filter>Misc\Looped</Filter>
+    </ClCompile>
+    <ClCompile Include="Misc\JumpAroundMode.cpp">
+      <Filter>Misc\Looped</Filter>
+    </ClCompile>
+    <ClCompile Include="Misc\MagnetGun.cpp">
+      <Filter>Misc\Looped</Filter>
+    </ClCompile>
+    <ClCompile Include="Misc\ManualRespawn.cpp">
+      <Filter>Misc\Looped</Filter>
+    </ClCompile>
+    <ClCompile Include="Misc\MeteorShower.cpp">
+      <Filter>Misc\Looped</Filter>
+    </ClCompile>
+    <ClCompile Include="Misc\RopeGun.cpp">
+      <Filter>Misc\Looped</Filter>
+    </ClCompile>
+    <ClCompile Include="Misc\SmashAbility.cpp">
+      <Filter>Misc\Looped</Filter>
+    </ClCompile>
+    <ClCompile Include="Misc\VehicleCruise.cpp">
+      <Filter>Misc\Looped</Filter>
+    </ClCompile>
+    <ClCompile Include="Misc\VehicleFly.cpp">
+      <Filter>Misc\Looped</Filter>
+    </ClCompile>
+    <ClCompile Include="Misc\VehicleTow.cpp">
+      <Filter>Misc\Looped</Filter>
+    </ClCompile>
+    <ClCompile Include="Misc\FlameThrower.cpp">
+      <Filter>Misc\Looped</Filter>
+    </ClCompile>
+    <ClCompile Include="Submenus\MainMenu.cpp">
+      <Filter>Submenus</Filter>
+    </ClCompile>
+    <ClCompile Include="Submenus\PlayerOptions.cpp">
+      <Filter>Submenus\Player</Filter>
+    </ClCompile>
+    <ClCompile Include="Submenus\Players.cpp">
+      <Filter>Submenus\Players</Filter>
+    </ClCompile>
+    <ClCompile Include="Submenus\Settings.cpp">
+      <Filter>Submenus\Settings</Filter>
+    </ClCompile>
+    <ClCompile Include="Submenus\GhostRiderMode.cpp">
+      <Filter>Submenus\Player</Filter>
+    </ClCompile>
+    <ClCompile Include="Submenus\PedAnimation.cpp">
+      <Filter>Submenus\Player</Filter>
+    </ClCompile>
+    <ClCompile Include="Util\StringManip.cpp">
+      <Filter>Util</Filter>
+    </ClCompile>
+    <ClCompile Include="Submenus\PedSpeech.cpp">
+      <Filter>Submenus\Player</Filter>
+    </ClCompile>
+    <ClCompile Include="Submenus\BreatheStuff.cpp">
+      <Filter>Submenus\Player</Filter>
+    </ClCompile>
+    <ClCompile Include="Submenus\PedModelChanger.cpp">
+      <Filter>Submenus\Player</Filter>
+    </ClCompile>
+    <ClCompile Include="Submenus\PedComponentChanger.cpp">
+      <Filter>Submenus\Player</Filter>
+    </ClCompile>
+    <ClCompile Include="Submenus\WeatherOptions.cpp">
+      <Filter>Submenus\Weather Time</Filter>
+    </ClCompile>
+    <ClCompile Include="Submenus\TimeOptions.cpp">
+      <Filter>Submenus\Weather Time</Filter>
+    </ClCompile>
+    <ClCompile Include="Submenus\MiscOptions.cpp">
+      <Filter>Submenus\Misc</Filter>
+    </ClCompile>
+    <ClCompile Include="Menu\FolderPreviewBmps.cpp">
+      <Filter>Menu</Filter>
+    </ClCompile>
+    <ClCompile Include="Submenus\AnimalRiding.cpp">
+      <Filter>Submenus\Misc</Filter>
+    </ClCompile>
+    <ClCompile Include="Scripting\CustomHelpText.cpp">
+      <Filter>Scripting</Filter>
+    </ClCompile>
+    <ClCompile Include="Submenus\CutscenePlayer.cpp">
+      <Filter>Submenus\Misc</Filter>
+    </ClCompile>
+    <ClCompile Include="Submenus\StatManager.cpp">
+      <Filter>Submenus\Player</Filter>
+    </ClCompile>
+    <ClCompile Include="Submenus\MiscMapMods.cpp">
+      <Filter>Submenus\Misc</Filter>
+    </ClCompile>
+    <ClCompile Include="Submenus\Teleport\TeleMethods.cpp">
+      <Filter>Submenus\Teleport</Filter>
+    </ClCompile>
+    <ClCompile Include="Submenus\Teleport\TeleLocation.cpp">
+      <Filter>Submenus\Teleport</Filter>
+    </ClCompile>
+    <ClCompile Include="Submenus\Teleport\Locations.cpp">
+      <Filter>Submenus\Teleport</Filter>
+    </ClCompile>
+    <ClCompile Include="Submenus\Teleport\Yachts.cpp">
+      <Filter>Submenus\Teleport</Filter>
+    </ClCompile>
+    <ClCompile Include="Submenus\Teleport\OfficeGarages.cpp">
+      <Filter>Submenus\Teleport</Filter>
+    </ClCompile>
+    <ClCompile Include="Submenus\Teleport\BikerInteriors.cpp">
+      <Filter>Submenus\Teleport</Filter>
+    </ClCompile>
+    <ClCompile Include="Submenus\Teleport\GunRunningInteriors.cpp">
+      <Filter>Submenus\Teleport</Filter>
+    </ClCompile>
+    <ClCompile Include="Submenus\Teleport\IeVehicleWarehouses.cpp">
+      <Filter>Submenus\Teleport</Filter>
+    </ClCompile>
+    <ClCompile Include="Submenus\Teleport\Hangars.cpp">
+      <Filter>Submenus\Teleport</Filter>
+    </ClCompile>
+    <ClCompile Include="Submenus\Teleport\Facilities.cpp">
+      <Filter>Submenus\Teleport</Filter>
+    </ClCompile>
+    <ClCompile Include="Submenus\Teleport\Nightclubs.cpp">
+      <Filter>Submenus\Teleport</Filter>
+    </ClCompile>
+    <ClCompile Include="Submenus\Teleport\ArenaWar.cpp">
+      <Filter>Submenus\Teleport</Filter>
+    </ClCompile>
+    <ClCompile Include="Submenus\VehicleOptions.cpp">
+      <Filter>Submenus\Vehicle</Filter>
+    </ClCompile>
+    <ClCompile Include="Submenus\VehicleModShop.cpp">
+      <Filter>Submenus\Vehicle</Filter>
+    </ClCompile>
+    <ClCompile Include="Submenus\VehicleSpawner.cpp">
+      <Filter>Submenus\Vehicle</Filter>
+    </ClCompile>
+    <ClCompile Include="Submenus\WeaponOptions.cpp">
+      <Filter>Submenus\Weapon</Filter>
+    </ClCompile>
+    <ClCompile Include="Submenus\FunnyVehicles.cpp">
+      <Filter>Submenus\Vehicle</Filter>
+    </ClCompile>
+    <ClCompile Include="Submenus\Spooner\SpoonerEntity.cpp">
+      <Filter>Submenus\Spooner</Filter>
+    </ClCompile>
+    <ClCompile Include="Submenus\Spooner\SpoonerMarker.cpp">
+      <Filter>Submenus\Spooner</Filter>
+    </ClCompile>
+    <ClCompile Include="Submenus\Spooner\STSTask.cpp">
+      <Filter>Submenus\Spooner</Filter>
+    </ClCompile>
+    <ClCompile Include="Submenus\Spooner\STSTasks.cpp">
+      <Filter>Submenus\Spooner</Filter>
+    </ClCompile>
+    <ClCompile Include="Submenus\Spooner\SpoonerTaskSequence.cpp">
+      <Filter>Submenus\Spooner</Filter>
+    </ClCompile>
+    <ClCompile Include="Submenus\Spooner\Databases.cpp">
+      <Filter>Submenus\Spooner</Filter>
+    </ClCompile>
+    <ClCompile Include="Submenus\Spooner\RelationshipManagement.cpp">
+      <Filter>Submenus\Spooner</Filter>
+    </ClCompile>
+    <ClCompile Include="Submenus\Spooner\BlipManagement.cpp">
+      <Filter>Submenus\Spooner</Filter>
+    </ClCompile>
+    <ClCompile Include="Submenus\Spooner\MarkerManagement.cpp">
+      <Filter>Submenus\Spooner</Filter>
+    </ClCompile>
+    <ClCompile Include="Submenus\Spooner\EntityManagement.cpp">
+      <Filter>Submenus\Spooner</Filter>
+    </ClCompile>
+    <ClCompile Include="Submenus\Spooner\FavouritesManagement.cpp">
+      <Filter>Submenus\Spooner</Filter>
+    </ClCompile>
+    <ClCompile Include="Submenus\Spooner\FileManagement.cpp">
+      <Filter>Submenus\Spooner</Filter>
+    </ClCompile>
+    <ClCompile Include="Submenus\Spooner\MenuOptions.cpp">
+      <Filter>Submenus\Spooner</Filter>
+    </ClCompile>
+    <ClCompile Include="Submenus\Spooner\SpoonerMode.cpp">
+      <Filter>Submenus\Spooner</Filter>
+    </ClCompile>
+    <ClCompile Include="Submenus\Spooner\Submenus.cpp">
+      <Filter>Submenus\Spooner</Filter>
+    </ClCompile>
+    <ClCompile Include="Submenus\PtfxSubs.cpp">
+      <Filter>Submenus\Misc</Filter>
+    </ClCompile>
+    <ClCompile Include="Submenus\Teleport\Teleport_Submenus.cpp">
+      <Filter>Submenus\Teleport</Filter>
+    </ClCompile>
+    <ClCompile Include="Submenus\Spooner\SpoonerSettings.cpp">
+      <Filter>Submenus\Spooner</Filter>
+    </ClCompile>
+    <ClCompile Include="Submenus\Spooner\Submenus_TaskSequence.cpp">
+      <Filter>Submenus\Spooner</Filter>
+    </ClCompile>
+    <ClCompile Include="..\external\pugixml\src\pugixml.cpp">
+      <Filter>_external</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Util\ExePath.h">
+      <Filter>Util</Filter>
+    </ClInclude>
+    <ClInclude Include="Util\FileLogger.h">
+      <Filter>Util</Filter>
+    </ClInclude>
+    <ClInclude Include="main.h">
+      <Filter>Main</Filter>
+    </ClInclude>
+    <ClInclude Include="Scripting\enums.h">
+      <Filter>Scripting</Filter>
+    </ClInclude>
+    <ClInclude Include="Natives\natives2.h">
+      <Filter>Natives</Filter>
+    </ClInclude>
+    <ClInclude Include="Natives\natives.h">
+      <Filter>Natives</Filter>
+    </ClInclude>
+    <ClInclude Include="Natives\types.h">
+      <Filter>Natives</Filter>
+    </ClInclude>
+    <ClInclude Include="Scripting\ModelNames.h">
+      <Filter>Scripting</Filter>
+    </ClInclude>
+    <ClInclude Include="Scripting\TimecycleModification.h">
+      <Filter>Scripting</Filter>
+    </ClInclude>
+    <ClInclude Include="Scripting\WeaponIndivs.h">
+      <Filter>Scripting</Filter>
+    </ClInclude>
+    <ClInclude Include="Scripting\World.h">
+      <Filter>Scripting</Filter>
+    </ClInclude>
+    <ClInclude Include="Scripting\Camera.h">
+      <Filter>Scripting\Classes</Filter>
+    </ClInclude>
+    <ClInclude Include="Scripting\Checkpoint.h">
+      <Filter>Scripting\Classes</Filter>
+    </ClInclude>
+    <ClInclude Include="Scripting\DxHookIMG.h">
+      <Filter>Scripting\Classes</Filter>
+    </ClInclude>
+    <ClInclude Include="Scripting\Game.h">
+      <Filter>Scripting</Filter>
+    </ClInclude>
+    <ClInclude Include="Scripting\GameplayCamera.h">
+      <Filter>Scripting\Classes</Filter>
+    </ClInclude>
+    <ClInclude Include="Scripting\GTAblip.h">
+      <Filter>Scripting\Classes</Filter>
+    </ClInclude>
+    <ClInclude Include="Scripting\GTAentity.h">
+      <Filter>Scripting\Classes</Filter>
+    </ClInclude>
+    <ClInclude Include="Scripting\GTAped.h">
+      <Filter>Scripting\Classes</Filter>
+    </ClInclude>
+    <ClInclude Include="Scripting\GTAplayer.h">
+      <Filter>Scripting\Classes</Filter>
+    </ClInclude>
+    <ClInclude Include="Scripting\GTAprop.h">
+      <Filter>Scripting\Classes</Filter>
+    </ClInclude>
+    <ClInclude Include="Scripting\GTAvehicle.h">
+      <Filter>Scripting\Classes</Filter>
+    </ClInclude>
+    <ClInclude Include="Scripting\Model.h">
+      <Filter>Scripting\Classes</Filter>
+    </ClInclude>
+    <ClInclude Include="Scripting\PTFX.h">
+      <Filter>Scripting\Classes</Filter>
+    </ClInclude>
+    <ClInclude Include="Scripting\Raycast.h">
+      <Filter>Scripting\Classes</Filter>
+    </ClInclude>
+    <ClInclude Include="Scripting\Rope.h">
+      <Filter>Scripting\Classes</Filter>
+    </ClInclude>
+    <ClInclude Include="Scripting\Scaleform.h">
+      <Filter>Scripting\Classes</Filter>
+    </ClInclude>
+    <ClInclude Include="Scripting\Tasks.h">
+      <Filter>Scripting\Classes</Filter>
+    </ClInclude>
+    <ClInclude Include="Natives\nativeCaller.h">
+      <Filter>Natives</Filter>
+    </ClInclude>
+    <ClInclude Include="Menu\Menu.h">
+      <Filter>Menu</Filter>
+    </ClInclude>
+    <ClInclude Include="Util\GTAmath.h">
+      <Filter>Util</Filter>
+    </ClInclude>
+    <ClInclude Include="macros.h" />
+    <ClInclude Include="Util\keyboard.h">
+      <Filter>Util</Filter>
+    </ClInclude>
+    <ClInclude Include="Memory\GTAmemory.h">
+      <Filter>Memory</Filter>
+    </ClInclude>
+    <ClInclude Include="Menu\MenuConfig.h">
+      <Filter>Menu</Filter>
+    </ClInclude>
+    <ClInclude Include="Menu\Routine.h">
+      <Filter>Menu</Filter>
+    </ClInclude>
+    <ClInclude Include="Menu\submenu_switch.h">
+      <Filter>Menu</Filter>
+    </ClInclude>
+    <ClInclude Include="Misc\GenericLoopedMode.h">
+      <Filter>Misc\Looped</Filter>
+    </ClInclude>
+    <ClInclude Include="Misc\FpsCounter.h">
+      <Filter>Misc\Looped</Filter>
+    </ClInclude>
+    <ClInclude Include="Misc\Gta2Cam.h">
+      <Filter>Misc\Looped</Filter>
+    </ClInclude>
+    <ClInclude Include="Misc\JumpAroundMode.h">
+      <Filter>Misc\Looped</Filter>
+    </ClInclude>
+    <ClInclude Include="Misc\MagnetGun.h">
+      <Filter>Misc\Looped</Filter>
+    </ClInclude>
+    <ClInclude Include="Misc\ManualRespawn.h">
+      <Filter>Misc\Looped</Filter>
+    </ClInclude>
+    <ClInclude Include="Misc\MeteorShower.h">
+      <Filter>Misc\Looped</Filter>
+    </ClInclude>
+    <ClInclude Include="Misc\RopeGun.h">
+      <Filter>Misc\Looped</Filter>
+    </ClInclude>
+    <ClInclude Include="Misc\SmashAbility.h">
+      <Filter>Misc\Looped</Filter>
+    </ClInclude>
+    <ClInclude Include="Misc\VehicleCruise.h">
+      <Filter>Misc\Looped</Filter>
+    </ClInclude>
+    <ClInclude Include="Misc\VehicleFly.h">
+      <Filter>Misc\Looped</Filter>
+    </ClInclude>
+    <ClInclude Include="Misc\VehicleTow.h">
+      <Filter>Misc\Looped</Filter>
+    </ClInclude>
+    <ClInclude Include="Misc\FlameThrower.h">
+      <Filter>Misc\Looped</Filter>
+    </ClInclude>
+    <ClInclude Include="Submenus\MainMenu.h">
+      <Filter>Submenus</Filter>
+    </ClInclude>
+    <ClInclude Include="Menu\submenu_enum.h">
+      <Filter>Menu</Filter>
+    </ClInclude>
+    <ClInclude Include="Submenus\PlayerOptions.h">
+      <Filter>Submenus\Player</Filter>
+    </ClInclude>
+    <ClInclude Include="Submenus\Players.h">
+      <Filter>Submenus\Players</Filter>
+    </ClInclude>
+    <ClInclude Include="Submenus\Settings.h">
+      <Filter>Submenus\Settings</Filter>
+    </ClInclude>
+    <ClInclude Include="Submenus\GhostRiderMode.h">
+      <Filter>Submenus\Player</Filter>
+    </ClInclude>
+    <ClInclude Include="Submenus\PedAnimation.h">
+      <Filter>Submenus\Player</Filter>
+    </ClInclude>
+    <ClInclude Include="Util\StringManip.h">
+      <Filter>Util</Filter>
+    </ClInclude>
+    <ClInclude Include="Submenus\PedSpeech.h">
+      <Filter>Submenus\Player</Filter>
+    </ClInclude>
+    <ClInclude Include="Submenus\BreatheStuff.h">
+      <Filter>Submenus\Player</Filter>
+    </ClInclude>
+    <ClInclude Include="Submenus\PedModelChanger.h">
+      <Filter>Submenus\Player</Filter>
+    </ClInclude>
+    <ClInclude Include="Submenus\PedComponentChanger.h">
+      <Filter>Submenus\Player</Filter>
+    </ClInclude>
+    <ClInclude Include="Submenus\WeatherOptions.h">
+      <Filter>Submenus\Weather Time</Filter>
+    </ClInclude>
+    <ClInclude Include="Submenus\TimeOptions.h">
+      <Filter>Submenus\Weather Time</Filter>
+    </ClInclude>
+    <ClInclude Include="Submenus\MiscOptions.h">
+      <Filter>Submenus\Misc</Filter>
+    </ClInclude>
+    <ClInclude Include="Menu\FolderPreviewBmps.h">
+      <Filter>Menu</Filter>
+    </ClInclude>
+    <ClInclude Include="Submenus\AnimalRiding.h">
+      <Filter>Submenus\Misc</Filter>
+    </ClInclude>
+    <ClInclude Include="Scripting\CustomHelpText.h">
+      <Filter>Scripting</Filter>
+    </ClInclude>
+    <ClInclude Include="Submenus\CutscenePlayer.h">
+      <Filter>Submenus\Misc</Filter>
+    </ClInclude>
+    <ClInclude Include="Submenus\StatManager.h">
+      <Filter>Submenus\Player</Filter>
+    </ClInclude>
+    <ClInclude Include="Submenus\MiscMapMods.h">
+      <Filter>Submenus\Misc</Filter>
+    </ClInclude>
+    <ClInclude Include="Submenus\Teleport\TeleMethods.h">
+      <Filter>Submenus\Teleport</Filter>
+    </ClInclude>
+    <ClInclude Include="Submenus\Teleport\TeleLocation.h">
+      <Filter>Submenus\Teleport</Filter>
+    </ClInclude>
+    <ClInclude Include="Submenus\Teleport\Locations.h">
+      <Filter>Submenus\Teleport</Filter>
+    </ClInclude>
+    <ClInclude Include="Submenus\Teleport\Yachts.h">
+      <Filter>Submenus\Teleport</Filter>
+    </ClInclude>
+    <ClInclude Include="Submenus\Teleport\OfficeGarages.h">
+      <Filter>Submenus\Teleport</Filter>
+    </ClInclude>
+    <ClInclude Include="Submenus\Teleport\BikerInteriors.h">
+      <Filter>Submenus\Teleport</Filter>
+    </ClInclude>
+    <ClInclude Include="Submenus\Teleport\GunRunningInteriors.h">
+      <Filter>Submenus\Teleport</Filter>
+    </ClInclude>
+    <ClInclude Include="Submenus\Teleport\IeVehicleWarehouses.h">
+      <Filter>Submenus\Teleport</Filter>
+    </ClInclude>
+    <ClInclude Include="Submenus\Teleport\Hangars.h">
+      <Filter>Submenus\Teleport</Filter>
+    </ClInclude>
+    <ClInclude Include="Submenus\Teleport\Facilities.h">
+      <Filter>Submenus\Teleport</Filter>
+    </ClInclude>
+    <ClInclude Include="Submenus\Teleport\Nightclubs.h">
+      <Filter>Submenus\Teleport</Filter>
+    </ClInclude>
+    <ClInclude Include="Submenus\Teleport\ArenaWar.h">
+      <Filter>Submenus\Teleport</Filter>
+    </ClInclude>
+    <ClInclude Include="Submenus\VehicleOptions.h">
+      <Filter>Submenus\Vehicle</Filter>
+    </ClInclude>
+    <ClInclude Include="Submenus\VehicleModShop.h">
+      <Filter>Submenus\Vehicle</Filter>
+    </ClInclude>
+    <ClInclude Include="Submenus\VehicleSpawner.h">
+      <Filter>Submenus\Vehicle</Filter>
+    </ClInclude>
+    <ClInclude Include="Submenus\WeaponOptions.h">
+      <Filter>Submenus\Weapon</Filter>
+    </ClInclude>
+    <ClInclude Include="Submenus\FunnyVehicles.h">
+      <Filter>Submenus\Vehicle</Filter>
+    </ClInclude>
+    <ClInclude Include="Submenus\Spooner\SpoonerEntity.h">
+      <Filter>Submenus\Spooner</Filter>
+    </ClInclude>
+    <ClInclude Include="Submenus\Spooner\SpoonerMarker.h">
+      <Filter>Submenus\Spooner</Filter>
+    </ClInclude>
+    <ClInclude Include="Submenus\Spooner\STSTask.h">
+      <Filter>Submenus\Spooner</Filter>
+    </ClInclude>
+    <ClInclude Include="Submenus\Spooner\STSTasks.h">
+      <Filter>Submenus\Spooner</Filter>
+    </ClInclude>
+    <ClInclude Include="Submenus\Spooner\SpoonerTaskSequence.h">
+      <Filter>Submenus\Spooner</Filter>
+    </ClInclude>
+    <ClInclude Include="Submenus\Spooner\Databases.h">
+      <Filter>Submenus\Spooner</Filter>
+    </ClInclude>
+    <ClInclude Include="Submenus\Spooner\RelationshipManagement.h">
+      <Filter>Submenus\Spooner</Filter>
+    </ClInclude>
+    <ClInclude Include="Submenus\Spooner\BlipManagement.h">
+      <Filter>Submenus\Spooner</Filter>
+    </ClInclude>
+    <ClInclude Include="Submenus\Spooner\MarkerManagement.h">
+      <Filter>Submenus\Spooner</Filter>
+    </ClInclude>
+    <ClInclude Include="Submenus\Spooner\EntityManagement.h">
+      <Filter>Submenus\Spooner</Filter>
+    </ClInclude>
+    <ClInclude Include="Submenus\Spooner\FavouritesManagement.h">
+      <Filter>Submenus\Spooner</Filter>
+    </ClInclude>
+    <ClInclude Include="Submenus\Spooner\FileManagement.h">
+      <Filter>Submenus\Spooner</Filter>
+    </ClInclude>
+    <ClInclude Include="Submenus\Spooner\MenuOptions.h">
+      <Filter>Submenus\Spooner</Filter>
+    </ClInclude>
+    <ClInclude Include="Submenus\Spooner\SpoonerMode.h">
+      <Filter>Submenus\Spooner</Filter>
+    </ClInclude>
+    <ClInclude Include="Submenus\Spooner\Submenus.h">
+      <Filter>Submenus\Spooner</Filter>
+    </ClInclude>
+    <ClInclude Include="Submenus\PtfxSubs.h">
+      <Filter>Submenus\Misc</Filter>
+    </ClInclude>
+    <ClInclude Include="Submenus\Teleport\Teleport_Submenus.h">
+      <Filter>Submenus\Teleport</Filter>
+    </ClInclude>
+    <ClInclude Include="Submenus\Spooner\SpoonerSettings.h">
+      <Filter>Submenus\Spooner</Filter>
+    </ClInclude>
+    <ClInclude Include="Submenus\Spooner\Submenus_TaskSequence.h">
+      <Filter>Submenus\Spooner</Filter>
+    </ClInclude>
+    <ClInclude Include="..\external\pugixml\src\pugixml.hpp">
+      <Filter>_external</Filter>
+    </ClInclude>
+    <ClInclude Include="..\external\pugixml\src\pugiconfig.hpp">
+      <Filter>_external</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="Submenus">
+      <UniqueIdentifier>{f3ec55eb-a310-46b0-877d-7de6a9a3a3c5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Main">
+      <UniqueIdentifier>{623a2852-1393-49a6-a0f6-1009db492236}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Scripting">
+      <UniqueIdentifier>{93797b03-e919-416d-9a52-95041d286b89}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Natives">
+      <UniqueIdentifier>{8b81bd74-874c-4207-84b9-87fa7282ee63}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Scripting\Classes">
+      <UniqueIdentifier>{a54d0e50-8e38-47e5-8495-23be1f4461f3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Menu">
+      <UniqueIdentifier>{682bcf0e-71d7-4d08-88a2-bfd87fcca825}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Util">
+      <UniqueIdentifier>{210335ae-d80e-447a-87e4-919ce01e9e22}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Memory">
+      <UniqueIdentifier>{ce457d27-1694-45c1-8cad-1c1dca1873e1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Misc">
+      <UniqueIdentifier>{9992b68d-e1d4-4bc4-9f48-81ada311a326}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Misc\Looped">
+      <UniqueIdentifier>{a51d09e3-6a54-4e3c-8920-fbaf992e2590}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Submenus\Spooner">
+      <UniqueIdentifier>{9cfbc067-049a-49bb-8f4a-deff2a920be1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Submenus\Teleport">
+      <UniqueIdentifier>{fda7eecb-0a9f-4206-9833-618838861089}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Submenus\Vehicle">
+      <UniqueIdentifier>{c941cf85-050d-4236-b956-84df799c60a7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Submenus\Player">
+      <UniqueIdentifier>{a0b4dd09-bc26-45a4-b894-396a97f39797}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Submenus\Weapon">
+      <UniqueIdentifier>{fdcb1998-6d9a-40cb-843a-54fbab021fda}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Submenus\Misc">
+      <UniqueIdentifier>{76d54968-6e9f-4bff-af0e-d8f180fa8c04}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Submenus\Players">
+      <UniqueIdentifier>{339d67cc-33af-4697-b473-3b1972f60432}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Submenus\Settings">
+      <UniqueIdentifier>{a9e549b4-31ff-4a54-a2ed-3ba3672ef9f3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Submenus\Weather Time">
+      <UniqueIdentifier>{46bc1f40-1963-4a6c-8217-e76faab61ca8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="_external">
+      <UniqueIdentifier>{a78b4725-1807-4c82-90fb-f13301a71b84}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>

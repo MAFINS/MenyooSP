@@ -1,0 +1,7 @@
+/menyooStuff/Graphics/Clock
+
+Add png files here for use with the analogue clock feature.
+Size should be 256x256.
+##_face = clock background
+##_handh = hour hand originating from centre and pointing to 12:00
+##_handm = minute hand originating from centre and pointing to 12:00

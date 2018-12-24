@@ -1,0 +1,507 @@
+/*
+* Menyoo PC - Grand Theft Auto V single-player trainer mod
+* Copyright (C) 2019  MAFINS
+*
+* This program is free software: you can redistribute it and/or modify
+* it under the terms of the GNU General Public License as published by
+* the Free Software Foundation, either version 3 of the License, or
+* (at your option) any later version.
+*/
+#include "Game.h"
+
+#include "..\macros.h"
+
+#include "..\Util\GTAmath.h"
+//#include "..\Scripting\enums.h"
+#include "..\Natives\natives2.h"
+#include "..\Memory\GTAmemory.h"
+#include "GTAentity.h"
+#include "GTAped.h"
+#include "GTAplayer.h"
+
+#include <string>
+#include <sstream>
+#include <Windows.h>
+
+std::ostream& operator<<(std::ostream& stream, std::wstring& text)
+{
+	stream << std::string(text.begin(), text.end());
+	return stream;
+}
+std::wostream& operator<<(std::wostream& stream, std::string& text)
+{
+	stream << std::wstring(text.begin(), text.end());
+	return stream;
+}
+
+namespace Game
+{
+	const std::pair<int, int> defaultScreenRes = { 1280, 720 };
+
+	// Request asset
+	bool RequestControlOfId(int netid)
+	{
+		NETWORK_REQUEST_CONTROL_OF_NETWORK_ID(netid);
+		for (DWORD timeOut = GetTickCount() + 200; GetTickCount() < timeOut;)
+		{
+			if (NETWORK_HAS_CONTROL_OF_NETWORK_ID(netid))
+				return true;
+			WAIT(0);
+		}
+		return false;
+	}
+	bool RequestAnimDict(const std::string& anim_dict, DWORD timeOutms)
+	{
+		REQUEST_ANIM_DICT(const_cast<PCHAR>(anim_dict.c_str()));
+		for (DWORD timeOut = GetTickCount() + timeOutms; GetTickCount() < timeOut;)
+		{
+			if (HAS_ANIM_DICT_LOADED(const_cast<PCHAR>(anim_dict.c_str())))
+				return true;
+			WAIT(0);
+		}
+		return false;
+	}
+	bool RequestAnimSet(const std::string& anim_set, DWORD timeOutms)
+	{
+		REQUEST_ANIM_SET(const_cast<PCHAR>(anim_set.c_str()));
+		for (DWORD timeOut = GetTickCount() + timeOutms; GetTickCount() < timeOut;)
+		{
+			if (HAS_ANIM_SET_LOADED(const_cast<PCHAR>(anim_set.c_str())))
+				return true;
+			WAIT(0);
+		}
+		return false;
+	}
+	void RequestScript(PCHAR scriptName, int stackSize)
+	{
+		if (_GET_NUMBER_OF_INSTANCES_OF_STREAMED_SCRIPT(GET_HASH_KEY(scriptName)) == 0 && DOES_SCRIPT_EXIST(scriptName))
+		{
+			REQUEST_SCRIPT(scriptName);
+
+			for (DWORD timeOut = GetTickCount() + 5000; GetTickCount() < timeOut;)
+			{
+				if (HAS_SCRIPT_LOADED(scriptName))
+					break;
+				WAIT(0);
+			}
+			//while (!HAS_SCRIPT_LOADED(scriptName)) WAIT(0);
+
+			START_NEW_SCRIPT(scriptName, stackSize); // 1024 on console
+			SET_SCRIPT_AS_NO_LONGER_NEEDED(scriptName);
+		}
+	}
+
+	// GXT
+	inline bool DoesGXTEntryExist(const std::string& entry)
+	{
+		return UI::DOES_TEXT_LABEL_EXIST(const_cast<PCHAR>(entry.c_str())) != 0;
+	}
+	std::string GetGXTEntry(const std::string& entry, const std::string& fallback)
+	{
+		if (DoesGXTEntryExist(entry))
+		{
+			return UI::_GET_LABEL_TEXT(const_cast<PCHAR>(entry.c_str()));
+		}
+		return fallback.empty() ? entry : fallback;
+	}
+	std::string GetGXTEntry(Hash entry, const std::string& fallback)
+	{
+		auto result = GTAmemory::GetGXTEntry(entry);
+		return result == nullptr ? fallback : result;
+	}
+
+	namespace Sound
+	{
+		GameSound::GameSound()
+			: active(false),
+			soundID(-1)
+		{
+		}
+		GameSound::GameSound(const std::string& nsoundSet, const std::string& nsound)
+			: active(false),
+			sound(nsound),
+			soundSet(nsoundSet),
+			soundID(-1)
+
+		{
+		}
+
+		bool GameSound::LoadBank(const std::string& audioBank)
+		{
+			return REQUEST_SCRIPT_AUDIO_BANK((PCHAR)audioBank.c_str(), false) != 0;
+		}
+		void GameSound::UnloadBank(const std::string& audioBank)
+		{
+			RELEASE_NAMED_SCRIPT_AUDIO_BANK((PCHAR)audioBank.c_str());
+		}
+
+		void GameSound::Play(GTAentity entity)
+		{
+			soundID = GET_SOUND_ID();
+			PLAY_SOUND_FROM_ENTITY(soundID, (PCHAR)sound.c_str(), entity.Handle(), (PCHAR)soundSet.c_str(), 0, 0);
+			active = true;
+		}
+
+		void GameSound::Stop()
+		{
+			if (soundID == -1 || !active) return;
+			STOP_SOUND(soundID);
+			active = false;
+		}
+
+		void GameSound::Destroy()
+		{
+			if (soundID == -1 || !active) return;
+			RELEASE_SOUND_ID(soundID);
+			soundID = -1;
+			active = false;
+		}
+
+		void PlayFrontend(const std::string& sound_dict, const std::string& sound_name)
+		{
+			AUDIO::PLAY_SOUND_FRONTEND(-1, const_cast<PCHAR>(sound_name.c_str()), const_cast<PCHAR>(sound_dict.c_str()), FALSE);
+		}
+		void PlayFrontend_default(const std::string& sound_name)
+		{
+			AUDIO::PLAY_SOUND_FRONTEND(-1, const_cast<PCHAR>(sound_name.c_str()), "HUD_FRONTEND_DEFAULT_SOUNDSET", FALSE);
+		}
+	}
+
+	namespace Print
+	{
+		// Game - Print/draw
+		void setupdraw()
+		{
+			SET_TEXT_FONT(0);
+			SET_TEXT_SCALE(0.4f, 0.4f);
+			SET_TEXT_COLOUR(255, 255, 255, 255);
+			SET_TEXT_WRAP(0.0f, 1.0f);
+			SET_TEXT_CENTRE(0);
+			SET_TEXT_DROPSHADOW(0, 0, 0, 0, 0);
+			SET_TEXT_EDGE(0, 0, 0, 0, 0);
+			//SET_TEXT_OUTLINE();
+		}
+		void setupdraw(INT8 font, const Vector2& scale, bool centred, bool right_justified, bool outline, RGBA colour, Vector2 wrap)
+		{
+			SET_TEXT_FONT(font);
+			SET_TEXT_SCALE(scale.x, scale.y);
+			SET_TEXT_COLOUR(colour.R, colour.G, colour.B, colour.A);
+			SET_TEXT_WRAP(wrap.x, wrap.y);
+			SET_TEXT_RIGHT_JUSTIFY(right_justified);
+			SET_TEXT_CENTRE(centred);
+			SET_TEXT_DROPSHADOW(0, 0, 0, 0, 0);
+			SET_TEXT_EDGE(0, 0, 0, 0, 0);
+			if (outline) SET_TEXT_OUTLINE();
+		}
+		void drawstring(const std::string& s, float X, float Y)
+		{
+			if (s.length() < 100)
+			{
+				BEGIN_TEXT_COMMAND_DISPLAY_TEXT("STRING");
+				ADD_TEXT_COMPONENT_SUBSTRING_PLAYER_NAME(const_cast<PCHAR>(s.c_str()));
+			}
+			else
+			{
+				BEGIN_TEXT_COMMAND_DISPLAY_TEXT("jamyfafi");
+				add_text_component_long_string(s);
+			}
+			_DRAW_TEXT(X, Y);
+		}
+		void drawstring(std::ostream& os, float X, float Y)
+		{
+			std::string& s = dynamic_cast<std::ostringstream&>(os).str();
+			if (s.length() < 100)
+			{
+				BEGIN_TEXT_COMMAND_DISPLAY_TEXT("STRING");
+				ADD_TEXT_COMPONENT_SUBSTRING_PLAYER_NAME(const_cast<PCHAR>(s.c_str()));
+			}
+			else
+			{
+				BEGIN_TEXT_COMMAND_DISPLAY_TEXT("jamyfafi");
+				add_text_component_long_string(s);
+			}
+			_DRAW_TEXT(X, Y);
+		}
+		void drawstringGXT(const std::string& s, float X, float Y)
+		{
+			char* text = const_cast<PCHAR>(s.c_str());
+
+			if (DOES_TEXT_LABEL_EXIST(text))
+			{
+				BEGIN_TEXT_COMMAND_DISPLAY_TEXT(text);
+				_BEGIN_TEXT_COMPONENT(text);
+				_END_TEXT_COMPONENT();
+			}
+			else
+			{
+				if (s.length() < 100)
+				{
+					BEGIN_TEXT_COMMAND_DISPLAY_TEXT("STRING");
+					ADD_TEXT_COMPONENT_SUBSTRING_PLAYER_NAME(text);
+				}
+				else
+				{
+					BEGIN_TEXT_COMMAND_DISPLAY_TEXT("jamyfafi");
+					add_text_component_long_string(s);
+				}
+			}
+			_DRAW_TEXT(X, Y);
+		}
+		void drawstringGXT(std::ostream& os, float X, float Y)
+		{
+			std::string& s = dynamic_cast<std::ostringstream&>(os).str();
+			char* text = (char*)s.c_str();
+
+			if (DOES_TEXT_LABEL_EXIST(text))
+			{
+				BEGIN_TEXT_COMMAND_DISPLAY_TEXT(text);
+				_BEGIN_TEXT_COMPONENT(text);
+				_END_TEXT_COMPONENT();
+			}
+			else
+			{
+				if (s.length() < 100)
+				{
+					BEGIN_TEXT_COMMAND_DISPLAY_TEXT("STRING");
+					ADD_TEXT_COMPONENT_SUBSTRING_PLAYER_NAME(text);
+				}
+				else
+				{
+					BEGIN_TEXT_COMMAND_DISPLAY_TEXT("jamyfafi");
+					add_text_component_long_string(s);
+				}
+			}
+			_DRAW_TEXT(X, Y);
+		}
+		void drawinteger(int text, float X, float Y)
+		{
+			BEGIN_TEXT_COMMAND_DISPLAY_TEXT("NUMBER");
+			ADD_TEXT_COMPONENT_INTEGER(text);
+			_DRAW_TEXT(X, Y);
+		}
+		void drawfloat(float text, UINT8 decimal_places, float X, float Y)
+		{
+			BEGIN_TEXT_COMMAND_DISPLAY_TEXT("NUMBER");
+			ADD_TEXT_COMPONENT_FLOAT(text, decimal_places);
+			_DRAW_TEXT(X, Y);
+		}
+
+		void PrintBottomCentre(const std::string& s, int time)
+		{
+			PCHAR text = (PCHAR)s.c_str();
+
+			if (DOES_TEXT_LABEL_EXIST(text))
+			{
+				BEGIN_TEXT_COMMAND_PRINT(text);
+			}
+			else
+			{
+				if (s.length() < 100)
+				{
+					BEGIN_TEXT_COMMAND_PRINT("STRING");
+					ADD_TEXT_COMPONENT_SUBSTRING_PLAYER_NAME(text);
+				}
+				else
+				{
+					BEGIN_TEXT_COMMAND_PRINT("jamyfafi");
+					add_text_component_long_string(s);
+				}
+			}
+			_DRAW_SUBTITLE_TIMED(time, 1);
+		}
+		void PrintBottomCentre(std::ostream& s, int time)
+		{
+			PrintBottomCentre(dynamic_cast<std::ostringstream&>(s).str(), time);
+		}
+		void PrintBottomCentre(std::wostream& s, int time)
+		{
+			std::wstring wtext2 = (dynamic_cast<std::wostringstream&>(s).str());
+			PrintBottomCentre(std::string(wtext2.begin(), wtext2.end()), time);
+		}
+
+		void Notification::Hide()
+		{
+			_REMOVE_NOTIFICATION(this->mHandle);
+		}
+		Notification PrintBottomLeft(const std::string& s, bool gxt)
+		{
+			PCHAR text = (PCHAR)s.c_str();
+
+			if (gxt && DOES_TEXT_LABEL_EXIST(text))
+				_SET_NOTIFICATION_TEXT_ENTRY(text);
+			else
+			{
+				if (s.length() < 100)
+				{
+					_SET_NOTIFICATION_TEXT_ENTRY("STRING");
+					ADD_TEXT_COMPONENT_SUBSTRING_PLAYER_NAME(text);
+				}
+				else
+				{
+					_SET_NOTIFICATION_TEXT_ENTRY("jamyfafi");
+					add_text_component_long_string(s);
+				}
+			}
+
+			Game::Sound::PlayFrontend("Phone_SoundSet_Default", "Text_Arrive_Tone");
+
+			//_0x44FA03975424A0EE(0, 1);
+			return _DRAW_NOTIFICATION(0, 0);
+		}
+		Notification PrintBottomLeft(std::ostream& s, bool gxt)
+		{
+			return PrintBottomLeft((dynamic_cast<std::ostringstream&>(s).str()), gxt);
+		}
+		Notification PrintBottomLeft(std::wostream& s, bool gxt)
+		{
+			std::wstring wtext = (dynamic_cast<std::wostringstream&>(s).str());
+			return PrintBottomLeft(std::string(wtext.begin(), wtext.end()), gxt);
+		}
+		Notification PrintBottomLeft(const std::string& s, const std::string& sender, const std::string& subject, const std::string& picName, int iconType, bool flash, bool gxt)
+		{
+			PCHAR text = (PCHAR)s.c_str();
+
+			if (gxt && DOES_TEXT_LABEL_EXIST(text))
+				_SET_NOTIFICATION_TEXT_ENTRY(text);
+			else
+			{
+				if (s.length() < 100)
+				{
+					_SET_NOTIFICATION_TEXT_ENTRY("STRING");
+					ADD_TEXT_COMPONENT_SUBSTRING_PLAYER_NAME(text);
+				}
+				else
+				{
+					_SET_NOTIFICATION_TEXT_ENTRY("jamyfafi");
+					add_text_component_long_string(s);
+				}
+			}
+
+			_SET_NOTIFICATION_MESSAGE((PCHAR)picName.c_str(), (PCHAR)picName.c_str(), flash, iconType, (PCHAR)sender.c_str(), (PCHAR)subject.c_str());
+
+			Game::Sound::PlayFrontend("Phone_SoundSet_Default", "Text_Arrive_Tone");
+
+			return _DRAW_NOTIFICATION(0, 0);
+		}
+		Notification PrintBottomLeft(std::ostream& s, const std::string& sender, const std::string& subject, const std::string& picName, int iconType, bool flash, bool gxt)
+		{
+			return PrintBottomLeft((dynamic_cast<std::ostringstream&>(s).str()), sender, subject, picName, iconType, flash, gxt);
+		}
+		Notification PrintBottomLeft(std::wostream& s, const std::string& sender, const std::string& subject, const std::string& picName, int iconType, bool flash, bool gxt)
+		{
+			std::wstring wtext = (dynamic_cast<std::wostringstream&>(s).str());
+			return PrintBottomLeft(std::string(wtext.begin(), wtext.end()), sender, subject, picName, iconType, flash, gxt);
+		}
+
+		// Messages - Errors
+		void PrintError_InvalidInput()
+		{
+			Game::Print::PrintBottomCentre("~r~Error:~s~ Invalid Input.");
+		}
+		void PrintError_InvalidModel()
+		{
+			Game::Print::PrintBottomCentre("~r~Error:~s~ Invalid Model.");
+		}
+
+		// Text width
+		float GetTextWidth(const std::string& s, bool gxt)
+		{
+			PCHAR text = const_cast<PCHAR>(s.c_str());
+
+			if (gxt)
+				_SET_TEXT_ENTRY_FOR_WIDTH(text);
+			else
+			{
+				if (s.length() < 100)
+				{
+					_SET_TEXT_ENTRY_FOR_WIDTH("STRING");
+					ADD_TEXT_COMPONENT_SUBSTRING_PLAYER_NAME(text);
+				}
+				else
+				{
+					_SET_TEXT_ENTRY_FOR_WIDTH("jamyfafi");
+					add_text_component_long_string(s);
+				}
+			}
+			return _GET_TEXT_SCREEN_WIDTH(1);
+		}
+		float GetTextWidth(int inumber)
+		{
+			_SET_TEXT_ENTRY_FOR_WIDTH("NUMBER");
+			ADD_TEXT_COMPONENT_INTEGER(inumber);
+			return _GET_TEXT_SCREEN_WIDTH(1);
+		}
+		float GetTextWidth(float fnumber, UINT8 decimal_places)
+		{
+			_SET_TEXT_ENTRY_FOR_WIDTH("NUMBER");
+			ADD_TEXT_COMPONENT_FLOAT(fnumber, decimal_places);
+			return _GET_TEXT_SCREEN_WIDTH(1);
+		}
+	}
+
+	//On screen keyboard
+	std::string InputBox(const std::string& escReturn, int maxChars, const std::string& titlegxt, std::string preText)
+	{
+		preText = preText.substr(0, maxChars);
+
+		//CustomKeyboardText ckt;
+		DISPLAY_ONSCREEN_KEYBOARD(true, "", "", const_cast<PCHAR>(preText.c_str()), "", "", "", maxChars);
+
+		while (UPDATE_ONSCREEN_KEYBOARD() == 0)
+		{
+			SET_TEXT_FONT(/*GTAfont::Arial*/0);
+			SET_TEXT_SCALE(0.34f, 0.34f);
+			SET_TEXT_COLOUR(255, 255, 255, 255);
+			SET_TEXT_WRAP(0.0f, 1.0f);
+			SET_TEXT_RIGHT_JUSTIFY(FALSE);
+			SET_TEXT_CENTRE(TRUE);
+			SET_TEXT_DROPSHADOW(0, 0, 0, 0, 0);
+			SET_TEXT_EDGE(0, 0, 0, 0, 0);
+			SET_TEXT_OUTLINE();
+
+			if (DOES_TEXT_LABEL_EXIST(const_cast<PCHAR>(titlegxt.c_str())))
+			{
+				BEGIN_TEXT_COMMAND_DISPLAY_TEXT(const_cast<PCHAR>(titlegxt.c_str()));
+			}
+			else if (titlegxt.length() < 100)
+			{
+				BEGIN_TEXT_COMMAND_DISPLAY_TEXT("STRING");
+				ADD_TEXT_COMPONENT_SUBSTRING_PLAYER_NAME(const_cast<PCHAR>(titlegxt.c_str()));
+			}
+			else
+			{
+				BEGIN_TEXT_COMMAND_DISPLAY_TEXT("jamyfafi");
+				add_text_component_long_string(titlegxt);
+			}
+			_DRAW_TEXT(0.5f, 0.37f);
+			WAIT(0);
+		}
+		if (UPDATE_ONSCREEN_KEYBOARD() == 2)
+		{
+			return escReturn;
+		}
+
+		return GET_ONSCREEN_KEYBOARD_RESULT();
+	}
+
+	//PLAYER_PED_ID()
+	GTAplayer Player()
+	{
+		return PLAYER::PLAYER_ID();
+	}
+	GTAplayer Player(int index)
+	{
+		return GTAplayer(index);
+	}
+	GTAped PlayerPed()
+	{
+		return PLAYER::PLAYER_PED_ID();
+	}
+	GTAped PlayerPed(int index)
+	{
+		return PLAYER::GET_PLAYER_PED(index);
+	}
+
+}
+
+
