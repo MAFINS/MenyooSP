@@ -54,6 +54,8 @@ namespace sub
 			{ "Water Splash", "scr_fbi5a", "scr_fbi5_ped_water_splash" },
 			//{ "Water Bubbles", "scr_fbi5a", "water_splash_ped_bubbles" },
 			//{ "Puke", "scr_family5", "scr_trev_puke" },
+			{ "Puke", "scr_familyscenem", "scr_trev_puke" },
+			{ "Puke Ambient", "scr_familyscenem", "scr_trev_amb_puke" },
 			//{ "Blood", "scr_finalec2", "scr_finale2_blood_entry" },
 			//{ "Autopsy Blood", "scr_agencyheist", "scr_fbi_autopsy_blood" },
 			{ "Blood Stab", "scr_michael2", "scr_mich2_blood_stab" },
