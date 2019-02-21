@@ -18,6 +18,7 @@ typedef char *PCHAR;
 
 class GTAentity;
 class GTAvehicle;
+class GTAped;
 namespace GTAmodel {
 	class Model;
 }
@@ -25,7 +26,7 @@ namespace GTAmodel {
 namespace sub
 {
 	// Vehicle - spawn function
-	int FuncSpawnVehicle_(GTAmodel::Model model, Ped ped, bool deleteOld = false, bool warpIntoVehicle = true);
+	int FuncSpawnVehicle_(GTAmodel::Model model, GTAped ped, bool deleteOld = false, bool warpIntoVehicle = true);
 
 	// Vehicle spawner
 

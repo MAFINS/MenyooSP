@@ -618,7 +618,7 @@ bool GTAentity::RequestControl()
 {
 	uint8_t tick = 0;
 
-	while (this->RequestControlOnce() && tick <= 12)
+	while (!this->RequestControlOnce() && tick <= 12)
 	{
 		//WAIT(0); // Let's just not wait here ever again geez
 		tick++;
