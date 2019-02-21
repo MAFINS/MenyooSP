@@ -25,6 +25,7 @@
 #include "..\Util\GTAmath.h"
 #include "..\main.h"
 #include "..\Natives\natives2.h"
+#include "..\Util\FileLogger.h"
 
 #include <Windows.h>
 #include <Psapi.h>
@@ -34,7 +35,6 @@
 #include <string>
 #include <sstream>
 #include <utility>
-
 
 HMODULE g_MainModule = 0;
 MODULEINFO g_MainModuleInfo = { 0 };
@@ -747,8 +747,8 @@ void GTAmemory::Init()
 		_entityModel1Func = reinterpret_cast<UINT64(*)(UINT64)>(*reinterpret_cast<int *>(address - 61) + address - 57);
 		_entityModel2Func = reinterpret_cast<UINT64(*)(UINT64)>(*reinterpret_cast<int *>(address + 10) + address + 14);
 
-	address = FindPattern("\x8B\xF0\x48\x8B\x05\x00\x00\x00\x00\xF3\x0F\x59\xF6", "xxxxx????xxxx");
-	_pickupObjectPoolAddress = reinterpret_cast<UINT64 *>(*reinterpret_cast<int *>(address + 5) + address + 9);
+		address = FindPattern("\x8B\xF0\x48\x8B\x05\x00\x00\x00\x00\xF3\x0F\x59\xF6", "xxxxx????xxxx");
+		_pickupObjectPoolAddress = reinterpret_cast<UINT64 *>(*reinterpret_cast<int *>(address + 5) + address + 9);
 	}
 
 	address = FindPattern("\x74\x21\x48\x8B\x48\x20\x48\x85\xC9\x74\x18\x48\x8B\xD6\xE8", "xxxxxxxxxxxxxxx") - 10;
@@ -841,9 +841,10 @@ struct HashNode
 void GTAmemory::GenerateVehicleModelList()
 {
 	//Zorg
-	uintptr_t address = FindPattern("\x66\x81\xF9\x00\x00\x74\x10\x4D\x85\xC0", "xxx??xxxxx"); //Update!
+	uintptr_t address = FindPattern("\x66\x81\xF9\x00\x00\x74\x10\x4D\x85\xC0", "xxx??xxxxx");
 	if (address)
 	{
+		address = address - 0x21;
 		//UINT64 baseFuncAddr = *reinterpret_cast<int*>(address - 0x21) + address - 0x1D;
 		UINT64 baseFuncAddr = address + *reinterpret_cast<int*>(address) + 0x4;
 		//int classOffset = *reinterpret_cast<int*>(address + 0x10);
@@ -859,7 +860,8 @@ void GTAmemory::GenerateVehicleModelList()
 		//I know 0x20 items are defined but there are only 0x16 vehicle classes.
 		//But keeping it at 0x20 is just being safe as the & 0x1F in theory supports up to 0x20
 		auto& hashes = GTAmemory::vehicleModels;
-		for (auto& vec : hashes) vec.clear();
+		for (auto& vec : hashes)
+			vec.clear();
 		for (int i = 0; i < modelHashEntries; i++)
 		{
 			for (HashNode* cur = HashMap[i]; cur; cur = cur->next)
