@@ -48,7 +48,7 @@
 namespace sub
 {
 	// Vehicle - spawn function
-	int FuncSpawnVehicle_(GTAmodel::Model model, Ped ped, bool deleteOld, bool warpIntoVehicle)
+	int FuncSpawnVehicle_(GTAmodel::Model model, GTAped ped, bool deleteOld, bool warpIntoVehicle)
 	{
 		Vehicle newcar = 0;
 
@@ -58,9 +58,9 @@ namespace sub
 		bool oldcarBool = false;
 		int oldRadioStation = GET_PLAYER_RADIO_STATION_INDEX();
 		bool oldCarOn = true;
-		if (IS_PED_SITTING_IN_ANY_VEHICLE(ped))
+		if (ped.IsInVehicle())
 		{
-			oldcar = GET_VEHICLE_PED_IS_IN(ped, 0);
+			oldcar = ped.CurrentVehicle().GetHandle();
 			oldVelocity = GET_ENTITY_VELOCITY(oldcar);
 			oldCarOn = GET_IS_VEHICLE_ENGINE_RUNNING(oldcar) != 0;
 			oldcarBool = true;
@@ -82,12 +82,12 @@ namespace sub
 				Pos1 = GET_OFFSET_FROM_ENTITY_IN_WORLD_COORDS(oldcar, 0, spacing1, 0);
 			}
 			else
-				Pos1 = GET_OFFSET_FROM_ENTITY_IN_WORLD_COORDS(ped, 0, 0, 0);
+				Pos1 = ped.GetOffsetInWorldCoords(Vector3());
 
 			PTFX::trigger_ptfx_1("proj_xmas_firework", "scr_firework_xmas_burst_rgw", 0, Pos1, Vector3(), 1.0f);
 			//PTFX::trigger_ptfx_1("scr_fbi5a", "scr_fbi5_ped_water_splash", 0, Pos1, Vector3(), 1.5f);
 
-			newcar = CREATE_VEHICLE(model.hash, Pos1.x, Pos1.y, Pos1.z, GET_ENTITY_HEADING(ped), 1, 1);
+			newcar = CREATE_VEHICLE(model.hash, Pos1.x, Pos1.y, Pos1.z, ped.Heading_get(), 1, 1);
 			//SET_VEHICLE_ENGINE_ON(newcar, oldCarOn, oldCarOn);
 
 			//if (!IS_ENTITY_IN_AIR(ped) && !IS_ENTITY_IN_WATER(ped)) SET_VEHICLE_ON_GROUND_PROPERLY(newcar, 0.0f);
@@ -102,59 +102,56 @@ namespace sub
 			//SET_NETWORK_ID_CAN_MIGRATE(newnetid, 1);
 			//SET_NETWORK_ID_EXISTS_ON_ALL_MACHINES(newnetid, 1);
 
-			if (oldcarBool)
+			if (oldcarBool && DOES_ENTITY_EXIST(oldcar))
 			{
-				if (DOES_ENTITY_EXIST(oldcar) && IS_ENTITY_A_VEHICLE(oldcar))
+				GTAvehicle(newcar).RequestControl();
+				SET_ENTITY_VELOCITY(newcar, oldVelocity.x, oldVelocity.y, oldVelocity.z);
+					
+				if (warpIntoVehicle)
 				{
-					GTAvehicle(newcar).RequestControl();
-					SET_ENTITY_VELOCITY(newcar, oldVelocity.x, oldVelocity.y, oldVelocity.z);
+					//if (Model(GET_ENTITY_MODEL(oldcar)).IsPlane()) CLEAR_PED_TASKS_IMMEDIATELY(ped); // mainPed
+					int maxi = GET_VEHICLE_MAX_NUMBER_OF_PASSENGERS(newcar);// - 2;
+					for (INT i = -1; i <= maxi; i++)
+					{
+						Ped tempPed = GET_PED_IN_VEHICLE_SEAT(oldcar, i);
+						if (DOES_ENTITY_EXIST(tempPed))
+						{
+							if (GTAentity(tempPed).RequestControl())
+							{
+								//CLEAR_PED_TASKS_IMMEDIATELY(tempPed);
+								SET_PED_INTO_VEHICLE(tempPed, newcar, i);
+							}
+						}
+					}
+				}
+
+				if (deleteOld)
+				{
+					WAIT(45);
+					int maxi = GET_VEHICLE_MAX_NUMBER_OF_PASSENGERS(oldcar);// - 2;
+					for (INT i = -1; i <= maxi; i++)
+					{
+						Ped tempPed = GET_PED_IN_VEHICLE_SEAT(oldcar, i);
+						if (DOES_ENTITY_EXIST(tempPed))
+						{
+							if (GTAentity(tempPed).RequestControl())
+							{
+								TASK_LEAVE_ANY_VEHICLE(tempPed, 0, 0);
+								CLEAR_PED_TASKS_IMMEDIATELY(tempPed);
+							}
+						}
+					}
+					WAIT(15);
 					GTAvehicle(oldcar).RequestControl();
-					if (warpIntoVehicle)
-					{
-						//if (Model(GET_ENTITY_MODEL(oldcar)).IsPlane()) CLEAR_PED_TASKS_IMMEDIATELY(ped); // mainPed
-						Ped tempPed, maxi = GET_VEHICLE_MAX_NUMBER_OF_PASSENGERS(newcar);// - 2;
-						for (INT i = -1; i <= maxi; i++)
-						{
-							tempPed = GET_PED_IN_VEHICLE_SEAT(oldcar, i);
-							if (DOES_ENTITY_EXIST(tempPed))
-							{
-								if (GTAentity(tempPed).RequestControl())
-								{
-									//CLEAR_PED_TASKS_IMMEDIATELY(tempPed);
-									SET_PED_INTO_VEHICLE(tempPed, newcar, i);
-								}
-							}
-						}
-					}
-
-					if (deleteOld)
-					{
-						WAIT(45);
-						Ped tempPed, maxi = GET_VEHICLE_MAX_NUMBER_OF_PASSENGERS(oldcar);// - 2;
-						for (INT i = -1; i <= maxi; i++)
-						{
-							tempPed = GET_PED_IN_VEHICLE_SEAT(oldcar, i);
-							if (DOES_ENTITY_EXIST(tempPed))
-							{
-								if (GTAentity(tempPed).RequestControl())
-								{
-									TASK_LEAVE_ANY_VEHICLE(tempPed, 0, 0);
-									CLEAR_PED_TASKS_IMMEDIATELY(tempPed);
-								}
-							}
-						}
-						WAIT(15);
-						SET_ENTITY_AS_MISSION_ENTITY(oldcar, 0, 1);
-						SET_ENTITY_COORDS(oldcar, 32.2653f, 7683.5249f, 0.5696f, 0, 0, 0, 1);
-						DELETE_VEHICLE(&oldcar);
-					}
-
+					SET_ENTITY_AS_MISSION_ENTITY(oldcar, 0, 1);
+					SET_ENTITY_COORDS(oldcar, 32.2653f, 7683.5249f, 0.5696f, 0, 0, 0, 1);
+					DELETE_VEHICLE(&oldcar);
 				}
 			}
 			else
 			{
 				if (warpIntoVehicle)
-					SET_PED_INTO_VEHICLE(ped, newcar, (int)GTAvehicle(newcar).FirstFreeSeat(SEAT_DRIVER));
+					SET_PED_INTO_VEHICLE(ped.Handle(), newcar, (int)GTAvehicle(newcar).FirstFreeSeat(SEAT_DRIVER));
 			}
 			//SET_VEHICLE_NUMBER_PLATE_TEXT_INDEX(newcar, 5);
 			//SET_VEHICLE_NUMBER_PLATE_TEXT(newcar, "MENYOO");
