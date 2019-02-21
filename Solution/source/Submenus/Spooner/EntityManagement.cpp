@@ -582,7 +582,8 @@ namespace sub::Spooner
 
 		SpoonerEntity CopyEntity(SpoonerEntity& orig, bool isInDb, bool addToDb, UINT8 copyAttachments, bool unloadModel, UINT8 currAtir)
 		{
-			if (!orig.Handle.Exists()) return SpoonerEntity();
+			if (!orig.Handle.Exists())
+				return SpoonerEntity();
 
 			bool bOrigWasMissionEntity = orig.Handle.MissionEntity_get();
 			if (!bOrigWasMissionEntity)
@@ -680,7 +681,8 @@ namespace sub::Spooner
 				}
 
 				auto& facialMoodStr = get_ped_facial_mood(orig.Handle);
-				if (!facialMoodStr.empty()) set_ped_facial_mood(ep, facialMoodStr);
+				if (!facialMoodStr.empty())
+					set_ped_facial_mood(ep, facialMoodStr);
 
 				ep.Armour_set(origPed.Armour_get());
 				ep.Weapon_set(origPed.Weapon_get());
@@ -693,7 +695,7 @@ namespace sub::Spooner
 				SET_PED_COMBAT_ABILITY(ep.Handle(), 2);
 				SET_PED_COMBAT_MOVEMENT(ep.Handle(), 2);
 				Hash oldRelationshipGrp;
-				RelationshipManagement::GetPedRelationshipGroup(ep, oldRelationshipGrp);
+				RelationshipManagement::GetPedRelationshipGroup(orig.Handle, oldRelationshipGrp);
 				RelationshipManagement::SetPedRelationshipGroup(ep, oldRelationshipGrp);
 			}
 			else if (entType == EntityType::VEHICLE)
@@ -778,6 +780,7 @@ namespace sub::Spooner
 				Databases::EntityDb.push_back(newEntity);
 			return newEntity;
 		}
+
 		void DetachEntity(SpoonerEntity& ent)
 		{
 			bool isOnTheLine = NETWORK_IS_IN_SESSION() != 0;

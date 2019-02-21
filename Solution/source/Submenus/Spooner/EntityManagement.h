@@ -57,6 +57,7 @@ namespace sub::Spooner
 		SpoonerEntity AddEntityOfType(const EntityType& type, const GTAmodel::Model& model, const std::string& name);
 
 		SpoonerEntity CopyEntity(SpoonerEntity& orig, bool isInDb, bool addToDb = true, UINT8 copyAttachments = 0, bool unloadModel = true, UINT8 currAtir = 0);
+
 		void DetachEntity(SpoonerEntity& ent);
 		bool GetEntityThisEntityIsAttachedTo(GTAentity& from, GTAentity& to);
 		void AttachEntity(SpoonerEntity& ent, GTAentity to, int boneIndex, const Vector3& offset, const Vector3& rotation);
