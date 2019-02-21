@@ -620,7 +620,7 @@ bool GTAentity::RequestControl()
 
 	while (this->RequestControlOnce() && tick <= 12)
 	{
-		WAIT(0);
+		//WAIT(0); // Let's just not wait here ever again geez
 		tick++;
 	}
 	return tick <= 12;

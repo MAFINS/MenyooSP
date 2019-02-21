@@ -205,7 +205,7 @@ namespace sub
 			return;
 		}
 		if (PlayerOpsNeverWantedOff_) {
-			SET_POLICE_IGNORE_PLAYER(PLAYER_ID(), 0);
+			//SET_POLICE_IGNORE_PLAYER(PLAYER_ID(), FALSE);
 			SET_MAX_WANTED_LEVEL(6);
 			SET_WANTED_LEVEL_MULTIPLIER(1.0f);
 			return;
