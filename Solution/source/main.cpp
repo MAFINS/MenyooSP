@@ -12,7 +12,6 @@ http://dev-c.com
 
 //#include "macros.h"
 
-//#include "Memory\DisableStartupLogos.h"
 #include "Util\keyboard.h"
 #include "Memory\GTAmemory.h"
 #include "Util\FileLogger.h"
@@ -32,8 +31,6 @@ BOOL APIENTRY DllMain(HMODULE hInstance, DWORD reason, LPVOID lpReserved)
 		if (!GetModuleInformation(GetCurrentProcess(), g_MainModule, &g_MainModuleInfo, sizeof(g_MainModuleInfo)))
 			ige::myLog << ige::LogType::LOG_ERROR << "Unable to get MODULEINFO from GTA5.exe";
 
-		//DisableRockstarLogos::DisableRockstarLogos();
-		//DisableRockstarLogos::DisableLegalMessages();
 		GTAmemory::Init();
 
 		CreateThread(NULL, 0, (LPTHREAD_START_ROUTINE)ThreadRainbowFader, NULL, 0, NULL);
