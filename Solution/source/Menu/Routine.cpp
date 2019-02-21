@@ -1568,8 +1568,10 @@ void set_no_clip()
 
 			if (ent == myPed)
 			{
-				if (GET_PED_STEALTH_MOVEMENT(myPed.Handle())) SET_PED_STEALTH_MOVEMENT(myPed.Handle(), false, 0);
-				if (GET_PED_COMBAT_MOVEMENT(myPed.Handle())) SET_PED_COMBAT_MOVEMENT(myPed.Handle(), 0);
+				if (GET_PED_STEALTH_MOVEMENT(myPed.Handle()))
+					SET_PED_STEALTH_MOVEMENT(myPed.Handle(), false, 0);
+				if (GET_PED_COMBAT_MOVEMENT(myPed.Handle()))
+					SET_PED_COMBAT_MOVEMENT(myPed.Handle(), 0);
 			}
 			float noclip_prec_level = IS_DISABLED_CONTROL_PRESSED(2, INPUT_FRONTEND_RB) ? 1.8f : 0.8f;
 			Vector3 offset;
@@ -2898,21 +2900,18 @@ void Menu::loops()
 	// Never wanted
 	if (loop_never_wanted)
 	{
-		SET_POLICE_IGNORE_PLAYER(PLAYER_ID(), TRUE);
+		//SET_POLICE_IGNORE_PLAYER(PLAYER_ID(), TRUE);
 		SET_MAX_WANTED_LEVEL(0);
 		SET_WANTED_LEVEL_MULTIPLIER(0.0f);
-		//if (GET_PLAYER_WANTED_LEVEL(player) > 0)
-		//{
-		//	SET_PLAYER_WANTED_LEVEL(player, 0, 0);
-		//	//SET_PLAYER_WANTED_LEVEL_NOW(player, 0);
-		//}
 	}
 
 	set_target_into_slot(); // Set targeted entity into spawner slot (self)
 
-	if (loop_forge_gun) set_forge_gun();
+	if (loop_forge_gun)
+		set_forge_gun();
 
-	if (loop_player_seatbelt) set_ped_seatbelt_on(PLAYER_PED_ID()); // PLAYER_ID() seatbelt
+	if (loop_player_seatbelt)
+		set_ped_seatbelt_on(PLAYER_PED_ID()); // PLAYER_ID() seatbelt
 
 	// Ammo hax
 	if (sub::BreatheStuff_catind::loop_player_breatheStuff != sub::BreatheStuff_catind::BreathePtfxType::None)
