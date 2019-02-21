@@ -42,7 +42,7 @@ namespace _FpsCounter_
 		if (GetTickCount() - timer > 500) //0.5sec
 		{
 			// store frame count to fpsValue
-			fpsValue = frameCounter;
+			fpsValue = frameCounter * 2;
 
 			// reset
 			frameCounter = 0;
