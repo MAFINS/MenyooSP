@@ -52,7 +52,7 @@ namespace _MagnetGun_
 		GTAplayer player = PLAYER_ID();
 		GTAped ped = PLAYER_PED_ID();
 
-		if ((player.IsFreeAiming() || player.IsTargetingAnything()) && g_myWeap == _whash)
+		if (g_myWeap == _whash && (player.IsFreeAiming() || player.IsTargetingAnything()))
 		{
 			if (bGunActive)
 			{
