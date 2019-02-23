@@ -214,7 +214,7 @@ RgbS g_fadedRGB(255, 0, 0);
 UINT8 pause_clock_H, pause_clock_M;
 Vehicle g_myVeh = 0;
 GTAmodel::Model g_myVeh_model;
-Hash g_myWeap = 0;
+Hash g_myWeap = 0U;
 PTFX::sFxData triggerfx_gun_data = { "scr_fbi4", "scr_fbi4_trucks_crash" };
 Hash kaboom_gun_hash = EXPLOSION::DIR_WATER_HYDRANT, bullet_gun_hash = WEAPON_FLARE;
 GTAmodel::Model ped_gun_hash = PedHash::KillerWhale, object_gun_hash = VEHICLE_BUS;
@@ -744,12 +744,18 @@ void set_target_into_slot()
 
 	if (player.IsTargetingAnything() || player.IsFreeAiming())
 	{
-		if (loop_rapid_fire) set_rapid_fire();
-		if (loop_self_triggerbot) set_player_triggerbot(player);
-		if (loop_soulswitch_gun) set_soulswitch_gun();
-		if (loop_self_deleteGun) set_self_deleteGun();
-		if (loop_self_resurrectionGun) set_self_resurrectionGun();
-		if (loop_HVSnipers) set_HVSnipers(true);
+		if (loop_rapid_fire)
+			set_rapid_fire();
+		if (loop_self_triggerbot)
+			set_player_triggerbot(player);
+		if (loop_soulswitch_gun)
+			set_soulswitch_gun();
+		if (loop_self_deleteGun)
+			set_self_deleteGun();
+		if (loop_self_resurrectionGun)
+			set_self_resurrectionGun();
+		if (loop_HVSnipers)
+			set_HVSnipers(true);
 
 		if (!targ_entity_locked)
 		{
@@ -770,7 +776,8 @@ void set_target_into_slot()
 
 			if (IS_ENTITY_A_PED(targ_slot_entity))
 			{
-				if (IS_PED_SITTING_IN_ANY_VEHICLE(targ_slot_entity)) targ_slot_entity = GET_VEHICLE_PED_IS_IN(targ_slot_entity, 0);
+				if (IS_PED_SITTING_IN_ANY_VEHICLE(targ_slot_entity))
+					targ_slot_entity = GET_VEHICLE_PED_IS_IN(targ_slot_entity, 0);
 				//else if (loop_target_into_slot && IS_PED_A_PLAYER(targ_slot_entity)){ Game::Print::PrintBottomCentre("~r~Error:~s~ That's a player."); } //targ_slot_entity = 0; return; }
 			}
 
@@ -795,7 +802,8 @@ void set_target_into_slot()
 	}
 	else
 	{
-		if (loop_HVSnipers) set_HVSnipers(false);
+		if (loop_HVSnipers)
+			set_HVSnipers(false);
 		targ_entity_locked = false;
 		targ_slot_entity = 0;
 	}
@@ -853,7 +861,8 @@ void set_rapid_fire()
 {
 	/*if (myWeap == 2725352035 || myWeap == 4194021054 || myWeap == 148160082 || myWeap == 2578778090 || myWeap == 1737195953 || myWeap == 1317494643 || myWeap == 2508868239 || myWeap == 1141786504 || myWeap == 2227010557 || myWeap == 4192643659 || myWeap == 2460120199 || myWeap == 3494679629 || myWeap == 2803906140 || myWeap == 4222310262 || myWeap == 0xF9DCBF2D)
 	return;*/
-	if (GET_WEAPONTYPE_GROUP(g_myWeap) == WeaponGroupHash::Melee) return;
+	if (GET_WEAPONTYPE_GROUP(g_myWeap) == WeaponGroupHash::Melee)
+		return;
 
 	DISABLE_CONTROL_ACTION(0, INPUT_ATTACK, TRUE);
 	DISABLE_CONTROL_ACTION(2, INPUT_ATTACK2, TRUE);
@@ -862,7 +871,7 @@ void set_rapid_fire()
 	{
 		Player playerPed = PLAYER_PED_ID();
 		GTAentity gunObj = GET_CURRENT_PED_WEAPON_ENTITY_INDEX(playerPed);
-		Vector3& launchPos = gunObj.GetOffsetInWorldCoords(0, gunObj.Dim1().y, 0); //get_coords_from_cam(GameplayCamera::Position_get().DistanceTo(GET_ENTITY_COORDS(GET_CURRENT_PED_WEAPON_ENTITY_INDEX(playerPed), 1)) + 0.3f);
+		//Vector3& launchPos = gunObj.GetOffsetInWorldCoords(0, gunObj.Dim1().y, 0); //get_coords_from_cam(GameplayCamera::Position_get().DistanceTo(GET_ENTITY_COORDS(GET_CURRENT_PED_WEAPON_ENTITY_INDEX(playerPed), 1)) + 0.3f);
 		/*	if (GET_WEAPONTYPE_GROUP(g_myWeap) == WeaponGroupHash::Throwable)
 		{
 		myPos = get_coords_from_cam(GameplayCamera::Position_get().DistanceTo(GET_ENTITY_COORDS(playerPed, 1)) + 0.56f);
@@ -871,8 +880,12 @@ void set_rapid_fire()
 		{
 		myPos = GTAentity(GET_CURRENT_PED_WEAPON_ENTITY_INDEX(playerPed)).GetBoneCoords("Gun_Nuzzle");
 		}*/
-		Vector3& targPos = GameplayCamera::RaycastForCoord(Vector2(0.0f, 0.0f), gunObj, 340.0f, 200.0f); //get_coords_from_cam(340.0f);
-		 //Vector3& targPos = GameplayCamera::GetOffsetInWorldCoords(Vector3(0.0f, 340.0f, 0.0f));
+		//Vector3& targPos = GameplayCamera::RaycastForCoord(Vector2(0.0f, 0.0f), gunObj, 340.0f, 200.0f); //get_coords_from_cam(340.0f);
+		// //Vector3& targPos = GameplayCamera::GetOffsetInWorldCoords(Vector3(0.0f, 340.0f, 0.0f));
+		Vector3& camDir = GameplayCamera::DirectionFromScreenCentre_get();
+		Vector3& camPos = GameplayCamera::Position_get();
+		Vector3& launchPos = camPos + (camDir * (camPos.DistanceTo(gunObj.Position_get()) + 0.4f));
+		Vector3& targPos = camPos + (camDir * 200.0f);
 
 		CLEAR_AREA_OF_PROJECTILES(launchPos.x, launchPos.y, launchPos.z, 6.0f, 0);
 
@@ -886,7 +899,8 @@ void set_rapid_fire()
 }
 void set_soulswitch_gun()
 {
-	if (g_myWeap != WEAPON_COMBATPISTOL) return;
+	if (g_myWeap != WEAPON_COMBATPISTOL)
+		return;
 
 	DISABLE_CONTROL_ACTION(0, INPUT_ATTACK, TRUE);
 	DISABLE_CONTROL_ACTION(2, INPUT_ATTACK2, TRUE);
@@ -900,8 +914,10 @@ void set_soulswitch_gun()
 	{
 		GTAentity soulswitchentity = ehandle;
 
-		if (soulswitchentity.IsPed() && soulswitchentity.IsAlive() && (IS_DISABLED_CONTROL_JUST_PRESSED(0, INPUT_ATTACK) || (IS_PED_IN_ANY_VEHICLE(playerPed.Handle(), false) && IS_DISABLED_CONTROL_JUST_PRESSED(2, INPUT_VEH_ATTACK))))
+		if (soulswitchentity.IsPed() && soulswitchentity.IsAlive()
+			&& (IS_DISABLED_CONTROL_JUST_PRESSED(0, INPUT_ATTACK) || (IS_PED_IN_ANY_VEHICLE(playerPed.Handle(), false) && IS_DISABLED_CONTROL_JUST_PRESSED(2, INPUT_VEH_ATTACK))))
 		{
+			ige::myLog << ige::LogType::LOG_INFO << "set_soulswitch_gun Game::Sound::PlayFrontend";
 			Game::Sound::PlayFrontend("Knuckle_Crack_Hard_Cel", "MP_SNACKS_SOUNDSET");
 			_START_SCREEN_EFFECT("MinigameEndNeutral", 0, 0); // FocusIn
 			set_become_ped(soulswitchentity);
@@ -909,7 +925,8 @@ void set_soulswitch_gun()
 			SET_PAD_SHAKE(0, 4000, 210);
 			STOP_PAD_SHAKE(0);
 
-			if (Static_241 == playerPed.Handle()) Static_241 = PLAYER_PED_ID();
+			if (Static_241 == playerPed.Handle())
+				Static_241 = PLAYER_PED_ID();
 
 			soulswitchentity.Handle() = 0;
 			sub::Spooner::SpoonerEntity spe;
@@ -937,7 +954,7 @@ void set_self_deleteGun()
 	{
 		if (IS_PED_SHOOTING(PLAYER_PED_ID()))
 		{
-			auto& targEntity = World::EntityFromAimCamRay();
+			GTAentity& targEntity = World::EntityFromAimCamRay();
 
 			if (targEntity.Handle())
 			{
@@ -1248,7 +1265,7 @@ void set_forge_gun()
 {
 	Ped tempPed = PLAYER_ID();
 
-	if ((IS_PLAYER_FREE_AIMING(tempPed) || IS_PLAYER_TARGETTING_ANYTHING(tempPed)) && g_myWeap == WEAPON_PISTOL)
+	if (g_myWeap == WEAPON_PISTOL && (IS_PLAYER_FREE_AIMING(tempPed) || IS_PLAYER_TARGETTING_ANYTHING(tempPed)))
 	{
 		if (!DOES_ENTITY_EXIST(targ_slot_entity) || bit_grav_gun_disabled)
 			return;
@@ -2721,8 +2738,11 @@ void Menu::loops()
 		g_myVeh = GET_VEHICLE_PED_IS_IN(PLAYER_PED_ID(), 0);
 		g_myVeh_model = GET_ENTITY_MODEL(g_myVeh);
 	} // Store current vehicle
+
 	if (!IS_PLAYER_DEAD(PLAYER_ID()))
-		GET_CURRENT_PED_WEAPON(PLAYER_PED_ID(), &g_myWeap, 1);
+	{
+		GET_CURRENT_PED_WEAPON(PLAYER_PED_ID(), &g_myWeap, 1); // Breaks with /o2 optimisation
+	}
 
 	if (loop_RainbowBoxes /* && GET_GAME_TIMER() >= delayedTimer*/)
 	{
@@ -2922,7 +2942,7 @@ void Menu::loops()
 		SET_EXPLOSIVE_MELEE_THIS_FRAME(PLAYER_ID());
 	if (loop_flaming_rounds)
 		SET_FIRE_AMMO_THIS_FRAME(PLAYER_ID());
-	if (bit_infinite_ammo && bit_infinite_ammo_enth != PLAYER_PED_ID() || GET_TIME_SINCE_LAST_DEATH() < 10000)
+	if (bit_infinite_ammo && (bit_infinite_ammo_enth != PLAYER_PED_ID() || GET_TIME_SINCE_LAST_DEATH() < 10000))
 	{
 		SET_PED_INFINITE_AMMO_CLIP(PLAYER_PED_ID(), true);
 		bit_infinite_ammo_enth = PLAYER_PED_ID();

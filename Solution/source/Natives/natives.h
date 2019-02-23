@@ -2746,7 +2746,7 @@ namespace WEAPON
 	static Hash GET_WEAPONTYPE_SLOT(Hash weaponHash) { return invoke<Hash>(0x4215460B9B8B7FA0, weaponHash); } // 0x4215460B9B8B7FA0 0x2E3759AF
 	static Hash GET_WEAPONTYPE_GROUP(Hash weaponHash) { return invoke<Hash>(0xC3287EE3050FB74C, weaponHash); } // 0xC3287EE3050FB74C 0x5F2DE833
 	static void SET_CURRENT_PED_WEAPON(Ped ped, Hash weaponHash, BOOL equipNow) { invoke<Void>(0xADF692B254977C0C, ped, weaponHash, equipNow); } // 0xADF692B254977C0C 0xB8278882
-	static BOOL GET_CURRENT_PED_WEAPON(Ped ped, Hash* weaponHash, BOOL p2) { return invoke<BOOL>(0x3A87E44BB9A01D54, ped, weaponHash, p2); } // 0x3A87E44BB9A01D54 0xB0237302
+	static BOOL GET_CURRENT_PED_WEAPON(Ped ped, Hash* weaponHash, BOOL unused) { return invoke<BOOL>(0x3A87E44BB9A01D54, ped, weaponHash, unused); } // 0x3A87E44BB9A01D54 0xB0237302
 	static Entity GET_CURRENT_PED_WEAPON_ENTITY_INDEX(Ped ped) { return invoke<Entity>(0x3B390A939AF0B5FC, ped); } // 0x3B390A939AF0B5FC 0x5D73CD20
 	static Hash GET_BEST_PED_WEAPON(Ped ped, BOOL p1) { return invoke<Hash>(0x8483E98E8B888AE2, ped, p1); } // 0x8483E98E8B888AE2 0xB998D444
 	static BOOL SET_CURRENT_PED_VEHICLE_WEAPON(Ped ped, Hash weaponHash) { return invoke<BOOL>(0x75C55983C2C39DAA, ped, weaponHash); } // 0x75C55983C2C39DAA 0x8E6F2AF1
