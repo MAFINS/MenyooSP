@@ -15,7 +15,7 @@
 #include <utility>
 #include <set>
 
-typedef unsigned __int8 UINT8, BYTE;
+typedef unsigned char UINT8, BYTE;
 typedef unsigned short UINT16;
 
 class Camera;

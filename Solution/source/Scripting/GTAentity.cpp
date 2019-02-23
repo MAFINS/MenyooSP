@@ -54,12 +54,13 @@ bool operator > (const GTAentity& left, const GTAentity& right)
 	return left.mHandle > right.mHandle;
 }
 
-GTAentity::GTAentity() : mHandle(0)
+GTAentity::GTAentity()
+	: mHandle(0)
 {
 }
 GTAentity::GTAentity(int handle)
+	: mHandle(handle)
 {
-	mHandle = handle;
 }
 
 int& GTAentity::Handle()

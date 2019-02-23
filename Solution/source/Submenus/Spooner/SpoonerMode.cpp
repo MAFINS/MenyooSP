@@ -21,6 +21,7 @@
 #include "..\..\Scripting\GTAprop.h"
 #include "..\..\Scripting\GTAvehicle.h"
 #include "..\..\Scripting\GTAped.h"
+#include "..\..\Scripting\GTAplayer.h"
 #include "..\..\Util\GTAmath.h"
 #include "..\..\Natives\types.h" //RGBA
 #include "..\..\Scripting\World.h"
@@ -88,12 +89,14 @@ namespace sub::Spooner
 				}
 				if (info.model.hash != 0)
 				{
-					if (info.model.IsLoaded()) info.model.Unload();
+					if (info.model.IsLoaded())
+						info.model.Unload();
 					info.model = 0;
 				}
 				if (info.previousModel.hash != 0)
 				{
-					if (info.previousModel.IsLoaded()) info.previousModel.Unload();
+					if (info.previousModel.IsLoaded())
+						info.previousModel.Unload();
 					info.previousModel = 0;
 				}
 			}
@@ -202,8 +205,8 @@ namespace sub::Spooner
 					: get_vehicle_model_label(outEntity_model, true));
 			if (outEntity->HashName.length() == 0) outEntity->HashName = int_to_hexstring(outEntity_model.hash, true);
 			outEntity->Dynamic = !outEntity->Handle.IsPositionFrozen();//outEntity->Type == EntityType::PED || outEntity->Type == EntityType::VEHICLE;
-																	   //outEntity->LastAnimation.dict.clear();
-																	   //outEntity->LastAnimation.name.clear();
+			//outEntity->LastAnimation.dict.clear();
+			//outEntity->LastAnimation.name.clear();
 			outEntity->IsStill = false;
 
 			auto idindb = EntityManagement::GetEntityIndexInDb(*outEntity);
@@ -242,9 +245,11 @@ namespace sub::Spooner
 			if (IS_PAUSE_MENU_ACTIVE())
 				return;
 
+			GTAplayer myPlayer = Game::Player();
+			GTAped myPed = Game::PlayerPed();
+
 			Camera& freeCam = SpoonerMode::spoonerModeCamera;
 			float& freeCamCamDistance = SpoonerMode::spoonerModeCameraCamDistance;
-			GTAped myPed = PLAYER_PED_ID();
 
 			if (SpoonerMode::bEnabled)
 			{
@@ -286,7 +291,7 @@ namespace sub::Spooner
 					freeCam.SetActive(true);
 					Camera::RenderScriptCams(true);
 				}
-				SET_PLAYER_CONTROL(PLAYER_ID(), false, 0);
+				myPlayer.SetControl(false, 0);
 				DISABLE_ALL_CONTROL_ACTIONS(0);
 				DISABLE_ALL_CONTROL_ACTIONS(2);
 				ENABLE_CONTROL_ACTION(2, INPUT_FRONTEND_PAUSE, true);
@@ -296,7 +301,7 @@ namespace sub::Spooner
 				Vector3 nextRot;
 
 				Vector3& coordInFrontOfCam = freeCam.RaycastForCoord(Vector2(0.0f, 0.0f), 0, 160.0f, 3.0f);
-				GTAentity& entityInFrontOfCam = freeCam.RaycastForEntity(Vector2(0.0f, 0.0f), 0, 160.0f); // Ignore myPed or nah??
+				GTAentity& entityInFrontOfCam = freeCam.RaycastForEntity(Vector2(0.0f, 0.0f), 0, 160.0f);
 
 				if (Menu::bit_controller) // If controller
 				{
@@ -864,7 +869,7 @@ namespace sub::Spooner
 					//myPed.Position_set(freeCam.Position_get() - Vector3(0, 0, 5.0f));
 					//myPed.PlaceOnGround();
 
-					SET_PLAYER_CONTROL(PLAYER_ID(), true, 0);
+					myPlayer.SetControl(true, 0);
 
 					bIsSomethingHeld = false;
 					bHeldEntityHasCollision = true;
@@ -872,7 +877,7 @@ namespace sub::Spooner
 					freeCam.SetActive(false);
 					freeCam.Destroy();
 					World::RenderingCamera_set(0);
-					freeCam.Handle() = 0;
+					freeCam = Camera();
 				}
 			}
 		}
