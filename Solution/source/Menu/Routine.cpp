@@ -825,10 +825,10 @@ void set_player_triggerbot(GTAplayer player)
 
 				if (IS_WEAPON_VALID(weap))
 				{
-					static const std::array<int, 11> _triggerbot_bonelist
+					static const std::array<int, 1> _triggerbot_bonelist
 					{ {
 							Bone::SKEL_Head,
-							Bone::SKEL_L_Hand,
+							/*Bone::SKEL_L_Hand,
 							Bone::SKEL_L_Forearm,
 							Bone::SKEL_L_UpperArm,
 							Bone::SKEL_R_Hand,
@@ -837,7 +837,7 @@ void set_player_triggerbot(GTAplayer player)
 							Bone::SKEL_Pelvis,
 							Bone::SKEL_L_Thigh,
 							Bone::SKEL_L_Foot,
-							Bone::SKEL_R_Foot
+							Bone::SKEL_R_Foot*/
 						} };
 					Vector3& targetPos = GET_PED_BONE_COORDS(target.Handle(), _triggerbot_bonelist[rand() % _triggerbot_bonelist.size()], 0.0f, 0.0f, 0.0f);
 					if (player.Handle() == PLAYER_ID())
