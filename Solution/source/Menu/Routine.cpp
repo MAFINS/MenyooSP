@@ -917,7 +917,6 @@ void set_soulswitch_gun()
 		if (soulswitchentity.IsPed() && soulswitchentity.IsAlive()
 			&& (IS_DISABLED_CONTROL_JUST_PRESSED(0, INPUT_ATTACK) || (IS_PED_IN_ANY_VEHICLE(playerPed.Handle(), false) && IS_DISABLED_CONTROL_JUST_PRESSED(2, INPUT_VEH_ATTACK))))
 		{
-			ige::myLog << ige::LogType::LOG_INFO << "set_soulswitch_gun Game::Sound::PlayFrontend";
 			Game::Sound::PlayFrontend("Knuckle_Crack_Hard_Cel", "MP_SNACKS_SOUNDSET");
 			_START_SCREEN_EFFECT("MinigameEndNeutral", 0, 0); // FocusIn
 			set_become_ped(soulswitchentity);
