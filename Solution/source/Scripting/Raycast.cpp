@@ -50,25 +50,14 @@ RaycastResult::RaycastResult(int handle)
 	this->mHitCoords = hitCoords;
 	this->mSurfaceNormal = surfaceNormal;
 
-	if (!DOES_ENTITY_EXIST(enthandle))
-	{
-		this->mHitEntity.Handle() = (0);
-	}
-	/*else if (IS_ENTITY_A_PED(enthandle))
-	{
-		this->mHitEntity = GTAped(enthandle);
-	}
-	else if (IS_ENTITY_A_VEHICLE(enthandle))
-	{
-		this->mHitEntity = GTAvehicle(enthandle);
-	}
-	else if (IS_ENTITY_AN_OBJECT(enthandle))
-	{
-		this->mHitEntity = GTAprop(enthandle);
-	}*/
-	else
+	if (DOES_ENTITY_EXIST(enthandle) && (IS_ENTITY_A_PED(enthandle) || IS_ENTITY_A_VEHICLE(enthandle) || IS_ENTITY_AN_OBJECT(enthandle)))
 	{
 		this->mHitEntity = enthandle;
+	}
+	else
+	{
+		this->mHitEntity = GTAentity();
+		
 	}
 }
 

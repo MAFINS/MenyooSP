@@ -252,7 +252,8 @@ namespace sub
 				}
 
 				playerPed.GiveWeaponsFromArray(weaponsBackup);
-				if (IS_WEAPON_VALID(currWeaponHash)) playerPed.Weapon_set(currWeaponHash);
+				if (IS_WEAPON_VALID(currWeaponHash))
+					playerPed.Weapon_set(currWeaponHash);
 
 				SET_PED_INFINITE_AMMO_CLIP(playerPed.Handle(), bit_infinite_ammo);
 
@@ -262,7 +263,8 @@ namespace sub
 					GTAentity oldPlayerPed = spe.Handle;
 					spe.Handle = playerPed;
 					spe.HashName = get_ped_model_label(model, true);
-					if (spe.HashName.length() == 0) int_to_hexstring(model.hash, true);
+					if (spe.HashName.length() == 0)
+						int_to_hexstring(model.hash, true);
 					spe.LastAnimation.dict.clear();
 					spe.LastAnimation.name.clear();
 					if (att.Exists() && spe.AttachmentArgs.isAttached)
