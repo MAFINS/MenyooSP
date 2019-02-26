@@ -2943,8 +2943,8 @@ void Menu::loops()
 		SET_FIRE_AMMO_THIS_FRAME(PLAYER_ID());
 	if (bit_infinite_ammo && (bit_infinite_ammo_enth != PLAYER_PED_ID() || GET_TIME_SINCE_LAST_DEATH() < 10000))
 	{
-		SET_PED_INFINITE_AMMO_CLIP(PLAYER_PED_ID(), true);
 		bit_infinite_ammo_enth = PLAYER_PED_ID();
+		SET_PED_INFINITE_AMMO_CLIP(bit_infinite_ammo_enth, true);
 	}
 	if (loop_self_inf_parachutes)
 		give_ped_parachute(PLAYER_PED_ID());
