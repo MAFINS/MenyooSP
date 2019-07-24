@@ -42,6 +42,11 @@
 		<Vehicle name="TYRANT" />
 		<Vehicle name="SCRAMJET" />
 		<Vehicle name="DEVESTE" />
+		<Vehicle name="KRIEGER" />
+		<Vehicle name="S80" />
+		<Vehicle name="THRAX" />
+		<Vehicle name="ZORRUSSO" />
+		<Vehicle name="EMERUS" />
 	</Category>
 	<Category name="Coupe">
 		<Vehicle name="COGCABRIO" />
@@ -58,6 +63,7 @@
 		<Vehicle name="WINDSOR2" />
 		<Vehicle name="ZION" />
 		<Vehicle name="ZION2" />
+		<Vehicle name="ZION3" />
 	</Category>
 	<Category name="Sport">
 		<Vehicle name="ALPHA" />
@@ -74,6 +80,7 @@
 		<Vehicle name="COMET4" />
 		<Vehicle name="COMET5" />
 		<Vehicle name="COQUETTE" />
+		<Vehicle name="DRAFTER" />
 		<Vehicle name="ELEGY2" />
 		<Vehicle name="ELEGY" />
 		<Vehicle name="FELTZER2" />
@@ -82,9 +89,12 @@
 		<Vehicle name="FUTO" />
 		<Vehicle name="JESTER" />
 		<Vehicle name="JESTER2" />
+		<Vehicle name="JUGULAR" />
 		<Vehicle name="KHAMELION" />
 		<Vehicle name="KURUMA" />
 		<Vehicle name="KURUMA2" />
+		<Vehicle name="LOCUST" />
+		<Vehicle name="NEO" />
     	<Vehicle name="LYNX" />
 		<Vehicle name="MAMBA" />
 		<Vehicle name="MASSACRO" />
@@ -132,6 +142,8 @@
 		<Vehicle name="BTYPE2" />
 		<Vehicle name="GAUNTLET" />
 		<Vehicle name="GAUNTLET2" />
+		<Vehicle name="GAUNTLET3" />
+		<Vehicle name="GAUNTLET4" />
 		<Vehicle name="HOTKNIFE" />
 		<Vehicle name="MINIVAN2" />
 		<Vehicle name="NIGHTSHADE" />
@@ -183,6 +195,7 @@
 		<Vehicle name="COQUETTE2" />
 		<Vehicle name="COQUETTE3" />
 		<Vehicle name="DELUXO" />
+		<Vehicle name="DYNASTY" />
 		<Vehicle name="FELTZER3" />
 		<Vehicle name="GT500" />
 		<Vehicle name="HERMES" />
@@ -192,7 +205,9 @@
 		<Vehicle name="LURCHER" />
 		<Vehicle name="MANANA" />
 		<Vehicle name="MONROE" />
+		<Vehicle name="NEBULA" />
 		<Vehicle name="PEYOTE" />
+		<Vehicle name="PEYOTE2" />
 		<Vehicle name="PIGALLE" />
 		<Vehicle name="RAPIDGT3" />
 		<Vehicle name="RETINUE" />
@@ -297,6 +312,8 @@
 		<Vehicle name="WASHINGTON" />
 		<Vehicle name="CHEBUREK" />
 		<Vehicle name="STAFFORD" />
+		<Vehicle name="PARAGON" />
+		<Vehicle name="PARAGON2" />
 	</Category>
 	<Category name="Offroad">
 		<Vehicle name="BARRAGE" />
@@ -309,7 +326,7 @@
 		<Vehicle name="BLAZER5" /><!-- Blazer Aqua - Blazer ?? -->
 		<Vehicle name="BODHI2" />
 		<Vehicle name="BRAWLER" />
-    	<Vehicle name="TROPHYTRUCK2" />
+    	        <Vehicle name="TROPHYTRUCK2" />
 		<Vehicle name="DLOADER" />
 		<Vehicle name="DUBSTA3" />
 		<Vehicle name="DUNE" />
@@ -338,9 +355,10 @@
 		<Vehicle name="TECHNICAL" />
 		<Vehicle name="TECHNICAL2" /><!-- Technical Aqua -->
 		<Vehicle name="TECHNICAL3" />
-    	<Vehicle name="TROPHYTRUCK" />
-    	<Vehicle name="YOSEMITE" />
+    	        <Vehicle name="TROPHYTRUCK" />
+    	        <Vehicle name="YOSEMITE" />
 		<Vehicle name="CARACARA" />
+		<Vehicle name="CARACARA2" />
 		<Vehicle name="MENACER" />
 		<Vehicle name="FREECRAWLER" />
 		<Vehicle name="BRUTUS" />
@@ -353,6 +371,7 @@
 		<Vehicle name="MONSTER4" />
 		<Vehicle name="MONSTER5" />
 		<Vehicle name="RCBANDITO" />
+		<Vehicle name="HELLION">
 	</Category>
 	<Category name="SUV">
 		<Vehicle name="BALLER" />
@@ -374,6 +393,7 @@
 		<Vehicle name="LANDSTALKER" />
 		<Vehicle name="MESA" />
 		<Vehicle name="MESA2" />
+		<Vehicle name="NOVAK" />
 		<Vehicle name="PATRIOT" />
 		<Vehicle name="RADI" />
 		<Vehicle name="ROCOTO" />
@@ -398,13 +418,14 @@
 		<Vehicle name="ISSI4" />
 		<Vehicle name="ISSI5" />
 		<Vehicle name="ISSI6" />
+		<Vehicle name="ISSI7" />
 	</Category>
 	<Category name="Pickup">
 		<Vehicle name="BISON" />
 		<Vehicle name="BISON2" />
 		<Vehicle name="BISON3" />
 		<Vehicle name="BOBCATXL" />
-    	<Vehicle name="CONTENDER" />
+    	        <Vehicle name="CONTENDER" />
 		<Vehicle name="RATLOADER" />
 		<Vehicle name="RATLOADER2" />
 		<Vehicle name="SADLER" />
@@ -587,6 +608,7 @@
 		<Vehicle name="DEATHBIKE" />
 		<Vehicle name="DEATHBIKE2" />
 		<Vehicle name="DEATHBIKE3" />
+		<Vehicle name="RROCKET" />
 	</Category>
 	<Category name="Bicycle">
 		<Vehicle name="BMX" />
