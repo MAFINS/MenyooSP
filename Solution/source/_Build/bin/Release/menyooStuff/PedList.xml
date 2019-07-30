@@ -9,7 +9,7 @@
 		</Category>
 	<Category name="Animal">
 		<Ped name="a_c_shepherd" caption="Australian Shepherd" />
-		<!-- <Ped name="a_c_boar" caption="Boar" /> --> <!-- ew -->
+		<Ped name="a_c_boar" caption="Boar" />
 		<Ped name="a_c_cat_01" caption="Cat" />
 		<Ped name="a_c_chimp" caption="Chimp" />
 		<Ped name="a_c_chop" caption="Chop" />
@@ -27,7 +27,7 @@
 		<Ped name="a_c_husky" caption="Husky" />
 		<Ped name="a_c_killerwhale" caption="Killer Whale" />
 		<Ped name="a_c_mtlion" caption="Mountain Lion" />
-		<!-- <Ped name="a_c_pig" caption="Pig" /> --> <!-- ew -->
+		<Ped name="a_c_pig" caption="Pig" />
 		<Ped name="a_c_pigeon" caption="Pigeon" />
 		<Ped name="a_c_poodle" caption="Poodle" />
 		<Ped name="a_c_pug" caption="Pug" />
@@ -73,6 +73,8 @@
 		<Ped name="a_f_y_fitness_02" caption="Fitness Female 2" />
 		<Ped name="a_f_y_genhot_01" caption="General Hot Young Female" />
 		<Ped name="a_f_o_genstreet_01" caption="General Street Old Female" />
+		<Ped name="a_f_y_gencaspat_01" caption="Casual Casino Guest" />
+		<Ped name="a_f_y_smartcaspat_01" caption="Formel Casino Guest" />
 		<Ped name="a_f_y_golfer_01" caption="Golfer Young Female" />
 		<Ped name="a_f_y_hiker_01" caption="Hiker Female" />
 		<Ped name="a_f_y_hippie_01" caption="Hippie Female" />
@@ -127,6 +129,9 @@
 		<Ped name="a_m_m_beach_02" caption="Beach Male 2" />
 		<Ped name="a_m_y_musclbeac_01" caption="Beach Muscle Male" />
 		<Ped name="a_m_y_musclbeac_02" caption="Beach Muscle Male 2" />
+		<Ped name="a_m_m_mlcrisis_01" caption="Midlife Crisis Casino Bikers" />
+		<Ped name="a_m_y_gencaspat_01" caption="Casual Casino Guests" />
+		<Ped name="a_m_y_smartcaspat_01" caption="Formel Casino Guests" />
 		<Ped name="a_m_o_beach_01" caption="Beach Old Male" />
 		<Ped name="a_m_m_trampbeac_01" caption="Beach Tramp Male" />
 		<Ped name="a_m_y_beach_01" caption="Beach Young Male" />
@@ -247,6 +252,8 @@
 	<Category name="Cutscene">
 		<Ped name="csb_abigail" caption="Abigail Mathers" />
 		<Ped name="csb_agent" caption="Agent" />
+		<Ped name="csb_agatha" caption="Agatha Baker" />
+		<Ped name="csb_avery" caption="Avery Duggan" />
 		<Ped name="csb_mp_agent14" caption="Agent 14" />
 		<Ped name="cs_amandatownley" caption="Amanda De Santa" />
 		<Ped name="cs_andreas" caption="Andreas Sanchez" />
@@ -258,6 +265,7 @@
 		<Ped name="cs_bankman" caption="Bank Manager" />
 		<Ped name="cs_barry" caption="Barry" />
 		<Ped name="cs_beverly" caption="Beverly Felton" />
+		<Ped name="csb_brucie2" caption="Brucie Kibbutz" />
 		<Ped name="cs_orleans" caption="Bigfoot" />
 		<Ped name="csb_bogdan" caption="Bogdan" />
 		<Ped name="cs_brad" caption="Brad" />
@@ -365,16 +373,21 @@
 		<Ped name="csb_stripper_02" caption="Stripper 2" />
 		<Ped name="cs_tanisha" caption="Tanisha" />
 		<Ped name="cs_taocheng" caption="Tao Cheng" />
+		<Ped name="cs_taocheng2" caption="Tao Cheng (Casino)" />
 		<Ped name="cs_taostranslator" caption="Tao's Translator" />
+		<Ped name="cs_taostranslator2" caption="Tao's Translator (Casino)" />
 		<Ped name="cs_tenniscoach" caption="Tennis Coach" />
 		<Ped name="cs_terry" caption="Terry" />
 		<Ped name="cs_tom" caption="Tom" />
+		<Ped name="csb_tomcasino" caption="Tom Connors" />
 		<Ped name="csb_tonya" caption="Tonya" />
+		<Ped name="csb_thornton" caption="Thornton Duggan" />
 		<Ped name="cs_tracydisanto" caption="Tracey De Santa" />
 		<Ped name="csb_trafficwarden" caption="Traffic Warden" />
 		<Ped name="csb_undercover" caption="Undercover Cop" />
 		<Ped name="cs_paper" caption="United Paper Man" />
 		<Ped name="csb_vagspeak" caption="Vagos Speak" />
+		<Ped name="csb_vincent" caption="Vincent (Casino)" />
 		<Ped name="cs_wade" caption="Wade" />
 		<Ped name="cs_chengsr" caption="Wei Cheng" />
 		<Ped name="cs_zimbor" caption="Zimbor" />
@@ -407,6 +420,7 @@
 		<Ped name="g_m_y_ballaeast_01" caption="Ballas East Male" />
 		<Ped name="g_m_y_ballaorig_01" caption="Ballas Original Male" />
 		<Ped name="g_m_y_ballasout_01" caption="Ballas South Male" />
+		<Ped name="g_m_m_casrn_01" caption="Casino Guests?" />
 		<Ped name="g_m_m_chemwork_01" caption="Chemical Plant Worker" />
 		<Ped name="g_m_m_chiboss_01" caption="Chinese Boss" />
 		<Ped name="g_m_m_chigoon_01" caption="Chinese Goon" />
@@ -443,6 +457,8 @@
 		<Ped name="player_two" caption="Trevor" />
 		<Ped name="ig_abigail" caption="Abigail Mathers" />
 		<Ped name="ig_agent" caption="Agent" />
+		<Ped name="ig_agatha" caption="Agatha Baker" />
+		<Ped name="ig_avery" caption="Avery Duggan" />
 		<Ped name="ig_mp_agent14" caption="Agent 14" />
 		<Ped name="ig_amandatownley" caption="Amanda De Santa" />
 		<Ped name="ig_andreas" caption="Andreas Sanchez" />
@@ -454,6 +470,7 @@
 		<Ped name="ig_barry" caption="Barry" />
 		<Ped name="ig_bestmen" caption="Best Man" />
 		<Ped name="ig_beverly" caption="Beverly Felton" />
+		<Ped name="ig_brucie2" caption="Brucie Kibbutz" />
 		<Ped name="ig_orleans" caption="Bigfoot" />
 		<Ped name="ig_brad" caption="Brad" />
 		<Ped name="ig_bride" caption="Bride" />
@@ -539,7 +556,9 @@
 		<Ped name="ig_talina" caption="Talina" />
 		<Ped name="ig_tanisha" caption="Tanisha" />
 		<Ped name="ig_taocheng" caption="Tao Cheng" />
+		<Ped name="ig_taocheng2" caption="Tao Cheng (Casino)" />
 		<Ped name="ig_taostranslator" caption="Tao's Translator" />
+		<Ped name="ig_taostranslator2" caption="Tao's Translator (Casino)" />
 		<Ped name="ig_tenniscoach" caption="Tennis Coach" />
 		<Ped name="ig_terry" caption="Terry" />
 		<Ped name="ig_tonya" caption="Tonya" />
@@ -575,6 +594,9 @@
 		<Ped name="ig_tylerdix_02" caption="Tyler Dixon 2" />
 		<Ped name="ig_tonyprince" caption="Tony Prince" />
 		<Ped name="ig_sacha" caption="Sacha Yetarian" />
+		<Ped name="ig_thornton" caption="Thornton Duggan" />
+		<Ped name="ig_tomcasino" caption="Tom Connors" />
+		<Ped name="ig_vincent" caption="Vincent (Casino)" />
 	</Category>
 	<Category name="Multiplayer">
 		<Ped name="mp_s_m_armoured_01" caption="Armoured Van Security Male" />
@@ -623,6 +645,7 @@
 		<Ped name="s_f_m_fembarber" caption="Barber Female" />
 		<Ped name="s_f_y_bartender_01" caption="Bartender" />
 		<Ped name="s_f_y_baywatch_01" caption="Baywatch Female" />
+		<Ped name="s_f_y_casino_01" caption="Casino Staff" />
 		<Ped name="s_f_y_cop_01" caption="Cop Female" />
 		<Ped name="s_f_y_factory_01" caption="Factory Worker Female" />
 		<Ped name="s_f_y_hooker_01" caption="Hooker" />
@@ -664,6 +687,7 @@
 		<Ped name="s_m_m_bouncer_01" caption="Bouncer" />
 		<Ped name="s_m_y_busboy_01" caption="Busboy" />
 		<Ped name="s_m_o_busker_01" caption="Busker" />
+		<Ped name="s_m_y_casino_01" caption="Casino Staff" />
 		<Ped name="s_m_y_chef_01" caption="Chef" />
 		<Ped name="s_m_m_chemsec_01" caption="Chemical Plant Security" />
 		<Ped name="s_m_y_clown_01" caption="Clown" />
@@ -739,6 +763,7 @@
 		<Ped name="s_m_y_uscg_01" caption="US Coastguard" />
 		<Ped name="s_m_y_valet_01" caption="Valet" />
 		<Ped name="s_m_y_waiter_01" caption="Waiter" />
+		<Ped name="s_m_y_westsec_01" caption="Duggan Secruity" />
 		<Ped name="s_m_y_winclean_01" caption="Window Cleaner" />
 		<Ped name="s_m_y_clubbar_01" caption="Club Bartender Male" />
 		<Ped name="s_m_y_waretech_01" caption="Warehouse Technician" />
@@ -746,6 +771,14 @@
 	<Category name="StoryScenarioFemale">
 		<Ped name="u_f_y_bikerchic" caption="Biker Chic Female" />
 		<Ped name="u_f_m_corpse_01" caption="Corpse Female" />
+		<Ped name="u_f_m_casinocash_01" caption="Casino Cashier" />
+		<Ped name="u_f_m_casinoshop_01" caption="Casino shop owner" />
+		<Ped name="u_f_m_debbie_01" caption="Debbie (Agatha´s Secretary)" />
+		<Ped name="u_f_o_carol" caption="Carol" />
+		<Ped name="u_f_o_eileen" caption="Eileen" />
+		<Ped name="u_f_y_beth" caption="Beth" />
+		<Ped name="u_f_y_lauren" caption="Lauren" />
+		<Ped name="u_f_y_taylor" caption="Taylor" />
 		<Ped name="u_f_y_corpse_01" caption="Corpse Young Female" />
 		<Ped name="u_f_y_corpse_02" caption="Corpse Young Female 2" />
 		<Ped name="u_f_y_hotposh_01" caption="Hot Posh Female" />
@@ -773,6 +806,14 @@
 		<Ped name="u_m_y_babyd" caption="Baby D" />
 		<Ped name="u_m_m_bankman" caption="Bank Manager Male" />
 		<Ped name="u_m_m_bikehire_01" caption="Bike Hire Guy" />
+		<Ped name="u_m_m_blane" caption="Blane" />
+		<Ped name="u_m_m_curtis" caption="Curtis" />
+		<Ped name="u_m_m_vince" caption="Vince" />
+		<Ped name="u_m_o_dean" caption="Dean" />
+		<Ped name="u_m_y_caleb" caption="Caleb" />
+		<Ped name="u_m_y_croupthief_01" caption="Casino Thief" />
+		<Ped name="u_m_y_gabriel" caption="Gabriel" />
+		<Ped name="u_m_y_ushi" caption="Ushi" />
 		<Ped name="u_m_y_burgerdrug_01" caption="Burger Drug Worker" />
 		<Ped name="u_m_y_chip" caption="Chip" />
 		<Ped name="u_m_y_cyclist_01" caption="Cyclist Male" />
@@ -822,7 +863,7 @@
 		<Ped name="u_m_y_dancelthr_01" caption="Male Club Dancer (Leather)" />
 		<Ped name="u_m_y_dancerave_01" caption="Male Club Dancer (Rave)" />
 	</Category>
-	<Category name="Others">
+	<Category name="SP Heist Crew">
 		<Ped name="hc_driver" caption="Jewel Heist Driver" />
 		<Ped name="hc_gunman" caption="Jewel Heist Gunman" />
 		<Ped name="hc_hacker" caption="Jewel Heist Hacker" />
