@@ -863,7 +863,7 @@
 		<Ped name="u_m_y_dancelthr_01" caption="Male Club Dancer (Leather)" />
 		<Ped name="u_m_y_dancerave_01" caption="Male Club Dancer (Rave)" />
 	</Category>
-	<Category name="SP Heist Crew">
+	<Category name="Others">
 		<Ped name="hc_driver" caption="Jewel Heist Driver" />
 		<Ped name="hc_gunman" caption="Jewel Heist Gunman" />
 		<Ped name="hc_hacker" caption="Jewel Heist Hacker" />
