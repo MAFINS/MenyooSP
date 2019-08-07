@@ -1,3 +1,6 @@
+[![Build status](https://ci.appveyor.com/api/projects/status/0umw01h20wsbiv1q?svg=true)](https://ci.appveyor.com/project/MAFINS/menyoosp)
+[![GitHub total downloads](https://img.shields.io/github/downloads/MAFINS/MenyooSP/total?label=downloads&logo=GitHub)](https://github.com/MAFINS/MenyooSP/releases)
+
 # Menyoo PC
 ### a.k.a. MenyooSP
 #### Trainer for Grand Theft Auto V (single-player).
