@@ -95,15 +95,15 @@
 		<Vehicle name="KURUMA2" />
 		<Vehicle name="LOCUST" />
 		<Vehicle name="NEO" />
-    	<Vehicle name="LYNX" />
+		<Vehicle name="LYNX" />
 		<Vehicle name="MAMBA" />
 		<Vehicle name="MASSACRO" />
 		<Vehicle name="MASSACRO2" />
 		<Vehicle name="NEON" />
 		<Vehicle name="NINEF" />
 		<Vehicle name="NINEF2" />
-    	<Vehicle name="OMNIS" />
-    	<Vehicle name="PARIAH" />
+		<Vehicle name="OMNIS" />
+		<Vehicle name="PARIAH" />
 		<Vehicle name="PENUMBRA" />
 		<Vehicle name="RAIDEN" />
 		<Vehicle name="RAPIDGT" />
@@ -117,7 +117,7 @@
 		<Vehicle name="SPECTER2" />
 		<Vehicle name="SULTAN" />
 		<Vehicle name="SURANO" />
-   		<Vehicle name="TROPOS" />
+		<Vehicle name="TROPOS" />
 		<Vehicle name="VERLIERER2" />
 		<Vehicle name="GB200" />
 		<Vehicle name="HOTRING" />
@@ -256,8 +256,8 @@
 		<Vehicle name="MULE3" />
 		<Vehicle name="PACKER" />
 		<Vehicle name="PHANTOM" />
-   		<Vehicle name="PHANTOM2" /> <!-- Phantom Wedge -->
-   		<Vehicle name="PHANTOM3" />
+		<Vehicle name="PHANTOM2" /> <!-- Phantom Wedge -->
+		<Vehicle name="PHANTOM3" />
 		<Vehicle name="POUNDER" />
 		<Vehicle name="RUBBLE" />
 		<Vehicle name="SCRAP" />
@@ -326,7 +326,7 @@
 		<Vehicle name="BLAZER5" /><!-- Blazer Aqua - Blazer ?? -->
 		<Vehicle name="BODHI2" />
 		<Vehicle name="BRAWLER" />
-    	        <Vehicle name="TROPHYTRUCK2" />
+		<Vehicle name="TROPHYTRUCK2" />
 		<Vehicle name="DLOADER" />
 		<Vehicle name="DUBSTA3" />
 		<Vehicle name="DUNE" />
@@ -355,8 +355,8 @@
 		<Vehicle name="TECHNICAL" />
 		<Vehicle name="TECHNICAL2" /><!-- Technical Aqua -->
 		<Vehicle name="TECHNICAL3" />
-    	        <Vehicle name="TROPHYTRUCK" />
-    	        <Vehicle name="YOSEMITE" />
+		<Vehicle name="TROPHYTRUCK" />
+		<Vehicle name="YOSEMITE" />
 		<Vehicle name="CARACARA" />
 		<Vehicle name="CARACARA2" />
 		<Vehicle name="MENACER" />
@@ -425,7 +425,7 @@
 		<Vehicle name="BISON2" />
 		<Vehicle name="BISON3" />
 		<Vehicle name="BOBCATXL" />
-    	        <Vehicle name="CONTENDER" />
+		<Vehicle name="CONTENDER" />
 		<Vehicle name="RATLOADER" />
 		<Vehicle name="RATLOADER2" />
 		<Vehicle name="SADLER" />
@@ -456,7 +456,7 @@
 		<Vehicle name="SURFER2" />
 		<Vehicle name="TACO" />
 		<Vehicle name="YOUGA" />
-   		<Vehicle name="YOUGA2" />
+		<Vehicle name="YOUGA2" />
 		<Vehicle name="SPEEDO4" />
 	</Category>
 	<Category name="Service">
@@ -684,7 +684,6 @@
 		<Vehicle name="VALKYRIE2" />
 		<Vehicle name="VOLATUS" />
 		<Vehicle name="SEASPARROW" />
-		
 	</Category>
 	<Category name="Boat">
 		<Vehicle name="DINGHY" />
