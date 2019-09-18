@@ -18,7 +18,7 @@
 // version
 #define MENYOO_CURRENT_VER_ "1.0.1"
 
-#define GAME_PLAYERCOUNT 30
+#define GAME_PLAYERCOUNT 256
 
 
 
