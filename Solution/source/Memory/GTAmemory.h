@@ -359,7 +359,6 @@ public:
 
 	static void GenerateVehicleModelList();
 
-	static bool IsMultiplayer();
 	static INT32 TransitionStatus();
 
 	static uintptr_t FindPattern(const char *pattern, const char *mask);

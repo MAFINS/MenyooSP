@@ -270,7 +270,6 @@ UINT64 *GTAmemory::checkpointPoolAddress;
 float *GTAmemory::_readWorldGravityAddress, *GTAmemory::_writeWorldGravityAddress;
 UINT64 *GTAmemory::_gamePlayCameraAddr;
 int*GTAmemory:: _cursorSpriteAddr;
-bool* GTAmemory::_isMultiplayer = nullptr;
 INT32* GTAmemory::_transitionStatus = nullptr;
 
 UINT64 GTAmemory::_gxtLabelFromHashAddr1;
@@ -794,10 +793,6 @@ void GTAmemory::Init()
 	address = FindPattern("\x74\x11\x8B\xD1\x48\x8D\x0D\x00\x00\x00\x00\x45\x33\xC0", "xxxxxxx????xxx");
 	_cursorSpriteAddr = reinterpret_cast<int *>(*reinterpret_cast<int*>(address - 4) + address);
 
-	address = MemryScan::PatternScanner::FindPattern("88 05 ? ? ? ? E9 ? ? ? ? 48 8B 07");
-	address += 2;
-	_isMultiplayer = (bool*)(address + 4 + *(int*)(address));
-
 	address = FindPattern("\x48\x8B\xC7\xF3\x0F\x10\x0D", "xxxxxxx") - 0x1D;
 	address = address + *reinterpret_cast<int*>(address) + 4;
 	_gamePlayCameraAddr = reinterpret_cast<UINT64*>(*reinterpret_cast<int*>(address + 3) + address + 7);
@@ -912,10 +907,6 @@ bool GTAmemory::IsModelAPed(unsigned int modelHash)
 	return false;
 }
 
-bool GTAmemory::IsMultiplayer()
-{
-	return *_isMultiplayer;
-}
 INT32 GTAmemory::TransitionStatus()
 {
 	if (_transitionStatus != nullptr)
@@ -1628,6 +1619,8 @@ void GeneralGlobalHax::EnableBlockedMpVehiclesInSp(bool uSure)
 	case eGameVersion::VER_1_0_1604_0_NOSTEAM: case eGameVersion::VER_1_0_1604_0_STEAM:
 	case eGameVersion::VER_1_0_1604_1_NOSTEAM: case eGameVersion::VER_1_0_1604_1_STEAM:
 		*GTAmemory::GetGlobalPtr<INT32>(4266905) = uSure ? 1 : 0; break;
+	case eGameVersion::VER_1_0_1737_0_NOSTEAM: case eGameVersion::VER_1_0_1737_0_STEAM:
+                *GTAmemory::GetGlobalPtr<INT32>(4267883) = uSure ? 1 : 0; break;
 	}
 }
 
