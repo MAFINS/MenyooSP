@@ -1734,8 +1734,6 @@ int GeneralGlobalHax::GetVehicleBoostState()
 		auto gameVersion = GTAmemory::GetGameVersion();
 		if (gameVersion <= eGameVersion::VER_1_0_1604_1_NOSTEAM)
 			return *(GetMultilayerPointer<int*>(baddr, std::vector<DWORD>{0x8, 0xD28, 0x318}));
-		if (gameVersion <= eGameVersion::VER_1_0_1737_0_NOSTEAM)
-			return *(GetMultilayerPointer<int*>(baddr, std::vector<DWORD>{0x8, 0xD28, 0x318})); 
 		if (gameVersion <= eGameVersion::VER_1_0_1737_6_NOSTEAM)
 			return *(GetMultilayerPointer<int*>(baddr, std::vector<DWORD>{0x8, 0xD28, 0x318}));
 	}
@@ -1749,8 +1747,6 @@ void GeneralGlobalHax::SetVehicleBoostState(int value)
 		auto gameVersion = GTAmemory::GetGameVersion();
 		if (gameVersion <= eGameVersion::VER_1_0_1604_1_NOSTEAM)
 			*(GetMultilayerPointer<int*>(baddr, std::vector<DWORD>{0x8, 0xD28, 0x318})) = value;
-		if (gameVersion <= eGameVersion::VER_1_0_1737_0_NOSTEAM)
-			*(GetMultilayerPointer<int*>(baddr, std::vector<DWORD>{0x8, 0xD28, 0x318})) = value; 
 		if (gameVersion <= eGameVersion::VER_1_0_1737_6_NOSTEAM)
 			*(GetMultilayerPointer<int*>(baddr, std::vector<DWORD>{0x8, 0xD28, 0x318})) = value;
 	}
@@ -1765,8 +1761,6 @@ float* GeneralGlobalHax::GetVehicleBoostChargePtr()
 			return (GetMultilayerPointer<float*>(baddr, std::vector<DWORD>{0x8, 0xD28, 0x31C}));
 		if (gameVersion <= eGameVersion::VER_1_0_1604_1_NOSTEAM)
 			return (GetMultilayerPointer<float*>(baddr, std::vector<DWORD>{0x8, 0xD28, 0x320})); // Might be off
-		if (gameVersion <= eGameVersion::VER_1_0_1737_0_NOSTEAM)
-			return (GetMultilayerPointer<float*>(baddr, std::vector<DWORD>{0x8, 0xD28, 0x320})); 
 		if (gameVersion <= eGameVersion::VER_1_0_1737_6_NOSTEAM)
 			return (GetMultilayerPointer<float*>(baddr, std::vector<DWORD>{0x8, 0xD28, 0x320}));
 	}
