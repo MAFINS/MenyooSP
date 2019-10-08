@@ -2901,7 +2901,7 @@ namespace sub
 		})
 		{
 			bool bPressed_on = false, bPressed_off = false;
-			AddTickol(Game::GetGXTEntry(i.second.first, i.second.second), vehicle.IsNeonLightOn(i.first), bPressed_on, bPressed_off, TICKOL::CARTHING);
+			AddTickol(i.second.second, vehicle.IsNeonLightOn(i.first), bPressed_on, bPressed_off, TICKOL::CARTHING);
 			if (bPressed_on || bPressed_off)
 			{
 				vehicle.RequestControl(300);
