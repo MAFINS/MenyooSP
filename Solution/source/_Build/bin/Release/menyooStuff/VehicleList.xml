@@ -14,6 +14,7 @@
 		<Vehicle name="ENTITY2" /><!-- Entity XXR -->
 		<Vehicle name="SHEAVA" /><!-- ETR1 -->
 		<Vehicle name="FMJ" />
+		<Vehicle name="FURIA" />
 		<Vehicle name="GP1" />
 		<Vehicle name="INFERNUS" />
 		<Vehicle name="ITALIGTB" />
@@ -23,6 +24,8 @@
 		<Vehicle name="NERO" />
 		<Vehicle name="NERO2" /><!-- Nero Custom -->
 		<Vehicle name="PENETRATOR" />
+		<Vehicle name="FORMULA" /><!-- PR4, should be Open Wheel class-->
+		<Vehicle name="FORMULA2" /><!-- R88, should be Open Wheel class-->
 		<Vehicle name="LE7B" /><!-- RE-7B -->
 		<Vehicle name="REAPER" />
 		<Vehicle name="VOLTIC2" /><!-- Rocket Voltic -->
@@ -93,6 +96,7 @@
 		<Vehicle name="GB200" />
 		<Vehicle name="BLISTA3" /><!-- Go Go Monkey Blista -->
 		<Vehicle name="HOTRING" />
+		<Vehicle name="IMORGON" />
 		<Vehicle name="ISSI7" /><!-- Issi Sport -->
 		<Vehicle name="ITALIGTO" />
 		<Vehicle name="JESTER" />
@@ -100,6 +104,7 @@
 		<Vehicle name="JESTER3" /><!-- Jester Classic -->
 		<Vehicle name="JUGULAR" />
 		<Vehicle name="KHAMELION" />
+		<Vehicle name="KOMODA" />
 		<Vehicle name="KURUMA" />
 		<Vehicle name="KURUMA2" /><!-- Kuruma (Armored) -->
 		<Vehicle name="LOCUST" />
@@ -130,9 +135,12 @@
 		<Vehicle name="SPECTER2" /><!-- Specter Custom -->
 		<Vehicle name="BUFFALO3" /><!-- Sprunk Buffalo -->
 		<Vehicle name="STREITER" />
+		<Vehicle name="SUGOI" />
 		<Vehicle name="SULTAN" />
+		<Vehicle name="SULTAN2" /><!-- Sultan Classic -->
 		<Vehicle name="SURANO" />
 		<Vehicle name="TROPOS" />
+		<Vehicle name="VSTR" /><!-- V-STR -->
 		<Vehicle name="VERLIERER2" />
 	</Category>
 	<Category name="Muscle">
@@ -151,6 +159,7 @@
 		<Vehicle name="DEVIANT" />
 		<Vehicle name="DOMINATOR" />
 		<Vehicle name="DOMINATOR3" /><!-- Dominator GTX -->
+		<Vehicle name="YOSEMITE2" /><!-- Drift Yosemite -->
 		<Vehicle name="DUKES2" /><!-- Duke O'Death -->
 		<Vehicle name="DUKES" />
 		<Vehicle name="ELLIE" />
@@ -218,6 +227,7 @@
 		<Vehicle name="GT500" />
 		<Vehicle name="INFERNUS2" /><!-- Infernus Classic -->
 		<Vehicle name="JB700" />
+		<Vehicle name="JB7002" /><!-- JB 700W -->
 		<Vehicle name="MAMBA" />
 		<Vehicle name="MANANA" />
 		<Vehicle name="MICHELLI" />
@@ -227,6 +237,7 @@
 		<Vehicle name="PIGALLE" />
 		<Vehicle name="RAPIDGT3" /><!-- Rapid GT Classic -->
 		<Vehicle name="RETINUE" />
+		<Vehicle name="RETINUE2" /><!-- Retinue MkII -->
 		<Vehicle name="BTYPE" /><!-- Roosevelt -->
 		<Vehicle name="BTYPE3" /><!-- Roosevelt Valor -->
 		<Vehicle name="SAVESTRA" />
@@ -330,6 +341,7 @@
 		<Vehicle name="DUNE" />
 		<Vehicle name="DUNE3" /><!-- Dune FAV -->
 		<Vehicle name="DLOADER" />
+		<Vehicle name="EVERON" />
 		<Vehicle name="FREECRAWLER" />
 		<Vehicle name="BRUISER2" /><!-- Future Shock Bruiser -->
 		<Vehicle name="BRUTUS2" /><!-- Future Shock Brutus -->
@@ -350,6 +362,7 @@
 		<Vehicle name="BRUTUS3" /><!-- Nightmare Brutus -->
 		<Vehicle name="MONSTER5" /><!-- Nightmare Sasquatch -->
 		<Vehicle name="NIGHTSHARK" />
+		<Vehicle name="OUTLAW" />
 		<Vehicle name="DUNE4" /><!-- Ramp Buggy mission variant -->
 		<Vehicle name="DUNE5" /><!-- Ramp Buggy -->
 		<Vehicle name="RANCHERXL" />
@@ -366,6 +379,8 @@
 		<Vehicle name="TECHNICAL2" /><!-- Technical Aqua -->
 		<Vehicle name="TECHNICAL3" /><!-- Technical Custom -->
 		<Vehicle name="TROPHYTRUCK" />
+		<Vehicle name="VAGRANT" />
+		<Vehicle name="ZHABA" />
 	</Category>
 	<Category name="SUV">
 		<Vehicle name="BALLER" />
@@ -392,6 +407,7 @@
 		<Vehicle name="PATRIOT" />
 		<Vehicle name="PATRIOT2" /><!-- Patriot Stretch -->
 		<Vehicle name="RADI" />
+		<Vehicle name="REBLA" />
 		<Vehicle name="ROCOTO" />
 		<Vehicle name="SEMINOLE" />
 		<Vehicle name="SERRANO" />
@@ -401,7 +417,9 @@
 	</Category>
 	<Category name="Compact">
 		<Vehicle name="ISSI4" /><!-- Apocalypse Issi -->
+		<Vehicle name="ASBO" />
 		<Vehicle name="BLISTA" />
+		<Vehicle name="KANJO" /><!-- Blista Kanjo -->
 		<Vehicle name="BRIOSO" />
 		<Vehicle name="DILETTANTE" />
 		<Vehicle name="DILETTANTE2" /><!-- Merryweather Dilettante -->
@@ -560,6 +578,7 @@
 		<Vehicle name="POLICEOLD2" /><!-- Police Roadcruiser -->
 		<Vehicle name="POLICET" /><!-- Police Transporter -->
 		<Vehicle name="PBUS" /><!-- Prison Bus -->
+		<Vehicle name="MINITANK" /><!-- RC Tank -->
 		<Vehicle name="RIOT2" /><!-- RCV -->
 		<Vehicle name="RHINO" />
 		<Vehicle name="SHERIFF" /><!-- Sheriff Cruiser -->
@@ -614,6 +633,7 @@
 		<Vehicle name="SANCTUS" />
 		<Vehicle name="SHOTARO" />
 		<Vehicle name="SOVEREIGN" />
+		<Vehicle name="STRYDER" />
 		<Vehicle name="THRUST" />
 		<Vehicle name="VADER" />
 		<Vehicle name="VINDICATOR" />
