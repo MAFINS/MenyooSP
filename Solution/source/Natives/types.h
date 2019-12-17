@@ -95,7 +95,7 @@ class RgbS
 {
 public:
 	__int16 R, G, B;
-	RgbS()
+	RgbS() : R(0i16), G(0i16), B(0i16)
 	{
 	}
 	RgbS(__int16 r, __int16 g, __int16 b) : R(r), G(g), B(b)
