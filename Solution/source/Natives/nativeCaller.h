@@ -24,19 +24,13 @@ static inline void nativePush(T value)
 //	nativePush(value.c_str());
 //}
 
-template <typename T, typename... TArgs>
-static inline void nativePush(T value, TArgs... args)
-{
-	(nativePush(value), ...);
-}
-
 template <typename R, typename... TArgs>
 static inline R invoke(UINT64 hash, TArgs... args)
 {
 	//static_assert(sizeof...(TArgs) <= 25, "Cannot push more than 25 Args to a native");
 	//static_assert(sizeof(R) <= 24, "Natives cannot return data types larger than 24 bytes");
 	nativeInit(hash);
-	nativePush(args...);
+	(nativePush(args), ...);
 	return *reinterpret_cast<R *>(nativeCall());
 }
 
