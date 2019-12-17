@@ -507,7 +507,7 @@ Vector2 Vector2::Left()
 
 float Vector2::Length() const
 {
-	sqrt((x*x) + (y*y));
+	return sqrt((x*x) + (y*y));
 }
 
 Vector2 Vector2::PointOnCircle(float radius, float angleInDegrees) const
