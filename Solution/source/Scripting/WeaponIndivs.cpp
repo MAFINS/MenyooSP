@@ -48,7 +48,7 @@ std::map<Hash, std::string> WeaponIndivs::vWeaponLabels
 	{ WEAPON_POOLCUE, "Pool Cue" },
 	{ WEAPON_WRENCH, "Wrench" },
 	{ WEAPON_STONE_HATCHET, "Stone Hatchet" },
-	//slot pistol (17)
+	//slot pistol (19)
 	{ WEAPON_PISTOL, "Pistol" },
 	{ WEAPON_PISTOL_MK2, "Pistol Mk2" },
 	{ WEAPON_COMBATPISTOL, "Combat Pistol" },
@@ -66,6 +66,9 @@ std::map<Hash, std::string> WeaponIndivs::vWeaponLabels
 	{ WEAPON_MARKSMANPISTOL, "Marksman Pistol" },
 	{ WEAPON_FLAREGUN, "Flare Gun" },
 	{ WEAPON_RAYPISTOL, "Ray Pistol" },
+	// 1.0.1868.0
+	{ WEAPON_NAVYREVOLVER, "Navy Revolver" },
+	{ WEAPON_CERAMICPISTOL, "Ceramic Pistol" },
 	//slot Shotgun (9)
 	{ WEAPON_PUMPSHOTGUN, "Pump Shotgun" },
 	{ WEAPON_PUMPSHOTGUN_MK2, "Pump Shotgun Mk2" },
@@ -118,6 +121,8 @@ std::map<Hash, std::string> WeaponIndivs::vWeaponLabels
 	{ WEAPON_SNOWBALL, "Snowball" },
 	{ WEAPON_FLARE, "Flare" },
 	{ WEAPON_PIPEBOMB, "Pipe Bomb" },
+	// 1.0.1868.0
+	{ WEAPON_HAZARDCAN, "Hazardous Jerry Can" },
 	//slot launcher (8)
 	{ WEAPON_GRENADELAUNCHER, "Grenade Launcher" },
 	{ WEAPON_RPG, "RPG" },
@@ -427,6 +432,14 @@ std::vector<WeaponAndComponents> WeaponIndivs::wc_PISTOLS
 
 	{ WEAPON_RAYPISTOL,{
 		{ "Green Eyes White Dragon", GET_HASH_KEY("COMPONENT_RAYPISTOL_VARMOD_XMAS18") },
+	}, &WeaponIndivs::vCaptions_Tints },
+
+	{ WEAPON_NAVYREVOLVER,{
+	}, &WeaponIndivs::vCaptions_Tints },
+	
+	{ WEAPON_CERAMICPISTOL,{
+		{ "Extended_Clip", GET_HASH_KEY("COMPONENT_CERAMICPISTOL_CLIP_02") },
+		{ "Suppressor", GET_HASH_KEY("COMPONENT_CERAMICPISTOL_SUPP") },
 	}, &WeaponIndivs::vCaptions_Tints },
 };
 #pragma endregion
@@ -1064,6 +1077,8 @@ std::vector<WeaponAndComponents> WeaponIndivs::wc_THROWABLES
 	{ WEAPON_SNOWBALL,{
 	}, nullptr },
 	{ WEAPON_PIPEBOMB,{
+	}, nullptr },
+	{ WEAPON_HAZARDCAN,{
 	}, nullptr },
 };
 #pragma endregion
