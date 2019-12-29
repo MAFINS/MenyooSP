@@ -117,6 +117,7 @@
 		<Ped name="a_f_y_clubcust_01" caption="Club Customer Female 1" />
 		<Ped name="a_f_y_clubcust_02" caption="Club Customer Female 2" />
 		<Ped name="a_f_y_clubcust_03" caption="Club Customer Female 3" />
+		<Ped name="a_f_y_bevhills_05" caption="Beverly Hills Young Female 5" />
 	</Category>
 	<Category name="AmbientMale">
 		<Ped name="a_m_m_afriamer_01" caption="African American Male" />
@@ -401,6 +402,13 @@
 		<Ped name="csb_tonyprince" caption="Tony Prince" />
 		<Ped name="csb_alan" caption="Alan Jerome" />
 		<Ped name="csb_bryony" caption="Bryony" />
+		<Ped name="csb_celeb_01" caption="Celeb 1" />
+		<Ped name="csb_georginacheng" caption="Georgina Cheng" />
+		<Ped name="csb_huang" caption="Huang" />
+		<Ped name="csb_vincent_2" caption="Vincent (Casino) 2" />
+		<Ped name="csb_wendy" caption="Wendy" />
+		<Ped name="cs_jimmydisanto2" caption="Jimmy De Santa 2" />
+		<Ped name="cs_lestercrest_3" caption="Lester Crest 3" />
 	</Category>
 	<Category name="GangFemale">
 		<Ped name="g_f_y_ballas_01" caption="Ballas Female" />
@@ -597,6 +605,13 @@
 		<Ped name="ig_thornton" caption="Thornton Duggan" />
 		<Ped name="ig_tomcasino" caption="Tom Connors" />
 		<Ped name="ig_vincent" caption="Vincent (Casino)" />
+		<Ped name="ig_celeb_01" caption="Celeb 1" />
+		<Ped name="ig_georginacheng" caption="Georgina Cheng" />
+		<Ped name="ig_huang" caption="Huang" />
+		<Ped name="ig_jimmydisanto2" caption="Jimmy De Santa 2" />
+		<Ped name="ig_lestercrest_3" caption="Lester Crest 3" />
+		<Ped name="ig_vincent_2" caption="Vincent (Casino) 2" />
+		<Ped name="ig_wendy" caption="Wendy" />
 	</Category>
 	<Category name="Multiplayer">
 		<Ped name="mp_s_m_armoured_01" caption="Armoured Van Security Male" />
@@ -767,6 +782,8 @@
 		<Ped name="s_m_y_winclean_01" caption="Window Cleaner" />
 		<Ped name="s_m_y_clubbar_01" caption="Club Bartender Male" />
 		<Ped name="s_m_y_waretech_01" caption="Warehouse Technician" />
+		<Ped name="s_m_m_highsec_03" caption="High Security 3" />
+		<Ped name="s_m_y_westsec_02" caption="Duggan Security 2" />
 	</Category>
 	<Category name="StoryScenarioFemale">
 		<Ped name="u_f_y_bikerchic" caption="Biker Chic Female" />
