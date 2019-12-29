@@ -108,7 +108,7 @@ std::map<Hash, std::string> WeaponIndivs::vWeaponLabels
 	{ WEAPON_HEAVYSNIPER_MK2, "Heavy Sniper Mk2" },
 	{ WEAPON_MARKSMANRIFLE, "Marksman Rifle" },
 	{ WEAPON_MARKSMANRIFLE_MK2, "Marksman Rifle Mk2" },
-	//slot throwables (12)
+	//slot throwables (13)
 	{ WEAPON_GRENADE, "Grenade" },
 	{ WEAPON_STICKYBOMB, "Sticky Bomb" },
 	{ WEAPON_PROXMINE, "Proximity Mine" },
