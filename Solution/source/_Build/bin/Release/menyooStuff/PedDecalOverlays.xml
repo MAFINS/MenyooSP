@@ -328,6 +328,20 @@
 				<OVERLAY collection="mpsmuggler_overlays" name="MP_Smuggler_Tattoo_022_F" caption="MP_Smuggler_Tattoo_022_F" />
 				<OVERLAY collection="mpsmuggler_overlays" name="MP_Smuggler_Tattoo_024_F" caption="MP_Smuggler_Tattoo_024_F" />
 				<OVERLAY collection="mpsmuggler_overlays" name="MP_Smuggler_Tattoo_025_F" caption="MP_Smuggler_Tattoo_025_F" />
+				<OVERLAY collection="mpheist3_overlays" name="mpHeist3_Tat_023_F" caption="mpHeist3_Tat_023_F" />
+				<OVERLAY collection="mpheist3_overlays" name="mpHeist3_Tat_024_F" caption="mpHeist3_Tat_024_F" />
+				<OVERLAY collection="mpheist3_overlays" name="mpHeist3_Tat_025_F" caption="mpHeist3_Tat_025_F" />
+				<OVERLAY collection="mpheist3_overlays" name="mpHeist3_Tat_026_F" caption="mpHeist3_Tat_026_F" />
+				<OVERLAY collection="mpheist3_overlays" name="mpHeist3_Tat_027_F" caption="mpHeist3_Tat_027_F" />
+				<OVERLAY collection="mpheist3_overlays" name="mpHeist3_Tat_028_F" caption="mpHeist3_Tat_028_F" />
+				<OVERLAY collection="mpheist3_overlays" name="mpHeist3_Tat_029_F" caption="mpHeist3_Tat_029_F" />
+				<OVERLAY collection="mpheist3_overlays" name="mpHeist3_Tat_030_F" caption="mpHeist3_Tat_030_F" />
+				<OVERLAY collection="mpheist3_overlays" name="mpHeist3_Tat_033_F" caption="mpHeist3_Tat_033_F" />
+				<OVERLAY collection="mpheist3_overlays" name="mpHeist3_Tat_035_F" caption="mpHeist3_Tat_035_F" />
+				<OVERLAY collection="mpheist3_overlays" name="mpHeist3_Tat_036_F" caption="mpHeist3_Tat_036_F" />
+				<OVERLAY collection="mpheist3_overlays" name="mpHeist3_Tat_037_F" caption="mpHeist3_Tat_037_F" />
+				<OVERLAY collection="mpheist3_overlays" name="mpHeist3_Tat_038_F" caption="mpHeist3_Tat_038_F" />
+				<OVERLAY collection="mpheist3_overlays" name="mpHeist3_Tat_039_F" caption="mpHeist3_Tat_039_F" />
 			</ZONE_TORSO>
 			<ZONE_BACK>
 				<OVERLAY collection="mpbeach_overlays" name="MP_Bea_F_Back_000" caption="MP_Bea_F_Back_000" />
@@ -368,6 +382,32 @@
 				<OVERLAY collection="mpgunrunning_overlays" name="MP_Gunrunning_Tattoo_003_F" caption="MP_Gunrunning_Tattoo_003_F" />
 				<OVERLAY collection="mpsmuggler_overlays" name="MP_Smuggler_Tattoo_011_F" caption="MP_Smuggler_Tattoo_011_F" />
 				<OVERLAY collection="mpsmuggler_overlays" name="MP_Smuggler_Tattoo_012_F" caption="MP_Smuggler_Tattoo_012_F" />
+				<OVERLAY collection="mpheist3_overlays" name="mpHeist3_Tat_000_F" caption="mpHeist3_Tat_000_F" />
+				<OVERLAY collection="mpheist3_overlays" name="mpHeist3_Tat_001_F" caption="mpHeist3_Tat_001_F" />
+				<OVERLAY collection="mpheist3_overlays" name="mpHeist3_Tat_002_F" caption="mpHeist3_Tat_002_F" />
+				<OVERLAY collection="mpheist3_overlays" name="mpHeist3_Tat_003_F" caption="mpHeist3_Tat_003_F" />
+				<OVERLAY collection="mpheist3_overlays" name="mpHeist3_Tat_004_F" caption="mpHeist3_Tat_004_F" />
+				<OVERLAY collection="mpheist3_overlays" name="mpHeist3_Tat_005_F" caption="mpHeist3_Tat_005_F" />
+				<OVERLAY collection="mpheist3_overlays" name="mpHeist3_Tat_006_F" caption="mpHeist3_Tat_006_F" />
+				<OVERLAY collection="mpheist3_overlays" name="mpHeist3_Tat_007_F" caption="mpHeist3_Tat_007_F" />
+				<OVERLAY collection="mpheist3_overlays" name="mpHeist3_Tat_008_F" caption="mpHeist3_Tat_008_F" />
+				<OVERLAY collection="mpheist3_overlays" name="mpHeist3_Tat_009_F" caption="mpHeist3_Tat_009_F" />
+				<OVERLAY collection="mpheist3_overlays" name="mpHeist3_Tat_010_F" caption="mpHeist3_Tat_010_F" />
+				<OVERLAY collection="mpheist3_overlays" name="mpHeist3_Tat_011_F" caption="mpHeist3_Tat_011_F" />
+				<OVERLAY collection="mpheist3_overlays" name="mpHeist3_Tat_012_F" caption="mpHeist3_Tat_012_F" />
+				<OVERLAY collection="mpheist3_overlays" name="mpHeist3_Tat_013_F" caption="mpHeist3_Tat_013_F" />
+				<OVERLAY collection="mpheist3_overlays" name="mpHeist3_Tat_014_F" caption="mpHeist3_Tat_014_F" />
+				<OVERLAY collection="mpheist3_overlays" name="mpHeist3_Tat_015_F" caption="mpHeist3_Tat_015_F" />
+				<OVERLAY collection="mpheist3_overlays" name="mpHeist3_Tat_016_F" caption="mpHeist3_Tat_016_F" />
+				<OVERLAY collection="mpheist3_overlays" name="mpHeist3_Tat_017_F" caption="mpHeist3_Tat_017_F" />
+				<OVERLAY collection="mpheist3_overlays" name="mpHeist3_Tat_018_F" caption="mpHeist3_Tat_018_F" />
+				<OVERLAY collection="mpheist3_overlays" name="mpHeist3_Tat_019_F" caption="mpHeist3_Tat_019_F" />
+				<OVERLAY collection="mpheist3_overlays" name="mpHeist3_Tat_020_F" caption="mpHeist3_Tat_020_F" />
+				<OVERLAY collection="mpheist3_overlays" name="mpHeist3_Tat_021_F" caption="mpHeist3_Tat_021_F" />
+				<OVERLAY collection="mpheist3_overlays" name="mpHeist3_Tat_022_F" caption="mpHeist3_Tat_022_F" />
+				<OVERLAY collection="mpheist3_overlays" name="mpHeist3_Tat_042_F" caption="mpHeist3_Tat_042_F" />
+				<OVERLAY collection="mpheist3_overlays" name="mpHeist3_Tat_043_F" caption="mpHeist3_Tat_043_F" />
+				<OVERLAY collection="mpheist3_overlays" name="mpHeist3_Tat_044_F" caption="mpHeist3_Tat_044_F" />
 			</ZONE_HEAD>
 			<ZONE_NECK>
 				<OVERLAY collection="mpbusiness_overlays" name="MP_Buis_F_Neck_000" caption="MP_Buis_F_Neck_000" />
@@ -460,6 +500,7 @@
 				<OVERLAY collection="mpsmuggler_overlays" name="MP_Smuggler_Tattoo_001_F" caption="MP_Smuggler_Tattoo_001_F" />
 				<OVERLAY collection="mpsmuggler_overlays" name="MP_Smuggler_Tattoo_005_F" caption="MP_Smuggler_Tattoo_005_F" />
 				<OVERLAY collection="mpsmuggler_overlays" name="MP_Smuggler_Tattoo_023_F" caption="MP_Smuggler_Tattoo_023_F" />
+				<OVERLAY collection="mpheist3_overlays" name="mpHeist3_Tat_034_F" caption="mpHeist3_Tat_034_F" />
 			</ZONE_RIGHT_ARM>
 			<ZONE_LEFT_ARM>
 				<OVERLAY collection="multiplayer_overlays" name="FM_Tat_Award_F_001" caption="FM_Tat_Award_F_001" />
@@ -532,6 +573,8 @@
 				<OVERLAY collection="mpsmuggler_overlays" name="MP_Smuggler_Tattoo_004_F" caption="MP_Smuggler_Tattoo_004_F" />
 				<OVERLAY collection="mpsmuggler_overlays" name="MP_Smuggler_Tattoo_008_F" caption="MP_Smuggler_Tattoo_008_F" />
 				<OVERLAY collection="mpsmuggler_overlays" name="MP_Smuggler_Tattoo_014_F" caption="MP_Smuggler_Tattoo_014_F" />
+				<OVERLAY collection="mpheist3_overlays" name="mpHeist3_Tat_040_F" caption="mpHeist3_Tat_040_F" />
+				<OVERLAY collection="mpheist3_overlays" name="mpHeist3_Tat_041_F" caption="mpHeist3_Tat_041_F" />
 			</ZONE_LEFT_ARM>
 			<ZONE_RIGHT_LEG>
 				<OVERLAY collection="multiplayer_overlays" name="FM_Tat_Award_F_006" caption="FM_Tat_Award_F_006" />
@@ -566,6 +609,7 @@
 				<OVERLAY collection="mpgunrunning_overlays" name="MP_Gunrunning_Tattoo_026_F" caption="MP_Gunrunning_Tattoo_026_F" />
 				<OVERLAY collection="mpgunrunning_overlays" name="MP_Gunrunning_Tattoo_030_F" caption="MP_Gunrunning_Tattoo_030_F" />
 				<OVERLAY collection="mpsmuggler_overlays" name="MP_Smuggler_Tattoo_020_F" caption="MP_Smuggler_Tattoo_020_F" />
+				<OVERLAY collection="mpheist3_overlays" name="mpHeist3_Tat_031_F" caption="mpHeist3_Tat_031_F" />
 			</ZONE_RIGHT_LEG>
 			<ZONE_LEFT_LEG>
 				<OVERLAY collection="multiplayer_overlays" name="FM_Tat_Award_F_009" caption="FM_Tat_Award_F_009" />
@@ -603,6 +647,7 @@
 				<OVERLAY collection="mpgunrunning_overlays" name="MP_Gunrunning_Tattoo_007_F" caption="MP_Gunrunning_Tattoo_007_F" />
 				<OVERLAY collection="mpgunrunning_overlays" name="MP_Gunrunning_Tattoo_011_F" caption="MP_Gunrunning_Tattoo_011_F" />
 				<OVERLAY collection="mpgunrunning_overlays" name="MP_Gunrunning_Tattoo_023_F" caption="MP_Gunrunning_Tattoo_023_F" />
+				<OVERLAY collection="mpheist3_overlays" name="mpHeist3_Tat_032_F" caption="mpHeist3_Tat_032_F" />
 			</ZONE_LEFT_LEG>
 		</TYPE_TATTOO>
 		<TYPE_BADGE>
@@ -1211,6 +1256,30 @@
 				<OVERLAY collection="mpsmuggler_overlays" name="MP_Smuggler_Graphic_016_F" caption="MP_Smuggler_Graphic_016_F" />
 				<OVERLAY collection="mpsmuggler_overlays" name="MP_Smuggler_Graphic_017_F" caption="MP_Smuggler_Graphic_017_F" />
 				<OVERLAY collection="mpsmuggler_overlays" name="MP_Smuggler_Graphic_018_F" caption="MP_Smuggler_Graphic_018_F" />
+				<OVERLAY collection="mpheist3_overlays" name="mpHeist3_Tee_000_F" caption="mpHeist3_Tee_000_F" />
+				<OVERLAY collection="mpheist3_overlays" name="mpHeist3_Tee_001_F" caption="mpHeist3_Tee_001_F" />
+				<OVERLAY collection="mpheist3_overlays" name="mpHeist3_Tee_002_F" caption="mpHeist3_Tee_002_F" />
+				<OVERLAY collection="mpheist3_overlays" name="mpHeist3_Tee_003_F" caption="mpHeist3_Tee_003_F" />
+				<OVERLAY collection="mpheist3_overlays" name="mpHeist3_Tee_004_F" caption="mpHeist3_Tee_004_F" />
+				<OVERLAY collection="mpheist3_overlays" name="mpHeist3_Tee_005_F" caption="mpHeist3_Tee_005_F" />
+				<OVERLAY collection="mpheist3_overlays" name="mpHeist3_Tee_006_F" caption="mpHeist3_Tee_006_F" />
+				<OVERLAY collection="mpheist3_overlays" name="mpHeist3_Tee_007_F" caption="mpHeist3_Tee_007_F" />
+				<OVERLAY collection="mpheist3_overlays" name="mpHeist3_Tee_008_F" caption="mpHeist3_Tee_008_F" />
+				<OVERLAY collection="mpheist3_overlays" name="mpHeist3_Tee_009_F" caption="mpHeist3_Tee_009_F" />
+				<OVERLAY collection="mpheist3_overlays" name="mpHeist3_Tee_010_F" caption="mpHeist3_Tee_010_F" />
+				<OVERLAY collection="mpheist3_overlays" name="mpHeist3_Tee_011_F" caption="mpHeist3_Tee_011_F" />
+				<OVERLAY collection="mpheist3_overlays" name="mpHeist3_Tee_012_F" caption="mpHeist3_Tee_012_F" />
+				<OVERLAY collection="mpheist3_overlays" name="mpHeist3_Tee_013_F" caption="mpHeist3_Tee_013_F" />
+				<OVERLAY collection="mpheist3_overlays" name="mpHeist3_Tee_014_F" caption="mpHeist3_Tee_014_F" />
+				<OVERLAY collection="mpheist3_overlays" name="mpHeist3_Tee_015_F" caption="mpHeist3_Tee_015_F" />
+				<OVERLAY collection="mpheist3_overlays" name="mpHeist3_Tee_016_F" caption="mpHeist3_Tee_016_F" />
+				<OVERLAY collection="mpheist3_overlays" name="mpHeist3_Tee_017_F" caption="mpHeist3_Tee_017_F" />
+				<OVERLAY collection="mpheist3_overlays" name="mpHeist3_Tee_018_F" caption="mpHeist3_Tee_018_F" />
+				<OVERLAY collection="mpheist3_overlays" name="mpHeist3_Tee_019_F" caption="mpHeist3_Tee_019_F" />
+				<OVERLAY collection="mpheist3_overlays" name="mpHeist3_Tee_020_F" caption="mpHeist3_Tee_020_F" />
+				<OVERLAY collection="mpheist3_overlays" name="mpHeist3_Tee_021_F" caption="mpHeist3_Tee_021_F" />
+				<OVERLAY collection="mpheist3_overlays" name="mpHeist3_Tee_022_F" caption="mpHeist3_Tee_022_F" />
+				<OVERLAY collection="mpheist3_overlays" name="mpHeist3_Tee_023_F" caption="mpHeist3_Tee_023_F" />
 			</ZONE_TORSO>
 		</TYPE_BADGE>
 		<USERTYPE_HAIR>
@@ -1509,6 +1578,20 @@
 				<OVERLAY collection="mpsmuggler_overlays" name="MP_Smuggler_Tattoo_022_M" caption="MP_Smuggler_Tattoo_022_M" />
 				<OVERLAY collection="mpsmuggler_overlays" name="MP_Smuggler_Tattoo_024_M" caption="MP_Smuggler_Tattoo_024_M" />
 				<OVERLAY collection="mpsmuggler_overlays" name="MP_Smuggler_Tattoo_025_M" caption="MP_Smuggler_Tattoo_025_M" />
+				<OVERLAY collection="mpheist3_overlays" name="mpHeist3_Tat_023_M" caption="mpHeist3_Tat_023_M" />
+				<OVERLAY collection="mpheist3_overlays" name="mpHeist3_Tat_024_M" caption="mpHeist3_Tat_024_M" />
+				<OVERLAY collection="mpheist3_overlays" name="mpHeist3_Tat_025_M" caption="mpHeist3_Tat_025_M" />
+				<OVERLAY collection="mpheist3_overlays" name="mpHeist3_Tat_026_M" caption="mpHeist3_Tat_026_M" />
+				<OVERLAY collection="mpheist3_overlays" name="mpHeist3_Tat_027_M" caption="mpHeist3_Tat_027_M" />
+				<OVERLAY collection="mpheist3_overlays" name="mpHeist3_Tat_028_M" caption="mpHeist3_Tat_028_M" />
+				<OVERLAY collection="mpheist3_overlays" name="mpHeist3_Tat_029_M" caption="mpHeist3_Tat_029_M" />
+				<OVERLAY collection="mpheist3_overlays" name="mpHeist3_Tat_030_M" caption="mpHeist3_Tat_030_M" />
+				<OVERLAY collection="mpheist3_overlays" name="mpHeist3_Tat_033_M" caption="mpHeist3_Tat_033_M" />
+				<OVERLAY collection="mpheist3_overlays" name="mpHeist3_Tat_035_M" caption="mpHeist3_Tat_035_M" />
+				<OVERLAY collection="mpheist3_overlays" name="mpHeist3_Tat_036_M" caption="mpHeist3_Tat_036_M" />
+				<OVERLAY collection="mpheist3_overlays" name="mpHeist3_Tat_037_M" caption="mpHeist3_Tat_037_M" />
+				<OVERLAY collection="mpheist3_overlays" name="mpHeist3_Tat_038_M" caption="mpHeist3_Tat_038_M" />
+				<OVERLAY collection="mpheist3_overlays" name="mpHeist3_Tat_039_M" caption="mpHeist3_Tat_039_M" />
 			</ZONE_TORSO>
 			<ZONE_BACK>
 				<OVERLAY collection="mpbeach_overlays" name="MP_Bea_M_Back_000" caption="MP_Bea_M_Back_000" />
@@ -1548,6 +1631,32 @@
 				<OVERLAY collection="mpgunrunning_overlays" name="MP_Gunrunning_Tattoo_003_M" caption="MP_Gunrunning_Tattoo_003_M" />
 				<OVERLAY collection="mpsmuggler_overlays" name="MP_Smuggler_Tattoo_011_M" caption="MP_Smuggler_Tattoo_011_M" />
 				<OVERLAY collection="mpsmuggler_overlays" name="MP_Smuggler_Tattoo_012_M" caption="MP_Smuggler_Tattoo_012_M" />
+				<OVERLAY collection="mpheist3_overlays" name="mpHeist3_Tat_000_M" caption="mpHeist3_Tat_000_M" />
+				<OVERLAY collection="mpheist3_overlays" name="mpHeist3_Tat_001_M" caption="mpHeist3_Tat_001_M" />
+				<OVERLAY collection="mpheist3_overlays" name="mpHeist3_Tat_002_M" caption="mpHeist3_Tat_002_M" />
+				<OVERLAY collection="mpheist3_overlays" name="mpHeist3_Tat_003_M" caption="mpHeist3_Tat_003_M" />
+				<OVERLAY collection="mpheist3_overlays" name="mpHeist3_Tat_004_M" caption="mpHeist3_Tat_004_M" />
+				<OVERLAY collection="mpheist3_overlays" name="mpHeist3_Tat_005_M" caption="mpHeist3_Tat_005_M" />
+				<OVERLAY collection="mpheist3_overlays" name="mpHeist3_Tat_006_M" caption="mpHeist3_Tat_006_M" />
+				<OVERLAY collection="mpheist3_overlays" name="mpHeist3_Tat_007_M" caption="mpHeist3_Tat_007_M" />
+				<OVERLAY collection="mpheist3_overlays" name="mpHeist3_Tat_008_M" caption="mpHeist3_Tat_008_M" />
+				<OVERLAY collection="mpheist3_overlays" name="mpHeist3_Tat_009_M" caption="mpHeist3_Tat_009_M" />
+				<OVERLAY collection="mpheist3_overlays" name="mpHeist3_Tat_010_M" caption="mpHeist3_Tat_010_M" />
+				<OVERLAY collection="mpheist3_overlays" name="mpHeist3_Tat_011_M" caption="mpHeist3_Tat_011_M" />
+				<OVERLAY collection="mpheist3_overlays" name="mpHeist3_Tat_012_M" caption="mpHeist3_Tat_012_M" />
+				<OVERLAY collection="mpheist3_overlays" name="mpHeist3_Tat_013_M" caption="mpHeist3_Tat_013_M" />
+				<OVERLAY collection="mpheist3_overlays" name="mpHeist3_Tat_014_M" caption="mpHeist3_Tat_014_M" />
+				<OVERLAY collection="mpheist3_overlays" name="mpHeist3_Tat_015_M" caption="mpHeist3_Tat_015_M" />
+				<OVERLAY collection="mpheist3_overlays" name="mpHeist3_Tat_016_M" caption="mpHeist3_Tat_016_M" />
+				<OVERLAY collection="mpheist3_overlays" name="mpHeist3_Tat_017_M" caption="mpHeist3_Tat_017_M" />
+				<OVERLAY collection="mpheist3_overlays" name="mpHeist3_Tat_018_M" caption="mpHeist3_Tat_018_M" />
+				<OVERLAY collection="mpheist3_overlays" name="mpHeist3_Tat_019_M" caption="mpHeist3_Tat_019_M" />
+				<OVERLAY collection="mpheist3_overlays" name="mpHeist3_Tat_020_M" caption="mpHeist3_Tat_020_M" />
+				<OVERLAY collection="mpheist3_overlays" name="mpHeist3_Tat_021_M" caption="mpHeist3_Tat_021_M" />
+				<OVERLAY collection="mpheist3_overlays" name="mpHeist3_Tat_022_M" caption="mpHeist3_Tat_022_M" />
+				<OVERLAY collection="mpheist3_overlays" name="mpHeist3_Tat_042_M" caption="mpHeist3_Tat_042_M" />
+				<OVERLAY collection="mpheist3_overlays" name="mpHeist3_Tat_043_M" caption="mpHeist3_Tat_043_M" />
+				<OVERLAY collection="mpheist3_overlays" name="mpHeist3_Tat_044_M" caption="mpHeist3_Tat_044_M" />
 			</ZONE_HEAD>
 			<ZONE_NECK>
 				<OVERLAY collection="mpbeach_overlays" name="MP_Bea_F_Neck_000" caption="MP_Bea_F_Neck_000" />
@@ -1639,6 +1748,7 @@
 				<OVERLAY collection="mpsmuggler_overlays" name="MP_Smuggler_Tattoo_001_M" caption="MP_Smuggler_Tattoo_001_M" />
 				<OVERLAY collection="mpsmuggler_overlays" name="MP_Smuggler_Tattoo_005_M" caption="MP_Smuggler_Tattoo_005_M" />
 				<OVERLAY collection="mpsmuggler_overlays" name="MP_Smuggler_Tattoo_023_M" caption="MP_Smuggler_Tattoo_023_M" />
+				<OVERLAY collection="mpheist3_overlays" name="mpHeist3_Tat_034_M" caption="mpHeist3_Tat_034_M" />
 			</ZONE_RIGHT_ARM>
 			<ZONE_LEFT_ARM>
 				<OVERLAY collection="multiplayer_overlays" name="FM_Tat_Award_M_001" caption="FM_Tat_Award_M_001" />
@@ -1717,6 +1827,8 @@
 				<OVERLAY collection="mpsmuggler_overlays" name="MP_Smuggler_Tattoo_004_M" caption="MP_Smuggler_Tattoo_004_M" />
 				<OVERLAY collection="mpsmuggler_overlays" name="MP_Smuggler_Tattoo_008_M" caption="MP_Smuggler_Tattoo_008_M" />
 				<OVERLAY collection="mpsmuggler_overlays" name="MP_Smuggler_Tattoo_014_M" caption="MP_Smuggler_Tattoo_014_M" />
+				<OVERLAY collection="mpheist3_overlays" name="mpHeist3_Tat_040_M" caption="mpHeist3_Tat_040_M" />
+				<OVERLAY collection="mpheist3_overlays" name="mpHeist3_Tat_041_M" caption="mpHeist3_Tat_041_M" />
 			</ZONE_LEFT_ARM>
 			<ZONE_RIGHT_LEG>
 				<OVERLAY collection="multiplayer_overlays" name="FM_Tat_Award_M_006" caption="FM_Tat_Award_M_006" />
@@ -1750,6 +1862,7 @@
 				<OVERLAY collection="mpgunrunning_overlays" name="MP_Gunrunning_Tattoo_026_M" caption="MP_Gunrunning_Tattoo_026_M" />
 				<OVERLAY collection="mpgunrunning_overlays" name="MP_Gunrunning_Tattoo_030_M" caption="MP_Gunrunning_Tattoo_030_M" />
 				<OVERLAY collection="mpsmuggler_overlays" name="MP_Smuggler_Tattoo_020_M" caption="MP_Smuggler_Tattoo_020_M" />
+				<OVERLAY collection="mpheist3_overlays" name="mpHeist3_Tat_031_M" caption="mpHeist3_Tat_031_M" />
 			</ZONE_RIGHT_LEG>
 			<ZONE_LEFT_LEG>
 				<OVERLAY collection="multiplayer_overlays" name="FM_Tat_Award_M_009" caption="FM_Tat_Award_M_009" />
@@ -1789,6 +1902,7 @@
 				<OVERLAY collection="mpgunrunning_overlays" name="MP_Gunrunning_Tattoo_007_M" caption="MP_Gunrunning_Tattoo_007_M" />
 				<OVERLAY collection="mpgunrunning_overlays" name="MP_Gunrunning_Tattoo_011_M" caption="MP_Gunrunning_Tattoo_011_M" />
 				<OVERLAY collection="mpgunrunning_overlays" name="MP_Gunrunning_Tattoo_023_M" caption="MP_Gunrunning_Tattoo_023_M" />
+				<OVERLAY collection="mpheist3_overlays" name="mpHeist3_Tat_032_M" caption="mpHeist3_Tat_032_M" />
 			</ZONE_LEFT_LEG>
 		</TYPE_TATTOO>
 		<TYPE_BADGE>
@@ -2414,6 +2528,30 @@
 				<OVERLAY collection="mpsmuggler_overlays" name="MP_Smuggler_Graphic_016_M" caption="MP_Smuggler_Graphic_016_M" />
 				<OVERLAY collection="mpsmuggler_overlays" name="MP_Smuggler_Graphic_017_M" caption="MP_Smuggler_Graphic_017_M" />
 				<OVERLAY collection="mpsmuggler_overlays" name="MP_Smuggler_Graphic_018_M" caption="MP_Smuggler_Graphic_018_M" />
+				<OVERLAY collection="mpheist3_overlays" name="mpHeist3_Tee_000_M" caption="mpHeist3_Tee_000_M" />
+				<OVERLAY collection="mpheist3_overlays" name="mpHeist3_Tee_001_M" caption="mpHeist3_Tee_001_M" />
+				<OVERLAY collection="mpheist3_overlays" name="mpHeist3_Tee_002_M" caption="mpHeist3_Tee_002_M" />
+				<OVERLAY collection="mpheist3_overlays" name="mpHeist3_Tee_003_M" caption="mpHeist3_Tee_003_M" />
+				<OVERLAY collection="mpheist3_overlays" name="mpHeist3_Tee_004_M" caption="mpHeist3_Tee_004_M" />
+				<OVERLAY collection="mpheist3_overlays" name="mpHeist3_Tee_005_M" caption="mpHeist3_Tee_005_M" />
+				<OVERLAY collection="mpheist3_overlays" name="mpHeist3_Tee_006_M" caption="mpHeist3_Tee_006_M" />
+				<OVERLAY collection="mpheist3_overlays" name="mpHeist3_Tee_007_M" caption="mpHeist3_Tee_007_M" />
+				<OVERLAY collection="mpheist3_overlays" name="mpHeist3_Tee_008_M" caption="mpHeist3_Tee_008_M" />
+				<OVERLAY collection="mpheist3_overlays" name="mpHeist3_Tee_009_M" caption="mpHeist3_Tee_009_M" />
+				<OVERLAY collection="mpheist3_overlays" name="mpHeist3_Tee_010_M" caption="mpHeist3_Tee_010_M" />
+				<OVERLAY collection="mpheist3_overlays" name="mpHeist3_Tee_011_M" caption="mpHeist3_Tee_011_M" />
+				<OVERLAY collection="mpheist3_overlays" name="mpHeist3_Tee_012_M" caption="mpHeist3_Tee_012_M" />
+				<OVERLAY collection="mpheist3_overlays" name="mpHeist3_Tee_013_M" caption="mpHeist3_Tee_013_M" />
+				<OVERLAY collection="mpheist3_overlays" name="mpHeist3_Tee_014_M" caption="mpHeist3_Tee_014_M" />
+				<OVERLAY collection="mpheist3_overlays" name="mpHeist3_Tee_015_M" caption="mpHeist3_Tee_015_M" />
+				<OVERLAY collection="mpheist3_overlays" name="mpHeist3_Tee_016_M" caption="mpHeist3_Tee_016_M" />
+				<OVERLAY collection="mpheist3_overlays" name="mpHeist3_Tee_017_M" caption="mpHeist3_Tee_017_M" />
+				<OVERLAY collection="mpheist3_overlays" name="mpHeist3_Tee_018_M" caption="mpHeist3_Tee_018_M" />
+				<OVERLAY collection="mpheist3_overlays" name="mpHeist3_Tee_019_M" caption="mpHeist3_Tee_019_M" />
+				<OVERLAY collection="mpheist3_overlays" name="mpHeist3_Tee_020_M" caption="mpHeist3_Tee_020_M" />
+				<OVERLAY collection="mpheist3_overlays" name="mpHeist3_Tee_021_M" caption="mpHeist3_Tee_021_M" />
+				<OVERLAY collection="mpheist3_overlays" name="mpHeist3_Tee_022_M" caption="mpHeist3_Tee_022_M" />
+				<OVERLAY collection="mpheist3_overlays" name="mpHeist3_Tee_023_M" caption="mpHeist3_Tee_023_M" />
 			</ZONE_TORSO>
 		</TYPE_BADGE>
 		<USERTYPE_HAIR>
