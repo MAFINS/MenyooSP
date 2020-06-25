@@ -95,6 +95,7 @@ namespace sub
 			SET_VEHICLE_HAS_STRONG_AXLES(newcar, 1);
 			SET_VEHICLE_DIRT_LEVEL(newcar, 0.0f);
 			_SET_VEHICLE_PAINT_FADE(newcar, 0.3f);
+			SET_ENTITY_AS_MISSION_ENTITY(newcar,0,1) //Makes online only cars not despawnm after 2/3 secs
 			//	SET_ENTITY_PROOFS(newcar, 1, 1, 1, 1, 1, 1, 1, 1);
 
 			int newnetid = VEH_TO_NET(newcar);
