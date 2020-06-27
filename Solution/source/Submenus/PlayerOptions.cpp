@@ -125,6 +125,8 @@ namespace sub
 		AddToggle("Auto-Clean", loop_player_autoClean);
 		AddToggle("Super Run", loop_super_run);
 		AddToggle("Super Jump", loop_super_jump);
+		AddToggle("Walk underwater", loop_player_Walkunderwater);
+		AddToggle("Personal sun", loop_player_Psun);
 		AddTexter("Forcefield", loop_forcefield, forcefield_names, null, forcefield_plus, forcefield_minus);
 		AddLocal("Smash Ability", _SmashAbility_::g_smashAbility.Enabled(), _SmashAbility_::ToggleOnOff, _SmashAbility_::ToggleOnOff);
 		AddToggle("Fly Manual", loop_superman, PlayerOpsSupermanOn_);
