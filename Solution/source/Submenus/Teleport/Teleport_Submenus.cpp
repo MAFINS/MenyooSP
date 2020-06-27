@@ -30,6 +30,9 @@
 
 #include <pugixml\src\pugixml.hpp>
 
+Vector3 _customTeleLoc;
+bool GrabbedCoords = 0;
+
 namespace sub::TeleportLocations_catind
 {
 	const NamedTeleLocationList* _selectedCategory;
@@ -73,12 +76,19 @@ namespace sub::TeleportLocations_catind
 		{
 			GTAentity thisEntity = Static_241;
 
+			if (!GrabbedCoords)
+			{
+				_customTeleLoc = GET_ENTITY_COORDS(PLAYER_PED_ID(), 0);
+				GrabbedCoords = true;
+			}
+
 			bool x_plus = 0, x_minus = 0,
 				y_plus = 0, y_minus = 0,
 				z_plus = 0, z_minus = 0,
-				x_custom = 0, y_custom = 0, z_custom = 0, apply = 0;
+				x_custom = 0, y_custom = 0, z_custom = 0, apply = 0, update = 0;
 
 			AddTitle("Custom Coordinates");
+			AddOption("Update to current", update);
 			AddNumber("  X", _customTeleLoc.x, 4, x_custom, x_plus, x_minus);
 			AddNumber("  Y", _customTeleLoc.y, 4, y_custom, y_plus, y_minus);
 			AddNumber("  Z", _customTeleLoc.z, 4, z_custom, z_plus, z_minus);
@@ -94,34 +104,34 @@ namespace sub::TeleportLocations_catind
 
 			if (x_custom)
 			{
-				
+
 				try
 				{
 					_customTeleLoc.x = stof(Game::InputBox(std::to_string(_customTeleLoc.x), 11U, std::string(), std::to_string(_customTeleLoc.x)));
 				}
-				catch (...) {  }
+				catch (...) {}
 				//OnscreenKeyboard::State::Set(OnscreenKeyboard::Purpose::SetArg1Float, std::string(), 10U, std::string(), std::to_string(_customTeleLoc.x));
 				//OnscreenKeyboard::State::arg1._ptr = reinterpret_cast<void*>(&_customTeleLoc.x);
 			}
 			if (y_custom)
 			{
-				
+
 				try
 				{
 					_customTeleLoc.y = stof(Game::InputBox(std::to_string(_customTeleLoc.y), 11U, std::string(), std::to_string(_customTeleLoc.y)));
 				}
-				catch (...) {  }
+				catch (...) {}
 				//OnscreenKeyboard::State::Set(OnscreenKeyboard::Purpose::SetArg1Float, std::string(), 10U, std::string(), std::to_string(_customTeleLoc.y));
 				//OnscreenKeyboard::State::arg1._ptr = reinterpret_cast<void*>(&_customTeleLoc.y);
 			}
 			if (z_custom)
 			{
-				
+
 				try
 				{
 					_customTeleLoc.z = stof(Game::InputBox(std::to_string(_customTeleLoc.z), 11U, std::string(), std::to_string(_customTeleLoc.z)));
 				}
-				catch (...) {  }
+				catch (...) {}
 				//OnscreenKeyboard::State::Set(OnscreenKeyboard::Purpose::SetArg1Float, std::string(), 10U, std::string(), std::to_string(_customTeleLoc.z));
 				//OnscreenKeyboard::State::arg1._ptr = reinterpret_cast<void*>(&_customTeleLoc.z);
 			}
@@ -129,7 +139,13 @@ namespace sub::TeleportLocations_catind
 
 			if (apply)
 			{
+				GrabbedCoords = false;
 				teleport_net_ped(thisEntity, _customTeleLoc.x, _customTeleLoc.y, _customTeleLoc.z);
+			}
+
+			if (update)
+			{
+				GrabbedCoords = false;
 			}
 		}
 		void Sub_SelectedCategory()
