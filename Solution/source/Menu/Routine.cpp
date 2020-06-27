@@ -270,7 +270,7 @@ UINT8 loop_forcefield = 0;
 UINT8 loop_self_freezeWantedLevel = 0;
 Entity bit_infinite_ammo_enth = 0;
 
-bool loop_RainbowBoxes = 0, loop_forge_gun = 0, loop_player_noRagdoll = 0, loop_player_seatbelt = 0, loop_player_unlimSpecialAbility = 0, loop_player_autoClean = 0,
+bool loop_RainbowBoxes = 0, loop_forge_gun = 0, loop_player_noRagdoll = 0, loop_player_seatbelt = 0, loop_player_unlimSpecialAbility = 0, loop_player_autoClean = 0, loop_player_Walkunderwater = 0, loop_player_Psun = 0,
 loop_explosive_rounds = 0, loop_flaming_rounds = 0, loop_teleport_gun = 0, loop_kaboom_gun = 0, loop_triggerfx_gun = 0, loop_bullet_gun = 0, loop_ped_gun = 0, loop_object_gun = 0, loop_light_gun = 0, loop_bullet_time = 0, loop_self_triggerbot = 0,
 loop_explosive_melee = 0, loop_super_jump = 0, loop_self_refillHealthInCover = 0, loop_player_invincibility = 0, loop_no_clip = 0, loop_no_clip_toggle = 0, loop_super_run = 0,
 loop_XYZHcoords = 0, loop_ignored_by_everyone = 0, loop_never_wanted = 0, loop_superman = 0, loop_superman_auto = 0,
