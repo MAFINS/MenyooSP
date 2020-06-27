@@ -2795,7 +2795,7 @@ void Menu::loops()
 			_JumpAroundMode_::Tick();
 	}
 
-	if (GET_GAME_TIMER() >= delayedTimer)
+	if (GET_GAME_TIMER())
 	{
 		player = PLAYER_ID();
 		player2.Handle() = (player);
@@ -2829,7 +2829,29 @@ void Menu::loops()
 			sub::PedDamageTextures_catind::ClearAllBloodDamage(iped);
 			sub::PedDamageTextures_catind::ClearAllVisibleDamage(iped);
 		}
+		
+		if (loop_player_Walkunderwater)
+		{
+			if (ENTITY::IS_ENTITY_IN_WATER(iped))
+			{
+				PED::SET_PED_CONFIG_FLAG(iped, 65, false);
+				PED::SET_PED_CONFIG_FLAG(iped, 66, false);
+				PED::SET_PED_CONFIG_FLAG(iped, 168, false);
+				//ENTITY::APPLY_FORCE_TO_ENTITY(iped, true, 0, 0, -0.5f, 0, 0, 0, true, true, true, true, false, true);
+				if (IS_PED_SWIMMING(iped) || IS_PED_SWIMMING_UNDER_WATER(iped))
+				{
+					CLEAR_PED_TASKS_IMMEDIATELY(iped);
+				}
+			}
+		}
 
+		if (loop_player_Psun)
+		{
+			Vector3 PlayerPos = GET_ENTITY_COORDS(iped, 0);
+			_DRAW_LIGHT_WITH_RANGE_AND_SHADOW(PlayerPos.x, PlayerPos.y, (PlayerPos.z + 1.5f), 255, 255, 251, 100.0f, 1.5f, 0.0f);
+			_DRAW_LIGHT_WITH_RANGE_AND_SHADOW(PlayerPos.x, PlayerPos.y, (PlayerPos.z + 50.0f), 255, 255, 251, 200.0f, 1.0f, 0.0f);
+		}
+		
 		// Fireworks display
 		if (loop_fireworksDisplay)
 		{
