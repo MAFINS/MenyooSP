@@ -2697,13 +2697,27 @@ void Set_Walkunderwater(Entity PlayerPed)
 		PED::SET_PED_CONFIG_FLAG(PlayerPed, 65, false);
 		PED::SET_PED_CONFIG_FLAG(PlayerPed, 66, false);
 		PED::SET_PED_CONFIG_FLAG(PlayerPed, 168, false);
-		ENTITY::APPLY_FORCE_TO_ENTITY(PlayerPed, true, 0, 0, -0.2f, 0, 0, 0, true, true, true, true, false, true); // pushdown
 		
 		Vector3 PlayerPos = GET_ENTITY_COORDS(PlayerPed, 0);
 		_DRAW_LIGHT_WITH_RANGE_AND_SHADOW(PlayerPos.x, PlayerPos.y, (PlayerPos.z + 1.5f), 255, 255, 251, 100.0f, 1.5f, 0.0f);
 		_DRAW_LIGHT_WITH_RANGE_AND_SHADOW(PlayerPos.x, PlayerPos.y, (PlayerPos.z + 50.0f), 255, 255, 251, 200.0f, 1.0f, 0.0f);
 
-		if (IS_PED_SWIMMING(PlayerPed) || IS_PED_SWIMMING_UNDER_WATER(PlayerPed))
+		if (IS_PED_JUMPING(PlayerPed)) // small pushup so jump feel more natural ( like when not underwater )
+		{
+			ENTITY::APPLY_FORCE_TO_ENTITY(PlayerPed, true, 0, 0, 0.7f, 0, 0, 0, true, true, true, true, false, true);
+		}
+
+		if (GET_ENTITY_HEIGHT_ABOVE_GROUND(PlayerPed) > 1) //Do falling down
+		{
+			PED::SET_PED_CONFIG_FLAG(PlayerPed, 60, false);
+			PED::SET_PED_CONFIG_FLAG(PlayerPed, 61, false);
+			PED::SET_PED_CONFIG_FLAG(PlayerPed, 104, false);
+			PED::SET_PED_CONFIG_FLAG(PlayerPed, 276, false);
+			PED::SET_PED_CONFIG_FLAG(PlayerPed, 76, true);
+			ENTITY::APPLY_FORCE_TO_ENTITY(PlayerPed, true, 0, 0, -0.7f, 0, 0, 0, true, true, true, true, false, true);
+		}
+
+		if (AI::GET_IS_TASK_ACTIVE(PlayerPed, 281)|| IS_PED_SWIMMING(PlayerPed) || IS_PED_SWIMMING_UNDER_WATER(PlayerPed)) // Stop Swimming
 		{
 			CLEAR_PED_TASKS_IMMEDIATELY(PlayerPed);
 		}
