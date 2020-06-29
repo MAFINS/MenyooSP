@@ -270,7 +270,7 @@ UINT8 loop_forcefield = 0;
 UINT8 loop_self_freezeWantedLevel = 0;
 Entity bit_infinite_ammo_enth = 0;
 
-bool loop_RainbowBoxes = 0, loop_forge_gun = 0, loop_player_noRagdoll = 0, loop_player_seatbelt = 0, loop_player_unlimSpecialAbility = 0, loop_player_autoClean = 0, loop_player_Walkunderwater = 0, loop_player_Psun = 0,
+bool loop_RainbowBoxes = 0, loop_forge_gun = 0, loop_player_noRagdoll = 0, loop_player_seatbelt = 0, loop_player_unlimSpecialAbility = 0, loop_player_autoClean = 0, loop_player_Walkunderwater = 0,
 loop_explosive_rounds = 0, loop_flaming_rounds = 0, loop_teleport_gun = 0, loop_kaboom_gun = 0, loop_triggerfx_gun = 0, loop_bullet_gun = 0, loop_ped_gun = 0, loop_object_gun = 0, loop_light_gun = 0, loop_bullet_time = 0, loop_self_triggerbot = 0,
 loop_explosive_melee = 0, loop_super_jump = 0, loop_self_refillHealthInCover = 0, loop_player_invincibility = 0, loop_no_clip = 0, loop_no_clip_toggle = 0, loop_super_run = 0,
 loop_XYZHcoords = 0, loop_ignored_by_everyone = 0, loop_never_wanted = 0, loop_superman = 0, loop_superman_auto = 0,
@@ -2690,7 +2690,25 @@ void clear_ped_facial_mood(GTAentity ped)
 	CLEAR_FACIAL_IDLE_ANIM_OVERRIDE(ped.Handle());
 }
 
+void Set_Walkunderwater(Entity PlayerPed)
+{
+	if (ENTITY::IS_ENTITY_IN_WATER(PlayerPed))
+	{
+		PED::SET_PED_CONFIG_FLAG(PlayerPed, 65, false);
+		PED::SET_PED_CONFIG_FLAG(PlayerPed, 66, false);
+		PED::SET_PED_CONFIG_FLAG(PlayerPed, 168, false);
+		ENTITY::APPLY_FORCE_TO_ENTITY(PlayerPed, true, 0, 0, -0.2f, 0, 0, 0, true, true, true, true, false, true); // pushdown
+		
+		Vector3 PlayerPos = GET_ENTITY_COORDS(PlayerPed, 0);
+		_DRAW_LIGHT_WITH_RANGE_AND_SHADOW(PlayerPos.x, PlayerPos.y, (PlayerPos.z + 1.5f), 255, 255, 251, 100.0f, 1.5f, 0.0f);
+		_DRAW_LIGHT_WITH_RANGE_AND_SHADOW(PlayerPos.x, PlayerPos.y, (PlayerPos.z + 50.0f), 255, 255, 251, 200.0f, 1.0f, 0.0f);
 
+		if (IS_PED_SWIMMING(PlayerPed) || IS_PED_SWIMMING_UNDER_WATER(PlayerPed))
+		{
+			CLEAR_PED_TASKS_IMMEDIATELY(PlayerPed);
+		}
+	}
+}
 
 #pragma endregion
 
@@ -2794,8 +2812,11 @@ void Menu::loops()
 		if (_JumpAroundMode_::bEnabled)
 			_JumpAroundMode_::Tick();
 	}
+	
+	if (loop_player_Walkunderwater)
+		Set_Walkunderwater(PLAYER_PED_ID());
 
-	if (GET_GAME_TIMER())
+	if (GET_GAME_TIMER() >= delayedTimer)
 	{
 		player = PLAYER_ID();
 		player2.Handle() = (player);
@@ -2829,29 +2850,7 @@ void Menu::loops()
 			sub::PedDamageTextures_catind::ClearAllBloodDamage(iped);
 			sub::PedDamageTextures_catind::ClearAllVisibleDamage(iped);
 		}
-		
-		if (loop_player_Walkunderwater)
-		{
-			if (ENTITY::IS_ENTITY_IN_WATER(iped))
-			{
-				PED::SET_PED_CONFIG_FLAG(iped, 65, false);
-				PED::SET_PED_CONFIG_FLAG(iped, 66, false);
-				PED::SET_PED_CONFIG_FLAG(iped, 168, false);
-				//ENTITY::APPLY_FORCE_TO_ENTITY(iped, true, 0, 0, -0.5f, 0, 0, 0, true, true, true, true, false, true);
-				if (IS_PED_SWIMMING(iped) || IS_PED_SWIMMING_UNDER_WATER(iped))
-				{
-					CLEAR_PED_TASKS_IMMEDIATELY(iped);
-				}
-			}
-		}
 
-		if (loop_player_Psun)
-		{
-			Vector3 PlayerPos = GET_ENTITY_COORDS(iped, 0);
-			_DRAW_LIGHT_WITH_RANGE_AND_SHADOW(PlayerPos.x, PlayerPos.y, (PlayerPos.z + 1.5f), 255, 255, 251, 100.0f, 1.5f, 0.0f);
-			_DRAW_LIGHT_WITH_RANGE_AND_SHADOW(PlayerPos.x, PlayerPos.y, (PlayerPos.z + 50.0f), 255, 255, 251, 200.0f, 1.0f, 0.0f);
-		}
-		
 		// Fireworks display
 		if (loop_fireworksDisplay)
 		{
