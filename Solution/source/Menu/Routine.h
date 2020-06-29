@@ -115,7 +115,7 @@ extern UINT8 loop_forcefield;
 extern UINT8 loop_self_freezeWantedLevel;
 extern Entity bit_infinite_ammo_enth;
 
-extern bool loop_RainbowBoxes, loop_forge_gun, loop_player_noRagdoll, loop_player_seatbelt, loop_player_unlimSpecialAbility, loop_player_autoClean, loop_player_Walkunderwater, loop_player_Psun,
+extern bool loop_RainbowBoxes, loop_forge_gun, loop_player_noRagdoll, loop_player_seatbelt, loop_player_unlimSpecialAbility, loop_player_autoClean, loop_player_Walkunderwater,
 loop_explosive_rounds, loop_flaming_rounds, loop_teleport_gun, loop_kaboom_gun, loop_triggerfx_gun, loop_bullet_gun, loop_ped_gun, loop_object_gun, loop_light_gun, loop_bullet_time, loop_self_triggerbot,
 loop_explosive_melee, loop_super_jump, loop_self_refillHealthInCover, loop_player_invincibility, loop_no_clip, loop_no_clip_toggle, loop_super_run,
 loop_XYZHcoords, loop_ignored_by_everyone, loop_never_wanted, loop_superman, loop_superman_auto,
