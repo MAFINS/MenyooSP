@@ -212,7 +212,8 @@ INT16 bind_no_clip = VirtualKey::F3;
 RgbS g_fadedRGB(255, 0, 0);
 
 UINT8 pause_clock_H, pause_clock_M;
-Vehicle g_myVeh = 0;
+Vehicle g_myVeh = 0, AmphCar, AmphBoat;
+Entity AmphClone;
 GTAmodel::Model g_myVeh_model;
 Hash g_myWeap = 0U;
 PTFX::sFxData triggerfx_gun_data = { "scr_fbi4", "scr_fbi4_trucks_crash" };
@@ -275,7 +276,7 @@ loop_explosive_rounds = 0, loop_flaming_rounds = 0, loop_teleport_gun = 0, loop_
 loop_explosive_melee = 0, loop_super_jump = 0, loop_self_refillHealthInCover = 0, loop_player_invincibility = 0, loop_no_clip = 0, loop_no_clip_toggle = 0, loop_super_run = 0,
 loop_XYZHcoords = 0, loop_ignored_by_everyone = 0, loop_never_wanted = 0, loop_superman = 0, loop_superman_auto = 0,
 loop_vehicle_population = 0, loop_ped_population = 0, loop_clearWeaponPickups = 0, loop_drive_on_water = 0, loop_massacre_mode = 0,
-loop_player_burn = 0, loop_vehicle_invincibility = 0, loop_vehicle_heavymass = 0, loop_race_boost = 0,
+loop_player_burn = 0, loop_vehicle_invincibility = 0, loop_vehicle_heavymass = 0, loop_race_boost = 0, loop_amphibic =0,
 loop_car_hydraulics = 0, loop_super_grip = 0, loop_SuprKarMode = 0, loop_unlimVehBoost = 1,
 
 loop_vehweap_lines = 0, loop_vehicle_RPG = 0, loop_vehicle_fireworks = 0, loop_vehicle_guns = 0, loop_vehicle_snowballs = 0, loop_vehicle_balls = 0, loop_vehicle_waterhyd = 0, loop_vehicle_laser_green = 0, loop_vehicle_flameleak = 0,
@@ -2216,6 +2217,62 @@ inline void set_Handling_Mult69_7()
 	}
 }
 
+void set_amphibic(Vehicle vehicle)
+{
+	bool InBoat;
+	float waterh;
+	Vector3 temp = GET_ENTITY_COORDS(vehicle, 0);
+	GET_WATER_HEIGHT(temp.x, temp.y, temp.z, &waterh);
+	int radioid = GET_PLAYER_RADIO_STATION_INDEX();
+
+
+	if (GET_VEHICLE_CLASS(vehicle) == 14) // in boat
+	{
+		InBoat = true;
+	}
+	else // in car
+	{
+		InBoat = false;
+	}
+	
+	if (!InBoat && IS_ENTITY_IN_WATER(vehicle)) //on water as car
+	{
+		AmphCar = vehicle;																	//Set Car Global
+		Vector3 speed = GET_ENTITY_SPEED_VECTOR(AmphCar, false);
+		if (!DOES_ENTITY_EXIST(AmphClone)) AmphClone = CLONE_PED(PLAYER_PED_ID(), GET_ENTITY_HEADING(PLAYER_PED_ID()), 0, 1);	//Set Clone Global
+
+		if (!DOES_ENTITY_EXIST(AmphBoat)) AmphBoat = CREATE_VEHICLE(GET_HASH_KEY("seashark"), temp.x, temp.y, temp.z, GET_ENTITY_HEADING(vehicle), 1, 1); //Set Boat Global
+		SET_ENTITY_ALPHA(AmphBoat, 0, 0);
+		ATTACH_ENTITY_TO_ENTITY(AmphCar, AmphBoat, -1, 0, 0, 0.4f, 0, 1.0f, 0, 0, 0, 0, 0, 2, 1);
+		SET_PED_INTO_VEHICLE(PLAYER_PED_ID(), AmphBoat, -1);
+		SET_VEH_RADIO_STATION(AmphBoat, GET_RADIO_STATION_NAME(radioid));
+		SET_ENTITY_VISIBLE(PLAYER_PED_ID(), 0);
+		//--------------------------------------------
+		SET_PED_INTO_VEHICLE(AmphClone, AmphCar, -1);
+		SET_ENTITY_COORDS_NO_OFFSET(AmphBoat, temp.x, temp.y, waterh, false, false, false);
+		APPLY_FORCE_TO_ENTITY(AmphBoat, 1, speed.x, speed.y, 0.1f, -1, 0, 0, 0, false, true, true, false, true);
+
+		Hash model = GET_ENTITY_MODEL(AmphCar);
+		_SET_VEHICLE_AUDIO(AmphBoat, VEHICLE::GET_DISPLAY_NAME_FROM_VEHICLE_MODEL(model));
+	}
+	else if (InBoat && !IS_ENTITY_IN_WATER(vehicle) && !GET_WATER_HEIGHT(temp.x, temp.y, temp.z, &waterh)) //on land as boat
+	{
+		Vector3 speed = GET_ENTITY_SPEED_VECTOR(AmphBoat, false);
+		SET_ENTITY_AS_MISSION_ENTITY(AmphClone, true, true);
+		DELETE_PED(&AmphClone);												//Remove Clone
+		SET_PED_INTO_VEHICLE(PLAYER_PED_ID(), AmphCar, -1);
+		DETACH_ENTITY(AmphCar, 0, 1);			
+		SET_VEH_RADIO_STATION(AmphBoat, GET_RADIO_STATION_NAME(radioid));
+		//--------------------------------------------
+		SET_ENTITY_AS_MISSION_ENTITY(AmphBoat, true, true);
+		DELETE_VEHICLE(&AmphBoat);
+		SET_ENTITY_VISIBLE(PLAYER_PED_ID(), 1);
+
+		APPLY_FORCE_TO_ENTITY(AmphCar, 1, speed.x, speed.y, 0.1f, -1, 0, 0, 0, false, true, true, false, true);
+	}
+	
+}
+
 // Vehicle - ability - invincibility
 void set_vehicle_invincible_on(Vehicle vehicle)
 {
@@ -3172,6 +3229,9 @@ void Menu::loops()
 		if (loop_vehicle_invincibility)
 			set_vehicle_invincible_on(g_myVeh);
 
+		if (loop_amphibic)
+			set_amphibic(g_myVeh);
+		
 		// Vehicle fix
 		if (loop_vehicle_fixloop)
 		{
