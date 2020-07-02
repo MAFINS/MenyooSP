@@ -169,6 +169,7 @@ namespace sub
 		AddToggle("Glue to Ground", loop_super_grip);
 		AddTexter("Vehicle Jump", loop_car_jump, Menu::bit_controller ? std::vector<std::string>{"Off", "Tap/Press A/X", "Hold A/X"} : std::vector<std::string>{ "Off", "Tap/Press Space", "Hold Space" }, null, carjump_plus, carjump_minus);
 		AddToggle("Hydraulics", loop_car_hydraulics, VehicleOpsHydraulicsOn_);
+		AddToggle("Amphibic Car-mode", loop_amphibic);
 		AddToggle("Drive On Water", loop_drive_on_water, VehicleOpsDriveOnWaterOn_, VehicleOpsDriveOnWaterOff_);
 		AddToggle("Increased Mass", loop_vehicle_heavymass, null, VehicleOpsHeavyMassOff_);
 		AddTickol("Child Locks", (GET_VEHICLE_DOOR_LOCK_STATUS(g_myVeh) == 4), VehicleOpsChildLocksOn_, VehicleOpsChildLocksOff_, TICKOL::BOXTICK, TICKOL::BOXBLANK);
