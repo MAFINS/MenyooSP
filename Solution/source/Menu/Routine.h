@@ -120,7 +120,7 @@ loop_explosive_rounds, loop_flaming_rounds, loop_teleport_gun, loop_kaboom_gun, 
 loop_explosive_melee, loop_super_jump, loop_self_refillHealthInCover, loop_player_invincibility, loop_no_clip, loop_no_clip_toggle, loop_super_run,
 loop_XYZHcoords, loop_ignored_by_everyone, loop_never_wanted, loop_superman, loop_superman_auto,
 loop_vehicle_population, loop_ped_population, loop_clearWeaponPickups, loop_drive_on_water, loop_massacre_mode,
-loop_player_burn, loop_vehicle_invincibility, loop_vehicle_heavymass, loop_race_boost,
+loop_player_burn, loop_vehicle_invincibility, loop_vehicle_heavymass, loop_race_boost, loop_amphibic,
 loop_car_hydraulics, loop_super_grip, loop_SuprKarMode, loop_unlimVehBoost,
 
 loop_vehweap_lines, loop_vehicle_RPG, loop_vehicle_fireworks, loop_vehicle_guns, loop_vehicle_snowballs, loop_vehicle_balls, loop_vehicle_waterhyd, loop_vehicle_laser_green, loop_vehicle_flameleak,
