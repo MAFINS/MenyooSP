@@ -5,10 +5,12 @@
 		<Vehicle name="ADDER" />
 		<Vehicle name="AUTARCH" />
 		<Vehicle name="BANSHEE2" /><!-- Banshee 900R -->
+		<Vehicle name="OPENWHEEL1" /><!-- BR8, should be Open Wheel class -->
 		<Vehicle name="BULLET" />
 		<Vehicle name="CHEETAH" />
 		<Vehicle name="CYCLONE" />
 		<Vehicle name="DEVESTE" />
+		<Vehicle name="OPENWHEEL2" /><!-- DR1, should be Open Wheel class -->
 		<Vehicle name="EMERUS" />
 		<Vehicle name="ENTITYXF" />
 		<Vehicle name="ENTITY2" /><!-- Entity XXR -->
@@ -24,8 +26,8 @@
 		<Vehicle name="NERO" />
 		<Vehicle name="NERO2" /><!-- Nero Custom -->
 		<Vehicle name="PENETRATOR" />
-		<Vehicle name="FORMULA" /><!-- PR4, should be Open Wheel class-->
-		<Vehicle name="FORMULA2" /><!-- R88, should be Open Wheel class-->
+		<Vehicle name="FORMULA" /><!-- PR4, should be Open Wheel class -->
+		<Vehicle name="FORMULA2" /><!-- R88, should be Open Wheel class -->
 		<Vehicle name="LE7B" /><!-- RE-7B -->
 		<Vehicle name="REAPER" />
 		<Vehicle name="VOLTIC2" /><!-- Rocket Voltic -->
@@ -38,6 +40,7 @@
 		<Vehicle name="TEMPESTA" />
 		<Vehicle name="TEZERACT" />
 		<Vehicle name="THRAX" />
+		<Vehicle name="TIGON" />
 		<Vehicle name="TURISMOR" />
 		<Vehicle name="TYRANT" />
 		<Vehicle name="TYRUS" />
@@ -84,6 +87,7 @@
 		<Vehicle name="COMET4" /><!-- Comet Safari -->
 		<Vehicle name="COMET5" /><!-- Comet SR -->
 		<Vehicle name="COQUETTE" />
+		<Vehicle name="COQUETTE4" /><!-- Coquette D10 -->
 		<Vehicle name="TAMPA2" /><!-- Drift Tampa -->
 		<Vehicle name="ELEGY" /><!-- Elegy Retro Custom -->
 		<Vehicle name="ELEGY2" /><!-- Elegy RH8 -->
@@ -119,6 +123,7 @@
 		<Vehicle name="PARAGON2" /><!-- Paragon R (Armored) -->
 		<Vehicle name="PARIAH" />
 		<Vehicle name="PENUMBRA" />
+		<Vehicle name="PENUMBRA2" /><!-- Penumbra FF -->
 		<Vehicle name="RAIDEN" />
 		<Vehicle name="RAPIDGT" />
 		<Vehicle name="RAPIDGT2" /><!-- Rapid GT Cabrio -->
@@ -148,6 +153,7 @@
 		<Vehicle name="IMPALER2" /><!-- Apocalypse Impaler -->
 		<Vehicle name="IMPERATOR" /><!-- Apocalypse Imperator -->
 		<Vehicle name="SLAMVAN4" /><!-- Apocalypse Slamvan -->
+		<Vehicle name="DUKES3" /><!-- Beater Dukes -->
 		<Vehicle name="BLADE" />
 		<Vehicle name="BUCCANEER" />
 		<Vehicle name="BUCCANEER2" /><!-- Buccaneer Custom -->
@@ -172,6 +178,7 @@
 		<Vehicle name="SLAMVAN5" /><!-- Future Shock Slamvan -->
 		<Vehicle name="GAUNTLET" />
 		<Vehicle name="GAUNTLET3" /><!-- Gauntlet Classic -->
+		<Vehicle name="GAUNTLET5" /><!-- Gauntlet Classic Custom -->
 		<Vehicle name="GAUNTLET4" /><!-- Gauntlet Hellfire -->
 		<Vehicle name="HERMES" />
 		<Vehicle name="HOTKNIFE" />
@@ -179,6 +186,7 @@
 		<Vehicle name="IMPALER" />
 		<Vehicle name="SLAMVAN2" /><!-- Lost Slamvan -->
 		<Vehicle name="LURCHER" />
+		<Vehicle name="MANANA2" /><!-- Manana Custom -->
 		<Vehicle name="MOONBEAM" />
 		<Vehicle name="MOONBEAM2" /><!-- Moonbeam Custom -->
 		<Vehicle name="DOMINATOR6" /><!-- Nightmare Dominator -->
@@ -234,6 +242,7 @@
 		<Vehicle name="MONROE" />
 		<Vehicle name="NEBULA" />
 		<Vehicle name="PEYOTE" />
+		<Vehicle name="PEYOTE3" /><!-- Peyote Custom -->
 		<Vehicle name="PIGALLE" />
 		<Vehicle name="RAPIDGT3" /><!-- Rapid GT Classic -->
 		<Vehicle name="RETINUE" />
@@ -303,6 +312,7 @@
 		<Vehicle name="EMPEROR3" /><!-- Emperor North Yankton variant -->
 		<Vehicle name="FUGITIVE" />
 		<Vehicle name="GLENDALE" />
+		<Vehicle name="GLENDALE2" /><!-- Glendale Custom -->
 		<Vehicle name="INGOT" />
 		<Vehicle name="INTRUDER" />
 		<Vehicle name="PREMIER" />
@@ -380,6 +390,7 @@
 		<Vehicle name="TECHNICAL3" /><!-- Technical Custom -->
 		<Vehicle name="TROPHYTRUCK" />
 		<Vehicle name="VAGRANT" />
+		<Vehicle name="YOSEMITE3" /><!-- Yosemite Rancher -->
 		<Vehicle name="ZHABA" />
 	</Category>
 	<Category name="SUV">
@@ -401,6 +412,7 @@
 		<Vehicle name="HABANERO" />
 		<Vehicle name="HUNTLEY" />
 		<Vehicle name="LANDSTALKER" />
+		<Vehicle name="LANDSTALKER2" /><!-- Landstalker XL -->
 		<Vehicle name="MESA" />
 		<Vehicle name="MESA2" /><!-- Mesa North Yankton variant -->
 		<Vehicle name="NOVAK" />
@@ -410,6 +422,7 @@
 		<Vehicle name="REBLA" />
 		<Vehicle name="ROCOTO" />
 		<Vehicle name="SEMINOLE" />
+		<Vehicle name="SEMINOLE2" /><!-- Seminole Frontier -->
 		<Vehicle name="SERRANO" />
 		<Vehicle name="TOROS" />
 		<Vehicle name="XLS" />
@@ -421,6 +434,7 @@
 		<Vehicle name="BLISTA" />
 		<Vehicle name="KANJO" /><!-- Blista Kanjo -->
 		<Vehicle name="BRIOSO" />
+		<Vehicle name="CLUB" />
 		<Vehicle name="DILETTANTE" />
 		<Vehicle name="DILETTANTE2" /><!-- Merryweather Dilettante -->
 		<Vehicle name="ISSI5" /><!-- Future Shock Issi -->
@@ -480,6 +494,7 @@
 		<Vehicle name="TACO" />
 		<Vehicle name="YOUGA" />
 		<Vehicle name="YOUGA2" /><!-- Youga Classic -->
+		<Vehicle name="YOUGA3" /><!-- Youga Classic 4x4 -->
 	</Category>
 	<Category name="Service"><!-- Service + Utility -->
 		<Vehicle name="AIRBUS" />
