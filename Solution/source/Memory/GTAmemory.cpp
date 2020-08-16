@@ -1631,6 +1631,8 @@ void GeneralGlobalHax::EnableBlockedMpVehiclesInSp(bool uSure)
 	case eGameVersion::VER_1_0_1868_0_NOSTEAM: case eGameVersion::VER_1_0_1868_0_STEAM:
 	case eGameVersion::VER_1_0_1868_1_NOSTEAM: case eGameVersion::VER_1_0_1868_1_STEAM:
                 *GTAmemory::GetGlobalPtr<INT32>(4268190) = uSure ? 1 : 0; break;
+	case eGameVersion::VER_1_0_2060_0_NOSTEAM: case eGameVersion::VER_1_0_2060_0_STEAM:
+		*GTAmemory::GetGlobalPtr<INT32>(4268340) = uSure ? 1 : 0; break;
 	}
 }
 
@@ -1682,6 +1684,8 @@ float GeneralGlobalHax::GetPlayerSwimSpeed()
 			return *(GetMultilayerPointer<float*>(baddr, std::vector<DWORD>{0x8, 0x10B8, 0xE4}));
 		else if (gameVersion <= eGameVersion::VER_1_0_1868_1_NOSTEAM)
 			return *(GetMultilayerPointer<float*>(baddr, std::vector<DWORD>{0x8, 0x10B8, 0x148}));
+		else if (gameVersion <= eGameVersion::VER_1_0_2060_0_NOSTEAM)
+			return *(GetMultilayerPointer<float*>(baddr, std::vector<DWORD>{0x8, 0x10B8, 0x150}));
 	}
 	return 1.0f;
 }
@@ -1699,6 +1703,8 @@ void GeneralGlobalHax::SetPlayerSwimSpeed(float value)
 			*(GetMultilayerPointer<float*>(baddr, std::vector<DWORD>{0x8, 0x10B8, 0xE4})) = value;
 		else if (gameVersion <= eGameVersion::VER_1_0_1868_1_NOSTEAM)
 			*(GetMultilayerPointer<float*>(baddr, std::vector<DWORD>{0x8, 0x10B8, 0x148})) = value;
+		else if (gameVersion <= eGameVersion::VER_1_0_2060_0_NOSTEAM)
+			*(GetMultilayerPointer<float*>(baddr, std::vector<DWORD>{0x8, 0x10B8, 0x150})) = value;
 	}
 }
 float GeneralGlobalHax::GetPlayerMovementSpeed()
@@ -1715,6 +1721,8 @@ float GeneralGlobalHax::GetPlayerMovementSpeed()
 			return *(GetMultilayerPointer<float*>(baddr, std::vector<DWORD>{0x8, 0x10B8, 0xE8}));
 		else if (gameVersion <= eGameVersion::VER_1_0_1868_1_NOSTEAM)
 			return *(GetMultilayerPointer<float*>(baddr, std::vector<DWORD>{0x8, 0x10B8, 0x14C}));
+		else if (gameVersion <= eGameVersion::VER_1_0_2060_0_NOSTEAM)
+			return *(GetMultilayerPointer<float*>(baddr, std::vector<DWORD>{0x8, 0x10B8, 0xCD0}));
 	}
 	return 1.0f;
 }
@@ -1732,6 +1740,8 @@ void GeneralGlobalHax::SetPlayerMovementSpeed(float value)
 			*(GetMultilayerPointer<float*>(baddr, std::vector<DWORD>{0x8, 0x10B8, 0xE8})) = value;
 		else if (gameVersion <= eGameVersion::VER_1_0_1868_1_NOSTEAM)
 			*(GetMultilayerPointer<float*>(baddr, std::vector<DWORD>{0x8, 0x10B8, 0x14C})) = value;
+		else if (gameVersion <= eGameVersion::VER_1_0_2060_0_NOSTEAM)
+			*(GetMultilayerPointer<float*>(baddr, std::vector<DWORD>{0x8, 0x10B8, 0xCD0})) = value;
 	}
 }
 
