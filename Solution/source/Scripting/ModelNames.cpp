@@ -25,6 +25,7 @@
 #include <string>
 #include <fstream>
 #include <pugixml\src\pugixml.hpp>
+#include <algorithm> // std::sort, VS 2019 update 16.7.1
 
 #pragma region Vehicle model labels
 std::vector<GTAmodel::Model> g_vehHashes;
