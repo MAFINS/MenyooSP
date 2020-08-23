@@ -12,7 +12,7 @@
 #include <string>
 #include <vector>
 
-typedef char *PCHAR;
+//typedef char *PCHAR;
 
 namespace sub::TeleportLocations_catind
 {
