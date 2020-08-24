@@ -202,8 +202,11 @@ namespace sub::TeleportLocations_catind
 
 				_ENABLE_MP_DLC_MAPS(true);
 				_LOAD_MP_DLC_MAPS();
-				for (auto& ipl : IplNames::vAllOfficeGarages1)
-					REMOVE_IPL(ipl);
+				for (auto& ipl : IplNames::vAllOfficeGarages1){					
+					//REMOVE_IPL(ipl);
+					REMOVE_IPL((char*)ipl.data());
+				}
+					
 				REQUEST_IPL(loc.ipl);
 				int interior = GET_INTERIOR_AT_COORDS(pos.x, pos.y, pos.z); // Ambiguity?
 				DISABLE_INTERIOR(interior, true);
@@ -309,6 +312,3 @@ namespace sub::TeleportLocations_catind
 	}
 
 }
-
-
-

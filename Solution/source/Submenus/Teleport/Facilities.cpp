@@ -31,13 +31,13 @@ namespace sub::TeleportLocations_catind
 	{
 		const std::vector<TeleLocation> vOtherFacilityRelatedTeleports
 		{
-			TeleLocation("Facility 1 (IAA)", 2047.0000f, 2942.0000f, -62.9025f,{ "xm_x17dlc_int_placement_interior_4_x17dlc_int_facility_milo" },{}, true),
-			TeleLocation("Facility 2 (Datacentre)", 2168.0000f, 2920.8900f, -85.8000f,{ "xm_x17dlc_int_placement_interior_5_x17dlc_int_facility2_milo" },{}, true),
-			TeleLocation("Submarine", 513.0700f, 4839.6900f, -62.5900f,{ "xm_x17dlc_int_placement_interior_8_x17dlc_int_sub_milo_" },{}, true),
-			TeleLocation("Base", 567.1900f, 5954.8800f, -158.5500f,{ "xm_x17dlc_int_placement_interior_34_x17dlc_int_lab_milo_" },{}, true, false, true),
-			TeleLocation("Lab", 244.5700f, 6163.3900f, -159.4200f,{ "xm_x17dlc_int_placement_interior_34_x17dlc_int_lab_milo_" },{}, true, false, true),
-			TeleLocation("Silo", 368.4300f, 6307.8600f, -160.2500f,{ "xm_x17dlc_int_placement_interior_34_x17dlc_int_lab_milo_" },{}, true, false, true),
-			TeleLocation("Avenger", 520.0000f, 4750.0000f, -70.0000f,{ "xm_x17dlc_int_placement_interior_9_x17dlc_int_01_milo_" },{},{ "shell_tint", "CONTROL_1", "CONTROL_2", "CONTROL_3", "WEAPONS_MOD", "VEHICLE_MOD", "GOLD_BLING" }, true, false, true)
+			TeleLocation("Facility 1 (IAA)", 2047.0000f, 2942.0000f, -62.9025f,{ "xm_x17dlc_int_placement_interior_4_x17dlc_int_facility_milo"_sv },{}, true),
+			TeleLocation("Facility 2 (Datacentre)", 2168.0000f, 2920.8900f, -85.8000f,{ "xm_x17dlc_int_placement_interior_5_x17dlc_int_facility2_milo"_sv },{}, true),
+			TeleLocation("Submarine", 513.0700f, 4839.6900f, -62.5900f,{ "xm_x17dlc_int_placement_interior_8_x17dlc_int_sub_milo_"_sv },{}, true),
+			TeleLocation("Base", 567.1900f, 5954.8800f, -158.5500f,{ "xm_x17dlc_int_placement_interior_34_x17dlc_int_lab_milo_"_sv },{}, true, false, true),
+			TeleLocation("Lab", 244.5700f, 6163.3900f, -159.4200f,{ "xm_x17dlc_int_placement_interior_34_x17dlc_int_lab_milo_"_sv },{}, true, false, true),
+			TeleLocation("Silo", 368.4300f, 6307.8600f, -160.2500f,{ "xm_x17dlc_int_placement_interior_34_x17dlc_int_lab_milo_"_sv },{}, true, false, true),
+			TeleLocation("Avenger", 520.0000f, 4750.0000f, -70.0000f,{ "xm_x17dlc_int_placement_interior_9_x17dlc_int_01_milo_"_sv },{},{ "shell_tint"_sv, "CONTROL_1"_sv, "CONTROL_2"_sv, "CONTROL_3"_sv, "WEAPONS_MOD"_sv, "VEHICLE_MOD"_sv, "GOLD_BLING"_sv }, true, false, true)
 		};
 		struct FacilityLocation { const PCHAR name; Vector3 pos; std::vector<std::string> ipls; };//std::string interior; };
 		const std::vector<FacilityLocation> vLocations

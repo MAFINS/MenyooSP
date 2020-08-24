@@ -244,11 +244,11 @@ namespace sub::TeleportLocations_catind
 
 			for (auto& ipl : loc.iplsToRemove)
 			{
-				if (IS_IPL_ACTIVE(ipl)) REMOVE_IPL(ipl);
+				if (IS_IPL_ACTIVE((char*)ipl.data())) REMOVE_IPL((char*)ipl.data());
 			}
 			for (auto& ipl : loc.iplsToLoad)
 			{
-				if (!IS_IPL_ACTIVE(ipl)) REQUEST_IPL(ipl);
+				if (!IS_IPL_ACTIVE((char*)ipl.data())) REQUEST_IPL((char*)ipl.data());
 			}
 
 			if (loc.bInterior)
@@ -264,14 +264,15 @@ namespace sub::TeleportLocations_catind
 					}
 					for (auto& propName : loc.interiorProps)
 					{
-						_ENABLE_INTERIOR_PROP(interior, propName);
+						_ENABLE_INTERIOR_PROP(interior, (char*)propName.data());
+
 						for (DWORD timeOut = GetTickCount() + 250; GetTickCount() < timeOut;)
 						{
-							if (_IS_INTERIOR_PROP_ENABLED(interior, propName))
-								break;
+							if (_IS_INTERIOR_PROP_ENABLED(interior, (char*)propName.data()))
+									break;
 							WAIT(0);
 						}
-						_0xC1F1920BAF281317(interior, propName, 1);
+						_0xC1F1920BAF281317(interior, (char*)propName.data(), 1);
 					}
 					REFRESH_INTERIOR(interior);
 				}
@@ -299,7 +300,3 @@ namespace sub::TeleportLocations_catind
 	}
 
 }
-
-
-
-

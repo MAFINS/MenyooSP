@@ -11,8 +11,9 @@
 
 #include <string>
 #include <vector>
+#include <string_view>
 
-typedef char *PCHAR;
+//typedef char *PCHAR;
 
 namespace sub::TeleportLocations_catind
 {
@@ -21,15 +22,14 @@ namespace sub::TeleportLocations_catind
 
 	namespace IplNames
 	{
-		extern const std::vector<PCHAR> vYacht_Smboat1;
-		extern const std::vector<PCHAR> vYacht_Heist1;
-		extern const std::vector<PCHAR> vYacht_Heist2;
-		extern const std::vector<PCHAR> vAircraftCarrier1;
-		extern const std::vector<PCHAR> vNorthYankton;
-		extern const std::vector<PCHAR> vAllCustomisableApartments1;
-		extern const std::vector<PCHAR> vAllOffices1;
-		extern const std::vector<PCHAR> vAllOfficeGarages1;
-
+		extern const std::vector<std::string_view> vYacht_Smboat1;
+		extern const std::vector<std::string_view> vYacht_Heist1;
+		extern const std::vector<std::string_view> vYacht_Heist2;
+		extern const std::vector<std::string_view> vAircraftCarrier1;
+		extern const std::vector<std::string_view> vNorthYankton;
+		extern const std::vector<std::string_view> vAllCustomisableApartments1;
+		extern const std::vector<std::string_view> vAllOffices1;
+		extern const std::vector<std::string_view> vAllOfficeGarages1;
 	}
 
 	namespace Locations
