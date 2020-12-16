@@ -69,6 +69,8 @@ std::map<Hash, std::string> WeaponIndivs::vWeaponLabels
 	// 1.0.1868.0
 	{ WEAPON_NAVYREVOLVER, "Navy Revolver" },
 	{ WEAPON_CERAMICPISTOL, "Ceramic Pistol" },
+    // 1.0.2189.0
+	{ WEAPON_GADGETPISTOL, "Perico Pistol"},                                                  
 	//slot Shotgun (9)
 	{ WEAPON_PUMPSHOTGUN, "Pump Shotgun" },
 	{ WEAPON_PUMPSHOTGUN_MK2, "Pump Shotgun Mk2" },
@@ -79,6 +81,8 @@ std::map<Hash, std::string> WeaponIndivs::vWeaponLabels
 	{ WEAPON_HEAVYSHOTGUN, "Heavy Shotgun" },
 	{ WEAPON_DBSHOTGUN, "Double-Barrel Shotgun" },
 	{ WEAPON_AUTOSHOTGUN, "Auto Shotgun" },
+    // 1.0.2189.0
+	{ WEAPON_COMBATSHOTGUN, "Combat Shotgun" },                                                   
 	//slot MG (10)
 	{ WEAPON_MICROSMG, "Micro SMG" },
 	{ WEAPON_SMG, "SMG" },
@@ -102,6 +106,8 @@ std::map<Hash, std::string> WeaponIndivs::vWeaponLabels
 	{ WEAPON_BULLPUPRIFLE_MK2, "Bullpup Rifle Mk2" },
 	{ WEAPON_COMPACTRIFLE, "Compact Rifle" },
 	{ WEAPON_RAYCARBINE, "Ray Carbine Rifle" },
+    // 1.0.2189.0
+	{ WEAPON_MILITARYRIFLE, "Military Rifle" },                                                              
 	//slot Sniper (5)
 	{ WEAPON_SNIPERRIFLE, "Sniper Rifle" },
 	{ WEAPON_HEAVYSNIPER, "Heavy Sniper" },
@@ -441,6 +447,8 @@ std::vector<WeaponAndComponents> WeaponIndivs::wc_PISTOLS
 		{ "Extended_Clip", GET_HASH_KEY("COMPONENT_CERAMICPISTOL_CLIP_02") },
 		{ "Suppressor", GET_HASH_KEY("COMPONENT_CERAMICPISTOL_SUPP") },
 	}, &WeaponIndivs::vCaptions_Tints },
+    { WEAPON_GADGETPISTOL,{
+	}, &WeaponIndivs::vCaptions_Tints },                                                        
 };
 #pragma endregion
 #pragma region submachine guns
@@ -839,6 +847,14 @@ std::vector<WeaponAndComponents> WeaponIndivs::wc_ASSAULTRIFLES
 		{ "Extended_Clip", COMPONENT_COMPACTRIFLE_CLIP_02 },
 		{ "Drum Magazine", COMPONENT_COMPACTRIFLE_CLIP_03 },
 	}, &WeaponIndivs::vCaptions_Tints },
+    { WEAPON_MILITARYRIFLE,{
+		{ "Standard_Clip", COMPONENT_MILITARYRIFLE_CLIP_01 },
+		{ "Extended_Clip", COMPONENT_MILITARYRIFLE_CLIP_02 },
+		{ "Iron Sights", COMPONENT_MILITARYRIFLE_SIGHT_01 },
+		{ "Scope", COMPONENT_AT_SCOPE_SMALL },
+		{ "Flashlight", COMPONENT_AT_AR_FLSH },
+		{ "Suppressor", COMPONENT_AT_AR_SUPP },
+	}, &WeaponIndivs::vCaptions_Tints },                                                     
 };
 #pragma endregion
 #pragma region shotguns
@@ -920,6 +936,10 @@ std::vector<WeaponAndComponents> WeaponIndivs::wc_SHOTGUNS
 	{ WEAPON_AUTOSHOTGUN,{
 		{ "Standard_Clip", COMPONENT_AUTOSHOTGUN_CLIP_01 },
 	}, &WeaponIndivs::vCaptions_Tints },
+    { WEAPON_COMBATSHOTGUN,{
+		{ "Flashlight", COMPONENT_AT_AR_FLSH },
+		{ "Suppressor", COMPONENT_AT_AR_SUPP_02 },
+	}, &WeaponIndivs::vCaptions_Tints },                                                    
 };
 #pragma endregion
 #pragma region snipers
