@@ -103,7 +103,7 @@
 		<Vehicle name="IMORGON" />
 		<Vehicle name="ISSI7" /><!-- Issi Sport -->
 		<Vehicle name="ITALIGTO" />
-        <Vehicle name="ITALIRSX" /><!-- Grotti Itali RSX -->
+		<Vehicle name="ITALIRSX" />
 		<Vehicle name="JESTER" />
 		<Vehicle name="JESTER2" /><!-- Jester (Racecar) -->
 		<Vehicle name="JESTER3" /><!-- Jester Classic -->
@@ -148,8 +148,8 @@
 		<Vehicle name="TROPOS" />
 		<Vehicle name="VSTR" /><!-- V-STR -->
 		<Vehicle name="VERLIERER2" />
-        <Vehicle name="VETO" /><!-- Dinka Veto Classic -->
-        <Vehicle name="VETO2" /><!-- Dinka Veto Modern -->
+		<Vehicle name="VETO" /><!-- Veto Classic -->
+		<Vehicle name="VETO2" /><!-- Veto Modern -->
 	</Category>
 	<Category name="Muscle">
 		<Vehicle name="DOMINATOR4" /><!-- Apocalypse Dominator -->
@@ -258,6 +258,7 @@
 		<Vehicle name="FELTZER3" /><!-- Stirling GT -->
 		<Vehicle name="STROMBERG" />
 		<Vehicle name="SWINGER" />
+		<Vehicle name="TOREADOR" />
 		<Vehicle name="TORERO" />
 		<Vehicle name="TORNADO" />
 		<Vehicle name="TORNADO2" /><!-- Tornado Cabrio -->
@@ -266,7 +267,6 @@
 		<Vehicle name="TORNADO5" /><!-- Tornado Custom -->
 		<Vehicle name="TORNADO6" /><!-- Tornado Rat Rod -->
 		<Vehicle name="TURISMO2" /><!-- Turismo Classic -->
-        <Vehicle name="TOREADOR" /><!-- Pegassi Toreador -->
 		<Vehicle name="VISERIS" />
 		<Vehicle name="ZTYPE" />
 		<Vehicle name="ZION3" /><!-- Zion Classic -->
@@ -394,8 +394,8 @@
 		<Vehicle name="TECHNICAL3" /><!-- Technical Custom -->
 		<Vehicle name="TROPHYTRUCK" />
 		<Vehicle name="VAGRANT" />
-        <Vehicle name="VERUS" /><!-- Dinka Verus -->
-        <Vehicle name="WINKY" /><!-- Vapid Winky -->
+		<Vehicle name="VERUS" />
+		<Vehicle name="WINKY" />
 		<Vehicle name="YOSEMITE3" /><!-- Yosemite Rancher -->
 		<Vehicle name="ZHABA" />
 	</Category>
@@ -430,7 +430,7 @@
 		<Vehicle name="SEMINOLE" />
 		<Vehicle name="SEMINOLE2" /><!-- Seminole Frontier -->
 		<Vehicle name="SERRANO" />
-        <Vehicle name="SQUADDIE" /><!-- Mammoth Squaddie -->
+		<Vehicle name="SQUADDIE" />
 		<Vehicle name="TOROS" />
 		<Vehicle name="XLS" />
 		<Vehicle name="XLS2" /><!-- XLS (Armored) -->
@@ -441,7 +441,7 @@
 		<Vehicle name="BLISTA" />
 		<Vehicle name="KANJO" /><!-- Blista Kanjo -->
 		<Vehicle name="BRIOSO" />
-        <Vehicle name="BRIOSO2" />
+		<Vehicle name="BRIOSO2" /><!-- Brioso 300 -->
 		<Vehicle name="CLUB" />
 		<Vehicle name="DILETTANTE" />
 		<Vehicle name="DILETTANTE2" /><!-- Merryweather Dilettante -->
@@ -452,7 +452,7 @@
 		<Vehicle name="PANTO" />
 		<Vehicle name="PRAIRIE" />
 		<Vehicle name="RHAPSODY" />
-        <Vehicle name="WEEVIL" /><!-- BF Weevil -->
+		<Vehicle name="WEEVIL" />
 	</Category>
 	<Category name="Pickup">
 		<Vehicle name="BISON" />
@@ -528,7 +528,7 @@
 		<Vehicle name="SADLER" />
 		<Vehicle name="SADLER2" /><!-- Sadler North Yankton variant -->
 		<Vehicle name="SCRAP" />
-        <Vehicle name="SLAMTRUCK" /><!-- Vapid Slamtruck -->
+		<Vehicle name="SLAMTRUCK" />
 		<Vehicle name="TAXI" />
 		<Vehicle name="TOURBUS" />
 		<Vehicle name="TOWTRUCK2" /><!-- Tow Truck Slamvan variant -->
@@ -611,7 +611,7 @@
 		<Vehicle name="THRUSTER" />
 		<Vehicle name="KHANJALI" /><!-- TM-02 Khanjali -->
 		<Vehicle name="POLICE4" /><!-- Unmarked Cruiser -->
-        <Vehicle name="VETIR" />
+		<Vehicle name="VETIR" />
 	</Category>
 	<Category name="Motorcycle">
 		<Vehicle name="AKUMA" />
@@ -645,7 +645,7 @@
 		<Vehicle name="INNOVATION" />
 		<Vehicle name="LECTRO" />
 		<Vehicle name="MANCHEZ" />
-        <Vehicle name="MANCHEZ2" /><!-- Maibatsu Manchez Scout -->
+		<Vehicle name="MANCHEZ2" /><!-- Manchez Scout -->
 		<Vehicle name="NEMESIS" />
 		<Vehicle name="NIGHTBLADE" />
 		<Vehicle name="DEATHBIKE3" /><!-- Nightmare Deathbike -->
@@ -706,7 +706,7 @@
 		<Vehicle name="PYRO" />
 		<Vehicle name="BOMBUSHKA" /><!-- RM-10 Bombushka -->
 		<Vehicle name="ROGUE" />
-        <Vehicle name="ALKONOST" /><!-- RO-86 Alkonost -->
+		<Vehicle name="ALKONOST" /><!-- RO-86 Alkonost -->
 		<Vehicle name="SEABREEZE" />
 		<Vehicle name="SHAMAL" />
 		<Vehicle name="TITAN" />
@@ -722,7 +722,7 @@
 	<Category name="Helicopter">
 		<Vehicle name="AKULA" />
 		<Vehicle name="ANNIHILATOR" />
-        <Vehicle name="ANNIHILATOR2" /><!-- Annihilator Stealth -->
+		<Vehicle name="ANNIHILATOR2" /><!-- Annihilator Stealth -->
 		<Vehicle name="BUZZARD2" /><!-- Buzzard -->
 		<Vehicle name="BUZZARD" /><!-- Buzzard Attack Chopper -->
 		<Vehicle name="CARGOBOB" /><!-- Military Cargobob -->
@@ -737,9 +737,9 @@
 		<Vehicle name="POLMAV" />
 		<Vehicle name="SAVAGE" />
 		<Vehicle name="SEASPARROW" />
-        <Vehicle name="SEASPARROW2" />
-        <Vehicle name="SEASPARROW3" />
 		<Vehicle name="SKYLIFT" />
+		<Vehicle name="SEASPARROW2" /><!-- Sparrow -->
+		<Vehicle name="SEASPARROW3" /><!-- Sparrow (prop variant) -->
 		<Vehicle name="SUPERVOLITO" />
 		<Vehicle name="SUPERVOLITO2" /><!-- SuperVolito Carbon -->
 		<Vehicle name="SWIFT" />
