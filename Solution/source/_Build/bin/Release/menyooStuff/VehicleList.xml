@@ -360,7 +360,7 @@
 		<Vehicle name="BRUISER2" /><!-- Future Shock Bruiser -->
 		<Vehicle name="BRUTUS2" /><!-- Future Shock Brutus -->
 		<Vehicle name="MONSTER4" /><!-- Future Shock Sasquatch -->
-		<Vehicle name="HELLION">
+		<Vehicle name="HELLION" />
 		<Vehicle name="BLAZER3" /><!-- Hot Rod Blazer -->
 		<Vehicle name="BFINJECTION" />
 		<Vehicle name="INSURGENT" />
