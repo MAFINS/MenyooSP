@@ -1690,6 +1690,8 @@ float GeneralGlobalHax::GetPlayerSwimSpeed()
 			return *(GetMultilayerPointer<float*>(baddr, std::vector<DWORD>{0x8, 0x10B8, 0x148}));
 		else if (gameVersion <= eGameVersion::VER_1_0_2215_0_NOSTEAM)
 			return *(GetMultilayerPointer<float*>(baddr, std::vector<DWORD>{0x8, 0x10C8, 0x150}));
+		else if (gameVersion <= eGameVersion::VER_1_0_2245_0_NOSTEAM)
+			return *(GetMultilayerPointer<float*>(baddr, std::vector<DWORD>{0x8, 0x10C8, 0x170}));
 	}
 	return 1.0f;
 }
@@ -1709,6 +1711,8 @@ void GeneralGlobalHax::SetPlayerSwimSpeed(float value)
 			*(GetMultilayerPointer<float*>(baddr, std::vector<DWORD>{0x8, 0x10B8, 0x148})) = value;
 		else if (gameVersion <= eGameVersion::VER_1_0_2215_0_NOSTEAM)
 			*(GetMultilayerPointer<float*>(baddr, std::vector<DWORD>{0x8, 0x10C8, 0x150})) = value;
+		else if (gameVersion <= eGameVersion::VER_1_0_2245_0_NOSTEAM)
+			*(GetMultilayerPointer<float*>(baddr, std::vector<DWORD>{0x8, 0x10C8, 0x170})) = value;
 	}
 }
 float GeneralGlobalHax::GetPlayerMovementSpeed()
@@ -1727,6 +1731,9 @@ float GeneralGlobalHax::GetPlayerMovementSpeed()
 			return *(GetMultilayerPointer<float*>(baddr, std::vector<DWORD>{0x8, 0x10B8, 0x14C}));
 		else if (gameVersion <= eGameVersion::VER_1_0_2215_0_NOSTEAM)
 			return *(GetMultilayerPointer<float*>(baddr, std::vector<DWORD>{0x8, 0x10C8, 0xCD0}));
+		else if (gameVersion <= eGameVersion::VER_1_0_2245_0_NOSTEAM)
+			return *(GetMultilayerPointer<float*>(baddr, std::vector<DWORD>{0x8, 0x10C8, 0xCF0}));
+		
 	}
 	return 1.0f;
 }
@@ -1746,6 +1753,8 @@ void GeneralGlobalHax::SetPlayerMovementSpeed(float value)
 			*(GetMultilayerPointer<float*>(baddr, std::vector<DWORD>{0x8, 0x10B8, 0x14C})) = value;
 		else if (gameVersion <= eGameVersion::VER_1_0_2215_0_NOSTEAM) 
 			*(GetMultilayerPointer<float*>(baddr, std::vector<DWORD>{0x8, 0x10C8, 0xCD0})) = value;
+		else if (gameVersion <= eGameVersion::VER_1_0_2245_0_NOSTEAM) 
+			*(GetMultilayerPointer<float*>(baddr, std::vector<DWORD>{0x8, 0x10C8, 0xCF0})) = value;
 	}
 }
 
