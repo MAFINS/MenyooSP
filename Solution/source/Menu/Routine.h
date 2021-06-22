@@ -48,9 +48,9 @@ void ThreadMenyooMain();
 
 void Thread_menu_loops2();
 
-void ThreadMenyooConfig();
+void TickMenyooConfig();
 
-void ThreadRainbowFader();
+void TickRainbowFader();
 
 //--------------------------------On tick--------------------------------------------------------
 
