@@ -85,7 +85,9 @@
 
 //--------------------------------Threads--------------------------------------------------------
 
-DWORD g_MenyooConfigOnceTick = 0;
+int g_MenyooConfigOnceTick = 0;
+int g_MenyooConfigTick = 0;
+int g_FaderTick = 0;
 bool g_ConfigHasNotBeenRead = true;
 
 void Menu::justopened()
@@ -119,6 +121,8 @@ inline void MenyooMain()
 	//_initialProgramTick = GetTickCount();
 
 	g_MenyooConfigOnceTick = GetTickCount();
+	g_MenyooConfigTick = GetTickCount();
+	g_FaderTick = GetTickCount();
 
 	for (;;)
 	{
@@ -153,19 +157,20 @@ void TickMenyooConfig()
 			g_ConfigHasNotBeenRead = false;
 		}
 
-		if (GetTickCount() % 30000)
+		if (GetTickCount() > g_MenyooConfigTick + 30000)
 		{
 			if (MenuConfig::bSaveAtIntervals)
 			{
 				MenuConfig::ConfigSave();
 			}
+			g_MenyooConfigTick = GetTickCount();
 		}
 	}
 }
 
 void TickRainbowFader()
 {
-	if (GetTickCount() % 20) {
+	if (GetTickCount() > g_FaderTick + 20) {
 		auto& colour = g_fadedRGB;
 		if (colour.R > 0 && colour.B == 0)
 		{
@@ -182,6 +187,8 @@ void TickRainbowFader()
 			colour.R++;
 			colour.B--;
 		}
+
+		g_FaderTick = GetTickCount();
 	}
 }
 
