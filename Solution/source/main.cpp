@@ -33,9 +33,6 @@ BOOL APIENTRY DllMain(HMODULE hInstance, DWORD reason, LPVOID lpReserved)
 
 		GTAmemory::Init();
 
-		CreateThread(NULL, 0, (LPTHREAD_START_ROUTINE)ThreadRainbowFader, NULL, 0, NULL);
-		CreateThread(NULL, 0, (LPTHREAD_START_ROUTINE)ThreadMenyooConfig, NULL, 0, NULL);
-
 		scriptRegister(hInstance, ThreadMenyooMain);
 		scriptRegisterAdditionalThread(hInstance, Thread_menu_loops2);
 

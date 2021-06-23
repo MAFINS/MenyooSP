@@ -85,6 +85,11 @@
 
 //--------------------------------Threads--------------------------------------------------------
 
+int g_MenyooConfigOnceTick = 0;
+int g_MenyooConfigTick = 0;
+int g_FaderTick = 0;
+bool g_ConfigHasNotBeenRead = true;
+
 void Menu::justopened()
 {
 	Game::Print::PrintBottomLeft(oss_ << "Menyoo PC v" << MENYOO_CURRENT_VER_ << " by MAFINS.");
@@ -115,11 +120,17 @@ inline void MenyooMain()
 	SET_RANDOM_SEED(GetTickCount());
 	//_initialProgramTick = GetTickCount();
 
+	g_MenyooConfigOnceTick = GetTickCount();
+	g_MenyooConfigTick = GetTickCount();
+	g_FaderTick = GetTickCount();
+
 	for (;;)
 	{
 		DxHookIMG::DxTexture::GlobalDrawOrderRef() = -9999;
 
 		Menu::Tick();
+		TickMenyooConfig();
+		TickRainbowFader();
 		WAIT(0);
 	}
 
@@ -129,25 +140,11 @@ void ThreadMenyooMain()
 	MenyooMain();
 }
 
-void ThreadMenyooConfig()
+void TickMenyooConfig()
 {
-	//for (UINT8 configT = 0; MenuConfig::ConfigInit() < 0 && configT < 10; configT++)
-	//std::this_thread::sleep_for(std::chrono::seconds(1));
-
-	DWORD _programTick = 0U;
-
-	std::this_thread::sleep_for(std::chrono::seconds(9));
-	bool bConfigHasNotBeenRead = true;
-
-	for (;;)
+	if (GetTickCount() > g_MenyooConfigOnceTick + 9000)
 	{
-		std::this_thread::sleep_for(std::chrono::milliseconds(1));
-		_programTick++;
-
-		if (_programTick % 30000 == 0 && MenuConfig::bSaveAtIntervals)
-			MenuConfig::ConfigSave();
-
-		if (bConfigHasNotBeenRead)
+		if (g_ConfigHasNotBeenRead)
 		{
 			if (MenuConfig::ConfigInit() < 0)
 			{
@@ -157,33 +154,24 @@ void ThreadMenyooConfig()
 			{
 				MenuConfig::ConfigRead();
 			}
-			bConfigHasNotBeenRead = false;
+			g_ConfigHasNotBeenRead = false;
 		}
 
+		if (GetTickCount() > g_MenyooConfigTick + 30000)
+		{
+			if (MenuConfig::bSaveAtIntervals)
+			{
+				MenuConfig::ConfigSave();
+			}
+			g_MenyooConfigTick = GetTickCount();
+		}
 	}
 }
 
-void ThreadRainbowFader()
+void TickRainbowFader()
 {
-	/*srand(GetTickCount());
-	for (;;)
-	{
-	auto& colour = g_fadedRGB;
-	RgbS& nextColour = RgbS::Random();
-	RgbS twentypercent(0.2f * abs(nextColour.R - colour.R), 0.2f * abs(nextColour.G - colour.G), 0.2f * abs(nextColour.B - colour.B));
-
-	for (UINT8 i = 0; i < 10; i++)
-	{
-	std::this_thread::sleep_for(std::chrono::milliseconds(9));
-	colour.R += twentypercent.R * (nextColour.R > colour.R) ? 1 : (nextColour.R == colour.R) ? 0 : -1;
-	colour.G += twentypercent.G * (nextColour.G > colour.G) ? 1 : (nextColour.G == colour.G) ? 0 : -1;
-	colour.B += twentypercent.B * (nextColour.B > colour.B) ? 1 : (nextColour.B == colour.B) ? 0 : -1;
-	}
-	std::this_thread::sleep_for(std::chrono::milliseconds(340));
-	}*/
-	auto& colour = g_fadedRGB;
-	for (;;)
-	{
+	if (GetTickCount() > g_FaderTick + 20) {
+		auto& colour = g_fadedRGB;
 		if (colour.R > 0 && colour.B == 0)
 		{
 			colour.R--;
@@ -199,7 +187,8 @@ void ThreadRainbowFader()
 			colour.R++;
 			colour.B--;
 		}
-		std::this_thread::sleep_for(std::chrono::milliseconds(20));
+
+		g_FaderTick = GetTickCount();
 	}
 }
 
