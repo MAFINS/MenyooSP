@@ -63,6 +63,7 @@
 		<Vehicle name="JACKAL" />
 		<Vehicle name="ORACLE" />
 		<Vehicle name="ORACLE2" /><!-- Oracle XS -->
+		<Vehicle name="PREVION" />
 		<Vehicle name="SENTINEL2" /><!-- Sentinel -->
 		<Vehicle name="SENTINEL" /><!-- Sentinel XS -->
 		<Vehicle name="WINDSOR" />
@@ -81,24 +82,30 @@
 		<Vehicle name="BLISTA2" /><!-- Blista Compact -->
 		<Vehicle name="BUFFALO" />
 		<Vehicle name="BUFFALO2" /><!-- Buffalo S -->
+		<Vehicle name="CALICO" /><!-- Calico GTF -->
 		<Vehicle name="CARBONIZZARE" />
 		<Vehicle name="COMET2" /><!-- Comet -->
 		<Vehicle name="COMET3" /><!-- Comet Retro Custom -->
+		<Vehicle name="COMET6" /><!-- Comet S2 -->
 		<Vehicle name="COMET4" /><!-- Comet Safari -->
 		<Vehicle name="COMET5" /><!-- Comet SR -->
 		<Vehicle name="COQUETTE" />
 		<Vehicle name="COQUETTE4" /><!-- Coquette D10 -->
+		<Vehicle name="CYPHER" />
 		<Vehicle name="TAMPA2" /><!-- Drift Tampa -->
 		<Vehicle name="ELEGY" /><!-- Elegy Retro Custom -->
 		<Vehicle name="ELEGY2" /><!-- Elegy RH8 -->
+		<Vehicle name="EUROS" />
 		<Vehicle name="FELTZER2" /><!-- Feltzer -->
 		<Vehicle name="FLASHGT" />
 		<Vehicle name="FUROREGT" />
 		<Vehicle name="FUSILADE" />
 		<Vehicle name="FUTO" />
+		<Vehicle name="FUTO2" /><!-- Futo GTX -->
 		<Vehicle name="ZR3802" /><!-- Future Shock ZR380 -->
 		<Vehicle name="GB200" />
 		<Vehicle name="BLISTA3" /><!-- Go Go Monkey Blista -->
+		<Vehicle name="GROWLER" />
 		<Vehicle name="HOTRING" />
 		<Vehicle name="IMORGON" />
 		<Vehicle name="ISSI7" /><!-- Issi Sport -->
@@ -107,6 +114,7 @@
 		<Vehicle name="JESTER" />
 		<Vehicle name="JESTER2" /><!-- Jester (Racecar) -->
 		<Vehicle name="JESTER3" /><!-- Jester Classic -->
+		<Vehicle name="JESTER4" /><!-- Jester RR -->
 		<Vehicle name="JUGULAR" />
 		<Vehicle name="KHAMELION" />
 		<Vehicle name="KOMODA" />
@@ -129,7 +137,9 @@
 		<Vehicle name="RAPIDGT" />
 		<Vehicle name="RAPIDGT2" /><!-- Rapid GT Cabrio -->
 		<Vehicle name="RAPTOR" />
+		<Vehicle name="REMUS" />
 		<Vehicle name="REVOLTER" />
+		<Vehicle name="RT3000" />
 		<Vehicle name="RUSTON" />
 		<Vehicle name="SCHAFTER4" /><!-- Schafter LWB -->
 		<Vehicle name="SCHAFTER3" /><!-- Schafter V12 -->
@@ -144,12 +154,15 @@
 		<Vehicle name="SUGOI" />
 		<Vehicle name="SULTAN" />
 		<Vehicle name="SULTAN2" /><!-- Sultan Classic -->
+		<Vehicle name="SULTAN3" /><!-- Sultan RS Classic -->
 		<Vehicle name="SURANO" />
 		<Vehicle name="TROPOS" />
 		<Vehicle name="VSTR" /><!-- V-STR -->
+		<Vehicle name="VECTRE" />
 		<Vehicle name="VERLIERER2" />
 		<Vehicle name="VETO" /><!-- Veto Classic -->
 		<Vehicle name="VETO2" /><!-- Veto Modern -->
+		<Vehicle name="ZR350" />
 	</Category>
 	<Category name="Muscle">
 		<Vehicle name="DOMINATOR4" /><!-- Apocalypse Dominator -->
@@ -167,6 +180,8 @@
 		<Vehicle name="COQUETTE3" /><!-- Coquette BlackFin -->
 		<Vehicle name="DEVIANT" />
 		<Vehicle name="DOMINATOR" />
+		<Vehicle name="DOMINATOR7" /><!-- Dominator ASP -->
+		<Vehicle name="DOMINATOR8" /><!-- Dominator GTT -->
 		<Vehicle name="DOMINATOR3" /><!-- Dominator GTX -->
 		<Vehicle name="YOSEMITE2" /><!-- Drift Yosemite -->
 		<Vehicle name="DUKES2" /><!-- Duke O'Death -->
@@ -334,8 +349,10 @@
 		<Vehicle name="SUPERD" />
 		<Vehicle name="SURGE" />
 		<Vehicle name="TAILGATER" />
+		<Vehicle name="TAILGATER2" /><!-- Tailgater S -->
 		<Vehicle name="LIMO2" /><!-- Turreted Limo -->
 		<Vehicle name="WARRENER" />
+		<Vehicle name="WARRENER2" /><!-- Warrener HKR -->
 		<Vehicle name="WASHINGTON" />
 	</Category>
 	<Category name="Offroad">
