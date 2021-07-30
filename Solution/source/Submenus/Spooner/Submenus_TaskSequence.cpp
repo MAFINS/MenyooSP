@@ -311,7 +311,7 @@ namespace sub::Spooner
 			{
 				auto tskPtr = _selectedSTST->GetTypeTask<STSTasks::LookAtEntity>();
 
-				PAtEntity(tskPtr->entity);
+				PAtEntity(tskPtr->targetEntity);
 			}
 			void TeleportToCoord()
 			{
@@ -323,7 +323,7 @@ namespace sub::Spooner
 					AddTickol("Take Vehicle Too (If In One)", tskPtr->takeVehicleToo, bTeleVehicleToggle, bTeleVehicleToggle, TICKOL::BOXTICK, TICKOL::BOXBLANK); if (bTeleVehicleToggle) tskPtr->takeVehicleToo = !tskPtr->takeVehicleToo;
 				}
 
-				PAtCoord(tskPtr->destination)
+				PAtCoord(tskPtr->destination);
 			}
 			void SeekCoverAtCoord()
 			{
