@@ -261,6 +261,7 @@ namespace sub::Spooner
 			void ImportTaskDataSpecific(STSTask* otherTsk) override;
 		public:
 			float radius;
+			Vector3 coord;
 			PatrolInRange();
 			void RunP(GTAped& ep) override;
 		};
