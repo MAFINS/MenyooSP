@@ -712,7 +712,7 @@ namespace sub::Spooner
 		}
 		void PatrolInRange::RunP(GTAped& ep)
 		{
-			ep.Task().WanderAround(this->coord.IsZero() ? this->coord : ep.Position_get()/*Legacy/bugged PatrolInRange behaviour*/, this->radius);
+			ep.Task().WanderAround(this->coord.IsZero() ? ep.Position_get()/*Legacy/bugged PatrolInRange behaviour*/ : this->coord, this->radius);
 		}
 
 		WanderFreely::	WanderFreely()
