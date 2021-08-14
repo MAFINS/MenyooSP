@@ -43,6 +43,7 @@
 		<Ped name="a_c_westy" caption="Westie" />
 	</Category>
 	<Category name="AmbientFemale">
+		<Ped name="a_f_y_carclub_01" caption="Car Club Female" />
 		<Ped name="a_f_m_beach_01" caption="Beach Female" />
 		<Ped name="a_f_m_trampbeac_01" caption="Beach Tramp Female" />
 		<Ped name="a_f_y_beach_01" caption="Beach Young Female" />
@@ -123,6 +124,8 @@
 		<Ped name="a_f_y_bevhills_05" caption="Beverly Hills Young Female 5" />
 	</Category>
 	<Category name="AmbientMale">
+		<Ped name="a_m_y_carclub_01" caption="Car Club Male" />
+		<Ped name="a_m_y_tattoocust_01" caption="Tattoo Cust Male" />
 		<Ped name="a_m_m_afriamer_01" caption="African American Male" />
 		<Ped name="a_m_m_acult_01" caption="Altruist Cult Mid-Age Male" />
 		<Ped name="a_m_o_acult_01" caption="Altruist Cult Old Male" />
@@ -257,6 +260,12 @@
         <Ped name="a_m_y_clubcust_04" caption="Club Customer Male 4" />
 	</Category>
 	<Category name="Cutscene">
+		<Ped name="csb_avischwartzman_02" caption="Avi Schwartzman" />
+		<Ped name="csb_drugdealer" caption="Drug Dealer" />
+		<Ped name="csb_hao_02" caption="Hao 2" />
+		<Ped name="csb_mimi" caption="Mimi" />
+		<Ped name="csb_moodyman_02" caption="Moodyman" />
+		<Ped name="csb_sessanta" caption="sessanta" />
 		<Ped name="csb_abigail" caption="Abigail Mathers" />
 		<Ped name="csb_agent" caption="Agent" />
 		<Ped name="csb_agatha" caption="Agatha Baker" />
@@ -432,6 +441,7 @@
 		<Ped name="cs_lestercrest_3" caption="Lester Crest 3" />
 	</Category>
 	<Category name="GangFemale">
+		<Ped name="g_f_importexport_01" caption="Gang Female (Import-Export)" />
 		<Ped name="g_f_y_ballas_01" caption="Ballas Female" />
 		<Ped name="g_f_y_families_01" caption="Families Female" />
 		<Ped name="g_f_importexport_01" caption="Import Export Female" />
@@ -439,7 +449,8 @@
 		<Ped name="g_f_y_vagos_01" caption="Vagos Female" />
 	</Category>
 	<Category name="GangMale">
-		<Ped name="g_f_importexport_01" caption="Gang Female (Import-Export)" />
+		<Ped name="g_m_m_prisoners_01" caption="Gang Prisoner Male" />
+		<Ped name="g_m_m_slasher_01" caption="Gang Slasher Male" />
 		<Ped name="g_m_importexport_01" caption="Gang Male (Import-Export)" />
 		<Ped name="g_m_m_armboss_01" caption="Armenian Boss" />
 		<Ped name="g_m_m_armgoon_01" caption="Armenian Goon" />
@@ -483,6 +494,14 @@
 		<Ped name="g_m_y_lost_03" caption="The Lost MC Male 3" />
 	</Category>
 	<Category name="Story">
+		<Ped name="ig_avischwartzman_02" caption="Avi Schawrtzman" />
+		<Ped name="ig_benny_02" caption="Benny (Los Santos Tuners)" />
+		<Ped name="ig_drugdealer" caption="Drugdealer" />
+		<Ped name="ig_hao_02" caption="Hao" />
+		<Ped name="ig_lildee" caption="Lil Dee" />
+		<Ped name="ig_mimi" caption="Mimi" />
+		<Ped name="ig_moodyman_02" caption="Moodyman" />
+		<Ped name="ig_sessanta" caption="Sessanta" />
 		<Ped name="player_zero" caption="Michael" />
 		<Ped name="player_one" caption="Franklin" />
 		<Ped name="player_two" caption="Trevor" />
@@ -701,6 +720,8 @@
 		<Ped name="mp_f_bennymech_01" caption="Benny Mechanic (Female)" />
 		</Category>
 	<Category name="ScenarioFemale">
+		<Ped name="s_f_m_autoshop_01" caption="Autoshop Worker Female" />
+		<Ped name="s_f_m_retailstaff_01" caption="Retailstaff" />
 		<Ped name="s_f_y_airhostess_01" caption="Air Hostess" />
 		<Ped name="s_f_m_fembarber" caption="Barber Female" />
 		<Ped name="s_f_y_bartender_01" caption="Bartender" />
@@ -730,6 +751,9 @@
         <Ped name="s_f_y_clubbar_02" caption="Club Bartender Female 2" />
 	</Category>
 	<Category name="ScenarioMale">
+		<Ped name="s_m_m_Autoshop_03" caption="Autoshop Worker 3" />
+		<Ped name="s_m_m_raceorg_01" caption="Racer Organisator" />
+		<Ped name="s_m_m_tattoo_01" caption="Tattoo Artist 2" />
 		<Ped name="s_m_y_airworker" caption="Air Worker Male" />
 		<Ped name="s_m_m_movalien_01" caption="Alien" />
 		<Ped name="s_m_y_ammucity_01" caption="Ammu-Nation City Clerk" />
