@@ -1627,16 +1627,19 @@ void GeneralGlobalHax::EnableBlockedMpVehiclesInSp(bool uSure)
 		*GTAmemory::GetGlobalPtr<INT32>(4266905) = uSure ? 1 : 0; break;
 	case eGameVersion::VER_1_0_1737_0_NOSTEAM: case eGameVersion::VER_1_0_1737_0_STEAM:
 	case eGameVersion::VER_1_0_1737_6_NOSTEAM: case eGameVersion::VER_1_0_1737_6_STEAM:
-                *GTAmemory::GetGlobalPtr<INT32>(4267883) = uSure ? 1 : 0; break;
+        *GTAmemory::GetGlobalPtr<INT32>(4267883) = uSure ? 1 : 0; break;
 	case eGameVersion::VER_1_0_1868_0_NOSTEAM: case eGameVersion::VER_1_0_1868_0_STEAM:
 	case eGameVersion::VER_1_0_1868_1_NOSTEAM: case eGameVersion::VER_1_0_1868_1_STEAM:
-                *GTAmemory::GetGlobalPtr<INT32>(4268190) = uSure ? 1 : 0; break;
+        *GTAmemory::GetGlobalPtr<INT32>(4268190) = uSure ? 1 : 0; break;
 	case eGameVersion::VER_1_0_2060_0_NOSTEAM: case eGameVersion::VER_1_0_2060_0_STEAM:
 	case eGameVersion::VER_1_0_2060_1_NOSTEAM: case eGameVersion::VER_1_0_2060_1_STEAM:
 		*GTAmemory::GetGlobalPtr<INT32>(4268340) = uSure ? 1 : 0; break;
-    	case eGameVersion::VER_1_0_2189_0_NOSTEAM: case eGameVersion::VER_1_0_2189_0_STEAM:
+    case eGameVersion::VER_1_0_2189_0_NOSTEAM: case eGameVersion::VER_1_0_2189_0_STEAM:
 	case eGameVersion::VER_1_0_2215_0_NOSTEAM: case eGameVersion::VER_1_0_2215_0_STEAM:
+	//2245?
 		*GTAmemory::GetGlobalPtr<INT32>(4269479) = uSure ? 1 : 0; break;
+	case eGameVersion::VER_1_0_2372_0_NOSTEAM: case eGameVersion::VER_1_0_2372_0_STEAM:
+		*GTAmemory::GetGlobalPtr<INT32>(4270934) = uSure ? 1 : 0; break;
 	}
 }
 
@@ -1659,7 +1662,7 @@ float GeneralGlobalHax::GetPlayerHeight()
 	if (baddr)
 	{
 		auto gameVersion = GTAmemory::GetGameVersion();
-		if (gameVersion <= eGameVersion::VER_1_0_1868_1_NOSTEAM)
+		if (gameVersion <= eGameVersion::VER_1_0_2372_0_NOSTEAM)
 			return *(GetMultilayerPointer<float*>(baddr, std::vector<DWORD>{0x8, 0x88}));
 	}
 	return 1.0f;
@@ -1670,7 +1673,7 @@ void GeneralGlobalHax::SetPlayerHeight(float value)
 	if (baddr)
 	{
 		auto gameVersion = GTAmemory::GetGameVersion();
-		if (gameVersion <= eGameVersion::VER_1_0_1868_1_NOSTEAM)
+		if (gameVersion <= eGameVersion::VER_1_0_2372_0_NOSTEAM)
 			*(GetMultilayerPointer<float*>(baddr, std::vector<DWORD>{0x8, 0x88})) = value;
 	}
 }
@@ -1764,7 +1767,7 @@ int GeneralGlobalHax::GetVehicleBoostState()
 	if (baddr)
 	{
 		auto gameVersion = GTAmemory::GetGameVersion();
-		if (gameVersion <= eGameVersion::VER_1_0_1868_1_NOSTEAM)
+		if (gameVersion <= eGameVersion::VER_1_0_2372_0_NOSTEAM)
 			return *(GetMultilayerPointer<int*>(baddr, std::vector<DWORD>{0x8, 0xD28, 0x318}));
 	}
 	return 0;
@@ -1775,7 +1778,7 @@ void GeneralGlobalHax::SetVehicleBoostState(int value)
 	if (baddr)
 	{
 		auto gameVersion = GTAmemory::GetGameVersion();
-		if (gameVersion <= eGameVersion::VER_1_0_1868_1_NOSTEAM)
+		if (gameVersion <= eGameVersion::VER_1_0_2372_0_NOSTEAM)
 			*(GetMultilayerPointer<int*>(baddr, std::vector<DWORD>{0x8, 0xD28, 0x318})) = value;
 	}
 }
@@ -1787,7 +1790,7 @@ float* GeneralGlobalHax::GetVehicleBoostChargePtr()
 		auto gameVersion = GTAmemory::GetGameVersion();
 		if (gameVersion <= eGameVersion::VER_1_0_1103_2_NOSTEAM)
 			return (GetMultilayerPointer<float*>(baddr, std::vector<DWORD>{0x8, 0xD28, 0x31C}));
-		if (gameVersion <= eGameVersion::VER_1_0_1868_1_NOSTEAM)
+		if (gameVersion <= eGameVersion::VER_1_0_2372_0_NOSTEAM)//VER_1_0_1868_1_NOSTEAM
 			return (GetMultilayerPointer<float*>(baddr, std::vector<DWORD>{0x8, 0xD28, 0x320})); // Might be off
 	}
 	return nullptr;
