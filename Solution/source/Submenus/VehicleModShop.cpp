@@ -962,7 +962,7 @@ namespace sub
 		bool ms_bit_bike_back;
 		//INT ms_old_wtype, ms_old_windex, ms_old_windexBB;
 		int ms_max_windices;
-		std::vector<std::string> vWheelTNames{ "Sport", "Muscle", "Lowrider", "SUV", "Offroad", "Tuner", "Bike", "High-End", "Benny's Originals", "Benny's Bespoke", "Formula", "Street" };
+		std::vector<std::string> vWheelTNames{ "Sport", "Muscle", "Lowrider", "SUV", "Offroad", "Tuner", "Bike", "High-End", "Benny's Originals", "Benny's Bespoke", "Open Wheel", "Street", "Track" };
 		//std::vector<std::string> vWheelTNames{ "CMOD_WHE1_5", "CMOD_WHE1_3", "CMOD_WHE1_2", "CMOD_WHE1_6", "CMOD_WHE1_4", "CMOD_WHE1_7", "CMOD_WHE1_0", "CMOD_WHE1_1", "Benny's Original", "Benny's Bespoke" };
 		//std::vector<std::string> vAllWheelNames[]
 		//{
