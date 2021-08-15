@@ -85,9 +85,9 @@
 
 //--------------------------------Threads--------------------------------------------------------
 
-int g_MenyooConfigOnceTick = 0;
-int g_MenyooConfigTick = 0;
-int g_FaderTick = 0;
+DWORD g_MenyooConfigOnceTick = 0UL;
+DWORD g_MenyooConfigTick = 0UL;
+DWORD g_FaderTick = 0UL;
 bool g_ConfigHasNotBeenRead = true;
 
 void Menu::justopened()
@@ -142,7 +142,7 @@ void ThreadMenyooMain()
 
 void TickMenyooConfig()
 {
-	if (GetTickCount() > g_MenyooConfigOnceTick + 9000)
+	if (GetTickCount() > g_MenyooConfigOnceTick + 9000U)
 	{
 		if (g_ConfigHasNotBeenRead)
 		{
@@ -157,7 +157,7 @@ void TickMenyooConfig()
 			g_ConfigHasNotBeenRead = false;
 		}
 
-		if (GetTickCount() > g_MenyooConfigTick + 30000)
+		if (GetTickCount() > g_MenyooConfigTick + 30000U)
 		{
 			if (MenuConfig::bSaveAtIntervals)
 			{
@@ -170,7 +170,7 @@ void TickMenyooConfig()
 
 void TickRainbowFader()
 {
-	if (GetTickCount() > g_FaderTick + 20) {
+	if (GetTickCount() > g_FaderTick + 20U) {
 		auto& colour = g_fadedRGB;
 		if (colour.R > 0 && colour.B == 0)
 		{
