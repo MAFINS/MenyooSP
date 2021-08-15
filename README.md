@@ -1,5 +1,5 @@
 [![Build status](https://ci.appveyor.com/api/projects/status/0umw01h20wsbiv1q?svg=true)](https://ci.appveyor.com/project/MAFINS/menyoosp)
-[![GitHub latest release](https://img.shields.io/github/downloads/MAFINS/MenyooSP/latest/total?label=latest-release&logo=GitHub)](https://github.com/MAFINS/MenyooSP/releases/latest/download/MenyooSP.zip)
+[![GitHub latest release](https://img.shields.io/github/downloads/MAFINS/MenyooSP/latest/total?label=latest-release&logo=GitHub)](https://github.com/MAFINS/MenyooSP/releases/latest)
 [![GitHub all releases](https://img.shields.io/github/downloads/MAFINS/MenyooSP/total?label=all-releases&logo=GitHub)](https://github.com/MAFINS/MenyooSP/releases)
 
 # Menyoo PC - [DOWNLOAD LATEST RELEASE](https://github.com/MAFINS/MenyooSP/releases/latest/download/MenyooSP.zip)
