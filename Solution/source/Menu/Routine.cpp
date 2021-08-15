@@ -3167,6 +3167,13 @@ void Menu::loops()
 			GTAvehicle veh = g_myVeh;
 			if (veh.IsDamaged())
 			{
+				std::array<bool, (int)VehicleWindow::Last> __loop_vehicle_fixloop_windowsIntact;
+				auto& windowsIntact = __loop_vehicle_fixloop_windowsIntact;
+				for (int i = 0; i < windowsIntact.size(); i++)
+				{
+					windowsIntact[i] = veh.IsWindowIntact((VehicleWindow)i);
+				}
+
 				SET_VEHICLE_FIXED(veh.Handle());
 				SET_VEHICLE_DIRT_LEVEL(veh.Handle(), 0.0f);
 				//SET_VEHICLE_ENGINE_CAN_DEGRADE(veh.Handle(), false);
@@ -3175,6 +3182,12 @@ void Menu::loops()
 				SET_VEHICLE_BODY_HEALTH(veh.Handle(), 2000.0f);
 				SET_VEHICLE_UNDRIVEABLE(veh.Handle(), false);
 				//if(!GET_IS_VEHICLE_ENGINE_RUNNING(veh.Handle())) SET_VEHICLE_ENGINE_ON(veh.Handle(), true, true);
+
+				for (int i = 0; i < windowsIntact.size(); i++)
+				{
+					if (!windowsIntact[i])
+						veh.RollDownWindow((VehicleWindow)i);
+				}
 			}
 		}
 

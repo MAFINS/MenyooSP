@@ -1568,6 +1568,10 @@ void GTAvehicle::CloseBombBay()
 		CLOSE_BOMB_BAY_DOORS(this->mHandle);
 }
 
+bool GTAvehicle::IsWindowIntact(VehicleWindow window)
+{
+	return IS_VEHICLE_WINDOW_INTACT(this->mHandle, static_cast<int>(window));
+}
 void GTAvehicle::FixWindow(VehicleWindow window)
 {
 	FIX_VEHICLE_WINDOW(this->mHandle, static_cast<int>(window));
