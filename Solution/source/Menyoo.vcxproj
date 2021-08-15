@@ -229,6 +229,9 @@
     <ClInclude Include="Scripting\World.h" />
     <ClInclude Include="Util\StringManip.h" />
   </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="Menyoo.rc" />
+  </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{8D82F34A-1D64-465B-84B1-37F89AD3D20B}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
@@ -316,6 +319,7 @@
       <GenerateMapFile>true</GenerateMapFile>
       <LinkTimeCodeGeneration>UseLinkTimeCodeGeneration</LinkTimeCodeGeneration>
     </Link>
+    <ResourceCompile />
   </ItemDefinitionGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

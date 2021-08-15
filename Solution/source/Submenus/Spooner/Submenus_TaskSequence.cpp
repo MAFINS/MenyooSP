@@ -170,11 +170,11 @@ namespace sub::Spooner
 			{
 			}
 
-			template<typename T> void PAtCoord(T tskPtr)
+			void PAtCoord(Vector3& coord)
 			{
-				World::DrawMarker(MarkerType::ThickChevronUp, tskPtr->coord, Vector3(), Vector3(180.0f, 0.0f, 0.0f), Vector3(1, 1, 1), RGBA(177, 33, 193, 210));
+				World::DrawMarker(MarkerType::ThickChevronUp, coord, Vector3(), Vector3(180.0f, 0.0f, 0.0f), Vector3(1, 1, 1), RGBA(177, 33, 193, 210));
 
-				AddOption("~italic~" + tskPtr->coord.ToString(), null);
+				AddOption("~italic~" + coord.ToString(), null);
 
 				auto& spoocam = SpoonerMode::spoonerModeCamera;
 				if (!spoocam.IsActive())
@@ -183,7 +183,7 @@ namespace sub::Spooner
 					AddOption("Set Target To Player Position", bSetPosToMe); if (bSetPosToMe)
 					{
 						Vector3& myPos = GTAentity(PLAYER_PED_ID()).Position_get();
-						tskPtr->coord = myPos;
+						coord = myPos;
 					}
 				}
 				else
@@ -192,7 +192,7 @@ namespace sub::Spooner
 					AddOption("Set Target To Camera Target", bSetPosToHitCoords); if (bSetPosToHitCoords)
 					{
 						Vector3& hitCoords = spoocam.RaycastForCoord(Vector2(0.0f, 0.0f), 0, 160.0f, 3.0f);
-						tskPtr->coord = hitCoords;
+						coord = hitCoords;
 					}
 				}
 				if (IS_WAYPOINT_ACTIVE())
@@ -203,23 +203,23 @@ namespace sub::Spooner
 						GTAblip wpBlip = GET_FIRST_BLIP_INFO_ID(BlipIcon::Waypoint);
 						Vector3& wpCoords = wpBlip.Position_get();
 						wpCoords.z = World::GetGroundHeight(wpCoords);
-						tskPtr->coord = wpCoords;
+						coord = wpCoords;
 					}
 				}
 
 				bool bManualPlacementForPosPressed = false;
 				AddOption("Adjust Target Manually", bManualPlacementForPosPressed, nullFunc, SUB::SPOONER_VECTOR3_MANUALPLACEMENT); if (bManualPlacementForPosPressed)
 				{
-					SpoonerVector3ManualPlacementPtrs = { 0, &tskPtr->coord, nullptr };
+					SpoonerVector3ManualPlacementPtrs = { 0, &coord, nullptr };
 				}
 			}
-			template<typename T> void PAtEntity(T tskPtr, EntityType eType = EntityType::ALL)
+			void PAtEntity(GTAentity& targetEntity, EntityType eType = EntityType::ALL)
 			{
 				UINT8 eTypeInt = (UINT8)eType;
 				std::array<std::string, 4> eTypeNames{ { "Entities", "Peds", "Vehicles", "Objects" } };
 				AddBreak("Available " + eTypeNames[eTypeInt >= 0 && eTypeInt < eTypeNames.size() ? eTypeInt : 0]);
 
-				GTAentity& thisTargetEnt = tskPtr->targetEntity;
+				GTAentity& thisTargetEnt = targetEntity;
 
 				GTAentity myPed = PLAYER_PED_ID();
 				if (myPed.Handle() != SelectedEntity.Handle.Handle() && myPed.Exists())
@@ -299,25 +299,23 @@ namespace sub::Spooner
 			{
 				auto tskPtr = _selectedSTST->GetTypeTask<STSTasks::FaceEntity>();
 
-				PAtEntity(tskPtr);
+				PAtEntity(tskPtr->targetEntity);
 			}
 			void LookAtCoord()
 			{
 				auto tskPtr = _selectedSTST->GetTypeTask<STSTasks::LookAtCoord>();
 
-				PAtCoord(tskPtr);
+				PAtCoord(tskPtr->coord);
 			}
 			void LookAtEntity()
 			{
 				auto tskPtr = _selectedSTST->GetTypeTask<STSTasks::LookAtEntity>();
 
-				PAtEntity(tskPtr);
+				PAtEntity(tskPtr->targetEntity);
 			}
 			void TeleportToCoord()
 			{
 				auto tskPtr = _selectedSTST->GetTypeTask<STSTasks::TeleportToCoord>();
-
-				World::DrawMarker(MarkerType::ThickChevronUp, tskPtr->destination, Vector3(), Vector3(180.0f, 0.0f, 0.0f), Vector3(1, 1, 1), RGBA(177, 33, 193, 210));
 
 				if (SelectedEntity.Type == EntityType::PED)
 				{
@@ -325,87 +323,21 @@ namespace sub::Spooner
 					AddTickol("Take Vehicle Too (If In One)", tskPtr->takeVehicleToo, bTeleVehicleToggle, bTeleVehicleToggle, TICKOL::BOXTICK, TICKOL::BOXBLANK); if (bTeleVehicleToggle) tskPtr->takeVehicleToo = !tskPtr->takeVehicleToo;
 				}
 
-				AddOption("~italic~" + tskPtr->destination.ToString(), null);
-
-				auto& spoocam = SpoonerMode::spoonerModeCamera;
-				if (!spoocam.IsActive())
-				{
-					bool bSetPosToMe = false;
-					AddOption("Set Destination To Player Position", bSetPosToMe); if (bSetPosToMe)
-					{
-						Vector3& myPos = GTAentity(PLAYER_PED_ID()).Position_get();
-						tskPtr->destination = myPos;
-					}
-				}
-				else
-				{
-					bool bSetPosToHitCoords = false;
-					AddOption("Set Destination To Camera Target", bSetPosToHitCoords); if (bSetPosToHitCoords)
-					{
-						Vector3& hitCoords = spoocam.RaycastForCoord(Vector2(0.0f, 0.0f), 0, 160.0f, 3.0f);
-						tskPtr->destination = hitCoords;
-					}
-				}
-				if (IS_WAYPOINT_ACTIVE())
-				{
-					bool bSetPosToWp = false;
-					AddOption("Set Destination To Waypoint", bSetPosToWp); if (bSetPosToWp)
-					{
-						GTAblip wpBlip = GET_FIRST_BLIP_INFO_ID(BlipIcon::Waypoint);
-						Vector3& wpCoords = wpBlip.Position_get();
-						wpCoords.z = World::GetGroundHeight(wpCoords);
-						tskPtr->destination = wpCoords;
-					}
-				}
-
-				bool bManualPlacementForPosPressed = false;
-				AddOption("Adjust Destination Manually", bManualPlacementForPosPressed, nullFunc, SUB::SPOONER_VECTOR3_MANUALPLACEMENT); if (bManualPlacementForPosPressed)
-				{
-					SpoonerVector3ManualPlacementPtrs = { 0, &tskPtr->destination, nullptr };
-				}
+				PAtCoord(tskPtr->destination);
 			}
 			void SeekCoverAtCoord()
 			{
 				auto tskPtr = _selectedSTST->GetTypeTask<STSTasks::SeekCoverAtCoord>();
 
-				World::DrawMarker(MarkerType::ThickChevronUp, tskPtr->coverPos, Vector3(), Vector3(180.0f, 0.0f, 0.0f), Vector3(1, 1, 1), RGBA(177, 33, 193, 210));
-
 				bool bAllowPeekingToggle = false;
 				AddTickol("Allow Peeking", tskPtr->canPeekInCover, bAllowPeekingToggle, bAllowPeekingToggle, TICKOL::BOXTICK, TICKOL::BOXBLANK); if (bAllowPeekingToggle) tskPtr->canPeekInCover = !tskPtr->canPeekInCover;
 
-				AddOption("~italic~" + tskPtr->coverPos.ToString(), null);
-
-				auto& spoocam = SpoonerMode::spoonerModeCamera;
-				if (!spoocam.IsActive())
-				{
-					bool bSetPosToMe = false;
-					AddOption("Set Cover To Player Position", bSetPosToMe); if (bSetPosToMe)
-					{
-						Vector3& myPos = GTAentity(PLAYER_PED_ID()).Position_get();
-						tskPtr->coverPos = myPos;
-					}
-				}
-				else
-				{
-					bool bSetPosToHitCoords = false;
-					AddOption("Set Cover To Camera Target", bSetPosToHitCoords); if (bSetPosToHitCoords)
-					{
-						Vector3& hitCoords = spoocam.RaycastForCoord(Vector2(0.0f, 0.0f), 0, 160.0f, 3.0f);
-						tskPtr->coverPos = hitCoords;
-					}
-				}
-
-				bool bManualPlacementForPosPressed = false;
-				AddOption("Adjust Cover Manually", bManualPlacementForPosPressed, nullFunc, SUB::SPOONER_VECTOR3_MANUALPLACEMENT); if (bManualPlacementForPosPressed)
-				{
-					SpoonerVector3ManualPlacementPtrs = { 0, &tskPtr->coverPos, nullptr };
-				}
+				PAtCoord(tskPtr->coverPos);
 			}
 			void SlideToCoord()
 			{
 				auto tskPtr = _selectedSTST->GetTypeTask<STSTasks::SlideToCoord>();
 
-				World::DrawMarker(MarkerType::ThickChevronUp, tskPtr->destination, Vector3(), Vector3(180.0f, 0.0f, 0.0f), Vector3(1, 1, 1), RGBA(177, 33, 193, 210));
 				World::DrawMarker(MarkerType::DebugSphere, SelectedEntity.Handle.Position_get().PointOnCircle(1.0f, tskPtr->heading), Vector3(), Vector3(0, 0, tskPtr->heading), Vector3(0.3f, 0.3f, 0.3f), RGBA(177, 33, 193, 210));
 
 				bool bSpeed_plus = false, bSpeed_minus = false;
@@ -418,94 +350,18 @@ namespace sub::Spooner
 				if (bHeading_plus) { tskPtr->heading += 1.0f; if (tskPtr->heading > 180.0f) tskPtr->heading = -180.0f; }
 				if (bHeading_minus) { tskPtr->heading -= 1.0f; if (tskPtr->heading < -180.0f) tskPtr->heading = 180.0f; }
 
-				AddOption("~italic~" + tskPtr->destination.ToString(), null);
-
-				auto& spoocam = SpoonerMode::spoonerModeCamera;
-				if (!spoocam.IsActive())
-				{
-					bool bSetPosToMe = false;
-					AddOption("Set Destination To Player Position", bSetPosToMe); if (bSetPosToMe)
-					{
-						Vector3& myPos = GTAentity(PLAYER_PED_ID()).Position_get();
-						tskPtr->destination = myPos;
-					}
-				}
-				else
-				{
-					bool bSetPosToHitCoords = false;
-					AddOption("Set Destination To Camera Target", bSetPosToHitCoords); if (bSetPosToHitCoords)
-					{
-						Vector3& hitCoords = spoocam.RaycastForCoord(Vector2(0.0f, 0.0f), 0, 160.0f, 3.0f);
-						tskPtr->destination = hitCoords;
-					}
-				}
-				if (IS_WAYPOINT_ACTIVE())
-				{
-					bool bSetPosToWp = false;
-					AddOption("Set Destination To Waypoint", bSetPosToWp); if (bSetPosToWp)
-					{
-						GTAblip wpBlip = GET_FIRST_BLIP_INFO_ID(BlipIcon::Waypoint);
-						Vector3& wpCoords = wpBlip.Position_get();
-						wpCoords.z = World::GetGroundHeight(wpCoords);
-						tskPtr->destination = wpCoords;
-					}
-				}
-
-				bool bManualPlacementForPosPressed = false;
-				AddOption("Adjust Destination Manually", bManualPlacementForPosPressed, nullFunc, SUB::SPOONER_VECTOR3_MANUALPLACEMENT); if (bManualPlacementForPosPressed)
-				{
-					SpoonerVector3ManualPlacementPtrs = { 0, &tskPtr->destination, nullptr };
-				}
+				PAtCoord(tskPtr->destination);
 			}
 			void GoToCoord()
 			{
 				auto tskPtr = _selectedSTST->GetTypeTask<STSTasks::GoToCoord>();
-
-				World::DrawMarker(MarkerType::ThickChevronUp, tskPtr->destination, Vector3(), Vector3(180.0f, 0.0f, 0.0f), Vector3(1, 1, 1), RGBA(177, 33, 193, 210));
 
 				bool bSpeed_plus = false, bSpeed_minus = false;
 				AddTexter("Speed", (tskPtr->speed > 2.5f ? 1 : 0), std::vector<std::string>{"Walk", "Run"}, null, bSpeed_plus, bSpeed_minus);
 				if (bSpeed_plus) { if (tskPtr->speed < 4.0f) tskPtr->speed = 4.0f; }
 				if (bSpeed_minus) { if (tskPtr->speed > 1.0f) tskPtr->speed = 1.0f; }
 
-				AddOption("~italic~" + tskPtr->destination.ToString(), null);
-
-				auto& spoocam = SpoonerMode::spoonerModeCamera;
-				if (!spoocam.IsActive())
-				{
-					bool bSetPosToMe = false;
-					AddOption("Set Destination To Player Position", bSetPosToMe); if (bSetPosToMe)
-					{
-						Vector3& myPos = GTAentity(PLAYER_PED_ID()).Position_get();
-						tskPtr->destination = myPos;
-					}
-				}
-				else
-				{
-					bool bSetPosToHitCoords = false;
-					AddOption("Set Destination To Camera Target", bSetPosToHitCoords); if (bSetPosToHitCoords)
-					{
-						Vector3& hitCoords = spoocam.RaycastForCoord(Vector2(0.0f, 0.0f), 0, 160.0f, 3.0f);
-						tskPtr->destination = hitCoords;
-					}
-				}
-				if (IS_WAYPOINT_ACTIVE())
-				{
-					bool bSetPosToWp = false;
-					AddOption("Set Destination To Waypoint", bSetPosToWp); if (bSetPosToWp)
-					{
-						GTAblip wpBlip = GET_FIRST_BLIP_INFO_ID(BlipIcon::Waypoint);
-						Vector3& wpCoords = wpBlip.Position_get();
-						wpCoords.z = World::GetGroundHeight(wpCoords);
-						tskPtr->destination = wpCoords;
-					}
-				}
-
-				bool bManualPlacementForPosPressed = false;
-				AddOption("Adjust Destination Manually", bManualPlacementForPosPressed, nullFunc, SUB::SPOONER_VECTOR3_MANUALPLACEMENT); if (bManualPlacementForPosPressed)
-				{
-					SpoonerVector3ManualPlacementPtrs = { 0, &tskPtr->destination, nullptr };
-				}
+				PAtCoord(tskPtr->destination);
 			}
 			void FollowRoute()
 			{
@@ -583,7 +439,7 @@ namespace sub::Spooner
 				if (bSpeed_plus) { if (tskPtr->speed < 4.0f) tskPtr->speed = 4.0f; }
 				if (bSpeed_minus) { if (tskPtr->speed > 1.0f) tskPtr->speed = 1.0f; }
 
-				PAtEntity(tskPtr);
+				PAtEntity(tskPtr->targetEntity);
 			}
 			void PatrolInRange()
 			{
@@ -597,6 +453,8 @@ namespace sub::Spooner
 					EntityManagement::DrawRadiusDisplayingMarker(SelectedEntity.Handle.Position_get(), thisRadius);
 				if (bRadius_plus) { if (thisRadius < FLT_MAX) thisRadius += 1.0f; }
 				if (bRadius_minus) { if (thisRadius > 0.0f) thisRadius -= 1.0f; }
+
+				PAtCoord(tskPtr->coord);
 			}
 			void WanderFreely()
 			{
@@ -605,35 +463,7 @@ namespace sub::Spooner
 			{
 				auto tskPtr = _selectedSTST->GetTypeTask<STSTasks::FleeFromCoord>();
 
-				World::DrawMarker(MarkerType::ThickChevronUp, tskPtr->originCoords, Vector3(), Vector3(180.0f, 0.0f, 0.0f), Vector3(1, 1, 1), RGBA(255, 0, 0, 210));
-
-				AddOption("~italic~" + tskPtr->originCoords.ToString(), null);
-
-				auto& spoocam = SpoonerMode::spoonerModeCamera;
-				if (!spoocam.IsActive())
-				{
-					bool bSetPosToMe = false;
-					AddOption("Set Origin To Player Position", bSetPosToMe); if (bSetPosToMe)
-					{
-						Vector3& myPos = GTAentity(PLAYER_PED_ID()).Position_get();
-						tskPtr->originCoords = myPos;
-					}
-				}
-				else
-				{
-					bool bSetPosToHitCoords = false;
-					AddOption("Set Origin To Camera Target", bSetPosToHitCoords); if (bSetPosToHitCoords)
-					{
-						Vector3& hitCoords = spoocam.RaycastForCoord(Vector2(0.0f, 0.0f), 0, 160.0f, 3.0f);
-						tskPtr->originCoords = hitCoords;
-					}
-				}
-
-				bool bManualPlacementForPosPressed = false;
-				AddOption("Adjust Origin Manually", bManualPlacementForPosPressed, nullFunc, SUB::SPOONER_VECTOR3_MANUALPLACEMENT); if (bManualPlacementForPosPressed)
-				{
-					SpoonerVector3ManualPlacementPtrs = { 0, &tskPtr->originCoords, nullptr };
-				}
+				PAtCoord(tskPtr->originCoords);
 			}
 			void NearestAppropriateAction()
 			{
@@ -958,25 +788,25 @@ namespace sub::Spooner
 			{
 				auto tskPtr = _selectedSTST->GetTypeTask<STSTasks::AimAtCoord>();
 
-				PAtCoord(tskPtr);
+				PAtCoord(tskPtr->coord);
 			}
 			void AimAtEntity()
 			{
 				auto tskPtr = _selectedSTST->GetTypeTask<STSTasks::AimAtEntity>();
 
-				PAtEntity(tskPtr);
+				PAtEntity(tskPtr->targetEntity);
 			}
 			void ShootAtCoord()
 			{
 				auto tskPtr = _selectedSTST->GetTypeTask<STSTasks::ShootAtCoord>();
 
-				PAtCoord(tskPtr);
+				PAtCoord(tskPtr->coord);
 			}
 			void ShootAtEntity()
 			{
 				auto tskPtr = _selectedSTST->GetTypeTask<STSTasks::ShootAtEntity>();
 
-				PAtEntity(tskPtr);
+				PAtEntity(tskPtr->targetEntity);
 			}
 			void FightHatedTargets()
 			{
@@ -995,13 +825,13 @@ namespace sub::Spooner
 			{
 				auto tskPtr = _selectedSTST->GetTypeTask<STSTasks::FightPed>();
 
-				PAtEntity(tskPtr, EntityType::PED);
+				PAtEntity(tskPtr->targetEntity, EntityType::PED);
 			}
 			void SpeakToPed()
 			{
 				auto tskPtr = _selectedSTST->GetTypeTask<STSTasks::SpeakToPed>();
 
-				PAtEntity(tskPtr, EntityType::PED);
+				PAtEntity(tskPtr->targetEntity, EntityType::PED);
 			}
 			void PlaySpeechWithVoice()
 			{
@@ -1175,8 +1005,6 @@ namespace sub::Spooner
 			{
 				auto tskPtr = _selectedSTST->GetTypeTask<STSTasks::DriveToCoord>();
 
-				World::DrawMarker(MarkerType::ThickChevronUp, tskPtr->destination, Vector3(), Vector3(180.0f, 0.0f, 0.0f), Vector3(1, 1, 1), RGBA(177, 33, 193, 210));
-
 				bool bSpeed_plus = false, bSpeed_minus = false, bSpeed_input = false;
 				AddNumber("Speed (KMPH)", tskPtr->speedInKmph, 0, bSpeed_input, bSpeed_plus, bSpeed_minus);
 				if (bSpeed_plus) { if (tskPtr->speedInKmph < FLT_MAX) tskPtr->speedInKmph += 1.0f; }
@@ -1209,45 +1037,7 @@ namespace sub::Spooner
 				if (bDrivingStyle_plus) { if (cdsi < DrivingStyle::nameArray.size() - 1) { cdsi++; tskPtr->drivingStyle = DrivingStyle::nameArray[cdsi].style; } }
 				if (bDrivingStyle_minus) { if (cdsi > 0) { cdsi--; tskPtr->drivingStyle = DrivingStyle::nameArray[cdsi].style; } }
 
-				AddOption("~italic~" + tskPtr->destination.ToString(), null);
-
-				auto& spoocam = SpoonerMode::spoonerModeCamera;
-				if (!spoocam.IsActive())
-				{
-					bool bSetPosToMe = false;
-					AddOption("Set Destination To Player Position", bSetPosToMe); if (bSetPosToMe)
-					{
-						Vector3& myPos = GTAentity(PLAYER_PED_ID()).Position_get();
-						tskPtr->destination = myPos;
-					}
-				}
-				else
-				{
-					bool bSetPosToHitCoords = false;
-					AddOption("Set Destination To Camera Target", bSetPosToHitCoords); if (bSetPosToHitCoords)
-					{
-						Vector3& hitCoords = spoocam.RaycastForCoord(Vector2(0.0f, 0.0f), 0, 160.0f, 3.0f);
-						tskPtr->destination = hitCoords;
-					}
-				}
-				if (IS_WAYPOINT_ACTIVE())
-				{
-					bool bSetPosToWp = false;
-					AddOption("Set Destination To Waypoint", bSetPosToWp); if (bSetPosToWp)
-					{
-						GTAblip wpBlip = GET_FIRST_BLIP_INFO_ID(BlipIcon::Waypoint);
-						Vector3& wpCoords = wpBlip.Position_get();
-						wpCoords.z = World::GetGroundHeight(wpCoords);
-						tskPtr->destination = wpCoords;
-					}
-				}
-
-				bool bManualPlacementForPosPressed = false;
-				AddOption("Adjust Destination Manually", bManualPlacementForPosPressed, nullFunc, SUB::SPOONER_VECTOR3_MANUALPLACEMENT); if (bManualPlacementForPosPressed)
-				{
-					SpoonerVector3ManualPlacementPtrs = { 0, &tskPtr->destination, nullptr };
-				}
-
+				PAtCoord(tskPtr->destination);
 			}
 			void DriveFollowEntity()
 			{
@@ -1289,35 +1079,8 @@ namespace sub::Spooner
 				AddNumber("Minimum Distance", tskPtr->minDistance, 1, null, bMinDistance_plus, bMinDistance_minus);
 				if (bMinDistance_plus) { if (tskPtr->minDistance < FLT_MAX) tskPtr->minDistance += 0.5f; }
 				if (bMinDistance_minus) { if (tskPtr->minDistance > 0.0f) tskPtr->minDistance -= 0.5f; }
-
-
-				AddBreak("Available Entities");
-
-				GTAentity& thisTargetEntity = tskPtr->targetEntity;
-
-				GTAentity myPed = PLAYER_PED_ID();
-				if (myPed.Handle() != SelectedEntity.Handle.Handle() && myPed.Exists())
-				{
-					bool bMyPedPressed = false;
-					AddTickol("Self", thisTargetEntity == myPed, bMyPedPressed, bMyPedPressed); if (bMyPedPressed)
-					{
-						thisTargetEntity = myPed;
-					}
-				}
-
-				for (auto& e : Databases::EntityDb)
-				{
-					if (e.Handle.Handle() != SelectedEntity.Handle.Handle() && e.Handle.Exists())
-					{
-						bool bPedPressed = false;
-						AddTickol(e.HashName, thisTargetEntity == e.Handle, bPedPressed, bPedPressed); if (bPedPressed)
-						{
-							thisTargetEntity = e.Handle;
-						}
-						if (*Menu::currentopATM == Menu::printingop)
-							EntityManagement::ShowArrowAboveEntity(e.Handle, RGBA(0, 255, 0, 200));
-					}
-				}
+				
+				PAtEntity(tskPtr->targetEntity);
 			}
 			void DriveLandPlane()
 			{
@@ -1520,8 +1283,6 @@ namespace sub::Spooner
 			{
 				auto tskPtr = _selectedSTST->GetTypeTask<STSTasks::OscillateToPoint>();
 
-				World::DrawMarker(MarkerType::ThickChevronUp, tskPtr->destination, Vector3(), Vector3(180.0f, 0.0f, 0.0f), Vector3(1, 1, 1), RGBA(177, 33, 193, 210));
-
 				bool bAngleFreq_plus = false, bAngleFreq_minus = false;
 				AddNumber("Angular Frequency", tskPtr->angleFreq, 2, null, bAngleFreq_plus, bAngleFreq_minus);
 				if (bAngleFreq_plus) { if (tskPtr->angleFreq < FLT_MAX - 2.0f) tskPtr->angleFreq += 0.01f; }
@@ -1532,49 +1293,7 @@ namespace sub::Spooner
 				if (bDampRatio_plus) { if (tskPtr->dampRatio < FLT_MAX - 2.0f) tskPtr->dampRatio += 0.05f; }
 				if (bDampRatio_minus) { if (tskPtr->dampRatio > 0.0f) tskPtr->dampRatio -= 0.05f; }
 
-				//AddOption("~italic~" + tskPtr->destination.ToString(), null);
-
-				auto& spoocam = SpoonerMode::spoonerModeCamera;
-				if (!spoocam.IsActive())
-				{
-					bool bSetPosToMe = false;
-					AddOption("Set Point To Player Position", bSetPosToMe); if (bSetPosToMe)
-					{
-						Vector3& myPos = GTAentity(PLAYER_PED_ID()).Position_get();
-						tskPtr->destination = myPos;
-					}
-				}
-				else
-				{
-					bool bSetPosToHitCoords = false;
-					AddOption("Set Point To Camera Target", bSetPosToHitCoords); if (bSetPosToHitCoords)
-					{
-						Vector3& hitCoords = spoocam.RaycastForCoord(Vector2(0.0f, 0.0f), 0, 160.0f, 3.0f);
-						tskPtr->destination = hitCoords;
-					}
-				}
-
-				//=========================ADJUST POINT======================
-				AddBreak("---Adjust Point Manually---");
-				bool prec_plus = 0, prec_minus = 0,
-					offsetx_plus = 0, offsetx_minus = 0,
-					offsety_plus = 0, offsety_minus = 0,
-					offsetz_plus = 0, offsetz_minus = 0;
-
-				AddNumber("Scroll Sensitivity", _manualPlacementPrecision, 4, null, prec_minus, prec_plus);
-				AddNumber("X", tskPtr->destination.x, 4, null, offsetx_plus, offsetx_minus);
-				AddNumber("Y", tskPtr->destination.y, 4, null, offsety_plus, offsety_minus);
-				AddNumber("Z", tskPtr->destination.z, 4, null, offsetz_plus, offsetz_minus);
-
-				if (prec_plus) { if (_manualPlacementPrecision < 10.0f) _manualPlacementPrecision *= 10; }
-				if (prec_minus) { if (_manualPlacementPrecision > 0.0001f) _manualPlacementPrecision /= 10; }
-
-				if (offsetx_plus) tskPtr->destination.x += _manualPlacementPrecision;
-				if (offsetx_minus) tskPtr->destination.x -= _manualPlacementPrecision;
-				if (offsety_plus) tskPtr->destination.y += _manualPlacementPrecision;
-				if (offsety_minus) tskPtr->destination.y -= _manualPlacementPrecision;
-				if (offsetz_plus) tskPtr->destination.z += _manualPlacementPrecision;
-				if (offsetz_minus) tskPtr->destination.z -= _manualPlacementPrecision;
+				PAtCoord(tskPtr->destination);
 			}
 			void OscillateToEntity()
 			{
@@ -1617,33 +1336,7 @@ namespace sub::Spooner
 				if (offsetz_plus) tskPtr->offsetVector.z += _manualPlacementPrecision;
 				if (offsetz_minus) tskPtr->offsetVector.z -= _manualPlacementPrecision;
 
-				AddBreak("Available Entities");
-
-				GTAentity& thisTargetEntity = tskPtr->targetEntity;
-
-				GTAentity myPed = PLAYER_PED_ID();
-				if (myPed.Handle() != SelectedEntity.Handle.Handle() && myPed.Exists())
-				{
-					bool bMyPedPressed = false;
-					AddTickol("Self", thisTargetEntity == myPed, bMyPedPressed, bMyPedPressed); if (bMyPedPressed)
-					{
-						thisTargetEntity = myPed;
-					}
-				}
-
-				for (auto& e : Databases::EntityDb)
-				{
-					if (e.Handle.Handle() != SelectedEntity.Handle.Handle() && e.Handle.Exists())
-					{
-						bool bPedPressed = false;
-						AddTickol(e.HashName, thisTargetEntity == e.Handle, bPedPressed, bPedPressed); if (bPedPressed)
-						{
-							thisTargetEntity = e.Handle;
-						}
-						if (*Menu::currentopATM == Menu::printingop)
-							EntityManagement::ShowArrowAboveEntity(e.Handle, RGBA(0, 255, 0, 200));
-					}
-				}
+				PAtEntity(tskPtr->targetEntity);
 			}
 			void FreezeInPlace()
 			{

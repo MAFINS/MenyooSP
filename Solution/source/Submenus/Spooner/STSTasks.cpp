@@ -559,9 +559,12 @@ namespace sub::Spooner
 			this->speed = nodeTask.child("Speed").text().as_float();
 
 			auto& nodeDest = nodeTask.child("Destination");
-			this->destination.x = nodeDest.attribute("X").as_float();
-			this->destination.y = nodeDest.attribute("Y").as_float();
-			this->destination.z = nodeDest.attribute("Z").as_float();
+			if (nodeDest)
+			{
+				this->destination.x = nodeDest.attribute("X").as_float();
+				this->destination.y = nodeDest.attribute("Y").as_float();
+				this->destination.z = nodeDest.attribute("Z").as_float();
+			}
 		}
 		void GoToCoord::ImportTaskDataSpecific(STSTask* otherTsk)
 		{
@@ -679,15 +682,24 @@ namespace sub::Spooner
 		void PatrolInRange::GetXmlNodeTaskSpecific(pugi::xml_node& nodeTask) const
 		{
 			nodeTask.append_child("Radius").text() = this->radius;
+			auto& nodeCoord = nodeTask.append_child("Coord");
+			nodeCoord.append_attribute("X") = this->coord.x;
+			nodeCoord.append_attribute("Y") = this->coord.y;
+			nodeCoord.append_attribute("Z") = this->coord.z;
 		}
 		void PatrolInRange::ImportXmlNodeTaskSpecific(pugi::xml_node& nodeTask)
 		{
 			this->radius = nodeTask.child("Radius").text().as_float();
+			auto& nodeCoord = nodeTask.child("Coord");
+			this->coord.x = nodeCoord.attribute("X").as_float();
+			this->coord.y = nodeCoord.attribute("Y").as_float();
+			this->coord.z = nodeCoord.attribute("Z").as_float();
 		}
 		void PatrolInRange::ImportTaskDataSpecific(STSTask* otherTsk)
 		{
 			auto otherTskT = otherTsk->GetTypeTask<STSTasks::PatrolInRange>();
 			this->radius = otherTskT->radius;
+			this->coord = otherTskT->coord;
 		}
 		PatrolInRange::PatrolInRange()
 		{
@@ -700,7 +712,7 @@ namespace sub::Spooner
 		}
 		void PatrolInRange::RunP(GTAped& ep)
 		{
-			ep.Task().WanderAround(ep.Position_get(), this->radius);
+			ep.Task().WanderAround(this->coord.IsZero() ? ep.Position_get()/*Legacy/bugged PatrolInRange behaviour*/ : this->coord, this->radius);
 		}
 
 		WanderFreely::	WanderFreely()
