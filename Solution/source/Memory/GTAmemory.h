@@ -56,45 +56,6 @@ static inline void SetBit(int& i, int bitNum) { i |= (1 << bitNum); }
 static inline void ClearBit(int& i, int bitNum) { i &= ~(1 << bitNum); }
 static void SetClearBit(int& i, int bitNum, bool setAction) { if (setAction) SetBit(i, bitNum); else ClearBit(i, bitNum); }
 
-template <typename T, std::size_t N>
-class AlignedValue
-{
-private:
-	alignas(N)T _value;
-
-public:
-	AlignedValue()
-		: _value()
-	{ }
-
-	AlignedValue(const T copy)
-		: _value(copy)
-	{ }
-
-	AlignedValue(const AlignedValue& copy)
-		: _value(copy._value)
-	{ }
-
-	AlignedValue& operator=(const T copy)
-	{
-		_value = copy;
-
-		return *this;
-	}
-
-	AlignedValue& operator=(const AlignedValue& copy)
-	{
-		_value = copy._value;
-
-		return *this;
-	}
-
-	operator T() const
-	{
-		return _value;
-	}
-};
-
 template<typename R> R GetMultilayerPointer(void* base, std::vector<DWORD>& offsets);
 
 namespace MemryScan
