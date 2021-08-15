@@ -4389,11 +4389,12 @@ enum class VehicleWindow : int
 	FrontRightWindow = 1,
 	BackLeftWindow = 2,
 	BackRightWindow = 3,
+	Last
 };
 enum class CargobobHook : int
 {
 	Hook = 0,
-	Magnet = 1,
+	Magnet = 1
 };
 enum class VehicleLockStatus : int
 {
