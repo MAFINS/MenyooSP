@@ -700,4 +700,7 @@
       <UniqueIdentifier>{a78b4725-1807-4c82-90fb-f13301a71b84}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="Menyoo.rc" />
+  </ItemGroup>
 </Project>

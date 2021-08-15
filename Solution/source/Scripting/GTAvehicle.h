@@ -300,6 +300,7 @@ public:
 	void OpenBombBay();
 	void CloseBombBay();
 
+	bool IsWindowIntact(VehicleWindow window);
 	void FixWindow(VehicleWindow window);
 	void SmashWindow(VehicleWindow window);
 	void RollUpWindow(VehicleWindow window);

@@ -262,6 +262,13 @@ namespace sub
 			if (!IS_PED_IN_ANY_VEHICLE(PLAYER_PED_ID(), 0)) Game::Print::PrintBottomCentre("~r~Error:~s~ You are not in a vehicle.");
 			else
 			{
+				std::vector<VehicleWindow> windowsToOpen;
+				for (int i = (int)VehicleWindow::FrontLeftWindow; i < (int)VehicleWindow::Last; i++)
+				{
+					if (!myVehicle.IsWindowIntact((VehicleWindow)i))
+						windowsToOpen.push_back((VehicleWindow)i);
+				}
+
 				myVehicle.RequestControlOnce();
 				SET_VEHICLE_FIXED(g_myVeh);
 				SET_VEHICLE_DIRT_LEVEL(g_myVeh, 0.0f);
@@ -270,7 +277,13 @@ namespace sub
 				SET_VEHICLE_PETROL_TANK_HEALTH(g_myVeh, 1250.0f);
 				SET_VEHICLE_BODY_HEALTH(g_myVeh, 1250.0f);
 				SET_VEHICLE_UNDRIVEABLE(g_myVeh, 0);
-				if (!GET_IS_VEHICLE_ENGINE_RUNNING(g_myVeh)) SET_VEHICLE_ENGINE_ON(g_myVeh, 1, 1);
+				if (!GET_IS_VEHICLE_ENGINE_RUNNING(g_myVeh))
+					SET_VEHICLE_ENGINE_ON(g_myVeh, 1, 1);
+
+				for (auto& i : windowsToOpen)
+				{
+					myVehicle.RollDownWindow(i);
+				}
 			}
 			return;
 		}
