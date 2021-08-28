@@ -129,6 +129,12 @@ namespace sub
 		bool bMyPedIsInVehicle = myPed.IsInVehicle();
 		Model& myVehicleModel = myVehicle.Model();
 
+		static int __VechicleOpsFixCar_texterVal = 0;
+		static std::vector<std::string> __VechicleOpsFixCar_texter{ "Full", "Keep windows open" };
+		auto& fixCarTexterVal = __VechicleOpsFixCar_texterVal;
+		auto& fixCarTexter = __VechicleOpsFixCar_texter;
+		bool bFixCar_plus = false, bFixCar_minus = false;
+
 		AddTitle("Vehicle Options");
 
 		if (myVehicleModel.VehicleDisplayName(false).find("CARGOBOB") != std::string::npos)
@@ -138,7 +144,7 @@ namespace sub
 		if (myVehicleModel.HasSiren())
 			AddToggle("Disable Vehicle Siren", loop_vehicle_disableSiren, null, disableSiren_off);
 		if (bMyPedIsInVehicle)
-			AddOption("CMOD_MOD_MNT", VehicleOpsFixCar_, nullFunc, -1, false, true); // Fix & Wash
+			AddTexter("CMOD_MOD_MNT", fixCarTexterVal, fixCarTexter, VehicleOpsFixCar_, bFixCar_plus, bFixCar_minus, true); // Fix & Wash
 		AddOption("Teleport Into Closest Vehicle", VehicleOpsTeleportClosestCar_);
 		AddOption("Vehicle Spawner", obj_funny_veh_so_frz__off, nullFunc, SUB::SPAWNVEHICLE);
 		AddOption("Menyoo Customs", VehicleOps_sub_modshop, nullFunc, -1, true);
@@ -258,15 +264,22 @@ namespace sub
 			return;
 		}
 
+		if (bFixCar_plus && fixCarTexterVal < fixCarTexter.size() - 1)
+			fixCarTexterVal++;
+		else if (bFixCar_minus && fixCarTexterVal > 0)
+			fixCarTexterVal--;
 		if (VehicleOpsFixCar_) {
 			if (!IS_PED_IN_ANY_VEHICLE(PLAYER_PED_ID(), 0)) Game::Print::PrintBottomCentre("~r~Error:~s~ You are not in a vehicle.");
 			else
 			{
 				std::vector<VehicleWindow> windowsToOpen;
-				for (int i = (int)VehicleWindow::FrontLeftWindow; i < (int)VehicleWindow::Last; i++)
+				if (fixCarTexterVal == 1)
 				{
-					if (!myVehicle.IsWindowIntact((VehicleWindow)i))
-						windowsToOpen.push_back((VehicleWindow)i);
+					for (int i = (int)VehicleWindow::FrontLeftWindow; i < (int)VehicleWindow::Last; i++)
+					{
+						if (!myVehicle.IsWindowIntact((VehicleWindow)i))
+							windowsToOpen.push_back((VehicleWindow)i);
+					}
 				}
 
 				myVehicle.RequestControlOnce();
@@ -280,9 +293,12 @@ namespace sub
 				if (!GET_IS_VEHICLE_ENGINE_RUNNING(g_myVeh))
 					SET_VEHICLE_ENGINE_ON(g_myVeh, 1, 1);
 
-				for (auto& i : windowsToOpen)
+				if (fixCarTexterVal == 1)
 				{
-					myVehicle.RollDownWindow(i);
+					for (auto& i : windowsToOpen)
+					{
+						myVehicle.RollDownWindow(i);
+					}
 				}
 			}
 			return;
