@@ -7,6 +7,7 @@
 		<Vehicle name="BANSHEE2" /><!-- Banshee 900R -->
 		<Vehicle name="OPENWHEEL1" /><!-- BR8, should be Open Wheel class -->
 		<Vehicle name="BULLET" />
+		<Vehicle name="CHAMPION" />
 		<Vehicle name="CHEETAH" />
 		<Vehicle name="CYCLONE" />
 		<Vehicle name="DEVESTE" />
@@ -18,6 +19,7 @@
 		<Vehicle name="FMJ" />
 		<Vehicle name="FURIA" />
 		<Vehicle name="GP1" />
+		<Vehicle name="IGNUS" />
 		<Vehicle name="INFERNUS" />
 		<Vehicle name="ITALIGTB" />
 		<Vehicle name="ITALIGTB2" /><!-- Itali GTB Custom -->
@@ -51,6 +53,7 @@
 		<Vehicle name="VOLTIC" />
 		<Vehicle name="PROTOTIPO" /><!-- X80 Proto -->
 		<Vehicle name="XA21" />
+		<Vehicle name="ZENO" />
 		<Vehicle name="ZENTORNO" />
 		<Vehicle name="ZORRUSSO" />
 	</Category>
@@ -87,6 +90,7 @@
 		<Vehicle name="COMET2" /><!-- Comet -->
 		<Vehicle name="COMET3" /><!-- Comet Retro Custom -->
 		<Vehicle name="COMET6" /><!-- Comet S2 -->
+		<Vehicle name="COMET7" /><!-- Comet S2 Cabrio -->
 		<Vehicle name="COMET4" /><!-- Comet Safari -->
 		<Vehicle name="COMET5" /><!-- Comet SR -->
 		<Vehicle name="COQUETTE" />
@@ -173,6 +177,7 @@
 		<Vehicle name="BLADE" />
 		<Vehicle name="BUCCANEER" />
 		<Vehicle name="BUCCANEER2" /><!-- Buccaneer Custom -->
+		<Vehicle name="BUFFALO4" /><!-- Buffalo STX -->
 		<Vehicle name="STALION2" /><!-- Burger Shot Stallion -->
 		<Vehicle name="CHINO" />
 		<Vehicle name="CHINO2" /><!-- Chino Custom -->
@@ -303,6 +308,7 @@
 		<Vehicle name="MULE" />
 		<Vehicle name="MULE2" /><!-- Mule ramp door variant -->
 		<Vehicle name="MULE3" /><!-- Mule heist variant -->
+		<Vehicle name="MULE5" /><!-- Mule Contract DLC variant -->
 		<Vehicle name="MULE4" /><!-- Mule Custom -->
 		<Vehicle name="CERBERUS3" /><!-- Nightmare Cerberus -->
 		<Vehicle name="PACKER" />
@@ -322,10 +328,12 @@
 		<Vehicle name="ASEA" />
 		<Vehicle name="ASEA2" /><!-- Asea North Yankton variant -->
 		<Vehicle name="ASTEROPE" />
+		<Vehicle name="CINQUEMILA" />
 		<Vehicle name="COGNOSCENTI" />
 		<Vehicle name="COGNOSCENTI2" /><!-- Cognoscenti (Armored) -->
 		<Vehicle name="COG55" /><!-- Cognoscenti 55 -->
 		<Vehicle name="COG552" /><!-- Cognoscenti 55 (Armored) -->
+		<Vehicle name="DEITY" />
 		<Vehicle name="EMPEROR" />
 		<Vehicle name="EMPEROR2" /><!-- Emperor beater variant -->
 		<Vehicle name="EMPEROR3" /><!-- Emperor North Yankton variant -->
@@ -394,6 +402,7 @@
 		<Vehicle name="MONSTER5" /><!-- Nightmare Sasquatch -->
 		<Vehicle name="NIGHTSHARK" />
 		<Vehicle name="OUTLAW" />
+		<Vehicle name="PATRIOT3" /><!-- Patriot Mil-Spec -->
 		<Vehicle name="DUNE4" /><!-- Ramp Buggy mission variant -->
 		<Vehicle name="DUNE5" /><!-- Ramp Buggy -->
 		<Vehicle name="RANCHERXL" />
@@ -417,12 +426,14 @@
 		<Vehicle name="ZHABA" />
 	</Category>
 	<Category name="SUV">
+		<Vehicle name="ASTRON" />
 		<Vehicle name="BALLER" />
 		<Vehicle name="BALLER2" /><!-- Baller 2nd gen variant -->
 		<Vehicle name="BALLER3" /><!-- Baller LE -->
 		<Vehicle name="BALLER5" /><!-- Baller LE (Armored) -->
 		<Vehicle name="BALLER4" /><!-- Baller LE LWB -->
 		<Vehicle name="BALLER6" /><!-- Baller LE LWB (Armored) -->
+		<Vehicle name="BALLER7" /><!-- Baller ST -->
 		<Vehicle name="BJXL" />
 		<Vehicle name="CAVALCADE" />
 		<Vehicle name="CAVALCADE2" /><!-- Cavalcade 2nd gen variant -->
@@ -431,9 +442,12 @@
 		<Vehicle name="DUBSTA2" /><!-- Dubsta black variant -->
 		<Vehicle name="FQ2" />
 		<Vehicle name="GRANGER" />
+		<Vehicle name="GRANGER2" /><!-- Granger 3600LX -->
 		<Vehicle name="GRESLEY" />
 		<Vehicle name="HABANERO" />
 		<Vehicle name="HUNTLEY" />
+		<Vehicle name="IWAGEN" />
+		<Vehicle name="JUBILEE" />
 		<Vehicle name="LANDSTALKER" />
 		<Vehicle name="LANDSTALKER2" /><!-- Landstalker XL -->
 		<Vehicle name="MESA" />
@@ -521,6 +535,7 @@
 		<Vehicle name="YOUGA" />
 		<Vehicle name="YOUGA2" /><!-- Youga Classic -->
 		<Vehicle name="YOUGA3" /><!-- Youga Classic 4x4 -->
+		<Vehicle name="YOUGA4" /><!-- Youga Custom -->
 	</Category>
 	<Category name="Service"><!-- Service + Utility -->
 		<Vehicle name="AIRBUS" />
@@ -671,10 +686,12 @@
 		<Vehicle name="PCJ" />
 		<Vehicle name="RROCKET" /><!-- Rampant Rocket -->
 		<Vehicle name="RATBIKE" />
+		<Vehicle name="REEVER" />
 		<Vehicle name="RUFFIAN" />
 		<Vehicle name="SANCHEZ" /><!-- Sanchez livery variant -->
 		<Vehicle name="SANCHEZ2" />
 		<Vehicle name="SANCTUS" />
+		<Vehicle name="SHINOBI" />
 		<Vehicle name="SHOTARO" />
 		<Vehicle name="SOVEREIGN" />
 		<Vehicle name="STRYDER" />
