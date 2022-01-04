@@ -33,6 +33,7 @@
 
 namespace sub
 {
+
 	// vehicle - upgrades
 	void set_vehicle_max_upgrades(Vehicle vehicle, bool upgradeIt, bool invincible, INT8 plateType, std::string plateText,
 		bool neonIt, UINT8 NeonR, UINT8 NeonG, UINT8 NeonB, INT16 prim_col_index, INT16 sec_col_index)
@@ -356,7 +357,7 @@ namespace sub
 			AddTickol("Sirens", vehicle.SirenActive_get(), bSirenOnTogglePressed, bSirenOnTogglePressed, TICKOL::BOXTICK, TICKOL::BOXBLANK); if (bSirenOnTogglePressed)
 				vehicle.SirenActive_set(!vehicle.SirenActive_get());
 		}
-		
+
 		AddOption("AUTO UPGRADE", veh_static12_autoUpgrade);
 
 		if (GET_VEHICLE_MOD_KIT != 0)
@@ -775,7 +776,7 @@ namespace sub
 		if (maxSpeed_input)
 		{
 			std::stringstream ss;
-			ss << std::fixed << std::setprecision(0) << (maxSpeedMultVal*3.6f);
+			ss << std::fixed << std::setprecision(0) << (maxSpeedMultVal * 3.6f);
 			std::string oldStr = ss.str();
 
 			std::string inputStr = Game::InputBox("", 9U, "", oldStr);
@@ -889,7 +890,7 @@ namespace sub
 
 	void MSCatall_()
 	{
-		Vehicle &vehicle = Static_12;
+		Vehicle& vehicle = Static_12;
 
 		if (!DOES_ENTITY_EXIST(vehicle))
 		{
@@ -898,7 +899,7 @@ namespace sub
 		}
 
 		bool setMod = false;
-		INT &modType = ms_curr_paint_index,
+		INT& modType = ms_curr_paint_index,
 			currMod = GET_VEHICLE_MOD(vehicle, modType),
 			maxMod = GET_NUM_VEHICLE_MODS(vehicle, modType) - 1;
 
@@ -1360,7 +1361,7 @@ namespace sub
 		}
 
 		using namespace MSWheels_catind;
-		int &wtype = ms_curr_paint_index, &chrtype = bit_MSPaints_RGB_mode;
+		int& wtype = ms_curr_paint_index, & chrtype = bit_MSPaints_RGB_mode;
 
 		AddTitle(vWheelTNames[wtype]);
 
@@ -1466,7 +1467,7 @@ namespace sub
 		}
 
 		using namespace MSWheels_catind;
-		int &wtype = ms_curr_paint_index, &chrtype = bit_MSPaints_RGB_mode, i;
+		int& wtype = ms_curr_paint_index, & chrtype = bit_MSPaints_RGB_mode, i;
 
 		//switch (wtype)
 		//{
@@ -1586,7 +1587,7 @@ namespace sub
 	{
 		enum MSWINDOWS_MODE : UINT8 { MSWINDOWS_MODE_OPEN, MSWINDOWS_MODE_CLOSE, MSWINDOWS_MODE_BREAK, MSWINDOWS_MODE_FIX, MSWINDOWS_MODE_REMOVE };
 		UINT8 msWindows_mode = 0;
-		
+
 		const std::vector<std::string> msWindows_mode_names{ "Open", "Close", "Break", "Fix", "Remove" };
 		const std::vector<std::string> msWindows_window_names{ "Front Left", "Front Right", "Back Left", "Back Right" };
 		//const std::vector<std::string> msWindows_wintint_names{ "None", "Black", "Dark Smoke", "Light Smoke", "Stock", "Limo", "Green" };
@@ -1667,7 +1668,7 @@ namespace sub
 	// Doors
 
 	void AddmsdoorsOption_(const std::string& text, GTAvehicle vehicle, VehicleDoor door, UINT8 supposedAction, bool instantly = false, bool loose = false)
-	{		
+	{
 		auto action = supposedAction;
 		bool conditionForTick = false;
 
@@ -1793,7 +1794,7 @@ namespace sub
 
 	// Paints
 
-	void AddMSPaintsPointOption_(const std::string& text, INT8 index, bool &extra_option_code = null)
+	void AddMSPaintsPointOption_(const std::string& text, INT8 index, bool& extra_option_code = null)
 	{
 		bool pressed = false;
 		AddOption(text, pressed, nullFunc, SUB::MSPAINTS2, true, false);
@@ -1963,14 +1964,26 @@ namespace sub
 	void MSPaints2_()
 	{
 		bool paintIndex_plus = 0, paintIndex_minus = 0, paintIndex_input = 0,
-			MSPaints_Cyan = 0,
-			MSPaints_TrippyGreen = 0,
+			MSPaints_RIndex = 0,
+			MSPaints_RColour = 0,
 			MSPaints_primRGB = 0;
 
 		GTAvehicle vehicle = Static_12;
 
 		INT paintIndex;
 		paintIndex = getpaintCarUsing_index(Static_12, ms_curr_paint_index);
+
+		int totalpaints = 49;
+		for (int i = 0; i < 6; i++)
+		{
+			if (i != 2)
+			{
+			totalpaints = totalpaints + GET_NUM_MOD_COLORS(i, 1);
+			}
+		}
+		int extrapaints = totalpaints - 225;
+
+		const INT paintIndex_maxValue = 160 + extrapaints;
 
 		switch (ms_curr_paint_index)
 		{
@@ -1999,36 +2012,44 @@ namespace sub
 		AddOption("Utility", null, nullFunc, SUB::MSPAINTS2_UTIL);
 		AddOption("Worn", null, nullFunc, SUB::MSPAINTS2_WORN);
 
+		
+
+		if (extrapaints > 0) 
+		{
+			AddOption("Extra Colours: " + std::to_string(extrapaints), null, nullFunc, SUB::MSPAINTS2_ADDED);
+		}
 		if (ms_curr_paint_index < 10)
 		{
 			AddNumber("Paint Index", paintIndex, 0, paintIndex_input, paintIndex_plus, paintIndex_minus);
 		}
 		if (ms_curr_paint_index == 1 || ms_curr_paint_index == 2)
 		{
-			AddOption("Cyan RGB", MSPaints_Cyan);
-			AddOption("Trippy Green RGB", MSPaints_TrippyGreen);
+			AddOption("Random Index", MSPaints_RIndex);
+			AddOption("Random RGB", MSPaints_RColour);
 			AddOption("Set RGB", MSPaints_primRGB, nullFunc, SUB::MSPAINTS_RGB);
 			if (*Menu::currentopATM == Menu::printingop)
 				Add_preset_colour_options_previews(ms_curr_paint_index == 1 ? vehicle.CustomPrimaryColour_get() : ms_curr_paint_index == 2 ? vehicle.CustomSecondaryColour_get() : RgbS(0, 0, 0));
 		}
 
-		if (MSPaints_Cyan) {
+
+		if (MSPaints_RIndex) {
 			if (vehicle.IsVehicle())
 			{
-				if (ms_curr_paint_index == 1)
-					vehicle.CustomPrimaryColour_set(0, 255, 255);
-				else if (ms_curr_paint_index == 2)
-					vehicle.CustomSecondaryColour_set(0, 255, 255);
+				int randindex = rand() % paintIndex_maxValue;
+				paintCarUsing_index(Static_12, ms_curr_paint_index, randindex, -1);
 			}
 			return;
 		}
-		if (MSPaints_TrippyGreen) {
+		if (MSPaints_RColour) {
 			if (vehicle.IsVehicle())
 			{
+				int randr = rand() % 255;
+				int randg = rand() % 255;
+				int randb = rand() % 255;
 				if (ms_curr_paint_index == 1)
-					vehicle.CustomPrimaryColour_set(0, 255, 127);
+					vehicle.CustomPrimaryColour_set(randr, randg, randb);
 				else if (ms_curr_paint_index == 2)
-					vehicle.CustomSecondaryColour_set(0, 255, 127);
+					vehicle.CustomSecondaryColour_set(randr, randg, randb);
 			}
 			return;
 		}
@@ -2037,7 +2058,6 @@ namespace sub
 		else if (ms_curr_paint_index == 2) { if (MSPaints_primRGB) { bit_MSPaints_RGB_mode = 1; return; } }
 
 
-		const INT paintIndex_maxValue = 165;
 
 		if (paintIndex_plus) {
 			if (paintIndex < paintIndex_maxValue) paintIndex++;
@@ -2078,7 +2098,7 @@ namespace sub
 	namespace MSPaints_catind
 	{
 		struct NamedVehiclePaint { std::string name; INT16 paint, pearl; };
-		
+
 #pragma region paintvectors
 		const std::vector<NamedVehiclePaint> PAINTS_NORMAL{
 			{ "Black", 0, 0 },
@@ -2454,6 +2474,106 @@ namespace sub
 			{ "Chrome", 120, 0 }
 		};
 
+		std::vector<NamedVehiclePaint> PAINTS_ADDED
+		{
+			{"Extra Colour 1",	161, -1 },
+			{"Extra Colour 2",	162, -1 },
+			{"Extra Colour 3",	163, -1 },
+			{"Extra Colour 4",	164, -1 },
+			{"Extra Colour 5",	165, -1 },
+			{"Extra Colour 6",	166, -1 },
+			{"Extra Colour 7",	167, -1 },
+			{"Extra Colour 8",	168, -1 },
+			{"Extra Colour 9",	169, -1 },
+			{"Extra Colour 10",	170, -1 },
+			{"Extra Colour 11",	171, -1 },
+			{"Extra Colour 12",	172, -1 },
+			{"Extra Colour 13",	173, -1 },
+			{"Extra Colour 14",	174, -1 },
+			{"Extra Colour 15",	175, -1 },
+			{"Extra Colour 16",	176, -1 },
+			{"Extra Colour 17",	177, -1 },
+			{"Extra Colour 18",	178, -1 },
+			{"Extra Colour 19",	179, -1 },
+			{"Extra Colour 20",	180, -1 },
+			{"Extra Colour 21",	181, -1 },
+			{"Extra Colour 22",	182, -1 },
+			{"Extra Colour 23",	183, -1 },
+			{"Extra Colour 24",	184, -1 },
+			{"Extra Colour 25",	185, -1 },
+			{"Extra Colour 26",	186, -1 },
+			{"Extra Colour 27",	187, -1 },
+			{"Extra Colour 28",	188, -1 },
+			{"Extra Colour 29",	189, -1 },
+			{"Extra Colour 30",	190, -1 },
+			{"Extra Colour 31",	191, -1 },
+			{"Extra Colour 32",	192, -1 },
+			{"Extra Colour 33",	193, -1 },
+			{"Extra Colour 34",	194, -1 },
+			{"Extra Colour 35",	195, -1 },
+			{"Extra Colour 36",	196, -1 },
+			{"Extra Colour 37",	197, -1 },
+			{"Extra Colour 38",	198, -1 },
+			{"Extra Colour 39",	199, -1 },
+			{"Extra Colour 40",	200, -1 },
+			{"Extra Colour 41",	201, -1 },
+			{"Extra Colour 42",	202, -1 },
+			{"Extra Colour 43",	203, -1 },
+			{"Extra Colour 44",	204, -1 },
+			{"Extra Colour 45",	205, -1 },
+			{"Extra Colour 46",	206, -1 },
+			{"Extra Colour 47",	207, -1 },
+			{"Extra Colour 48",	208, -1 },
+			{"Extra Colour 49",	209, -1 },
+			{"Extra Colour 50",	210, -1 },
+			{"Extra Colour 51",	211, -1 },
+			{"Extra Colour 52",	212, -1 },
+			{"Extra Colour 53",	213, -1 },
+			{"Extra Colour 54",	214, -1 },
+			{"Extra Colour 55",	215, -1 },
+			{"Extra Colour 56",	216, -1 },
+			{"Extra Colour 57",	217, -1 },
+			{"Extra Colour 58",	218, -1 },
+			{"Extra Colour 59",	219, -1 },
+			{"Extra Colour 60",	220, -1 },
+			{"Extra Colour 61",	221, -1 },
+			{"Extra Colour 62",	222, -1 },
+			{"Extra Colour 63",	223, -1 },
+			{"Extra Colour 64",	224, -1 },
+			{"Extra Colour 65",	225, -1 },
+			{"Extra Colour 66",	226, -1 },
+			{"Extra Colour 67",	227, -1 },
+			{"Extra Colour 68",	228, -1 },
+			{"Extra Colour 69",	229, -1 },
+			{"Extra Colour 70",	230, -1 },
+			{"Extra Colour 71",	231, -1 },
+			{"Extra Colour 72",	232, -1 },
+			{"Extra Colour 73",	233, -1 },
+			{"Extra Colour 74",	234, -1 },
+			{"Extra Colour 75",	235, -1 },
+			{"Extra Colour 76",	236, -1 },
+			{"Extra Colour 77",	237, -1 },
+			{"Extra Colour 78",	238, -1 },
+			{"Extra Colour 79",	239, -1 },
+			{"Extra Colour 80",	240, -1 },
+			{"Extra Colour 81",	241, -1 },
+			{"Extra Colour 82",	242, -1 },
+			{"Extra Colour 83",	243, -1 },
+			{"Extra Colour 84",	244, -1 },
+			{"Extra Colour 85",	245, -1 },
+			{"Extra Colour 86",	246, -1 },
+			{"Extra Colour 87",	247, -1 },
+			{"Extra Colour 88",	248, -1 },
+			{"Extra Colour 89",	249, -1 },
+			{"Extra Colour 90",	250, -1 },
+			{"Extra Colour 91",	251, -1 },
+			{"Extra Colour 92",	252, -1 },
+			{"Extra Colour 93",	253, -1 },
+			{"Extra Colour 94",	254, -1 },
+			{"Extra Colour 95",	255, -1 },
+
+		};
+
 #pragma endregion
 
 		void Sub_Wheels()
@@ -2477,10 +2597,16 @@ namespace sub
 			for (auto& p : vPaints)
 				AddcarcolOption_(p.name, Static_12, p.paint, p.pearl);
 
+			int totalpaints = 0;
+			for (int i = 0; i < 5; i++)
+			{
+				totalpaints = totalpaints + GET_NUM_MOD_COLORS(i, 1);
+			}
+			int extrapaints = totalpaints - 232;
 
 			bool paintIndex_plus = 0, paintIndex_minus = 0, paintIndex_input = 0;
 			AddNumber("Paint Index", paintIndex, 0, paintIndex_input, paintIndex_plus, paintIndex_minus);
-			const INT paintIndex_maxValue = 165;
+			const INT paintIndex_maxValue = 160 + extrapaints;
 			if (paintIndex_plus) {
 				if (paintIndex < paintIndex_maxValue) paintIndex++;
 				else paintIndex = 0;
@@ -2514,6 +2640,28 @@ namespace sub
 			}
 
 
+
+		}
+		void Sub_Added()
+		{
+			AddTitle("Extra Colours");
+
+			auto& vPaints = PAINTS_ADDED;
+			int totalpaints = 49;
+			for (int i = 0; i < 6; i++)
+			{
+				if (i != 2)
+				{
+					totalpaints = totalpaints + GET_NUM_MOD_COLORS(i, 1);
+				}
+			}
+			int extrapaints = totalpaints - 225;
+			vPaints.resize(extrapaints);
+
+			for (auto& p : vPaints)
+				AddcarcolOption_(p.name, Static_12, p.paint, p.pearl);
+
+			//create for loop to count addon paint options and emulate addcarcoloption list
 
 		}
 		void Sub_Chrome()
@@ -2898,7 +3046,7 @@ namespace sub
 			{ VehicleNeonLight::Right,{ 0x92E936A7, "Right" } },
 			{ VehicleNeonLight::Front,{ 0x79ABE687, "Front" } },
 			{ VehicleNeonLight::Back,{ 0x6BECCB09, "Back" } }
-		})
+			})
 		{
 			bool bPressed_on = false, bPressed_off = false;
 			AddTickol(i.second.second, vehicle.IsNeonLightOn(i.first), bPressed_on, bPressed_off, TICKOL::CARTHING);
