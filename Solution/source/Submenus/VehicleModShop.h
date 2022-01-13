@@ -80,6 +80,7 @@ namespace sub
 		void Sub_Metal();
 		void Sub_Util();
 		void Sub_Worn();
+		void Sub_Added();
 	}
 
 	void rgb_mode_set_carcol(Vehicle veh, INT16 R, INT16 G, INT16 B, INT16 A);
