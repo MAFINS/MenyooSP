@@ -1069,6 +1069,8 @@ namespace VEHICLE
 	static void SET_VEHICLE_DOORS_SHUT(Vehicle vehicle, BOOL closeInstantly) { invoke<Void>(0x781B3D62BB013EF5, vehicle, closeInstantly); } // 0x781B3D62BB013EF5 0xBB1FF6E7
 	static void SET_VEHICLE_TYRES_CAN_BURST(Vehicle vehicle, BOOL toggle) { invoke<Void>(0xEB9DC3C7D8596C46, vehicle, toggle); } // 0xEB9DC3C7D8596C46 0xA198DB54
 	static BOOL GET_VEHICLE_TYRES_CAN_BURST(Vehicle vehicle) { return invoke<BOOL>(0x678B9BB8C3F58FEB, vehicle); } // 0x678B9BB8C3F58FEB 0x4D76CD2F
+	static void _SET_DRIFT_TYRES_ENABLED(Vehicle vehicle, BOOL toggle) { invoke<Void>(0x5AC79C98C5C17F05, vehicle, toggle); } // 0x5AC79C98C5C17F05 b2372
+	static BOOL _GET_DRIFT_TYRES_ENABLED(Vehicle vehicle) { return invoke<BOOL>(0x2F5A72430E78C8D3, vehicle); } // 0x2F5A72430E78C8D3 b2372
 	static void SET_VEHICLE_WHEELS_CAN_BREAK(Vehicle vehicle, BOOL enabled) { invoke<Void>(0x29B18B4FD460CA8F, vehicle, enabled); } // 0x29B18B4FD460CA8F 0x829ED654
 	static void SET_VEHICLE_DOOR_OPEN(Vehicle vehicle, int doorIndex, BOOL loose, BOOL openInstantly) { invoke<Void>(0x7C65DAC73C35C862, vehicle, doorIndex, loose, openInstantly); } // 0x7C65DAC73C35C862 0xBB75D38B
 	static void REMOVE_VEHICLE_WINDOW(Vehicle vehicle, int windowIndex) { invoke<Void>(0xA711568EEDB43069, vehicle, windowIndex); } // 0xA711568EEDB43069 0xBB8104A3
@@ -1334,6 +1336,7 @@ namespace VEHICLE
 	static void GET_VEHICLE_MOD_COLOR_1(Vehicle vehicle, int* paintType, int* color, int* p3) { invoke<Void>(0xE8D65CA700C9A693, vehicle, paintType, color, p3); } // 0xE8D65CA700C9A693 0xE625510A
 	static void GET_VEHICLE_MOD_COLOR_2(Vehicle vehicle, int* paintType, int* color) { invoke<Void>(0x81592BE4E3878728, vehicle, paintType, color); } // 0x81592BE4E3878728 0x9B76BB8E
 	static char* _GET_VEHICLE_MOD_COLOR_1_TEXT_LABEL(Vehicle vehicle, BOOL p1) { return invoke<char*>(0xB45085B721EFD38C, vehicle, p1); } // 0xB45085B721EFD38C 0x9A0840FD
+	static const char* _0xB45085B721EFD38C(Any p0, BOOL p1) { return invoke<const char*>(0xB45085B721EFD38C, p0, p1); } // B45085B721EFD38C 9A0840FD
 	static char* _GET_VEHICLE_MOD_COLOR_2_TEXT_LABEL(Vehicle vehicle) { return invoke<char*>(0x4967A516ED23A5A1, vehicle); } // 0x4967A516ED23A5A1 0x9BDC0B49
 	static BOOL _0x9A83F5F9963775EF(Any p0) { return invoke<BOOL>(0x9A83F5F9963775EF, p0); } // 0x9A83F5F9963775EF 0x112D637A
 	static void SET_VEHICLE_MOD(Vehicle vehicle, int modType, int modIndex, BOOL customTires) { invoke<Void>(0x6AF0636DDEDCB6DD, vehicle, modType, modIndex, customTires); } // 0x6AF0636DDEDCB6DD 0xB52E5ED5
@@ -1487,6 +1490,7 @@ namespace VEHICLE
 	static void _0xC361AA040D6637A8(Any p0, BOOL p1) { invoke<Void>(0xC361AA040D6637A8, p0, p1); } // 0xC361AA040D6637A8
 	static void _0x99C82F8A139F3E4E(Any p0, BOOL p1) { invoke<Void>(0x99C82F8A139F3E4E, p0, p1); } // 0x99C82F8A139F3E4E
 	static void _0xE16142B94664DEFD(Any p0, BOOL p1) { invoke<Void>(0xE16142B94664DEFD, p0, p1); } // 0xE16142B94664DEFD
+	static void _SET_REDUCE_DRIFT_VEHICLE_SUSPENSION(Vehicle vehicle, BOOL enable) { invoke<Void>(0x3A375167F5782A65, vehicle, enable); } // 0x3A375167F5782A65 b2372
 }
 
 namespace OBJECT

@@ -1022,6 +1022,15 @@ void GTAvehicle::CanTyresBurst_set(bool value)
 	SET_VEHICLE_TYRES_CAN_BURST(this->mHandle, value);
 }
 
+bool GTAvehicle::CanTyresDrift_get() const
+{
+	return _GET_DRIFT_TYRES_ENABLED(this->mHandle) != 0;
+}
+void GTAvehicle::CanTyresDrift_set(bool value)
+{
+	_SET_DRIFT_TYRES_ENABLED(this->mHandle, value);
+}
+
 void GTAvehicle::CanBeVisiblyDamaged_set(bool value)
 {
 	SET_VEHICLE_CAN_BE_VISIBLY_DAMAGED(this->mHandle, value);

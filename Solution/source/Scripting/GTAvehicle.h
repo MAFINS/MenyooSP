@@ -210,6 +210,9 @@ public:
 	bool CanTyresBurst_get() const;
 	void CanTyresBurst_set(bool value);
 
+	bool CanTyresDrift_get() const;
+	void CanTyresDrift_set(bool value);
+
 	void CanBeVisiblyDamaged_set(bool value);
 
 	bool PreviouslyOwnedByPlayer_get() const;
