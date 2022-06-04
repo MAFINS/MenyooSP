@@ -247,6 +247,9 @@ enum eGameVersion : int
 	VER_1_0_2612_0_STEAM,
 	VER_1_0_2612_0_NOSTEAM,
 
+	VER_1_0_2682_2_STEAM,
+	VER_1_0_2682_2_NOSTEAM,
+
 	VER_SIZE,
 	VER_UNK = -1
 };
