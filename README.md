@@ -15,9 +15,8 @@ Visual Studio 2017 required
 - I used v15.9.7
 
 ## Install
- Copy the Menyoo.asi file along with the menyooStuff folder to the Grand Theft Auto V game directory.
+ Copy the Menyoo.asi file along with the menyooStuff folder to the Grand Theft Auto V game directory.  
  **IMPORTANT:** Please make sure that you have asiloader and ScriptHookV installed and they are up to date.
- Once you do all this you can enjoy the menu!
 
 ## Download
 Compiled binary material can be found at [releases](https://github.com/MAFINS/MenyooSP/releases).
