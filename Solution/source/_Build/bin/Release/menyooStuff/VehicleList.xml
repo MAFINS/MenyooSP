@@ -24,6 +24,7 @@
 		<Vehicle name="ITALIGTB" />
 		<Vehicle name="ITALIGTB2" /><!-- Itali GTB Custom -->
 		<Vehicle name="KRIEGER" />
+		<Vehicle name="LM87" />
 		<Vehicle name="OSIRIS" />
 		<Vehicle name="NERO" />
 		<Vehicle name="NERO2" /><!-- Nero Custom -->
@@ -43,6 +44,7 @@
 		<Vehicle name="TEZERACT" />
 		<Vehicle name="THRAX" />
 		<Vehicle name="TIGON" />
+		<Vehicle name="TORERO2" /><!-- Torero XO -->
 		<Vehicle name="TURISMOR" />
 		<Vehicle name="TYRANT" />
 		<Vehicle name="TYRUS" />
@@ -64,8 +66,10 @@
 		<Vehicle name="FELON" />
 		<Vehicle name="FELON2" /><!-- Felon GT -->
 		<Vehicle name="JACKAL" />
+		<Vehicle name="KANJOSJ" />
 		<Vehicle name="ORACLE" />
 		<Vehicle name="ORACLE2" /><!-- Oracle XS -->
+		<Vehicle name="POSTLUDE" />
 		<Vehicle name="PREVION" />
 		<Vehicle name="SENTINEL2" /><!-- Sentinel -->
 		<Vehicle name="SENTINEL" /><!-- Sentinel XS -->
@@ -78,6 +82,8 @@
 		<Vehicle name="DRAFTER" /><!-- 8F Drafter -->
 		<Vehicle name="NINEF" />
 		<Vehicle name="NINEF2" /><!-- 9F Cabrio -->
+		<Vehicle name="TENF" />
+		<Vehicle name="TENF2" /><!-- 10F Widebody -->
 		<Vehicle name="ALPHA" />
 		<Vehicle name="ZR380" /><!-- Apocalypse ZR380 -->
 		<Vehicle name="BANSHEE" />
@@ -95,6 +101,7 @@
 		<Vehicle name="COMET5" /><!-- Comet SR -->
 		<Vehicle name="COQUETTE" />
 		<Vehicle name="COQUETTE4" /><!-- Coquette D10 -->
+		<Vehicle name="CORSITA" />
 		<Vehicle name="CYPHER" />
 		<Vehicle name="TAMPA2" /><!-- Drift Tampa -->
 		<Vehicle name="ELEGY" /><!-- Elegy Retro Custom -->
@@ -132,6 +139,7 @@
 		<Vehicle name="NEON" />
 		<Vehicle name="ZR3803" /><!-- Nightmare ZR380 -->
 		<Vehicle name="OMNIS" />
+		<Vehicle name="OMNISEGT" />
 		<Vehicle name="PARAGON" />
 		<Vehicle name="PARAGON2" /><!-- Paragon R (Armored) -->
 		<Vehicle name="PARIAH" />
@@ -150,7 +158,9 @@
 		<Vehicle name="SCHLAGEN" />
 		<Vehicle name="SCHWARZER" />
 		<Vehicle name="SENTINEL3" /><!-- Sentinel Classic -->
+		<Vehicle name="SENTINEL4" /><!-- Sentinel Classic Widebody -->
 		<Vehicle name="SEVEN70" />
+		<Vehicle name="SM722" />
 		<Vehicle name="SPECTER" />
 		<Vehicle name="SPECTER2" /><!-- Specter Custom -->
 		<Vehicle name="BUFFALO3" /><!-- Sprunk Buffalo -->
@@ -203,6 +213,7 @@
 		<Vehicle name="GAUNTLET3" /><!-- Gauntlet Classic -->
 		<Vehicle name="GAUNTLET5" /><!-- Gauntlet Classic Custom -->
 		<Vehicle name="GAUNTLET4" /><!-- Gauntlet Hellfire -->
+		<Vehicle name="GREENWOOD" />
 		<Vehicle name="HERMES" />
 		<Vehicle name="HOTKNIFE" />
 		<Vehicle name="HUSTLER" />
@@ -227,6 +238,7 @@
 		<Vehicle name="RUINER" />
 		<Vehicle name="RUINER3" /><!-- Ruiner 2000 wreck -->
 		<Vehicle name="RUINER2" /><!-- Ruiner 2000 -->
+		<Vehicle name="RUINER4" /><!-- Ruiner ZZ-8 -->
 		<Vehicle name="SABREGT" />
 		<Vehicle name="SABREGT2" /><!-- Sabre Turbo Custom -->
 		<Vehicle name="SLAMVAN" />
@@ -236,12 +248,14 @@
 		<Vehicle name="TULIP" />
 		<Vehicle name="VAMOS" />
 		<Vehicle name="VIGERO" />
+		<Vehicle name="VIGERO2" /><!-- Vigero ZX -->
 		<Vehicle name="VIRGO" />
 		<Vehicle name="VIRGO3" /><!-- Virgo Classic -->
 		<Vehicle name="VIRGO2" /><!-- Virgo Classic Custom -->
 		<Vehicle name="VOODOO" />
 		<Vehicle name="VOODOO2" /><!-- Voodoo Custom -->
 		<Vehicle name="TAMPA3" /><!-- Weaponized Tampa -->
+		<Vehicle name="WEEVIL2" /><!-- Weevil Custom -->
 		<Vehicle name="YOSEMITE" />
 	</Category>
 	<Category name="SportsClassic">
@@ -346,6 +360,7 @@
 		<Vehicle name="PRIMO" />
 		<Vehicle name="PRIMO2" /><!-- Primo Custom -->
 		<Vehicle name="REGINA" />
+		<Vehicle name="RHINEHART" />
 		<Vehicle name="ROMERO" />
 		<Vehicle name="SCHAFTER2" />
 		<Vehicle name="SCHAFTER6" /><!-- Schafter LWB (Armored) -->
@@ -376,6 +391,7 @@
 		<Vehicle name="CARACARA" />
 		<Vehicle name="CARACARA2" /><!-- Caracara 4x4 -->
 		<Vehicle name="TROPHYTRUCK2" /><!-- Desert Raid -->
+		<Vehicle name="DRAUGUR" />
 		<Vehicle name="DUBSTA3" /><!-- Dubsta 6x6 -->
 		<Vehicle name="DUNE" />
 		<Vehicle name="DUNE3" /><!-- Dune FAV -->
@@ -473,6 +489,7 @@
 		<Vehicle name="KANJO" /><!-- Blista Kanjo -->
 		<Vehicle name="BRIOSO" />
 		<Vehicle name="BRIOSO2" /><!-- Brioso 300 -->
+		<Vehicle name="BRIOSO3" /><!-- Brioso 300 Widebody -->
 		<Vehicle name="CLUB" />
 		<Vehicle name="DILETTANTE" />
 		<Vehicle name="DILETTANTE2" /><!-- Merryweather Dilettante -->
@@ -763,6 +780,7 @@
 		<Vehicle name="CARGOBOB2" /><!-- Jetsam Cargobob -->
 		<Vehicle name="CARGOBOB3" /><!-- Cargobob Trevor Philips Industries variant -->
 		<Vehicle name="CARGOBOB4" /><!-- Cargobob Drop Zone variant -->
+		<Vehicle name="CONADA" />
 		<Vehicle name="HUNTER" /><!-- FH-1 Hunter -->
 		<Vehicle name="FROGGER" />
 		<Vehicle name="FROGGER2" /><!-- Frogger Trevor Philips Industries variant -->
