@@ -965,7 +965,7 @@ void GTAvehicle::LeftIndicatorLightOn_set(bool value)
 }
 void GTAvehicle::RightIndicatorLightOn_set(bool value)
 {
-	SET_VEHICLE_INDICATOR_LIGHTS(this->mHandle, 2, value);
+	SET_VEHICLE_INDICATOR_LIGHTS(this->mHandle, 0, value);
 }
 
 void GTAvehicle::InteriorLightOn_set(bool value)
