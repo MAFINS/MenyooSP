@@ -92,7 +92,7 @@ bool g_ConfigHasNotBeenRead = true;
 
 void Menu::justopened()
 {
-	Game::Print::PrintBottomLeft(oss_ << "Menyoo PC v" << MENYOO_CURRENT_VER_ << " by MAFINS.");
+	Game::Print::PrintBottomLeft(oss_ << "Menyoo PC v" << MENYOO_CURRENT_VER_ << " by MAFINS. (edited by itsjustcurtis)");
 
 	SET_AUDIO_FLAG("IsDirectorModeActive", true);
 

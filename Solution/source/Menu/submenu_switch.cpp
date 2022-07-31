@@ -157,6 +157,7 @@ void Menu::submenu_switch()
 	case SUB::MSCATALL:					sub::MSCatall_(); break;
 	case SUB::MSWINDOWS:				sub::MSWindows_catind::MSWindows_(); break;
 	case SUB::MSENGINESOUND:			sub::MSEngineSound_(); break;
+	case SUB::MSLIGHTS:					sub::MSLights_(); break;
 	case SUB::MSDOORS:					sub::MSDoors_(); break;
 	case SUB::MSNEONS:					sub::MSNeons_(); break;
 	case SUB::MSEXTRA:					sub::MSExtra_(); break;
