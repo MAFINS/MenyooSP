@@ -98,6 +98,8 @@ namespace sub
 
 	void MSEngineSound_();
 
+	void MSLights_();
+
 }
 
 
