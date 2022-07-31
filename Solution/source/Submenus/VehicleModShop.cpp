@@ -168,11 +168,15 @@ namespace sub
 	{
 
 	};
+	std::vector<NamedVehiclePaint> PAINTS_CHAMELEON
+	{
 
+	};
 	std::vector<NamedVehiclePaint> PAINTS_ADDED
 	{
 
 	};
+	INT paintIndex_maxValue = 0;
 
 	void GetAllPaintIDs()
 	{
@@ -200,7 +204,7 @@ namespace sub
 		int painttype, colour, pearl, second;
 
 		//Loop paint types (normal, metallic, matte etc...)
-		for (painttype = 0; painttype < 6; painttype++)
+		for (painttype = 0; painttype < 7; painttype++)
 		{
 			int numcols = GET_NUM_MOD_COLORS(painttype, 0);
 			const char* colourname;
@@ -287,10 +291,22 @@ namespace sub
 					PAINTS_CHROME[i].paint = colour;
 					PAINTS_CHROME[i].pearl = pearl;
 					break;
-				}
+				case 6:
+					PAINTS_CHAMELEON.resize(numcols);
+					PAINTS_CHAMELEON[i].name = "Extra Colour " + colourid;
+					if (colourname != nullptr)
+					{
+						PAINTS_CHAMELEON[i].name = Game::GetGXTEntry(colourname, "Extra Colour " + colourid);
+					}
 
+					PAINTS_CHAMELEON[i].paint = colour;
+					PAINTS_CHAMELEON[i].pearl = pearl;
+					break;
+				}	
+				paintIndex_maxValue++;
 			}
 		}
+		
 		//unloading test vehicle from memory
 		ENTITY::SET_VEHICLE_AS_NO_LONGER_NEEDED(&veh);
 		VEHICLE::DELETE_VEHICLE(&veh);
@@ -409,6 +425,8 @@ namespace sub
 		}
 	}*/
 
+	
+
 	void MSPaints_()
 	{
 		if (!DOES_ENTITY_EXIST(Static_12))
@@ -492,8 +510,6 @@ namespace sub
 		}
 		int extrapaints = totalpaints - 225;
 
-		const INT paintIndex_maxValue = 160 + extrapaints;
-
 		switch (ms_curr_paint_index)
 		{
 		case 1: case 10: AddTitle(Game::GetGXTEntry("CMOD_COL0_0", "Primary")); break;
@@ -518,6 +534,7 @@ namespace sub
 		AddOption("Matte", null, nullFunc, SUB::MSPAINTS2_MATTE, true, true); // CMOD_COL1_5
 		AddOption("Metallic", null, nullFunc, SUB::MSPAINTS2_METALLIC, true, true); // CMOD_COL1_3
 		AddOption("Metal", null, nullFunc, SUB::MSPAINTS2_METAL, true, true); // CMOD_COL1_4
+		AddOption("Chameleon", null, nullFunc, SUB::MSPAINTS2_CHAMELEON, true, true); // CMOD_COL1_4
 		AddOption("Utility", null, nullFunc, SUB::MSPAINTS2_UTIL);
 		AddOption("Worn", null, nullFunc, SUB::MSPAINTS2_WORN);
 
@@ -730,6 +747,16 @@ namespace sub
 
 			for (auto& p : vPaints)
 				AddcarcolOption_(p.name, Static_12, p.paint, p.pearl);
+		}
+		void Sub_Chameleon()
+		{
+			AddTitle("Chameleon");
+
+			auto& vPaints = PAINTS_CHAMELEON;
+
+			for (auto& p : vPaints)
+				AddcarcolOption_(p.name, Static_12, p.paint, p.pearl);
+
 		}
 		void Sub_Util()
 		{
@@ -1117,6 +1144,8 @@ namespace sub
 
 	bool lowersuspension = 0;
 
+	int lastMod = null;
+
 	void ModShop_()
 	{
 		if (!DOES_ENTITY_EXIST(Static_12) || !IS_ENTITY_A_VEHICLE(Static_12))
@@ -1271,6 +1300,7 @@ namespace sub
 			//if (i == VehicleMod::Suspension && Static_12_veh_model.hash == VEHICLE_GLENDALE) continue;
 			if (GET_NUM_VEHICLE_MODS(Static_12, i) > 0)
 			{
+					lastMod = null;
 				AddOption(get_mod_slot_name(Static_12, i, true), pressed, nullFunc, SUB::MSCATALL, true, false); if (pressed)
 				{
 					ms_curr_paint_index = i;
@@ -1366,6 +1396,7 @@ namespace sub
 		}
 		
 		AddOption("AUTO UPGRADE", veh_static12_autoUpgrade);
+		AddToggle("LSC Style Part Selection", _globalLSC_Customs);
 
 		if (GET_VEHICLE_MOD_KIT != 0)
 		{
@@ -1888,6 +1919,7 @@ namespace sub
 				pressed = 0;
 				if (GET_NUM_VEHICLE_MODS(vehicle.Handle(), i) > 0)
 				{
+					lastMod = null;
 					AddOption(get_mod_slot_name(vehicle.Handle(), i, true), pressed, nullFunc, SUB::MSCATALL, true, false); if (pressed)
 					{
 						ms_curr_paint_index = i;
@@ -1899,6 +1931,10 @@ namespace sub
 	}
 
 	// Selected vehicle mod submenu (for selection of mod value)
+	void previewvehicleoption(Vehicle vehicle, int modType, int modindex, BOOL customtyres)
+	{
+		SET_VEHICLE_MOD(vehicle, modType, modindex, GET_VEHICLE_MOD_VARIATION(vehicle, modType));
+	}
 
 	void MSCatall_()
 	{
@@ -1911,22 +1947,46 @@ namespace sub
 		}
 
 		bool setMod = false;
-		INT &modType = ms_curr_paint_index,
-			currMod = GET_VEHICLE_MOD(vehicle, modType),
-			maxMod = GET_NUM_VEHICLE_MODS(vehicle, modType) - 1;
+		
+		INT& modType = ms_curr_paint_index,
+			maxMod = GET_NUM_VEHICLE_MODS(vehicle, modType) - 1,
+			currMod = GET_VEHICLE_MOD(vehicle, modType);
 
+		if (lastMod == null) lastMod = GET_VEHICLE_MOD(vehicle, modType);
 
 		AddTitle(get_mod_slot_name(vehicle, modType, true));
 
-		for (INT i = -1; i <= maxMod; i++)
+		if (_globalLSC_Customs) //to allow toggleable LSC style menu nav
 		{
-			setMod = false;
-			AddTickol(get_mod_text_label(vehicle, modType, i, true), currMod == i, setMod, setMod,
-				IS_THIS_MODEL_A_BIKE(GET_ENTITY_MODEL(vehicle)) ? TICKOL::BIKETHING : TICKOL::CARTHING, TICKOL::NONE, false); if (setMod)
-				SET_VEHICLE_MOD(vehicle, modType, i, GET_VEHICLE_MOD_VARIATION(vehicle, modType));
+			for (INT i = -1; i <= maxMod; i++)
+			{
+				setMod = false;
+				AddTickol(get_mod_text_label(vehicle, modType, i, true), currMod == i, setMod, setMod,
+					IS_THIS_MODEL_A_BIKE(GET_ENTITY_MODEL(vehicle)) ? TICKOL::BIKETHING : TICKOL::CARTHING, TICKOL::NONE, false);
+				SET_VEHICLE_MOD(vehicle, modType, *Menu::currentopATM-2, GET_VEHICLE_MOD_VARIATION(vehicle, modType));
+				if (setMod)
+				{
+					lastMod = GET_VEHICLE_MOD(vehicle, modType);
+					Menu::SetSub_previous();
+					return;
+				}
+				if (MenuPressTimer::IsButtonTapped(MenuPressTimer::Button::Back))
+				{
+					SET_VEHICLE_MOD(vehicle, modType, lastMod, GET_VEHICLE_MOD_VARIATION(vehicle, modType));
+				}
+			}
 		}
+		else
+		{
+			for (INT i = -1; i <= maxMod; i++)
+			{
+				setMod = false;
+				AddTickol(get_mod_text_label(vehicle, modType, i, true), currMod == i, setMod, setMod,
+					IS_THIS_MODEL_A_BIKE(GET_ENTITY_MODEL(vehicle)) ? TICKOL::BIKETHING : TICKOL::CARTHING, TICKOL::NONE, false); if (setMod)
+					SET_VEHICLE_MOD(vehicle, modType, i, GET_VEHICLE_MOD_VARIATION(vehicle, modType));
 
-
+			}
+		}
 	}
 
 	// Emblem

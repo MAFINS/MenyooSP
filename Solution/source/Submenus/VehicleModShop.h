@@ -78,6 +78,7 @@ namespace sub
 		void Sub_Matte();
 		void Sub_Metallic();
 		void Sub_Metal();
+		void Sub_Chameleon();
 		void Sub_Util();
 		void Sub_Worn();
 		void Sub_Added();
