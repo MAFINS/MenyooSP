@@ -231,7 +231,7 @@ std::string dict, dict2, dict3;
 std::string _globalSpawnVehicle_plateText = "MENYOO";
 INT8 _globalSpawnVehicle_plateType = 5, _globalSpawnVehicle_plateTexter_value = 0;
 RgbS _globalSpawnVehicle_neonCol = { 0, 255, 0 };
-bool _globalSpawnVehicle_autoSit = 1, _globalSpawnVehicle_autoUpgrade = 1, _globalSpawnVehicle_invincible = 1, _globalSpawnVehicle_deleteOld = 0, _globalSpawnVehicle_neonToggle = 0;
+bool _globalSpawnVehicle_autoSit = 1, _globalSpawnVehicle_autoUpgrade = 1, _globalSpawnVehicle_invincible = 1, _globalSpawnVehicle_deleteOld = 0, _globalSpawnVehicle_neonToggle = 0, _globalLSC_Customs = 1;
 INT16 _globalSpawnVehicle_PrimCol = -3, _globalSpawnVehicle_SecCol = -3;
 bool _globalSpawnVehicle_drawBmps = true;
 

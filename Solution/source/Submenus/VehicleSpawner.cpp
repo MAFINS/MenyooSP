@@ -79,7 +79,10 @@ namespace sub
 			if (oldcarBool)
 			{
 				float spacing1 = Model(GET_ENTITY_MODEL(oldcar)).Dim1().y + model.Dim2().y + 1.0f;
-				Pos1 = GET_OFFSET_FROM_ENTITY_IN_WORLD_COORDS(oldcar, 0, spacing1, 0);
+				if(deleteOld)
+					Pos1 = GET_OFFSET_FROM_ENTITY_IN_WORLD_COORDS(oldcar, 0, 0, 2.0f);
+				else
+					Pos1 = GET_OFFSET_FROM_ENTITY_IN_WORLD_COORDS(oldcar, 0, spacing1, 0);
 			}
 			else
 				Pos1 = ped.GetOffsetInWorldCoords(Vector3());
@@ -89,12 +92,15 @@ namespace sub
 
 			newcar = CREATE_VEHICLE(model.hash, Pos1.x, Pos1.y, Pos1.z, ped.Heading_get(), 1, 1);
 			//SET_VEHICLE_ENGINE_ON(newcar, oldCarOn, oldCarOn);
-
+				
 			//if (!IS_ENTITY_IN_AIR(ped) && !IS_ENTITY_IN_WATER(ped)) SET_VEHICLE_ON_GROUND_PROPERLY(newcar, 0.0f);
-
+			
+			
+			SET_ENTITY_COLLISION(newcar, false, true);
+			SET_ENTITY_ALPHA(newcar, 0, false);
 			SET_VEHICLE_HAS_STRONG_AXLES(newcar, 1);
 			SET_VEHICLE_DIRT_LEVEL(newcar, 0.0f);
-			_SET_VEHICLE_PAINT_FADE(newcar, 0.3f);
+			_SET_VEHICLE_PAINT_FADE(newcar, 0.0f);
 			SET_ENTITY_AS_MISSION_ENTITY(newcar, 0, 1); //Fixes the despawning of MP onl;y cars after a couple of secs
 			//	SET_ENTITY_PROOFS(newcar, 1, 1, 1, 1, 1, 1, 1, 1);
 
@@ -107,7 +113,15 @@ namespace sub
 			{
 				GTAvehicle(newcar).RequestControl();
 				SET_ENTITY_VELOCITY(newcar, oldVelocity.x, oldVelocity.y, oldVelocity.z);
-					
+				if (deleteOld)
+				{ 
+					FREEZE_ENTITY_POSITION(oldcar, true);
+					SET_ENTITY_COLLISION(oldcar, false, true);
+					SET_ENTITY_ALPHA(oldcar, 0, false);
+				}
+				SET_VEHICLE_ENGINE_ON(newcar, true, true);
+				SET_ENTITY_COLLISION(newcar, true, true);
+				SET_ENTITY_ALPHA(newcar, 255, false);
 				if (warpIntoVehicle)
 				{
 					//if (Model(GET_ENTITY_MODEL(oldcar)).IsPlane()) CLEAR_PED_TASKS_IMMEDIATELY(ped); // mainPed
@@ -128,7 +142,7 @@ namespace sub
 
 				if (deleteOld)
 				{
-					WAIT(45);
+					WAIT(0);
 					int maxi = GET_VEHICLE_MAX_NUMBER_OF_PASSENGERS(oldcar);// - 2;
 					for (INT i = -1; i <= maxi; i++)
 					{
@@ -142,7 +156,7 @@ namespace sub
 							}
 						}
 					}
-					WAIT(15);
+					WAIT(0);
 					GTAvehicle(oldcar).RequestControl();
 					SET_ENTITY_AS_MISSION_ENTITY(oldcar, 0, 1);
 					SET_ENTITY_COORDS(oldcar, 32.2653f, 7683.5249f, 0.5696f, 0, 0, 0, 1);
@@ -153,6 +167,8 @@ namespace sub
 			{
 				if (warpIntoVehicle)
 					SET_PED_INTO_VEHICLE(ped.Handle(), newcar, (int)GTAvehicle(newcar).FirstFreeSeat(SEAT_DRIVER));
+					SET_ENTITY_COLLISION(newcar, true, true);
+					SET_ENTITY_ALPHA(newcar, 255, false);
 			}
 			//SET_VEHICLE_NUMBER_PLATE_TEXT_INDEX(newcar, 5);
 			//SET_VEHICLE_NUMBER_PLATE_TEXT(newcar, "MENYOO");
@@ -935,6 +951,7 @@ namespace sub
 				if (g_vehHashes.empty())
 					return;
 				model = g_vehHashes[GET_RANDOM_INT_IN_RANGE(0, (int)g_vehHashes.size())];
+				
 			}
 			else if (spawnvehicle_input)
 			{
