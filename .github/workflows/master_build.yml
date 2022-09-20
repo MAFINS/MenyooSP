@@ -1,4 +1,4 @@
-name: Live_Build
+name: Master_Build
 
 on:
   push:
