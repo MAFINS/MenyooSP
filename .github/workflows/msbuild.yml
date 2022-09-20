@@ -44,3 +44,6 @@ jobs:
       with:
         # Artifact name
         name: MenyooSP
+        path: ./Solution/source/_Build/bin/Release/*
+          !./Solution/source/_Build/bin/Release/Trash
+          !./Solution/source/_Build/bin/Release/*.map
