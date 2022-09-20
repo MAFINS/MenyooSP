@@ -1,0 +1,29 @@
+name: Pre_release
+
+on:
+  push:
+    branches: [ "pre_release" ]
+  pull_request:
+    branches: [ "pre_release" ]
+
+# Only trigger, when the build workflow succeeded
+on:
+  workflow_run:
+    workflows: ["MSBuild"]
+    types:
+      - completed
+
+jobs:
+  pre-release:
+    name: "Pre Release"
+    runs-on: windows-latest
+
+    steps:
+      - uses: "marvinpinto/action-automatic-releases@latest"
+        with:
+          repo_token: "${{ secrets.GITHUB_TOKEN }}"
+          automatic_release_tag: "latest"
+          prerelease: true
+          title: "Menyoo PC v"
+          files: |
+            MenyooSP.zip
