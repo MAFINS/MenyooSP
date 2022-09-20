@@ -1,4 +1,5 @@
-[![Build status](https://github.com/MAFINS/MenyooSP/actions/workflows/pre_release.yml/badge.svg)](https://github.com/MAFINS/MenyooSP/actions)
+[![Build status](https://github.com/MAFINS/MenyooSP/actions/workflows/master_build.yml/badge.svg)](https://github.com/MAFINS/MenyooSP/actions)
+[![GitHub Latest nightly)](https://img.shields.io/github/v/release/MAFINS/MenyooSP?include_prereleases&label=pre-release&logo=GitHub)](https://github.com/MAFINS/MenyooSP/releases/tag/latest)
 [![GitHub latest release](https://img.shields.io/github/downloads/MAFINS/MenyooSP/latest/total?label=latest-release&logo=GitHub)](https://github.com/MAFINS/MenyooSP/releases/latest)
 [![GitHub all releases](https://img.shields.io/github/downloads/MAFINS/MenyooSP/total?label=all-releases&logo=GitHub)](https://github.com/MAFINS/MenyooSP/releases)
 
