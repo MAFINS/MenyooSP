@@ -21,13 +21,21 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       
+      - name: Wait on artifact upload
+        uses: lewagon/wait-on-check-action@v1.1.2
+        with:
+          ref: ${{ github.ref }}
+          check-name: 'Upload a Build Artifact'
+          repo-token: ${{ secrets.GITHUB_TOKEN }}
+          wait-interval: 20
+
       - name: Download workflow artifact
         uses: dawidd6/action-download-artifact@v2.23.0
         with:
           github_token: ${{secrets.GITHUB_TOKEN}}
           workflow: msbuild.yml
           workflow_conclusion: success
-          #ranch: master
+          #branch: master
           name: MenyooSP
           skip_unpack: true
       
