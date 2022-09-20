@@ -19,15 +19,15 @@ jobs:
     runs-on: windows-latest
 
     steps:
-      - uses: actions/checkout@v3
-      
       - name: Wait on artifact upload
         uses: lewagon/wait-on-check-action@v1.1.2
         with:
-          ref: ${{ github.ref }}
+          ref: master
           check-name: 'Upload a Build Artifact'
           repo-token: ${{ secrets.GITHUB_TOKEN }}
-          wait-interval: 20
+          wait-interval: 10
+          
+      - uses: actions/checkout@v3
 
       - name: Download workflow artifact
         uses: dawidd6/action-download-artifact@v2.23.0
