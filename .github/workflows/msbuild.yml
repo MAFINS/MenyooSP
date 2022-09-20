@@ -24,6 +24,8 @@ jobs:
 
     steps:
     - uses: actions/checkout@v3
+      with:
+        submodules: recursive
     - uses: fbactions/setup-winsdk@v1
       with:
         winsdk-build-version: 18362
