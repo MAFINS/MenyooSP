@@ -89,4 +89,4 @@ jobs:
           automatic_release_tag: "latest"
           prerelease: true
           title: "Menyoo PC v-latest"
-          files: MenyooSP/
+          #files: MenyooSP/
