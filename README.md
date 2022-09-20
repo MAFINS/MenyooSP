@@ -3,6 +3,7 @@
 [![GitHub all releases](https://img.shields.io/github/downloads/MAFINS/MenyooSP/total?label=all-releases&logo=GitHub)](https://github.com/MAFINS/MenyooSP/releases)
 
 # Menyoo PC - [DOWNLOAD LATEST RELEASE](https://github.com/MAFINS/MenyooSP/releases/latest/download/MenyooSP.zip)
+# Menyoo PC - [DOWNLOAD LATEST NIGHTLY](https://github.com/MAFINS/MenyooSP/releases/download/latest/MenyooSP.zip)
 ### a.k.a. MenyooSP
 #### Trainer for Grand Theft Auto V (single-player).
 ---
