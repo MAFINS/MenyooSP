@@ -32,6 +32,8 @@ jobs:
 
     - name: Add MSBuild to PATH
       uses: microsoft/setup-msbuild@v1.0.2
+      with:
+        vs-version: '[16.4, 16.5)'
 
     - name: Build
       working-directory: ${{env.GITHUB_WORKSPACE}}
@@ -45,6 +47,6 @@ jobs:
       with:
         # Artifact name
         name: MenyooSP
-        path: build/*
-          !build/Trash
-          !build/*.map
+        path: ${{env.GITHUB_WORKSPACE}}/Solution/source/_Build/bin/Release/*
+          #!${{env.GITHUB_WORKSPACE}}/Solution/source/_Build/bin/Release/Trash
+          #!${{env.GITHUB_WORKSPACE}}/Solution/source/_Build/bin/Release/*.map
