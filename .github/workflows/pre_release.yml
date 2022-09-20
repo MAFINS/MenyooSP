@@ -88,5 +88,5 @@ jobs:
           repo_token: "${{ secrets.GITHUB_TOKEN }}"
           automatic_release_tag: "latest"
           prerelease: true
-          title: "Menyoo PC v-latest"
-          #files: MenyooSP/
+          title: ${{ format('{0}{1}{2}', "Menyoo PC ", ${{ steps.version.outputs.version, "b") }} }}
+          files: "**"
