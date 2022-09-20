@@ -56,9 +56,18 @@ jobs:
           Solution/source/_Build/bin/Release/
           !Solution/source/_Build/bin/Release/Trash/
           !Solution/source/_Build/bin/Release/*.map
+  
+    - name: Cancel Workflow Action if build fails
+      uses: vishnudxb/cancel-workflow@v1.2
+      if: failure()
+      with:
+        repo: MAFINS/MenyooSP
+        workflow_id: ${{ github.run_id }}
+        access_token: ${{ github.token }}
 
 
   pre-release:
+    needs: build
     permissions: write-all
     name: "Pre Release"
     runs-on: windows-latest
