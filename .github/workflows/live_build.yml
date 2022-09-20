@@ -1,4 +1,4 @@
-name: Pre_release
+name: Live_Build
 
 on:
   push:
@@ -91,11 +91,9 @@ jobs:
          #name: MenyooSP
          #skip_unpack: true
       - uses: actions/download-artifact@v3
-        with:
-          path: MenyooSP/
       
       - name: Zip artifact for deployment
-        run: Compress-Archive -Path "MenyooSP\" -DestinationPath "MenyooSP.zip"
+        run: Compress-Archive -Path "MenyooSP/*" -DestinationPath "MenyooSP.zip"
       
       - uses: "marvinpinto/action-automatic-releases@latest"
         with:
