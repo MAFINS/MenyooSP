@@ -1,8 +1,10 @@
-[![Build status](https://ci.appveyor.com/api/projects/status/0umw01h20wsbiv1q?svg=true)](https://ci.appveyor.com/project/MAFINS/menyoosp)
+[![Build status](https://github.com/MAFINS/MenyooSP/actions/workflows/master_build.yml/badge.svg)](https://github.com/MAFINS/MenyooSP/actions)
+[![GitHub Latest nightly)](https://img.shields.io/github/v/release/MAFINS/MenyooSP?include_prereleases&label=pre-release&logo=GitHub)](https://github.com/MAFINS/MenyooSP/releases/tag/latest)
 [![GitHub latest release](https://img.shields.io/github/downloads/MAFINS/MenyooSP/latest/total?label=latest-release&logo=GitHub)](https://github.com/MAFINS/MenyooSP/releases/latest)
 [![GitHub all releases](https://img.shields.io/github/downloads/MAFINS/MenyooSP/total?label=all-releases&logo=GitHub)](https://github.com/MAFINS/MenyooSP/releases)
 
 # Menyoo PC - [DOWNLOAD LATEST RELEASE](https://github.com/MAFINS/MenyooSP/releases/latest/download/MenyooSP.zip)
+# Menyoo PC - [DOWNLOAD LATEST NIGHTLY](https://github.com/MAFINS/MenyooSP/releases/download/latest/MenyooSP.zip)
 ### a.k.a. MenyooSP
 #### Trainer for Grand Theft Auto V (single-player).
 ---

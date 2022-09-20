@@ -1,0 +1,102 @@
+name: Master_Build
+
+on:
+  push:
+    branches: [ "master", "pre_release" ]
+  #workflow_run:
+  #  workflows: ["MSBuild"]
+  #  types:
+  #    - completed
+      
+
+
+env:
+  # Path to the solution file relative to the root of the project.
+  SOLUTION_FILE_PATH: ./Solution/Menyoo.sln
+
+  # Configuration type to build.
+  # You can convert this to a build matrix if you need coverage of multiple configuration types.
+  # https://docs.github.com/actions/learn-github-actions/managing-complex-workflows#using-a-build-matrix
+  BUILD_CONFIGURATION: Release
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    runs-on: windows-latest
+
+    steps:
+    - uses: actions/checkout@v3
+      with:
+        submodules: recursive
+    - uses: fbactions/setup-winsdk@v1
+      with:
+        winsdk-build-version: 18362
+
+    - name: Add MSBuild to PATH
+      uses: microsoft/setup-msbuild@v1.0.2
+      #with: vs-version: '[16.4, 16.5)'
+
+    - name: Build
+      working-directory: ${{env.GITHUB_WORKSPACE}}
+      # Add additional options to the MSBuild command line here (like platform or verbosity level).
+      # See https://docs.microsoft.com/visualstudio/msbuild/msbuild-command-line-reference
+      run: msbuild /m /p:Configuration=${{env.BUILD_CONFIGURATION}} ${{env.SOLUTION_FILE_PATH}} -verbosity:minimal
+      # BaseOutputPath should be /Solution/source/_Build/bin/Release/
+      
+    - name: Upload a Build Artifact
+      uses: actions/upload-artifact@v3.1.0
+      with:
+        # Artifact name
+        name: MenyooSP
+        path: |
+          Solution/source/_Build/bin/Release/
+          !Solution/source/_Build/bin/Release/Trash/
+          !Solution/source/_Build/bin/Release/*.map
+  
+    - name: Cancel Workflow Action if build fails
+      uses: vishnudxb/cancel-workflow@v1.2
+      if: failure()
+      with:
+        repo: MAFINS/MenyooSP
+        workflow_id: ${{ github.run_id }}
+        access_token: ${{ github.token }}
+
+
+  pre-release:
+    needs: build
+    permissions: write-all
+    name: "Pre Release"
+    runs-on: windows-latest
+
+    steps:
+      #- name: Wait on artifact upload
+        #uses: lewagon/wait-on-check-action@v1.1.2
+        #with:
+          #ref: ${{github.ref}}
+          #check-name: 'Upload a Build Artifact'
+          #repo-token: ${{ secrets.GITHUB_TOKEN }}
+          #wait-interval: 10
+          
+      - uses: actions/checkout@v3
+
+      #- name: Download workflow artifact
+        #uses: dawidd6/action-download-artifact@v2.23.0
+        #with:
+         #github_token: ${{secrets.GITHUB_TOKEN}}
+         #workflow_conclusion: ""
+         #name: MenyooSP
+         #skip_unpack: true
+      - uses: actions/download-artifact@v3
+      
+      - name: Zip artifact for deployment
+        run: Compress-Archive -Path "MenyooSP/*" -DestinationPath "MenyooSP.zip"
+      
+      - uses: "marvinpinto/action-automatic-releases@latest"
+        with:
+          repo_token: "${{ secrets.GITHUB_TOKEN }}"
+          automatic_release_tag: "latest"
+          prerelease: true
+          title: ${{ steps.version.outputs.version}}
+          files: MenyooSP.zip
