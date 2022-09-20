@@ -1,23 +1,20 @@
 name: Pre_release
 
 on:
+  workflow_run:
+    workflows: ["MSBuild"]
+    types:
+      - completed
+      
   push:
     branches: [ "pre_release" ]
   pull_request:
     branches: [ "pre_release" ]
 
-  workflow_run:
-    workflows: ["MSBuild"]
-    types:
-      - completed
-
-permissions:
-  contents: read
-
-
 
 jobs:
   pre-release:
+    permissions: write-all
     name: "Pre Release"
     runs-on: windows-latest
 
