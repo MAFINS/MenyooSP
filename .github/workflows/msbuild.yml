@@ -46,6 +46,6 @@ jobs:
       with:
         # Artifact name
         name: MenyooSP
-        path: ${{env.GITHUB_WORKSPACE}}/Solution/source/_Build/bin/Release/*
-          #!${{env.GITHUB_WORKSPACE}}/Solution/source/_Build/bin/Release/Trash
-          #!${{env.GITHUB_WORKSPACE}}/Solution/source/_Build/bin/Release/*.map
+        path: Solution/source/_Build/bin/Release/
+          #!Solution/source/_Build/bin/Release/Trash
+          #!Solution/source/_Build/bin/Release/*.map
