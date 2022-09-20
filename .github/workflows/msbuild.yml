@@ -2,9 +2,13 @@ name: MSBuild
 
 on:
   push:
-    branches: [ "master", "pre_release", "patch" ]
+    branches-ignore:
+      - master
+      - pre_release
   pull_request:
-    branches: [ "master", "pre_release", "patch" ]
+    branches-ignore:
+      - master
+      - pre_release
 
 env:
   # Path to the solution file relative to the root of the project.
