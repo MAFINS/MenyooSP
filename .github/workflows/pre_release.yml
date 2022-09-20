@@ -47,15 +47,18 @@ jobs:
       run: msbuild /m /p:Configuration=${{env.BUILD_CONFIGURATION}} ${{env.SOLUTION_FILE_PATH}} -verbosity:minimal
       # BaseOutputPath should be /Solution/source/_Build/bin/Release/
       
+    - name: Zip artifact for deployment
+      run: zip -r MenyooSP.zip "Solution/source/_Build/bin/Release/" -x "Solution/source/_Build/bin/Release/Trash/" -x "Solution/source/_Build/bin/Release/*.map"
+      
     - name: Upload a Build Artifact
       uses: actions/upload-artifact@v3.1.0
       with:
         # Artifact name
         name: MenyooSP
-        path: |
-          Solution/source/_Build/bin/Release/
-          !Solution/source/_Build/bin/Release/Trash/
-          !Solution/source/_Build/bin/Release/*.map
+        path: MenyooSP.zip
+          #Solution/source/_Build/bin/Release/
+          #!Solution/source/_Build/bin/Release/Trash/
+          #!Solution/source/_Build/bin/Release/*.map
 
 
   pre-release:
@@ -89,4 +92,4 @@ jobs:
           automatic_release_tag: "latest"
           prerelease: true
           title: ${{ steps.version.outputs.version}}
-          files: "**"
+          files: MenyooSP.zip
