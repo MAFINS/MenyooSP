@@ -74,13 +74,14 @@ jobs:
           
       - uses: actions/checkout@v3
 
-      - name: Download workflow artifact
-        uses: dawidd6/action-download-artifact@v2.23.0
-        with:
-         github_token: ${{secrets.GITHUB_TOKEN}}
-         workflow_conclusion: ""
-         name: MenyooSP
-         skip_unpack: true
+      #- name: Download workflow artifact
+        #uses: dawidd6/action-download-artifact@v2.23.0
+        #with:
+         #github_token: ${{secrets.GITHUB_TOKEN}}
+         #workflow_conclusion: ""
+         #name: MenyooSP
+         #skip_unpack: true
+      - uses: actions/download-artifact@v3
       
       - uses: "marvinpinto/action-automatic-releases@latest"
         with:
@@ -88,4 +89,4 @@ jobs:
           automatic_release_tag: "latest"
           prerelease: true
           title: "Menyoo PC v-latest"
-          files: MenyooSP.zip
+          files: MenyooSP/
