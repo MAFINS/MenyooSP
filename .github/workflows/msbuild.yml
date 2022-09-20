@@ -24,6 +24,9 @@ jobs:
 
     steps:
     - uses: actions/checkout@v3
+    - uses: fbactions/setup-winsdk@v1
+      with:
+        winsdk-build-version: 18362
 
     - name: Add MSBuild to PATH
       uses: microsoft/setup-msbuild@v1.0.2
