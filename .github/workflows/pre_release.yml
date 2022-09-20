@@ -1,15 +1,16 @@
 name: Pre_release
 
 on:
+  push:
+    branches: [ "master", "pre_release" ]
+  pull_request:
+    branches: [ "master", "pre_release" ]
   #workflow_run:
   #  workflows: ["MSBuild"]
   #  types:
   #    - completed
       
-  push:
-    branches: [ "master", "pre_release" ]
-  pull_request:
-    branches: [ "master", "pre_release" ]
+
 
 env:
   # Path to the solution file relative to the root of the project.
@@ -82,7 +83,7 @@ jobs:
           #name: MenyooSP
           #skip_unpack: true
       - name: Download workflow artifact
-      - uses: actions/download-artifact@v3
+        uses: actions/download-artifact@v3
         with:
           name: MenyooSP
       
@@ -91,5 +92,5 @@ jobs:
           repo_token: "${{ secrets.GITHUB_TOKEN }}"
           automatic_release_tag: "latest"
           prerelease: true
-          title: "Menyoo PC v"
+          title: "Menyoo PC v-latest"
           files: MenyooSP.zip
