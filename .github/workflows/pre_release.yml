@@ -7,9 +7,9 @@ on:
   #    - completed
       
   push:
-    branches: [ "pre_release" ]
+    branches: [ "master", "pre_release" ]
   pull_request:
-    branches: [ "pre_release" ]
+    branches: [ "master", "pre_release" ]
 
 
 jobs:
