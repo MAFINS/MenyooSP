@@ -1,10 +1,10 @@
 name: Pre_release
 
 on:
-  workflow_run:
-    workflows: ["MSBuild"]
-    types:
-      - completed
+  #workflow_run:
+  #  workflows: ["MSBuild"]
+  #  types:
+  #    - completed
       
   push:
     branches: [ "pre_release" ]
@@ -27,7 +27,9 @@ jobs:
           github_token: ${{secrets.GITHUB_TOKEN}}
           workflow: msbuild.yml
           workflow_conclusion: success
+          branch: master
           name: MenyooSP
+          skip_unpack: true
       
       - uses: "marvinpinto/action-automatic-releases@latest"
         with:
