@@ -22,7 +22,7 @@ jobs:
       - name: Wait on artifact upload
         uses: lewagon/wait-on-check-action@v1.1.2
         with:
-          ref: master
+          ref: ${{github.ref}}
           check-name: 'Upload a Build Artifact'
           repo-token: ${{ secrets.GITHUB_TOKEN }}
           wait-interval: 10
