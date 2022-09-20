@@ -6,8 +6,6 @@ on:
   pull_request:
     branches: [ "pre_release" ]
 
-# Only trigger, when the build workflow succeeded
-on:
   workflow_run:
     workflows: ["MSBuild"]
     types:
