@@ -27,7 +27,7 @@ jobs:
           github_token: ${{secrets.GITHUB_TOKEN}}
           workflow: msbuild.yml
           workflow_conclusion: success
-          branch: master
+          #ranch: master
           name: MenyooSP
           skip_unpack: true
       
