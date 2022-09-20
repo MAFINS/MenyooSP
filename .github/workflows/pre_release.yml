@@ -11,17 +11,27 @@ on:
     types:
       - completed
 
+permissions:
+  contents: read
+
+
+
 jobs:
   pre-release:
     name: "Pre Release"
     runs-on: windows-latest
 
     steps:
+      - uses: actions/checkout@v3
+      
+      - uses: actions/download-artifact@v3
+        with:
+          name: MenyooSP
+      
       - uses: "marvinpinto/action-automatic-releases@latest"
         with:
           repo_token: "${{ secrets.GITHUB_TOKEN }}"
           automatic_release_tag: "latest"
           prerelease: true
           title: "Menyoo PC v"
-          files: |
-            MenyooSP.zip
+          files: MenyooSP.zip
