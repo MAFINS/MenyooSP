@@ -2762,7 +2762,6 @@ namespace sub
 		}
 		else //if (wtype == WheelType::Bennys || wtype == WheelType::BennysBespoke) // Benny's
 		{
-			Game::Print::PrintBottomCentre("Set windices2: " + std::to_string(ms_max_windices));
 			windices2 = ms_max_windices;	//bypass normal/chrome split
 			i = 0;
 		}
@@ -2776,7 +2775,6 @@ namespace sub
 			windices2 = ms_max_windices;
 			i = ms_max_windices / 2;
 		}*/
-		Game::Print::PrintBottomCentre("Add Title");
 		bool bIsChromeSelected = chrtype == 1 || chrtype == 3;
 		AddTitle(bIsChromeSelected ? "Chrome" : "Normal");
 		for (; i < windices2; i++)
