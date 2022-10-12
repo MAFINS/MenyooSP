@@ -590,6 +590,8 @@ void Menu::while_opened()
 	{
 		SetSub_closed();
 	}
+	
+
 }
 void Menu::Up(bool playSound)
 {
@@ -625,22 +627,42 @@ void Menu::Top(bool playSound)
 }
 void Menu::SetSub_previous()
 {
-	currentsub = currentsub_ar[currentsub_ar_index]; // Get previous submenu from array and set as current submenu
-	currentop = currentop_ar[currentsub_ar_index]; // Get last selected option from array and set as current selected option
+	if (currentsub == SUB::MSWHEELS3) //accept bypass on mswheels2, need a better solution than this.
+	{
+		currentsub = currentsub_ar[currentsub_ar_index]-1; // Get previous submenu from array and set as current submenu
+		currentop = currentop_ar[currentsub_ar_index]-1; // Get last selected option from array and set as current selected option
 
-	currentsub_ar[currentsub_ar_index] = -2;
-	currentop_ar[currentsub_ar_index] = -2;
+		currentsub_ar[currentsub_ar_index] = -2;
+		currentop_ar[currentsub_ar_index] = -2;
 
-	currentsub_ar_index--; // Decrement array index by 1
-	printingop = 0; // Reset option print variable
-	totalop = 0; // Reset total option count variable
-	Game::Sound::PlayFrontend_default("BACK"); // Play sound
+		currentsub_ar_index--; // Decrement array index by 1
+		currentsub_ar_index--; // Decrement array index by 1
+		printingop = 0; // Reset option print variable
+		totalop = 0; // Reset total option count variable
+		Game::Sound::PlayFrontend_default("BACK"); // Play sound
 
-	*currentopATM = currentop;
+		*currentopATM = currentop;
+
+	}
+	else
+	{
+		currentsub = currentsub_ar[currentsub_ar_index]; // Get previous submenu from array and set as current submenu
+		currentop = currentop_ar[currentsub_ar_index]; // Get last selected option from array and set as current selected option
+
+		currentsub_ar[currentsub_ar_index] = -2;
+		currentop_ar[currentsub_ar_index] = -2;
+
+		currentsub_ar_index--; // Decrement array index by 1
+		printingop = 0; // Reset option print variable
+		totalop = 0; // Reset total option count variable
+		Game::Sound::PlayFrontend_default("BACK"); // Play sound
+
+		*currentopATM = currentop;
+	}
 }
 void Menu::SetSub_new(INT sub_index)
 {
-	currentsub_ar_index++; // Increment array index
+	currentsub_ar_index++; //Increment array index
 	currentsub_ar[currentsub_ar_index] = currentsub; // Store current submenu index in array
 	currentsub = sub_index; // Set new submenu as current submenu
 
@@ -648,9 +670,9 @@ void Menu::SetSub_new(INT sub_index)
 	currentop = 1; currentop_w_breaks = 1; // Set new selected option as first option in submenu
 
 	printingop = 0; // Reset currently printing option var
-	totalop = 0;// Reset total number of options var
+	totalop = 0; // Reset total number of options var"
 
-	*currentopATM = currentop;
+	*currentopATM = currentop; //SetSub_new complete
 }
 void Menu::SetSub_closed()
 {
