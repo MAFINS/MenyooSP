@@ -627,38 +627,18 @@ void Menu::Top(bool playSound)
 }
 void Menu::SetSub_previous()
 {
-	if (currentsub == SUB::MSWHEELS3) //accept bypass on mswheels2, need a better solution than this.
-	{
-		currentsub = currentsub_ar[currentsub_ar_index]-1; // Get previous submenu from array and set as current submenu
-		currentop = currentop_ar[currentsub_ar_index]-1; // Get last selected option from array and set as current selected option
+	currentsub = currentsub_ar[currentsub_ar_index]; // Get previous submenu from array and set as current submenu
+	currentop = currentop_ar[currentsub_ar_index]; // Get last selected option from array and set as current selected option
 
-		currentsub_ar[currentsub_ar_index] = -2;
-		currentop_ar[currentsub_ar_index] = -2;
+	currentsub_ar[currentsub_ar_index] = -2;
+	currentop_ar[currentsub_ar_index] = -2;
 
-		currentsub_ar_index--; // Decrement array index by 1
-		currentsub_ar_index--; // Decrement array index by 1
-		printingop = 0; // Reset option print variable
-		totalop = 0; // Reset total option count variable
-		Game::Sound::PlayFrontend_default("BACK"); // Play sound
+	currentsub_ar_index--; // Decrement array index by 1
+	printingop = 0; // Reset option print variable
+	totalop = 0; // Reset total option count variable
+	Game::Sound::PlayFrontend_default("BACK"); // Play sound
 
-		*currentopATM = currentop;
-
-	}
-	else
-	{
-		currentsub = currentsub_ar[currentsub_ar_index]; // Get previous submenu from array and set as current submenu
-		currentop = currentop_ar[currentsub_ar_index]; // Get last selected option from array and set as current selected option
-
-		currentsub_ar[currentsub_ar_index] = -2;
-		currentop_ar[currentsub_ar_index] = -2;
-
-		currentsub_ar_index--; // Decrement array index by 1
-		printingop = 0; // Reset option print variable
-		totalop = 0; // Reset total option count variable
-		Game::Sound::PlayFrontend_default("BACK"); // Play sound
-
-		*currentopATM = currentop;
-	}
+	*currentopATM = currentop;
 }
 void Menu::SetSub_new(INT sub_index)
 {

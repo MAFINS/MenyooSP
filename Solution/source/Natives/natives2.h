@@ -74,6 +74,11 @@ Hash GET_HASH_KEY(const std::string& value);
 
 void add_text_component_long_string(const std::string& text);
 
+namespace PED
+{
+	static void SET_PED_RANDOM_COMPONENT_VARIATION(Ped ped, bool p1) { invoke<Void>(0xC8A9481A01E63C28, ped, p1); } // 0xC8A9481A01E63C28 0x4111BA46
+
+}
 namespace VEHICLE
 {
 	// Interior colour
