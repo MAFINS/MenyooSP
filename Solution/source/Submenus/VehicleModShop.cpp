@@ -467,7 +467,7 @@ namespace sub
 			{
 				if (IS_ENTITY_A_VEHICLE(vehicle) && menuselect || ms_curr_paint_index == 10 || ms_curr_paint_index == 11)
 					paintCarUsing_index(vehicle, ms_curr_paint_index, THISMENUPAINT[*Menu::currentopATM - 1].paint, THISMENUPAINT[*Menu::currentopATM - 1].pearl);
-				}
+			}
 			if (pressed)
 			{
 				getpaint = true;
@@ -2064,7 +2064,8 @@ namespace sub
 			maxMod = GET_NUM_VEHICLE_MODS(vehicle, modType) - 1,
 			currMod = GET_VEHICLE_MOD(vehicle, modType);
 
-		if (lastMod == null) lastMod = GET_VEHICLE_MOD(vehicle, modType);
+		if (lastMod == NULL)
+			lastMod = GET_VEHICLE_MOD(vehicle, modType);
 
 		AddTitle(get_mod_slot_name(vehicle, modType, true));
 
@@ -2167,19 +2168,31 @@ namespace sub
 
 		void __AddpointOption(const std::string& text, INT8 wheelType)
 		{
+			int& wtype = ms_curr_paint_index, & chrtype = bit_MSPaints_RGB_mode;
 			bool pressed = false;
 			AddOption(text, pressed, nullFunc, -1, true, true); if (pressed)
 			{
 				ms_curr_paint_index = wheelType;
-				ms_bit_bike_back = wheelType == 6 ? true : false;
-				Menu::SetSub_delayed = SUB::MSWHEELS2;
+				if (wheelType == WheelType::BikeWheels)
+				{
+					ms_bit_bike_back = true;
+					Menu::SetSub_delayed = SUB::MSWHEELS2;
+				}
+				else
+				{
+					ms_bit_bike_back = false;
+					chrtype = 0;
+					SET_VEHICLE_WHEEL_TYPE(Static_12, wtype);
+					ms_max_windices = GET_NUM_VEHICLE_MODS(Static_12, VehicleMod::FrontWheels);
+					Menu::SetSub_delayed = SUB::MSWHEELS3;
+				}
 			}
 		}
 		void __AddOption(const std::string& text, Vehicle vehicle, INT8 wheelType, INT16 wheelIndex, bool isBikeBack)
 		{
-			INT currWheelType;
-			INT currWheelIndex;
-			if (_globalLSC_Customs) 
+			INT currWheelType = -1;
+			INT currWheelIndex = -1;
+			if (_globalLSC_Customs)
 			{
 				if (selectwheel)
 				{
@@ -2188,13 +2201,13 @@ namespace sub
 					selectwheel = false;
 				}
 				bool pressed = false;
-				if(isBikeBack)
+				if (isBikeBack)
 					AddTickol(text, currWheelIndex == wheelIndex && currWheelType == wheelType, pressed, pressed,
 						TICKOL::BIKETHING, TICKOL::NONE, true);
 				else
 					AddTickol(text, currWheelIndex == wheelIndex && currWheelType == wheelType, pressed, pressed,
 						IS_THIS_MODEL_A_BIKE(GET_ENTITY_MODEL(vehicle)) ? TICKOL::BIKETHING : TICKOL::CARTHING, TICKOL::NONE, true);
-				
+
 
 				if (setwheel && IS_ENTITY_A_VEHICLE(vehicle))
 				{
@@ -2209,7 +2222,7 @@ namespace sub
 					{
 						SET_VEHICLE_MOD(vehicle, VehicleMod::FrontWheels, *Menu::currentopATM - 1, GET_VEHICLE_MOD_VARIATION(vehicle, VehicleMod::FrontWheels));
 						SET_VEHICLE_MOD(vehicle, VehicleMod::BackWheels, *Menu::currentopATM - 1, GET_VEHICLE_MOD_VARIATION(vehicle, VehicleMod::BackWheels));
-					}		
+					}
 
 					if (pressed)
 					{
@@ -2230,6 +2243,7 @@ namespace sub
 						return;
 					}
 				}
+
 				//Game::Print::PrintBottomCentre("~b~Debug -~s~  setwheel:" + std::to_string(setwheel) + ", selectwheel:" + std::to_string(selectwheel) + ", lastfwheel:" + std::to_string(lastfwheel) + ", *Menu::currentopATM - 1" + std::to_string(*Menu::currentopATM - 1) + ", lastwheeltype:" + std::to_string(lastwheeltype));
 			}
 			else ///lsccustoms off
@@ -2244,13 +2258,13 @@ namespace sub
 				else
 					AddTickol(text, currWheelIndex == wheelIndex && currWheelType == wheelType, pressed, pressed,
 						IS_THIS_MODEL_A_BIKE(GET_ENTITY_MODEL(vehicle)) ? TICKOL::BIKETHING : TICKOL::CARTHING, TICKOL::NONE, true);
-				
+
 				if (pressed)
 				{
 					if (IS_ENTITY_A_VEHICLE(vehicle))
 					{
 						GTAvehicle(vehicle).RequestControl();
-						SET_VEHICLE_WHEEL_TYPE(vehicle, wheelType); 
+						SET_VEHICLE_WHEEL_TYPE(vehicle, wheelType);
 						if (wheelType == WheelType::BikeWheels)
 						{
 							isBikeBack ? SET_VEHICLE_MOD(vehicle, VehicleMod::BackWheels, wheelIndex, GET_VEHICLE_MOD_VARIATION(vehicle, VehicleMod::BackWheels))
@@ -2280,52 +2294,17 @@ namespace sub
 		}
 
 		using namespace MSWheels_catind;
-		//ms_wheel_windice_pressed = false;
 
 		GTAvehicle vehicle = Static_12;
 		bool set_mspaints_index_4 = 0,
-			/*wheels_highend_plus = 0,
-			wheels_highend_minus = 0,
-			wheels_lowrider_plus = 0,
-			wheels_lowrider_minus = 0,
-			wheels_muscle_plus = 0,
-			wheels_muscle_minus = 0,
-			wheels_offroad_plus = 0,
-			wheels_offroad_minus = 0,
-			wheels_sport_plus = 0,
-			wheels_sport_minus = 0,
-			wheels_suv_plus = 0,
-			wheels_suv_minus = 0,
-			wheels_tuner_plus = 0,
-			wheels_tuner_minus = 0,
-			wheels_bikef_plus = 0,
-			wheels_bikef_minus = 0,
-			wheels_bikeb_plus = 0,
-			wheels_bikeb_minus = 0,
-			wheels_type_plus = 0,
-			wheels_type_minus = 0,
-			wheels_variation_plus = 0,
-			wheels_variation_minus = 0,
-			wheels_set_smoke_colour = 0,*/
 			set_msrgb_index_4 = 0,
 			MSWheelsCustomTyres_ = 0,
 			MSWheelsBPTyresOn_ = 0,
 			MSWheelsDriftTyresOn_ = 0,
 			MSWheelsStockWheels_ = 0;
 
-		//Hash Static_12_model = GET_ENTITY_MODEL(Static_12);
 		UINT i;
 
-		//INT activeWheelType = GET_VEHICLE_WHEEL_TYPE(Static_12);
-
-		//ms_old_wtype = GET_VEHICLE_WHEEL_TYPE(Static_12);
-		//ms_old_windex = GET_VEHICLE_MOD(Static_12, 23);
-		//ms_old_windexBB = GET_VEHICLE_MOD(Static_12, 24);
-
-		//INT wheels_smoke_r, wheels_smoke_g, wheels_smoke_b;
-		//wheel_no = GET_VEHICLE_MOD(Static_12, 23); if (wheel_no < 0) wheel_no = 0;
-		//int wheel_noBB = GET_VEHICLE_MOD(Static_12, 24); if (wheel_noBB < 0) wheel_noBB = 0;
-		//PCHAR ThisOnesActiveText = "ACTIVE";
 
 		Model Static_12_veh_model = GET_ENTITY_MODEL(Static_12);
 		INT wheel_no = GET_VEHICLE_MOD(Static_12, 23);
@@ -2350,51 +2329,18 @@ namespace sub
 		for (i = 0; i < vWheelTNames.size(); i++)
 		{
 			if (i == WheelType::BikeWheels && !Static_12_veh_model.IsBike()) continue;
+			if (i != WheelType::BikeWheels && Static_12_veh_model.IsBike()) continue; //removes all non-bike wheels from bike menu. Wheels don't render properly on bikes so makes sense to remove them to me. - ijc
 			__AddpointOption(vWheelTNames[i], i);
 		}
 
 		AddLocal("CMOD_TYR_1", ms_custom_tyres, MSWheelsCustomTyres_, MSWheelsCustomTyres_, true); // Custom Tyres
-		AddLocal("CMOD_TYR_2", !GET_VEHICLE_TYRES_CAN_BURST(Static_12), MSWheelsBPTyresOn_, MSWheelsBPTyresOn_, true); // Bulletproof Tyres
+		AddLocal("CMOD_TYR_2", GET_VEHICLE_TYRES_CAN_BURST(Static_12) == FALSE, MSWheelsBPTyresOn_, MSWheelsBPTyresOn_, true); // Bulletproof Tyres
 		AddLocal("Drift Tyres", _GET_DRIFT_TYRES_ENABLED(Static_12), MSWheelsDriftTyresOn_, MSWheelsDriftTyresOn_, true); // Drift Tyres
 		AddOption("Remove Tires", null, nullFunc, SUB::MS_TYRESBURST);
 
 		AddOption(Game::GetGXTEntry("CMOD_MOD_TYR3", "Tire Smoke Colour"), set_msrgb_index_4, nullFunc, SUB::MSPAINTS_RGB);
 		if (*Menu::currentopATM == Menu::printingop)
 			Add_preset_colour_options_previews(vehicle.TyreSmokeColour_get());
-
-		//RequestControlOfEnt(Static_12);
-
-
-		//if (wheels_type_plus){
-		//	if (activeWheelType < vWheelTNames.size() - 1) activeWheelType++;
-		//	wheel_no = 0;
-		//	SET_VEHICLE_WHEEL_TYPE(Static_12, activeWheelType);
-		//	SET_VEHICLE_MOD(Static_12, 23, wheel_no, ms_custom_tyres); if (is_model_a_bikes(Static_12_model)) SET_VEHICLE_MOD(Static_12, 24, wheel_no, ms_custom_tyres);
-		//	return;
-		//}
-		//if (wheels_type_minus){
-		//	if (activeWheelType > 0) activeWheelType--;
-		//	wheel_no = 0;
-		//	SET_VEHICLE_WHEEL_TYPE(Static_12, activeWheelType);
-		//	SET_VEHICLE_MOD(Static_12, 23, wheel_no, ms_custom_tyres); if (is_model_a_bikes(Static_12_model)) SET_VEHICLE_MOD(Static_12, 24, wheel_no, ms_custom_tyres);
-		//	return;
-		//}
-
-		//if (wheels_variation_plus){
-		//	//INT maxWheelCount;
-		//	switch (activeWheelType)
-		//	{
-		//	case SPORT: 48; break;
-		//	case MUSCLE: break;
-		//	case LOWRIDER: break;
-		//	case SUV: break;
-		//	case OFFROAD: break;
-		//	case TUNER: break;
-		//	case BIKE: break;
-		//	case HIGHEND: break;
-		//	}
-		//	return;
-		//}
 
 
 
@@ -2408,178 +2354,8 @@ namespace sub
 			return;
 		}
 
-		/*if (wheels_smoke_r_plus){
-		if (wheels_smoke_r < 255) wheels_smoke_r++;
-		else wheels_smoke_r = 0;
-		wheels_set_smoke_colour = true;
-		}
-		if (wheels_smoke_g_plus){
-		if (wheels_smoke_g < 255) wheels_smoke_g++;
-		else wheels_smoke_g = 0;
-		wheels_set_smoke_colour = true;
-		}
-		if (wheels_smoke_b_plus){
-		if (wheels_smoke_b < 255) wheels_smoke_b++;
-		else wheels_smoke_b = 0;
-		wheels_set_smoke_colour = true;
-		}
-		if (wheels_smoke_r_minus){
-		if (wheels_smoke_r > 0) wheels_smoke_r--;
-		else wheels_smoke_r = 255;
-		wheels_set_smoke_colour = true;
-		}
-		if (wheels_smoke_g_minus){
-		if (wheels_smoke_g > 0) wheels_smoke_g--;
-		else wheels_smoke_g = 255;
-		wheels_set_smoke_colour = true;
-		}
-		if (wheels_smoke_b_minus){
-		if (wheels_smoke_b > 0) wheels_smoke_b--;
-		else wheels_smoke_b = 255;
-		wheels_set_smoke_colour = true;
-		}
-		if (wheels_set_smoke_colour){
-		TOGGLE_VEHICLE_MOD(Static_12, 20, 1);
-		SET_VEHICLE_TYRE_SMOKE_COLOR(Static_12, wheels_smoke_r, wheels_smoke_g, wheels_smoke_b);
-		return;
-		}*/
+
 		if (set_msrgb_index_4) { bit_MSPaints_RGB_mode = 4; return; }
-
-
-		/*if (wheels_highend_plus){
-		if (wheel_no < 38) wheel_no++;
-		else wheel_no = 0;
-		SET_VEHICLE_WHEEL_TYPE(Static_12, 7);
-		SET_VEHICLE_MOD(Static_12, 23, wheel_no, ms_custom_tyres); if(is_model_a_bikes(Static_12_model)) SET_VEHICLE_MOD(Static_12, 24, wheel_no, ms_custom_tyres);
-		return;
-		}
-		if (wheels_highend_minus){
-		if (wheel_no > 0) wheel_no--;
-		else (wheel_no = 38);
-		SET_VEHICLE_WHEEL_TYPE(Static_12, 7);
-		SET_VEHICLE_MOD(Static_12, 23, wheel_no, ms_custom_tyres); if(is_model_a_bikes(Static_12_model)) SET_VEHICLE_MOD(Static_12, 24, wheel_no, ms_custom_tyres);
-		return;
-		}
-
-		if (wheels_lowrider_plus){
-		if (wheel_no < 28) wheel_no++;
-		else wheel_no = 0;
-		SET_VEHICLE_WHEEL_TYPE(Static_12, 2);
-		SET_VEHICLE_MOD(Static_12, 23, wheel_no, ms_custom_tyres); if(is_model_a_bikes(Static_12_model)) SET_VEHICLE_MOD(Static_12, 24, wheel_no, ms_custom_tyres);
-		return;
-		}
-		if (wheels_lowrider_minus){
-		if (wheel_no > 0) wheel_no--;
-		else (wheel_no = 28);
-		SET_VEHICLE_WHEEL_TYPE(Static_12, 2);
-		SET_VEHICLE_MOD(Static_12, 23, wheel_no, ms_custom_tyres); if(is_model_a_bikes(Static_12_model)) SET_VEHICLE_MOD(Static_12, 24, wheel_no, ms_custom_tyres);
-		return;
-		}
-
-		if (wheels_muscle_plus){
-		if (wheel_no < 34) wheel_no++;
-		else wheel_no = 0;
-		SET_VEHICLE_WHEEL_TYPE(Static_12, 1);
-		SET_VEHICLE_MOD(Static_12, 23, wheel_no, ms_custom_tyres); if(is_model_a_bikes(Static_12_model)) SET_VEHICLE_MOD(Static_12, 24, wheel_no, ms_custom_tyres);
-		return;
-		}
-		if (wheels_muscle_minus){
-		if (wheel_no > 0) wheel_no--;
-		else (wheel_no = 34);
-		SET_VEHICLE_WHEEL_TYPE(Static_12, 1);
-		SET_VEHICLE_MOD(Static_12, 23, wheel_no, ms_custom_tyres); if(is_model_a_bikes(Static_12_model)) SET_VEHICLE_MOD(Static_12, 24, wheel_no, ms_custom_tyres);
-		return;
-		}
-
-		if (wheels_offroad_plus){
-		if (wheel_no < 18) wheel_no++;
-		else wheel_no = 0;
-		SET_VEHICLE_WHEEL_TYPE(Static_12, 4);
-		SET_VEHICLE_MOD(Static_12, 23, wheel_no, ms_custom_tyres); if(is_model_a_bikes(Static_12_model)) SET_VEHICLE_MOD(Static_12, 24, wheel_no, ms_custom_tyres);
-		return;
-		}
-		if (wheels_offroad_minus){
-		if (wheel_no > 0) wheel_no--;
-		else (wheel_no = 18);
-		SET_VEHICLE_WHEEL_TYPE(Static_12, 4);
-		SET_VEHICLE_MOD(Static_12, 23, wheel_no, ms_custom_tyres); if(is_model_a_bikes(Static_12_model)) SET_VEHICLE_MOD(Static_12, 24, wheel_no, ms_custom_tyres);
-		return;
-		}
-
-		if (wheels_sport_plus){
-		if (wheel_no < 48) wheel_no++;
-		else wheel_no = 0;
-		SET_VEHICLE_WHEEL_TYPE(Static_12, 0);
-		SET_VEHICLE_MOD(Static_12, 23, wheel_no, ms_custom_tyres); if(is_model_a_bikes(Static_12_model)) SET_VEHICLE_MOD(Static_12, 24, wheel_no, ms_custom_tyres);
-		return;
-		}
-		if (wheels_sport_minus){
-		if (wheel_no > 0) wheel_no--;
-		else (wheel_no = 48);
-		SET_VEHICLE_WHEEL_TYPE(Static_12, 0);
-		SET_VEHICLE_MOD(Static_12, 23, wheel_no, ms_custom_tyres); if(is_model_a_bikes(Static_12_model)) SET_VEHICLE_MOD(Static_12, 24, wheel_no, ms_custom_tyres);
-		return;
-		}
-
-		if (wheels_suv_plus){
-		if (wheel_no < 36) wheel_no++;
-		else wheel_no = 0;
-		SET_VEHICLE_WHEEL_TYPE(Static_12, 3);
-		SET_VEHICLE_MOD(Static_12, 23, wheel_no, ms_custom_tyres); if(is_model_a_bikes(Static_12_model)) SET_VEHICLE_MOD(Static_12, 24, wheel_no, ms_custom_tyres);
-		return;
-		}
-		if (wheels_suv_minus){
-		if (wheel_no > 0) wheel_no--;
-		else (wheel_no = 36);
-		SET_VEHICLE_WHEEL_TYPE(Static_12, 3);
-		SET_VEHICLE_MOD(Static_12, 23, wheel_no, ms_custom_tyres); if(is_model_a_bikes(Static_12_model)) SET_VEHICLE_MOD(Static_12, 24, wheel_no, ms_custom_tyres);
-		return;
-		}
-
-		if (wheels_tuner_plus){
-		if (wheel_no < 46) wheel_no++;
-		else wheel_no = 0;
-		SET_VEHICLE_WHEEL_TYPE(Static_12, 5);
-		SET_VEHICLE_MOD(Static_12, 23, wheel_no, ms_custom_tyres); if(is_model_a_bikes(Static_12_model)) SET_VEHICLE_MOD(Static_12, 24, wheel_no, ms_custom_tyres);
-		return;
-		}
-		if (wheels_tuner_minus){
-		if (wheel_no > 0) wheel_no--;
-		else (wheel_no = 46);
-		SET_VEHICLE_WHEEL_TYPE(Static_12, 5);
-		SET_VEHICLE_MOD(Static_12, 23, wheel_no, ms_custom_tyres); if(is_model_a_bikes(Static_12_model)) SET_VEHICLE_MOD(Static_12, 24, wheel_no, ms_custom_tyres);
-		return;
-		}
-
-		if (wheels_bikef_plus){
-		if (wheel_no < 26) wheel_no++;
-		else wheel_no = 0;
-		SET_VEHICLE_WHEEL_TYPE(Static_12, 6);
-		SET_VEHICLE_MOD(Static_12, 23, wheel_no, ms_custom_tyres);
-		return;
-		}
-		if (wheels_bikef_minus){
-		if (wheel_no > 0) wheel_no--;
-		else (wheel_no = 26);
-		SET_VEHICLE_WHEEL_TYPE(Static_12, 6);
-		SET_VEHICLE_MOD(Static_12, 23, wheel_no, ms_custom_tyres);
-		return;
-		}
-
-		if (wheels_bikeb_plus){
-		if (wheel_noBB < 26) wheel_noBB++;
-		else wheel_noBB = 0;
-		SET_VEHICLE_WHEEL_TYPE(Static_12, 6);
-		SET_VEHICLE_MOD(Static_12, 24, wheel_noBB, ms_custom_tyres);
-		return;
-		}
-		if (wheels_bikeb_minus){
-		if (wheel_noBB > 0) wheel_noBB--;
-		else (wheel_noBB = 26);
-		SET_VEHICLE_WHEEL_TYPE(Static_12, 6);
-		SET_VEHICLE_MOD(Static_12, 24, wheel_noBB, ms_custom_tyres);
-		return;
-		}*/
 
 
 		if (MSWheelsStockWheels_) {
@@ -2618,6 +2394,11 @@ namespace sub
 
 		using namespace MSWheels_catind;
 		int& wtype = ms_curr_paint_index, & chrtype = bit_MSPaints_RGB_mode;
+		setwheel = true;
+
+		lastwheeltype = 6;
+		lastfwheel = GET_VEHICLE_MOD(Static_12, VehicleMod::FrontWheels);
+		lastbwheel = GET_VEHICLE_MOD(Static_12, VehicleMod::BackWheels);
 
 		AddTitle(vWheelTNames[wtype]);
 
@@ -2627,12 +2408,12 @@ namespace sub
 		//	SET_VEHICLE_MOD(Static_12, 23, ms_old_windex, 0); // GET_VEHICLE_MOD_VARIATION(Static_12, 23)
 		//	SET_VEHICLE_MOD(Static_12, 24, ms_old_windex, 0);
 		//}
-		
+
 		//if (wtype == WheelType::Bennys || wtype == WheelType::BennysBespoke)
-		if (true) //no need to split chrome and normal with addon wheels. 
-		{
-			if (ms_bit_bike_back)
-			{
+		//if (true) //no need to split chrome and normal with addon wheels.    
+		//{
+			//if (ms_bit_bike_back) // Can probably remove this whole if statement with this exclusively working for bike wheels now - ijc
+			//{
 				bool bFrontPressed = false, bBackPressed = false;
 				AddOption("Front", bFrontPressed, nullFunc, SUB::MSWHEELS3); if (bFrontPressed)
 				{
@@ -2646,8 +2427,8 @@ namespace sub
 					SET_VEHICLE_WHEEL_TYPE(Static_12, wtype);
 					ms_max_windices = GET_NUM_VEHICLE_MODS(Static_12, VehicleMod::BackWheels);
 				}
-			}
-			else // Not a bike.
+			//}
+			/*else // Not a bike.
 			{
 				bool bFrontPressed = false;
 				AddOption("Front & Rear", bFrontPressed, nullFunc, SUB::MSWHEELS3); if (true) //bypass this menu for all but bikes
@@ -2655,12 +2436,12 @@ namespace sub
 					chrtype = 0;
 					SET_VEHICLE_WHEEL_TYPE(Static_12, wtype);
 					ms_max_windices = GET_NUM_VEHICLE_MODS(Static_12, VehicleMod::FrontWheels);
-					Menu::SetSub_delayed = (SUB::MSWHEELS3);
+					Menu::SetSub_delayed = SUB::MSWHEELS3;
 					return;
 				}
-			}
-		}
-		else
+			}*/
+		//}
+		/*else // Unused - remove?
 		{
 			if (ms_bit_bike_back)
 			{
@@ -2713,7 +2494,7 @@ namespace sub
 					ms_max_windices = GET_NUM_VEHICLE_MODS(Static_12, VehicleMod::FrontWheels);
 				}
 			}
-		}
+		}*/
 	}
 	void MSWheels3_()
 	{
@@ -2743,20 +2524,27 @@ namespace sub
 		//}
 		//max -= 1;
 
+
 		int windices2;
 		if (wtype == WheelType::BikeWheels) // Bike Normal/Chrome
 		{
 			bool bIsChromeSelected = chrtype == 1 || chrtype == 3;
 
-			AddTitle(bIsChromeSelected ? "Chrome" : "Normal");
+			AddTitle(bIsChromeSelected ? "Chrome Wheels" : "Bike Wheels");
 
 			std::array<int, 5> ids{ 0, 13, 26, 48, ms_max_windices };
 			for (UINT8 j = bIsChromeSelected ? 1 : 0; j < ids.size(); j += 2)
 			{
 				for (i = ids[j]; i < ids[j + 1]; i++)
 				{
-					__AddOption(get_mod_text_label(Static_12, VehicleMod::FrontWheels, i, false), Static_12, wtype, i, chrtype > 1);
+					__AddOption(get_mod_text_label(Static_12, VehicleMod::FrontWheels, i, false), Static_12, wtype, i, chrtype == 2);
 				}
+			}
+			if (MenuPressTimer::IsButtonTapped(MenuPressTimer::Button::Back)) // this has been split out for bikes, see further comments on the original section below (line 2575)
+			{
+				setwheel = false;
+				(chrtype == 2) ? SET_VEHICLE_MOD(Static_12, VehicleMod::BackWheels, lastbwheel, GET_VEHICLE_MOD_VARIATION(Static_12, VehicleMod::BackWheels))
+					: SET_VEHICLE_MOD(Static_12, VehicleMod::FrontWheels, lastfwheel, GET_VEHICLE_MOD_VARIATION(Static_12, VehicleMod::FrontWheels));
 			}
 			return;
 		}
@@ -2776,25 +2564,20 @@ namespace sub
 			i = ms_max_windices / 2;
 		}*/
 		bool bIsChromeSelected = chrtype == 1 || chrtype == 3;
-		AddTitle(bIsChromeSelected ? "Chrome" : "Normal");
+		AddTitle(bIsChromeSelected ? "Chrome Wheels" : "Normal Wheels");
 		for (; i < windices2; i++)
 		{
-			__AddOption(get_mod_text_label(Static_12, VehicleMod::FrontWheels, i, false), Static_12, wtype, i, chrtype > 1);
+			__AddOption(get_mod_text_label(Static_12, VehicleMod::FrontWheels, i, false), Static_12, wtype, i, chrtype == 2);
 		}
 
 		if (_globalLSC_Customs)
 		{
-			if (MenuPressTimer::IsButtonTapped(MenuPressTimer::Button::Back))
+			if (MenuPressTimer::IsButtonTapped(MenuPressTimer::Button::Back)) // running this here prevents the sript from working for bikes due to (I believe) the return on line 2459. Moving it to before that section causes a crash when using a car. 
 			{
-				setwheel = false;
-				SET_VEHICLE_WHEEL_TYPE(Static_12, lastwheeltype);
-				if (wtype == WheelType::BikeWheels)
+				if (wtype != WheelType::BikeWheels)
 				{
-					(chrtype > 1) ? SET_VEHICLE_MOD(Static_12, VehicleMod::BackWheels, lastbwheel, GET_VEHICLE_MOD_VARIATION(Static_12, VehicleMod::BackWheels))
-						: SET_VEHICLE_MOD(Static_12, VehicleMod::FrontWheels, lastfwheel, GET_VEHICLE_MOD_VARIATION(Static_12, VehicleMod::FrontWheels));
-				}
-				else
-				{
+					setwheel = false;
+					SET_VEHICLE_WHEEL_TYPE(Static_12, lastwheeltype);
 					SET_VEHICLE_MOD(Static_12, VehicleMod::FrontWheels, lastfwheel, GET_VEHICLE_MOD_VARIATION(Static_12, VehicleMod::FrontWheels));
 					SET_VEHICLE_MOD(Static_12, VehicleMod::BackWheels, lastbwheel, GET_VEHICLE_MOD_VARIATION(Static_12, VehicleMod::BackWheels));
 				}
@@ -2825,7 +2608,7 @@ namespace sub
 				{
 					if (j != i)
 					{
-						if (vehicle.IsTyreBursted(j), true)
+						if (vehicle.IsTyreBursted(j))
 							vTyresBurstedAlready.push_back(j);
 					}
 				}
@@ -3221,6 +3004,3 @@ namespace sub
 	}
 
 }
-
-
-
