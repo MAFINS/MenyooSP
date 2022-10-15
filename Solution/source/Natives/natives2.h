@@ -74,14 +74,19 @@ Hash GET_HASH_KEY(const std::string& value);
 
 void add_text_component_long_string(const std::string& text);
 
+namespace PED
+{
+	static void SET_PED_RANDOM_COMPONENT_VARIATION(Ped ped, bool p1) { invoke<Void>(0xC8A9481A01E63C28, ped, p1); } // 0xC8A9481A01E63C28 0x4111BA46
+
+}
 namespace VEHICLE
 {
 	// Interior colour
-	static void _0x7D1464D472D32136(Vehicle vehicle, int *interiorColour) { invoke<Void>(0x7D1464D472D32136, vehicle, interiorColour); } // 0x7D1464D472D32136
+	static void _0x7D1464D472D32136(Vehicle vehicle, int* interiorColour) { invoke<Void>(0x7D1464D472D32136, vehicle, interiorColour); } // 0x7D1464D472D32136
 	static void _0xF40DD601A65F7F19(Vehicle vehicle, int interiorColour) { invoke<Void>(0xF40DD601A65F7F19, vehicle, interiorColour); } // 0xF40DD601A65F7F19
 
 	// Dashboard colour
-	static void _0xB7635E80A5C31BFF(Vehicle vehicle, int *dashboardColour) { invoke<Void>(0xB7635E80A5C31BFF, vehicle, dashboardColour); } // 0xB7635E80A5C31BFF
+	static void _0xB7635E80A5C31BFF(Vehicle vehicle, int* dashboardColour) { invoke<Void>(0xB7635E80A5C31BFF, vehicle, dashboardColour); } // 0xB7635E80A5C31BFF
 	static void _0x6089CDF6A57F326C(Vehicle vehicle, int dashboardColour) { invoke<Void>(0x6089CDF6A57F326C, vehicle, dashboardColour); } // 0x6089CDF6A57F326C
 
 	// Imp/Exp DLC
@@ -104,6 +109,5 @@ namespace WEAPON
 	static void _0x9FE5633880ECD8ED(Ped ped, Hash weapon, Hash component, int index) { invoke<Void>(0x9FE5633880ECD8ED, ped, weapon, component, index); } // 0x9FE5633880ECD8ED
 	static int _0xF0A60040BE558F2D(Ped ped, Hash weapon, Hash component) { return invoke<Any>(0xF0A60040BE558F2D, ped, weapon, component); } // 0xF0A60040BE558F2D
 }
-
 
 

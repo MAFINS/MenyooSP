@@ -525,7 +525,7 @@ void MenuConfig::ConfigSave()
 	ini.SetLongValue(section_haxValues, "vehicle_spawner_neons_B", _globalSpawnVehicle_neonCol.B);
 	ini.SetLongValue(section_haxValues, "vehicle_spawner_primary_colour", _globalSpawnVehicle_PrimCol);
 	ini.SetLongValue(section_haxValues, "vehicle_spawner_secondary_colour", _globalSpawnVehicle_SecCol);
-	ini.SetBoolValue(section_haxValues, "vehicle_spawner_delete_old", _globalLSC_Customs);
+	ini.SetBoolValue(section_haxValues, "vehicle_menyoo_customs_lsc", _globalLSC_Customs);
 
 	ini.SetDoubleValue(section_haxValues, "clock", sub::Clock_catind::loop_clock);
 	ini.SetDoubleValue(section_haxValues, "clock_screen_pos_x", sub::Clock_catind::_analogueClockPos.x);

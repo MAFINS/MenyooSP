@@ -283,13 +283,13 @@ namespace GTAmodel
 		case VEHICLE_RIPLEY:
 		case VEHICLE_PHANTOM:
 		case VEHICLE_AMBULANCE:
-		case VEHICLE_TYRUS:
+		//case VEHICLE_TYRUS:
 		case VEHICLE_CARGOPLANE:
 		case VEHICLE_RIOT:
 		case VEHICLE_BUS:
 		case VEHICLE_AIRBUS:
-		case VEHICLE_TAMPA:
-		case VEHICLE_TROHPYTRUCK:
+		//case VEHICLE_TAMPA:
+		//case VEHICLE_TROHPYTRUCK:			//why were these 3 vehicles included?
 		case VEHICLE_CADDY3:
 			return false;
 		}
