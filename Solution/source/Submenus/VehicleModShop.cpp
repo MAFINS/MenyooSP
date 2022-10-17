@@ -35,6 +35,14 @@ namespace sub
 {
 
 	bool firsttime = true;
+	bool lowersuspension = 0;
+	int lastMod = -2;
+	bool selectwheel = false;
+	bool setwheel = false;
+	bool selectmod = false;
+	bool setMod = false;
+	int lastpaint, lastpearl, lastwheelcol;
+	bool menuselect = true, getpaint = true;
 
 	// Paints
 
@@ -407,19 +415,12 @@ namespace sub
 		}
 
 	}
-	int lastpaint, lastpearl, lastwheelcol;
-	bool menuselect = true, getpaint = true;
 
 	void AddcarcolOption_(const std::string& text, Vehicle vehicle, INT16 colour_index, INT16 pearl_index_ifPrimary)
 	{
 		INT currPaintInd;
 		currPaintInd = getpaintCarUsing_index(vehicle, ms_curr_paint_index);
-		if (getpaint)
-		{
-			lastpaint = getpaintCarUsing_index(vehicle, ms_curr_paint_index);
-			lastpearl = getpaintCarUsing_index(vehicle, 3);
-			getpaint = false;
-		}
+		
 		bool pressed = false;
 
 		if (_globalLSC_Customs)
@@ -462,7 +463,7 @@ namespace sub
 				break;
 			}
 
-			AddTickol(text, THISMENUPAINT[*Menu::currentopATM - 1].paint == colour_index, pressed, pressed,
+			AddTickol(text, lastpaint == colour_index, pressed, pressed,
 				IS_THIS_MODEL_A_BIKE(GET_ENTITY_MODEL(vehicle)) ? TICKOL::BIKETHING : TICKOL::CARTHING);
 			{
 				if (IS_ENTITY_A_VEHICLE(vehicle) && menuselect || ms_curr_paint_index == 10 || ms_curr_paint_index == 11)
@@ -483,6 +484,7 @@ namespace sub
 			if (MenuPressTimer::IsButtonTapped(MenuPressTimer::Button::Back))
 			{
 				getpaint = true;
+				menuselect = false;
 				if (IS_ENTITY_A_VEHICLE(vehicle) || ms_curr_paint_index == 10 || ms_curr_paint_index == 11)
 					paintCarUsing_index(vehicle, ms_curr_paint_index, lastpaint, lastpearl);
 			}
@@ -526,6 +528,7 @@ namespace sub
 		bool set_mspaints_index_4 = 0, set_mspaints_index_3 = 0,
 			paintFade_plus = 0, paintFade_minus = 0,
 			dirtLevel_plus = 0, dirtLevel_minus = 0;
+		getpaint = true;
 
 		AddTitle("Paints");
 		AddMSPaintsPointOption_(Game::GetGXTEntry("CMOD_COL0_0", "Primary"), 1); // Primary CMOD_COL0_0
@@ -613,6 +616,14 @@ namespace sub
 			bool bCarColSettingToNullPressed = false;
 			AddTickol("None (Default)", *carColSettingPtr == -3, bCarColSettingToNullPressed, bCarColSettingToNullPressed); if (bCarColSettingToNullPressed) *carColSettingPtr = -3;
 			break;
+		}
+
+		if (getpaint)
+		{
+			lastpaint = getpaintCarUsing_index(Static_12, ms_curr_paint_index);
+			lastpearl = getpaintCarUsing_index(Static_12, 3);
+			getpaint = false;
+			Game::Print::PrintBottomCentre("Getting Paint: Current Paint Index = " + std::to_string(ms_curr_paint_index) + ", last paint = " + std::to_string(lastpaint));
 		}
 
 		menuselect = true;
@@ -1254,9 +1265,7 @@ namespace sub
 
 	// ModShop
 
-	bool lowersuspension = 0;
-
-	int lastMod = null;
+	
 
 	void ModShop_()
 	{
@@ -1403,6 +1412,9 @@ namespace sub
 		AddNumber("Suspension", ms_susp, 0, null, ms_susp_plus, ms_susp_minus);
 		AddNumber("Exhaust", ms_exh, 0, null, ms_exh_plus, ms_exh_minus);	*/
 
+		selectmod = true;
+		setMod = true;
+
 		bool pressed = 0;
 		for (i = 0; i <= 24/*vValues_ModSlotNames.size()*/; i++) // Only want 0 to 24 here. 25 to 48 are at Benny's.
 		{
@@ -1412,7 +1424,7 @@ namespace sub
 			//if (i == VehicleMod::Suspension && Static_12_veh_model.hash == VEHICLE_GLENDALE) continue;
 			if (GET_NUM_VEHICLE_MODS(Static_12, i) > 0)
 			{
-				lastMod = null;
+				lastMod = -2;
 				AddOption(get_mod_slot_name(Static_12, i, true), pressed, nullFunc, SUB::MSCATALL, true, false); if (pressed)
 				{
 					ms_curr_paint_index = i;
@@ -2024,6 +2036,8 @@ namespace sub
 				ms_curr_paint_index = 6;
 			}
 
+			setMod = true;
+			selectmod = true;
 
 			bool pressed = 0;
 			for (i = 25; i <= 48/*vValues_ModSlotNames.size()*/; i++) // Only want 25 to 48 here.
@@ -2031,7 +2045,7 @@ namespace sub
 				pressed = 0;
 				if (GET_NUM_VEHICLE_MODS(vehicle.Handle(), i) > 0)
 				{
-					lastMod = null;
+					lastMod = -2;
 					AddOption(get_mod_slot_name(vehicle.Handle(), i, true), pressed, nullFunc, SUB::MSCATALL, true, false); if (pressed)
 					{
 						ms_curr_paint_index = i;
@@ -2043,10 +2057,11 @@ namespace sub
 	}
 
 	// Selected vehicle mod submenu (for selection of mod value)
-	void previewvehicleoption(Vehicle vehicle, int modType, int modindex, BOOL customtyres)
+	/*void previewvehicleoption(Vehicle vehicle, int modType, int modindex, BOOL customtyres)  //this whole void is completely unused?
 	{
 		SET_VEHICLE_MOD(vehicle, modType, modindex, GET_VEHICLE_MOD_VARIATION(vehicle, modType));
-	}
+	}*/
+
 
 	void MSCatall_()
 	{
@@ -2058,14 +2073,16 @@ namespace sub
 			return;
 		}
 
-		bool setMod = false;
 
 		INT& modType = ms_curr_paint_index,
 			maxMod = GET_NUM_VEHICLE_MODS(vehicle, modType) - 1,
 			currMod = GET_VEHICLE_MOD(vehicle, modType);
 
-		if (lastMod == NULL)
+		if (selectmod)
+		{
 			lastMod = GET_VEHICLE_MOD(vehicle, modType);
+			selectmod = false;
+		}
 
 		AddTitle(get_mod_slot_name(vehicle, modType, true));
 
@@ -2073,19 +2090,21 @@ namespace sub
 		{
 			for (INT i = -1; i <= maxMod; i++)
 			{
-				setMod = false;
-				AddTickol(get_mod_text_label(vehicle, modType, i, true), currMod == i, setMod, setMod,
+				bool pressed = false;
+				AddTickol(get_mod_text_label(vehicle, modType, i, true), lastMod == i, pressed, pressed,
 					IS_THIS_MODEL_A_BIKE(GET_ENTITY_MODEL(vehicle)) ? TICKOL::BIKETHING : TICKOL::CARTHING, TICKOL::NONE, false);
-				SET_VEHICLE_MOD(vehicle, modType, *Menu::currentopATM - 2, GET_VEHICLE_MOD_VARIATION(vehicle, modType));
-				if (setMod)
+				if(setMod)
+					SET_VEHICLE_MOD(vehicle, modType, *Menu::currentopATM - 2, GET_VEHICLE_MOD_VARIATION(vehicle, modType));
+				if (pressed)
 				{
-					lastMod = GET_VEHICLE_MOD(vehicle, modType);
+					setMod = false;
 					Menu::SetSub_previous();
 					return;
 				}
 				if (MenuPressTimer::IsButtonTapped(MenuPressTimer::Button::Back))
 				{
 					SET_VEHICLE_MOD(vehicle, modType, lastMod, GET_VEHICLE_MOD_VARIATION(vehicle, modType));
+					setMod = false;
 				}
 			}
 		}
@@ -2141,10 +2160,6 @@ namespace sub
 	}
 
 	// Wheels
-
-
-	bool selectwheel = false;
-	bool setwheel = false;
 
 	namespace MSWheels_catind
 	{
@@ -2307,7 +2322,6 @@ namespace sub
 
 
 		Model Static_12_veh_model = GET_ENTITY_MODEL(Static_12);
-		bool isBike = Static_12_veh_model.IsBike();
 		INT wheel_no = GET_VEHICLE_MOD(Static_12, 23);
 		INT ms_custom_tyres = GET_VEHICLE_MOD_VARIATION(Static_12, 23);
 		BOOL ms_drift_tyres = _GET_DRIFT_TYRES_ENABLED(Static_12);
@@ -2329,9 +2343,9 @@ namespace sub
 
 		for (i = 0; i < vWheelTNames.size(); i++)
 		{
-			const bool ibw = (i == WheelType::BikeWheels);
-			if (!ibw || ibw && isBike)
-				__AddpointOption(vWheelTNames[i], i);
+			if (i == WheelType::BikeWheels && !Static_12_veh_model.IsBike()) continue;
+			if (i != WheelType::BikeWheels && Static_12_veh_model.IsBike()) continue; //removes all non-bike wheels from bike menu. Wheels don't render properly on bikes so makes sense to remove them to me. - ijc
+			__AddpointOption(vWheelTNames[i], i);
 		}
 
 		AddLocal("CMOD_TYR_1", ms_custom_tyres, MSWheelsCustomTyres_, MSWheelsCustomTyres_, true); // Custom Tyres
