@@ -492,6 +492,7 @@ namespace sub
 				if (IS_ENTITY_A_VEHICLE(vehicle) && menuselect || ms_curr_paint_index == 10 || ms_curr_paint_index == 11)
 					paintCarUsing_index(vehicle, ms_curr_paint_index, THISMENUPAINT[*Menu::currentopATM - 1].paint, THISMENUPAINT[*Menu::currentopATM - 1].pearl);
 			}
+
 			if (pressed)
 			{
 				getpaint = true;
@@ -553,11 +554,14 @@ namespace sub
 
 		float paintFade = _GET_VEHICLE_PAINT_FADE(Static_12);
 		float dirtLevel = GET_VEHICLE_DIRT_LEVEL(Static_12);
+		float carvarcol = GET_VEHICLE_COLOUR_COMBINATION(Static_12)+1;
 		bool set_mspaints_index_4 = 0, set_mspaints_index_3 = 0,
 			paintFade_plus = 0, paintFade_minus = 0,
-			dirtLevel_plus = 0, dirtLevel_minus = 0;
+			dirtLevel_plus = 0, dirtLevel_minus = 0,
+			carvarcol_plus = 0, carvarcol_minus = 0;
 		getpaint = true;
 		menuselect = true;
+
 
 		AddTitle("Paints");
 		AddMSPaintsPointOption_(Game::GetGXTEntry("CMOD_COL0_0", "Primary"), 1); // Primary CMOD_COL0_0
@@ -569,6 +573,9 @@ namespace sub
 		AddBreak("---Collateral---");
 		AddNumber("Paint Fade", paintFade, 2, null, paintFade_plus, paintFade_minus);
 		AddNumber("Dirt Level", dirtLevel, 2, null, dirtLevel_plus, dirtLevel_minus);
+		AddNumber("CarVariation Colours", carvarcol, 0, null, carvarcol_plus, carvarcol_minus);
+
+		Game::Print::PrintBottomCentre("Number of Vehicle Colours: " + std::to_string(GET_NUMBER_OF_VEHICLE_COLOURS(Static_12)));
 
 		if (firsttime)
 		{
@@ -593,18 +600,62 @@ namespace sub
 		}
 
 
-		if (paintFade_plus) {
-			if (paintFade < 1.0f) paintFade += 0.02f;
+		if (paintFade_plus)
+		{
+			if (paintFade < 1.0f) 
+				paintFade += 0.02f;
 			_SET_VEHICLE_PAINT_FADE(Static_12, paintFade);
 		}
-		if (paintFade_minus) {
-			if (paintFade > 0.02f) paintFade -= 0.02f;
+		if (paintFade_minus)
+		{
+			if (paintFade > 0.02f) 
+				paintFade -= 0.02f;
 			_SET_VEHICLE_PAINT_FADE(Static_12, paintFade);
 		}
 
-		if (dirtLevel_plus) { if (dirtLevel < 15.0f) { dirtLevel += 0.1f; SET_VEHICLE_DIRT_LEVEL(Static_12, dirtLevel); } }
-		if (dirtLevel_minus) { if (dirtLevel > 0.0f) { dirtLevel -= 0.1f; SET_VEHICLE_DIRT_LEVEL(Static_12, dirtLevel); } }
+		if (dirtLevel_plus)
+		{
+			if (dirtLevel < 15.0f)
+			{
+				dirtLevel += 0.1f;
+				SET_VEHICLE_DIRT_LEVEL(Static_12, dirtLevel);
+			}
+		}
+		if (dirtLevel_minus)
+		{
+			if (dirtLevel > 0.0f)
+			{
+				dirtLevel -= 0.1f;
+				SET_VEHICLE_DIRT_LEVEL(Static_12, dirtLevel);
+			}
+		}
 
+		if (carvarcol_plus)
+		{
+			if (carvarcol < GET_NUMBER_OF_VEHICLE_COLOURS(Static_12))
+			{
+				carvarcol += 1;
+				SET_VEHICLE_COLOUR_COMBINATION(Static_12, carvarcol-1);
+			}
+			else
+			{
+				carvarcol = 1;
+				SET_VEHICLE_COLOUR_COMBINATION(Static_12, carvarcol-1);
+			}
+		}
+		if (carvarcol_minus)
+		{
+			if (carvarcol > 1)
+			{
+				carvarcol -= 1;
+				SET_VEHICLE_COLOUR_COMBINATION(Static_12, carvarcol-1);
+			}
+			else
+			{
+				carvarcol = GET_NUMBER_OF_VEHICLE_COLOURS(Static_12);
+				SET_VEHICLE_COLOUR_COMBINATION(Static_12, carvarcol-1);
+			}
+		}
 	}
 	void MSPaints2_()
 	{
