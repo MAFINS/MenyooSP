@@ -184,6 +184,7 @@ namespace sub
 	{
 
 	};
+
 	INT paintIndex_maxValue = 0;
 
 	INT8 selectedpainttype;
@@ -596,7 +597,6 @@ namespace sub
 			else
 				Game::Print::PrintBottomCentre("~r~Error:~s~ Colours cannot be applied to stock wheels.");
 		}
-
 
 		if (paintFade_plus)
 		{
@@ -1049,7 +1049,8 @@ namespace sub
 		int ms_paints_rgb_r = 0,
 			ms_paints_rgb_g = 0,
 			ms_paints_rgb_b = 0,
-			ms_paints_rgb_a = -1;
+			ms_paints_rgb_a = -1,
+			ms_paints_finish{};
 		bool ms_paints_rgb_r_custom = 0,
 			ms_paints_rgb_r_plus = 0,
 			ms_paints_rgb_r_minus = 0,
@@ -1065,7 +1066,73 @@ namespace sub
 			ms_paints_hexinput = 0,
 			settings_hud_c_custom = 0,
 			settings_hud_c_plus = 0,
-			settings_hud_c_minus = 0;
+			settings_hud_c_minus = 0,
+			ms_paints_finish_plus = 0,
+			ms_paints_finish_minus = 0;
+
+		GTAvehicle vehicle = Static_12;
+
+		const std::vector<NamedVehiclePaint> PAINTS_FINISH
+		{
+			{ "Standard Metallic", 2, -1 },
+			{ "Dark Metallic", 0, -1 },
+			{ "Bright Metallic", 111, -1 },
+			{ "Matte", 12, -1 },
+			{ "Util", 15, -1 },
+			{ "Worn", 21, -1 },
+			{ "Brushed Metal", 117, -1 },
+			{ "Pure Chrome", 120, -1 },
+			{ "Coloured Chrome", 158, -1 },
+			{ "Satin", 159, -1 },
+		};
+
+		const std::vector<std::string> PAINTS_FINISH_NAMES
+		{
+			{ "Standard Metallic"},
+			{ "Dark Metallic"},
+			{ "Bright Metallic"},
+			{ "Matte"},
+			{ "Util"},
+			{ "Worn"},
+			{ "Brushed Metal"},
+			{ "Pure Chrome"},
+			{ "Coloured Chrome"},
+			{ "Satin"},
+		};
+
+		switch (getpaintCarUsing_index(Static_12, ms_curr_paint_index))
+		{
+			case 0:
+				ms_paints_finish = 1;
+				break;
+			case 111:
+				ms_paints_finish = 2;
+				break;
+			case 12:
+				ms_paints_finish = 3;
+				break;
+			case 15:
+				ms_paints_finish = 4;
+				break;
+			case 21:
+				ms_paints_finish = 5;
+				break;
+			case 117:
+				ms_paints_finish = 6;
+				break;
+			case 120:
+				ms_paints_finish = 7;
+				break;
+			case 158:
+				ms_paints_finish = 8;
+				break;
+			case 159:
+				ms_paints_finish = 9;
+				break;
+			case 2: default:
+				ms_paints_finish = 0;
+				break;
+		}
 
 		switch (bit_MSPaints_RGB_mode)
 		{
@@ -1080,8 +1147,8 @@ namespace sub
 		case 9: ms_paints_rgb_r = _globalSpawnVehicle_neonCol.R; ms_paints_rgb_g = _globalSpawnVehicle_neonCol.G; ms_paints_rgb_b = _globalSpawnVehicle_neonCol.B; break;
 		case 10: GET_HUD_COLOUR(Static_12, &ms_paints_rgb_r, &ms_paints_rgb_g, &ms_paints_rgb_b, &ms_paints_rgb_a); break;
 		}
-
 		AddTitle("Set Colour");
+		AddTexter("Paint Finish", ms_paints_finish, PAINTS_FINISH_NAMES, null , ms_paints_finish_plus, ms_paints_finish_minus);
 		AddNumber("Red", ms_paints_rgb_r, 0, ms_paints_rgb_r_custom, ms_paints_rgb_r_plus, ms_paints_rgb_r_minus);
 
 		switch (*Menu::currentopATM)
@@ -1306,8 +1373,56 @@ namespace sub
 			rgb_mode_set_carcol(Static_12, ms_paints_rgb_r, ms_paints_rgb_g, ms_paints_rgb_b, ms_paints_rgb_a);
 			return;
 		}
-
-
+		if (ms_paints_finish_plus)
+		{
+			if (ms_paints_finish < 9)
+				ms_paints_finish++;
+			else
+				ms_paints_finish = 0;
+			switch (ms_curr_paint_index)
+			{
+			case 1:	
+			{
+				auto& copy = vehicle.CustomPrimaryColour_get();
+				paintCarUsing_index(Static_12, ms_curr_paint_index, PAINTS_FINISH[ms_paints_finish].paint, -1);
+				vehicle.CustomPrimaryColour_set(copy.R, copy.G, copy.B);
+				break;
+			}
+			case 2:	
+			{
+				auto& copy = vehicle.CustomSecondaryColour_get();
+				paintCarUsing_index(Static_12, ms_curr_paint_index, PAINTS_FINISH[ms_paints_finish].paint, -1);
+				vehicle.CustomSecondaryColour_set(copy.R, copy.G, copy.B);
+				break;
+			}
+			}
+		}
+		if (ms_paints_finish_minus)
+		{
+			if (ms_paints_finish > 0)
+				ms_paints_finish--;
+			else
+				ms_paints_finish = 9;
+			switch (ms_curr_paint_index)
+			{
+			case 1:
+				if (GET_IS_VEHICLE_PRIMARY_COLOUR_CUSTOM(Static_12))
+				{
+					auto& copy = vehicle.CustomPrimaryColour_get();
+					paintCarUsing_index(Static_12, ms_curr_paint_index, PAINTS_FINISH[ms_paints_finish].paint, -1);
+					vehicle.CustomPrimaryColour_set(copy.R, copy.G, copy.B);
+				}
+				break;
+			case 2:
+				if (GET_IS_VEHICLE_SECONDARY_COLOUR_CUSTOM(Static_12))
+				{
+					auto& copy = vehicle.CustomSecondaryColour_get();
+					paintCarUsing_index(Static_12, ms_curr_paint_index, PAINTS_FINISH[ms_paints_finish].paint, -1);
+					vehicle.CustomSecondaryColour_set(copy.R, copy.G, copy.B);
+				}
+				break;
+			}
+		}
 	}
 
 	// vehicle - upgrades
