@@ -575,8 +575,6 @@ namespace sub
 		AddNumber("Dirt Level", dirtLevel, 2, null, dirtLevel_plus, dirtLevel_minus);
 		AddNumber("CarVariation Colours", carvarcol, 0, null, carvarcol_plus, carvarcol_minus);
 
-		Game::Print::PrintBottomCentre("Number of Vehicle Colours: " + std::to_string(GET_NUMBER_OF_VEHICLE_COLOURS(Static_12)));
-
 		if (firsttime)
 		{
 			GetAllPaintIDs();
@@ -662,7 +660,8 @@ namespace sub
 		bool paintIndex_plus = 0, paintIndex_minus = 0, paintIndex_input = 0,
 			MSPaints_RIndex = 0,
 			MSPaints_RColour = 0,
-			MSPaints_primRGB = 0;
+			MSPaints_primRGB = 0,
+			copypaint = 0;
 		
 		menuselect = true;
 		
@@ -718,16 +717,18 @@ namespace sub
 			AddNumber("Paint Index", paintIndex, 0, paintIndex_input, paintIndex_plus, paintIndex_minus);
 		}
 
+		AddOption("Random Index", MSPaints_RIndex);
+
+		std::string painttypeswitch;
 		if (ms_curr_paint_index == 1 || ms_curr_paint_index == 2)
 		{
-			AddOption("Random Index", MSPaints_RIndex);
 			AddOption("Random RGB", MSPaints_RColour);
 			AddOption("Set RGB", MSPaints_primRGB, nullFunc, SUB::MSPAINTS_RGB);
 			if (*Menu::currentopATM == Menu::printingop)
 				Add_preset_colour_options_previews(ms_curr_paint_index == 1 ? vehicle.CustomPrimaryColour_get() : ms_curr_paint_index == 2 ? vehicle.CustomSecondaryColour_get() : RgbS(0, 0, 0));
+			ms_curr_paint_index == 1 ? painttypeswitch = "Secondary" : painttypeswitch = "Primary";
+			AddOption("Copy to " + painttypeswitch, copypaint);
 		}
-
-		Game::Print::PrintBottomCentre("lastpaint = " + std::to_string(lastpaint) + ", ms_curr_paint_index = " + std::to_string(ms_curr_paint_index));
 
 		if (MSPaints_RIndex) {
 			if (vehicle.IsVehicle())
@@ -805,7 +806,27 @@ namespace sub
 			//OnscreenKeyboard::State::arg1._int = Static_12;
 			//OnscreenKeyboard::State::arg2._int = paintIndex;
 		}
-
+		if (copypaint)
+		{
+			paintCarUsing_index(Static_12, 3 - ms_curr_paint_index, getpaintCarUsing_index(Static_12, ms_curr_paint_index), -1);
+			switch (ms_curr_paint_index)
+			{
+			case 1:
+				if (GET_IS_VEHICLE_PRIMARY_COLOUR_CUSTOM(Static_12))
+				{
+					auto& copy = vehicle.CustomPrimaryColour_get();
+					vehicle.CustomSecondaryColour_set(copy.R ,copy.G, copy.B);
+				}
+				break;
+			case 2:
+				if (GET_IS_VEHICLE_SECONDARY_COLOUR_CUSTOM(Static_12))
+				{
+					auto& copy = vehicle.CustomSecondaryColour_get();
+					vehicle.CustomPrimaryColour_set(copy.R, copy.G, copy.B);
+				}
+				break;
+			}
+		}
 
 
 	}
@@ -1041,6 +1062,7 @@ namespace sub
 			ms_paints_rgb_a_custom = 0,
 			ms_paints_rgb_a_plus = 0,
 			ms_paints_rgb_a_minus = 0,
+			ms_paints_hexinput = 0,
 			settings_hud_c_custom = 0,
 			settings_hud_c_plus = 0,
 			settings_hud_c_minus = 0;
@@ -1073,6 +1095,7 @@ namespace sub
 		AddNumber("Blue", ms_paints_rgb_b, 0, ms_paints_rgb_b_custom, ms_paints_rgb_b_plus, ms_paints_rgb_b_minus);
 		if (ms_paints_rgb_a != -1) AddNumber("Opacity", ms_paints_rgb_a, 0, ms_paints_rgb_a_custom, ms_paints_rgb_a_plus, ms_paints_rgb_a_minus);
 		AddTexter("HUD Colour", settings_hud_c, HudColour::vHudColours, settings_hud_c_custom, settings_hud_c_plus, settings_hud_c_minus);
+		AddOption("~b~Input~s~ Hex Code", ms_paints_hexinput);
 
 		AddBreak("---Presets---");
 		if (Add_preset_colour_options(ms_paints_rgb_r, ms_paints_rgb_g, ms_paints_rgb_b))
@@ -1216,6 +1239,46 @@ namespace sub
 			//OnscreenKeyboard::State::arg1._int = Static_12;
 			//OnscreenKeyboard::State::arg2._uint = RGBA(ms_paints_rgb_r, ms_paints_rgb_g, ms_paints_rgb_b, ms_paints_rgb_a).ToArgb();
 			return;
+		}
+
+		if (ms_paints_hexinput)
+		{
+			char buffer[2041];
+			std::size_t hexcheck;
+			std::string titlestring,
+			hexr = _itoa(ms_paints_rgb_r, buffer, 16), //compiler says this may be unsafe
+			hexg = _itoa(ms_paints_rgb_g, buffer, 16), //I say fuck the compiler
+			hexb = _itoa(ms_paints_rgb_b, buffer, 16);
+			if (hexr.length() == 1)
+				hexr = "0" + hexr;
+			if (hexg.length() == 1)
+				hexg = "0" + hexg;
+			if (hexb.length() == 1)
+				hexb = "0" + hexb;
+			titlestring = hexr + hexg + hexb;
+			std::string inputStr = Game::InputBox("", 6U, "", titlestring);
+			if (inputStr.length() == 6)
+			{
+				try
+				{	
+					hexcheck = inputStr.find_first_not_of("0123456789abcdef");
+					if (hexcheck == std::string::npos)
+					{
+						ms_paints_rgb_r = std::stoul(inputStr.substr(0, 2), nullptr, 16);
+						ms_paints_rgb_g = std::stoul(inputStr.substr(2, 2), nullptr, 16);
+						ms_paints_rgb_b = std::stoul(inputStr.substr(4, 2), nullptr, 16);
+						rgb_mode_set_carcol(Static_12, ms_paints_rgb_r, ms_paints_rgb_g, ms_paints_rgb_b, 255);
+					}
+					else
+						Game::Print::PrintError_InvalidInput();
+				}
+				catch (...)
+				{
+					Game::Print::PrintError_InvalidInput();
+				}
+			}
+			else
+				Game::Print::PrintError_InvalidInput();			
 		}
 
 		if (settings_hud_c_plus) {
