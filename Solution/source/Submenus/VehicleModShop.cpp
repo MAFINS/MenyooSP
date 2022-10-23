@@ -557,9 +557,10 @@ namespace sub
 		float dirtLevel = GET_VEHICLE_DIRT_LEVEL(Static_12);
 		float carvarcol = GET_VEHICLE_COLOUR_COMBINATION(Static_12)+1;
 		bool set_mspaints_index_4 = 0, set_mspaints_index_3 = 0,
+			set_mspaints_index_5 = 0, set_mspaints_index_6 = 0,
 			paintFade_plus = 0, paintFade_minus = 0,
 			dirtLevel_plus = 0, dirtLevel_minus = 0,
-			carvarcol_plus = 0, carvarcol_minus = 0;
+			carvarcol_plus = 0, carvarcol_minus = 0,
 		getpaint = true;
 		menuselect = true;
 
@@ -570,6 +571,9 @@ namespace sub
 		AddMSPaintsPointOption_(Game::GetGXTEntry("CMOD_COL0_1", "Secondary"), 2); // Secondary CMOD_COL0_1
 		AddOption(Game::GetGXTEntry("CMOD_COL1_6", "Pearlescent"), set_mspaints_index_3, nullFunc, SUB::MSPAINTS2_WHEELS, true, false); // Pearlescent CMOD_COL1_6
 		AddOption(Game::GetGXTEntry("CMOD_MOD_WHEM", "Wheels"), set_mspaints_index_4, nullFunc, -1, true);
+		AddOption("Interior Colour", set_mspaints_index_5, nullFunc, SUB::MSPAINTS2, true);
+		AddOption("Dashboard Colour", set_mspaints_index_6, nullFunc, SUB::MSPAINTS2,true);
+
 
 		AddBreak("---Collateral---");
 		AddNumber("Paint Fade", paintFade, 2, null, paintFade_plus, paintFade_minus);
@@ -592,10 +596,20 @@ namespace sub
 
 		if (set_mspaints_index_4) {
 			ms_curr_paint_index = 4;
-			if (GET_VEHICLE_MOD(Static_12, VehicleMod::FrontWheels) > -1)
-				Menu::SetSub_new(SUB::MSPAINTS2_WHEELS);
-			else
-				Game::Print::PrintBottomCentre("~r~Error:~s~ Colours cannot be applied to stock wheels.");
+			if (GET_VEHICLE_MOD(Static_12, VehicleMod::FrontWheels) < 0)
+				Game::Print::PrintBottomCentre("~b~Note:~s~ Colours cannot always be applied to stock wheels.");
+			Menu::SetSub_new(SUB::MSPAINTS2_WHEELS);
+			return;
+		}
+
+		if (set_mspaints_index_5) {
+			ms_curr_paint_index = 5;
+			return;
+		}
+
+		if (set_mspaints_index_6) {
+			ms_curr_paint_index = 6;
+			return;
 		}
 
 		if (paintFade_plus)
@@ -1100,8 +1114,10 @@ namespace sub
 			{ "Satin"},
 		};
 
-		switch (getpaintCarUsing_index(Static_12, ms_curr_paint_index))
+		if (bit_MSPaints_RGB_mode == 0 || bit_MSPaints_RGB_mode == 1)
 		{
+			switch (getpaintCarUsing_index(Static_12, ms_curr_paint_index))
+			{
 			case 0:
 				ms_paints_finish = 1;
 				break;
@@ -1132,6 +1148,7 @@ namespace sub
 			case 2: default:
 				ms_paints_finish = 0;
 				break;
+			}
 		}
 
 		switch (bit_MSPaints_RGB_mode)
@@ -1148,7 +1165,8 @@ namespace sub
 		case 10: GET_HUD_COLOUR(Static_12, &ms_paints_rgb_r, &ms_paints_rgb_g, &ms_paints_rgb_b, &ms_paints_rgb_a); break;
 		}
 		AddTitle("Set Colour");
-		AddTexter("Paint Finish", ms_paints_finish, PAINTS_FINISH_NAMES, null , ms_paints_finish_plus, ms_paints_finish_minus);
+		if(bit_MSPaints_RGB_mode == 0 || bit_MSPaints_RGB_mode == 1)
+			AddTexter("Paint Finish", ms_paints_finish, PAINTS_FINISH_NAMES, null , ms_paints_finish_plus, ms_paints_finish_minus);
 		AddNumber("Red", ms_paints_rgb_r, 0, ms_paints_rgb_r_custom, ms_paints_rgb_r_plus, ms_paints_rgb_r_minus);
 
 		switch (*Menu::currentopATM)
