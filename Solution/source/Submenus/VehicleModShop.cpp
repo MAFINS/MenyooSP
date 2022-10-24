@@ -341,6 +341,7 @@ namespace sub
 		{
 			ms_curr_paint_index = index;
 			extra_option_code = true;
+			getpaint = true;
 		}
 	}
 	INT getpaintCarUsing_index(Vehicle veh, INT partIndex_CustomK)
@@ -496,7 +497,9 @@ namespace sub
 
 			if (pressed)
 			{
-				getpaint = true;
+				//lastpaint = getpaintCarUsing_index(vehicle, ms_curr_paint_index);
+				//lastpearl = getpaintCarUsing_index(vehicle, 3);
+				//getpaint = true;
 				menuselect = false;
 				//if (IS_ENTITY_A_VEHICLE(vehicle) || ms_curr_paint_index == 10 || ms_curr_paint_index == 11)
 					//paintCarUsing_index(vehicle, ms_curr_paint_index, lastpaint, lastpearl);
@@ -506,7 +509,7 @@ namespace sub
 			}
 			if (MenuPressTimer::IsButtonTapped(MenuPressTimer::Button::Back))
 			{
-				getpaint = true;
+				//getpaint = true;
 				menuselect = false;
 				if (IS_ENTITY_A_VEHICLE(vehicle) || ms_curr_paint_index == 10 || ms_curr_paint_index == 11)
 					paintCarUsing_index(vehicle, ms_curr_paint_index, lastpaint, lastpearl);
@@ -560,12 +563,11 @@ namespace sub
 			set_mspaints_index_5 = 0, set_mspaints_index_6 = 0,
 			paintFade_plus = 0, paintFade_minus = 0,
 			dirtLevel_plus = 0, dirtLevel_minus = 0,
-			carvarcol_plus = 0, carvarcol_minus = 0,
+			carvarcol_plus = 0, carvarcol_minus = 0;
 		getpaint = true;
 		menuselect = true;
 
-
-		AddTitle("Paints");
+				AddTitle("Paints");
 		AddMSPaintsPointOption_(Game::GetGXTEntry("CMOD_COL0_0", "Primary"), 1); // Primary CMOD_COL0_0
 		 //if (_DOES_VEHICLE_HAVE_SECONDARY_COLOUR(Static_12))
 		AddMSPaintsPointOption_(Game::GetGXTEntry("CMOD_COL0_1", "Secondary"), 2); // Secondary CMOD_COL0_1
