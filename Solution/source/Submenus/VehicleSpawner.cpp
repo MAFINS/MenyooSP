@@ -168,7 +168,7 @@ namespace sub
 				if (warpIntoVehicle)
 					SET_PED_INTO_VEHICLE(ped.Handle(), newcar, (int)GTAvehicle(newcar).FirstFreeSeat(SEAT_DRIVER));
 					SET_ENTITY_COLLISION(newcar, true, true);
-					SET_ENTITY_ALPHA(newcar, 255, false);
+					RESET_ENTITY_ALPHA(newcar);
 			}
 			//SET_VEHICLE_NUMBER_PLATE_TEXT_INDEX(newcar, 5);
 			//SET_VEHICLE_NUMBER_PLATE_TEXT(newcar, "MENYOO");
