@@ -1,16 +1,33 @@
-[![Build status](https://github.com/MAFINS/MenyooSP/actions/workflows/master_build.yml/badge.svg)](https://github.com/MAFINS/MenyooSP/actions)
-[![GitHub Latest nightly)](https://img.shields.io/github/v/release/MAFINS/MenyooSP?include_prereleases&label=pre-release&logo=GitHub)](https://github.com/MAFINS/MenyooSP/releases/tag/latest)
-[![GitHub latest release](https://img.shields.io/github/downloads/MAFINS/MenyooSP/latest/total?label=latest-release&logo=GitHub)](https://github.com/MAFINS/MenyooSP/releases/latest)
-[![GitHub all releases](https://img.shields.io/github/downloads/MAFINS/MenyooSP/total?label=all-releases&logo=GitHub)](https://github.com/MAFINS/MenyooSP/releases)
+[![Build status](https://github.com/tupoy-ya/MenyooMP/actions/workflows/master_build.yml/badge.svg)](https://github.com/MAFINS/MenyooSP/actions)
+[![GitHub Latest nightly)](https://img.shields.io/github/v/release/tupoy-ya/MenyooMP?include_prereleases&label=pre-release&logo=GitHub)](https://github.com/tupoy-ya/MenyooMP/releases/tag/latest)
+[![GitHub latest release](https://img.shields.io/github/downloads/tupoy-ya/MenyooMP/latest/total?label=latest-release&logo=GitHub)](https://github.com/tupoy-ya/MenyooMP/releases/latest)
+[![GitHub all releases](https://img.shields.io/github/downloads/tupoy-ya/MenyooMP/total?label=all-releases&logo=GitHub)](https://github.com/MAFINS/MenyooSP/releases)
 
-# Menyoo PC - [DOWNLOAD LATEST RELEASE](https://github.com/MAFINS/MenyooSP/releases/latest/download/MenyooSP.zip)
-# Menyoo PC - [DOWNLOAD LATEST NIGHTLY](https://github.com/MAFINS/MenyooSP/releases/download/latest/MenyooSP.zip)
-### a.k.a. MenyooSP
-#### Trainer for Grand Theft Auto V (single-player).
+## MenyooSP
+### a.k.a. MenyooMP
+#### Trainer for Grand Theft Auto V.
 ---
 
+## This is for educational purposes only. Use at your own risk.
+
+## MP Fixes
+- Removed sigscanned shit.
+- Removed detected natives.
+- Updated model spawn bypass (works like in BBv2 now).
+
+## General changes
+- Changed all sigs to use IDA sigs.
+
+## TODO
+- [ ] Wanted level.
+- [ ] Use [GTAV-Classes](https://github.com/Yimura/GTAV-Classes).
+- [ ] Update natives.
+
+#### If github fucks this checkboxes i will be mad.
+
 ## Requirements
-- [ScriptHookV by Alexander Blade](http://www.dev-c.com/gtav/scripthookv/)
+- Any normal ScriptHook. [Example](https://github.com/attitus3/OpenVHook).
+- GTA 5
 
 ## Build
 Visual Studio 2017 required
@@ -18,10 +35,10 @@ Visual Studio 2017 required
 
 ## Install
  Copy the Menyoo.asi file along with the menyooStuff folder to the Grand Theft Auto V game directory.  
- **IMPORTANT:** Please make sure that you have asiloader and ScriptHookV installed and they are up to date.
+ **IMPORTANT:** Please make sure that you have asiloader and ScriptHook installed and they are up to date.
 
 ## Download
-Compiled binary material can be found at [releases](https://github.com/MAFINS/MenyooSP/releases).
+Compiled binary material can be found at [releases](https://github.com/tupoy-ya/MenyooMP/releases).
 
 ## License
 Majority of the source code is licensed under the [GNU GPL v3](LICENSE.txt) license.
