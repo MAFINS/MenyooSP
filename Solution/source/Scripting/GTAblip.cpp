@@ -37,7 +37,7 @@ namespace BlipIcon {
 		{ BlipIcon::PoliceArea, "PoliceArea" },
 		{ BlipIcon::Square, "Square" },
 		{ BlipIcon::Player, "Player" },
-		{ BlipIcon::North, "North" },
+		{ BlipIcon::North, "N0rth" },
 		{ BlipIcon::Waypoint, "Waypoint" },
 		{ BlipIcon::BigCircle, "BigCircle" },
 		{ BlipIcon::BigCircleOutline, "BigCircleOutline" },

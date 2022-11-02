@@ -256,7 +256,7 @@ enum eGameVersion : int
 	VER_1_0_2699_0_STEAM,
 	VER_1_0_2699_0_NOSTEAM,
 
-	VER_1_0_2699_16
+	VER_1_0_2699_16,
 	
 	VER_SIZE,
 	VER_UNK = -1

@@ -531,23 +531,77 @@ void GTAmemory::Init()
 	// Get relative address and add it to the instruction address.
 	// 3 bytes equal the size of the opcode and its first argument. 7 bytes are the length of opcode and all its parameters.
 
-	CreateNmMessageFunc = FindPattern("33 DB 48 89 1D ? ? ? ? 85 FF") - 0x42;
-	GiveNmMessageFunc = FindPattern("0F 84 ? ? ? ? 48 8B 01 FF 90 ? ? ? ? 41 3B C5") - 0x78;
-	address = FindPattern("48 89 5C 24 ? 57 48 83 EC 20 48 8B D9 48 63 49 0C 41 8A F8");
+	address = MemryScan::PatternScanner::FindPattern("4C 8D 05 ? ? ? ? 0F B7 C1");
+	if (address) _blipList = reinterpret_cast<BlipList*>(*reinterpret_cast<int*>(address + 3) + address + 7);
+
+	address = MemryScan::PatternScanner::FindPattern("48 89 5C 24 08 48 89 6C 24 18 89 54 24 10 56 57 41 56 48 83 EC 20");
+	_gxtLabelFromHashFuncAddr = reinterpret_cast<char* (__fastcall*)(UINT64, unsigned int)>(address);
+	address = MemryScan::PatternScanner::FindPattern("84 C0 74 34 48 8D 0D ? ? ? ? 48 8B D3");
+	_gxtLabelFromHashAddr1 = *reinterpret_cast<int*>(address + 7) + address + 11;
+
+	address = MemryScan::PatternScanner::FindPattern("E8 ? ? ? ? 48 8B D8 48 85 C0 74 2E 48 83 3D");
+	_entityAddressFunc = reinterpret_cast<uintptr_t(*)(int)>(*reinterpret_cast<int*>(address + 1) + address + 5);
+	address = MemryScan::PatternScanner::FindPattern("B2 01 E8 ? ? ? ? 48 85 C0 74 1C 8A 88");
+	_playerAddressFunc = reinterpret_cast<uintptr_t(*)(int)>(*reinterpret_cast<int*>(address + 3) + address + 7);
+
+	address = MemryScan::PatternScanner::FindPattern("48 8B DA E8 ? ? ? ? F3 0F 10 44 24");
+	_entityPositionFunc = reinterpret_cast<UINT64(*)(UINT64, float*)>(address - 6);
+	address = MemryScan::PatternScanner::FindPattern("0F 85 ? ? ? ? 48 8B 4B 20 E8 ? ? ? ? 48 8B C8");
+	_entityModel1Func = reinterpret_cast<UINT64(*)(UINT64)>(*reinterpret_cast<int*>(address + 11) + address + 15);
+	address = MemryScan::PatternScanner::FindPattern("45 33 C9 3B 05");
+	_entityModel2Func = reinterpret_cast<UINT64(*)(UINT64)>(address - 0x46);
+
+	address = MemryScan::PatternScanner::FindPattern("4C 8B 05 ? ? ? ? 40 8A F2 8B E9");
+	_pickupObjectPoolAddress = reinterpret_cast<UINT64*>(*reinterpret_cast<int*>(address + 3) + address + 7);
+
+	address = MemryScan::PatternScanner::FindPattern("74 21 48 8B 48 20 48 85 C9 74 18 48 8B D6 E8") - 10;
+	_ptfxAddressFunc = reinterpret_cast<UINT64(*)(int)>(*reinterpret_cast<int*>(address) + address + 4);
+
+	address = MemryScan::PatternScanner::FindPattern("48 F7 F9 49 8B 48 08 48 63 D0 C1 E0 08 0F B6 1C 11 03 D8");
+	_addEntityToPoolFunc = reinterpret_cast<int(*)(UINT64)>(address - 0x68);
+
+	address = MemryScan::PatternScanner::FindPattern("4C 8B 0D ? ? ? ? 44 8B C1 49 8B 41 08");
+	_entityPoolAddress = reinterpret_cast<UINT64*>(*reinterpret_cast<int*>(address + 3) + address + 7);
+	address = MemryScan::PatternScanner::FindPattern("48 8B 05 ? ? ? ? F3 0F 59 F6 48 8B 08");
+	_vehiclePoolAddress = reinterpret_cast<UINT64*>(*reinterpret_cast<int*>(address + 3) + address + 7);
+	address = MemryScan::PatternScanner::FindPattern("48 8B 05 ? ? ? ? 41 0F BF C8 0F BF 40 10");
+	_pedPoolAddress = reinterpret_cast<UINT64*>(*reinterpret_cast<int*>(address + 3) + address + 7);
+	address = MemryScan::PatternScanner::FindPattern("48 8B 05 ? ? ? ? 8B 78 10 85 FF");
+	_objectPoolAddress = reinterpret_cast<UINT64*>(*reinterpret_cast<int*>(address + 3) + address + 7);
+
+	CreateNmMessageFunc = MemryScan::PatternScanner::FindPattern("33 DB 48 89 1D ? ? ? ? 85 FF") - 0x42;
+	GiveNmMessageFunc = MemryScan::PatternScanner::FindPattern("0F 84 ? ? ? ? 48 8B 01 FF 90 ? ? ? ? 41 3B C5") - 0x78;
+	address = MemryScan::PatternScanner::FindPattern("48 89 5C 24 ? 57 48 83 EC 20 48 8B D9 48 63 49 0C 41 8A F8");
 	SetNmBoolAddress = reinterpret_cast<unsigned char(*)(__int64, __int64, unsigned char)>(address);
-	address = FindPattern("40 53 48 83 EC 30 48 8B D9 48 63 49 0C");
+	address = MemryScan::PatternScanner::FindPattern("40 53 48 83 EC 30 48 8B D9 48 63 49 0C");
 	SetNmFloatAddress = reinterpret_cast<unsigned char(*)(__int64, __int64, float)>(address);
-	address = FindPattern("48 89 5C 24 ? 57 48 83 EC 20 48 8B D9 48 63 49 0C 41 8B F8");
+	address = MemryScan::PatternScanner::FindPattern("48 89 5C 24 ? 57 48 83 EC 20 48 8B D9 48 63 49 0C 41 8B F8");
 	SetNmIntAddress = reinterpret_cast<unsigned char(*)(__int64, __int64, int)>(address);
-	address = FindPattern("57 48 83 EC 20 48 8B D9 48 63 49 0C 49 8BE8") - 15;
+	address = MemryScan::PatternScanner::FindPattern("57 48 83 EC 20 48 8B D9 48 63 49 0C 49 8BE8") - 15;
 	SetNmStringAddress = reinterpret_cast<unsigned char(*)(__int64, __int64, __int64)>(address);
-	address = FindPattern(" 40 53 48 83 EC 40 48 8B D9 48 63 49 0C");
+	address = MemryScan::PatternScanner::FindPattern("40 53 48 83 EC 40 48 8B D9 48 63 49 0C");
 	SetNmVec3Address = reinterpret_cast<unsigned char(*)(__int64, __int64, float, float, float)>(address);
 
-	address = FindPattern("8A 4C 24 60 8B 50 10 44 8A CE");
+	address = MemryScan::PatternScanner::FindPattern("8A 4C 24 60 8B 50 10 44 8A CE");
 	CheckpointBaseAddr = reinterpret_cast<UINT64(*)()>(*reinterpret_cast<int*>(address - 19) + address - 15);
 	CheckpointHandleAddr = reinterpret_cast<UINT64(*)(UINT64, int)>(*reinterpret_cast<int*>(address - 9) + address - 5);
 	checkpointPoolAddress = reinterpret_cast<UINT64 *>(*reinterpret_cast<int *>(address + 17) + address + 21);
+
+	address = MemryScan::PatternScanner::FindPattern("48 8B 0B 33 D2 E8 ? ? ? ? 89 03");
+	_getHashKey = reinterpret_cast<unsigned int(*)(char*, unsigned int)>(*reinterpret_cast<int*>(address + 6) + address + 10);
+
+	address = MemryScan::PatternScanner::FindPattern("48 63 C1 48 8D 0D ? ? ? ? F3 0F 10 04 81 F3 0F 11 05 ? ? ? ?");
+	_writeWorldGravityAddress = reinterpret_cast<float*>(*reinterpret_cast<int*>(address + 6) + address + 10);
+	_readWorldGravityAddress = reinterpret_cast<float*>(*reinterpret_cast<int*>(address + 19) + address + 23);
+
+	address = MemryScan::PatternScanner::FindPattern("74 11 8B D1 48 8D 0D ? ? ? ? 45 33 C0", "xxxxxxx????xxx");
+	_cursorSpriteAddr = reinterpret_cast<int*>(*reinterpret_cast<int*>(address - 4) + address);
+
+	address = MemryScan::PatternScanner::FindPattern("48 8B C7 F3 0F 10 0D") - 0x1D;
+	address = address + *reinterpret_cast<int*>(address) + 4;
+	_gamePlayCameraAddr = reinterpret_cast<UINT64*>(*reinterpret_cast<int*>(address + 3) + address + 7);
+	address = MemryScan::PatternScanner::FindPattern("48 8B C8 EB 02 33 C9 48 85 C9 74 26") - 9;
+	_cameraPoolAddress = reinterpret_cast<UINT64*>(*reinterpret_cast<int*>(address) + address + 4);
 
 	GenerateVehicleModelList();
 }
@@ -575,7 +629,7 @@ struct HashNode
 void GTAmemory::GenerateVehicleModelList()
 {
 	//Zorg
-	uintptr_t address = FindPattern("66 81 F9 ? ? 74 10 4D 85 C0");
+	uintptr_t address = MemryScan::PatternScanner::FindPattern("66 81 F9 ? ? 74 10 4D 85 C0");
 	if (address)
 	{
 		address = address - 0x21;
@@ -667,7 +721,7 @@ UINT64 GTAmemory::_globalTextBlockAddr;
 std::vector<GTAmemory::GXT2Entry> GTAmemory::_vecGXT2Entries;
 void GTAmemory::LoadGlobalGXTEntries()
 {
-	UINT64 address = FindPattern("\x84\xC0\x74\x34\x48\x8D\x0D\x00\x00\x00\x00\x48\x8B\xD3", "xxxxxxx????xxx");
+	UINT64 address = FindPattern("84 C0 74 34 48 8D 0D ? ? ? ? 48 8B D3", "xxxxxxx????xxx");
 	if (address)
 	{
 		address = *reinterpret_cast<int *>(address + 7) + address + 11;

@@ -122,7 +122,7 @@ namespace sub
 		{ "Midnight Blue", COLOR_UTIL_MIDNIGHT_BLUE, -1 },
 		{ "Blue", COLOR_UTIL_BLUE, -1 },
 		{ "Sea Foam Blue", COLOR_UTIL_SEA_FOAM_BLUE, -1 },
-		{ "Lightning Blue", COLOR_UTIL_LIGHTNING_BLUE, -1 },
+		{ "lightning Blue", COLOR_UTIL_LIGHTNING_BLUE, -1 },
 		{ "Police Blue", COLOR_CLASSIC_POLICE_BLUE, -1 },
 		{ "Maui Blue", COLOR_UTIL_MAUI_BLUE_POLY, -1 },
 		{ "Bright Blue", COLOR_UTIL_BRIGHT_BLUE, -1 },

@@ -12,6 +12,7 @@
 //#include "GTAmath.h"
 
 #include <string>
+#include "../Scripting/enums.h"
 
 
 Hash GET_HASH_KEY(char* value)
@@ -76,11 +77,16 @@ bool IS_PED_SHOOTING(Ped ped)
 	return PED::IS_PED_SHOOTING_IN_AREA(ped, coords.x, coords.y, coords.z, coords.x, coords.y, coords.z, true, true);
 }
 
+bool IS_PLAYER_FREE_AIMING(Ped _)
+{
+	return IS_CONTROL_PRESSED(0, INPUT_ATTACK);
+}
+
 Entity IS_PLAYER_FREE_AIMING_AT_ENTITY(Player _, Entity ent)
 {
 	BOOL hit;
-	Vector3 endCoords;
-	Vector3 surfaceNormal;
+	Vector3_t endCoords;
+	Vector3_t surfaceNormal;
 
 	Vector3 camCoords = CAM::GET_GAMEPLAY_CAM_COORD();
 	Vector3 rot = CAM::GET_GAMEPLAY_CAM_ROT(2);
@@ -91,8 +97,8 @@ Entity IS_PLAYER_FREE_AIMING_AT_ENTITY(Player _, Entity ent)
 	farCoords.y = camCoords.y + dir.y * 1000;
 	farCoords.z = camCoords.z + dir.z * 1000;
 
-	int ray = SHAPETEST::START_EXPENSIVE_SYNCHRONOUS_SHAPE_TEST_LOS_PROBE(camCoords.x, camCoords.y, camCoords.z, farCoords.x, farCoords.y, farCoords.z, -1, 0, 7);
-	SHAPETEST::GET_SHAPE_TEST_RESULT(ray, &hit, &endCoords, &surfaceNormal, ent);
+	int ray = _CAST_RAY_POINT_TO_POINT(camCoords.x, camCoords.y, camCoords.z, farCoords.x, farCoords.y, farCoords.z, -1, 0, 7);
+	GET_SHAPE_TEST_RESULT(ray, &hit, &endCoords, &surfaceNormal, &ent);
 
 	return hit ? ent : 0;
 }
