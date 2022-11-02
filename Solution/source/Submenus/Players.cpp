@@ -40,7 +40,7 @@ namespace sub
 				if (bPlayerPressed)
 				{
 					Static_240 = i;
-					Static_241 = GET_PLAYER_PED(Static_240); // Store ped
+					Static_241 = GET_PLAYER_PED_SCRIPT_INDEX(Static_240); // Store ped
 					Static_239 = GET_PLAYER_NAME(Static_240); // Store name
 					Menu::SetSub_new(SUB::PLAYERSSUBAMENU); // Change submenu to 'PlayersSubAMenu_'
 				}
@@ -72,12 +72,12 @@ namespace sub
 			for (int i = 0; i < GAME_PLAYERCOUNT; i++)
 			{
 				if (!NETWORK_IS_PLAYER_ACTIVE(i)) continue;
-				ped = GET_PLAYER_PED(i);
+				ped = GET_PLAYER_PED_SCRIPT_INDEX(i);
 				if (!DOES_ENTITY_EXIST(ped)) continue;
 				_0x419594E137637120(0, ped, 1);
 				NETWORK_SET_IN_SPECTATOR_MODE(false, ped);
 			}
-			ped = GET_PLAYER_PED(loop_spectate_player);
+			ped = GET_PLAYER_PED_SCRIPT_INDEX(loop_spectate_player);
 			if (DOES_ENTITY_EXIST(ped))
 			{
 				STAT_SET_BOOL(GET_HASH_KEY("MPPLY_CAN_SPECTATE"), true, true);
@@ -90,7 +90,7 @@ namespace sub
 			for (int i = 0; i < GAME_PLAYERCOUNT; i++)
 			{
 				if (!NETWORK_IS_PLAYER_ACTIVE(i)) continue;
-				ped = GET_PLAYER_PED(i);
+				ped = GET_PLAYER_PED_SCRIPT_INDEX(i);
 				if (!DOES_ENTITY_EXIST(ped)) continue;
 				_0x419594E137637120(0, ped, 1);
 				NETWORK_SET_IN_SPECTATOR_MODE(false, ped);

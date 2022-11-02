@@ -499,7 +499,7 @@ namespace Game
 	}
 	GTAped PlayerPed(int index)
 	{
-		return PLAYER::GET_PLAYER_PED(index);
+		return PLAYER::GET_PLAYER_PED_SCRIPT_INDEX(index);
 	}
 
 }

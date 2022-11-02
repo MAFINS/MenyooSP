@@ -1064,7 +1064,7 @@ namespace sub
 				}
 			}
 
-			if (GET_PLAYER_PED(Static_240) == ped)
+			if (GET_PLAYER_PED_SCRIPT_INDEX(Static_240) == ped)
 				AddOption("Parachutes", null, nullFunc, SUB::WEAPONOPS_PARACHUTE);
 
 			bool pressed = false;

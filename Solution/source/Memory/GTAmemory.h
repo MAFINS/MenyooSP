@@ -153,7 +153,6 @@ public:
 	static float *_readWorldGravityAddress, *_writeWorldGravityAddress;
 	static UINT64 *_gamePlayCameraAddr;
 	static int* _cursorSpriteAddr;
-	static bool* _isMultiplayer;
 	static INT32* _transitionStatus;
 
 	static BlipList* _blipList;
@@ -335,30 +334,6 @@ private:
 	static const UINT16 poolCount_objects;
 
 };
-
-class SpSnow final// This is for sp since the global doesn't work in sp
-{
-private:
-	bool bDisabled, loop_spsnow, bInitialized;
-	bool bUseAddr13, bUseAddr22;
-	bool tracks_available;
-	DWORD64 traxp; //pedTracks
-	DWORD64 traxp_call; //pedTracks_first call
-	DWORD64 traxpt; //pedTrackTypes
-	DWORD64 traxv; //vehicleTracks
-	DWORD64 traxv_call; //vehicleTracks_first call
-	DWORD64 traxvt; //vehicleTrackTypes
-	UINT8 original1[14];
-	UINT8 original2[15];
-	void EnableSnow(bool bEnable);
-	void EnableTracks(bool tracksPed, bool deepTracksPed, bool tracksVehicle, bool deepTracksVehicle);
-public:
-	SpSnow();
-	bool IsSnow();
-	void ToggleSnow(bool bEnable);
-	void Tick();
-};
-extern SpSnow _SpSnow;
 
 class GeneralGlobalHax final
 {

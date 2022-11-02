@@ -187,7 +187,6 @@ void MenuConfig::ConfigRead()
 	loop_massacre_mode = ini.GetBoolValue(section_haxValues, "massacre_mode", loop_massacre_mode);
 	_JumpAroundMode_::bEnabled = ini.GetBoolValue(section_haxValues, "jump_around_mode", _JumpAroundMode_::bEnabled);
 	g_frozenRadioStation = (INT16)ini.GetLongValue(section_haxValues, "frozen_radio_station", g_frozenRadioStation);
-	_SpSnow.ToggleSnow(ini.GetBoolValue(section_haxValues, "snow_on_terrain", _SpSnow.IsSnow()));
 	sub::AnimalRiding_catind::Enabled() = ini.GetBoolValue(section_haxValues, "animal_riding_mode", sub::AnimalRiding_catind::Enabled());
 
 	loop_forge_gun = ini.GetBoolValue(section_haxValues, "forge_gun", loop_forge_gun);
@@ -433,7 +432,6 @@ void MenuConfig::ConfigSave()
 	ini.SetBoolValue(section_haxValues, "massacre_mode", loop_massacre_mode);
 	ini.SetBoolValue(section_haxValues, "jump_around_mode", _JumpAroundMode_::bEnabled);
 	ini.SetLongValue(section_haxValues, "frozen_radio_station", g_frozenRadioStation);
-	ini.SetBoolValue(section_haxValues, "snow_on_terrain", _SpSnow.IsSnow());
 	ini.SetBoolValue(section_haxValues, "animal_riding_mode", sub::AnimalRiding_catind::Enabled());
 
 	ini.SetBoolValue(section_haxValues, "forge_gun", loop_forge_gun);

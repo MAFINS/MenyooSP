@@ -96,9 +96,6 @@ void Menu::justopened()
 
 	SET_AUDIO_FLAG("IsDirectorModeActive", true);
 
-	SET_THIS_SCRIPT_CAN_BE_PAUSED(0);
-	SET_THIS_SCRIPT_CAN_REMOVE_BLIPS_CREATED_BY_ANY_SCRIPT(0); // lol poopoo dummy me this isn't a ysc
-
 	//sub::SettingsThemes_catind::g_menyooTheme_temp = sub::SettingsThemes_catind::MenyooTheme::CurrentlyActiveTheme();
 
 	g_menuNotOpenedYet = false;
@@ -614,24 +611,6 @@ void set_massacre_mode_tick()
 		//Vector3(GET_OFFSET_FROM_ENTITY_IN_WORLD_COORDS(tempPed, GET_RANDOM_FLOAT_IN_RANGE(-9.0f, -25.0f), GET_RANDOM_FLOAT_IN_RANGE(5.0f, 25.0f), GET_RANDOM_FLOAT_IN_RANGE(0.4f, 20.0f))).ToArray(tempCoords1);
 		//ADD_EXPLOSION(tempCoords1[0], tempCoords1[1], tempCoords1[2], EXPLOSION::DIR_WATER_HYDRANT, 8.0f, 1, 0, 0.0f);
 	}
-	// Zombies
-	/*tempHash = PedHash::Zombie01;
-	if (GET_GAME_TIMER() >= Menu::delayedTimer)
-	{
-	if (!HAS_MODEL_LOADED(tempHash)) REQUEST_MODEL(tempHash);
-	else
-	{
-	Vector3(GET_OFFSET_FROM_ENTITY_IN_WORLD_COORDS(tempPed, GET_RANDOM_FLOAT_IN_RANGE(25.0f, 50.0f), GET_RANDOM_FLOAT_IN_RANGE(25.0f, 50.0f), GET_RANDOM_FLOAT_IN_RANGE(0.4f, 5.0f))).ToArray(tempCoords1);
-	tempPed = CREATE_PED(PedType::Human, 2890614022, tempCoords1[0], tempCoords1[1], tempCoords1[2], GET_RANDOM_FLOAT_IN_RANGE(0.0f, 360.0f), 1, 1);
-	SET_NETWORK_ID_CAN_MIGRATE(PED_TO_NET(tempPed), 1);
-	SET_PED_COMBAT_ABILITY(tempPed, 100);
-	TASK_COMBAT_PED(tempPed, PLAYER_PED_ID(), 0, 16);
-	TASK_COMBAT_HATED_TARGETS_AROUND_PED(tempPed, 400.0f, 0);
-	SET_PED_AS_NO_LONGER_NEEDED(&tempPed);
-	}
-	}*/
-
-
 }
 
 // Misc
@@ -1728,20 +1707,6 @@ void set_ped_superman_AUTO(Ped ped)
 
 		APPLY_FORCE_TO_ENTITY(ped, 1, 0.0, 70.0f, 70.0f, 0.0, 0.0, 0.0, 0, 1, 0, 0, 0, 1);
 
-		////WeaponS ptfx = { "scr_rcbarry2", "scr_clown_appears" };
-		//WeaponS ptfx = { "scr_trevor1", "scr_trev1_trailer_boosh" };
-		//if (!HAS_NAMED_PTFX_ASSET_LOADED(ptfx.label)) REQUEST_NAMED_PTFX_ASSET(ptfx.label);
-		//else
-		//{
-		//	_SET_PTFX_ASSET_NEXT_CALL(ptfx.label);
-		//	//SET_PARTICLE_FX_NON_LOOPED_COLOUR(GET_RANDOM_FLOAT_IN_RANGE(0, 1), GET_RANDOM_FLOAT_IN_RANGE(0, 1), GET_RANDOM_FLOAT_IN_RANGE(0, 1));
-		//	SET_PARTICLE_FX_NON_LOOPED_ALPHA(0.58f);
-		//	_START_PARTICLE_FX_NON_LOOPED_ON_PED_BONE_2(ptfx.name, ped, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, Bone::RightFoot, 0.015f, 0, 0, 0);
-		//	_SET_PTFX_ASSET_NEXT_CALL(ptfx.label);
-		//	SET_PARTICLE_FX_NON_LOOPED_ALPHA(0.58f);
-		//	_START_PARTICLE_FX_NON_LOOPED_ON_PED_BONE_2(ptfx.name, ped, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, Bone::LeftFoot, 0.015f, 0, 0, 0);
-		//}
-
 		if (ped == PLAYER_PED_ID())
 		{
 			bool isBrakePressed, isBrakeReleased = false;
@@ -1927,63 +1892,6 @@ void set_local_forcefield()
 		//set_explosion_at_coords(myPed, Vector3::Zero(), EXPLOSION::BLIMP, 5.0, 0.0f, 0, 1);
 		break;
 	}
-
-	/*INT i, offsettedID;
-
-	FLOAT h, myh = GET_ENTITY_HEADING(myPed);
-
-	Ped *peds = new Ped[40 * 2 + 2];
-	peds[0] = 40;
-	INT found = GET_PED_NEARBY_PEDS(myPed, peds, -1);
-	for (i = 0; i < found; i++)
-	{
-	offsettedID = i * 2 + 2;
-
-	if (!DOES_ENTITY_EXIST(peds[offsettedID]))	continue;
-
-	if (vdist(Pos, GET_ENTITY_COORDS(peds[offsettedID], 1)) > 7.2f) continue;
-	NETWORK_REQUEST_CONTROL_OF_ENTITY(peds[offsettedID]);
-	h = GET_ENTITY_HEADING(peds[offsettedID]);
-	if (h < myh + 45 && h > myh - 45)
-	APPLY_FORCE_TO_ENTITY(peds[offsettedID], 1, 0, 18, 0, 0, 0, -3, 1, 1, 1, 1, 0, 1);
-	myh += 45;
-	if (myh > 360) myh -= 360;
-	if (h < myh + 45 && h > myh - 45)
-	{
-	SET_ENTITY_HEADING(peds[offsettedID], myh);
-	APPLY_FORCE_TO_ENTITY(peds[offsettedID], 1, 0, 18, 0, 0, 0, -3, 1, 1, 1, 1, 0, 1);
-	}
-
-
-	}
-	delete[] peds;
-
-	Vehicle *vehicles = new Vehicle[40 * 2 + 2];
-	vehicles[0] = 40;
-	found = GET_PED_NEARBY_VEHICLES(myPed, vehicles);
-	Int3 NeonRGB = { RandomRGB(), RandomRGB(), RandomRGB() };
-	for (i = 0; i < found; i++)
-	{
-	offsettedID = i * 2 + 2;
-
-	if (!DOES_ENTITY_EXIST(vehicles[offsettedID]))	continue;
-
-	if (vdist(Pos, GET_ENTITY_COORDS(vehicles[offsettedID], 1)) > 7.2f) continue;
-	NETWORK_REQUEST_CONTROL_OF_ENTITY(vehicles[offsettedID]);
-	h = GET_ENTITY_HEADING(vehicles[offsettedID]);
-	if (h < myh + 45 && h > myh - 45)
-	APPLY_FORCE_TO_ENTITY(vehicles[offsettedID], 1, 0, 70, 0, 0, 0, -3, 1, 1, 1, 1, 0, 1);
-	myh += 45;
-	if (myh > 360) myh -= 360;
-	if (h < myh + 45 && h > myh - 45)
-	{
-	SET_ENTITY_HEADING(vehicles[offsettedID], myh);
-	APPLY_FORCE_TO_ENTITY(vehicles[offsettedID], 1, 0, 70, 0, 0, 0, -3, 1, 1, 1, 1, 0, 1);
-	}
-
-
-	}
-	delete[] vehicles;*/
 
 }
 
@@ -2737,7 +2645,6 @@ void Menu::loops()
 	sub::VehicleAutoDrive_catind::Tick();//sub::VehicleAutoDrive_catind::Methods.Tick();
 	sub::GravityGun_catind::Tick();//sub::GravityGun_catind::g_gravityGun.Tick();
 	_MagnetGun_::g_magnetGun.Tick();
-	_SpSnow.Tick();
 	_VehicleTow_::g_vehicleTow.Tick();
 	_VehicleCruise_::g_vehicleCruise.Tick();
 	_VehicleFly_::g_vehicleFly.Tick();
@@ -2835,7 +2742,6 @@ void Menu::loops()
 		if (loop_self_freezeWantedLevel)
 		{
 			SET_PLAYER_WANTED_LEVEL(player, loop_self_freezeWantedLevel, 0);
-			SET_PLAYER_WANTED_LEVEL_NOW(player, 0);
 		}
 
 		if (loop_player_unlimSpecialAbility)
@@ -3026,7 +2932,7 @@ void Menu::loops()
 		//	FLASH_ABILITY_BAR(10000);
 		//SET_SPECIAL_ABILITY_MULTIPLIER(FLT_MAX);
 		if (!GET_PLAYER_INVINCIBLE(PLAYER_ID()))
-			SET_PLAYER_INVINCIBLE(PLAYER_ID(), 1);
+			SET_ENTITY_INVINCIBLE(PLAYER_PED_ID(), 1);
 		set_ped_invincible_on(PLAYER_PED_ID());
 	}
 	if (mult_self_sweat > 0.0f)
@@ -3151,8 +3057,6 @@ void Menu::loops()
 				veh.LightsOn_set(true);
 		}
 	}
-
-
 
 	// ONLY IF SELF IS IN A VEHICLE
 	if (IS_PED_IN_ANY_VEHICLE(PLAYER_PED_ID(), 0))
@@ -3285,13 +3189,10 @@ void Menu::loops()
 
 	//Print (WORLD2SCREEN) for PV'ops remembered vehicle
 	set_PVops_vehicle_text_world2Screen();
-
-
 }
 
 inline void menu_AllPlayerOps()
 {
-	bool bAmIOnline = NETWORK_IS_IN_SESSION() != 0;
 	int myPlayer = PLAYER_ID();
 
 	// Spectate player
@@ -3300,7 +3201,7 @@ inline void menu_AllPlayerOps()
 		if (!NETWORK_IS_PLAYER_ACTIVE(loop_spectate_player))
 		{
 			_0x419594E137637120(false, loop_spectate_player, 1);
-			int p = GET_PLAYER_PED(loop_spectate_player);
+			int p = GET_PLAYER_PED_SCRIPT_INDEX(loop_spectate_player);
 			if (DOES_ENTITY_EXIST(p))
 				NETWORK_SET_IN_SPECTATOR_MODE(false, p);
 			NETWORK_SET_ACTIVITY_SPECTATOR(false);
@@ -3308,7 +3209,7 @@ inline void menu_AllPlayerOps()
 		}
 		else
 		{
-			NETWORK_SET_IN_SPECTATOR_MODE(true, GET_PLAYER_PED(loop_spectate_player));
+			NETWORK_SET_IN_SPECTATOR_MODE(true, GET_PLAYER_PED_SCRIPT_INDEX(loop_spectate_player));
 		}
 	}
 

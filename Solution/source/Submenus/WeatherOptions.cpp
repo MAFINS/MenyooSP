@@ -26,9 +26,7 @@ namespace sub
 {
 	void WeatherOps_()
 	{
-		bool spsnow_on = 0,
-			spsnow_off = 0,
-			windSpeed_plus = 0, windSpeed_minus = 0,
+		bool windSpeed_plus = 0, windSpeed_minus = 0,
 			rainfxi_plus = 0, rainfxi_minus = 0,
 			wavesHeight_plus = 0, wavesHeight_minus = 0,
 			gravityLevel_plus = 0, gravityLevel_minus = 0,
@@ -66,30 +64,13 @@ namespace sub
 				World::SetWeatherOverride(weatherName);
 			}
 		}
-		//AddweatherOption_("Clear");
-		//AddweatherOption_("ExtraSunny");
-		//AddweatherOption_("Clouds");
-		//AddweatherOption_("Smog");
-		//AddweatherOption_("Foggy");
-		//AddweatherOption_("Overcast");
-		//AddweatherOption_("Clearing");
-		//AddweatherOption_("Rain");
-		//AddweatherOption_("Thunder");
-		//AddweatherOption_("Neutral");
-		//AddweatherOption_("Snow");
-		//AddweatherOption_("SnowLight");
-		//AddweatherOption_("Blizzard");
-		//AddweatherOption_("Xmas");
-		AddLocal("Snow On Terrain", _SpSnow.IsSnow(), spsnow_on, spsnow_off);
+		
 		AddNumber("Wind Speed", windSpeed, 2, null, windSpeed_plus, windSpeed_minus);
 		AddNumber("Ocean Wave Strength", wavesHeight, 2, null, wavesHeight_plus, wavesHeight_minus);
 		AddNumber("Rain Puddles Multiplier", _globalRainFXIntensity, 2, null, rainfxi_plus, rainfxi_minus);
 		AddTexter("Gravity Level", 0, std::vector<std::string>{v0gravities[mult_0_gravity]}, null, gravityLevel_plus, gravityLevel_minus);
 		AddOption("Clouds", null, nullFunc, SUB::CLOUDOPS);
 		AddOption("Water Hack (For Waves At Beaches)", null, nullFunc, SUB::WATERHACK);
-
-
-		if (spsnow_on || spsnow_off) { _SpSnow.ToggleSnow(spsnow_on); }
 
 		if (windSpeed_plus)
 		{

@@ -161,7 +161,7 @@ namespace sub
 		}
 
 		if (PlayerOpsInvincibilityOff_) {
-			SET_PLAYER_INVINCIBLE(PLAYER_ID(), 0);
+			SET_ENTITY_INVINCIBLE(PLAYER_PED_ID(), 0);
 			set_ped_invincible_off(PLAYER_PED_ID());
 			return;
 		}
@@ -202,7 +202,6 @@ namespace sub
 
 		if (PlayerOpsNeverWantedOn_) {
 			SET_PLAYER_WANTED_LEVEL(PLAYER_ID(), 0, 0);
-			SET_PLAYER_WANTED_LEVEL_NOW(PLAYER_ID(), 0);
 			return;
 		}
 		if (PlayerOpsNeverWantedOff_) {
@@ -217,7 +216,6 @@ namespace sub
 				PlayerOpsWantedLevel += 1;
 				SET_MAX_WANTED_LEVEL(6);
 				SET_PLAYER_WANTED_LEVEL/*_NO_DROP*/(PLAYER_ID(), PlayerOpsWantedLevel, 0);
-				SET_PLAYER_WANTED_LEVEL_NOW(PLAYER_ID(), 0);
 				loop_never_wanted = false;
 			}
 			if (loop_self_freezeWantedLevel != 0) loop_self_freezeWantedLevel = PlayerOpsWantedLevel;
@@ -236,7 +234,6 @@ namespace sub
 					PlayerOpsWantedLevel -= 1;
 					SET_PLAYER_WANTED_LEVEL/*_NO_DROP*/(PLAYER_ID(), PlayerOpsWantedLevel, 0);
 				}
-				SET_PLAYER_WANTED_LEVEL_NOW(PLAYER_ID(), 0);
 				loop_never_wanted = false;
 			}
 			if (loop_self_freezeWantedLevel != 0) loop_self_freezeWantedLevel = PlayerOpsWantedLevel;
@@ -254,7 +251,7 @@ namespace sub
 
 		if (PlayerOpsBurnModeOn_) {
 			//set_explosion_at_coords(Static_241, Vector3::Zero(), EXPLOSION::DIR_FLAME, 4, 0, 0, 1);
-			if (GET_PLAYER_INVINCIBLE(Static_240)) SET_PLAYER_INVINCIBLE(Static_240, 0);
+			if (GET_PLAYER_INVINCIBLE(Static_240)) SET_ENTITY_INVINCIBLE(Static_241, 0);
 			set_ped_invincible_off(Static_241);
 			WAIT(130);
 			if (!IS_ENTITY_ON_FIRE(Static_241)) START_ENTITY_FIRE(Static_241);

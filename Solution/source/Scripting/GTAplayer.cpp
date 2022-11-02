@@ -50,7 +50,7 @@ void GTAplayer::SetIndex(INT8 newIndex)
 
 GTAped GTAplayer::GetPed() const
 {
-	return GET_PLAYER_PED(index);
+	return GET_PLAYER_PED_SCRIPT_INDEX(index);
 }
 
 std::string GTAplayer::GetName() const

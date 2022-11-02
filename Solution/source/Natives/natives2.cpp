@@ -70,6 +70,30 @@ void add_text_component_long_string(const std::string& text)
 	}
 }
 
+bool IS_PED_SHOOTING(Ped ped) 
+{
+	Vector3 coords = ENTITY::GET_ENTITY_COORDS(ped, 1);
+	return PED::IS_PED_SHOOTING_IN_AREA(ped, coords.x, coords.y, coords.z, coords.x, coords.y, coords.z, true, true);
+}
 
+Entity IS_PLAYER_FREE_AIMING_AT_ENTITY(Player _, Entity ent)
+{
+	BOOL hit;
+	Vector3 endCoords;
+	Vector3 surfaceNormal;
 
+	Vector3 camCoords = CAM::GET_GAMEPLAY_CAM_COORD();
+	Vector3 rot = CAM::GET_GAMEPLAY_CAM_ROT(2);
+	Vector3 dir = Vector3::RotationToDirection(rot);
+	Vector3 farCoords;
+
+	farCoords.x = camCoords.x + dir.x * 1000;
+	farCoords.y = camCoords.y + dir.y * 1000;
+	farCoords.z = camCoords.z + dir.z * 1000;
+
+	int ray = SHAPETEST::START_EXPENSIVE_SYNCHRONOUS_SHAPE_TEST_LOS_PROBE(camCoords.x, camCoords.y, camCoords.z, farCoords.x, farCoords.y, farCoords.z, -1, 0, 7);
+	SHAPETEST::GET_SHAPE_TEST_RESULT(ray, &hit, &endCoords, &surfaceNormal, ent);
+
+	return hit ? ent : 0;
+}
 
