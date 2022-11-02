@@ -13,6 +13,7 @@
 
 #include <string>
 #include "../Scripting/enums.h"
+#include "../Memory/GTAmemory.h"
 
 
 Hash GET_HASH_KEY(char* value)
@@ -103,3 +104,29 @@ Entity IS_PLAYER_FREE_AIMING_AT_ENTITY(Player _, Entity ent)
 	return hit ? ent : 0;
 }
 
+Vehicle CREATE_VEHICLE(Hash modelHash, float x, float y, float z, float heading, BOOL networkHandle, BOOL vehiclehandle)
+{
+	*(unsigned short*)GTAmemory::m_model_spawn_bypass = 0x9090;
+	Vehicle veh = CREATE_VEHICLE_ORIGINAL(modelHash, x, y, z, heading, networkHandle, vehiclehandle);
+	*(unsigned short*)GTAmemory::m_model_spawn_bypass = 0x0574;
+
+	return veh;
+}
+
+Ped CREATE_PED(int pedType, Hash modelHash, float x, float y, float z, float heading, BOOL networkHandle, BOOL pedHandle)
+{
+	*(unsigned short*)GTAmemory::m_model_spawn_bypass = 0x9090;
+	Ped ped = CREATE_PED_ORIGINAL(pedType, modelHash, x, y, z, heading, networkHandle, pedHandle);
+	*(unsigned short*)GTAmemory::m_model_spawn_bypass = 0x0574;
+
+	return ped;
+}
+
+Ped CREATE_RANDOM_PED(float posX, float posY, float posZ)
+{
+	*(unsigned short*)GTAmemory::m_model_spawn_bypass = 0x9090;
+	Ped ped = CREATE_RANDOM_PED_ORIGINAL(posX, posY, posZ);
+	*(unsigned short*)GTAmemory::m_model_spawn_bypass = 0x0574;
+
+	return ped;
+}

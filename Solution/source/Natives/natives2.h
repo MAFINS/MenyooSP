@@ -79,6 +79,11 @@ bool IS_PLAYER_FREE_AIMING(Ped _);
 
 Entity IS_PLAYER_FREE_AIMING_AT_ENTITY(Player _, Entity ent);
 
+Vehicle CREATE_VEHICLE(Hash modelHash, float x, float y, float z, float heading, BOOL networkHandle, BOOL vehiclehandle);
+
+Ped CREATE_PED(int pedType, Hash modelHash, float x, float y, float z, float heading, BOOL networkHandle, BOOL pedHandle);
+Ped CREATE_RANDOM_PED(float posX, float posY, float posZ);
+
 namespace PED
 {
 	static void SET_PED_RANDOM_COMPONENT_VARIATION(Ped ped, bool p1) { invoke<Void>(0xC8A9481A01E63C28, ped, p1); } // 0xC8A9481A01E63C28 0x4111BA46

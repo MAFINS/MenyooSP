@@ -154,6 +154,8 @@ public:
 	static UINT64 *_gamePlayCameraAddr;
 	static int* _cursorSpriteAddr;
 	static INT32* _transitionStatus;
+	static PVOID m_model_spawn_bypass;
+	static PVOID m_world_model_spawn_bypass;
 
 	static BlipList* _blipList;
 	static BlipList* GetBlipList();
