@@ -142,23 +142,12 @@ namespace sub
 						if (space != std::string::npos)
 						{
 							lineLeft = line.substr(0, space);
-							//lineLeft = lineLeft.substr(0, lineLeft.find('-'));
 							lineRight = line.substr(space + 1);
-							//lineRight = lineRight.substr(0, lineRight.find('-'));
 							vAllPedAnims[lineLeft].push_back(lineRight);
-							//newFileLines.push_back(line);
 						}
 					}
 				}
 				fin.close();
-
-				//std::sort(vAllAnims.begin(), vAllAnims.end());
-				/*std::ofstream fout(GetPathffA(Pathff::Main, true) + "PedAnimList.txt");
-				for (auto& line : newFileLines)
-				{
-				fout << line << std::endl;
-				}
-				fout.close();*/
 			}
 		}
 
@@ -176,8 +165,6 @@ namespace sub
 			{
 				_searchStr = Game::InputBox(_searchStr, 126U, "", _searchStr);
 				boost::to_lower(_searchStr);
-				//OnscreenKeyboard::State::Set(OnscreenKeyboard::Purpose::SearchToLower, _searchStr, 126U, std::string(), _searchStr);
-				//OnscreenKeyboard::State::arg1._ptr = reinterpret_cast<void*>(&_searchStr);
 			}
 
 			AddOption("Stop Animation", null, AnimationSub_StopAnimationCallback);
@@ -320,9 +307,9 @@ namespace sub
 		if (anim_name.length() == 0)
 			anim_name = text;
 		bool pressed = false;
-		AddTickol(text, IS_ENTITY_PLAYING_ANIM(Static_241, const_cast<PCHAR>(anim_dict.c_str()), const_cast<PCHAR>(anim_name.c_str()), 3), pressed, pressed, TICKOL::MANWON); if (pressed)
+		AddTickol(text, IS_ENTITY_PLAYING_ANIM(local_ped_id, const_cast<PCHAR>(anim_dict.c_str()), const_cast<PCHAR>(anim_name.c_str()), 3), pressed, pressed, TICKOL::MANWON); if (pressed)
 		{
-			GTAped ped = Static_241;
+			GTAped ped = local_ped_id;
 			GTAentity att;
 			auto spi = sub::Spooner::EntityManagement::GetEntityIndexInDb(ped);
 			if (spi >= 0)
@@ -381,7 +368,7 @@ namespace sub
 
 	void AnimationSub_StopAnimationCallback()
 	{
-		GTAped ped = Static_241;
+		GTAped ped = local_ped_id;
 		GTAentity att;
 		auto spi = sub::Spooner::EntityManagement::GetEntityIndexInDb(ped);
 		if (spi >= 0)
@@ -423,18 +410,18 @@ namespace sub
 	void AnimationSub_()
 	{
 		//sub::Spooner::SpoonerEntity uselessSpoonerEntity;
-		//sub::Spooner::SpoonerEntity* spoonerCurrentPed = Static_241 == sub::Spooner::SelectedEntity.Handle.Handle() ? &sub::Spooner::SelectedEntity : &uselessSpoonerEntity;
+		//sub::Spooner::SpoonerEntity* spoonerCurrentPed = local_ped_id == sub::Spooner::SelectedEntity.Handle.Handle() ? &sub::Spooner::SelectedEntity : &uselessSpoonerEntity;
 		auto& _searchStr = dict;
 		dict.clear();
 
 		bool dictset_deer = 0, dictset_cow = 0, dictset_shark = 0, dictset_guard_reac = 0, dictset_randarrests = 0,
 			dictset_swat = 0, dictset_missrappel = 0, dictset_gestures_sitting = 0;
 
-		SET_PED_CAN_PLAY_AMBIENT_ANIMS(Static_241, TRUE);
-		SET_PED_CAN_PLAY_AMBIENT_BASE_ANIMS(Static_241, TRUE);
-		SET_PED_CAN_PLAY_GESTURE_ANIMS(Static_241, TRUE);
-		SET_PED_CAN_PLAY_VISEME_ANIMS(Static_241, TRUE, TRUE);
-		_0x33A60D8BDD6E508C(Static_241, TRUE);
+		SET_PED_CAN_PLAY_AMBIENT_ANIMS(local_ped_id, TRUE);
+		SET_PED_CAN_PLAY_AMBIENT_BASE_ANIMS(local_ped_id, TRUE);
+		SET_PED_CAN_PLAY_GESTURE_ANIMS(local_ped_id, TRUE);
+		SET_PED_CAN_PLAY_VISEME_ANIMS(local_ped_id, TRUE, TRUE);
+		SET_PED_IS_IGNORED_BY_AUTO_OPEN_DOORS(local_ped_id, TRUE);
 
 		AddTitle("Animations");
 		AddOption("Stop Animation", null, AnimationSub_StopAnimationCallback);
@@ -655,7 +642,7 @@ namespace sub
 
 		if (apply)
 		{
-			GTAped ped = Static_241;
+			GTAped ped = local_ped_id;
 			GTAentity att;
 			auto spi = sub::Spooner::EntityManagement::GetEntityIndexInDb(ped);
 			if (spi >= 0)
@@ -688,7 +675,7 @@ namespace sub
 
 		if (stop)
 		{
-			GTAped ped = Static_241;
+			GTAped ped = local_ped_id;
 			GTAentity att;
 			auto spi = sub::Spooner::EntityManagement::GetEntityIndexInDb(ped);
 			if (spi >= 0)
@@ -1061,10 +1048,10 @@ namespace sub
 		void __AddOption(const std::string& text, const std::string& scenarioLabel, int delay = -1, bool playEnterAnim = true)
 		{
 			bool pressed = false;
-			AddTickol(text, IS_PED_USING_SCENARIO(Static_241, const_cast<PCHAR>(scenarioLabel.c_str())), pressed, pressed, TICKOL::MANWON);
+			AddTickol(text, IS_PED_USING_SCENARIO(local_ped_id, const_cast<PCHAR>(scenarioLabel.c_str())), pressed, pressed, TICKOL::MANWON);
 			if (pressed)
 			{
-				GTAped ped = Static_241;
+				GTAped ped = local_ped_id;
 				GTAentity att;
 				auto spi = sub::Spooner::EntityManagement::GetEntityIndexInDb(ped);
 				if (spi >= 0)
@@ -1078,13 +1065,13 @@ namespace sub
 				if (!ped.Task().IsUsingScenario(scenarioLabel))
 				{
 					//ped.Task().StartScenario(scenarioLabel, delay, playEnterAnim);
-					TASK_START_SCENARIO_IN_PLACE(Static_241, const_cast<PCHAR>(scenarioLabel.c_str()), delay, playEnterAnim);
+					TASK_START_SCENARIO_IN_PLACE(local_ped_id, const_cast<PCHAR>(scenarioLabel.c_str()), delay, playEnterAnim);
 				}
 
 				if (scenarioLabel.find("MUSICIAN") != std::string::npos)
 				{
 					ped.Task().ClearAllImmediately();
-					TASK_START_SCENARIO_IN_PLACE(Static_241, "WORLD_HUMAN_MUSICIAN", delay, playEnterAnim);
+					TASK_START_SCENARIO_IN_PLACE(local_ped_id, "WORLD_HUMAN_MUSICIAN", delay, playEnterAnim);
 				}
 
 				if (spi >= 0)
@@ -1107,7 +1094,7 @@ namespace sub
 		}
 		void stopScenarioPls()
 		{
-			GTAped ped = Static_241;
+			GTAped ped = local_ped_id;
 			GTAentity att;
 			auto spi = sub::Spooner::EntityManagement::GetEntityIndexInDb(ped);
 			if (spi >= 0)
@@ -1207,7 +1194,7 @@ namespace sub
 		SET_PED_MOVEMENT_CLIPSET(ped.Handle(), const_cast<PCHAR>(setName.c_str()), 0x3E800000);
 		WAIT(30);
 		Vector3& coord = GET_ENTITY_COORDS(ped.Handle(), 1);
-		SET_ENTITY_COORDS(Static_241, coord.x, coord.y, coord.z + 0.05f, 0, 0, 0, 1);
+		SET_ENTITY_COORDS(local_ped_id, coord.x, coord.y, coord.z + 0.05f, 0, 0, 0, 1);
 		FREEZE_ENTITY_POSITION(ped.Handle(), 0);
 		g_pedList_movGrp[ped.Handle()] = setName;
 	}
@@ -1226,7 +1213,7 @@ namespace sub
 		SET_PED_WEAPON_MOVEMENT_CLIPSET(ped.Handle(), const_cast<PCHAR>(setName.c_str()));
 		WAIT(30);
 		Vector3& coord = GET_ENTITY_COORDS(ped.Handle(), 1);
-		SET_ENTITY_COORDS(Static_241, coord.x, coord.y, coord.z + 0.05f, 0, 0, 0, 1);
+		SET_ENTITY_COORDS(local_ped_id, coord.x, coord.y, coord.z + 0.05f, 0, 0, 0, 1);
 		FREEZE_ENTITY_POSITION(ped.Handle(), 0);
 		g_pedList_wmovGrp[ped.Handle()] = setName;
 	}
@@ -1236,12 +1223,12 @@ namespace sub
 		if (movgrp.length() == 0) movgrp = text;
 		PCHAR movgrp2 = const_cast<PCHAR>(movgrp.c_str());
 
-		bool bMovGrpIsActive = get_ped_movement_clipset(Static_241) == movgrp2;
+		bool bMovGrpIsActive = get_ped_movement_clipset(local_ped_id) == movgrp2;
 
 		bool pressed = false;
 		AddTickol(text, bMovGrpIsActive, pressed, pressed); if (pressed)
 		{
-			set_ped_movement_clipset(Static_241, movgrp);
+			set_ped_movement_clipset(local_ped_id, movgrp);
 			extra_option_code = true;
 		}
 	}
@@ -1250,21 +1237,21 @@ namespace sub
 		if (movgrp.length() == 0) movgrp = text;
 		PCHAR movgrp2 = const_cast<PCHAR>(movgrp.c_str());
 
-		bool bMovGrpIsActive = get_ped_weapon_movement_clipset(Static_241) == movgrp2;
+		bool bMovGrpIsActive = get_ped_weapon_movement_clipset(local_ped_id) == movgrp2;
 
 		bool pressed = false;
 		AddTickol(text, bMovGrpIsActive, pressed, pressed); if (pressed)
 		{
-			set_ped_weapon_movement_clipset(Static_241, movgrp);
+			set_ped_weapon_movement_clipset(local_ped_id, movgrp);
 			extra_option_code = true;
 		}
 	}
 	void MovementGroup_()
 	{
-		auto mgit = g_pedList_movGrp.find(Static_241);
+		auto mgit = g_pedList_movGrp.find(local_ped_id);
 		bool mgitIsValid = mgit != g_pedList_movGrp.end();
 
-		auto wmgit = g_pedList_wmovGrp.find(Static_241);
+		auto wmgit = g_pedList_wmovGrp.find(local_ped_id);
 		bool wmgitIsValid = mgit != g_pedList_wmovGrp.end();
 
 		bool MovementGroupReset_ = 0, MovementGroupResetW_ = 0;
@@ -1393,27 +1380,27 @@ namespace sub
 			bool bWeaponAnimPressed = false;
 			AddOption(wa.first, bWeaponAnimPressed); if (bWeaponAnimPressed)
 			{
-				WEAPON::SET_WEAPON_ANIMATION_OVERRIDE(Static_241, wa.second);
+				WEAPON::SET_WEAPON_ANIMATION_OVERRIDE(local_ped_id, wa.second);
 			}
 		}
 
 
 		if (MovementGroupReset_)
 		{
-			RESET_PED_MOVEMENT_CLIPSET(Static_241, 0x3E800000);
+			RESET_PED_MOVEMENT_CLIPSET(local_ped_id, 0x3E800000);
 			WAIT(10);
-			Vector3 Coord = GET_ENTITY_COORDS(Static_241, 1);
-			SET_ENTITY_COORDS_NO_OFFSET(Static_241, Coord.x, Coord.y, Coord.z + 0.05f, 1, 1, 0);
-			FREEZE_ENTITY_POSITION(Static_241, 0);
+			Vector3 Coord = GET_ENTITY_COORDS(local_ped_id, 1);
+			SET_ENTITY_COORDS_NO_OFFSET(local_ped_id, Coord.x, Coord.y, Coord.z + 0.05f, 1, 1, 0);
+			FREEZE_ENTITY_POSITION(local_ped_id, 0);
 			if (mgitIsValid) g_pedList_movGrp.erase(mgit);
 		}
 		if (MovementGroupResetW_)
 		{
-			RESET_PED_WEAPON_MOVEMENT_CLIPSET(Static_241);
+			RESET_PED_WEAPON_MOVEMENT_CLIPSET(local_ped_id);
 			WAIT(10);
-			Vector3 Coord = GET_ENTITY_COORDS(Static_241, 1);
-			SET_ENTITY_COORDS_NO_OFFSET(Static_241, Coord.x, Coord.y, Coord.z + 0.05f, 1, 1, 0);
-			FREEZE_ENTITY_POSITION(Static_241, 0);
+			Vector3 Coord = GET_ENTITY_COORDS(local_ped_id, 1);
+			SET_ENTITY_COORDS_NO_OFFSET(local_ped_id, Coord.x, Coord.y, Coord.z + 0.05f, 1, 1, 0);
+			FREEZE_ENTITY_POSITION(local_ped_id, 0);
 			if (wmgitIsValid) g_pedList_wmovGrp.erase(wmgit);
 		}
 
@@ -1442,7 +1429,7 @@ namespace sub
 
 		void Sub_FacialMood()
 		{
-			GTAentity ped = Static_241;
+			GTAentity ped = local_ped_id;
 			auto& current = get_ped_facial_mood(ped);
 
 			AddTitle("Mood");

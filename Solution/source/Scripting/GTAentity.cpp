@@ -150,7 +150,7 @@ int GTAentity::Health_get() const
 }
 void GTAentity::Health_set(int value)
 {
-	SET_ENTITY_HEALTH(this->mHandle, value);
+	SET_ENTITY_HEALTH(this->mHandle, value, 0);
 }
 
 float GTAentity::HeightAboveGround() const
@@ -160,7 +160,7 @@ float GTAentity::HeightAboveGround() const
 float GTAentity::GetGroundZ() const
 {
 	Vector3& pos = this->Position_get();
-	GET_GROUND_Z_FOR_3D_COORD(pos.x, pos.y, 1100.0f, &pos.z);
+	GET_GROUND_Z_FOR_3D_COORD(pos.x, pos.y, 1100.0f, &pos.z, false, false);
 	return pos.z;
 }
 void GTAentity::PlaceOnGround()
@@ -192,7 +192,7 @@ bool GTAentity::IsAlive() const
 }
 bool GTAentity::IsDead() const
 {
-	return IS_ENTITY_DEAD(this->mHandle) != 0;
+	return IS_ENTITY_DEAD(this->mHandle, 0) != 0;
 }
 bool GTAentity::IsInAir() const
 {
@@ -276,7 +276,7 @@ bool GTAentity::IsVisible() const
 }
 void GTAentity::SetVisible(bool value)
 {
-	SET_ENTITY_VISIBLE(this->mHandle, value);
+	SET_ENTITY_VISIBLE(this->mHandle, value, 0);
 }
 
 int GTAentity::MaxHealth_get() const
@@ -423,7 +423,7 @@ void GTAentity::HasCollisionWithEntity_set(const GTAentity& ent, bool value)
 }
 bool GTAentity::IsCollisionEnabled_get() const
 {
-	return !_IS_ENTITY_COLLISON_DISABLED(this->mHandle);
+	return !GET_ENTITY_COLLISION_DISABLED(this->mHandle);
 }
 void GTAentity::IsCollisionEnabled_set(bool value)
 {
@@ -547,11 +547,11 @@ void GTAentity::AttachTo(GTAentity entity, int boneIndex, bool collision)
 }
 void GTAentity::AttachTo(GTAentity entity, int boneIndex, bool collision, Vector3 position, Vector3 rotation)
 {
-	ATTACH_ENTITY_TO_ENTITY(this->mHandle, entity.Handle(), boneIndex, position.x, position.y, position.z, rotation.x, rotation.y, rotation.z, FALSE, FALSE, collision, FALSE, 2, TRUE);
+	ATTACH_ENTITY_TO_ENTITY(this->mHandle, entity.Handle(), boneIndex, position.x, position.y, position.z, rotation.x, rotation.y, rotation.z, FALSE, FALSE, collision, FALSE, 2, TRUE, 0);
 }
 void GTAentity::AttachTo(GTAentity entity, int boneIndex, Vector3 position, Vector3 rotation, bool b9, bool useSoftPinning, bool collision, bool isPed, int vertexIndex, bool fixedRot)
 {
-	ATTACH_ENTITY_TO_ENTITY(this->mHandle, entity.Handle(), boneIndex, position.x, position.y, position.z, rotation.x, rotation.y, rotation.z, b9, useSoftPinning, collision, isPed, vertexIndex, fixedRot);
+	ATTACH_ENTITY_TO_ENTITY(this->mHandle, entity.Handle(), boneIndex, position.x, position.y, position.z, rotation.x, rotation.y, rotation.z, b9, useSoftPinning, collision, isPed, vertexIndex, fixedRot, 0);
 }
 void GTAentity::AttachPhysicallyTo(GTAentity entity, int boneIndexDoer, int boneIndexGetter, float forceToBreak)
 {

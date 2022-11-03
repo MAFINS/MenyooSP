@@ -1217,7 +1217,7 @@ void give_ped_max_ammo(GTAentity ped)
 				int maxAmmo = 0;
 				GET_MAX_AMMO(ped.Handle(), c.weaponHash, &maxAmmo);
 				SET_AMMO_IN_CLIP(ped.Handle(), c.weaponHash, GET_MAX_AMMO_IN_CLIP(ped.Handle(), c.weaponHash, false));
-				SET_PED_AMMO(ped.Handle(), c.weaponHash, maxAmmo);
+				SET_PED_AMMO(ped.Handle(), c.weaponHash, maxAmmo, 0);
 			}
 		}
 	}
@@ -1253,7 +1253,7 @@ void give_all_weapons_to_ped(GTAentity ped, bool bInfAmmo)
 					int maxAmmo = 0;
 					GET_MAX_AMMO(ped.Handle(), c.weaponHash, &maxAmmo);
 					SET_AMMO_IN_CLIP(ped.Handle(), c.weaponHash, GET_MAX_AMMO_IN_CLIP(ped.Handle(), c.weaponHash, false));
-					SET_PED_AMMO(ped.Handle(), c.weaponHash, maxAmmo);
+					SET_PED_AMMO(ped.Handle(), c.weaponHash, maxAmmo, 0);
 				}
 
 				//SET_PED_WEAPON_TINT_INDEX(ped.Handle(), c.weaponHash, c.tintCaptions->size() - 1);

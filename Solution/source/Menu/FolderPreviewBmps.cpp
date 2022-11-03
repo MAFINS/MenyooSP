@@ -117,7 +117,7 @@ namespace sub
 
 				if (menuPos.x > 0.45f) x_coord = menuPos.x - 0.003f;
 
-				DRAW_RECT(x_coord, y_coord, res.x + 0.003f, res.y + 0.003f, 0, 0, 0, 212);
+				DRAW_RECT(x_coord, y_coord, res.x + 0.003f, res.y + 0.003f, 0, 0, 0, 212, 0);
 
 				if (it->second.Exists())
 				{

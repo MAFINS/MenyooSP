@@ -48,8 +48,8 @@ namespace sub
 		};
 		float mult_0_gravity = GTAmemory::WorldGravity_get();
 
-		float windSpeed = GAMEPLAY::GET_WIND_SPEED();
-		float wavesHeight = WATER::_GET_WAVES_HEIGHT();
+		float windSpeed = MISC::GET_WIND_SPEED();
+		float wavesHeight = WATER::GET_DEEP_OCEAN_SCALER();
 
 		AddTitle("Weather");
 		AddTickol("Reset Weather", true, bClearWeatherOverride, bClearWeatherOverride, TICKOL::CROSS); if (bClearWeatherOverride)
@@ -59,7 +59,7 @@ namespace sub
 		for (auto& weatherName : World::sWeatherNames)
 		{
 			bool bWeatherPressed = false;
-			AddTickol(weatherName, _GET_CURRENT_WEATHER_TYPE() == GET_HASH_KEY(weatherName), bWeatherPressed, bWeatherPressed); if (bWeatherPressed)
+			AddTickol(weatherName, GET_PREV_WEATHER_TYPE_HASH_NAME() == GET_HASH_KEY(weatherName), bWeatherPressed, bWeatherPressed); if (bWeatherPressed)
 			{
 				World::SetWeatherOverride(weatherName);
 			}
@@ -75,34 +75,34 @@ namespace sub
 		if (windSpeed_plus)
 		{
 			windSpeed += 0.1f;
-			GAMEPLAY::SET_WIND_SPEED(windSpeed);
+			MISC::SET_WIND_SPEED(windSpeed);
 		}
 		if (windSpeed_minus)
 		{
 			windSpeed -= 0.1f;
-			GAMEPLAY::SET_WIND_SPEED(windSpeed);
+			MISC::SET_WIND_SPEED(windSpeed);
 		}
 
 		if (wavesHeight_plus)
 		{
 			wavesHeight += 0.1f;
-			WATER::_SET_WAVES_HEIGHT(wavesHeight);
+			WATER::SET_DEEP_OCEAN_SCALER(wavesHeight);
 		}
 		if (wavesHeight_minus)
 		{
 			wavesHeight -= 0.1f;
-			WATER::_SET_WAVES_HEIGHT(wavesHeight);
+			WATER::SET_DEEP_OCEAN_SCALER(wavesHeight);
 		}
 
 		if (rainfxi_plus)
 		{
 			if (_globalRainFXIntensity < 45.0f) _globalRainFXIntensity += 0.1f;
-			_SET_RAIN_FX_INTENSITY(_globalRainFXIntensity);
+			SET_RAIN(_globalRainFXIntensity);
 		}
 		if (rainfxi_minus)
 		{
 			if (_globalRainFXIntensity > 0.0f) _globalRainFXIntensity -= 0.1f;
-			_SET_RAIN_FX_INTENSITY(_globalRainFXIntensity);
+			SET_RAIN(_globalRainFXIntensity);
 		}
 
 		if (gravityLevel_plus)
@@ -164,7 +164,7 @@ namespace sub
 			bool bResetPressed = false;
 			AddTickol("Reset", true, bResetPressed, bResetPressed, TICKOL::CROSS); if (bResetPressed)
 			{
-				_CLEAR_CLOUD_HAT();
+				UNLOAD_ALL_CLOUD_HATS();
 			}
 
 			for (auto& name : vCloudNames)
@@ -172,7 +172,7 @@ namespace sub
 				bool bPressed = false;
 				AddOption(name, bPressed); if (bPressed)
 				{
-					_SET_CLOUD_HAT_TRANSITION(const_cast<PCHAR>(name.c_str()), 0.5f);
+					LOAD_CLOUD_HAT(const_cast<PCHAR>(name.c_str()), 0.5f);
 				}
 			}
 		}

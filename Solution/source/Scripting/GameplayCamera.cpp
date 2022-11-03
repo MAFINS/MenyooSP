@@ -25,7 +25,7 @@ float GameplayCamera::FieldOfView_get()
 }
 void GameplayCamera::FieldOfView_set(float value)
 {
-	_0x487A82C650EB7799(value); // I have no clue what this does
+	SET_GAMEPLAY_CAM_MOTION_BLUR_SCALING_THIS_UPDATE(value); // I have no clue what this does
 }
 
 bool GameplayCamera::IsAimCamActive()
@@ -115,7 +115,7 @@ Vector3 GameplayCamera::Direction_get()
 }
 float GameplayCamera::Zoom_get()
 {
-	return _GET_GAMEPLAY_CAM_ZOOM();
+	return GET_FIRST_PERSON_AIM_CAM_ZOOM_FACTOR();
 }
 void GameplayCamera::ShakeAmplitude_set(float value)
 {
@@ -134,12 +134,12 @@ void GameplayCamera::StopShaking(bool value)
 
 void GameplayCamera::ClampYaw(float min, float max)
 {
-	_CLAMP_GAMEPLAY_CAM_YAW(min, max);
+	SET_THIRD_PERSON_CAM_RELATIVE_HEADING_LIMITS_THIS_UPDATE(min, max);
 }
 
 void GameplayCamera::ClampPitch(float min, float max)
 {
-	_CLAMP_GAMEPLAY_CAM_PITCH(min, max);
+	SET_THIRD_PERSON_CAM_RELATIVE_PITCH_LIMITS_THIS_UPDATE(min, max);
 }
 
 Vector3 GameplayCamera::ScreenToWorld(const Vector2& screenCoord)
@@ -208,7 +208,7 @@ Vector3 GameplayCamera::DirectionFromScreenCentre_get()
 
 bool GameplayCamera::WorldToScreenRel(const Vector3& worldCoords, Vector2& screenCoords)
 {
-	if (!_WORLD3D_TO_SCREEN2D(worldCoords.x, worldCoords.y, worldCoords.z, &screenCoords.x, &screenCoords.y))
+	if (!GET_SCREEN_COORD_FROM_WORLD_COORD(worldCoords.x, worldCoords.y, worldCoords.z, &screenCoords.x, &screenCoords.y))
 		return false;
 
 	screenCoords.x = (screenCoords.x - 0.5f) * 2.0f;

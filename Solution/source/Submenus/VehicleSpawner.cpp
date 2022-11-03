@@ -100,7 +100,7 @@ namespace sub
 			SET_ENTITY_ALPHA(newcar, 0, false);
 			SET_VEHICLE_HAS_STRONG_AXLES(newcar, 1);
 			SET_VEHICLE_DIRT_LEVEL(newcar, 0.0f);
-			_SET_VEHICLE_PAINT_FADE(newcar, 0.0f);
+			SET_VEHICLE_ENVEFF_SCALE(newcar, 0.0f);
 			SET_ENTITY_AS_MISSION_ENTITY(newcar, 0, 1); //Fixes the despawning of MP onl;y cars after a couple of secs
 			//	SET_ENTITY_PROOFS(newcar, 1, 1, 1, 1, 1, 1, 1, 1);
 
@@ -119,21 +119,19 @@ namespace sub
 					SET_ENTITY_COLLISION(oldcar, false, true);
 					SET_ENTITY_ALPHA(oldcar, 0, false);
 				}
-				SET_VEHICLE_ENGINE_ON(newcar, true, true);
+				SET_VEHICLE_ENGINE_ON(newcar, true, true, false);
 				SET_ENTITY_COLLISION(newcar, true, true);
 				SET_ENTITY_ALPHA(newcar, 255, false);
 				if (warpIntoVehicle)
 				{
-					//if (Model(GET_ENTITY_MODEL(oldcar)).IsPlane()) CLEAR_PED_TASKS_IMMEDIATELY(ped); // mainPed
 					int maxi = GET_VEHICLE_MAX_NUMBER_OF_PASSENGERS(newcar);// - 2;
 					for (INT i = -1; i <= maxi; i++)
 					{
-						Ped tempPed = GET_PED_IN_VEHICLE_SEAT(oldcar, i);
+						Ped tempPed = GET_PED_IN_VEHICLE_SEAT(oldcar, i, 0);
 						if (DOES_ENTITY_EXIST(tempPed))
 						{
 							if (GTAentity(tempPed).RequestControl())
 							{
-								//CLEAR_PED_TASKS_IMMEDIATELY(tempPed);
 								SET_PED_INTO_VEHICLE(tempPed, newcar, i);
 							}
 						}
@@ -146,7 +144,7 @@ namespace sub
 					int maxi = GET_VEHICLE_MAX_NUMBER_OF_PASSENGERS(oldcar);// - 2;
 					for (INT i = -1; i <= maxi; i++)
 					{
-						Ped tempPed = GET_PED_IN_VEHICLE_SEAT(oldcar, i);
+						Ped tempPed = GET_PED_IN_VEHICLE_SEAT(oldcar, i, 0);
 						if (DOES_ENTITY_EXIST(tempPed))
 						{
 							if (GTAentity(tempPed).RequestControl())
@@ -806,7 +804,7 @@ namespace sub
 			if (menuPos.x > 0.45f)
 				x_coord = menuPos.x - 0.003f;
 
-			DRAW_RECT(x_coord, y_coord, res.x + 0.003f, res.y + 0.003f, 0, 0, 0, 212);
+			DRAW_RECT(x_coord, y_coord, res.x + 0.003f, res.y + 0.003f, 0, 0, 0, 212, 0);
 
 			auto vit = std::find(vVehicleBmps.begin(), vVehicleBmps.end(), vehModel.hash);
 			if (vit != vVehicleBmps.end()) //if found
@@ -821,7 +819,7 @@ namespace sub
 					PCHAR imgName = const_cast<PCHAR>(vit->imgName.c_str());
 					if (!HAS_STREAMED_TEXTURE_DICT_LOADED(dict))
 						REQUEST_STREAMED_TEXTURE_DICT(dict, false);
-					DRAW_SPRITE(dict, imgName, x_coord, y_coord, res.x, res.y, 0.0f, 255, 255, 255, 255);
+					DRAW_SPRITE(dict, imgName, x_coord, y_coord, res.x, res.y, 0.0f, 255, 255, 255, 255, 0, 0);
 				}
 			}
 			else
@@ -944,7 +942,7 @@ namespace sub
 		if (spnrandom || spawnvehicle_input)
 		{
 			Model model;
-			Ped ped = Static_241;
+			Ped ped = local_ped_id;
 
 			if (spnrandom)
 			{
@@ -978,7 +976,7 @@ namespace sub
 		/*if (spawnvehicle_input)
 		{
 		OnscreenKeyboard::State::Set(OnscreenKeyboard::Purpose::VehicleSpawnerInput, std::string(), 64U, "Enter vehicle model name (e.g. adder):");
-		OnscreenKeyboard::State::arg1._int = Static_241;
+		OnscreenKeyboard::State::arg1._int = local_ped_id;
 		}*/
 
 		/*PCHAR chartick;
@@ -1182,7 +1180,7 @@ namespace sub
 				sub::Spooner::MenuOptions::AddOption_AddVehicle(vehModel.VehicleDisplayName(true), vehModel);
 				break;
 			case SUB::SPAWNVEHICLE:
-				AddVSpawnOption_(vehModel.VehicleDisplayName(true), vehModel, Static_241);
+				AddVSpawnOption_(vehModel.VehicleDisplayName(true), vehModel, local_ped_id);
 				break;
 
 			}
@@ -1196,9 +1194,9 @@ namespace sub
 				AddkgunOption_(vehModel.VehicleDisplayName(true), vehModel.hash, nullptr, false);
 				break;
 			case SUB::MSENGINESOUND:
-				AddTickol(vehModel.VehicleDisplayName(true), get_vehicle_engine_sound_name(Static_12) == vehModel.VehicleDisplayName(false), bSetEngSoundPressed, bSetEngSoundPressed); if (bSetEngSoundPressed)
+				AddTickol(vehModel.VehicleDisplayName(true), get_vehicle_engine_sound_name(_hud_color_index) == vehModel.VehicleDisplayName(false), bSetEngSoundPressed, bSetEngSoundPressed); if (bSetEngSoundPressed)
 				{
-					GTAvehicle veh12 = Static_12;
+					GTAvehicle veh12 = _hud_color_index;
 					veh12.RequestControl(200);
 					set_vehicle_engine_sound_name(veh12, vehModel.VehicleDisplayName(false));
 				}
@@ -1251,7 +1249,7 @@ namespace sub
 		auto& _searchStr = dict2;
 		using namespace SpawnVehicle_catind;
 
-		GTAped myPed = Static_241;
+		GTAped myPed = local_ped_id;
 		GTAvehicle myVehicle = myPed.CurrentVehicle();
 		bool bIsInVehicle = myVehicle.Exists();
 
@@ -1378,7 +1376,7 @@ namespace sub
 						sub::Spooner::MenuOptions::AddOption_AddVehicle(vehDisplayName, vehModel);
 						break;
 					case SUB::SPAWNVEHICLE:
-						AddVSpawnOption_(vehDisplayName, vehModel, Static_241);
+						AddVSpawnOption_(vehDisplayName, vehModel, local_ped_id);
 						break;
 					}
 					/// one submenu back >>>
@@ -1391,9 +1389,9 @@ namespace sub
 						AddkgunOption_(vehDisplayName, vehModel.hash, &null, false);
 						break;
 					case SUB::MSENGINESOUND:
-						AddTickol(vehDisplayName, get_vehicle_engine_sound_name(Static_12) == vehModel.VehicleDisplayName(false), bSetEngSoundPressed, bSetEngSoundPressed); if (bSetEngSoundPressed)
+						AddTickol(vehDisplayName, get_vehicle_engine_sound_name(_hud_color_index) == vehModel.VehicleDisplayName(false), bSetEngSoundPressed, bSetEngSoundPressed); if (bSetEngSoundPressed)
 						{
-							GTAvehicle veh12 = Static_12;
+							GTAvehicle veh12 = _hud_color_index;
 							veh12.RequestControl(200);
 							set_vehicle_engine_sound_name(veh12, vehModel.VehicleDisplayName(false));
 						}
@@ -1543,7 +1541,7 @@ namespace sub
 			nodeVehicleStuff.append_child("EngineOn").text() = ev.EngineRunning_get();
 			nodeVehicleStuff.append_child("EngineHealth").text() = ev.EngineHealth_get();
 			nodeVehicleStuff.append_child("LightsOn").text() = ev.LightsOn_get();
-			nodeVehicleStuff.append_child("IsRadioLoud").text() = _IS_VEHICLE_RADIO_LOUD(ev.Handle());// != 0;
+			nodeVehicleStuff.append_child("IsRadioLoud").text() = CAN_VEHICLE_RECEIVE_CB_RADIO(ev.Handle());// != 0;
 			nodeVehicleStuff.append_child("LockStatus").text() = (int)ev.LockStatus_get();
 
 			// Neons
@@ -1857,12 +1855,12 @@ namespace sub
 			auto& nodeVehicleHeadlightIntensity = nodeVehicleStuff.child("HeadlightIntensity");
 			if (nodeVehicleRpmMultiplier)
 			{
-				_SET_VEHICLE_ENGINE_POWER_MULTIPLIER(ev.Handle(), nodeVehicleRpmMultiplier.text().as_float());
+				MODIFY_VEHICLE_TOP_SPEED(ev.Handle(), nodeVehicleRpmMultiplier.text().as_float());
 				g_multList_rpm[ev.Handle()] = nodeVehicleRpmMultiplier.text().as_float();
 			}
 			if (nodeVehicleTorqueMultiplier)
 			{
-				_SET_VEHICLE_ENGINE_TORQUE_MULTIPLIER(ev.Handle(), nodeVehicleTorqueMultiplier.text().as_float());
+				SET_VEHICLE_CHEAT_POWER_INCREASE(ev.Handle(), nodeVehicleTorqueMultiplier.text().as_float());
 				g_multList_torque[ev.Handle()] = nodeVehicleTorqueMultiplier.text().as_float();
 			}
 			if (nodeVehicleMaxSpeed)
@@ -2023,7 +2021,7 @@ namespace sub
 			auto& _name = dict;
 			auto& _dir = dict3;
 
-			auto ped = Static_241;
+			auto ped = local_ped_id;
 			auto vehicle = GET_VEHICLE_PED_IS_USING(ped);
 			bool isPedInVeh = IS_PED_IN_ANY_VEHICLE(ped, 0) || IS_PED_SITTING_IN_ANY_VEHICLE(ped);
 
@@ -2167,7 +2165,7 @@ namespace sub
 			auto& _dir = dict3;
 			std::string& filePath = _dir + "\\" + _name + ".xml";
 
-			auto& ped = Static_241;
+			auto& ped = local_ped_id;
 			auto vehicle = GET_VEHICLE_PED_IS_USING(ped);
 			bool isPedInVeh = IS_PED_IN_ANY_VEHICLE(ped, 0) || IS_PED_SITTING_IN_ANY_VEHICLE(ped);
 

@@ -74,7 +74,7 @@ namespace Game
 	}
 	void RequestScript(PCHAR scriptName, int stackSize)
 	{
-		if (_GET_NUMBER_OF_INSTANCES_OF_STREAMED_SCRIPT(GET_HASH_KEY(scriptName)) == 0 && DOES_SCRIPT_EXIST(scriptName))
+		if (GET_NUMBER_OF_THREADS_RUNNING_THE_SCRIPT_WITH_THIS_HASH(GET_HASH_KEY(scriptName)) == 0 && DOES_SCRIPT_EXIST(scriptName))
 		{
 			REQUEST_SCRIPT(scriptName);
 
@@ -94,13 +94,13 @@ namespace Game
 	// GXT
 	inline bool DoesGXTEntryExist(const std::string& entry)
 	{
-		return UI::DOES_TEXT_LABEL_EXIST(const_cast<PCHAR>(entry.c_str())) != 0;
+		return HUD::DOES_TEXT_LABEL_EXIST(const_cast<PCHAR>(entry.c_str())) != 0;
 	}
 	std::string GetGXTEntry(const std::string& entry, const std::string& fallback)
 	{
 		if (DoesGXTEntryExist(entry))
 		{
-			return UI::_GET_LABEL_TEXT(const_cast<PCHAR>(entry.c_str()));
+			return HUD::GET_FILENAME_FOR_AUDIO_CONVERSATION(const_cast<PCHAR>(entry.c_str()));
 		}
 		return fallback.empty() ? entry : fallback;
 	}
@@ -128,7 +128,7 @@ namespace Game
 
 		bool GameSound::LoadBank(const std::string& audioBank)
 		{
-			return REQUEST_SCRIPT_AUDIO_BANK((PCHAR)audioBank.c_str(), false) != 0;
+			return REQUEST_SCRIPT_AUDIO_BANK((PCHAR)audioBank.c_str(), false, 0) != 0;
 		}
 		void GameSound::UnloadBank(const std::string& audioBank)
 		{
@@ -205,7 +205,7 @@ namespace Game
 				BEGIN_TEXT_COMMAND_DISPLAY_TEXT("jamyfafi");
 				add_text_component_long_string(s);
 			}
-			_DRAW_TEXT(X, Y);
+			END_TEXT_COMMAND_DISPLAY_TEXT(X, Y, 0);
 		}
 		void drawstring(std::ostream& os, float X, float Y)
 		{
@@ -220,7 +220,7 @@ namespace Game
 				BEGIN_TEXT_COMMAND_DISPLAY_TEXT("jamyfafi");
 				add_text_component_long_string(s);
 			}
-			_DRAW_TEXT(X, Y);
+			END_TEXT_COMMAND_DISPLAY_TEXT(X, Y, 0);
 		}
 		void drawstringGXT(const std::string& s, float X, float Y)
 		{
@@ -229,8 +229,8 @@ namespace Game
 			if (DOES_TEXT_LABEL_EXIST(text))
 			{
 				BEGIN_TEXT_COMMAND_DISPLAY_TEXT(text);
-				_BEGIN_TEXT_COMPONENT(text);
-				_END_TEXT_COMPONENT();
+				BEGIN_TEXT_COMMAND_SCALEFORM_STRING(text);
+				END_TEXT_COMMAND_SCALEFORM_STRING();
 			}
 			else
 			{
@@ -245,7 +245,7 @@ namespace Game
 					add_text_component_long_string(s);
 				}
 			}
-			_DRAW_TEXT(X, Y);
+			END_TEXT_COMMAND_DISPLAY_TEXT(X, Y, 0);
 		}
 		void drawstringGXT(std::ostream& os, float X, float Y)
 		{
@@ -255,8 +255,8 @@ namespace Game
 			if (DOES_TEXT_LABEL_EXIST(text))
 			{
 				BEGIN_TEXT_COMMAND_DISPLAY_TEXT(text);
-				_BEGIN_TEXT_COMPONENT(text);
-				_END_TEXT_COMPONENT();
+				BEGIN_TEXT_COMMAND_SCALEFORM_STRING(text);
+				END_TEXT_COMMAND_SCALEFORM_STRING();
 			}
 			else
 			{
@@ -271,19 +271,19 @@ namespace Game
 					add_text_component_long_string(s);
 				}
 			}
-			_DRAW_TEXT(X, Y);
+			END_TEXT_COMMAND_DISPLAY_TEXT(X, Y, 0);
 		}
 		void drawinteger(int text, float X, float Y)
 		{
 			BEGIN_TEXT_COMMAND_DISPLAY_TEXT("NUMBER");
 			ADD_TEXT_COMPONENT_INTEGER(text);
-			_DRAW_TEXT(X, Y);
+			END_TEXT_COMMAND_DISPLAY_TEXT(X, Y, 0);
 		}
 		void drawfloat(float text, UINT8 decimal_places, float X, float Y)
 		{
 			BEGIN_TEXT_COMMAND_DISPLAY_TEXT("NUMBER");
 			ADD_TEXT_COMPONENT_FLOAT(text, decimal_places);
-			_DRAW_TEXT(X, Y);
+			END_TEXT_COMMAND_DISPLAY_TEXT(X, Y, 0);
 		}
 
 		void PrintBottomCentre(const std::string& s, int time)
@@ -307,7 +307,7 @@ namespace Game
 					add_text_component_long_string(s);
 				}
 			}
-			_DRAW_SUBTITLE_TIMED(time, 1);
+			END_TEXT_COMMAND_PRINT(time, 1);
 		}
 		void PrintBottomCentre(std::ostream& s, int time)
 		{
@@ -321,24 +321,24 @@ namespace Game
 
 		void Notification::Hide()
 		{
-			_REMOVE_NOTIFICATION(this->mHandle);
+			THEFEED_REMOVE_ITEM(this->mHandle);
 		}
 		Notification PrintBottomLeft(const std::string& s, bool gxt)
 		{
 			PCHAR text = (PCHAR)s.c_str();
 
 			if (gxt && DOES_TEXT_LABEL_EXIST(text))
-				_SET_NOTIFICATION_TEXT_ENTRY(text);
+				BEGIN_TEXT_COMMAND_THEFEED_POST(text);
 			else
 			{
 				if (s.length() < 100)
 				{
-					_SET_NOTIFICATION_TEXT_ENTRY("STRING");
+					BEGIN_TEXT_COMMAND_THEFEED_POST("STRING");
 					ADD_TEXT_COMPONENT_SUBSTRING_PLAYER_NAME(text);
 				}
 				else
 				{
-					_SET_NOTIFICATION_TEXT_ENTRY("jamyfafi");
+					BEGIN_TEXT_COMMAND_THEFEED_POST("jamyfafi");
 					add_text_component_long_string(s);
 				}
 			}
@@ -346,7 +346,7 @@ namespace Game
 			Game::Sound::PlayFrontend("Phone_SoundSet_Default", "Text_Arrive_Tone");
 
 			//_0x44FA03975424A0EE(0, 1);
-			return _DRAW_NOTIFICATION(0, 0);
+			return END_TEXT_COMMAND_THEFEED_POST_TICKER(0, 0);
 		}
 		Notification PrintBottomLeft(std::ostream& s, bool gxt)
 		{
@@ -362,26 +362,26 @@ namespace Game
 			PCHAR text = (PCHAR)s.c_str();
 
 			if (gxt && DOES_TEXT_LABEL_EXIST(text))
-				_SET_NOTIFICATION_TEXT_ENTRY(text);
+				BEGIN_TEXT_COMMAND_THEFEED_POST(text);
 			else
 			{
 				if (s.length() < 100)
 				{
-					_SET_NOTIFICATION_TEXT_ENTRY("STRING");
+					BEGIN_TEXT_COMMAND_THEFEED_POST("STRING");
 					ADD_TEXT_COMPONENT_SUBSTRING_PLAYER_NAME(text);
 				}
 				else
 				{
-					_SET_NOTIFICATION_TEXT_ENTRY("jamyfafi");
+					BEGIN_TEXT_COMMAND_THEFEED_POST("jamyfafi");
 					add_text_component_long_string(s);
 				}
 			}
 
-			_SET_NOTIFICATION_MESSAGE((PCHAR)picName.c_str(), (PCHAR)picName.c_str(), flash, iconType, (PCHAR)sender.c_str(), (PCHAR)subject.c_str());
+			END_TEXT_COMMAND_THEFEED_POST_MESSAGETEXT((PCHAR)picName.c_str(), (PCHAR)picName.c_str(), flash, iconType, (PCHAR)sender.c_str(), (PCHAR)subject.c_str());
 
 			Game::Sound::PlayFrontend("Phone_SoundSet_Default", "Text_Arrive_Tone");
 
-			return _DRAW_NOTIFICATION(0, 0);
+			return END_TEXT_COMMAND_THEFEED_POST_TICKER(0, 0);
 		}
 		Notification PrintBottomLeft(std::ostream& s, const std::string& sender, const std::string& subject, const std::string& picName, int iconType, bool flash, bool gxt)
 		{
@@ -409,33 +409,33 @@ namespace Game
 			PCHAR text = const_cast<PCHAR>(s.c_str());
 
 			if (gxt)
-				_SET_TEXT_ENTRY_FOR_WIDTH(text);
+				BEGIN_TEXT_COMMAND_GET_SCREEN_WIDTH_OF_DISPLAY_TEXT(text);
 			else
 			{
 				if (s.length() < 100)
 				{
-					_SET_TEXT_ENTRY_FOR_WIDTH("STRING");
+					BEGIN_TEXT_COMMAND_GET_SCREEN_WIDTH_OF_DISPLAY_TEXT("STRING");
 					ADD_TEXT_COMPONENT_SUBSTRING_PLAYER_NAME(text);
 				}
 				else
 				{
-					_SET_TEXT_ENTRY_FOR_WIDTH("jamyfafi");
+					BEGIN_TEXT_COMMAND_GET_SCREEN_WIDTH_OF_DISPLAY_TEXT("jamyfafi");
 					add_text_component_long_string(s);
 				}
 			}
-			return _GET_TEXT_SCREEN_WIDTH(1);
+			return END_TEXT_COMMAND_GET_SCREEN_WIDTH_OF_DISPLAY_TEXT(1);
 		}
 		float GetTextWidth(int inumber)
 		{
-			_SET_TEXT_ENTRY_FOR_WIDTH("NUMBER");
+			BEGIN_TEXT_COMMAND_GET_SCREEN_WIDTH_OF_DISPLAY_TEXT("NUMBER");
 			ADD_TEXT_COMPONENT_INTEGER(inumber);
-			return _GET_TEXT_SCREEN_WIDTH(1);
+			return END_TEXT_COMMAND_GET_SCREEN_WIDTH_OF_DISPLAY_TEXT(1);
 		}
 		float GetTextWidth(float fnumber, UINT8 decimal_places)
 		{
-			_SET_TEXT_ENTRY_FOR_WIDTH("NUMBER");
+			BEGIN_TEXT_COMMAND_GET_SCREEN_WIDTH_OF_DISPLAY_TEXT("NUMBER");
 			ADD_TEXT_COMPONENT_FLOAT(fnumber, decimal_places);
-			return _GET_TEXT_SCREEN_WIDTH(1);
+			return END_TEXT_COMMAND_GET_SCREEN_WIDTH_OF_DISPLAY_TEXT(1);
 		}
 	}
 
@@ -473,7 +473,7 @@ namespace Game
 				BEGIN_TEXT_COMMAND_DISPLAY_TEXT("jamyfafi");
 				add_text_component_long_string(titlegxt);
 			}
-			_DRAW_TEXT(0.5f, 0.37f);
+			END_TEXT_COMMAND_DISPLAY_TEXT(0.5f, 0.37f, 0);
 			WAIT(0);
 		}
 		if (UPDATE_ONSCREEN_KEYBOARD() == 2)

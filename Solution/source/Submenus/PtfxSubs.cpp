@@ -169,16 +169,16 @@ namespace sub
 				REQUEST_NAMED_PTFX_ASSET(asset);
 				if (HAS_NAMED_PTFX_ASSET_LOADED(asset))
 				{
-					_SET_PTFX_ASSET_NEXT_CALL(asset);
+					USE_PARTICLE_FX_ASSET(asset);
 					SET_PARTICLE_FX_NON_LOOPED_COLOUR(GET_RANDOM_FLOAT_IN_RANGE(0, 1), GET_RANDOM_FLOAT_IN_RANGE(0, 1), GET_RANDOM_FLOAT_IN_RANGE(0, 1));
 					if (GTAentity(entity).RequestControl())
 					{
-						_START_PARTICLE_FX_NON_LOOPED_ON_ENTITY_2((PCHAR)effect.fx.c_str(), entity.GetHandle(), 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 1.0f, 0, 0, 0);
+						START_NETWORKED_PARTICLE_FX_NON_LOOPED_ON_ENTITY((PCHAR)effect.fx.c_str(), entity.GetHandle(), 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 1.0f, 0, 0, 0);
 					}
 					else
 					{
 						Vector3& coord = GET_ENTITY_COORDS(entity.GetHandle(), 1);
-						_START_PARTICLE_FX_NON_LOOPED_AT_COORD_2((PCHAR)effect.fx.c_str(), coord.x, coord.y, coord.z, 0.0f, 0.0f, 0.0f, 1.0f, 0, 0, 0);
+						START_NETWORKED_PARTICLE_FX_NON_LOOPED_AT_COORD((PCHAR)effect.fx.c_str(), coord.x, coord.y, coord.z, 0.0f, 0.0f, 0.0f, 1.0f, 0, 0, 0, 0);
 					}
 				}
 			}
@@ -228,7 +228,7 @@ namespace sub
 				AddOption("Clear On All Entities", bPressedClear); if (bPressedClear)
 					_fxlops.clear();
 				PtfxS nonefx = { "None", "", "" };
-				__AddOption_loopOnEntity(nonefx, Static_241);
+				__AddOption_loopOnEntity(nonefx, local_ped_id);
 				break; // subception
 			}
 			}
@@ -239,10 +239,10 @@ namespace sub
 				switch (Menu::currentsub_ar[Menu::currentsub_ar_index])
 				{
 				case SUB::PLAYEROPS: case SUB::SPOONER_SELECTEDENTITYOPS:
-					__AddOption_entity(current, Static_241);
+					__AddOption_entity(current, local_ped_id);
 					break;
 				case SUB::PTFXSUB:
-					__AddOption_loopOnEntity(current, Static_241);
+					__AddOption_loopOnEntity(current, local_ped_id);
 					break; // Subception
 				case SUB::TRIGGERFXGUN:
 					TriggerFxGun_catind::__AddOption_GunFx(current);

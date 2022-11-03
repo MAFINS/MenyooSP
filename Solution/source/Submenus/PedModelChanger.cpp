@@ -329,7 +329,7 @@ namespace sub
 		//	 ModelChangerSlendy_ = 0,
 		//	 ModelChanger_Animal = 0;
 
-		Static_241 = PLAYER_PED_ID();
+		local_ped_id = PLAYER_PED_ID();
 		AddTitle("Model Changer");
 		AddOption("Randomize Ped Variation", ModelChangerRandomPedVariation_);
 		AddOption("Favourites", null, nullFunc, SUB::MODELCHANGER_FAVOURITES);
@@ -350,8 +350,8 @@ namespace sub
 
 
 		if (ModelChangerRandomPedVariation_) {
-			SET_PED_RANDOM_COMPONENT_VARIATION(Static_241, 0);
-			SET_PED_RANDOM_PROPS(Static_241);
+			SET_PED_RANDOM_COMPONENT_VARIATION(local_ped_id, 0);
+			SET_PED_RANDOM_PROPS(local_ped_id);
 			return;
 		}
 
@@ -375,8 +375,8 @@ namespace sub
 		//}
 
 		//if (ModelChangerSlendy_){
-		//	SET_PED_COMPONENT_VARIATION(Static_241, 0, 0, 3, 0);
-		//	SET_PED_COMPONENT_VARIATION(Static_241, 0, 3, 3, 0);
+		//	SET_PED_COMPONENT_VARIATION(local_ped_id, 0, 0, 3, 0);
+		//	SET_PED_COMPONENT_VARIATION(local_ped_id, 0, 3, 3, 0);
 		//	ModelChangerSlendy_ = false;
 		//}
 

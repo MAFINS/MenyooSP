@@ -183,7 +183,7 @@ namespace sub::Spooner
 						for (int i = 0; i < pedHead.overlayData.size(); i++)
 						{
 							auto& nodePedHeadOverlay = nodePedHeadOverlays.append_child(("_" + std::to_string(i)).c_str());
-							nodePedHeadOverlay.append_attribute("index") = _GET_PED_HEAD_OVERLAY_VALUE(ep.Handle(), i);
+							nodePedHeadOverlay.append_attribute("index") = GET_PED_HEAD_OVERLAY(ep.Handle(), i);
 							nodePedHeadOverlay.append_attribute("colour") = pedHead.overlayData[i].colour;
 							nodePedHeadOverlay.append_attribute("colourSecondary") = pedHead.overlayData[i].colourSecondary;
 							nodePedHeadOverlay.append_attribute("opacity") = pedHead.overlayData[i].opacity;
@@ -326,7 +326,7 @@ namespace sub::Spooner
 				nodeVehicleStuff.append_child("EngineOn").text() = ev.EngineRunning_get();
 				nodeVehicleStuff.append_child("EngineHealth").text() = ev.EngineHealth_get();
 				nodeVehicleStuff.append_child("LightsOn").text() = ev.LightsOn_get();
-				nodeVehicleStuff.append_child("IsRadioLoud").text() = _IS_VEHICLE_RADIO_LOUD(ev.Handle());// != 0;
+				nodeVehicleStuff.append_child("IsRadioLoud").text() = CAN_VEHICLE_RECEIVE_CB_RADIO(ev.Handle());// != 0;
 				nodeVehicleStuff.append_child("LockStatus").text() = (int)ev.LockStatus_get();
 
 				// Neons
@@ -498,7 +498,7 @@ namespace sub::Spooner
 
 				e.e.TextureVariation = nodePropStuff.child("TextureVariation").text().as_int(-1);
 				if (e.e.TextureVariation != -1)
-					_0x971DA0055324D033(eo.Handle(), e.e.TextureVariation);
+					SET_OBJECT_TINT_INDEX(eo.Handle(), e.e.TextureVariation);
 			}
 			else if (e.e.Type == EntityType::PED)
 			{
@@ -534,7 +534,7 @@ namespace sub::Spooner
 				SET_PED_CAN_PLAY_AMBIENT_BASE_ANIMS(ep.Handle(), true);
 				SET_PED_CAN_PLAY_GESTURE_ANIMS(ep.Handle(), true);
 				SET_PED_CAN_PLAY_VISEME_ANIMS(ep.Handle(), true, TRUE);
-				_0x33A60D8BDD6E508C(ep.Handle(), true);
+				SET_PED_IS_IGNORED_BY_AUTO_OPEN_DOORS(ep.Handle(), true);
 
 				auto& nodePedProps = nodePedStuff.child("PedProps");
 				auto& nodePedComps = nodePedStuff.child("PedComps");
@@ -584,8 +584,8 @@ namespace sub::Spooner
 						pedHead.hairColourStreaks = nodePedHeadFeatures.child("HairColourStreaks").text().as_int();
 						pedHead.eyeColour = nodePedHeadFeatures.child("EyeColour").text().as_int();
 
-						_SET_PED_HAIR_COLOR(ep.Handle(), pedHead.hairColour, pedHead.hairColourStreaks);
-						_SET_PED_EYE_COLOR(ep.Handle(), SYSTEM::ROUND((float)pedHead.eyeColour)); // Sjaak says so
+						SET_PED_HAIR_TINT(ep.Handle(), pedHead.hairColour, pedHead.hairColourStreaks);
+						SET_HEAD_BLEND_EYE_COLOR(ep.Handle(), SYSTEM::ROUND((float)pedHead.eyeColour)); // Sjaak says so
 
 						auto& nodePedFacialFeatures = nodePedHeadFeatures.child("FacialFeatures");
 						int ii = 0;
@@ -593,7 +593,7 @@ namespace sub::Spooner
 						{
 							ii = stoi(std::string(nodePedFacialFeature.name()).substr(1));
 							pedHead.facialFeatureData[ii] = nodePedFacialFeature.text().as_float();
-							_SET_PED_FACE_FEATURE(ep.Handle(), ii, pedHead.facialFeatureData[ii]);
+							SET_PED_MICRO_MORPH(ep.Handle(), ii, pedHead.facialFeatureData[ii]);
 						}
 
 						auto& nodePedHeadOverlays = nodePedHeadFeatures.child("Overlays");
@@ -606,7 +606,7 @@ namespace sub::Spooner
 							pedHead.overlayData[ii].colourSecondary = nodePedHeadOverlay.attribute("colourSecondary").as_int();
 							pedHead.overlayData[ii].opacity = nodePedHeadOverlay.attribute("opacity").as_float();
 							SET_PED_HEAD_OVERLAY(ep.Handle(), ii, overlayData_index, pedHead.overlayData[ii].opacity);
-							_SET_PED_HEAD_OVERLAY_COLOR(ep.Handle(), ii, sub::PedHeadFeatures_catind::GetPedHeadOverlayColourType((PedHeadOverlay)ii), pedHead.overlayData[ii].colour, pedHead.overlayData[ii].colourSecondary);
+							SET_PED_HEAD_OVERLAY_TINT(ep.Handle(), ii, sub::PedHeadFeatures_catind::GetPedHeadOverlayColourType((PedHeadOverlay)ii), pedHead.overlayData[ii].colour, pedHead.overlayData[ii].colourSecondary);
 						}
 						sub::PedHeadFeatures_catind::vPedHeads[ep.Handle()] = pedHead;
 					}
@@ -623,7 +623,7 @@ namespace sub::Spooner
 							nodeDecal.attribute("value").as_uint()
 						);
 						decalsApplied.push_back(decal);
-						_SET_PED_DECORATION(ep.Handle(), decal.collection, decal.value);
+						ADD_PED_DECORATION_FROM_HASHES(ep.Handle(), decal.collection, decal.value);
 					}
 				}
 
@@ -866,12 +866,12 @@ namespace sub::Spooner
 				auto& nodeVehicleHeadlightIntensity = nodeVehicleStuff.child("HeadlightIntensity");
 				if (nodeVehicleRpmMultiplier)
 				{
-					_SET_VEHICLE_ENGINE_POWER_MULTIPLIER(ev.Handle(), nodeVehicleRpmMultiplier.text().as_float());
+					MODIFY_VEHICLE_TOP_SPEED(ev.Handle(), nodeVehicleRpmMultiplier.text().as_float());
 					g_multList_rpm[ev.Handle()] = nodeVehicleRpmMultiplier.text().as_float();
 				}
 				if (nodeVehicleTorqueMultiplier)
 				{
-					_SET_VEHICLE_ENGINE_TORQUE_MULTIPLIER(ev.Handle(), nodeVehicleTorqueMultiplier.text().as_float());
+					SET_VEHICLE_CHEAT_POWER_INCREASE(ev.Handle(), nodeVehicleTorqueMultiplier.text().as_float());
 					g_multList_torque[ev.Handle()] = nodeVehicleTorqueMultiplier.text().as_float();
 				}
 				if (nodeVehicleMaxSpeed)
@@ -1685,13 +1685,13 @@ namespace sub::Spooner
 			bool bIplsRequireSpMaps = nodeIplsToLoad.attribute("load_sp_maps").as_bool();
 			if (bIplsRequireMpMaps)
 			{
-				_ENABLE_MP_DLC_MAPS(true);
-				_LOAD_MP_DLC_MAPS();
+				SET_INSTANCE_PRIORITY_MODE(true);
+				ON_ENTER_MP();
 			}
 			if (bIplsRequireSpMaps)
 			{
-				_ENABLE_MP_DLC_MAPS(true);
-				_LOAD_SP_DLC_MAPS();
+				SET_INSTANCE_PRIORITY_MODE(true);
+				ON_ENTER_SP();
 			}
 			for (auto& nodeIplToLoad = nodeIplsToLoad.first_child(); nodeIplToLoad; nodeIplToLoad = nodeIplToLoad.next_sibling())
 			{
@@ -1727,7 +1727,7 @@ namespace sub::Spooner
 				{
 					if (enableOrNah)
 					{
-						_LOAD_INTERIOR(interior);
+						PIN_INTERIOR_IN_MEMORY(interior);
 						if (IS_INTERIOR_DISABLED(interior))
 						{
 							DISABLE_INTERIOR(interior, false);
@@ -1739,11 +1739,11 @@ namespace sub::Spooner
 							{
 								if (nodeInteriorProp.attribute("enable").as_bool(true))
 								{
-									_ENABLE_INTERIOR_PROP(interior, const_cast<PCHAR>(interiorPropName.c_str()));
+									ACTIVATE_INTERIOR_ENTITY_SET(interior, const_cast<PCHAR>(interiorPropName.c_str()));
 								}
 								else
 								{
-									_DISABLE_INTERIOR_PROP(interior, const_cast<PCHAR>(interiorPropName.c_str()));
+									DEACTIVATE_INTERIOR_ENTITY_SET(interior, const_cast<PCHAR>(interiorPropName.c_str()));
 								}
 
 							}
@@ -1791,7 +1791,7 @@ namespace sub::Spooner
 
 			if (bIplsRequireMpMaps || bIplsRequireSpMaps)
 			{
-				_ENABLE_MP_DLC_MAPS(false);
+				SET_INSTANCE_PRIORITY_MODE(false);
 			}
 
 			//=================================================================

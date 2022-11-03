@@ -98,7 +98,7 @@ Entity IS_PLAYER_FREE_AIMING_AT_ENTITY(Player _, Entity ent)
 	farCoords.y = camCoords.y + dir.y * 1000;
 	farCoords.z = camCoords.z + dir.z * 1000;
 
-	int ray = _CAST_RAY_POINT_TO_POINT(camCoords.x, camCoords.y, camCoords.z, farCoords.x, farCoords.y, farCoords.z, -1, 0, 7);
+	int ray = START_EXPENSIVE_SYNCHRONOUS_SHAPE_TEST_LOS_PROBE(camCoords.x, camCoords.y, camCoords.z, farCoords.x, farCoords.y, farCoords.z, -1, 0, 7);
 	GET_SHAPE_TEST_RESULT(ray, &hit, &endCoords, &surfaceNormal, &ent);
 
 	return hit ? ent : 0;
@@ -107,7 +107,7 @@ Entity IS_PLAYER_FREE_AIMING_AT_ENTITY(Player _, Entity ent)
 Vehicle CREATE_VEHICLE(Hash modelHash, float x, float y, float z, float heading, BOOL networkHandle, BOOL vehiclehandle)
 {
 	*(unsigned short*)GTAmemory::m_model_spawn_bypass = 0x9090;
-	Vehicle veh = CREATE_VEHICLE_ORIGINAL(modelHash, x, y, z, heading, networkHandle, vehiclehandle);
+	Vehicle veh = CREATE_VEHICLE_ORIGINAL(modelHash, x, y, z, heading, networkHandle, vehiclehandle, 0);
 	*(unsigned short*)GTAmemory::m_model_spawn_bypass = 0x0574;
 
 	return veh;

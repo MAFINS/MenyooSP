@@ -44,7 +44,7 @@ namespace sub
 {
 	void MiscOps()
 	{
-		Static_241 = PLAYER_PED_ID();
+		local_ped_id = PLAYER_PED_ID();
 
 		const std::vector<std::string> explosions_wp_names{ "Off", "Visible & Shaky", "Visible", "Invisible" };
 
@@ -101,9 +101,9 @@ namespace sub
 		AddOption("Rectangle Draw Tool (Mouse) (ALPHA) [DEV]", null, DrawToolSub_, -1, true);
 
 		bool bEnableCellphoneYsc = false;
-		AddTickol("In-Game Mobile Phone", _GET_NUMBER_OF_INSTANCES_OF_STREAMED_SCRIPT(0xF292D030) > 0, bEnableCellphoneYsc, bEnableCellphoneYsc, TICKOL::BOXTICK, TICKOL::BOXBLANK); if (bEnableCellphoneYsc)
+		AddTickol("In-Game Mobile Phone", GET_NUMBER_OF_THREADS_RUNNING_THE_SCRIPT_WITH_THIS_HASH(0xF292D030) > 0, bEnableCellphoneYsc, bEnableCellphoneYsc, TICKOL::BOXTICK, TICKOL::BOXBLANK); if (bEnableCellphoneYsc)
 		{
-			if (_GET_NUMBER_OF_INSTANCES_OF_STREAMED_SCRIPT(0xF292D030) > 0) // cellphone_controller
+			if (GET_NUMBER_OF_THREADS_RUNNING_THE_SCRIPT_WITH_THIS_HASH(0xF292D030) > 0) // cellphone_controller
 			{
 				TERMINATE_ALL_SCRIPTS_WITH_THIS_NAME("cellphone_controller");
 			}
@@ -242,7 +242,7 @@ namespace sub
 			_JumpAroundMode_::StartJumping(jumpAround_on);
 		}
 
-		if (blackout_off) _SET_BLACKOUT(FALSE);
+		if (blackout_off) SET_ARTIFICIAL_LIGHTS_STATE(FALSE);
 
 		if (explosions_wp_plus) { if (loop_explosion_wp < explosions_wp_names.size() - 1) loop_explosion_wp++; return; }
 		if (explosions_wp_minus) { if (loop_explosion_wp > 0) loop_explosion_wp--; return; }
@@ -259,7 +259,7 @@ namespace sub
 			strength_plus = 0, strength_minus = 0;
 
 		AddTitle("Vision Hax");
-		AddLocal("Heat Vision", _IS_SEETHROUGH_ACTIVE(), heat_vision_on, heat_vision_on);
+		AddLocal("Heat Vision", GET_USINGSEETHROUGH(), heat_vision_on, heat_vision_on);
 		AddToggle("Heat Vision On Aim", loop_HVSnipers);
 		AddToggle("Night Vision (SP)", bit_night_vision, night_vision_on, night_vision_off);
 
@@ -321,7 +321,7 @@ namespace sub
 		AddBreak("---Custom---");
 		AddOption("Input Custom", timecycles_input);
 
-		if (heat_vision_on) { SET_SEETHROUGH(_IS_SEETHROUGH_ACTIVE() ? FALSE : TRUE); return; }
+		if (heat_vision_on) { SET_SEETHROUGH(GET_USINGSEETHROUGH() ? FALSE : TRUE); return; }
 
 		if (night_vision_on) { SET_NIGHTVISION(TRUE); return; }
 		if (night_vision_off) { SET_NIGHTVISION(FALSE); return; }
@@ -369,19 +369,19 @@ namespace sub
 
 		AddNumber("Range To Clear", _globalClearArea_radius, 2, cleararea_radius_input, cleararea_radius_plus, cleararea_radius_minus);
 		if (*Menu::currentopATM == Menu::printingop)
-			sub::Spooner::EntityManagement::DrawRadiusDisplayingMarker(GET_ENTITY_COORDS(Static_241, 1), _globalClearArea_radius);
+			sub::Spooner::EntityManagement::DrawRadiusDisplayingMarker(GET_ENTITY_COORDS(local_ped_id, 1), _globalClearArea_radius);
 
 		AddOption("Vehicles", cleararea_vehicles);
 		AddOption("Peds", cleararea_peds);
 		AddOption("Objects", cleararea_objects);
 		AddOption("All", cleararea_all);
 
-		//if (cleararea_vehicles){ clear_area_of_vehicles_around_entity(Static_241, _globalClearArea_radius); return; }
-		//if (cleararea_peds){ clear_area_of_peds_around_entity(Static_241, _globalClearArea_radius); return; }
-		if (cleararea_vehicles) { clear_area_of_entities(EntityType::VEHICLE, GET_ENTITY_COORDS(Static_241, 1), _globalClearArea_radius, { GET_VEHICLE_PED_IS_IN(Static_241, 0) }); return; }
-		if (cleararea_peds) { clear_area_of_entities(EntityType::PED, GET_ENTITY_COORDS(Static_241, 1), _globalClearArea_radius, { Static_241 }); return; }
-		if (cleararea_objects) { clear_area_of_entities(EntityType::PROP, GET_ENTITY_COORDS(Static_241, 1), _globalClearArea_radius); return; }
-		if (cleararea_all) { clear_area_of_entities(EntityType::ALL, GET_ENTITY_COORDS(Static_241, 1), _globalClearArea_radius, { Static_241, GET_VEHICLE_PED_IS_IN(Static_241, 0) }); return; }
+		//if (cleararea_vehicles){ clear_area_of_vehicles_around_entity(local_ped_id, _globalClearArea_radius); return; }
+		//if (cleararea_peds){ clear_area_of_peds_around_entity(local_ped_id, _globalClearArea_radius); return; }
+		if (cleararea_vehicles) { clear_area_of_entities(EntityType::VEHICLE, GET_ENTITY_COORDS(local_ped_id, 1), _globalClearArea_radius, { GET_VEHICLE_PED_IS_IN(local_ped_id, 0) }); return; }
+		if (cleararea_peds) { clear_area_of_entities(EntityType::PED, GET_ENTITY_COORDS(local_ped_id, 1), _globalClearArea_radius, { local_ped_id }); return; }
+		if (cleararea_objects) { clear_area_of_entities(EntityType::PROP, GET_ENTITY_COORDS(local_ped_id, 1), _globalClearArea_radius); return; }
+		if (cleararea_all) { clear_area_of_entities(EntityType::ALL, GET_ENTITY_COORDS(local_ped_id, 1), _globalClearArea_radius, { local_ped_id, GET_VEHICLE_PED_IS_IN(local_ped_id, 0) }); return; }
 
 		if (cleararea_radius_input)
 		{
@@ -411,7 +411,7 @@ namespace sub
 		for (;;)
 		{
 			WAIT(0);
-			_SHOW_CURSOR_THIS_FRAME();
+			SET_MOUSE_CURSOR_THIS_FRAME();
 			DISABLE_ALL_CONTROL_ACTIONS(1);
 
 			Pos = MouseSupport::MousePosition();
@@ -426,12 +426,12 @@ namespace sub
 				sizePos.y = (Pos.y - startPos.y);
 			}
 
-			_SET_SCREEN_DRAW_POSITION(76, 84);
-			_0xF5A2C681787E579D(-0.05f, -0.05f, 0.0f, 0.0f);
-			DRAW_RECT((startPos.x + sizePos.x) / 2, (startPos.y + sizePos.y) / 2, sizePos.x, sizePos.y, 107, 0, 107, 225);
+			SET_SCRIPT_GFX_ALIGN(76, 84);
+			SET_SCRIPT_GFX_ALIGN_PARAMS(-0.05f, -0.05f, 0.0f, 0.0f);
+			DRAW_RECT((startPos.x + sizePos.x) / 2, (startPos.y + sizePos.y) / 2, sizePos.x, sizePos.y, 107, 0, 107, 225, 0);
 
 
-			DRAW_SPRITE("CommonMenu", "Gradient_Bgd", 0.90, 0.14, 0.15, 0.15, 0, 255, 255, 255, 210);
+			DRAW_SPRITE("CommonMenu", "Gradient_Bgd", 0.90, 0.14, 0.15, 0.15, 0, 255, 255, 255, 210, 0, 0);
 			Game::Print::setupdraw(7, Vector2(0.4, 0.4), true, false, false);
 			Game::Print::drawstring("Details", 0.90, 0.0675);
 
@@ -462,7 +462,7 @@ namespace sub
 
 	void RadioSub_()
 	{
-		GTAped ped = Static_241;
+		GTAped ped = local_ped_id;
 		GTAvehicle vehicle = ped.CurrentVehicle();
 		bool mobile_radio_on = 0, mobile_radio_off = 0,
 			radio_forward = 0;
@@ -548,13 +548,13 @@ namespace sub
 			SET_FRONTEND_RADIO_ACTIVE(true);
 			SET_MOBILE_RADIO_ENABLED_DURING_GAMEPLAY(true);
 			SET_MOBILE_PHONE_RADIO_STATE(1);
-			PLAY_SOUND_FROM_ENTITY(-1, "Radio_On", Static_241, "TAXI_SOUNDS", 0, 0);
+			PLAY_SOUND_FROM_ENTITY(-1, "Radio_On", local_ped_id, "TAXI_SOUNDS", 0, 0);
 		}
 		if (mobile_radio_off) {
 			//SET_FRONTEND_RADIO_ACTIVE(false);
 			SET_MOBILE_RADIO_ENABLED_DURING_GAMEPLAY(false);
 			SET_MOBILE_PHONE_RADIO_STATE(0);
-			PLAY_SOUND_FROM_ENTITY(-1, "Radio_Off", Static_241, "TAXI_SOUNDS", 0, 0);
+			PLAY_SOUND_FROM_ENTITY(-1, "Radio_Off", local_ped_id, "TAXI_SOUNDS", 0, 0);
 		}
 
 		if (radio_forward) {
@@ -761,9 +761,9 @@ namespace sub
 				bool bPlaylistPressed = false;
 				AddOption(pl.first, bPlaylistPressed); if (bPlaylistPressed)
 				{
-					GRAPHICS::_LOAD_TV_CHANNEL(80996397); //0x0AD973CA1E077B60
+					GRAPHICS::IS_TVSHOW_CURRENTLY_PLAYING(80996397); //0x0AD973CA1E077B60
 					GRAPHICS::SET_TV_CHANNEL(-1);
-					GRAPHICS::_0xF7B38B8305F1FE8B(0, const_cast<PCHAR>(pl.second.c_str()), 1);
+					GRAPHICS::SET_TV_CHANNEL_PLAYLIST(0, const_cast<PCHAR>(pl.second.c_str()), 1);
 					GRAPHICS::SET_TV_CHANNEL(0);
 				}
 			}
@@ -781,7 +781,7 @@ namespace sub
 			bool bRevealMinimap_toggle = false;
 			AddToggle("Reveal Entire Minimap", loop_revealMinimap, bRevealMinimap_toggle, bRevealMinimap_toggle); if (bRevealMinimap_toggle)
 			{
-				_SET_MINIMAP_REVEALED(loop_revealMinimap);
+				SET_MINIMAP_HIDE_FOW(loop_revealMinimap);
 			}
 
 			AddToggle("Display XYZH Coords", loop_XYZHcoords);
@@ -807,7 +807,7 @@ namespace sub
 				bool bCompSelected = false;
 				AddOption(h.second, bCompSelected, nullFunc, SUB::MSPAINTS_RGB); if (bCompSelected)
 				{
-					Static_12 = h.first;
+					_hud_color_index = h.first;
 					bit_MSPaints_RGB_mode = 10;
 				}
 			}
@@ -818,7 +818,7 @@ namespace sub
 				bool bCompSelected = false;
 				AddOption(HudColour::vHudColours[i], bCompSelected, nullFunc, SUB::MSPAINTS_RGB); if (bCompSelected)
 				{
-					Static_12 = i;
+					_hud_color_index = i;
 					bit_MSPaints_RGB_mode = 10;
 				}
 			}

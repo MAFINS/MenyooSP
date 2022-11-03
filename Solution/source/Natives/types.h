@@ -18,9 +18,9 @@ typedef unsigned __int32 UINT32;
 typedef char *PCHAR;
 
 typedef DWORD Void;
-typedef DWORD Any;
 typedef DWORD uint;
 typedef DWORD Hash;
+typedef int Any;
 typedef int ScrHandle;
 typedef int Entity;
 typedef int Player;

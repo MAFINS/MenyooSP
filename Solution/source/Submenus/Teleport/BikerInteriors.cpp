@@ -122,24 +122,24 @@ namespace sub::TeleportLocations_catind
 					auto& loc = *info.location;
 					auto& pos = loc.pos;
 
-					_ENABLE_MP_DLC_MAPS(true);
-					_LOAD_MP_DLC_MAPS();
+					SET_INSTANCE_PRIORITY_MODE(true);
+					ON_ENTER_MP();
 					REQUEST_IPL(loc.ipl);
 					int interior = GET_INTERIOR_AT_COORDS(pos.x, pos.y, pos.z);
 					DISABLE_INTERIOR(interior, true);
-					_LOAD_INTERIOR(interior);
+					PIN_INTERIOR_IN_MEMORY(interior);
 					DISABLE_INTERIOR(interior, false);
-					_ENABLE_MP_DLC_MAPS(false);
+					SET_INSTANCE_PRIORITY_MODE(false);
 					WAIT(200);
 
 					for (auto& oa : vOptionArrays)
 					{
 						for (auto& o : *oa.arr)
-							_DISABLE_INTERIOR_PROP(interior, const_cast<PCHAR>(o.value));
+							DEACTIVATE_INTERIOR_ENTITY_SET(interior, const_cast<PCHAR>(o.value));
 					}
 					for (auto& oa : vOptionArrays)
 					{
-						_ENABLE_INTERIOR_PROP(interior, const_cast<PCHAR>(oa.arr->at(*oa.ptr).value));
+						ACTIVATE_INTERIOR_ENTITY_SET(interior, const_cast<PCHAR>(oa.arr->at(*oa.ptr).value));
 					}
 					REFRESH_INTERIOR(interior);
 				}
@@ -172,7 +172,7 @@ namespace sub::TeleportLocations_catind
 					Menu::SetSub_previous();
 					return;
 				}
-				GTAped ped = Static_241;
+				GTAped ped = local_ped_id;
 				AddTitle(currentClubhouseInfo.location->name);
 
 				for (auto& o : vOptionArrays)
@@ -277,24 +277,24 @@ namespace sub::TeleportLocations_catind
 					auto& loc = *info.location;
 					auto& pos = loc.pos;
 
-					_ENABLE_MP_DLC_MAPS(true);
-					_LOAD_MP_DLC_MAPS();
+					SET_INSTANCE_PRIORITY_MODE(true);
+					ON_ENTER_MP();
 					REQUEST_IPL(loc.ipl);
 					int interior = GET_INTERIOR_AT_COORDS(pos.x, pos.y, pos.z);
 					DISABLE_INTERIOR(interior, true);
-					_LOAD_INTERIOR(interior);
+					PIN_INTERIOR_IN_MEMORY(interior);
 					DISABLE_INTERIOR(interior, false);
-					_ENABLE_MP_DLC_MAPS(false);
+					SET_INSTANCE_PRIORITY_MODE(false);
 					WAIT(200);
 
 					for (auto& ip : loc.options)
 					{
-						_DISABLE_INTERIOR_PROP(interior, const_cast<PCHAR>(ip.c_str()));
+						DEACTIVATE_INTERIOR_ENTITY_SET(interior, const_cast<PCHAR>(ip.c_str()));
 					}
 					if (info.option)
 					{
 						for (UINT8 o = 0; o < info.option; o++)
-							_ENABLE_INTERIOR_PROP(interior, const_cast<PCHAR>(loc.options[o].c_str()));
+							ACTIVATE_INTERIOR_ENTITY_SET(interior, const_cast<PCHAR>(loc.options[o].c_str()));
 					}
 					REFRESH_INTERIOR(interior);
 				}
@@ -328,7 +328,7 @@ namespace sub::TeleportLocations_catind
 					Menu::SetSub_previous();
 					return;
 				}
-				GTAped ped = Static_241;
+				GTAped ped = local_ped_id;
 				AddTitle(currentBusinessInfo.location->name);
 
 				bool bOption_plus = false, bOption_minus = false;

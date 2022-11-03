@@ -752,9 +752,9 @@ std::string GTAblip::IconName() const
 
 void GTAblip::SetBlipName(const std::string& value)
 {
-	UI::BEGIN_TEXT_COMMAND_SET_BLIP_NAME("STRING");
-	UI::ADD_TEXT_COMPONENT_SUBSTRING_PLAYER_NAME(const_cast<PCHAR>(value.c_str()));
-	UI::END_TEXT_COMMAND_SET_BLIP_NAME(this->mHandle);
+	HUD::BEGIN_TEXT_COMMAND_SET_BLIP_NAME("STRING");
+	HUD::ADD_TEXT_COMPONENT_SUBSTRING_PLAYER_NAME(const_cast<PCHAR>(value.c_str()));
+	HUD::END_TEXT_COMMAND_SET_BLIP_NAME(this->mHandle);
 }
 
 int GTAblip::Type() const

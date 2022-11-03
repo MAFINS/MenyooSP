@@ -74,7 +74,7 @@ namespace sub::TeleportLocations_catind
 		}
 		void Sub_CustomCoords()
 		{
-			GTAentity thisEntity = Static_241;
+			GTAentity thisEntity = local_ped_id;
 
 			if (!GrabbedCoords)
 			{
@@ -246,7 +246,7 @@ namespace sub::TeleportLocations_catind
 				std::string inputStr = Game::InputBox("", 28U, "Enter name:");
 				if (inputStr.length() > 0)
 				{
-					GTAentity ent = Static_241;
+					GTAentity ent = local_ped_id;
 					Vector3& myPos = ent.Position_get();
 					Vector3& myRot = ent.Rotation_get();
 					auto& nodeOldLoc = nodeRoot.find_child_by_attribute("name", inputStr.c_str());
@@ -267,7 +267,7 @@ namespace sub::TeleportLocations_catind
 				}
 				else Game::Print::PrintError_InvalidInput();
 				//OnscreenKeyboard::State::Set(OnscreenKeyboard::Purpose::SaveEntityLocation, std::string(), 28U, "Enter name:");
-				//OnscreenKeyboard::State::arg1._int = Static_241;
+				//OnscreenKeyboard::State::arg1._int = local_ped_id;
 			}
 
 			//bool bLoadLocationInput = false;

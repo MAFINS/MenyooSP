@@ -66,7 +66,7 @@ int PedGroup::GetHandle() const
 
 GTAentity PedGroup::Leader_get() const
 {
-	return _GET_PED_AS_GROUP_LEADER(this->_handle);
+	return GET_PED_AS_GROUP_LEADER(this->_handle);
 }
 void PedGroup::Leader_set(GTAentity ped)
 {
@@ -343,8 +343,12 @@ bool GTAped::IsSubTaskActive(const PedSubTask& taskType)
 
 PedHeadBlendData GTAped::HeadBlendData_get() const
 {
-	PedHeadBlendData blendData;
-	_GET_PED_HEAD_BLEND_DATA(this->mHandle, &blendData);
+	PedHeadBlendData blendData{};
+	Any* ptr = nullptr;
+	GET_PED_HEAD_BLEND_DATA(this->mHandle, ptr);
+	if(ptr != nullptr)
+		blendData = *((PedHeadBlendData*)ptr);
+
 	return blendData;
 }
 void GTAped::HeadBlendData_set(const PedHeadBlendData& blendData)
@@ -366,7 +370,7 @@ int GTAped::PedType() const
 
 void GTAped::PlaySpeechWithVoice(const std::string& speechName, const std::string& voiceName, const std::string& speechParam, bool unk)
 {
-	_PLAY_AMBIENT_SPEECH_WITH_VOICE(this->mHandle, (PCHAR)speechName.c_str(), (PCHAR)voiceName.c_str(), (PCHAR)speechParam.c_str(), unk);
+	PLAY_PED_AMBIENT_SPEECH_WITH_VOICE_NATIVE(this->mHandle, (PCHAR)speechName.c_str(), (PCHAR)voiceName.c_str(), (PCHAR)speechParam.c_str(), unk);
 }
 
 Hash GTAped::Weapon_get() const
@@ -831,7 +835,7 @@ VehicleSeat GTAped::CurrentVehicleSeat_get()
 		auto& vehHandle = this->CurrentVehicle().Handle();
 		for (INT8 i = -1; i < GET_VEHICLE_MAX_NUMBER_OF_PASSENGERS(vehHandle) - 1; i++)
 		{
-			if (GET_PED_IN_VEHICLE_SEAT(vehHandle, i) == this->mHandle)
+			if (GET_PED_IN_VEHICLE_SEAT(vehHandle, i, 0) == this->mHandle)
 				return (VehicleSeat)i;
 		}
 	}
@@ -888,7 +892,7 @@ void GTAped::ClearBloodDamage()
 }
 void GTAped::ApplyDamage(int damageAmount)
 {
-	APPLY_DAMAGE_TO_PED(this->mHandle, damageAmount, true);
+	APPLY_DAMAGE_TO_PED(this->mHandle, damageAmount, true, 0);
 }
 
 Vector3 GTAped::GetBoneCoord(int boneID) const
@@ -981,7 +985,7 @@ void GTAped::GiveWeaponsFromArray(const std::vector<s_Weapon_Components_Tint>& v
 			{
 				int ammo;
 				GET_MAX_AMMO(this->mHandle, cc.weaponHash, &ammo);
-				SET_PED_AMMO(this->mHandle, cc.weaponHash, ammo);
+				SET_PED_AMMO(this->mHandle, cc.weaponHash, ammo, 0);
 				SET_AMMO_IN_CLIP(this->mHandle, cc.weaponHash, GET_MAX_AMMO_IN_CLIP(this->mHandle, cc.weaponHash, true));
 				SET_PED_WEAPON_TINT_INDEX(this->mHandle, cc.weaponHash, cc.tint);
 			}

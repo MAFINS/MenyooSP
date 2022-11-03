@@ -73,18 +73,9 @@ namespace _JumpAroundMode_
 			if (IS_ENTITY_ATTACHED(ped) || !IS_PED_ON_FOOT(ped) || IS_ENTITY_IN_AIR(ped))
 				continue;
 			NETWORK_REQUEST_CONTROL_OF_ENTITY(ped);
-			TASK_JUMP(ped, true);
+			TASK_JUMP(ped, true, false, false);
 			APPLY_FORCE_TO_ENTITY(ped, 1, 0, 0, jumpForce, 0, 0, 0, false, false, true, true, false, true);
 			STOP_PED_SPEAKING(ped, true);
-
-			/*if (!ped.IsOnFoot() || ped.IsInAir()) continue;
-			ped.RequestControlOnce();
-			ped.Task().Jump();
-			ped.Euphoria_get().BodyWrithe().Start(1000);
-			ped.Euphoria_get().BodyWrithe().KneeAmplitude(0.3f);
-
-			ped.ApplyForce(Vector3(0, 0, jumpForce));
-			STOP_PED_SPEAKING(ped.Handle(), true);*/
 		}
 
 		auto& neonRGB = g_fadedRGB;
@@ -95,22 +86,17 @@ namespace _JumpAroundMode_
 				continue;
 
 			Vector3& Pos = GET_ENTITY_COORDS(vehicle, 1);
-			//if (GET_GAME_TIMER() >= Menu::delayedTimer)
-			//{
-			//neonRGB = { GET_RANDOM_INT_IN_RANGE(0, 255), GET_RANDOM_INT_IN_RANGE(0, 255), GET_RANDOM_INT_IN_RANGE(0, 255) };
-			_SET_VEHICLE_NEON_LIGHT_ENABLED(vehicle, 0, true);
-			_SET_VEHICLE_NEON_LIGHT_ENABLED(vehicle, 1, true);
-			_SET_VEHICLE_NEON_LIGHT_ENABLED(vehicle, 2, true);
-			_SET_VEHICLE_NEON_LIGHT_ENABLED(vehicle, 3, true);
-			_SET_VEHICLE_NEON_LIGHTS_COLOUR(vehicle, neonRGB.R, neonRGB.G, neonRGB.B);
-			//}
+			SET_VEHICLE_NEON_ENABLED(vehicle, 0, true);
+			SET_VEHICLE_NEON_ENABLED(vehicle, 1, true);
+			SET_VEHICLE_NEON_ENABLED(vehicle, 2, true);
+			SET_VEHICLE_NEON_ENABLED(vehicle, 3, true);
+			SET_VEHICLE_NEON_COLOUR(vehicle, neonRGB.R, neonRGB.G, neonRGB.B);
 			DRAW_LIGHT_WITH_RANGE(Pos.x, Pos.y, Pos.z, neonRGB.R, neonRGB.G, neonRGB.B, 3.2f, 1.2f);
 
-			//if (IS_ENTITY_IN_AIR(vehicle)) continue;
 			if (IS_VEHICLE_ON_ALL_WHEELS(vehicle))
 			{
 				NETWORK_REQUEST_CONTROL_OF_ENTITY(vehicle);
-				_SET_VEHICLE_NEON_LIGHT_ENABLED(vehicle, 0, 1); _SET_VEHICLE_NEON_LIGHT_ENABLED(vehicle, 1, 1); _SET_VEHICLE_NEON_LIGHT_ENABLED(vehicle, 2, 1); _SET_VEHICLE_NEON_LIGHT_ENABLED(vehicle, 3, 1);
+				SET_VEHICLE_NEON_ENABLED(vehicle, 0, 1); SET_VEHICLE_NEON_ENABLED(vehicle, 1, 1); SET_VEHICLE_NEON_ENABLED(vehicle, 2, 1); SET_VEHICLE_NEON_ENABLED(vehicle, 3, 1);
 				APPLY_FORCE_TO_ENTITY(vehicle, 0, 0.0f, 0.0f, jumpForce, 0.0f, 0.0f, 0.0f, false, false, true, true, false, true); // 68.f
 			}
 

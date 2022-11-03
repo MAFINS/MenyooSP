@@ -464,7 +464,7 @@ namespace sub::Spooner
 			SET_PED_CAN_PLAY_AMBIENT_BASE_ANIMS(ep.Handle(), true);
 			SET_PED_CAN_PLAY_GESTURE_ANIMS(ep.Handle(), true);
 			SET_PED_CAN_PLAY_VISEME_ANIMS(ep.Handle(), true, TRUE);
-			_0x33A60D8BDD6E508C(ep.Handle(), true);
+			SET_PED_IS_IGNORED_BY_AUTO_OPEN_DOORS(ep.Handle(), true);
 
 			SET_PED_PATH_CAN_USE_CLIMBOVERS(ep.Handle(), true);
 			SET_PED_PATH_CAN_USE_LADDERS(ep.Handle(), true);
@@ -539,7 +539,7 @@ namespace sub::Spooner
 			SET_NETWORK_ID_CAN_MIGRATE(VEH_TO_NET(newEntity.Handle.Handle()), true);
 			SET_VEHICLE_MOD_KIT(newEntity.Handle.Handle(), 0);
 			SET_VEHICLE_DIRT_LEVEL(newEntity.Handle.Handle(), 0.0f);
-			_SET_VEHICLE_PAINT_FADE(newEntity.Handle.Handle(), 0.3f);
+			SET_VEHICLE_ENVEFF_SCALE(newEntity.Handle.Handle(), 0.3f);
 			GTAvehicle(newEntity.Handle).CloseAllDoors(true);
 			newEntity.Handle.FreezePosition(bFreezePos);
 			newEntity.Handle.Dynamic_set(bDynamic);
@@ -634,7 +634,7 @@ namespace sub::Spooner
 				GTAprop eo = newEntity.Handle;
 
 				if (orig.TextureVariation != -1)
-					_0x971DA0055324D033(eo.Handle(), orig.TextureVariation);
+					SET_OBJECT_TINT_INDEX(eo.Handle(), orig.TextureVariation);
 			}
 			else if (entType == EntityType::PED)
 			{
@@ -668,7 +668,7 @@ namespace sub::Spooner
 				SET_PED_CAN_PLAY_AMBIENT_BASE_ANIMS(ep.Handle(), true);
 				SET_PED_CAN_PLAY_GESTURE_ANIMS(ep.Handle(), true);
 				SET_PED_CAN_PLAY_VISEME_ANIMS(ep.Handle(), true, TRUE);
-				_0x33A60D8BDD6E508C(ep.Handle(), true);
+				SET_PED_IS_IGNORED_BY_AUTO_OPEN_DOORS(ep.Handle(), true);
 
 				if (!bTaskSeqIsActive && IS_PED_USING_SCENARIO(orig.Handle.Handle(), const_cast<PCHAR>(orig.LastAnimation.name.c_str())))
 				{

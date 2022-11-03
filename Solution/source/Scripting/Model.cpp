@@ -64,7 +64,7 @@ namespace GTAmodel
 	// Zorg93
 	UINT64 Model::MemoryAddress() const
 	{
-		static UINT64 _gtaModelMemoryAddressAddr = MemryScan::PatternScanner::FindPattern("\x80\xF9\x05\x75\x08\x48\x05\x00\x00\x00\x00", "xxxxxxx????");
+		static UINT64 _gtaModelMemoryAddressAddr = MemryScan::PatternScanner::FindPattern("80 F9 05 75 08 48 05 ? ? ? ?");
 		if (_gtaModelMemoryAddressAddr)
 		{
 			static UINT64(*_gtaModelGetInfo)(int, __int64) = (UINT64(*)(int, __int64))(*(int*)(_gtaModelMemoryAddressAddr - 0x12) + _gtaModelMemoryAddressAddr - 0x12 + 0x4);
@@ -77,7 +77,7 @@ namespace GTAmodel
 
 	std::string Model::VehicleDisplayName(bool properName) const
 	{
-		static UINT64 _gtaModelMemoryAddressAddr = MemryScan::PatternScanner::FindPattern("\x80\xF9\x05\x75\x08\x48\x05\x00\x00\x00\x00", "xxxxxxx????");
+		static UINT64 _gtaModelMemoryAddressAddr = MemryScan::PatternScanner::FindPattern("80 F9 05 75 08 48 05 ? ? ? ?");
 		if (_gtaModelMemoryAddressAddr)
 		{
 			static UINT64(*_gtaModelGetInfo)(int, __int64) = (UINT64(*)(int, __int64))(*(int*)(_gtaModelMemoryAddressAddr - 0x12) + _gtaModelMemoryAddressAddr - 0x12 + 0x4);
@@ -88,15 +88,15 @@ namespace GTAmodel
 			if (addr && (*(unsigned char*)(addr + 157) & 0x1F) == 5)//make sure model is valid and is a car
 			{
 				return properName ?
-					(DOES_TEXT_LABEL_EXIST((char*)(addr + _gtaModelDisplayNameOffset)) ? _GET_LABEL_TEXT((char*)(addr + _gtaModelDisplayNameOffset)) : (char*)(addr + _gtaModelDisplayNameOffset))
+					(DOES_TEXT_LABEL_EXIST((char*)(addr + _gtaModelDisplayNameOffset)) ? GET_FILENAME_FOR_AUDIO_CONVERSATION((char*)(addr + _gtaModelDisplayNameOffset)) : (char*)(addr + _gtaModelDisplayNameOffset))
 					: (char*)(addr + _gtaModelDisplayNameOffset);
 			}
 		}
 		else
 		{
-			char* name = GET_DISPLAY_NAME_FROM_VEHICLE_MODEL(this->hash);
+			const char* name = GET_DISPLAY_NAME_FROM_VEHICLE_MODEL(this->hash);
 			return properName ?
-				(DOES_TEXT_LABEL_EXIST(name) ? _GET_LABEL_TEXT(name) : name)
+				(DOES_TEXT_LABEL_EXIST(name) ? GET_FILENAME_FOR_AUDIO_CONVERSATION(name) : name)
 				: name;
 		}
 		return "CARNOTFOUND";
@@ -205,7 +205,7 @@ namespace GTAmodel
 	}
 	bool Model::IsFastBoat() const
 	{
-		return _IS_THIS_MODEL_AN_EMERGENCY_BOAT(this->hash) != 0;
+		return IS_THIS_MODEL_A_JETSKI(this->hash) != 0;
 	}
 	bool Model::IsCargobob() const
 	{

@@ -323,8 +323,6 @@ public:
 
 	static INT32 TransitionStatus();
 
-	static uintptr_t FindPattern(const char *pattern, const char *mask);
-
 private:
 	static UINT64 modelHashTable, modelNum2, modelNum3, modelNum4;
 	static int modelNum1;

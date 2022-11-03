@@ -119,12 +119,12 @@ namespace sub
 			VehicleOps_Slam_On = 0,
 			VehicleOpsHeavyMassOff_ = 0;
 
-		Static_241 = PLAYER_PED_ID();
-		Static_240 = PLAYER_ID();
+		local_ped_id = PLAYER_PED_ID();
+		local_player_id = PLAYER_ID();
 
 		bool bAmIOnline = NETWORK_IS_IN_SESSION() != 0;
-		GTAped myPed = Static_241;
-		GTAplayer myPlayer = Static_240;
+		GTAped myPed = local_ped_id;
+		GTAplayer myPlayer = local_player_id;
 		GTAvehicle myVehicle = g_myVeh;
 		bool bMyPedIsInVehicle = myPed.IsInVehicle();
 		Model& myVehicleModel = myVehicle.Model();
@@ -213,7 +213,7 @@ namespace sub
 			}
 		}
 
-		if (disableSiren_off) DISABLE_VEHICLE_IMPACT_EXPLOSION_ACTIVATION(g_myVeh, FALSE);
+		if (disableSiren_off) SET_VEHICLE_HAS_MUTED_SIRENS(g_myVeh, FALSE);
 
 		if (VehicleOps_Slam_On) { Game::Print::PrintBottomCentre("~b~Note:~s~ If you try hard enough, you can drive on walls too!"); return; }
 
@@ -221,16 +221,16 @@ namespace sub
 		//if (vcollisionon) SET_ENTITY_COLLISION(g_myVeh, TRUE, 0);
 		//if (vcollisionoff) SET_ENTITY_COLLISION(g_myVeh, FALSE, 0);
 
-		if (set_ent_12) Static_12 = g_myVeh;
+		if (set_ent_12) _hud_color_index = g_myVeh;
 		if (goToSlamItSub) sub::VehicleSlam_catind::InitSub(g_myVeh, &loop_vehicle_slam);
 
 		if (VehicleOps_sub_modshop) {
-			if (DOES_ENTITY_EXIST(g_myVeh)) { Static_12 = g_myVeh; Menu::SetSub_new(SUB::MODSHOP); }
+			if (DOES_ENTITY_EXIST(g_myVeh)) { _hud_color_index = g_myVeh; Menu::SetSub_new(SUB::MODSHOP); }
 			else Game::Print::PrintBottomCentre("~r~Error:~s~ You are not in a vehicle.");
 			return;
 		}
 		if (VehicleOps_sub_alphaLevel) {
-			if (DOES_ENTITY_EXIST(g_myVeh)) { Static_12 = g_myVeh; Menu::SetSub_new(SUB::ENTITYALPHALEVEL); }
+			if (DOES_ENTITY_EXIST(g_myVeh)) { _hud_color_index = g_myVeh; Menu::SetSub_new(SUB::ENTITYALPHALEVEL); }
 			else Game::Print::PrintBottomCentre("~r~Error:~s~ You are not in a vehicle.");
 			return;
 		}
@@ -246,7 +246,7 @@ namespace sub
 		}
 
 		if (VehicleOpsTeleportClosestCar_) {
-			/*Vector3 myPos = GET_ENTITY_COORDS(Static_241, 1);
+			/*Vector3 myPos = GET_ENTITY_COORDS(local_ped_id, 1);
 			int CarType = 64;
 			CarType |= 2710;
 			CarType |= 2048;
@@ -257,7 +257,7 @@ namespace sub
 			CarType |= 16;
 			CarType |= 8;
 			int tempVehicle = GET_CLOSEST_VEHICLE(myPos.x, myPos.y, myPos.z, 400.0f, 0, CarType);
-			if (DOES_ENTITY_EXIST(tempVehicle)) SET_PED_INTO_VEHICLE(Static_241, tempVehicle, tempVehicle.FirstFreeSeat(SEAT_DRIVER));*/
+			if (DOES_ENTITY_EXIST(tempVehicle)) SET_PED_INTO_VEHICLE(local_ped_id, tempVehicle, tempVehicle.FirstFreeSeat(SEAT_DRIVER));*/
 			auto& tempVehicle = World::GetClosestVehicle(myPed.Position_get(), FLT_MAX);
 			if (tempVehicle.Exists())
 				myPed.SetIntoVehicle(tempVehicle, tempVehicle.FirstFreeSeat(SEAT_DRIVER));
@@ -291,7 +291,7 @@ namespace sub
 				SET_VEHICLE_BODY_HEALTH(g_myVeh, 1250.0f);
 				SET_VEHICLE_UNDRIVEABLE(g_myVeh, 0);
 				if (!GET_IS_VEHICLE_ENGINE_RUNNING(g_myVeh))
-					SET_VEHICLE_ENGINE_ON(g_myVeh, 1, 1);
+					SET_VEHICLE_ENGINE_ON(g_myVeh, 1, 1, false);
 
 				if (fixCarTexterVal == 1)
 				{
@@ -358,17 +358,8 @@ namespace sub
 			if (!IS_PED_IN_ANY_VEHICLE(PLAYER_PED_ID(), 0)) Game::Print::PrintBottomCentre("~r~Error:~s~ You are not in a vehicle.");
 			else
 			{
-				//if (IS_ENTITY_VISIBLE(g_myVeh))
-				//{
-				//	RequestControlOfEnt(g_myVeh);
-				//	SET_ENTITY_VISIBLE(g_myVeh, 0);
-				//	SET_ENTITY_VISIBLE(PLAYER_PED_ID(), 1);
-				//}
-				//else
-				//{
 				myVehicle.RequestControlOnce();
 				myVehicle.SetVisible(true);
-				//}
 			}
 			return;
 		}
@@ -807,7 +798,7 @@ namespace sub
 					ScrHandle tsk;
 					OPEN_SEQUENCE_TASK(&tsk);
 
-					TASK_PLANE_MISSION(0, vehicle.Handle(), 0, 0, destination.x, destination.y, destination.z, 4, speed, 50.0f, -1.0f, 100, 200);
+					TASK_PLANE_MISSION(0, vehicle.Handle(), 0, 0, destination.x, destination.y, destination.z, 4, speed, 50.0f, -1.0f, 100, 200, false);
 
 					CLOSE_SEQUENCE_TASK(tsk);
 					TASK_PERFORM_SEQUENCE(myPed.Handle(), tsk);
@@ -939,7 +930,7 @@ namespace sub
 
 	namespace VehicleSlam_catind
 	{
-		Vehicle& _slamVehicle = Static_12;
+		Vehicle& _slamVehicle = _hud_color_index;
 		float* _slamValue;
 		void InitSub(GTAvehicle veh, float* val)
 		{
@@ -993,7 +984,7 @@ namespace sub
 			if (Hash)
 			{
 				if (!HAS_WEAPON_ASSET_LOADED(Hash)) REQUEST_WEAPON_ASSET(Hash, 31, 0);
-				//	GIVE_WEAPON_TO_PED(Static_241, Hash, 120, 1, 1);
+				//	GIVE_WEAPON_TO_PED(local_ped_id, Hash, 120, 1, 1);
 				Game::Print::PrintBottomLeft("Press ~b~LS/L1/NUM_PLUS~s~ for hax!");
 			}
 		}
@@ -1191,7 +1182,7 @@ namespace sub
 			Vector2 size = { 0.1540f, 0.164f };
 			Vector2& pos = Speedo_catind::_speedoPosition;
 
-			//float aspectRatio = _GET_SCREEN_ASPECT_RATIO(false);
+			//float aspectRatio = GET_ASPECT_RATIO(false);
 			//drawTexture(bg.id, 0, -9999, 100, size.x, size.y, 0.5f, 0.5f, pos.x, pos.y, 0.0f, aspectRatio, 1.0f, 1.0f, 1.0f, alpha);
 			//drawTexture(needle.id, 0, -9998, 100, size.x, size.y, 0.5f, 0.5f, pos.x, pos.y, (speedf > 270.0f ? 270.6f : speedf) / 360.0f, aspectRatio, 1.0f, 1.0f, 1.0f, alpha);
 
@@ -1216,10 +1207,6 @@ namespace sub
 
 				if (loop_speedo == SPEEDOMODE_DIGITAL)
 				{
-					/*if (HAS_STREAMED_TEXTURE_DICT_LOADED("busy_spinner"))
-					DRAW_SPRITE("busy_spinner", "orange_grad", 0.88f, 0.82f, 0.256, 0.08f, 0.0f, titlebox.R, titlebox.G, titlebox.B, 225);
-					else
-					REQUEST_STREAMED_TEXTURE_DICT("busy_spinner", 0);*/
 					std::string speedStr;
 					if (bit_speedo_mph)
 					{
@@ -1227,8 +1214,6 @@ namespace sub
 					}
 					else
 					{
-						//if (font_speedo == 0 || font_speedo == 1) sprintf_s(text, "%i ~b~KM/H", (INT)speedf);
-						//else sprintf_s(text, "%i ~b~KMPH", (INT)speedf);
 						speedStr = std::to_string((int)speedf) + " ~b~KMPH";
 					}
 					Game::Print::setupdraw(font_speedo, Vector2(0.8f, 0.8f), true, false, false);
@@ -1237,35 +1222,13 @@ namespace sub
 				}
 				else //if (loop_speedo == SPEEDOMODE_ANALOGUE)
 				{
-					/*if (!IS_HUD_COMPONENT_ACTIVE(HUDCOMPONENT_VEHICLE_NAME) || IS_PED_RUNNING_MOBILE_PHONE_TASK(PLAYER_PED_ID()))
-					{
-					_speedoAlpha = 0.0f;
-					}*/
-
 					if (_speedoAlpha < 255) _speedoAlpha += 5;
 
-					UINT8 clockHour = TIME::GET_CLOCK_HOURS();
+					UINT8 clockHour = CLOCK::GET_CLOCK_HOURS();
 					if (clockHour < 19 && clockHour > 7)
 						_currentSpeedoNeedle = { vSpeedoImageNames_All[0].at(0).fileName, vSpeedoImageNames_All[0].at(0).id }; // Day
 					else
 						_currentSpeedoNeedle = { vSpeedoImageNames_All[0].at(1).fileName, vSpeedoImageNames_All[0].at(1).id }; // Night
-
-					/*if (HAS_STREAMED_TEXTURE_DICT_LOADED("MenyooExtras"))
-					{
-						PCHAR bg_name = const_cast<PCHAR>(_currentSpeedoBg.fileName.c_str());
-						PCHAR needle_name = const_cast<PCHAR>(_currentSpeedoNeedle.fileName.c_str());
-
-						Vector3 res = GET_TEXTURE_RESOLUTION("MenyooExtras", bg_name);
-						res.x = res.x * 0.66 / Game::defaultScreenRes.first;
-						res.y = res.y * 0.66 / Game::defaultScreenRes.second;
-
-						DRAW_SPRITE("MenyooExtras", bg_name, _speedoPosition.x, _speedoPosition.y, res.x, res.y, 0.0f, 255, 255, 255, _speedoAlpha); // Background
-						Game::Print::setupdraw(font_speedo, Vector2(0.33, 0.33), true, false, false, RGBA(0, 153, 153, alpha < 220 ? alpha : 220));
-						Game::Print::drawfloat(speedf, 0, _speedoPosition.x, _speedoPosition.y - 0.074f);
-						DRAW_SPRITE("MenyooExtras", needle_name, _speedoPosition.x, _speedoPosition.y, res.x, res.y, speedf > 270.0f ? 270.6f : speedf, 255, 255, 255, _speedoAlpha); // Needle
-					}
-					else
-						REQUEST_STREAMED_TEXTURE_DICT("MenyooExtras", 0);*/
 
 					DrawSpeedoImage(_currentSpeedoBg, _currentSpeedoNeedle, speedf, _speedoAlpha);
 				}

@@ -596,7 +596,7 @@ void GTAmemory::Init()
 	_writeWorldGravityAddress = reinterpret_cast<float*>(*reinterpret_cast<int*>(address + 6) + address + 10);
 	_readWorldGravityAddress = reinterpret_cast<float*>(*reinterpret_cast<int*>(address + 19) + address + 23);
 
-	address = MemryScan::PatternScanner::FindPattern("74 11 8B D1 48 8D 0D ? ? ? ? 45 33 C0", "xxxxxxx????xxx");
+	address = MemryScan::PatternScanner::FindPattern("74 11 8B D1 48 8D 0D ? ? ? ? 45 33 C0");
 	_cursorSpriteAddr = reinterpret_cast<int*>(*reinterpret_cast<int*>(address - 4) + address);
 
 	address = MemryScan::PatternScanner::FindPattern("48 8B C7 F3 0F 10 0D") - 0x1D;
@@ -726,7 +726,7 @@ UINT64 GTAmemory::_globalTextBlockAddr;
 std::vector<GTAmemory::GXT2Entry> GTAmemory::_vecGXT2Entries;
 void GTAmemory::LoadGlobalGXTEntries()
 {
-	UINT64 address = FindPattern("84 C0 74 34 48 8D 0D ? ? ? ? 48 8B D3", "xxxxxxx????xxx");
+	UINT64 address = MemryScan::PatternScanner::FindPattern("84 C0 74 34 48 8D 0D ? ? ? ? 48 8B D3");
 	if (address)
 	{
 		address = *reinterpret_cast<int *>(address + 7) + address + 11;
@@ -1049,77 +1049,7 @@ float GTAmemory::WorldGravity_get()
 void GTAmemory::WorldGravity_set(float value)
 {
 	*_writeWorldGravityAddress = value;
-	GAMEPLAY::SET_GRAVITY_LEVEL(0);
-}
-
-/*void GTAmemory::GetVehicleHandles(std::vector<Entity>& result)
-{
-	Entity* entities = new Entity[poolCount_vehicles];
-	int count = worldGetAllVehicles(entities, poolCount_vehicles);
-	for (int i = 0; i < count; i++)
-	{
-		//if (IS_ENTITY_A_VEHICLE(entities[i]))
-		result.push_back(entities[i]);
-	}
-	delete[] entities;
-}
-void GTAmemory::GetPedHandles(std::vector<Entity>& result)
-{
-	Entity* entities = new Entity[poolCount_peds];
-	int count = worldGetAllPeds(entities, poolCount_peds);
-	for (int i = 0; i < count; i++)
-	{
-		//if (IS_ENTITY_A_PED(entities[i]))
-		result.push_back(entities[i]);
-	}
-	delete[] entities;
-}
-void GTAmemory::GetPropHandles(std::vector<Entity>& result)
-{
-	Entity* entities = new Entity[poolCount_objects];
-	int count = worldGetAllObjects(entities, poolCount_objects);
-	for (int i = 0; i < count; i++)
-	{
-		//if (IS_ENTITY_AN_OBJECT(entities[i]))
-		result.push_back(entities[i]);
-	}
-	delete[] entities;
-}
-void GTAmemory::GetEntityHandles(std::vector<Entity>& result)
-{
-	GTAmemory::GetVehicleHandles(result);
-	GTAmemory::GetPedHandles(result);
-	GTAmemory::GetPropHandles(result);
-}*/
-
-uintptr_t GTAmemory::FindPattern(const char *pattern, const char *mask)
-{
-	MODULEINFO modInfo = g_MainModuleInfo;
-
-	const char *start_offset = reinterpret_cast<const char *>(modInfo.lpBaseOfDll);
-	const uintptr_t size = static_cast<uintptr_t>(modInfo.SizeOfImage);
-
-	intptr_t pos = 0;
-	const uintptr_t searchLen = static_cast<uintptr_t>(strlen(mask) - 1);
-
-	for (const char *retAddress = start_offset; retAddress < start_offset + size; retAddress++)
-	{
-		if (*retAddress == pattern[pos] || mask[pos] == '?')
-		{
-			if (mask[pos + 1] == '\0')
-			{
-				return (reinterpret_cast<uintptr_t>(retAddress) - searchLen);
-			}
-
-			pos++;
-		}
-		else
-		{
-			pos = 0;
-		}
-	}
-
-	return 0;
+	MISC::SET_GRAVITY_LEVEL(0);
 }
 
 //--------------------------------GeneralGlobalHax-----------------------------------------------

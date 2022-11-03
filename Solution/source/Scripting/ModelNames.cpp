@@ -221,49 +221,6 @@ void PopulateVehicleModelsArray()
 		}
 	}
 
-	//UINT64 address = MemryScan::PatternScanner::FindPattern("\x66\x81\xF9\x00\x00\x74\x10\x4D\x85\xC0", "xxx??xxxxx");
-	//if (address)
-	//{
-	//	UINT64 baseFuncAddr = *reinterpret_cast<int*>(address - 0x21) + address - 0x1D;
-	//	int classOffset = *reinterpret_cast<int*>(address + 0x10);
-	//	UINT16 HashTableEntries = *reinterpret_cast<UINT16*>(baseFuncAddr + *reinterpret_cast<int*>(baseFuncAddr + 3) + 7);
-	//	int cmp1 = *reinterpret_cast<int*>(*reinterpret_cast<int*>(baseFuncAddr + 0x52) + baseFuncAddr + 0x56);
-	//	UINT64 mov2 = *reinterpret_cast<UINT64*>(*reinterpret_cast<int*>(baseFuncAddr + 0x63) + baseFuncAddr + 0x67);
-	//	UINT64 mul3 = *reinterpret_cast<UINT64*>(*reinterpret_cast<int*>(baseFuncAddr + 0x7A) + baseFuncAddr + 0x7E);
-	//	UINT64 add4 = *reinterpret_cast<UINT64*>(*reinterpret_cast<int*>(baseFuncAddr + 0x81) + baseFuncAddr + 0x85);
-	//	struct HashNode
-	//	{
-	//		int hash;
-	//		UINT16 data;
-	//		UINT16 padding;
-	//		HashNode* next;
-	//	};
-	//	HashNode** HashMap = *reinterpret_cast<HashNode***>(*reinterpret_cast<int*>(baseFuncAddr + 0x24) + baseFuncAddr + 0x28);
-	//	//I know 0x20 items are defined but there are only 0x16 vehicle classes.
-	//	//But keeping it at 0x20 is just being safe as the & 0x1F in theory supports up to 0x20
-	//	std::array<std::vector<int>, 0x20> hashes;
-	//	for (int i = 0; i < HashTableEntries; i++)
-	//	{
-	//		for (HashNode* cur = HashMap[i]; cur; cur = cur->next)
-	//		{
-	//			UINT16 data = cur->data;
-	//			if ((int)data < cmp1 && (*reinterpret_cast<int*>(mov2 + (4 * data >> 5)) & (1 << (data & 0x1F))) != 0)
-	//			{
-	//				UINT64 addr1 = add4 + mul3 * data;
-	//				if (addr1)
-	//				{
-	//					UINT64 addr2 = *reinterpret_cast<PUINT64>(addr1);
-	//					if (addr2)
-	//					{
-	//						if ((*reinterpret_cast<PBYTE>(addr2 + 157) & 0x1F) == 5)
-	//						{
-	//							hashes[*reinterpret_cast<PBYTE>(addr2 + classOffset) & 0x1F].push_back(cur->hash);
-	//						}
-	//					}
-	//				}
-	//			}
-	//		}
-	//	}
 	GTAmemory::GenerateVehicleModelList();
 	auto& hashes = GTAmemory::VehicleModels();
 	std::unordered_map<VehicleClass, std::vector<Model>*> vDestMap
@@ -277,21 +234,7 @@ void PopulateVehicleModelsArray()
 		{ VehicleClass::Train, &g_vehHashes_TRAIN },{ VehicleClass::Emergency, &g_vehHashes_EMERGENCY },{ VehicleClass::Motorcycle, &g_vehHashes_MOTORCYCLE },
 		{ VehicleClass::Cycle, &g_vehHashes_BICYCLE },{ VehicleClass::Plane, &g_vehHashes_PLANE },{ VehicleClass::Helicopter, &g_vehHashes_HELICOPTER },{ VehicleClass::Boat, &g_vehHashes_BOAT }
 	};
-	/*if (GTAmemory::GetGameVersion() >= eGameVersion::VER_1_0_1604_0_STEAM)
-	{
-	for (auto& dd : hashes[0x1F])
-	{
-	if (std::find(g_vehHashes.begin(), g_vehHashes.end(), Model(dd)) == g_vehHashes.end())
-	{
-	auto dit = vDestMap.find(VehicleClass(GET_VEHICLE_CLASS_FROM_NAME(dd)));
-	if (dit != vDestMap.end())
-	dit->second->push_back(dd);
-	else g_vehHashes_OTHER.push_back(dd);
-	g_vehHashes.push_back(dd);
-	}
-	}
-	}
-	else*/
+
 	{
 		for (int d = 0x0; d < 0x20; d++)
 		{

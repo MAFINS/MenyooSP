@@ -66,12 +66,12 @@ namespace World
 	{
 		if (newCamera.Handle() == 0)
 		{
-			RENDER_SCRIPT_CAMS(false, ease, 3000, 1, 0);
+			RENDER_SCRIPT_CAMS(false, ease, 3000, 1, 0, 0);
 		}
 		else
 		{
 			newCamera.SetActive(true);
-			RENDER_SCRIPT_CAMS(true, ease, 3000, 1, 0);
+			RENDER_SCRIPT_CAMS(true, ease, 3000, 1, 0, 0);
 		}
 	}
 
@@ -87,11 +87,11 @@ namespace World
 	}
 	void SetWeatherOverTime(WeatherType weather, DWORD ms)
 	{
-		_SET_WEATHER_TYPE_OVER_TIME((PCHAR)sWeatherNames[static_cast<int>(weather)].c_str(), float(ms) / 1000.0f);
+		SET_WEATHER_TYPE_OVERTIME_PERSIST((PCHAR)sWeatherNames[static_cast<int>(weather)].c_str(), float(ms) / 1000.0f);
 	}
 	void SetWeatherOverTime(const std::string& weatherName, DWORD ms)
 	{
-		_SET_WEATHER_TYPE_OVER_TIME(const_cast<PCHAR>(weatherName.c_str()), float(ms) / 1000.0f);
+		SET_WEATHER_TYPE_OVERTIME_PERSIST(const_cast<PCHAR>(weatherName.c_str()), float(ms) / 1000.0f);
 	}
 	void SetWeatherOverride(WeatherType weather)
 	{
@@ -111,13 +111,13 @@ namespace World
 	}
 	void SetWeatherTransition(WeatherType from, WeatherType to, DWORD ms)
 	{
-		_SET_WEATHER_TYPE_TRANSITION(GET_HASH_KEY(sWeatherNames[static_cast<int>(from)]), GET_HASH_KEY(sWeatherNames[static_cast<int>(to)]), float(ms) / 1000.0f);
+		SET_CURR_WEATHER_STATE(GET_HASH_KEY(sWeatherNames[static_cast<int>(from)]), GET_HASH_KEY(sWeatherNames[static_cast<int>(to)]), float(ms) / 1000.0f);
 	}
 	void GetWeatherTransition(WeatherType& from, WeatherType& to, DWORD& time)
 	{
 		Hash fr, t;
 		float ti;
-		_GET_WEATHER_TYPE_TRANSITION(&fr, &t, &ti);
+		GET_CURR_WEATHER_STATE(&fr, &t, &ti);
 
 		time = (ti * 1000);
 
@@ -135,7 +135,7 @@ namespace World
 	}
 	WeatherType Weather_get()
 	{
-		Hash currentWeatherHash = _GET_CURRENT_WEATHER_TYPE();
+		Hash currentWeatherHash = GET_PREV_WEATHER_TYPE_HASH_NAME();
 		for (int i = 0; i < sWeatherNames.size(); i++)
 		{
 			if (currentWeatherHash == GET_HASH_KEY(sWeatherNames[i]))
@@ -158,7 +158,7 @@ namespace World
 	}
 	std::string WeatherName_get()
 	{
-		Hash currentWeatherHash = _GET_CURRENT_WEATHER_TYPE();
+		Hash currentWeatherHash = GET_PREV_WEATHER_TYPE_HASH_NAME();
 		for (auto& weatherName : sWeatherNames)
 		{
 			if (currentWeatherHash == GET_HASH_KEY(weatherName))
@@ -194,14 +194,14 @@ namespace World
 	void GetNearbyPeds(std::vector<GTAped>& result, GTAped ped, float radius, int maxAmount)
 	{
 		const Vector3 position = ped.Position_get();
-		int *handles = new int[maxAmount * 2 + 2];
+		Any *handles = new Any[maxAmount * 2 + 2];
 
 		handles[0] = maxAmount;
 
 		const int amount = GET_PED_NEARBY_PEDS(ped.Handle(), handles, -1);
 
 		int index;
-		int* currped;
+		Ped* currped;
 
 		for (int i = 0; i < amount; ++i)
 		{
@@ -209,7 +209,7 @@ namespace World
 
 			if (handles[index] != 0 && DOES_ENTITY_EXIST(handles[index]))
 			{
-				currped = &handles[index];
+				(Any*)currped = &handles[index];
 
 				if (Vector3::Subtract(position, GET_ENTITY_COORDS(*currped, 1)).LengthSquared() < radius * radius)
 				{
@@ -240,7 +240,7 @@ namespace World
 	void GetNearbyVehicles(std::vector<GTAvehicle>& result, GTAped ped, float radius, int maxAmount)
 	{
 		const Vector3 position = ped.Position_get();
-		int *handles = new int[maxAmount * 2 + 2];
+		Any *handles = new Any[maxAmount * 2 + 2];
 
 		handles[0] = maxAmount;
 
@@ -321,14 +321,14 @@ namespace World
 	float GetGroundHeight(const Vector2& position)
 	{
 		float height = 0.0f;
-		GET_GROUND_Z_FOR_3D_COORD(position.x, position.y, 1000.0f, &height);
+		GET_GROUND_Z_FOR_3D_COORD(position.x, position.y, 1000.0f, &height, false, false);
 
 		return height;
 	}
 	float GetGroundHeight(const Vector3& position)
 	{
 		float height = 0.0f;
-		GET_GROUND_Z_FOR_3D_COORD(position.x, position.y, 1000.0f, &height);
+		GET_GROUND_Z_FOR_3D_COORD(position.x, position.y, 1000.0f, &height, false, false);
 
 		return height;
 	}
@@ -350,8 +350,8 @@ namespace World
 
 	std::string GetZoneName(const Vector3& position, bool properName)
 	{
-		const PCHAR name = GET_NAME_OF_ZONE(position.x, position.y, position.z);
-		return properName ? (_GET_LABEL_TEXT(name)) : name;
+		const char* name = GET_NAME_OF_ZONE(position.x, position.y, position.z);
+		return properName ? (GET_FILENAME_FOR_AUDIO_CONVERSATION(name)) : name;
 	}
 	std::string GetStreetName(const Vector3& position)
 	{
@@ -362,12 +362,6 @@ namespace World
 
 	void GetActiveBlips(std::vector<GTAblip>& result)
 	{
-		/*BlipList* blipList = MemoryPatch::GetBlipList();
-		for (UINT16 i = 0; i <= 1000; i++)
-		{
-		Blipx* blip = blipList->m_Blips[i];
-		if (blip) result.push_back(GTAblip(blip->iID));
-		}*/
 		for (int i = 0; i <= 521; i++)
 		{
 			GTAblip blip = GET_FIRST_BLIP_INFO_ID(i);
@@ -514,11 +508,11 @@ namespace World
 	}
 	void AddExplosion(const Vector3& position, EXPLOSION::EXPLOSION type, float radius, float cameraShake, bool audible, bool visible)
 	{
-		ADD_EXPLOSION(position.x, position.y, position.z, static_cast<int>(type), radius, audible, !visible, cameraShake);
+		ADD_EXPLOSION(position.x, position.y, position.z, static_cast<int>(type), radius, audible, !visible, cameraShake, false);
 	}
-	void AddOwnedExplosion(GTAentity owner, const Vector3& position, EXPLOSION::EXPLOSION type, float radius, float cameraShake, bool audible, bool visible)
+	void AddOwnedExplosion(GTAentity owner, const Vector3& position, EXPLOSION::EXPLOSION type, float radius, float cameraShake, bool audible, bool visible) // Too lazy to add bypass
 	{
-		ADD_OWNED_EXPLOSION(owner.Handle(), position.x, position.y, position.z, static_cast<int>(type), radius, audible, !visible, cameraShake);
+		ADD_EXPLOSION(position.x, position.y, position.z, static_cast<int>(type), radius, audible, !visible, cameraShake, false);
 	}
 
 	Checkpoint CreateCheckpoint(const CheckpointIcon& icon, const Vector3& position, const Vector3& pointTo, float radius, const RGBA& colour, BYTE reserved)
@@ -533,7 +527,7 @@ namespace World
 
 	void SetBlackout(bool enable)
 	{
-		_SET_BLACKOUT(enable);
+		SET_ARTIFICIAL_LIGHTS_STATE(enable);
 	}
 
 	Hash AddRelationshipGroup(const std::string& groupName)
@@ -591,22 +585,13 @@ namespace World
 
 	bool WorldToScreen(const Vector3& worldCoords, Vector2& screenCoords)
 	{
-		return (_WORLD3D_TO_SCREEN2D(worldCoords.x, worldCoords.y, worldCoords.z, &screenCoords.x, &screenCoords.y)) != 0;
+		return (GET_SCREEN_COORD_FROM_WORLD_COORD(worldCoords.x, worldCoords.y, worldCoords.z, &screenCoords.x, &screenCoords.y)) != 0;
 	}
 
-	/*RaycastResult Raycast(Vector3 source, Vector3 target, IntersectOptions options)
-	{
-	return RaycastResult::Raycast(source, target, options);
-	}
-	RaycastResult Raycast(Vector3 source, Vector3 target, IntersectOptions options, GTAentity entity)
-	{
-	return RaycastResult::Raycast(source, target, options, entity);
-	}*/
 	GTAentity EntityFromAimCamRay()
 	{
 		GTAplayer myPlayer = PLAYER_ID();
 		GTAentity myPed = PLAYER_PED_ID();
-		//GTAentity myWeapEnt = GET_CURRENT_PED_WEAPON_ENTITY_INDEX(myPed.Handle());
 
 		GTAentity aimedEntity = myPlayer.AimedEntity();
 		if (aimedEntity.Handle())
@@ -653,9 +638,9 @@ namespace World
 	{
 		DRAW_SPOT_LIGHT(pos.x, pos.y, pos.z, dir.x, dir.y, dir.z, colour.R, colour.G, colour.B, distance, brightness, roundness, radius, fadeout);
 	}
-	void DrawSpotLightWithShadow(const Vector3& pos, const Vector3& dir, const RgbS& colour, float distance, float brightness, float roundness, float radius, float fadeout, float shadowUnk)
+	void DrawSpotLightWithShadow(const Vector3& pos, const Vector3& dir, const RgbS& colour, float distance, float brightness, float roundness, float radius, float fadeout, int shadowId)
 	{
-		_DRAW_SPOT_LIGHT_WITH_SHADOW(pos.x, pos.y, pos.z, dir.x, dir.y, dir.z, colour.R, colour.G, colour.B, distance, brightness, roundness, radius, fadeout, shadowUnk);
+		DRAW_SHADOWED_SPOT_LIGHT(pos.x, pos.y, pos.z, dir.x, dir.y, dir.z, colour.R, colour.G, colour.B, distance, brightness, roundness, radius, fadeout, shadowId);
 	}
 
 
@@ -821,7 +806,7 @@ void clear_area_of_vehicles_around_entity(Entity entity, float radius, bool memr
 				SET_ENTITY_COORDS(vehicles[offsettedID], 32.2653f, 7683.5249f, 0.5696f, 0, 0, 0, 1);
 				DELETE_VEHICLE(&vehicles[offsettedID]);
 
-				CLEAR_AREA_OF_VEHICLES(Pos.x, Pos.y, Pos.z, radius, 0, 0, 1, 1, 0);
+				CLEAR_AREA_OF_VEHICLES(Pos.x, Pos.y, Pos.z, radius, 0, 0, 1, 1, 0, 0, 0);
 			}
 			delete[] vehicles;
 		}

@@ -189,7 +189,7 @@ namespace sub::TeleportLocations_catind
 
 			if (menuPos.x > 0.45f) x_coord = menuPos.x - 0.003f;
 
-			DRAW_RECT(x_coord, y_coord, res.x + 0.003f, res.y + 0.003f, 0, 0, 0, 212);
+			DRAW_RECT(x_coord, y_coord, res.x + 0.003f, res.y + 0.003f, 0, 0, 0, 212, 0);
 
 			auto onit = vOptionNames.find(yachtId);
 			if (onit != vOptionNames.end())
@@ -199,7 +199,7 @@ namespace sub::TeleportLocations_catind
 				if (!HAS_STREAMED_TEXTURE_DICT_LOADED(const_cast<PCHAR>(imgDict.c_str())))
 					REQUEST_STREAMED_TEXTURE_DICT(const_cast<PCHAR>(imgDict.c_str()), false);
 				else
-					DRAW_SPRITE(const_cast<PCHAR>(imgDict.c_str()), const_cast<PCHAR>(vimg.imgName), x_coord, y_coord, res.x, res.y, 0, 255, 255, 255, 255);
+					DRAW_SPRITE(const_cast<PCHAR>(imgDict.c_str()), const_cast<PCHAR>(vimg.imgName), x_coord, y_coord, res.x, res.y, 0, 255, 255, 255, 255, 0, 0);
 			}
 			else
 			{
@@ -238,8 +238,8 @@ namespace sub::TeleportLocations_catind
 
 				//Game::Print::PrintBottomLeft("Building Yacht.");
 
-				_ENABLE_MP_DLC_MAPS(true);
-				_LOAD_MP_DLC_MAPS();
+				SET_INSTANCE_PRIORITY_MODE(true);
+				ON_ENTER_MP();
 
 				sprintf_s(buffer, "%02d", yachtInfo.location->first);
 				std::string groupIdStr = buffer;
@@ -250,7 +250,7 @@ namespace sub::TeleportLocations_catind
 				REQUEST_IPL(const_cast<PCHAR>((iplInitials).c_str()));
 				REQUEST_IPL(const_cast<PCHAR>((iplInitials + "_int").c_str()));
 				REQUEST_IPL(const_cast<PCHAR>((iplInitials + "_lod").c_str()));
-				_ENABLE_MP_DLC_MAPS(false);
+				SET_INSTANCE_PRIORITY_MODE(false);
 
 				WAIT(200);
 
@@ -275,7 +275,7 @@ namespace sub::TeleportLocations_catind
 				}
 				Vector3& propYachtPos = propYacht.Position_get();
 
-				_0x971DA0055324D033(propYacht.Handle(), yachtInfo.yachtPropTextureVariation);
+				SET_OBJECT_TINT_INDEX(propYacht.Handle(), yachtInfo.yachtPropTextureVariation);
 
 				auto& propYachtWin = propYacht;//World::GetClosestPropOfType(yachtInfo.location->second.pos, 4.0f, 0xBCDAC9E7); // apa_mp_apa_yacht_win
 											   //if (!propYachtWin.Exists()) propYachtWin = propYacht;
@@ -307,7 +307,7 @@ namespace sub::TeleportLocations_catind
 					auto& p = World::CreateProp(ms, Vector3(), false, false);
 					p.AttachTo(propYachtWin, 0, false, Vector3(0.0032f, 0.0028f, 14.5700f), Vector3());
 					p.IsCollisionEnabled_set(true);
-					_0x971DA0055324D033(p.Handle(), yachtInfo.yachtPropTextureVariation);
+					SET_OBJECT_TINT_INDEX(p.Handle(), yachtInfo.yachtPropTextureVariation);
 					SET_ENTITY_LIGHTS(p.Handle(), 0);
 					propRailings.MissionEntity_set(true);
 					yachtInfo.vSpawnedEntities.push_back(p);
@@ -332,7 +332,7 @@ namespace sub::TeleportLocations_catind
 					auto& propDoor = World::CreateProp(std::string(buffer), Vector3(), true, false);
 					propDoor.AttachTo(propYachtWin, 0, false, doorOffset.first, doorOffset.second);
 					propDoor.IsCollisionEnabled_set(true);
-					_0x971DA0055324D033(propDoor.Handle(), yachtInfo.yachtPropTextureVariation);
+					SET_OBJECT_TINT_INDEX(propDoor.Handle(), yachtInfo.yachtPropTextureVariation);
 					SET_ENTITY_LIGHTS(propDoor.Handle(), 0);
 					propDoor.MissionEntity_set(true);
 					yachtInfo.vSpawnedEntities.push_back(propDoor);
@@ -368,7 +368,7 @@ namespace sub::TeleportLocations_catind
 					propRadome.Detach();
 					propRadome.FreezePosition(true);
 					propRadome.IsCollisionEnabled_set(true);
-					_0x971DA0055324D033(propRadome.Handle(), yachtInfo.yachtPropTextureVariation);
+					SET_OBJECT_TINT_INDEX(propRadome.Handle(), yachtInfo.yachtPropTextureVariation);
 					SET_ENTITY_LIGHTS(propRadome.Handle(), 0);
 					propRadome.MissionEntity_set(true);
 					yachtInfo.vSpawnedEntities.push_back(propRadome);
@@ -563,7 +563,7 @@ namespace sub::TeleportLocations_catind
 				Menu::SetSub_previous();
 				return;
 			}
-			GTAped ped = Static_241;
+			GTAped ped = local_ped_id;
 
 			AddTitle(currentYachtInfo.location->second.name);
 
@@ -629,8 +629,8 @@ namespace sub::TeleportLocations_catind
 				CreateYacht(currentYachtInfo);
 				TeleportPedToYacht(ped, currentYachtInfo);
 				(ped.IsInVehicle() ? ped.CurrentVehicle() : GTAentity(ped)).FreezePosition(false);
-				WATER::_SET_WAVES_HEIGHT(0.0f);
-				WATER::_REMOVE_CURRENT_RISE(-4);
+				WATER::SET_DEEP_OCEAN_SCALER(0.0f);
+				WATER::REMOVE_EXTRA_CALMING_QUAD(-4);
 				Menu::SetSub_previous();
 				DO_SCREEN_FADE_IN(200);
 				return;

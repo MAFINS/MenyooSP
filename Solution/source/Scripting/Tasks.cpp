@@ -112,7 +112,7 @@ void Tasks::FightAgainstHatedTargets(float radius, int duration)
 }
 void Tasks::ThrowProjectile(const Vector3& targetPos)
 {
-	TASK_THROW_PROJECTILE(_ped.Handle(), targetPos.x, targetPos.y, targetPos.z);
+	TASK_THROW_PROJECTILE(_ped.Handle(), targetPos.x, targetPos.y, targetPos.z, 0, 0);
 }
 void Tasks::FleeFrom(GTAentity ped)
 {
@@ -213,7 +213,7 @@ void Tasks::HandsUp(int duration)
 }
 void Tasks::Jump()
 {
-	TASK_JUMP(_ped.Handle(), true);
+	TASK_JUMP(_ped.Handle(), true, false, false);
 }
 void Tasks::LeaveVehicle()
 {
@@ -276,11 +276,11 @@ void Tasks::PlayAnimation(const std::string& animDict, const std::string& animNa
 }
 void Tasks::PutAwayMobilePhone()
 {
-	TASK_USE_MOBILE_PHONE(_ped.Handle(), 0);
+	TASK_USE_MOBILE_PHONE(_ped.Handle(), 0, 0);
 }
 void Tasks::PutAwayParachute()
 {
-	TASK_PARACHUTE(_ped.Handle(), false);
+	TASK_PARACHUTE(_ped.Handle(), false, false);
 }
 void Tasks::ReactAndFlee(GTAentity pedToFleeFrom)
 {
@@ -311,11 +311,11 @@ void Tasks::ShootAt(const Vector3& position, int duration, int pattern)
 }
 void Tasks::ShuffleToNextVehicleSeat(GTAentity vehicle)
 {
-	TASK_SHUFFLE_TO_NEXT_VEHICLE_SEAT(_ped.Handle(), vehicle.Handle());
+	TASK_SHUFFLE_TO_NEXT_VEHICLE_SEAT(_ped.Handle(), vehicle.Handle(), false);
 }
 void Tasks::Skydive()
 {
-	TASK_SKY_DIVE(_ped.Handle());
+	TASK_SKY_DIVE(_ped.Handle(), false);
 }
 void Tasks::SlideTo(const Vector3& position, float heading)
 {
@@ -376,7 +376,7 @@ void Tasks::TurnTo(const Vector3& position, int duration)
 }
 void Tasks::UseMobilePhone()
 {
-	TASK_USE_MOBILE_PHONE(_ped.Handle(), true);
+	TASK_USE_MOBILE_PHONE(_ped.Handle(), true, 0);
 }
 void Tasks::UseMobilePhone(int duration)
 {
@@ -384,7 +384,7 @@ void Tasks::UseMobilePhone(int duration)
 }
 void Tasks::UseParachute()
 {
-	TASK_PARACHUTE(_ped.Handle(), true);
+	TASK_PARACHUTE(_ped.Handle(), true, false);
 }
 void Tasks::VehicleChase(GTAentity target)
 {

@@ -34,10 +34,10 @@ namespace sub
 		AddOption("Misc Options", null, nullFunc, SUB::MISCOPS);
 		AddOption("Settings", null, nullFunc, SUB::SETTINGS);
 
-		Static_240 = PLAYER_ID();
-		Static_241 = PLAYER_PED_ID();
-		Static_239 = GET_PLAYER_NAME(Static_240);
-		Static_242 = GET_PLAYER_GROUP(Static_240);
+		local_player_id = PLAYER_ID();
+		local_ped_id = PLAYER_PED_ID();
+		local_player_name = GET_PLAYER_NAME(local_player_id);
+		local_player_group = GET_PLAYER_GROUP(local_player_id);
 
 	}
 

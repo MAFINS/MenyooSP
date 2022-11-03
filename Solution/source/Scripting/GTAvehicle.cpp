@@ -375,7 +375,7 @@ std::string get_mod_slot_name(Vehicle vehicle, INT modType, bool gxt)
 
 	if (gxt)
 	{
-		return DOES_TEXT_LABEL_EXIST(name) ? _GET_LABEL_TEXT(name) : name;
+		return DOES_TEXT_LABEL_EXIST(name) ? GET_FILENAME_FOR_AUDIO_CONVERSATION(name) : name;
 	}
 
 	return name;
@@ -386,8 +386,8 @@ std::string get_mod_text_label(Vehicle vehicle, INT modType, INT modValue, bool 
 	{
 		switch (modType)
 		{
-		case VehicleMod::FrontBumper: return _GET_LABEL_TEXT("CMOD_BUM_0"); break;
-		case VehicleMod::RearBumper: return _GET_LABEL_TEXT("CMOD_BUM_3"); break;
+		case VehicleMod::FrontBumper: return GET_FILENAME_FOR_AUDIO_CONVERSATION("CMOD_BUM_0"); break;
+		case VehicleMod::RearBumper: return GET_FILENAME_FOR_AUDIO_CONVERSATION("CMOD_BUM_3"); break;
 		}
 		return ((std::string)"Stock " + get_mod_slot_name(vehicle, modType, true));
 	}
@@ -403,15 +403,15 @@ std::string get_mod_text_label(Vehicle vehicle, INT modType, INT modValue, bool 
 	case VehicleMod::Brakes: case VehicleMod::Transmission:
 		return modValue >= brakenames.size() ? get_mod_slot_name(vehicle, modType, true) + std::to_string(modValue) : brakenames[modValue] + get_mod_slot_name(vehicle, modType, true); break;
 	case VehicleMod::Horns:
-		return modValue >= vValues_HornNames.size() ? get_mod_slot_name(vehicle, modType, true) + std::to_string(modValue) : (gxt && DOES_TEXT_LABEL_EXIST((PCHAR)vValues_HornNames[modValue].c_str()) ? _GET_LABEL_TEXT((PCHAR)vValues_HornNames[modValue].c_str()) : vValues_HornNames[modValue]); break;
+		return modValue >= vValues_HornNames.size() ? get_mod_slot_name(vehicle, modType, true) + std::to_string(modValue) : (gxt && DOES_TEXT_LABEL_EXIST((PCHAR)vValues_HornNames[modValue].c_str()) ? GET_FILENAME_FOR_AUDIO_CONVERSATION((PCHAR)vValues_HornNames[modValue].c_str()) : vValues_HornNames[modValue]); break;
 	case VehicleMod::Suspension:
 		return modValue >= suspensionnames.size() ? get_mod_slot_name(vehicle, modType, true) + std::to_string(modValue) : suspensionnames[modValue] + get_mod_slot_name(vehicle, modType, true); break;
 	case VehicleMod::Armor:
-		return modValue >= armournames.size() ? "Armour Upgrade " + std::to_string((modValue + 1) * 20) + "%" : (gxt && DOES_TEXT_LABEL_EXIST((PCHAR)armournames[modValue].c_str()) ? _GET_LABEL_TEXT((PCHAR)armournames[modValue].c_str()) : armournames[modValue]); break;
+		return modValue >= armournames.size() ? "Armour Upgrade " + std::to_string((modValue + 1) * 20) + "%" : (gxt && DOES_TEXT_LABEL_EXIST((PCHAR)armournames[modValue].c_str()) ? GET_FILENAME_FOR_AUDIO_CONVERSATION((PCHAR)armournames[modValue].c_str()) : armournames[modValue]); break;
 	}
 
-	PCHAR modName = GET_MOD_TEXT_LABEL(vehicle, modType, modValue);
-	if (strlen(modName) > 3) return DOES_TEXT_LABEL_EXIST(modName) && gxt ? _GET_LABEL_TEXT(modName) : modName;
+	const char* modName = GET_MOD_TEXT_LABEL(vehicle, modType, modValue);
+	if (strlen(modName) > 3) return DOES_TEXT_LABEL_EXIST(modName) && gxt ? GET_FILENAME_FOR_AUDIO_CONVERSATION(modName) : modName;
 
 
 	// If all else fails
@@ -468,7 +468,7 @@ int GTAvehicle::NetID() const
 
 bool GTAvehicle::IsDamaged() const
 {
-	return _IS_VEHICLE_DAMAGED(this->mHandle) != 0;
+	return GET_DOES_VEHICLE_HAVE_DAMAGE_DECALS(this->mHandle) != 0;
 }
 void GTAvehicle::Fix()
 {
@@ -476,7 +476,7 @@ void GTAvehicle::Fix()
 }
 void GTAvehicle::Repair(bool checkIfDamaged)
 {
-	if (!checkIfDamaged || _IS_VEHICLE_DAMAGED(this->mHandle))
+	if (!checkIfDamaged || GET_DOES_VEHICLE_HAVE_DAMAGE_DECALS(this->mHandle))
 	{
 		SET_VEHICLE_FIXED(this->mHandle);
 		SET_VEHICLE_DIRT_LEVEL(this->mHandle, 0);
@@ -485,13 +485,13 @@ void GTAvehicle::Repair(bool checkIfDamaged)
 		SET_VEHICLE_PETROL_TANK_HEALTH(this->mHandle, 2000.0f);
 		SET_VEHICLE_BODY_HEALTH(this->mHandle, 2000.0f);
 		SET_VEHICLE_UNDRIVEABLE(this->mHandle, 0);
-		SET_VEHICLE_ENGINE_ON(this->mHandle, 1, 1);
+		SET_VEHICLE_ENGINE_ON(this->mHandle, 1, 1, false);
 	}
 }
 
 void GTAvehicle::EngineSound_set(const std::string& vehName)
 {
-	_SET_VEHICLE_AUDIO(this->mHandle, const_cast<PCHAR>(vehName.c_str()));
+	FORCE_USE_AUDIO_GAME_OBJECT(this->mHandle, const_cast<PCHAR>(vehName.c_str()));
 }
 
 void GTAvehicle::SetFrictionOverride(float value)
@@ -511,11 +511,11 @@ int GTAvehicle::MaxPassengers() const
 
 GTAentity GTAvehicle::GetPedOnSeat(VehicleSeat seat) const
 {
-	return GET_PED_IN_VEHICLE_SEAT(this->mHandle, (seat));
+	return GET_PED_IN_VEHICLE_SEAT(this->mHandle, (seat), 0);
 }
 bool GTAvehicle::IsSeatFree(VehicleSeat seat) const
 {
-	return IS_VEHICLE_SEAT_FREE(this->mHandle, (seat)) != 0;
+	return IS_VEHICLE_SEAT_FREE(this->mHandle, (seat), 0) != 0;
 }
 GTAentity GTAvehicle::Driver_get() const
 {
@@ -547,7 +547,7 @@ VehicleSeat GTAvehicle::FirstFreeSeat(VehicleSeat defaultReturn) const
 	int maxPass = GET_VEHICLE_MAX_NUMBER_OF_PASSENGERS(this->mHandle);// - 2;
 	for (int i = -1; i <= maxPass; i++)
 	{
-		if (IS_VEHICLE_SEAT_FREE(this->mHandle, i))
+		if (IS_VEHICLE_SEAT_FREE(this->mHandle, i, 0))
 			return (VehicleSeat)i;
 	}
 	return defaultReturn;
@@ -647,11 +647,11 @@ void GTAvehicle::DirtLevel_set(float value)
 }
 float GTAvehicle::PaintFade_get() const
 {
-	return _GET_VEHICLE_PAINT_FADE(this->mHandle);
+	return GET_VEHICLE_ENVEFF_SCALE(this->mHandle);
 }
 void GTAvehicle::PaintFade_set(float value)
 {
-	_SET_VEHICLE_PAINT_FADE(this->mHandle, value);
+	SET_VEHICLE_ENVEFF_SCALE(this->mHandle, value);
 }
 
 VehicleRoofState GTAvehicle::RoofState_get() const
@@ -711,7 +711,7 @@ void GTAvehicle::SirenActive_set(bool value)
 
 bool GTAvehicle::LoudRadioActive_get() const
 {
-	return _IS_VEHICLE_RADIO_LOUD(this->mHandle) != 0;
+	return CAN_VEHICLE_RECEIVE_CB_RADIO(this->mHandle) != 0;
 }
 void GTAvehicle::LoudRadioActive_set(bool value)
 {
@@ -858,16 +858,16 @@ bool GTAvehicle::EngineRunning_get() const
 }
 void GTAvehicle::EngineRunning_set(bool value)
 {
-	SET_VEHICLE_ENGINE_ON(this->mHandle, value, true);
+	SET_VEHICLE_ENGINE_ON(this->mHandle, value, true, false);
 }
 
 void GTAvehicle::EnginePowerMultiplier_set(float value)
 {
-	_SET_VEHICLE_ENGINE_POWER_MULTIPLIER(this->mHandle, value);
+	MODIFY_VEHICLE_TOP_SPEED(this->mHandle, value);
 }
 void GTAvehicle::EngineTorqueMultiplier_set(float value)
 {
-	_SET_VEHICLE_ENGINE_TORQUE_MULTIPLIER(this->mHandle, value);
+	SET_VEHICLE_CHEAT_POWER_INCREASE(this->mHandle, value);
 }
 
 void GTAvehicle::EngineCanDegrade_set(bool value)
@@ -1024,11 +1024,11 @@ void GTAvehicle::CanTyresBurst_set(bool value)
 
 bool GTAvehicle::CanTyresDrift_get() const
 {
-	return _GET_DRIFT_TYRES_ENABLED(this->mHandle) != 0;
+	return GET_DRIFT_TYRES_SET(this->mHandle) != 0;
 }
 void GTAvehicle::CanTyresDrift_set(bool value)
 {
-	_SET_DRIFT_TYRES_ENABLED(this->mHandle, value);
+	SET_DRIFT_TYRES(this->mHandle, value);
 }
 
 void GTAvehicle::CanBeVisiblyDamaged_set(bool value)
@@ -1091,16 +1091,16 @@ void GTAvehicle::CustomSecondaryColour_set(BYTE r, BYTE g, BYTE b)
 RgbS GTAvehicle::NeonLightsColour_get() const
 {
 	int r, g, b;
-	_GET_VEHICLE_NEON_LIGHTS_COLOUR(this->mHandle, &r, &g, &b);
+	GET_VEHICLE_NEON_COLOUR(this->mHandle, &r, &g, &b);
 	return RgbS(r, g, b);
 }
 void GTAvehicle::NeonLightsColour_set(RgbS value)
 {
-	_SET_VEHICLE_NEON_LIGHTS_COLOUR(this->mHandle, value.R, value.G, value.B);
+	SET_VEHICLE_NEON_COLOUR(this->mHandle, value.R, value.G, value.B);
 }
 void GTAvehicle::NeonLightsColour_set(BYTE r, BYTE g, BYTE b)
 {
-	_SET_VEHICLE_NEON_LIGHTS_COLOUR(this->mHandle, r, g, b);
+	SET_VEHICLE_NEON_COLOUR(this->mHandle, r, g, b);
 }
 
 RgbS GTAvehicle::TyreSmokeColour_get() const
@@ -1386,7 +1386,7 @@ void GTAvehicle::RadioStation_set(int value)
 	{
 		SET_VEH_RADIO_STATION(this->mHandle, "OFF");
 	}
-	else if (value <= _MAX_RADIO_STATION_INDEX())
+	else if (value <= GET_NUM_UNLOCKED_RADIO_STATIONS())
 	{
 		SET_VEH_RADIO_STATION(this->mHandle, GET_RADIO_STATION_NAME(value));
 	}
@@ -1468,7 +1468,7 @@ void GTAvehicle::PlaceOnNextStreet()
 	Vector3_t newPos;
 
 	float heading;
-	DWORD val;
+	int val;
 
 	for (UINT8 i = 1; i < 40; i++)
 	{
@@ -1534,14 +1534,14 @@ void GTAvehicle::CloseAllDoors(bool instantly)
 }
 void GTAvehicle::BreakDoor(VehicleDoor door, bool instant)
 {
-	_SET_VEHICLE_DOOR_BREAKABLE(this->mHandle, static_cast<int>(door), true);
+	SET_DOOR_ALLOWED_TO_BE_BROKEN_OFF(this->mHandle, static_cast<int>(door), true);
 	SET_VEHICLE_DOOR_BROKEN(this->mHandle, static_cast<int>(door), instant);
 }
 void GTAvehicle::BreakAllDoors(bool instant)
 {
 	for (int door = 0; door <= 6; door++)
 	{
-		_SET_VEHICLE_DOOR_BREAKABLE(this->mHandle, (door), true);
+		SET_DOOR_ALLOWED_TO_BE_BROKEN_OFF(this->mHandle, (door), true);
 		SET_VEHICLE_DOOR_BROKEN(this->mHandle, door, instant);
 	}
 }
@@ -1563,7 +1563,7 @@ bool GTAvehicle::IsDoorBroken(VehicleDoor door) const
 }
 void GTAvehicle::SetDoorBreakable(VehicleDoor door, bool isBreakable)
 {
-	_SET_VEHICLE_DOOR_BREAKABLE(this->mHandle, static_cast<int>(door), isBreakable);
+	SET_DOOR_ALLOWED_TO_BE_BROKEN_OFF(this->mHandle, static_cast<int>(door), isBreakable);
 }
 
 void GTAvehicle::OpenBombBay()
@@ -1608,11 +1608,11 @@ void GTAvehicle::RemoveWindow(VehicleWindow window)
 
 bool GTAvehicle::IsNeonLightOn(VehicleNeonLight light) const
 {
-	return _IS_VEHICLE_NEON_LIGHT_ENABLED(this->mHandle, static_cast<int>(light)) != 0;
+	return GET_VEHICLE_NEON_ENABLED(this->mHandle, static_cast<int>(light)) != 0;
 }
 void GTAvehicle::SetNeonLightOn(VehicleNeonLight light, bool on)
 {
-	_SET_VEHICLE_NEON_LIGHT_ENABLED(this->mHandle, static_cast<int>(light), on);
+	SET_VEHICLE_NEON_ENABLED(this->mHandle, static_cast<int>(light), on);
 }
 
 bool GTAvehicle::DoesExtraExist(int extraId) const
@@ -1639,7 +1639,7 @@ void GTAvehicle::SetHeliYawPitchRollMult(float value)
 	{
 		if (value >= 0.0f && value <= 1.0f)
 		{
-			_SET_HELICOPTER_ROLL_PITCH_YAW_MULT(this->mHandle, value);
+			SET_HELI_CONTROL_LAGGING_RATE_SCALAR(this->mHandle, value);
 		}
 	}
 }
@@ -1648,14 +1648,14 @@ void GTAvehicle::DropCargobobHook(CargobobHook hookType)
 {
 	if (this->Model().IsCargobob())
 	{
-		_ENABLE_CARGOBOB_HOOK(this->mHandle, static_cast<int>(hookType));
+		CREATE_PICK_UP_ROPE_FOR_CARGOBOB(this->mHandle, static_cast<int>(hookType));
 	}
 }
 bool GTAvehicle::IsCargobobHookActive() const
 {
 	if (this->Model().IsCargobob())
 	{
-		return _IS_CARGOBOB_HOOK_ACTIVE(this->mHandle) || _IS_CARGOBOB_MAGNET_ACTIVE(this->mHandle);
+		return DOES_CARGOBOB_HAVE_PICK_UP_ROPE(this->mHandle) || DOES_CARGOBOB_HAVE_PICKUP_MAGNET(this->mHandle);
 	}
 	return false;
 }
@@ -1666,9 +1666,9 @@ bool GTAvehicle::IsCargobobHookActive(CargobobHook hookType) const
 		switch (hookType)
 		{
 		case CargobobHook::Hook:
-			return _IS_CARGOBOB_HOOK_ACTIVE(this->mHandle) != 0;
+			return DOES_CARGOBOB_HAVE_PICK_UP_ROPE(this->mHandle) != 0;
 		case CargobobHook::Magnet:
-			return _IS_CARGOBOB_MAGNET_ACTIVE(this->mHandle) != 0;
+			return DOES_CARGOBOB_HAVE_PICKUP_MAGNET(this->mHandle) != 0;
 		}
 	}
 	return false;
@@ -1677,21 +1677,21 @@ void GTAvehicle::RetractCargobobHook()
 {
 	if (this->Model().IsCargobob())
 	{
-		_RETRACT_CARGOBOB_HOOK(this->mHandle);
+		REMOVE_PICK_UP_ROPE_FOR_CARGOBOB(this->mHandle);
 	}
 }
 void GTAvehicle::CargoBobMagnetGrabVehicle()
 {
 	if (this->IsCargobobHookActive(CargobobHook::Magnet))
 	{
-		_CARGOBOB_MAGNET_GRAB_VEHICLE(this->mHandle, true);
+		SET_CARGOBOB_PICKUP_MAGNET_ACTIVE(this->mHandle, true);
 	}
 }
 void GTAvehicle::CargoBobMagnetReleaseVehicle()
 {
 	if (this->IsCargobobHookActive(CargobobHook::Magnet))
 	{
-		_CARGOBOB_MAGNET_GRAB_VEHICLE(this->mHandle, false);
+		SET_CARGOBOB_PICKUP_MAGNET_ACTIVE(this->mHandle, false);
 	}
 }
 
@@ -3822,7 +3822,7 @@ void add_emblem_to_vehicle(GTAvehicle vehicle, GTAentity playerPed)
 		if (model.hash == VEHICLE_WINDSOR)
 			alpha = 255;
 		vehicle.RequestControlOnce();
-		GRAPHICS::_ADD_CLAN_DECAL_TO_VEHICLE(vehicle.GetHandle(), playerPed.GetHandle(), vehicle.GetBoneIndex("chassis_dummy"),
+		GRAPHICS::ADD_VEHICLE_CREW_EMBLEM(vehicle.GetHandle(), playerPed.GetHandle(), vehicle.GetBoneIndex("chassis_dummy"),
 			x.x, x.y, x.z, y.x, y.y, y.z, z.x, z.y, z.z, scale, 0, alpha);
 	}
 }
@@ -3900,7 +3900,7 @@ GTAvehicle clone_vehicle(GTAvehicle vehicle, GTAentity pedForEmblem)
 
 	newVeh.EngineRunning_set(true);
 
-	if (_DOES_VEHICLE_HAVE_DECAL(vehicle.Handle(), 0) && pedForEmblem.Exists())
+	if (DOES_VEHICLE_HAVE_CREW_EMBLEM(vehicle.Handle(), 0) && pedForEmblem.Exists())
 	{
 		add_emblem_to_vehicle(newVeh, pedForEmblem);
 	}

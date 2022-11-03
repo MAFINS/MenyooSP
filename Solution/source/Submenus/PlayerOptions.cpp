@@ -78,11 +78,11 @@ namespace sub
 
 		bool butAmIOnline = NETWORK_IS_IN_SESSION() != 0;
 
-		Static_241 = PLAYER_PED_ID();
-		Static_240 = PLAYER_ID();
+		local_ped_id = PLAYER_PED_ID();
+		local_player_id = PLAYER_ID();
 
-		GTAped myPed = Static_241;
-		GTAplayer myPlayer = Static_240;
+		GTAped myPed = local_ped_id;
+		GTAplayer myPlayer = local_player_id;
 
 		int PlayerOpsWantedLevel = myPlayer.WantedLevel_get();
 
@@ -111,7 +111,7 @@ namespace sub
 
 		AddOption("Opacity (Local)", bGoToAlphaLevelSub, nullFunc, SUB::ENTITYALPHALEVEL);
 		if (bGoToAlphaLevelSub)
-			Static_12 = myPed.Handle();
+			_hud_color_index = myPed.Handle();
 
 		AddOption("Cloning Options", null, nullFunc, SUB::CLONECOMPANIONSUB);
 
@@ -182,9 +182,9 @@ namespace sub
 		}
 
 		if (PlayerOpsSupermanAUTOOn_) {
-			Vector3 Pos = GET_ENTITY_COORDS(Static_241, 1);
+			Vector3 Pos = GET_ENTITY_COORDS(local_ped_id, 1);
 			CREATE_AMBIENT_PICKUP(PICKUP_PARACHUTE, Pos.x, Pos.y, Pos.z, 0, 300, 1, 0, 1);
-			TASK_PARACHUTE(Static_241, 1);
+			TASK_PARACHUTE(local_ped_id, 1, false);
 			APPLY_FORCE_TO_ENTITY(PLAYER_PED_ID(), 1, 0.0f, 0.0f, 10.0f, 0.0, 0.0, 0.0, 1, 1, 1, 1, 0, 1);
 			if (Menu::bit_controller) Game::Print::PrintBottomLeft("Press ~b~A~s~ for temporary brake.");
 			else Game::Print::PrintBottomLeft("Press ~b~NUMPLUS~s~ for temporary brake.");
@@ -250,16 +250,16 @@ namespace sub
 		}
 
 		if (PlayerOpsBurnModeOn_) {
-			//set_explosion_at_coords(Static_241, Vector3::Zero(), EXPLOSION::DIR_FLAME, 4, 0, 0, 1);
-			if (GET_PLAYER_INVINCIBLE(Static_240)) SET_ENTITY_INVINCIBLE(Static_241, 0);
-			set_ped_invincible_off(Static_241);
+			//set_explosion_at_coords(local_ped_id, Vector3::Zero(), EXPLOSION::DIR_FLAME, 4, 0, 0, 1);
+			if (GET_PLAYER_INVINCIBLE(local_player_id)) SET_ENTITY_INVINCIBLE(local_ped_id, 0);
+			set_ped_invincible_off(local_ped_id);
 			WAIT(130);
-			if (!IS_ENTITY_ON_FIRE(Static_241)) START_ENTITY_FIRE(Static_241);
+			if (!IS_ENTITY_ON_FIRE(local_ped_id)) START_ENTITY_FIRE(local_ped_id);
 			Game::Print::PrintBottomCentre("~b~Note:~s~ If you're not on fire yet, kill yourself.");
 			return;
 		}
 		if (PlayerOpsBurnModeOff_) {
-			if (IS_ENTITY_ON_FIRE(Static_241)) STOP_ENTITY_FIRE(Static_241);
+			if (IS_ENTITY_ON_FIRE(local_ped_id)) STOP_ENTITY_FIRE(local_ped_id);
 			return;
 		}
 
@@ -282,7 +282,7 @@ namespace sub
 		}
 
 		if (PlayerOps_sweat_plus) { if (mult_self_sweat < 5.5f) mult_self_sweat += 0.1f; return; }
-		if (PlayerOps_sweat_minus) { if (mult_self_sweat > 0.0f) mult_self_sweat -= 0.1f; if (mult_self_sweat == 0.0f) { SET_PED_SWEAT(Static_241, mult_self_sweat); CLEAR_PED_WETNESS(Static_241); } return; }
+		if (PlayerOps_sweat_minus) { if (mult_self_sweat > 0.0f) mult_self_sweat -= 0.1f; if (mult_self_sweat == 0.0f) { SET_PED_SWEAT(local_ped_id, mult_self_sweat); CLEAR_PED_WETNESS(local_ped_id); } return; }
 
 		if (PlayerOps_noiseValue_plus) { if (mult_playerNoiseValue < 10.0f) mult_playerNoiseValue += 0.1f; return; }
 		if (PlayerOps_noiseValue_minus) { if (mult_playerNoiseValue > 0.0f) mult_playerNoiseValue -= 0.1f; return; }
@@ -310,7 +310,7 @@ namespace sub
 
 		void Sub_FlagList()
 		{
-			GTAped ped = Static_241;
+			GTAped ped = local_ped_id;
 
 			AddTitle("Ped Flags");
 
@@ -330,7 +330,7 @@ namespace sub
 		int flagID = 0;
 		void Sub_CustomFlagSetter()
 		{
-			GTAped ped = Static_241;
+			GTAped ped = local_ped_id;
 			bool id_input = 0, id_plus = 0, id_minus = 0, id_toggle = 0;
 			BOOL flagStatus = GET_PED_CONFIG_FLAG(ped.Handle(), flagID, true);
 
@@ -359,8 +359,8 @@ namespace sub
 
 	void CloneCompanionSub()
 	{
-		GTAplayer player = Static_240;
-		GTAped playerPed = Static_241;
+		GTAplayer player = local_player_id;
+		GTAped playerPed = local_ped_id;
 
 		if (!playerPed.Exists())
 		{

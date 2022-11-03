@@ -35,13 +35,13 @@ namespace sub
 				bool bPlayerPressed = false;
 				AddOption(GET_PLAYER_NAME(i), bPlayerPressed);
 
-				//if (Menu::printingop == *Menu::currentopATM) Static_240 = i;
+				//if (Menu::printingop == *Menu::currentopATM) local_player_id = i;
 
 				if (bPlayerPressed)
 				{
-					Static_240 = i;
-					Static_241 = GET_PLAYER_PED_SCRIPT_INDEX(Static_240); // Store ped
-					Static_239 = GET_PLAYER_NAME(Static_240); // Store name
+					local_player_id = i;
+					local_ped_id = GET_PLAYER_PED_SCRIPT_INDEX(local_player_id); // Store ped
+					local_player_name = GET_PLAYER_NAME(local_player_id); // Store name
 					Menu::SetSub_new(SUB::PLAYERSSUBAMENU); // Change submenu to 'PlayersSubAMenu_'
 				}
 			}
@@ -61,20 +61,20 @@ namespace sub
 		}
 		else spectatePlayerStr = "Spectate Player";
 
-		AddTitle(Static_239); // Title = player name
+		AddTitle(local_player_name); // Title = player name
 		AddOption("Set Waypoint To Player", bSetWp);
-		AddLocal(spectatePlayerStr, loop_spectate_player == Static_240, bSpectateOn, bSpectateOff); // Spectate Player
+		AddLocal(spectatePlayerStr, loop_spectate_player == local_player_id, bSpectateOn, bSpectateOff); // Spectate Player
 
 		if (bSpectateOn)
 		{
 			Ped ped;
-			loop_spectate_player = Static_240;
+			loop_spectate_player = local_player_id;
 			for (int i = 0; i < GAME_PLAYERCOUNT; i++)
 			{
 				if (!NETWORK_IS_PLAYER_ACTIVE(i)) continue;
 				ped = GET_PLAYER_PED_SCRIPT_INDEX(i);
 				if (!DOES_ENTITY_EXIST(ped)) continue;
-				_0x419594E137637120(0, ped, 1);
+				NETWORK_SET_IN_SPECTATOR_MODE_EXTENDED(0, ped, 1);
 				NETWORK_SET_IN_SPECTATOR_MODE(false, ped);
 			}
 			ped = GET_PLAYER_PED_SCRIPT_INDEX(loop_spectate_player);
@@ -92,7 +92,7 @@ namespace sub
 				if (!NETWORK_IS_PLAYER_ACTIVE(i)) continue;
 				ped = GET_PLAYER_PED_SCRIPT_INDEX(i);
 				if (!DOES_ENTITY_EXIST(ped)) continue;
-				_0x419594E137637120(0, ped, 1);
+				NETWORK_SET_IN_SPECTATOR_MODE_EXTENDED(0, ped, 1);
 				NETWORK_SET_IN_SPECTATOR_MODE(false, ped);
 			}
 			NETWORK_SET_ACTIVITY_SPECTATOR(false);
@@ -101,7 +101,7 @@ namespace sub
 
 		if (bSetWp)
 		{
-			GTAplayer player = Static_240;
+			GTAplayer player = local_player_id;
 			if (player.IsActive())
 			{
 				GTAped& playerPed = player.GetPed();
