@@ -1619,7 +1619,7 @@ namespace sub
 
 			nodeVehicle.append_child("HasGravity").text() = ev.HasGravity_get();
 			nodeVehicle.append_child("IsOnFire").text() = ev.IsOnFire();
-			nodeVehicle.append_child("IsInvincible").text() = ev.IsInvincible();
+			nodeVehicle.append_child("IsInGodmode").text() = ev.IsInvincible();
 			nodeVehicle.append_child("IsBulletProof").text() = ev.IsBulletProof();
 			//nodeVehicle.append_child("IsCollisionProof").text() = false;
 			nodeVehicle.append_child("IsExplosionProof").text() = ev.IsExplosionProof();
@@ -1908,7 +1908,7 @@ namespace sub
 			if (nodeVehicle.child("Health")) ev.Health_set(nodeVehicle.child("Health").text().as_int());
 
 			ev.SetOnFire(nodeVehicle.child("IsOnFire").text().as_bool());
-			ev.SetInvincible(nodeVehicle.child("IsInvincible").text().as_bool());
+			ev.SetInvincible(nodeVehicle.child("IsInGodmode").text().as_bool());
 			ev.SetBulletProof(nodeVehicle.child("IsBulletProof").text().as_bool());
 			ev.IsCollisionEnabled_set(true);
 			//ev.SetCollisionProof(nodeVehicle.child("IsCollisionProof").text().as_bool());

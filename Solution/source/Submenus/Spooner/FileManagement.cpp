@@ -414,7 +414,7 @@ namespace sub::Spooner
 
 			nodeEntity.append_child("HasGravity").text() = e.Handle.HasGravity_get();
 			nodeEntity.append_child("IsOnFire").text() = e.Handle.IsOnFire();
-			nodeEntity.append_child("IsInvincible").text() = e.Handle.IsInvincible();
+			nodeEntity.append_child("IsInGodmode").text() = e.Handle.IsInvincible();
 			nodeEntity.append_child("IsBulletProof").text() = e.Handle.IsBulletProof();
 			nodeEntity.append_child("IsCollisionProof").text() = !e.Handle.IsCollisionEnabled_get();
 			nodeEntity.append_child("IsExplosionProof").text() = e.Handle.IsExplosionProof();
@@ -923,7 +923,7 @@ namespace sub::Spooner
 			if (nodeEntity.child("Health")) e.e.Handle.Health_set(nodeEntity.child("Health").text().as_int());
 
 			e.e.Handle.SetOnFire(nodeEntity.child("IsOnFire").text().as_bool());
-			e.e.Handle.SetInvincible(nodeEntity.child("IsInvincible").text().as_bool());
+			e.e.Handle.SetInvincible(nodeEntity.child("IsInGodmode").text().as_bool());
 			e.e.Handle.SetBulletProof(nodeEntity.child("IsBulletProof").text().as_bool());
 			e.e.Handle.Dynamic_set(false);
 			e.e.Handle.FreezePosition(true);
