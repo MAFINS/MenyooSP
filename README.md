@@ -17,11 +17,11 @@
 
 ## General changes
 - Changed all sigs to use IDA sigs.
+- Updated natives from https://nativedb.spyral.dev/natives.
 
 ## TODO
 - [ ] Wanted level.
 - [ ] Use [GTAV-Classes](https://github.com/Yimura/GTAV-Classes).
-- [ ] Update natives.
 
 #### If github fucks this checkboxes i will be mad.
 
