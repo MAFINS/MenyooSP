@@ -370,7 +370,10 @@ int GTAentity::Alpha_get() const
 }
 void GTAentity::Alpha_set(int value)
 {
-	SET_ENTITY_ALPHA(this->mHandle, value, 0);
+	if(value == 255)
+		RESET_ENTITY_ALPHA(this->mHandle);
+	else
+		SET_ENTITY_ALPHA(this->mHandle, value, 0);
 }
 void GTAentity::ResetAlpha()
 {
