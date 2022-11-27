@@ -9,7 +9,7 @@
 */
 #pragma once
 
-#include <simpleini\SimpleIni.h>
+#include <SimpleIni.h>
 
 namespace MenuConfig
 {

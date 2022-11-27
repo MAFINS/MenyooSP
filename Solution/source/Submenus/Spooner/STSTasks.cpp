@@ -31,10 +31,10 @@
 #include "EntityManagement.h"
 #include "Submenus_TaskSequence.h"
 
-#include <pugixml\src\pugixml.hpp>
+#include <pugixml.hpp>
 #include <vector>
 #include <string>
-#include <Windows.h> //GetTickCount
+#include <windows.h> //GetTickCount
 
 namespace sub::Spooner
 {

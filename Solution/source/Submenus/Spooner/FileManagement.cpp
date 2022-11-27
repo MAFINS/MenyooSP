@@ -9,28 +9,28 @@
 */
 #include "FileManagement.h"
 
-#include "..\..\macros.h"
+#include "../../macros.h"
 
-#include "..\..\Menu\Menu.h"
-#include "..\..\Menu\Routine.h"
+#include "../../Menu/Menu.h"
+#include "../../Menu/Routine.h"
 
-#include "..\..\Natives\natives2.h"
-#include "..\..\Scripting\GTAentity.h"
-#include "..\..\Scripting\GTAvehicle.h"
-#include "..\..\Scripting\GTAped.h"
-#include "..\..\Scripting\GTAprop.h"
-#include "..\..\Scripting\Model.h"
-#include "..\..\Util\StringManip.h"
-#include "..\..\Scripting\enums.h"
-#include "..\..\Scripting\World.h"
-#include "..\..\Util\GTAmath.h"
-#include "..\..\Scripting\Game.h"
-#include "..\..\Util\FileLogger.h"
-#include "..\..\Scripting\CustomHelpText.h"
-#include "..\..\Scripting\GTAblip.h"
-#include "..\..\Scripting\ModelNames.h"
-#include "..\..\Util\ExePath.h"
-#include "..\..\Scripting\Camera.h"
+#include "../../Natives/natives2.h"
+#include "../../Scripting/GTAentity.h"
+#include "../../Scripting/GTAvehicle.h"
+#include "../../Scripting/GTAped.h"
+#include "../../Scripting/GTAprop.h"
+#include "../../Scripting/Model.h"
+#include "../../Util/StringManip.h"
+#include "../../Scripting/enums.h"
+#include "../../Scripting/World.h"
+#include "../../Util/GTAmath.h"
+#include "../../Scripting/Game.h"
+#include "../../Util/FileLogger.h"
+#include "../../Scripting/CustomHelpText.h"
+#include "../../Scripting/GTAblip.h"
+#include "../../Scripting/ModelNames.h"
+#include "../../Util/ExePath.h"
+#include "../../Scripting/Camera.h"
 
 #include "SpoonerEntity.h"
 #include "SpoonerMarker.h"
@@ -40,44 +40,22 @@
 #include "Databases.h"
 #include "BlipManagement.h"
 #include "MarkerManagement.h"
-#include "..\PedComponentChanger.h"
-#include "..\PtfxSubs.h"
-#include "..\PedAnimation.h"
-#include "..\Teleport\TeleMethods.h"
+#include "../PedComponentChanger.h"
+#include "../PtfxSubs.h"
+#include "../PedAnimation.h"
+#include "../Teleport/TeleMethods.h"
 
 #include <string>
 #include <unordered_set>
 #include <vector>
-#include <pugixml/src/pugixml.hpp>
-#include <simpleini\SimpleIni.h>
+#include <pugixml.hpp>
+#include <SimpleIni.h>
 
 namespace sub::Spooner
 {
 	namespace FileManagement
 	{
 		std::string _oldAudioAlias;
-
-		/*bool Exists(const std::string& fileName, std::string extension = ".xml")
-		{
-			struct stat buffer;
-			return (stat((GetPathffA(Pathff::Spooner, true) + fileName + extension).c_str(), &buffer) == 0);
-		}
-		bool Rename(const std::string& oldName, const std::string& newName, std::string extension = ".xml")
-		{
-			if (rename((GetPathffA(Pathff::Spooner, true) + oldName + extension).c_str(), (GetPathffA(Pathff::Spooner, true) + newName + extension).c_str()) == 0)
-			{
-				return true;
-			}
-			return false;
-		}
-		bool Delete(const std::string& fileName, std::string extension = ".xml")
-		{
-			if (remove((GetPathffA(Pathff::Spooner, true) + fileName + extension).c_str()) == 0)
-			{
-				return true;
-			}
-			return false;
-		}*/
 
 		void AddEntityToXmlNode(SpoonerEntity& e, pugi::xml_node& nodeEntity)
 		{
@@ -2030,7 +2008,7 @@ namespace sub::Spooner
 		bool LoadPlacementsFromSP00NFile(const std::string& filePath)
 		{
 			CSimpleIniA ini;
-			if (ini.LoadFile(filePath.c_str()) != SI_Error::SI_OK)
+			if (ini.LoadFile(filePath.c_str()) != SI_OK)
 				return false;
 
 			std::unordered_set<Hash> vModelHashes;

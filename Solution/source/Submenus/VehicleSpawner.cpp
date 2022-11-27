@@ -42,8 +42,8 @@
 #pragma comment(lib, "Shlwapi.lib")
 #include <string>
 #include <vector>
-#include <pugixml\src\pugixml.hpp>
-#include <dirent\include\dirent.h>
+#include <pugixml.hpp>
+#include <dirent.h>
 
 namespace sub
 {

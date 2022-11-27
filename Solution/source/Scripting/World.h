@@ -90,8 +90,8 @@ namespace World
 	void GetNearbyVehicles(std::vector<GTAvehicle>& result, GTAped ped, float radius, int maxAmount);
 	void GetNearbyVehicles(std::vector<GTAvehicle>& result, const Vector3& position, float radius);
 
-	std::vector<GTAprop> GetNearbyProps(std::vector<GTAprop>& result, GTAped ped, float radius);
-	std::vector<GTAprop> GetNearbyProps(std::vector<GTAprop>& result, const Vector3& position, float radius);
+	void GetNearbyProps(std::vector<GTAprop>& result, GTAped ped, float radius);
+	void GetNearbyProps(std::vector<GTAprop>& result, const Vector3& position, float radius);
 
 	GTAprop GetClosestPropOfType(const Vector3& position, float radius, const GTAmodel::Model& model, bool isMissionEntity = false);
 	GTAped GetClosestPed(const Vector3& position, float radius);

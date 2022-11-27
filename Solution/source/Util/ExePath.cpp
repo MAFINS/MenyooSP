@@ -9,11 +9,11 @@
 */
 #include "ExePath.h"
 
-#include <Windows.h>
+#include <windows.h>
 #include <string>
 #include <vector>
 #include <sys\stat.h>
-#include <dirent\include\dirent.h>
+#include <dirent.h>
 
 /*std::string ExePathA(bool lastSlash)
 {

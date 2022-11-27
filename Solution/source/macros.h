@@ -13,17 +13,9 @@
 
 #pragma warning(disable : 4244 4305) // double <-> float conversions
 
-#define _CRT_SECURE_NO_WARNINGS
+// #define _CRT_SECURE_NO_WARNINGS
 
 // version
-#define MENYOO_CURRENT_VER_ "1.7.1"
+ // #define MENYOO_CURRENT_VER_ "1.7.2"
 
-#define GAME_PLAYERCOUNT 30
-
-
-
-
-
-
-
-
+// #define GAME_PLAYERCOUNT 30

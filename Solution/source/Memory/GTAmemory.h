@@ -20,13 +20,13 @@
 */
 #pragma once
 
-#include "..\main.h" //getGameVersion getGlobalPtr
+#include "main.h" //getGameVersion getGlobalPtr
 
 //#include <cstddef>
 #include <vector>
 #include <array>
-#include <Windows.h>
-#include <Psapi.h>
+#include <windows.h>
+#include <psapi.h>
 #include <string>
 
 typedef unsigned char UINT8, BYTE;
@@ -354,10 +354,3 @@ public:
 	static float* GetVehicleBoostChargePtr();
 
 };
-
-
-
-
-
-
-

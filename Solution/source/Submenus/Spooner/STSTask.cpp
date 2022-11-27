@@ -9,17 +9,17 @@
 */
 #include "STSTask.h"
 
-#include "..\..\macros.h"
+#include "../../macros.h"
 
-#include "..\..\Scripting\GTAentity.h"
-#include "..\..\Scripting\GTAped.h"
+#include "../../Scripting/GTAentity.h"
+#include "../../Scripting/GTAped.h"
 
 #include "Submenus_TaskSequence.h"
 
 #include <string>
 #include <vector>
 #include <utility>
-#include <pugixml\src\pugixml.hpp>
+#include <pugixml.hpp>
 
 namespace sub::Spooner
 {

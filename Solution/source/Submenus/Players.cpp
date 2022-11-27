@@ -9,16 +9,16 @@
 */
 #include "MainMenu.h"
 
-#include "..\macros.h"
+#include "../macros.h"
 
-#include "..\Menu\Menu.h"
-#include "..\Menu\Routine.h"
+#include "../Menu/Menu.h"
+#include "../Menu/Routine.h"
 
-#include "..\Natives\natives2.h"
-#include "..\Scripting\Game.h"
-#include "..\Scripting\GTAplayer.h"
+#include "../Natives/natives2.h"
+#include "../Scripting/Game.h"
+#include "../Scripting/GTAplayer.h"
 //#include "..\Scripting\GTAentity.h"
-#include "..\Scripting\GTAped.h"
+#include "../Scripting/GTAped.h"
 
 namespace sub
 {

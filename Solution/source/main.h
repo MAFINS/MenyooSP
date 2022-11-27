@@ -10,7 +10,7 @@ http://dev-c.com
 */
 #pragma once
 
-#include <Windows.h>
+#include <windows.h>
 
 //#pragma comment(lib, "..\external\ScriptHookV\SDK\lib\ScriptHookV.lib")
 

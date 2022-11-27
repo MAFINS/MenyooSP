@@ -11,10 +11,8 @@
 
 //#include "GTAmath.h"
 
-#include <string>
 #include "../Scripting/enums.h"
 #include "../Memory/GTAmemory.h"
-
 
 Hash GET_HASH_KEY(char* value)
 {

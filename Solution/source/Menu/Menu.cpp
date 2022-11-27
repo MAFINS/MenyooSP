@@ -7,6 +7,8 @@
 * the Free Software Foundation, either version 3 of the License, or
 * (at your option) any later version.
 */
+#pragma warning(disable : 4244 4305) // double <-> float conversions
+
 #include "Menu.h"
 
 #include "..\macros.h"

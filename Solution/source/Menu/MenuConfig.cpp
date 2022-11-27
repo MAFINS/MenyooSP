@@ -9,34 +9,34 @@
 */
 #include "MenuConfig.h"
 
-#include "..\macros.h"
+#include "../macros.h"
 
 #include "Menu.h"
 #include "Routine.h"
 
-#include "..\Util\ExePath.h"
-#include "..\Natives\types.h" // RGBA/RgbS
-#include "..\Util\GTAmath.h"
+#include "../Util/ExePath.h"
+#include "../Natives/types.h" // RGBA/RgbS
+#include "../Util/GTAmath.h"
 
-#include "..\Submenus\Spooner\SpoonerMode.h"
-#include "..\Submenus\Spooner\SpoonerSettings.h"
-#include "..\Misc\ManualRespawn.h"
-#include "..\Misc\FpsCounter.h"
-#include "..\Submenus\MiscOptions.h"
-#include "..\Misc\JumpAroundMode.h"
-#include "..\Memory\GTAmemory.h"
-#include "..\Submenus\AnimalRiding.h"
-#include "..\Submenus\WeaponOptions.h"
-#include "..\Misc\MagnetGun.h"
-#include "..\Misc\RopeGun.h"
-#include "..\Misc\SmashAbility.h"
-#include "..\Misc\VehicleTow.h"
-#include "..\Misc\VehicleFly.h"
-#include "..\Submenus\TimeOptions.h"
-#include "..\Submenus\VehicleOptions.h"
+#include "../Submenus/Spooner/SpoonerMode.h"
+#include "../Submenus/Spooner/SpoonerSettings.h"
+#include "../Misc/ManualRespawn.h"
+#include "../Misc/FpsCounter.h"
+#include "../Submenus/MiscOptions.h"
+#include "../Misc/JumpAroundMode.h"
+#include "../Memory/GTAmemory.h"
+#include "../Submenus/AnimalRiding.h"
+#include "../Submenus/WeaponOptions.h"
+#include "../Misc/MagnetGun.h"
+#include "../Misc/RopeGun.h"
+#include "../Misc/SmashAbility.h"
+#include "../Misc/VehicleTow.h"
+#include "../Misc/VehicleFly.h"
+#include "../Submenus/TimeOptions.h"
+#include "../Submenus/VehicleOptions.h"
 
-#include <Windows.h>
-#include <simpleini\SimpleIni.h>
+#include <windows.h>
+#include <SimpleIni.h>
 
 CSimpleIniA MenuConfig::iniFile;
 bool MenuConfig::bSaveAtIntervals = true;
@@ -46,7 +46,7 @@ SI_Error MenuConfig::ConfigInit()
 	MenuConfig::iniFile.SetUnicode(true);
 	MenuConfig::iniFile.SetMultiKey(false);
 	MenuConfig::iniFile.SetMultiLine(false);
-	SetFileAttributesW(GetPathffW(Pathff::Main, false).c_str(), GetFileAttributes(GetPathffW(Pathff::Main, false).c_str()) & ~FILE_ATTRIBUTE_READONLY);
+	SetFileAttributesW(GetPathffW(Pathff::Main, false).c_str(), GetFileAttributesW(GetPathffW(Pathff::Main, false).c_str()) & ~FILE_ATTRIBUTE_READONLY);
 	return MenuConfig::iniFile.LoadFile((GetPathffA(Pathff::Main, true) + "menyooConfig.ini").c_str());
 }
 void MenuConfig::ConfigRead()

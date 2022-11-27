@@ -9,29 +9,29 @@
 */
 #include "PedComponentChanger.h"
 
-#include "..\macros.h"
+#include "../macros.h"
 
-#include "..\Menu\Menu.h"
-#include "..\Menu\Routine.h"
+#include "../Menu/Menu.h"
+#include "../Menu/Routine.h"
 
-#include "..\Natives\natives2.h"
-#include "..\Scripting\GTAped.h"
-#include "..\Scripting\GTAentity.h"
-#include "..\Scripting\Model.h"
-#include "..\Scripting\Camera.h"
-#include "..\Scripting\GameplayCamera.h"
-#include "..\Scripting\World.h"
-#include "..\Scripting\Game.h"
-#include "..\Util\ExePath.h"
-#include "..\Util\FileLogger.h"
-#include "..\Util\StringManip.h"
+#include "../Natives/natives2.h"
+#include "../Scripting/GTAped.h"
+#include "../Scripting/GTAentity.h"
+#include "../Scripting/Model.h"
+#include "../Scripting/Camera.h"
+#include "../Scripting/GameplayCamera.h"
+#include "../Scripting/World.h"
+#include "../Scripting/Game.h"
+#include "../Util/ExePath.h"
+#include "../Util/FileLogger.h"
+#include "../Util/StringManip.h"
 
-#include "..\Menu\FolderPreviewBmps.h"
-#include "..\Submenus\PedModelChanger.h"
-#include "..\Submenus\Spooner\SpoonerEntity.h"
-#include "..\Submenus\Spooner\Databases.h"
-#include "..\Submenus\Spooner\EntityManagement.h"
-#include "..\Submenus\Spooner\FileManagement.h"
+#include "../Menu/FolderPreviewBmps.h"
+#include "../Submenus/PedModelChanger.h"
+#include "../Submenus/Spooner/SpoonerEntity.h"
+#include "../Submenus/Spooner/Databases.h"
+#include "../Submenus/Spooner/EntityManagement.h"
+#include "../Submenus/Spooner/FileManagement.h"
 
 #include <Shlwapi.h>
 #pragma comment(lib, "Shlwapi.lib")
@@ -40,8 +40,8 @@
 #include <map>
 //#include <utility>
 #include <array>
-#include <pugixml\src\pugixml.hpp>
-#include <dirent\include\dirent.h>
+#include <pugixml.hpp>
+#include <dirent.h>
 
 namespace sub
 {

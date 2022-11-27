@@ -18,6 +18,8 @@
 * Menyoo PC - Grand Theft Auto V single-player trainer mod
 * Copyright (C) 2019  MAFINS
 */
+#pragma warning(disable : 4244 4305) // double <-> float conversions
+
 #include "GTAblip.h"
 
 #include "..\macros.h"

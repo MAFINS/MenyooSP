@@ -9,22 +9,22 @@
 */
 #include "PedSpeech.h"
 
-#include "..\macros.h"
+#include "../macros.h"
 
-#include "..\Menu\Menu.h"
-#include "..\Menu\Routine.h"
+#include "../Menu/Menu.h"
+#include "../Menu/Routine.h"
 
-#include "..\Natives\natives2.h"
-#include "..\Util\ExePath.h"
-#include "..\Scripting\GTAped.h"
-#include "..\Scripting\Game.h"
-#include "..\Util\StringManip.h"
+#include "../Natives/natives2.h"
+#include "../Util/ExePath.h"
+#include "../Scripting/GTAped.h"
+#include "../Scripting/Game.h"
+#include "../Util/StringManip.h"
 
 #include <string>
 #include <array>
 #include <vector>
 #include <set>
-#include <simpleini\SimpleIni.h>
+#include <SimpleIni.h>
 
 namespace sub
 {
@@ -328,7 +328,7 @@ namespace sub
 		{
 			CSimpleIniA ini;
 			ini.SetMultiKey(true);
-			if (ini.LoadFile((GetPathffA(Pathff::Main, true) + "PedSpeechList.txt").c_str()) != SI_Error::SI_OK)
+			if (ini.LoadFile((GetPathffA(Pathff::Main, true) + "PedSpeechList.txt").c_str()) != SI_OK)
 				return false;
 
 			CSimpleIniA::TNamesDepend keys;

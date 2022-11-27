@@ -9,31 +9,31 @@
 */
 #include "PedAnimation.h"
 
-#include "..\macros.h"
+#include "../macros.h"
 
-#include "..\Menu\Menu.h"
-#include "..\Menu\Routine.h"
+#include "../Menu/Menu.h"
+#include "../Menu/Routine.h"
 
-#include "..\Natives\natives2.h"
-#include "..\Scripting\enums.h"
-#include "..\Util\ExePath.h"
-#include "..\Scripting\GTAentity.h"
-#include "..\Scripting\GTAped.h"
-#include "..\Scripting\GTAvehicle.h"
-#include "..\Scripting\Game.h"
-#include "..\Util\keyboard.h"
-#include "..\Util\StringManip.h"
+#include "../Natives/natives2.h"
+#include "../Scripting/enums.h"
+#include "../Util/ExePath.h"
+#include "../Scripting/GTAentity.h"
+#include "../Scripting/GTAped.h"
+#include "../Scripting/GTAvehicle.h"
+#include "../Scripting/Game.h"
+#include "../Util/keyboard.h"
+#include "../Util/StringManip.h"
 
-#include "..\Submenus\Spooner\Databases.h"
-#include "..\Submenus\Spooner\EntityManagement.h"
-#include "..\Submenus\Spooner\SpoonerEntity.h"
+#include "../Submenus/Spooner/Databases.h"
+#include "../Submenus/Spooner/EntityManagement.h"
+#include "../Submenus/Spooner/SpoonerEntity.h"
 
 #include <vector>
 #include <string>
 #include <map>
 //#include <utility>
 #include <fstream>
-#include <pugixml\src\pugixml.hpp>
+#include <pugixml.hpp>
 
 namespace sub
 {

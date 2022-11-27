@@ -9,29 +9,29 @@
 */
 #include "Submenus.h"
 
-#include "..\..\macros.h"
+#include "../../macros.h"
 
-#include "..\..\Menu\Menu.h"
-#include "..\..\Menu\Routine.h"
+#include "../../Menu/Menu.h"
+#include "../../Menu/Routine.h"
 
-#include "..\..\Natives\natives2.h"
-#include "..\..\Scripting\GTAentity.h"
-#include "..\..\Scripting\GTAprop.h"
-#include "..\..\Scripting\GTAvehicle.h"
-#include "..\..\Scripting\GTAped.h"
-#include "..\..\Util\GTAmath.h"
-#include "..\..\Scripting\ModelNames.h"
-#include "..\..\Scripting\Game.h"
-#include "..\..\Scripting\World.h"
-#include "..\..\Memory\GTAmemory.h"
-#include "..\..\Util\ExePath.h"
-#include "..\..\Util\StringManip.h"
-#include "..\..\Menu\FolderPreviewBmps.h"
-#include "..\..\Scripting\GTAblip.h"
-#include "..\..\Scripting\TimecycleModification.h"
-#include "..\..\Scripting\Camera.h"
-#include "..\..\Util\keyboard.h"
-#include "..\..\Scripting\WeaponIndivs.h"
+#include "../../Natives/natives2.h"
+#include "../../Scripting/GTAentity.h"
+#include "../../Scripting/GTAprop.h"
+#include "../../Scripting/GTAvehicle.h"
+#include "../../Scripting/GTAped.h"
+#include "../../Util/GTAmath.h"
+#include "../../Scripting/ModelNames.h"
+#include "../../Scripting/Game.h"
+#include "../../Scripting/World.h"
+#include "../../Memory/GTAmemory.h"
+#include "../../Util/ExePath.h"
+#include "../../Util/StringManip.h"
+#include "../../Menu/FolderPreviewBmps.h"
+#include "../../Scripting/GTAblip.h"
+#include "../../Scripting/TimecycleModification.h"
+#include "../../Scripting/Camera.h"
+#include "../../Util/keyboard.h"
+#include "../../Scripting/WeaponIndivs.h"
 
 #include "STSTask.h"
 #include "STSTasks.h"
@@ -45,14 +45,14 @@
 #include "FavouritesManagement.h"
 #include "MenuOptions.h"
 #include "SpoonerMarker.h"
-#include "..\..\Submenus\PedComponentChanger.h"
-#include "..\..\Submenus\Settings.h"
-#include "..\..\Submenus\PedModelChanger.h"
-#include "..\..\Submenus\VehicleSpawner.h"
-#include "..\..\Submenus\PedAnimation.h"
-#include "..\..\Submenus\PedSpeech.h"
-#include "..\..\Submenus\PtfxSubs.h"
-#include "..\..\Submenus\FunnyVehicles.h"
+#include "../../Submenus/PedComponentChanger.h"
+#include "../../Submenus/Settings.h"
+#include "../../Submenus/PedModelChanger.h"
+#include "../../Submenus/VehicleSpawner.h"
+#include "../../Submenus/PedAnimation.h"
+#include "../../Submenus/PedSpeech.h"
+#include "../../Submenus/PtfxSubs.h"
+#include "../../Submenus/FunnyVehicles.h"
 
 #include <Shlwapi.h>
 #pragma comment(lib, "Shlwapi.lib")
@@ -60,8 +60,8 @@
 #include <tuple>
 #include <vector>
 #include <array>
-#include <pugixml/src/pugixml.hpp>
-#include <dirent\include\dirent.h>
+#include <pugixml.hpp>
+#include <dirent.h>
 
 namespace sub
 {

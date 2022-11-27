@@ -17,7 +17,7 @@
 #include <string>
 #include <vector>
 #include <utility>
-#include <pugixml\src\pugixml.hpp>
+#include <pugixml.hpp>
 
 namespace TimecycleModification
 {
