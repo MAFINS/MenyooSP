@@ -129,7 +129,7 @@ bool PedGroup::Exists(PedGroup pedGroup)
 
 GTAentity PedGroup::GetMember(int index) const
 {
-	GET_PED_AS_GROUP_MEMBER(this->_handle, index);
+	return GET_PED_AS_GROUP_MEMBER(this->_handle, index);
 }
 
 bool PedGroup::Contains(GTAentity ped) const

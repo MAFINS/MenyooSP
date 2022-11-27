@@ -90,8 +90,8 @@ namespace World
 	void GetNearbyVehicles(std::vector<GTAvehicle>& result, GTAped ped, float radius, int maxAmount);
 	void GetNearbyVehicles(std::vector<GTAvehicle>& result, const Vector3& position, float radius);
 
-	std::vector<GTAprop> GetNearbyProps(std::vector<GTAprop>& result, GTAped ped, float radius);
-	std::vector<GTAprop> GetNearbyProps(std::vector<GTAprop>& result, const Vector3& position, float radius);
+	void GetNearbyProps(std::vector<GTAprop>& result, GTAped ped, float radius);
+	void GetNearbyProps(std::vector<GTAprop>& result, const Vector3& position, float radius);
 
 	GTAprop GetClosestPropOfType(const Vector3& position, float radius, const GTAmodel::Model& model, bool isMissionEntity = false);
 	GTAped GetClosestPed(const Vector3& position, float radius);
@@ -131,7 +131,7 @@ namespace World
 	
 	Checkpoint CreateCheckpoint(const CheckpointIcon& icon, const Vector3& position, const Vector3& pointTo, float radius, const RGBA& colour, BYTE reserved = 0);
 
-	Rope AddRope(RopeType type, const Vector3& position, Vector3 rotation, float length, float minLength, bool breakable);
+	inline Rope AddRope(RopeType type, const Vector3& position, Vector3 rotation, float length, float minLength, bool breakable);
 	
 	void SetBlackout(bool enable);
 
