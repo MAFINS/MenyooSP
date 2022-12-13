@@ -14,6 +14,7 @@
 		<Vehicle name="OPENWHEEL2" /><!-- DR1, should be Open Wheel class -->
 		<Vehicle name="EMERUS" />
 		<Vehicle name="ENTITYXF" />
+		<Vehicle name="ENTITY3" /><!-- Entity MT -->
 		<Vehicle name="ENTITY2" /><!-- Entity XXR -->
 		<Vehicle name="SHEAVA" /><!-- ETR1 -->
 		<Vehicle name="FMJ" />
@@ -51,6 +52,7 @@
 		<Vehicle name="VACCA" />
 		<Vehicle name="VAGNER" />
 		<Vehicle name="VIGILANTE" />
+		<Vehicle name="VIRTUE" />
 		<Vehicle name="VISIONE" />
 		<Vehicle name="VOLTIC" />
 		<Vehicle name="PROTOTIPO" /><!-- X80 Proto -->
@@ -79,6 +81,7 @@
 		<Vehicle name="ZION2" /><!-- Zion Cabrio -->
 	</Category>
 	<Category name="Sport">
+		<Vehicle name="R300" /><!-- 300R -->
 		<Vehicle name="DRAFTER" /><!-- 8F Drafter -->
 		<Vehicle name="NINEF" />
 		<Vehicle name="NINEF2" /><!-- 9F Cabrio -->
@@ -117,7 +120,8 @@
 		<Vehicle name="GB200" />
 		<Vehicle name="BLISTA3" /><!-- Go Go Monkey Blista -->
 		<Vehicle name="GROWLER" />
-		<Vehicle name="HOTRING" />
+		<Vehicle name="EVERON2" /><!-- Hotring Everon -->
+		<Vehicle name="HOTRING" /><!-- Hotring Sabre -->
 		<Vehicle name="IMORGON" />
 		<Vehicle name="ISSI7" /><!-- Issi Sport -->
 		<Vehicle name="ITALIGTO" />
@@ -140,6 +144,7 @@
 		<Vehicle name="ZR3803" /><!-- Nightmare ZR380 -->
 		<Vehicle name="OMNIS" />
 		<Vehicle name="OMNISEGT" />
+		<Vehicle name="PANTHERE" />
 		<Vehicle name="PARAGON" />
 		<Vehicle name="PARAGON2" /><!-- Paragon R (Armored) -->
 		<Vehicle name="PARIAH" />
@@ -185,6 +190,7 @@
 		<Vehicle name="SLAMVAN4" /><!-- Apocalypse Slamvan -->
 		<Vehicle name="DUKES3" /><!-- Beater Dukes -->
 		<Vehicle name="BLADE" />
+		<Vehicle name="BROADWAY" />
 		<Vehicle name="BUCCANEER" />
 		<Vehicle name="BUCCANEER2" /><!-- Buccaneer Custom -->
 		<Vehicle name="BUFFALO4" /><!-- Buffalo STX -->
@@ -202,6 +208,7 @@
 		<Vehicle name="DUKES2" /><!-- Duke O'Death -->
 		<Vehicle name="DUKES" />
 		<Vehicle name="ELLIE" />
+		<Vehicle name="EUDORA" />
 		<Vehicle name="FACTION" />
 		<Vehicle name="FACTION2" /><!-- Faction Custom -->
 		<Vehicle name="FACTION3" /><!-- Faction Custom Donk -->
@@ -244,8 +251,10 @@
 		<Vehicle name="SLAMVAN" />
 		<Vehicle name="SLAMVAN3" /><!-- Slamvan Custom -->
 		<Vehicle name="STALION" />
+		<Vehicle name="TAHOMA" /><!-- Tahoma Coupe -->
 		<Vehicle name="TAMPA" />
 		<Vehicle name="TULIP" />
+		<Vehicle name="TULIP2" /><!-- Tulip M-100 -->
 		<Vehicle name="VAMOS" />
 		<Vehicle name="VIGERO" />
 		<Vehicle name="VIGERO2" /><!-- Vigero ZX -->
@@ -387,6 +396,7 @@
 		<Vehicle name="BLAZER5" /><!-- Blazer Aqua -->
 		<Vehicle name="BLAZER2" /><!-- Blazer Lifeguard -->
 		<Vehicle name="BODHI2" />
+		<Vehicle name="BOOR" />
 		<Vehicle name="BRAWLER" />
 		<Vehicle name="CARACARA" />
 		<Vehicle name="CARACARA2" /><!-- Caracara 4x4 -->
@@ -462,6 +472,7 @@
 		<Vehicle name="GRESLEY" />
 		<Vehicle name="HABANERO" />
 		<Vehicle name="HUNTLEY" />
+		<Vehicle name="ISSI8" /><!-- Issi Rally -->
 		<Vehicle name="IWAGEN" />
 		<Vehicle name="JUBILEE" />
 		<Vehicle name="LANDSTALKER" />
@@ -536,6 +547,7 @@
 		<Vehicle name="GBURRITO" /><!-- Gang Burrito Lost MC variant -->
 		<Vehicle name="GBURRITO2" /><!-- Gang Burrito heist variant -->
 		<Vehicle name="JOURNEY" />
+		<Vehicle name="JOURNEY2" /><!-- Journey II -->
 		<Vehicle name="MINIVAN" />
 		<Vehicle name="MINIVAN2" /><!-- Minivan Custom -->
 		<Vehicle name="PARADISE" />
@@ -548,6 +560,7 @@
 		<Vehicle name="SPEEDO4" /><!-- Speedo Custom -->
 		<Vehicle name="SURFER" />
 		<Vehicle name="SURFER2" /><!-- Surfer beater variant -->
+		<Vehicle name="SURFER3" /><!-- Surfer Custom -->
 		<Vehicle name="TACO" />
 		<Vehicle name="YOUGA" />
 		<Vehicle name="YOUGA2" /><!-- Youga Classic -->
@@ -558,6 +571,7 @@
 		<Vehicle name="AIRBUS" />
 		<Vehicle name="AIRTUG" />
 		<Vehicle name="BRICKADE" />
+		<Vehicle name="BRICKADE2" /><!-- Brickade 6x6 -->
 		<Vehicle name="BULLDOZER" />
 		<Vehicle name="BUS" />
 		<Vehicle name="CABLECAR" />
@@ -695,12 +709,14 @@
 		<Vehicle name="LECTRO" />
 		<Vehicle name="MANCHEZ" />
 		<Vehicle name="MANCHEZ2" /><!-- Manchez Scout -->
+		<Vehicle name="MANCHEZ3" /><!-- Manchez Scout C -->
 		<Vehicle name="NEMESIS" />
 		<Vehicle name="NIGHTBLADE" />
 		<Vehicle name="DEATHBIKE3" /><!-- Nightmare Deathbike -->
 		<Vehicle name="OPPRESSOR" />
 		<Vehicle name="OPPRESSOR2" /><!-- Oppressor Mk II -->
 		<Vehicle name="PCJ" />
+		<Vehicle name="POWERSURGE" />
 		<Vehicle name="RROCKET" /><!-- Rampant Rocket -->
 		<Vehicle name="RATBIKE" />
 		<Vehicle name="REEVER" />
@@ -738,6 +754,7 @@
 		<Vehicle name="BESRA" />
 		<Vehicle name="BLIMP3" />
 		<Vehicle name="CARGOPLANE" />
+		<Vehicle name="CARGOPLANE2" />
 		<Vehicle name="CUBAN800" />
 		<Vehicle name="DODO" />
 		<Vehicle name="DUSTER" />
