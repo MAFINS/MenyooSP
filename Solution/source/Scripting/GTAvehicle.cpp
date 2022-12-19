@@ -656,7 +656,10 @@ void GTAvehicle::PaintFade_set(float value)
 
 VehicleRoofState GTAvehicle::RoofState_get() const
 {
-	return static_cast<VehicleRoofState>(GET_CONVERTIBLE_ROOF_STATE(this->mHandle));
+	if (_IS_THIS_MODEL_AN_AMPHIBIOUS_CAR(this->mHandle))
+		return static_cast<VehicleRoofState>(1);
+	else
+		return static_cast<VehicleRoofState>(GET_CONVERTIBLE_ROOF_STATE(this->mHandle));
 }
 void GTAvehicle::RoofState_set(VehicleRoofState value)
 {
