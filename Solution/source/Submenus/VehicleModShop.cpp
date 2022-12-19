@@ -2882,6 +2882,7 @@ namespace sub
 					__AddOption(get_mod_text_label(Static_12, VehicleMod::FrontWheels, i, false), Static_12, wtype, i, chrtype == 2);
 				}
 			}
+			if(_globalLSC_Customs)
 			if (MenuPressTimer::IsButtonTapped(MenuPressTimer::Button::Back)) // this has been split out for bikes, see further comments on the original section below (line 2575)
 			{
 				setwheel = false;
