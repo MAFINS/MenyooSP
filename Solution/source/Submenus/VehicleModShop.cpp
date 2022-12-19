@@ -16,6 +16,7 @@
 
 #include "..\Natives\natives2.h"
 #include "..\Util\GTAmath.h"
+#include "..\Util\StringManip.h"
 #include "..\Scripting\enums.h"
 #include "..\main.h"
 #include "..\Scripting\GTAvehicle.h"
@@ -690,6 +691,20 @@ namespace sub
 				SET_VEHICLE_COLOUR_COMBINATION(Static_12, carvarcol-1);
 			}
 		}
+		if (MenuPressTimer::IsButtonTapped(MenuPressTimer::Button::Back))
+		{
+			//getpaint = true;
+			menuselect = false;
+			if (IS_ENTITY_A_VEHICLE(Static_12) || ms_curr_paint_index == 10 || ms_curr_paint_index == 11)
+				paintCarUsing_index(Static_12, ms_curr_paint_index, lastpaint, lastpearl);
+			if (iscustompaint)
+			{
+				if (ms_curr_paint_index == 1)
+					SET_VEHICLE_CUSTOM_PRIMARY_COLOUR(Static_12, lastr, lastg, lastb);
+				else if (ms_curr_paint_index == 2)
+					SET_VEHICLE_CUSTOM_SECONDARY_COLOUR(Static_12, lastr, lastg, lastb);
+			}
+		}
 	}
 	void MSPaints2_()
 	{
@@ -1352,10 +1367,10 @@ namespace sub
 		{
 			char buffer[2041];
 			std::size_t hexcheck;
-			std::string titlestring,
-			hexr = _itoa(ms_paints_rgb_r, buffer, 16), //compiler says this may be unsafe
-			hexg = _itoa(ms_paints_rgb_g, buffer, 16), //I say fuck the compiler
-			hexb = _itoa(ms_paints_rgb_b, buffer, 16);
+			std::string titlestring;
+			std::string hexr = int_to_hexstring(ms_paints_rgb_r, false);
+			std::string hexg = int_to_hexstring(ms_paints_rgb_g, false);
+			std::string hexb = int_to_hexstring(ms_paints_rgb_b, false);
 			if (hexr.length() == 1)
 				hexr = "0" + hexr;
 			if (hexg.length() == 1)
