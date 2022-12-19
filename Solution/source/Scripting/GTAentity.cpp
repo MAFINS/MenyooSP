@@ -521,7 +521,7 @@ Vector3 GTAentity::GetOffsetFromBoneInWorldCoords(int boneIndex, const Vector3& 
 }
 Vector3 GTAentity::GetOffsetFromBoneInWorldCoords(const std::string& boneLabel, const Vector3& offset) const
 {
-	this->GetOffsetFromBoneInWorldCoords(this->GetBoneIndex(boneLabel), offset);
+	return this->GetOffsetFromBoneInWorldCoords(this->GetBoneIndex(boneLabel), offset);
 }
 bool GTAentity::HasBone(const std::string& boneLabel) const
 {
