@@ -2633,6 +2633,7 @@ namespace sub
 
 
 		Model Static_12_veh_model = GET_ENTITY_MODEL(Static_12);
+		bool isBike = Static_12_veh_model.IsBike();
 		INT wheel_no = GET_VEHICLE_MOD(Static_12, 23);
 		INT ms_custom_tyres = GET_VEHICLE_MOD_VARIATION(Static_12, 23);
 		BOOL ms_drift_tyres = _GET_DRIFT_TYRES_ENABLED(Static_12);
@@ -2654,9 +2655,9 @@ namespace sub
 
 		for (i = 0; i < vWheelTNames.size(); i++)
 		{
-			if (i == WheelType::BikeWheels && !Static_12_veh_model.IsBike()) continue;
-			if (i != WheelType::BikeWheels && Static_12_veh_model.IsBike()) continue; //removes all non-bike wheels from bike menu. Wheels don't render properly on bikes so makes sense to remove them to me. - ijc
-			__AddpointOption(vWheelTNames[i], i);
+			const bool ibw = (i == WheelType::BikeWheels);
+			if (isBike && ibw || !isBike && !ibw)
+				__AddpointOption(vWheelTNames[i], i);
 		}
 
 		AddLocal("CMOD_TYR_1", ms_custom_tyres, MSWheelsCustomTyres_, MSWheelsCustomTyres_, true); // Custom Tyres
