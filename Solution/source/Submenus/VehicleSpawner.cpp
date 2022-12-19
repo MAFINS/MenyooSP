@@ -199,6 +199,7 @@ namespace sub
 			//}
 			SET_VEHICLE_IS_STOLEN(newcar, false);
 		}
+		
 		return newcar;
 	}
 
@@ -1876,7 +1877,6 @@ namespace sub
 				g_multList_headlights[ev.Handle()] = nodeVehicleHeadlightIntensity.text().as_float();
 			}
 
-
 			int opacityLevel = nodeVehicle.child("OpacityLevel").text().as_int();
 			if (opacityLevel < 255) ev.Alpha_set(opacityLevel);
 			ev.LodDistance_set(nodeVehicle.child("LodDistance").text().as_int());
@@ -2017,6 +2017,32 @@ namespace sub
 			Game::Print::PrintBottomLeft(ss);
 		}
 
+		int saveCarVars(GTAvehicle vehicle)
+		{
+			std::ofstream outfile;
+			Model& eModel = vehicle.Model();
+			std::string spawnname = GET_DISPLAY_NAME_FROM_VEHICLE_MODEL(eModel.hash);
+			int color1 = vehicle.PrimaryColour_get(), 
+				color2 = vehicle.SecondaryColour_get(),
+				color3 = vehicle.PearlescentColour_get(),
+				color4 = vehicle.RimColour_get(),
+				color5 = vehicle.InteriorColour_get(),
+				color6 = vehicle.DashboardColour_get();
+
+
+			outfile.open(dict3 + "\\Carvar colours.txt", std::ios_base::app); // append instead of overwrite
+			outfile << spawnname << "\n";
+			outfile << std::to_string(color1) << "\n";
+			outfile << std::to_string(color2) << "\n";
+			outfile << std::to_string(color3) << "\n";
+			outfile << std::to_string(color4) << "\n";
+			outfile << std::to_string(color5) << "\n";
+			outfile << std::to_string(color6) << "\n";
+			outfile << "\n";
+			Game::Print::PrintBottomLeft("Saved Vehicle Carvariations");
+			return 0;
+		}
+
 		void Sub_VehSaver()
 		{
 			auto& _searchStr = dict2;
@@ -2027,7 +2053,7 @@ namespace sub
 			auto vehicle = GET_VEHICLE_PED_IS_USING(ped);
 			bool isPedInVeh = IS_PED_IN_ANY_VEHICLE(ped, 0) || IS_PED_SITTING_IN_ANY_VEHICLE(ped);
 
-			bool save2 = false, bCreateFolderPressed = false;
+			bool save2 = false, bCreateFolderPressed = false, savecarvar = false;
 			std::vector<std::string> vfilnames;
 
 			AddTitle("Saved Vehicles");
@@ -2044,6 +2070,8 @@ namespace sub
 
 
 			AddOption("Save Current Vehicle", save2);
+
+			//AddOption("Store CarVariations", savecarvar);
 
 			AddOption("Create New Folder", bCreateFolderPressed);
 
@@ -2133,6 +2161,12 @@ namespace sub
 					//OnscreenKeyboard::State::arg1._int = vehicle;
 					//OnscreenKeyboard::State::arg2._ptr = reinterpret_cast<void*>(&_dir);
 				}
+			}
+
+			if (savecarvar)
+			{
+				if (isPedInVeh)
+					saveCarVars(vehicle);
 			}
 
 			if (bCreateFolderPressed)

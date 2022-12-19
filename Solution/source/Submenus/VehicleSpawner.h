@@ -71,6 +71,7 @@ namespace sub
 
 		void Sub_VehSaver();
 		void Sub_VehSaver_InItem();
+		int saveCarVars();
 
 	}
 
