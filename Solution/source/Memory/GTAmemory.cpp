@@ -1645,7 +1645,10 @@ void GeneralGlobalHax::EnableBlockedMpVehiclesInSp(bool uSure)
 	case eGameVersion::VER_1_0_2628_0_NOSTEAM: case eGameVersion::VER_1_0_2628_0_STEAM:
 	case eGameVersion::VER_1_0_2628_2_NOSTEAM: case eGameVersion::VER_1_0_2628_2_STEAM:
 	case eGameVersion::VER_1_0_2699_0_NOSTEAM: case eGameVersion::VER_1_0_2699_0_STEAM:
+	case eGameVersion::VER_1_0_2699_16_NOSTEAM: case eGameVersion::VER_1_0_2699_16_STEAM:
 		*GTAmemory::GetGlobalPtr<INT32>(4533757) = uSure ? 1 : 0; break;
+	case eGameVersion::VER_1_0_2802_0_NOSTEAM: case eGameVersion::VER_1_0_2802_0_STEAM:
+		*GTAmemory::GetGlobalPtr<INT32>(4540726) = uSure ? 1 : 0; break;
 	}
 }
 
