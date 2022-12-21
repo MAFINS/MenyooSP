@@ -559,12 +559,12 @@ namespace sub
 
 		float paintFade = _GET_VEHICLE_PAINT_FADE(Static_12);
 		float dirtLevel = GET_VEHICLE_DIRT_LEVEL(Static_12);
-		float carvarcol = GET_VEHICLE_COLOUR_COMBINATION(Static_12)+1;
+		float carvarcol = GET_VEHICLE_COLOUR_COMBINATION(Static_12) + 1;
 		bool set_mspaints_index_4 = 0, set_mspaints_index_3 = 0,
 			set_mspaints_index_5 = 0, set_mspaints_index_6 = 0,
 			paintFade_plus = 0, paintFade_minus = 0,
 			dirtLevel_plus = 0, dirtLevel_minus = 0,
-			carvarcol_plus = 0, carvarcol_minus = 0, carvarcol_input=0;
+			carvarcol_plus = 0, carvarcol_minus = 0, carvarcol_input = 0,
 		getpaint = true;
 		menuselect = true;
 
@@ -644,7 +644,6 @@ namespace sub
 				SET_VEHICLE_DIRT_LEVEL(Static_12, dirtLevel);
 			}
 		}
-
 		if (carvarcol_input) {
 			std::string inputStr = Game::InputBox("", 4, "Enter a CarVariation index:", std::to_string(carvarcol));
 			if (inputStr.length() > 0)
@@ -652,7 +651,12 @@ namespace sub
 				try
 				{
 					carvarcol = stoi(inputStr);
-					SET_VEHICLE_COLOUR_COMBINATION(Static_12, carvarcol-1);
+					SET_VEHICLE_COLOUR_COMBINATION(Static_12, carvarcol - 1);
+					if (_globalLSC_Customs)
+					{
+						lastpaint = getpaintCarUsing_index(Static_12, ms_curr_paint_index);
+						lastpearl = getpaintCarUsing_index(Static_12, 3);
+					}
 				}
 				catch (...)
 				{
@@ -670,12 +674,17 @@ namespace sub
 			if (carvarcol < GET_NUMBER_OF_VEHICLE_COLOURS(Static_12))
 			{
 				carvarcol += 1;
-				SET_VEHICLE_COLOUR_COMBINATION(Static_12, carvarcol-1);
+				SET_VEHICLE_COLOUR_COMBINATION(Static_12, carvarcol - 1);
 			}
 			else
 			{
 				carvarcol = 1;
-				SET_VEHICLE_COLOUR_COMBINATION(Static_12, carvarcol-1);
+				SET_VEHICLE_COLOUR_COMBINATION(Static_12, carvarcol - 1);
+			}
+			if (_globalLSC_Customs)
+			{
+				lastpaint = getpaintCarUsing_index(Static_12, ms_curr_paint_index);
+				lastpearl = getpaintCarUsing_index(Static_12, 3);
 			}
 		}
 		if (carvarcol_minus)
@@ -683,15 +692,21 @@ namespace sub
 			if (carvarcol > 1)
 			{
 				carvarcol -= 1;
-				SET_VEHICLE_COLOUR_COMBINATION(Static_12, carvarcol-1);
+				SET_VEHICLE_COLOUR_COMBINATION(Static_12, carvarcol - 1);
 			}
 			else
 			{
 				carvarcol = GET_NUMBER_OF_VEHICLE_COLOURS(Static_12);
-				SET_VEHICLE_COLOUR_COMBINATION(Static_12, carvarcol-1);
+				SET_VEHICLE_COLOUR_COMBINATION(Static_12, carvarcol - 1);
+			}
+			if (_globalLSC_Customs)
+			{
+				lastpaint = getpaintCarUsing_index(Static_12, ms_curr_paint_index);
+				lastpearl = getpaintCarUsing_index(Static_12, 3);
 			}
 		}
-		if (MenuPressTimer::IsButtonTapped(MenuPressTimer::Button::Back))
+
+		/*if (MenuPressTimer::IsButtonTapped(MenuPressTimer::Button::Back))
 		{
 			//getpaint = true;
 			menuselect = false;
@@ -704,7 +719,7 @@ namespace sub
 				else if (ms_curr_paint_index == 2)
 					SET_VEHICLE_CUSTOM_SECONDARY_COLOUR(Static_12, lastr, lastg, lastb);
 			}
-		}
+		}*/
 	}
 	void MSPaints2_()
 	{
@@ -857,6 +872,7 @@ namespace sub
 			//OnscreenKeyboard::State::arg1._int = Static_12;
 			//OnscreenKeyboard::State::arg2._int = paintIndex;
 		}
+
 		if (copypaint)
 		{
 			paintCarUsing_index(Static_12, 3 - ms_curr_paint_index, getpaintCarUsing_index(Static_12, ms_curr_paint_index), -1);
@@ -1365,7 +1381,6 @@ namespace sub
 
 		if (ms_paints_hexinput)
 		{
-			char buffer[2041];
 			std::size_t hexcheck;
 			std::string titlestring;
 			std::string hexr = int_to_hexstring(ms_paints_rgb_r, false);
