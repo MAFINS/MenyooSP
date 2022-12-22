@@ -1259,9 +1259,12 @@ namespace sub
 				{
 					int newVal = abs(stoi(inputStr));
 					if (newVal < 0 || newVal > 255)
-						throw;
-					ms_paints_rgb_r = newVal;
-					rgb_mode_set_carcol(Static_12, ms_paints_rgb_r, ms_paints_rgb_g, ms_paints_rgb_b, ms_paints_rgb_a);
+						Game::Print::PrintError_InvalidInput();
+					else
+					{
+						ms_paints_rgb_r = newVal;
+						rgb_mode_set_carcol(Static_12, ms_paints_rgb_r, ms_paints_rgb_g, ms_paints_rgb_b, ms_paints_rgb_a);
+					}
 				}
 				catch (...)
 				{
@@ -1294,9 +1297,12 @@ namespace sub
 				{
 					int newVal = abs(stoi(inputStr));
 					if (newVal < 0 || newVal > 255)
-						throw;
-					ms_paints_rgb_g = newVal;
-					rgb_mode_set_carcol(Static_12, ms_paints_rgb_r, ms_paints_rgb_g, ms_paints_rgb_b, ms_paints_rgb_a);
+						Game::Print::PrintError_InvalidInput();
+					else
+					{
+						ms_paints_rgb_g = newVal;
+						rgb_mode_set_carcol(Static_12, ms_paints_rgb_r, ms_paints_rgb_g, ms_paints_rgb_b, ms_paints_rgb_a);
+					}
 				}
 				catch (...)
 				{
@@ -1329,9 +1335,12 @@ namespace sub
 				{
 					int newVal = abs(stoi(inputStr));
 					if (newVal < 0 || newVal > 255)
-						throw;
-					ms_paints_rgb_b = newVal;
-					rgb_mode_set_carcol(Static_12, ms_paints_rgb_r, ms_paints_rgb_g, ms_paints_rgb_b, ms_paints_rgb_a);
+						Game::Print::PrintError_InvalidInput();
+					else
+					{
+						ms_paints_rgb_b = newVal;
+						rgb_mode_set_carcol(Static_12, ms_paints_rgb_r, ms_paints_rgb_g, ms_paints_rgb_b, ms_paints_rgb_a);
+					}
 				}
 				catch (...)
 				{
@@ -1364,9 +1373,12 @@ namespace sub
 				{
 					int newVal = abs(stoi(inputStr));
 					if (newVal < 0 || newVal > 255)
-						throw;
-					ms_paints_rgb_a = newVal;
-					rgb_mode_set_carcol(Static_12, ms_paints_rgb_r, ms_paints_rgb_g, ms_paints_rgb_b, ms_paints_rgb_a);
+						Game::Print::PrintError_InvalidInput();
+					else
+					{
+						ms_paints_rgb_a = newVal;
+						rgb_mode_set_carcol(Static_12, ms_paints_rgb_r, ms_paints_rgb_g, ms_paints_rgb_b, ms_paints_rgb_a);
+					}
 				}
 				catch (...)
 				{
