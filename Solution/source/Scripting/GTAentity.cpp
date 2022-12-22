@@ -357,7 +357,8 @@ float GTAentity::Speed_get() const
 }
 void GTAentity::MaxSpeed_set(float value)
 {
-	SET_ENTITY_MAX_SPEED(this->mHandle, value);
+	//SET_ENTITY_MAX_SPEED(this->mHandle, value);
+	SET_VEHICLE_MAX_SPEED(this->mHandle, value);
 }
 Vector3 GTAentity::SpeedVector_get(bool relative)
 {
@@ -521,7 +522,7 @@ Vector3 GTAentity::GetOffsetFromBoneInWorldCoords(int boneIndex, const Vector3& 
 }
 Vector3 GTAentity::GetOffsetFromBoneInWorldCoords(const std::string& boneLabel, const Vector3& offset) const
 {
-	return this->GetOffsetFromBoneInWorldCoords(this->GetBoneIndex(boneLabel), offset);
+	this->GetOffsetFromBoneInWorldCoords(this->GetBoneIndex(boneLabel), offset);
 }
 bool GTAentity::HasBone(const std::string& boneLabel) const
 {
