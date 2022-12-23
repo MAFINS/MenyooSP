@@ -637,6 +637,11 @@ void GTAvehicle::SetForwardSpeed(float value)
 	SET_VEHICLE_FORWARD_SPEED(this->mHandle, value);
 }
 
+void GTAvehicle::MaxSpeed_set(float value)
+{
+	SET_VEHICLE_MAX_SPEED(this->mHandle, value);
+}
+
 float GTAvehicle::DirtLevel_get() const
 {
 	return GET_VEHICLE_DIRT_LEVEL(this->mHandle);

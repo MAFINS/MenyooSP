@@ -108,6 +108,8 @@ public:
 	void Speed_set(float value);
 	void SetForwardSpeed(float value);
 
+	void MaxSpeed_set(float value);
+
 	float DirtLevel_get() const;
 	void DirtLevel_set(float value);
 	float PaintFade_get() const;
