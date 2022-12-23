@@ -357,6 +357,7 @@ namespace ENTITY
 	static void SET_ENTITY_LOAD_COLLISION_FLAG(Entity entity, BOOL toggle) { invoke<Void>(0x0DC7CABAB1E9B67E, entity, toggle); } // 0x0DC7CABAB1E9B67E 0xC52F295B
 	static BOOL HAS_COLLISION_LOADED_AROUND_ENTITY(Entity entity) { return invoke<BOOL>(0xE9676F61BC0B3321, entity); } // 0xE9676F61BC0B3321 0x851687F9
 	static void SET_ENTITY_MAX_SPEED(Entity entity, float speed) { invoke<Void>(0x0E46A3FCBDE2A1B1, entity, speed); } // 0x0E46A3FCBDE2A1B1 0x46AFFED3
+	static void SET_VEHICLE_MAX_SPEED(Vehicle vehicle, float speed) { invoke<Void>(0xBAA045B4E42F3C06, vehicle, speed); } // 0xBAA045B4E42F3C06 b1103
 	static void SET_ENTITY_ONLY_DAMAGED_BY_PLAYER(Entity entity, BOOL toggle) { invoke<Void>(0x79F020FF9EDC0748, entity, toggle); } // 0x79F020FF9EDC0748 0x4B707F50
 	static void SET_ENTITY_ONLY_DAMAGED_BY_RELATIONSHIP_GROUP(Entity entity, BOOL p1, Any p2) { invoke<Void>(0x7022BD828FA0B082, entity, p1, p2); } // 0x7022BD828FA0B082 0x202237E2
 	static void SET_ENTITY_PROOFS(Entity entity, BOOL bulletProof, BOOL fireProof, BOOL explosionProof, BOOL collisionProof, BOOL meleeProof, BOOL p6, BOOL p7, BOOL drownProof) { invoke<Void>(0xFAEE099C6F890BB8, entity, bulletProof, fireProof, explosionProof, collisionProof, meleeProof, p6, p7, drownProof); } // 0xFAEE099C6F890BB8 0x7E9EAB66
@@ -1208,6 +1209,8 @@ namespace VEHICLE
 	static void SET_RENDER_TRAIN_AS_DERAILED(Vehicle train, BOOL toggle) { invoke<Void>(0x317B11A312DF5534, train, toggle); } // 0x317B11A312DF5534 0x899D9092
 	static void SET_VEHICLE_EXTRA_COLOURS(Vehicle vehicle, int pearlescentColor, int wheelColor) { invoke<Void>(0x2036F561ADD12E33, vehicle, pearlescentColor, wheelColor); } // 0x2036F561ADD12E33 0x515DB2A0
 	static void GET_VEHICLE_EXTRA_COLOURS(Vehicle vehicle, int* pearlescentColor, int* wheelColor) { invoke<Void>(0x3BC4245933A166F7, vehicle, pearlescentColor, wheelColor); } // 0x3BC4245933A166F7 0x80E4659B
+	static void GET_VEHICLE_EXTRA_COLOUR_5(Vehicle vehicle, int* color) { invoke<Void>(0x7D1464D472D32136, vehicle, color); }// 0x7D1464D472D32136 b505
+	static void GET_VEHICLE_EXTRA_COLOUR_6(Vehicle vehicle, int* color) { invoke<Void>(0xB7635E80A5C31BFF, vehicle, color); }// 0xB7635E80A5C31BFF b505
 	static void STOP_ALL_GARAGE_ACTIVITY() { invoke<Void>(0x0F87E938BDF29D66); } // 0x0F87E938BDF29D66 0x17A0BCE5
 	static void SET_VEHICLE_FIXED(Vehicle vehicle) { invoke<Void>(0x115722B1B9C14C1C, vehicle); } // 0x115722B1B9C14C1C 0x17469AA1
 	static void SET_VEHICLE_DEFORMATION_FIXED(Vehicle vehicle) { invoke<Void>(0x953DA1E1B12C0491, vehicle); } // 0x953DA1E1B12C0491 0xDD2920C8
@@ -1230,6 +1233,9 @@ namespace VEHICLE
 	static void RAISE_CONVERTIBLE_ROOF(Vehicle vehicle, BOOL instantlyRaise) { invoke<Void>(0x8F5FB35D7E88FC70, vehicle, instantlyRaise); } // 0x8F5FB35D7E88FC70 0xA4E4CBA3
 	static int GET_CONVERTIBLE_ROOF_STATE(Vehicle vehicle) { return invoke<int>(0xF8C397922FC03F41, vehicle); } // 0xF8C397922FC03F41 0x1B09714D
 	static BOOL IS_VEHICLE_A_CONVERTIBLE(Vehicle vehicle, BOOL p1) { return invoke<BOOL>(0x52F357A30698BCCE, vehicle, p1); } // 0x52F357A30698BCCE 0x6EF54490
+	static BOOL TRANSFORM_TO_SUBMARINE(Vehicle vehicle, BOOL noAnimation) { return invoke<BOOL>(0xBE4C854FFDB6EEBE, vehicle, noAnimation); } // 0x52F357A30698BCCE 0x6EF54490
+	static void TRANSFORM_TO_CAR(Vehicle vehicle, BOOL noAnimation) { invoke<Void>(0x2A69FFD1B42BFF9E, vehicle, noAnimation); } // 0x2A69FFD1B42BFF9E 0xD8B90941 b1290
+	static BOOL IS_VEHICLE_IN_SUBMARINE_MODE(Vehicle vehicle) { return invoke<BOOL>(0xA77DC70BD689A1E5, vehicle); } // 0xA77DC70BD689A1E5 0xE2FF06DB b1290
 	static BOOL IS_VEHICLE_STOPPED_AT_TRAFFIC_LIGHTS(Vehicle vehicle) { return invoke<BOOL>(0x2959F696AE390A99, vehicle); } // 0x2959F696AE390A99 0x69200FA4
 	static void SET_VEHICLE_DAMAGE(Vehicle vehicle, float xOffset, float yOffset, float zOffset, float damage, float radius, BOOL p6) { invoke<Void>(0xA1DD317EA8FD4F29, vehicle, xOffset, yOffset, zOffset, damage, radius, p6); } // 0xA1DD317EA8FD4F29 0x21B458B2
 	static float GET_VEHICLE_ENGINE_HEALTH(Vehicle vehicle) { return invoke<float>(0xC45D23BAF168AAB8, vehicle); } // 0xC45D23BAF168AAB8 0x8880038A
@@ -1251,6 +1257,9 @@ namespace VEHICLE
 	static void SET_VEHICLE_LIVERY(Vehicle vehicle, int livery) { invoke<Void>(0x60BF608F1B8CD1B6, vehicle, livery); } // 0x60BF608F1B8CD1B6 0x7AD87059
 	static int GET_VEHICLE_LIVERY(Vehicle vehicle) { return invoke<int>(0x2BB9230590DA5E8A, vehicle); } // 0x2BB9230590DA5E8A 0xEC82A51D
 	static int GET_VEHICLE_LIVERY_COUNT(Vehicle vehicle) { return invoke<int>(0x87B63E25A529D526, vehicle); } // 0x87B63E25A529D526 0xFB0CA947
+	static void SET_VEHICLE_LIVERY2(Vehicle vehicle, int livery) { invoke<Void>(0xA6D3A8750DC73270, vehicle, livery); } // 0xA6D3A8750DC73270 b505
+	static int GET_VEHICLE_LIVERY2(Vehicle vehicle) { return invoke<int>(0x60190048C0764A26, vehicle); } // 0x60190048C0764A26 b505
+	static int GET_VEHICLE_LIVERY2_COUNT(Vehicle vehicle) { return invoke<int>(0x5ECB40269053C0D4, vehicle); } // 0x5ECB40269053C0D4 b505
 	static BOOL IS_VEHICLE_WINDOW_INTACT(Vehicle vehicle, int windowIndex) { return invoke<BOOL>(0x46E571A0E20D01F1, vehicle, windowIndex); } // 0x46E571A0E20D01F1 0xAC4EF23D
 	static BOOL ARE_ALL_VEHICLE_WINDOWS_INTACT(Vehicle vehicle) { return invoke<BOOL>(0x11D862A3E977A9EF, vehicle); } // 0x11D862A3E977A9EF 0xBB619744
 	static BOOL _IS_ANY_VEHICLE_SEAT_EMPTY(Vehicle vehicle) { return invoke<BOOL>(0x2D34FC3BC4ADB780, vehicle); } // 0x2D34FC3BC4ADB780 0x648E685A

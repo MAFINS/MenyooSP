@@ -130,7 +130,7 @@ namespace sub
 		Model& myVehicleModel = myVehicle.Model();
 
 		static int __VechicleOpsFixCar_texterVal = 0;
-		static std::vector<std::string> __VechicleOpsFixCar_texter{ "Full", "Keep windows open" };
+		static std::vector<std::string> __VechicleOpsFixCar_texter{ "Full", "Keep Dirt", "Keep windows open", "Keep windows open with Dirt"};
 		auto& fixCarTexterVal = __VechicleOpsFixCar_texterVal;
 		auto& fixCarTexter = __VechicleOpsFixCar_texter;
 		bool bFixCar_plus = false, bFixCar_minus = false;
@@ -273,7 +273,7 @@ namespace sub
 			else
 			{
 				std::vector<VehicleWindow> windowsToOpen;
-				if (fixCarTexterVal == 1)
+				if (fixCarTexterVal == 1 || fixCarTexterVal == 3)
 				{
 					for (int i = (int)VehicleWindow::FrontLeftWindow; i < (int)VehicleWindow::Last; i++)
 					{
@@ -282,9 +282,11 @@ namespace sub
 					}
 				}
 
+
 				myVehicle.RequestControlOnce();
 				SET_VEHICLE_FIXED(g_myVeh);
-				SET_VEHICLE_DIRT_LEVEL(g_myVeh, 0.0f);
+				if(fixCarTexterVal == 0 || fixCarTexterVal == 2)
+					SET_VEHICLE_DIRT_LEVEL(g_myVeh, 0.0f);
 				SET_VEHICLE_ENGINE_CAN_DEGRADE(g_myVeh, 0);
 				SET_VEHICLE_ENGINE_HEALTH(g_myVeh, 1250.0f);
 				SET_VEHICLE_PETROL_TANK_HEALTH(g_myVeh, 1250.0f);
@@ -293,7 +295,7 @@ namespace sub
 				if (!GET_IS_VEHICLE_ENGINE_RUNNING(g_myVeh))
 					SET_VEHICLE_ENGINE_ON(g_myVeh, 1, 1);
 
-				if (fixCarTexterVal == 1)
+				if (fixCarTexterVal == 1 || fixCarTexterVal == 3)
 				{
 					for (auto& i : windowsToOpen)
 					{

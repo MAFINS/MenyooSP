@@ -559,12 +559,12 @@ namespace sub
 
 		float paintFade = _GET_VEHICLE_PAINT_FADE(Static_12);
 		float dirtLevel = GET_VEHICLE_DIRT_LEVEL(Static_12);
-		float carvarcol = GET_VEHICLE_COLOUR_COMBINATION(Static_12)+1;
+		float carvarcol = GET_VEHICLE_COLOUR_COMBINATION(Static_12) + 1;
 		bool set_mspaints_index_4 = 0, set_mspaints_index_3 = 0,
 			set_mspaints_index_5 = 0, set_mspaints_index_6 = 0,
 			paintFade_plus = 0, paintFade_minus = 0,
 			dirtLevel_plus = 0, dirtLevel_minus = 0,
-			carvarcol_plus = 0, carvarcol_minus = 0;
+			carvarcol_plus = 0, carvarcol_minus = 0, carvarcol_input = 0,
 		getpaint = true;
 		menuselect = true;
 
@@ -581,7 +581,7 @@ namespace sub
 		AddBreak("---Collateral---");
 		AddNumber("Paint Fade", paintFade, 2, null, paintFade_plus, paintFade_minus);
 		AddNumber("Dirt Level", dirtLevel, 2, null, dirtLevel_plus, dirtLevel_minus);
-		AddNumber("CarVariation Colours", carvarcol, 0, null, carvarcol_plus, carvarcol_minus);
+		AddNumber("CarVariation Colours", carvarcol, 0, carvarcol_input, carvarcol_plus, carvarcol_minus);
 
 		if (firsttime)
 		{
@@ -644,18 +644,47 @@ namespace sub
 				SET_VEHICLE_DIRT_LEVEL(Static_12, dirtLevel);
 			}
 		}
+		if (carvarcol_input) {
+			std::string inputStr = Game::InputBox("", 4, "Enter a CarVariation index:", std::to_string(carvarcol));
+			if (inputStr.length() > 0)
+			{
+				try
+				{
+					carvarcol = stoi(inputStr);
+					SET_VEHICLE_COLOUR_COMBINATION(Static_12, carvarcol - 1);
+					if (_globalLSC_Customs)
+					{
+						lastpaint = getpaintCarUsing_index(Static_12, ms_curr_paint_index);
+						lastpearl = getpaintCarUsing_index(Static_12, 3);
+					}
+				}
+				catch (...)
+				{
+					Game::Print::PrintError_InvalidInput();
+				}
+			}
+			return;
+			//OnscreenKeyboard::State::Set(OnscreenKeyboard::Purpose::CustomsPaintIndex, std::string(), 3U, "Enter a paint index:", std::to_string(paintIndex));
+			//OnscreenKeyboard::State::arg1._int = Static_12;
+			//OnscreenKeyboard::State::arg2._int = paintIndex;
+		}
 
 		if (carvarcol_plus)
 		{
 			if (carvarcol < GET_NUMBER_OF_VEHICLE_COLOURS(Static_12))
 			{
 				carvarcol += 1;
-				SET_VEHICLE_COLOUR_COMBINATION(Static_12, carvarcol-1);
+				SET_VEHICLE_COLOUR_COMBINATION(Static_12, carvarcol - 1);
 			}
 			else
 			{
 				carvarcol = 1;
-				SET_VEHICLE_COLOUR_COMBINATION(Static_12, carvarcol-1);
+				SET_VEHICLE_COLOUR_COMBINATION(Static_12, carvarcol - 1);
+			}
+			if (_globalLSC_Customs)
+			{
+				lastpaint = getpaintCarUsing_index(Static_12, ms_curr_paint_index);
+				lastpearl = getpaintCarUsing_index(Static_12, 3);
 			}
 		}
 		if (carvarcol_minus)
@@ -663,14 +692,34 @@ namespace sub
 			if (carvarcol > 1)
 			{
 				carvarcol -= 1;
-				SET_VEHICLE_COLOUR_COMBINATION(Static_12, carvarcol-1);
+				SET_VEHICLE_COLOUR_COMBINATION(Static_12, carvarcol - 1);
 			}
 			else
 			{
 				carvarcol = GET_NUMBER_OF_VEHICLE_COLOURS(Static_12);
-				SET_VEHICLE_COLOUR_COMBINATION(Static_12, carvarcol-1);
+				SET_VEHICLE_COLOUR_COMBINATION(Static_12, carvarcol - 1);
+			}
+			if (_globalLSC_Customs)
+			{
+				lastpaint = getpaintCarUsing_index(Static_12, ms_curr_paint_index);
+				lastpearl = getpaintCarUsing_index(Static_12, 3);
 			}
 		}
+
+		/*if (MenuPressTimer::IsButtonTapped(MenuPressTimer::Button::Back))
+		{
+			//getpaint = true;
+			menuselect = false;
+			if (IS_ENTITY_A_VEHICLE(Static_12) || ms_curr_paint_index == 10 || ms_curr_paint_index == 11)
+				paintCarUsing_index(Static_12, ms_curr_paint_index, lastpaint, lastpearl);
+			if (iscustompaint)
+			{
+				if (ms_curr_paint_index == 1)
+					SET_VEHICLE_CUSTOM_PRIMARY_COLOUR(Static_12, lastr, lastg, lastb);
+				else if (ms_curr_paint_index == 2)
+					SET_VEHICLE_CUSTOM_SECONDARY_COLOUR(Static_12, lastr, lastg, lastb);
+			}
+		}*/
 	}
 	void MSPaints2_()
 	{
@@ -823,6 +872,7 @@ namespace sub
 			//OnscreenKeyboard::State::arg1._int = Static_12;
 			//OnscreenKeyboard::State::arg2._int = paintIndex;
 		}
+
 		if (copypaint)
 		{
 			paintCarUsing_index(Static_12, 3 - ms_curr_paint_index, getpaintCarUsing_index(Static_12, ms_curr_paint_index), -1);
@@ -1174,7 +1224,7 @@ namespace sub
 
 		switch (*Menu::currentopATM)
 		{
-		case 1:case 2:case 3:
+		case 2:case 3:case 4:
 			Add_preset_colour_options_previews(ms_paints_rgb_r, ms_paints_rgb_g, ms_paints_rgb_b);
 			break;
 		}
@@ -1209,9 +1259,12 @@ namespace sub
 				{
 					int newVal = abs(stoi(inputStr));
 					if (newVal < 0 || newVal > 255)
-						throw;
-					ms_paints_rgb_r = newVal;
-					rgb_mode_set_carcol(Static_12, ms_paints_rgb_r, ms_paints_rgb_g, ms_paints_rgb_b, ms_paints_rgb_a);
+						Game::Print::PrintError_InvalidInput();
+					else
+					{
+						ms_paints_rgb_r = newVal;
+						rgb_mode_set_carcol(Static_12, ms_paints_rgb_r, ms_paints_rgb_g, ms_paints_rgb_b, ms_paints_rgb_a);
+					}
 				}
 				catch (...)
 				{
@@ -1244,9 +1297,12 @@ namespace sub
 				{
 					int newVal = abs(stoi(inputStr));
 					if (newVal < 0 || newVal > 255)
-						throw;
-					ms_paints_rgb_g = newVal;
-					rgb_mode_set_carcol(Static_12, ms_paints_rgb_r, ms_paints_rgb_g, ms_paints_rgb_b, ms_paints_rgb_a);
+						Game::Print::PrintError_InvalidInput();
+					else
+					{
+						ms_paints_rgb_g = newVal;
+						rgb_mode_set_carcol(Static_12, ms_paints_rgb_r, ms_paints_rgb_g, ms_paints_rgb_b, ms_paints_rgb_a);
+					}
 				}
 				catch (...)
 				{
@@ -1279,9 +1335,12 @@ namespace sub
 				{
 					int newVal = abs(stoi(inputStr));
 					if (newVal < 0 || newVal > 255)
-						throw;
-					ms_paints_rgb_b = newVal;
-					rgb_mode_set_carcol(Static_12, ms_paints_rgb_r, ms_paints_rgb_g, ms_paints_rgb_b, ms_paints_rgb_a);
+						Game::Print::PrintError_InvalidInput();
+					else
+					{
+						ms_paints_rgb_b = newVal;
+						rgb_mode_set_carcol(Static_12, ms_paints_rgb_r, ms_paints_rgb_g, ms_paints_rgb_b, ms_paints_rgb_a);
+					}
 				}
 				catch (...)
 				{
@@ -1314,9 +1373,12 @@ namespace sub
 				{
 					int newVal = abs(stoi(inputStr));
 					if (newVal < 0 || newVal > 255)
-						throw;
-					ms_paints_rgb_a = newVal;
-					rgb_mode_set_carcol(Static_12, ms_paints_rgb_r, ms_paints_rgb_g, ms_paints_rgb_b, ms_paints_rgb_a);
+						Game::Print::PrintError_InvalidInput();
+					else
+					{
+						ms_paints_rgb_a = newVal;
+						rgb_mode_set_carcol(Static_12, ms_paints_rgb_r, ms_paints_rgb_g, ms_paints_rgb_b, ms_paints_rgb_a);
+					}
 				}
 				catch (...)
 				{
@@ -1589,6 +1651,8 @@ namespace sub
 			ms_exh_minus = 0,
 			ms_livery_plus = 0,
 			ms_livery_minus = 0,
+			ms_livery2_plus = 0,
+			ms_livery2_minus = 0,
 			ms_turbo_toggle = 0,
 			ms_light_int_1 = 0,
 			ms_light_int_plus = 0,
@@ -1623,7 +1687,8 @@ namespace sub
 			ms_brakes = GET_VEHICLE_MOD(Static_12, 12) + 1,
 			ms_susp = GET_VEHICLE_MOD(Static_12, 15) + 1,
 			ms_exh = GET_VEHICLE_MOD(Static_12, 4) + 1,
-			ms_livery = GET_VEHICLE_LIVERY(Static_12) + 1;
+			ms_livery = GET_VEHICLE_LIVERY(Static_12) + 1,
+			ms_livery2 = GET_VEHICLE_LIVERY2(Static_12) + 1;
 
 		auto rpmMultVal = 1.0f;
 		auto& rpmMultIt = g_multList_rpm.find(vehicle.Handle());
@@ -1720,7 +1785,9 @@ namespace sub
 		AddOption(Game::GetGXTEntry("CMOD_COL0_3", "Emblem"), null, nullFunc, SUB::MS_EMBLEM, true, false); // Crew Emblems CMOD_COL0_3
 		AddOption(Game::GetGXTEntry("CMOD_MOD_GLD2", "Extras"), SubMS_Extra, nullFunc, -1, true, false); // Extras CMOD_MOD_GLD2
 		if (GET_VEHICLE_LIVERY_COUNT(Static_12) > 0)
-			AddNumber(Game::GetGXTEntry("CMOD_COL0_4", "Livery"), ms_livery, 0, null, ms_livery_plus, ms_livery_minus);
+			AddNumber(Game::GetGXTEntry("CMOD_COL0_4", "Livery"), ms_livery, 0, null, ms_livery_plus, ms_livery_minus); 
+		if (GET_VEHICLE_LIVERY2_COUNT(Static_12) > 0)
+			AddNumber(Game::GetGXTEntry("Roof Livery", "Roof Livery"), ms_livery2, 0, null, ms_livery2_plus, ms_livery2_minus);
 		AddLocal(Game::GetGXTEntry("CMOD_MOD_TUR", "Turbo"), IS_TOGGLE_MOD_ON(Static_12, VehicleMod::Turbo), ms_turbo_toggle, ms_turbo_toggle); // Turbo
 		AddLocal(Game::GetGXTEntry("CMOD_LGT_1", "Xenon Lights"), IS_TOGGLE_MOD_ON(Static_12, VehicleMod::XenonHeadlights), ms_lights_toggle, ms_lights_toggle); // Xenon lights
 		AddLocal("Lower Suspension", lowersuspension, MSLowerSuspension_, MSLowerSuspension_, true); // Tuners Lower Suspension
@@ -1982,6 +2049,17 @@ namespace sub
 		if (ms_livery_minus) {
 			if (ms_livery > 1) ms_livery--;
 			SET_VEHICLE_LIVERY(Static_12, ms_livery - 1);
+			return;
+		}
+
+		if (ms_livery2_plus) {
+			if (ms_livery2 < GET_VEHICLE_LIVERY2_COUNT(Static_12)) ms_livery2++;
+			SET_VEHICLE_LIVERY2(Static_12, ms_livery2 - 1);
+			return;
+		}
+		if (ms_livery2_minus) {
+			if (ms_livery2 > 1) ms_livery2--;
+			SET_VEHICLE_LIVERY2(Static_12, ms_livery2 - 1);
 			return;
 		}
 
@@ -2831,6 +2909,7 @@ namespace sub
 					__AddOption(get_mod_text_label(Static_12, VehicleMod::FrontWheels, i, false), Static_12, wtype, i, chrtype == 2);
 				}
 			}
+			if(_globalLSC_Customs)
 			if (MenuPressTimer::IsButtonTapped(MenuPressTimer::Button::Back)) // this has been split out for bikes, see further comments on the original section below (line 2575)
 			{
 				setwheel = false;

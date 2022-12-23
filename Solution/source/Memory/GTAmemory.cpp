@@ -1599,6 +1599,7 @@ void GeneralGlobalHax::DisableAnnoyingRecordingUI(bool uSure)
 void GeneralGlobalHax::EnableBlockedMpVehiclesInSp(bool uSure)
 {
 	// Has to be updated every patch.
+
 	switch (GTAmemory::GetGameVersion())
 	{
 	case eGameVersion::VER_1_0_757_4_NOSTEAM: case eGameVersion::VER_1_0_757_4_STEAM:
@@ -1641,11 +1642,14 @@ void GeneralGlobalHax::EnableBlockedMpVehiclesInSp(bool uSure)
 	case eGameVersion::VER_1_0_2372_0_NOSTEAM: case eGameVersion::VER_1_0_2372_0_STEAM:
 		*GTAmemory::GetGlobalPtr<INT32>(4270934) = uSure ? 1 : 0; break;
 	case eGameVersion::VER_1_0_2545_0_NOSTEAM: case eGameVersion::VER_1_0_2545_0_STEAM:
-	case eGameVersion::VER_1_0_2612_0_NOSTEAM: case eGameVersion::VER_1_0_2612_0_STEAM:
-	case eGameVersion::VER_1_0_2628_0_NOSTEAM: case eGameVersion::VER_1_0_2628_0_STEAM:
+	case eGameVersion::VER_1_0_2612_1_NOSTEAM: case eGameVersion::VER_1_0_2612_1_STEAM:
 	case eGameVersion::VER_1_0_2628_2_NOSTEAM: case eGameVersion::VER_1_0_2628_2_STEAM:
-	case eGameVersion::VER_1_0_2699_0_NOSTEAM: case eGameVersion::VER_1_0_2699_0_STEAM:
 		*GTAmemory::GetGlobalPtr<INT32>(4533757) = uSure ? 1 : 0; break;
+	case eGameVersion::VER_1_0_2699_0_NOSTEAM: case eGameVersion::VER_1_0_2699_0_STEAM:
+	case eGameVersion::VER_1_0_2699_16:
+		*GTAmemory::GetGlobalPtr<INT32>(4539659) = uSure ? 1 : 0; break;
+	case eGameVersion::VER_1_0_2802_0: default:
+		*GTAmemory::GetGlobalPtr<INT32>(4540726) = uSure ? 1 : 0; break;
 	}
 }
 

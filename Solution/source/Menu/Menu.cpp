@@ -590,8 +590,7 @@ void Menu::while_opened()
 	{
 		SetSub_closed();
 	}
-
-
+		
 }
 void Menu::Up(bool playSound)
 {
@@ -629,7 +628,7 @@ void Menu::SetSub_previous()
 {
 	currentsub = currentsub_ar[currentsub_ar_index]; // Get previous submenu from array and set as current submenu
 	currentop = currentop_ar[currentsub_ar_index]; // Get last selected option from array and set as current selected option
-
+	
 	currentsub_ar[currentsub_ar_index] = -2;
 	currentop_ar[currentsub_ar_index] = -2;
 
@@ -639,7 +638,9 @@ void Menu::SetSub_previous()
 	Game::Sound::PlayFrontend_default("BACK"); // Play sound
 
 	*currentopATM = currentop;
+
 }
+
 void Menu::SetSub_new(INT sub_index)
 {
 	currentsub_ar_index++; //Increment array index
@@ -653,7 +654,10 @@ void Menu::SetSub_new(INT sub_index)
 	totalop = 0; // Reset total number of options var"
 
 	*currentopATM = currentop; //SetSub_new complete
+
 }
+
+
 void Menu::SetSub_closed()
 {
 	//Game::RequestScript("cellphone_controller");
@@ -840,8 +844,13 @@ void Menu::sub_handler()
 	{
 		submenu_switch();
 
-		if (Menu::currentop > Menu::printingop) { Menu::currentop = Menu::printingop + 1; Menu::Up(false); }
-		else if (Menu::currentop < 1) { Menu::currentop = 0; Menu::Down(false); }
+		//Does anyone know what the below does? Caused shit when trying to navigate back and retain menu position - IJC
+		
+		if (Menu::currentsub != SUB::MODSHOP)
+		{
+			if (Menu::currentop > Menu::printingop) { Menu::currentop = Menu::printingop + 1; Menu::Up(false); }
+			else if (Menu::currentop < 1) { Menu::currentop = 0; Menu::Down(false); }
+		}
 
 		//// These czechs is kill
 		//if (currentop < 1) currentop = 1;
