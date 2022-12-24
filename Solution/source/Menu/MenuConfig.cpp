@@ -61,6 +61,7 @@ void MenuConfig::ConfigRead()
 	menubinds = ini.GetLongValue(section_settings, "open_key", menubinds);
 	menubindsGamepad.first = ini.GetLongValue(section_settings, "open_button_for_gamepad_1", menubindsGamepad.first);
 	menubindsGamepad.second = ini.GetLongValue(section_settings, "open_button_for_gamepad_2", menubindsGamepad.second);
+	respawnbinds = ini.GetLongValue(section_settings, "manual_respawn_button", respawnbinds);
 	menuPos.x = ini.GetDoubleValue(section_settings, "menuPosX", (menuPos.x + 0.0598f) * 100); menuPos.x = menuPos.x / 100 - 0.0598f;
 	menuPos.y = ini.GetDoubleValue(section_settings, "menuPosY", (menuPos.y + 0.074f) * 100); menuPos.y = menuPos.y / 100 - 0.074f;
 	Menu::bit_glare_test = ini.GetBoolValue(section_settings, "Titlebox_Globe", Menu::bit_glare_test);
@@ -307,6 +308,7 @@ void MenuConfig::ConfigSave()
 	ini.SetLongValue(section_settings, "open_key", menubinds);
 	ini.SetLongValue(section_settings, "open_button_for_gamepad_1", menubindsGamepad.first);
 	ini.SetLongValue(section_settings, "open_button_for_gamepad_2", menubindsGamepad.second);
+	ini.SetLongValue(section_settings, "manual_respawn_button", respawnbinds);
 	ini.SetDoubleValue(section_settings, "menuPosX", (menuPos.x + 0.0598f) * 100);
 	ini.SetDoubleValue(section_settings, "menuPosY", (menuPos.y + 0.074f) * 100);
 	ini.SetBoolValue(section_settings, "Titlebox_Globe", Menu::bit_glare_test);

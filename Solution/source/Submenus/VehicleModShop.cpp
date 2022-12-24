@@ -2912,7 +2912,6 @@ namespace sub
 		if (wtype == WheelType::BikeWheels) // Bike Normal/Chrome
 		{
 			bool bIsChromeSelected = chrtype == 1 || chrtype == 3;
-			int menuopt = 0;
 
 			AddTitle(bIsChromeSelected ? "Chrome Wheels" : "Bike Wheels");
 
@@ -2922,7 +2921,6 @@ namespace sub
 				for (i = ids[j]; i < ids[j + 1]; i++)
 				{
 					__AddOption(get_mod_text_label(Static_12, VehicleMod::FrontWheels, i, false), Static_12, wtype, i, chrtype == 2);
-					menuopt++;
 				}
 			}
 			if(_globalLSC_Customs)

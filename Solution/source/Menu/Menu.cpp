@@ -158,6 +158,7 @@ RGBA _globalPedTrackers_Col(0, 255, 255, 205);
 
 std::pair<UINT16, UINT16> menubindsGamepad = { INPUT_FRONTEND_RB, INPUT_FRONTEND_LEFT };
 UINT16 menubinds = VirtualKey::F8;
+UINT16 respawnbinds = INPUT_LOOK_BEHIND;
 
 UINT16 Menu::currentsub = 0, Menu::LOOCsub = SUB::MAINMENU;
 INT Menu::currentop = 0, * Menu::currentopATM = &currentop;
