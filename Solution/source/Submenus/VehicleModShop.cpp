@@ -2556,40 +2556,53 @@ namespace sub
 				}
 			}
 		}
+		
 		void __AddOption(const std::string& text, Vehicle vehicle, INT8 wheelType, INT16 wheelIndex, bool isBikeBack)
 		{
 			INT currWheelType = -1;
 			INT currWheelIndex = -1;
 			if (_globalLSC_Customs)
-			{
-				if (selectwheel)
+			{				
+				std::array<int, 13 + 22 + 1> menuindices{};
+
+				int idx = 0;
+				for (int j = 0; j < 5; j += 2)
+				{
+					std::array<int, 5> ids{ 0, 13, 26, 48, ms_max_windices };
+					for (int i = ids[j]; i < ids[j + 1]; i++)
+					{
+						menuindices[idx] = i;
+						idx++;
+					}
+				}
+	
+				//if (selectwheel)
 				{
 					currWheelType = lastwheeltype;
-					currWheelIndex = lastfwheel;
+					currWheelIndex = isBikeBack ? lastbwheel : lastfwheel;
 					selectwheel = false;
 				}
 				bool pressed = false;
 				if (isBikeBack)
-					AddTickol(text, currWheelIndex == wheelIndex && currWheelType == wheelType, pressed, pressed,
+					AddTickol(text, currWheelIndex == wheelIndex, pressed, pressed,
 						TICKOL::BIKETHING, TICKOL::NONE, true);
 				else
-					AddTickol(text, currWheelIndex == wheelIndex && currWheelType == wheelType, pressed, pressed,
+					AddTickol(text, currWheelIndex == wheelIndex, pressed, pressed,
 						IS_THIS_MODEL_A_BIKE(GET_ENTITY_MODEL(vehicle)) ? TICKOL::BIKETHING : TICKOL::CARTHING, TICKOL::NONE, true);
-
-
+				
 				if (setwheel && IS_ENTITY_A_VEHICLE(vehicle))
 				{
 					GTAvehicle(vehicle).RequestControl();
 					SET_VEHICLE_WHEEL_TYPE(vehicle, wheelType);
 					if (wheelType == WheelType::BikeWheels)
 					{
-						isBikeBack ? SET_VEHICLE_MOD(vehicle, VehicleMod::BackWheels, *Menu::currentopATM - 1, GET_VEHICLE_MOD_VARIATION(vehicle, VehicleMod::BackWheels))
-							: SET_VEHICLE_MOD(vehicle, VehicleMod::FrontWheels, *Menu::currentopATM - 1, GET_VEHICLE_MOD_VARIATION(vehicle, VehicleMod::FrontWheels));
+						isBikeBack ? SET_VEHICLE_MOD(vehicle, VehicleMod::BackWheels, menuindices[*Menu::currentopATM - 1], GET_VEHICLE_MOD_VARIATION(vehicle, VehicleMod::BackWheels))
+							: SET_VEHICLE_MOD(vehicle, VehicleMod::FrontWheels, menuindices[*Menu::currentopATM - 1], GET_VEHICLE_MOD_VARIATION(vehicle, VehicleMod::FrontWheels));
 					}
 					else
 					{
-						SET_VEHICLE_MOD(vehicle, VehicleMod::FrontWheels, *Menu::currentopATM - 1, GET_VEHICLE_MOD_VARIATION(vehicle, VehicleMod::FrontWheels));
-						SET_VEHICLE_MOD(vehicle, VehicleMod::BackWheels, *Menu::currentopATM - 1, GET_VEHICLE_MOD_VARIATION(vehicle, VehicleMod::BackWheels));
+						SET_VEHICLE_MOD(vehicle, VehicleMod::FrontWheels, menuindices[*Menu::currentopATM - 1], GET_VEHICLE_MOD_VARIATION(vehicle, VehicleMod::FrontWheels));
+						//SET_VEHICLE_MOD(vehicle, VehicleMod::BackWheels, menuindices[*Menu::currentopATM - 1], GET_VEHICLE_MOD_VARIATION(vehicle, VehicleMod::BackWheels));
 					}
 
 					if (pressed)
@@ -2597,16 +2610,17 @@ namespace sub
 						setwheel = false;
 						if (wheelType == WheelType::BikeWheels)
 						{
-							isBikeBack ? SET_VEHICLE_MOD(vehicle, VehicleMod::BackWheels, *Menu::currentopATM - 1, GET_VEHICLE_MOD_VARIATION(vehicle, VehicleMod::BackWheels))
-								: SET_VEHICLE_MOD(vehicle, VehicleMod::FrontWheels, *Menu::currentopATM - 1, GET_VEHICLE_MOD_VARIATION(vehicle, VehicleMod::FrontWheels));
+							isBikeBack ? SET_VEHICLE_MOD(vehicle, VehicleMod::BackWheels, wheelIndex, GET_VEHICLE_MOD_VARIATION(vehicle, VehicleMod::BackWheels))
+								: SET_VEHICLE_MOD(vehicle, VehicleMod::FrontWheels, wheelIndex, GET_VEHICLE_MOD_VARIATION(vehicle, VehicleMod::FrontWheels));
 						}
 						else
 						{
-							SET_VEHICLE_MOD(vehicle, VehicleMod::FrontWheels, *Menu::currentopATM - 1, GET_VEHICLE_MOD_VARIATION(vehicle, VehicleMod::FrontWheels));
-							SET_VEHICLE_MOD(vehicle, VehicleMod::BackWheels, *Menu::currentopATM - 1, GET_VEHICLE_MOD_VARIATION(vehicle, VehicleMod::BackWheels));
+							SET_VEHICLE_MOD(vehicle, VehicleMod::FrontWheels, wheelIndex, GET_VEHICLE_MOD_VARIATION(vehicle, VehicleMod::FrontWheels));
+							//SET_VEHICLE_MOD(vehicle, VehicleMod::BackWheels, wheelIndex, GET_VEHICLE_MOD_VARIATION(vehicle, VehicleMod::BackWheels));
 						}
 						lastfwheel = GET_VEHICLE_MOD(vehicle, VehicleMod::FrontWheels);
 						lastbwheel = GET_VEHICLE_MOD(vehicle, VehicleMod::BackWheels);
+						selectwheel = true;
 						Menu::SetSub_previous();
 						return;
 					}
@@ -2617,7 +2631,7 @@ namespace sub
 			else ///lsccustoms off
 			{
 				currWheelType = GET_VEHICLE_WHEEL_TYPE(vehicle);
-				currWheelIndex = GET_VEHICLE_MOD(vehicle, VehicleMod::FrontWheels);
+				currWheelIndex = GET_VEHICLE_MOD(vehicle, isBikeBack ? VehicleMod::BackWheels : VehicleMod::FrontWheels);
 
 				bool pressed = false;
 				if (isBikeBack)
@@ -2765,9 +2779,9 @@ namespace sub
 		int& wtype = ms_curr_paint_index, & chrtype = bit_MSPaints_RGB_mode;
 		setwheel = true;
 
-		lastwheeltype = 6;
-		lastfwheel = GET_VEHICLE_MOD(Static_12, VehicleMod::FrontWheels);
-		lastbwheel = GET_VEHICLE_MOD(Static_12, VehicleMod::BackWheels);
+		//lastwheeltype = 6;
+		//lastfwheel = GET_VEHICLE_MOD(Static_12, VehicleMod::FrontWheels);
+		//lastbwheel = GET_VEHICLE_MOD(Static_12, VehicleMod::BackWheels);
 
 		AddTitle(vWheelTNames[wtype]);
 
@@ -2898,6 +2912,7 @@ namespace sub
 		if (wtype == WheelType::BikeWheels) // Bike Normal/Chrome
 		{
 			bool bIsChromeSelected = chrtype == 1 || chrtype == 3;
+			int menuopt = 0;
 
 			AddTitle(bIsChromeSelected ? "Chrome Wheels" : "Bike Wheels");
 
@@ -2907,6 +2922,7 @@ namespace sub
 				for (i = ids[j]; i < ids[j + 1]; i++)
 				{
 					__AddOption(get_mod_text_label(Static_12, VehicleMod::FrontWheels, i, false), Static_12, wtype, i, chrtype == 2);
+					menuopt++;
 				}
 			}
 			if(_globalLSC_Customs)
