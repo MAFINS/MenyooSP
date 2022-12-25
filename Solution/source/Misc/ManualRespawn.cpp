@@ -30,8 +30,6 @@
 
 namespace _ManualRespawn_
 {
-	//UINT16 respawnbinds = INPUT_LOOK_BEHIND;
-
 	ManualRespawn::ManualRespawn()
 		: inRespawn(false)
 	{
@@ -58,9 +56,8 @@ namespace _ManualRespawn_
 	}
 
 	inline void ManualRespawn::ShowRespawnHelpText()
-	{
-		//there has to be a better way to get the controller string than this
-		const std::string controllerbinds[] = 
+	{//there has to be a better way to get the controller string than this
+		const std::string controllerbinds[] =
 		{
 			"NEXT_CAMERA",
 			"LOOK_LR",
@@ -405,7 +402,6 @@ namespace _ManualRespawn_
 		std::string bindsname = controllerbinds[respawnbinds];
 		Game::Print::setupdraw(GTAfont::Arial, Vector2(0, 0.4f), false, true, false, RGBA(255, 255, 255, 190));
 		Game::Print::drawstring("Press ~b~[" + bindsname + "]~s~ to respawn.", NULL, 0.1f);
-		//Game::Print::drawstring("Press ~b~[" + std::to_string(static_cast<ControllerInputs>(respawnbinds)).substr(6) + "]~s~to respawn.", NULL, 0.1f);
 		//Game::CustomHelpText::ShowTimedText(oss_ << "Press " << "~INPUT_LOOK_BEHIND~" << " to respawn.", 100);
 	}
 
