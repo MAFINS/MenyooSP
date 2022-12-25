@@ -38,7 +38,6 @@ namespace sub
 	bool firsttime = true;
 	bool lowersuspension = 0;
 	int lastMod = -2;
-	bool selectwheel = false;
 	bool selectmod = false;
 	int lastpaint, lastpearl, lastr, lastg, lastb;
 	bool getpaint = true, iscustompaint;
@@ -451,7 +450,10 @@ namespace sub
 				paintCarUsing_index(vehicle, ms_curr_paint_index, colour_index, pearl_index_ifPrimary);
 			if (pressed)
 			{
-				Menu::SetSub_previous();
+				lastpaint = getpaintCarUsing_index(vehicle, ms_curr_paint_index);
+				lastpearl = getpaintCarUsing_index(vehicle, 3);
+				iscustompaint = false;
+				//Menu::SetSub_previous();
 				return;
 			}
 
@@ -2358,7 +2360,8 @@ namespace sub
 					SET_VEHICLE_MOD(vehicle, modType, i, GET_VEHICLE_MOD_VARIATION(vehicle, modType));
 				if (pressed)
 				{
-					Menu::SetSub_previous();
+					lastMod = i;
+					//Menu::SetSub_previous();
 					return;
 				}
 				if (MenuPressTimer::IsButtonTapped(MenuPressTimer::Button::Back))
@@ -2470,12 +2473,9 @@ namespace sub
 			INT currWheelIndex = -1;
 			if (_globalLSC_Customs)
 			{
-				if (selectwheel)
-				{
-					currWheelType = lastwheeltype;
-					currWheelIndex = lastfwheel;
-					selectwheel = false;
-				}
+				currWheelType = lastwheeltype;
+				currWheelIndex = lastfwheel;
+
 				bool pressed = false;
 				if (isBikeBack)
 					AddTickol(text, currWheelIndex == wheelIndex && currWheelType == wheelType, pressed, pressed,
@@ -2483,7 +2483,6 @@ namespace sub
 				else
 					AddTickol(text, currWheelIndex == wheelIndex && currWheelType == wheelType, pressed, pressed,
 						IS_THIS_MODEL_A_BIKE(GET_ENTITY_MODEL(vehicle)) ? TICKOL::BIKETHING : TICKOL::CARTHING, TICKOL::NONE, true);
-
 
 				if (*Menu::currentopATM == Menu::printingop && IS_ENTITY_A_VEHICLE(vehicle))
 				{
@@ -2499,14 +2498,15 @@ namespace sub
 						SET_VEHICLE_MOD(vehicle, VehicleMod::FrontWheels, wheelIndex, GET_VEHICLE_MOD_VARIATION(vehicle, VehicleMod::FrontWheels));
 						SET_VEHICLE_MOD(vehicle, VehicleMod::BackWheels, wheelIndex, GET_VEHICLE_MOD_VARIATION(vehicle, VehicleMod::BackWheels));
 					}
+				}
 
-					if (pressed)
-					{
-						lastfwheel = GET_VEHICLE_MOD(vehicle, VehicleMod::FrontWheels);
-						lastbwheel = GET_VEHICLE_MOD(vehicle, VehicleMod::BackWheels);
-						Menu::SetSub_previous();
-						return;
-					}
+				if (pressed)
+				{
+					lastwheeltype = wheelType;
+					lastfwheel = GET_VEHICLE_MOD(vehicle, VehicleMod::FrontWheels);
+					lastbwheel = GET_VEHICLE_MOD(vehicle, VehicleMod::BackWheels);
+					//Menu::SetSub_previous();
+					return;
 				}
 
 			}
@@ -2579,7 +2579,6 @@ namespace sub
 		lastwheeltype = GET_VEHICLE_WHEEL_TYPE(Static_12);
 		lastfwheel = GET_VEHICLE_MOD(Static_12, VehicleMod::FrontWheels);
 		lastbwheel = GET_VEHICLE_MOD(Static_12, VehicleMod::BackWheels);
-		selectwheel = true;
 
 		AddTitle(Game::GetGXTEntry("CMOD_MOD_WHEM", "Wheels"));
 
