@@ -844,13 +844,8 @@ void Menu::sub_handler()
 	{
 		submenu_switch();
 
-		//Does anyone know what the below does? Caused shit when trying to navigate back and retain menu position - IJC
-		
-		if (Menu::currentsub != SUB::MODSHOP)
-		{
-			if (Menu::currentop > Menu::printingop) { Menu::currentop = Menu::printingop + 1; Menu::Up(false); }
-			else if (Menu::currentop < 1) { Menu::currentop = 0; Menu::Down(false); }
-		}
+		if (Menu::currentop > Menu::printingop) { Menu::currentop = Menu::printingop + 1; Menu::Up(false); }
+		else if (Menu::currentop < 1) { Menu::currentop = 0; Menu::Down(false); }
 
 		//// These czechs is kill
 		//if (currentop < 1) currentop = 1;
