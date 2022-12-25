@@ -73,6 +73,7 @@ namespace sub
 	namespace MSPaints_catind
 	{
 		void Sub_Wheels();
+		void Sub_Pearl();
 		void Sub_Chrome();
 		void Sub_Normal();
 		void Sub_Matte();
@@ -81,7 +82,6 @@ namespace sub
 		void Sub_Chameleon();
 		void Sub_Util();
 		void Sub_Worn();
-		void Sub_Added();
 	}
 
 	void rgb_mode_set_carcol(Vehicle veh, INT16 R, INT16 G, INT16 B, INT16 A);

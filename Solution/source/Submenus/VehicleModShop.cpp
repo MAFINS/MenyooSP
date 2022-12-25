@@ -42,7 +42,7 @@ namespace sub
 	bool setwheel = false;
 	bool selectmod = false;
 	bool setMod = false;
-	int lastpaint, lastpearl, lastr, lastg, lastb;
+	int lastpaint, lastpearl, lastr, lastg, lastb, paintindexgroup = -1;
 	bool menuselect = true, getpaint = true, iscustompaint;
 
 	// Paints
@@ -70,49 +70,118 @@ namespace sub
 
 	};
 
-	const std::vector<NamedVehiclePaint> PAINTS_WHEELS
+	std::vector<NamedVehiclePaint> PAINTS_CURRENT{
+
+	};
+
+	const std::vector<NamedVehiclePaint> PAINTS_STATIC
 	{
-		{ "Default", 156, -1 },
 		{ "Black", 0, -1 },
-		{ "Carbon Black", 1, -1 },
-		{ "Anthracite Black", 11, -1 },
+		{ "Graphite", 1, -1 },
 		{ "Black Steel", 2, -1 },
+		{ "Dark Steel", 3, -1 },
+		{ "Silver", 4, -1 },
+		{ "Bluish Silver", 5, -1 },
+		{ "Rolled Steel", 6, -1 },
+		{ "Shadow Silver", 7, -1 },
 		{ "Stone Silver", 8, -1 },
-		{ "Frost White", 122, -1 },
+		{ "Midnight Silver", 9, -1 },
+		{ "Cast Iron Silver", 10, -1 },
+		{ "Anthracite Black", 11, -1 },
+		{ "Util Black", 15, -1 },
+		{ "Util Silver", 18, -1 },
+		{ "Util Gun Metal", 19, -1 },
+		{ "Util Shadow Silver", 20, -1 },
+		{ "Worn Blue Silver", 25, -1 },
+		{ "Worn Shadow Silver", 26, -1 },
 		{ "Red", 27, -1 },
+		{ "Torino Red", 28, -1 },
+		{ "Formula Red", 29, -1 },
 		{ "Blaze Red", 30, -1 },
-		{ "Garnet Red", 45, -1 },
-		{ "Candy Red", 35, -1 },
+		{ "Grace Red", 31, -1 },
+		{ "Garnet Red", 32, -1 },
 		{ "Sunset Red", 33, -1 },
-		{ "Salmon Pink", 136, -1 },
-		{ "Hot Pink", 135, -1 },
+		{ "Cabernet Red", 34, -1 },
+		{ "Candy Red", 35, -1 },
 		{ "Sunrise Orange", 36, -1 },
-		{ "Orange", 41, -1 },
-		{ "Bright Orange", 138, -1 },
 		{ "Gold", 37, -1 },
-		{ "Straw Brown", 99, -1 },
-		{ "Dark Copper", 90, -1 },
-		{ "Dark Ivory", 95, -1 },
-		{ "Dark Brown", 115, -1 },
-		{ "Bronze", 109, -1 },
-		{ "Dark Earth", 153, -1 },
-		{ "Desert Tan", 154, -1 },
+		{ "Orange", 38, -1 },
+		{ "Matte Orange", 41, -1 },
+		{ "Matte Yellow", 42, -1 },
+		{ "Util Garnet Red", 45, -1 },
+		{ "Worn Golden Red", 47, -1 },
+		{ "Dark Green", 49, -1 },
+		{ "Racing Green", 50, -1 },
+		{ "Sea Green", 51, -1 },
+		{ "Olive Green", 52, -1 },
+		{ "Bright Green", 53, -1 },
+		{ "Gasoline Green", 54, -1 },
+		{ "Matte Lime Green", 55, -1 },
+		{ "Util Dark Green", 56, -1 },
+		{ "Worn Green", 59, -1 },
+		{ "Worn Sea Wash", 60, -1 },
+		{ "Galaxy Blue", 61, -1 },
+		{ "Dark Blue", 62, -1 },
+		{ "Saxon Blue", 63, -1 },
+		{ "Blue", 64, -1 },
+		{ "Mariner Blue", 65, -1 },
+		{ "Harbor Blue", 66, -1 },
+		{ "Diamond Blue", 67, -1 },
+		{ "Surf Blue", 68, -1 },
+		{ "Nautical Blue", 69, -1 },
+		{ "Ultra Blue", 70, -1 },
+		{ "Schafter Purple", 71, -1 },
+		{ "Spinnaker Purple", 72, -1 },
+		{ "Racing Blue", 73, -1 },
+		{ "Light Blue", 74, -1 },
+		{ "Slate Blue", 81, -1 },
+		{ "Matte Dark Blue", 82, -1 },
+		{ "Worn Baby Blue", 87, -1 },
 		{ "Yellow", 88, -1 },
 		{ "Race Yellow", 89, -1 },
+		{ "Bronze", 90, -1 },
 		{ "Yellow Bird", 91, -1 },
-		{ "Lime Green", 55, -1 },
+		{ "Lime Green", 92, -1 },
+		{ "Feltzer Brown", 94, -1 },
+		{ "Creek Brown", 95, -1 },
+		{ "Chocolate Brown", 96, -1 },
+		{ "Maple Brown", 97, -1 },
+		{ "Saddle Brown", 98, -1 },
+		{ "Straw Brown", 99, -1 },
+		{ "Moss Brown", 100, -1 },
+		{ "Bison Brown", 101, -1 },
+		{ "WoodBeech Brown", 102, -1 },
+		{ "BeechWood Brown", 103, -1 },
+		{ "Sienna Brown", 104, -1 },
+		{ "Sandy Brown", 105, -1 },
+		{ "Bleached Brown", 106, -1 },
+		{ "Cream", 107, -1 },
+		{ "Util Medium Brown", 109, -1 },
+		{ "Ice White", 111, -1 },
+		{ "Frost White", 112, -1 },
+		{ "Worn Dark Brown", 115, -1 },
+		{ "Util Off White", 122, -1 },
 		{ "Pea Green", 125, -1 },
-		{ "Green", 53, -1 },
-		{ "Dark Green", 56, -1 },
-		{ "Olive Green", 151, -1 },
-		{ "Midnight Blue", 82, -1 },
-		{ "Royal Blue", 64, -1 },
-		{ "Baby Blue", 87, -1 },
-		{ "Bright Blue", 70, -1 },
-		{ "Flourescent Blue", 140, -1 },
-		{ "Slate Blue", 81, -1 },
-		{ "Schafter Purple", 145, -1 },
-		{ "Midnight Purple", 142, -1 }
+		{ "Worn White", 132, -1 },
+		{ "Hot Pink", 135, -1 },
+		{ "Salmon Pink", 136, -1 },
+		{ "Pfister Pink", 137, -1 },
+		{ "Bright Orange", 138, -1 },
+		{ "Fluorescent Blue", 140, -1 },
+		{ "Midnight Blue", 141, -1 },
+		{ "Midnight Purple", 142, -1 },
+		{ "Wine Red", 143, -1 },
+		{ "Bright Purple", 145, -1 },
+		{ "Midnight Purple", 146, -1 },
+		{ "Carbon Black", 147, -1 },
+		{ "Matte Schafter Purple", 148, -1 },
+		{ "Matte Midnight Purple", 149, -1 },
+		{ "Lava Red", 150, -1 },
+		{ "Matte Forest Green", 151, -1 },
+		{ "Matte Dark Earth", 153, -1 },
+		{ "Matte Desert Tan", 154, -1 },
+		{ "Default", 156, -1 },
+		{ "Pure Gold", 160, -1 },
 	};
 
 	const std::vector<NamedVehiclePaint> PAINTS_UTIL
@@ -181,10 +250,6 @@ namespace sub
 	{
 
 	};
-	std::vector<NamedVehiclePaint> PAINTS_ADDED
-	{
-
-	};
 
 	INT paintIndex_maxValue = 0;
 
@@ -229,7 +294,7 @@ namespace sub
 			for (int i = 0; i < numcols; i++)
 			{
 				second = 0;
-				auto& PaintList = PAINTS_ADDED;
+				auto& PaintList = PAINTS_PEARL;
 				//set and get colour ID's and names
 				VEHICLE::SET_VEHICLE_MOD_KIT(veh, 0);
 				VEHICLE::SET_VEHICLE_MOD_COLOR_1(veh, painttype, i, 0);
@@ -458,7 +523,7 @@ namespace sub
 			switch (selectedpainttype)
 			{
 			case 0:
-				THISMENUPAINT = PAINTS_ADDED;
+				THISMENUPAINT = PAINTS_PEARL;
 				break;
 			case 1:
 				THISMENUPAINT = PAINTS_CHROME;
@@ -485,9 +550,11 @@ namespace sub
 				THISMENUPAINT = PAINTS_WORN;
 				break;
 			case 9: default:
-				THISMENUPAINT = PAINTS_WHEELS;
+				THISMENUPAINT = PAINTS_CURRENT;
 				break;
 			}
+			
+			Game::Print::PrintBottomCentre("ms_curr_paint_index: " + std::to_string(ms_curr_paint_index) + ", currPaintInd: " + std::to_string(currPaintInd) + ",\nlastpaint: " + std::to_string(lastpaint) + ", colour_index: " + std::to_string(colour_index));
 
 			AddTickol(text, lastpaint == colour_index, pressed, pressed,
 				IS_THIS_MODEL_A_BIKE(GET_ENTITY_MODEL(vehicle)) ? TICKOL::BIKETHING : TICKOL::CARTHING);
@@ -566,16 +633,19 @@ namespace sub
 			dirtLevel_plus = 0, dirtLevel_minus = 0,
 			carvarcol_plus = 0, carvarcol_minus = 0, carvarcol_input = 0,
 		getpaint = true;
+		paintindexgroup = -1;
 		menuselect = true;
 
-				AddTitle("Paints");
+		std::vector<NamedVehiclePaint> PAINTS_CURRENT;
+
+		AddTitle("Paints");
 		AddMSPaintsPointOption_(Game::GetGXTEntry("CMOD_COL0_0", "Primary"), 1); // Primary CMOD_COL0_0
 		 //if (_DOES_VEHICLE_HAVE_SECONDARY_COLOUR(Static_12))
 		AddMSPaintsPointOption_(Game::GetGXTEntry("CMOD_COL0_1", "Secondary"), 2); // Secondary CMOD_COL0_1
 		AddOption(Game::GetGXTEntry("CMOD_COL1_6", "Pearlescent"), set_mspaints_index_3, nullFunc, SUB::MSPAINTS2_WHEELS, true, false); // Pearlescent CMOD_COL1_6
 		AddOption(Game::GetGXTEntry("CMOD_MOD_WHEM", "Wheels"), set_mspaints_index_4, nullFunc, -1, true);
-		AddOption("Interior Colour", set_mspaints_index_5, nullFunc, SUB::MSPAINTS2, true);
-		AddOption("Dashboard Colour", set_mspaints_index_6, nullFunc, SUB::MSPAINTS2,true);
+		AddOption("Interior Colour", set_mspaints_index_5, nullFunc, SUB::MSPAINTS2_WHEELS, true);
+		AddOption("Dashboard Colour", set_mspaints_index_6, nullFunc, SUB::MSPAINTS2_WHEELS,true);
 
 
 		AddBreak("---Collateral---");
@@ -736,7 +806,7 @@ namespace sub
 		INT paintIndex;
 		paintIndex = getpaintCarUsing_index(Static_12, ms_curr_paint_index);
 
-		int totalpaints = 49;
+		/*int totalpaints = 49;
 		for (int i = 0; i < 6; i++)
 		{
 			if (i != 2)
@@ -744,7 +814,7 @@ namespace sub
 				totalpaints = totalpaints + GET_NUM_MOD_COLORS(i, 1);
 			}
 		}
-		int extrapaints = totalpaints - 225;
+		int extrapaints = totalpaints - 225;*/
 
 		switch (ms_curr_paint_index)
 		{
@@ -907,6 +977,37 @@ namespace sub
 		{
 			INT paintIndex;
 
+			const std::vector<std::vector<int>> indicesToOmit = {
+				{}, //not used
+				{}, //Primary
+				{}, //Secondary
+				{11, 12, 15, 29, 30, 31, 32, 33, 40, 41, 57, 58, 59, 65, 79, 80, 82, 83, 84, 85, 86, 90, 91, 94, 101, 102, 103, 104}, //Pearl
+				{3, 4, 5, 6, 7, 9, 10, 11, 12, 13, 14, 15, 16, 17, 19, 20, 22, 23, 25, 29, 31, 32, 33, 34, 35, 36, 37, 39, 41, 42, 43, 44, 45, 46, 48, 49, 50, 51, 52, 54, 55, 56, 57, 59, 65, 66, 68, 69, 70, 72, 73, 74, 75, 76, 77, 78, 79, 80, 81, 82, 83, 84, 85, 86, 89, 90, 92, 93, 94, 100, 101, 103, 104, 105}, //Wheels
+				{4, 11, 12, 13, 15, 16, 17, 20, 28, 29, 30, 31, 32, 33, 40, 41, 42, 43, 47, 54, 57, 58, 59, 60, 65, 79, 80, 82, 83, 84, 85, 86, 87, 90, 91, 94, 101, 102, 103, 104, 105}, //Interior
+				{0, 1, 2, 3, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 24, 25, 29, 30, 31, 32, 33, 34, 35, 37, 40, 41, 42, 43, 44, 45, 55, 57, 58, 59, 60, 65, 66, 67, 68, 69, 73, 75, 79, 80, 82, 83, 84, 85, 86, 90, 91, 92, 93, 94, 96, 97, 99, 101, 102, 103, 104, 105}, //Dashboard
+			};
+
+			if (paintindexgroup != ms_curr_paint_index)
+			{
+				PAINTS_CURRENT.clear();
+				for (int i = 0; i < PAINTS_STATIC.size(); i++) {
+					bool omit = false;
+
+					// Check if the current index is in the list of indices to omit
+					for (int j = 0; j < indicesToOmit[ms_curr_paint_index].size(); j++) {
+						if (i == indicesToOmit[ms_curr_paint_index][j]) {
+							omit = true;
+							break;
+						}
+					}
+
+					if (!omit) {
+						PAINTS_CURRENT.push_back(PAINTS_STATIC[i]);
+					}
+				}
+				paintindexgroup = ms_curr_paint_index;
+			}
+
 			paintIndex = getpaintCarUsing_index(Static_12, ms_curr_paint_index);
 
 			switch (ms_curr_paint_index)
@@ -918,8 +1019,8 @@ namespace sub
 			case 6: AddTitle("Dashboard"); break;
 			case 4: default: AddTitle(Game::GetGXTEntry("CMOD_MOD_WHEM", "Wheels")); break;
 			}
-
-			auto& vPaints = PAINTS_WHEELS;
+			
+			auto& vPaints = PAINTS_CURRENT;
 			selectedpainttype = 9;
 			for (auto& p : vPaints)
 				AddcarcolOption_(p.name, Static_12, p.paint, p.pearl);
@@ -969,11 +1070,11 @@ namespace sub
 
 
 		}
-		void Sub_Added()
+		void Sub_Pearl()
 		{
-			AddTitle("Extra Colours");
+			AddTitle("Pearlescent");
 
-			auto& vPaints = PAINTS_ADDED;
+			auto& vPaints = PAINTS_PEARL;
 			selectedpainttype = 0;
 
 			for (auto& p : vPaints)
