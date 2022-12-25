@@ -2460,14 +2460,10 @@ namespace sub
 		{
 			if (_globalLSC_Customs)
 			{
-
+				auto& lastwheelRelevant = isBikeBack ? lastbwheel : lastfwheel;
 				bool pressed = false;
-				if (isBikeBack)
-					AddTickol(text, lastwheeltype == wheelIndex && lastwheeltype == wheelType, pressed, pressed,
-						TICKOL::BIKETHING, TICKOL::NONE, true);
-				else
-					AddTickol(text, lastwheeltype == wheelIndex && lastwheeltype == wheelType, pressed, pressed,
-						IS_THIS_MODEL_A_BIKE(GET_ENTITY_MODEL(vehicle)) ? TICKOL::BIKETHING : TICKOL::CARTHING, TICKOL::NONE, true);
+				AddTickol(text, lastwheelRelevant == wheelIndex && lastwheeltype == wheelType, pressed, pressed,
+					IS_THIS_MODEL_A_BIKE(GET_ENTITY_MODEL(vehicle)) ? TICKOL::BIKETHING : TICKOL::CARTHING, TICKOL::NONE, true);
 
 
 				bool allowSettingWheelPreview = GET_VEHICLE_WHEEL_TYPE(vehicle) != wheelType ||
@@ -2503,32 +2499,25 @@ namespace sub
 			else ///lsccustoms off
 			{
 				INT currWheelType = GET_VEHICLE_WHEEL_TYPE(vehicle);
-				INT currWheelIndex = GET_VEHICLE_MOD(vehicle, VehicleMod::FrontWheels);
+				INT currWheelIndex = GET_VEHICLE_MOD(vehicle, isBikeBack ? (int)VehicleMod::BackWheels : (int)VehicleMod::FrontWheels);
 
 				bool pressed = false;
-				if (isBikeBack)
-					AddTickol(text, currWheelIndex == wheelIndex && currWheelType == wheelType, pressed, pressed,
-						TICKOL::BIKETHING, TICKOL::NONE, true);
-				else
-					AddTickol(text, currWheelIndex == wheelIndex && currWheelType == wheelType, pressed, pressed,
-						IS_THIS_MODEL_A_BIKE(GET_ENTITY_MODEL(vehicle)) ? TICKOL::BIKETHING : TICKOL::CARTHING, TICKOL::NONE, true);
+				AddTickol(text, currWheelIndex == wheelIndex && currWheelType == wheelType, pressed, pressed,
+					IS_THIS_MODEL_A_BIKE(GET_ENTITY_MODEL(vehicle)) ? TICKOL::BIKETHING : TICKOL::CARTHING, TICKOL::NONE, true);
 
 				if (pressed)
 				{
-					if (IS_ENTITY_A_VEHICLE(vehicle))
+					GTAvehicle(vehicle).RequestControl();
+					SET_VEHICLE_WHEEL_TYPE(vehicle, wheelType);
+					if (wheelType == WheelType::BikeWheels)
 					{
-						GTAvehicle(vehicle).RequestControl();
-						SET_VEHICLE_WHEEL_TYPE(vehicle, wheelType);
-						if (wheelType == WheelType::BikeWheels)
-						{
-							isBikeBack ? SET_VEHICLE_MOD(vehicle, VehicleMod::BackWheels, wheelIndex, GET_VEHICLE_MOD_VARIATION(vehicle, VehicleMod::BackWheels))
-								: SET_VEHICLE_MOD(vehicle, VehicleMod::FrontWheels, wheelIndex, GET_VEHICLE_MOD_VARIATION(vehicle, VehicleMod::FrontWheels));
-						}
-						else
-						{
-							SET_VEHICLE_MOD(vehicle, VehicleMod::FrontWheels, wheelIndex, GET_VEHICLE_MOD_VARIATION(vehicle, VehicleMod::FrontWheels));
-							SET_VEHICLE_MOD(vehicle, VehicleMod::BackWheels, wheelIndex, GET_VEHICLE_MOD_VARIATION(vehicle, VehicleMod::BackWheels));
-						}
+						isBikeBack ? SET_VEHICLE_MOD(vehicle, VehicleMod::BackWheels, wheelIndex, GET_VEHICLE_MOD_VARIATION(vehicle, VehicleMod::BackWheels))
+							: SET_VEHICLE_MOD(vehicle, VehicleMod::FrontWheels, wheelIndex, GET_VEHICLE_MOD_VARIATION(vehicle, VehicleMod::FrontWheels));
+					}
+					else
+					{
+						SET_VEHICLE_MOD(vehicle, VehicleMod::FrontWheels, wheelIndex, GET_VEHICLE_MOD_VARIATION(vehicle, VehicleMod::FrontWheels));
+						SET_VEHICLE_MOD(vehicle, VehicleMod::BackWheels, wheelIndex, GET_VEHICLE_MOD_VARIATION(vehicle, VehicleMod::BackWheels));
 					}
 					//ms_old_wtype = GET_VEHICLE_WHEEL_TYPE(Static_12);
 					//ms_old_windex = GET_VEHICLE_MOD(Static_12, 23);
