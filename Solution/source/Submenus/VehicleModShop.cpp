@@ -446,7 +446,7 @@ namespace sub
 
 			AddTickol(text, lastpaint == colour_index, pressed, pressed, 
 				IS_THIS_MODEL_A_BIKE(GET_ENTITY_MODEL(vehicle)) ? TICKOL::BIKETHING : TICKOL::CARTHING);
-			if(*Menu::currentopATM == Menu::printingop)
+			if(*Menu::currentopATM == Menu::printingop && getpaintCarUsing_index(vehicle, ms_curr_paint_index) != colour_index)
 				paintCarUsing_index(vehicle, ms_curr_paint_index, colour_index, pearl_index_ifPrimary);
 			if (pressed)
 			{
@@ -2343,7 +2343,7 @@ namespace sub
 
 		if (selectmod)
 		{
-			lastMod = GET_VEHICLE_MOD(vehicle, modType);
+			lastMod = currMod;
 			selectmod = false;
 		}
 
@@ -2356,7 +2356,7 @@ namespace sub
 				bool pressed = false;
 				AddTickol(get_mod_text_label(vehicle, modType, i, true), lastMod == i, pressed, pressed,
 					IS_THIS_MODEL_A_BIKE(GET_ENTITY_MODEL(vehicle)) ? TICKOL::BIKETHING : TICKOL::CARTHING, TICKOL::NONE, false);
-				if (*Menu::currentopATM == Menu::printingop)
+				if (*Menu::currentopATM == Menu::printingop && currMod != i)
 					SET_VEHICLE_MOD(vehicle, modType, i, GET_VEHICLE_MOD_VARIATION(vehicle, modType));
 				if (pressed)
 				{
@@ -2469,22 +2469,23 @@ namespace sub
 		}
 		void __AddOption(const std::string& text, Vehicle vehicle, INT8 wheelType, INT16 wheelIndex, bool isBikeBack)
 		{
-			INT currWheelType = -1;
-			INT currWheelIndex = -1;
 			if (_globalLSC_Customs)
 			{
-				currWheelType = lastwheeltype;
-				currWheelIndex = lastfwheel;
 
 				bool pressed = false;
 				if (isBikeBack)
-					AddTickol(text, currWheelIndex == wheelIndex && currWheelType == wheelType, pressed, pressed,
+					AddTickol(text, lastwheeltype == wheelIndex && lastwheeltype == wheelType, pressed, pressed,
 						TICKOL::BIKETHING, TICKOL::NONE, true);
 				else
-					AddTickol(text, currWheelIndex == wheelIndex && currWheelType == wheelType, pressed, pressed,
+					AddTickol(text, lastwheeltype == wheelIndex && lastwheeltype == wheelType, pressed, pressed,
 						IS_THIS_MODEL_A_BIKE(GET_ENTITY_MODEL(vehicle)) ? TICKOL::BIKETHING : TICKOL::CARTHING, TICKOL::NONE, true);
 
-				if (*Menu::currentopATM == Menu::printingop && IS_ENTITY_A_VEHICLE(vehicle))
+
+				bool allowSettingWheelPreview = GET_VEHICLE_WHEEL_TYPE(vehicle) != wheelType ||
+					(wheelType == WheelType::BikeWheels && isBikeBack ? GET_VEHICLE_MOD(vehicle, VehicleMod::BackWheels) == wheelIndex
+						: GET_VEHICLE_MOD(vehicle, VehicleMod::FrontWheels) == wheelIndex);
+
+				if (*Menu::currentopATM == Menu::printingop && allowSettingWheelPreview)
 				{
 					GTAvehicle(vehicle).RequestControl();
 					SET_VEHICLE_WHEEL_TYPE(vehicle, wheelType);
@@ -2512,8 +2513,8 @@ namespace sub
 			}
 			else ///lsccustoms off
 			{
-				currWheelType = GET_VEHICLE_WHEEL_TYPE(vehicle);
-				currWheelIndex = GET_VEHICLE_MOD(vehicle, VehicleMod::FrontWheels);
+				INT currWheelType = GET_VEHICLE_WHEEL_TYPE(vehicle);
+				INT currWheelIndex = GET_VEHICLE_MOD(vehicle, VehicleMod::FrontWheels);
 
 				bool pressed = false;
 				if (isBikeBack)
