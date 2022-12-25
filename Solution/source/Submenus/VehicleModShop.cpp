@@ -186,7 +186,6 @@ namespace sub
 
 	INT paintIndex_maxValue = 0;
 
-	INT8 selectedpainttype;
 	INT8 lastwheeltype;
 	INT8 lastfwheel;
 	INT8 lastbwheel;
@@ -835,7 +834,6 @@ namespace sub
 			}
 
 			auto& vPaints = PAINTS_WHEELS;
-			selectedpainttype = 9;
 			for (auto& p : vPaints)
 				AddcarcolOption_(p.name, Static_12, p.paint, p.pearl);
 
@@ -889,7 +887,6 @@ namespace sub
 			AddTitle("Extra Colours");
 
 			auto& vPaints = PAINTS_ADDED;
-			selectedpainttype = 0;
 
 			for (auto& p : vPaints)
 				AddcarcolOption_(p.name, Static_12, p.paint, p.pearl);
@@ -898,7 +895,6 @@ namespace sub
 		void Sub_Chrome()
 		{
 			AddTitle("Chrome");
-			selectedpainttype = 1;
 
 			auto& vPaints = PAINTS_CHROME;
 
@@ -909,7 +905,6 @@ namespace sub
 		void Sub_Normal()
 		{
 			AddTitle("Classic");
-			selectedpainttype = 2;
 
 			auto& vPaints = PAINTS_NORMAL;
 
@@ -920,7 +915,6 @@ namespace sub
 		void Sub_Matte()
 		{
 			AddTitle("Matte");
-			selectedpainttype = 3;
 
 			auto& vPaints = PAINTS_MATTE;
 
@@ -931,7 +925,6 @@ namespace sub
 		void Sub_Metallic()
 		{
 			AddTitle("Metallic");
-			selectedpainttype = 4;
 
 			auto& vPaints = PAINTS_METALLIC;
 
@@ -941,7 +934,6 @@ namespace sub
 		void Sub_Metal()
 		{
 			AddTitle("Metal");
-			selectedpainttype = 5;
 
 			auto& vPaints = PAINTS_METAL;
 
@@ -951,7 +943,6 @@ namespace sub
 		void Sub_Chameleon()
 		{
 			AddTitle("Chameleon");
-			selectedpainttype = 6;
 
 			auto& vPaints = PAINTS_CHAMELEON;
 
@@ -962,7 +953,6 @@ namespace sub
 		void Sub_Util()
 		{
 			AddTitle("Utility");
-			selectedpainttype = 7;
 
 			auto& vPaints = PAINTS_UTIL;
 
@@ -972,7 +962,6 @@ namespace sub
 		void Sub_Worn()
 		{
 			AddTitle("Worn");
-			selectedpainttype = 8;
 
 			auto& vPaints = PAINTS_WORN;
 
