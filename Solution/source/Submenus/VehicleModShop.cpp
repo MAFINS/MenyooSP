@@ -2467,8 +2467,8 @@ namespace sub
 
 
 				bool allowSettingWheelPreview = GET_VEHICLE_WHEEL_TYPE(vehicle) != wheelType ||
-					(wheelType == WheelType::BikeWheels && isBikeBack ? GET_VEHICLE_MOD(vehicle, VehicleMod::BackWheels) == wheelIndex
-						: GET_VEHICLE_MOD(vehicle, VehicleMod::FrontWheels) == wheelIndex);
+					(wheelType == WheelType::BikeWheels && isBikeBack ? GET_VEHICLE_MOD(vehicle, VehicleMod::BackWheels) != wheelIndex
+						: GET_VEHICLE_MOD(vehicle, VehicleMod::FrontWheels) != wheelIndex);
 
 				if (*Menu::currentopATM == Menu::printingop && allowSettingWheelPreview)
 				{
