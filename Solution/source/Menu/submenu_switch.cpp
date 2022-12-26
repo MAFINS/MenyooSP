@@ -144,11 +144,12 @@ void Menu::submenu_switch()
 	case SUB::MS_TYRESBURST:			sub::MSTyresBurst_(); break;
 	case SUB::MSPAINTS:					sub::MSPaints_(); break;
 	case SUB::MSPAINTS2:				sub::MSPaints2_(); break; // will do prim/sec/prespawn
-	case SUB::MSPAINTS2_PEARL:			sub::MSPaints_catind::Sub_Pearl(); break;
+	case SUB::MSPAINTS2_ADDED:			sub::MSPaints_catind::Sub_Added(); break;
 	case SUB::MSPAINTS2_CHROME:			sub::MSPaints_catind::Sub_Chrome(); break;
 	case SUB::MSPAINTS2_MATTE:			sub::MSPaints_catind::Sub_Matte(); break;
 	case SUB::MSPAINTS2_METAL:			sub::MSPaints_catind::Sub_Metal(); break;
 	case SUB::MSPAINTS2_CHAMELEON:		sub::MSPaints_catind::Sub_Chameleon(); break;
+	case SUB::MSPAINTS2_PEARL:			sub::MSPaints_catind::Sub_Pearl(); break;
 	case SUB::MSPAINTS2_METALLIC:		sub::MSPaints_catind::Sub_Metallic(); break;
 	case SUB::MSPAINTS2_NORMAL:			sub::MSPaints_catind::Sub_Normal(); break;
 	case SUB::MSPAINTS2_UTIL:			sub::MSPaints_catind::Sub_Util(); break;

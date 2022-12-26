@@ -73,13 +73,14 @@ namespace sub
 	namespace MSPaints_catind
 	{
 		void Sub_Wheels();
-		void Sub_Pearl();
+		void Sub_Added();
 		void Sub_Chrome();
 		void Sub_Normal();
 		void Sub_Matte();
 		void Sub_Metallic();
 		void Sub_Metal();
 		void Sub_Chameleon();
+		void Sub_Pearl();
 		void Sub_Util();
 		void Sub_Worn();
 	}
