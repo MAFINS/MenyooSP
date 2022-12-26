@@ -2472,7 +2472,7 @@ namespace sub
 
 				if (*Menu::currentopATM == Menu::printingop && allowSettingWheelPreview)
 				{
-					GTAvehicle(vehicle).RequestControl();
+					GTAvehicle(vehicle).RequestControlOnce();
 					SET_VEHICLE_WHEEL_TYPE(vehicle, wheelType);
 					if (wheelType == WheelType::BikeWheels)
 					{
