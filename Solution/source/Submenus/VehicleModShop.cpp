@@ -515,7 +515,6 @@ namespace sub
 			{
 				lastpaint = getpaintCarUsing_index(vehicle, ms_curr_paint_index);
 				lastpearl = getpaintCarUsing_index(vehicle, 3);
-				getpaint = true;
 				iscustompaint = false;
 				//Menu::SetSub_previous();
 				return;
@@ -544,7 +543,6 @@ namespace sub
 	}
 
 
-
 	void MSPaints_()
 	{
 		if (!DOES_ENTITY_EXIST(Static_12))
@@ -561,7 +559,6 @@ namespace sub
 			paintFade_plus = 0, paintFade_minus = 0,
 			dirtLevel_plus = 0, dirtLevel_minus = 0,
 			carvarcol_plus = 0, carvarcol_minus = 0, carvarcol_input = 0;
-		
 		getpaint = true;
 
 		AddTitle("Paints");
@@ -706,8 +703,8 @@ namespace sub
 			MSPaints_RColour = 0,
 			MSPaints_primRGB = 0,
 			copypaint = 0;
-
-
+		
+		
 		GTAvehicle vehicle = Static_12;
 
 		INT paintIndex;
