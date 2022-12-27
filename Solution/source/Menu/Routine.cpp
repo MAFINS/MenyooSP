@@ -64,9 +64,9 @@
 #include "..\Submenus\GhostRiderMode.h"
 #include "..\Submenus\Spooner\SpoonerMode.h"
 #include "..\Submenus\VehicleOptions.h"
+#include "..\Submenus\VehicleModShop.h"
 #include "..\Submenus\TimeOptions.h"
 #include "..\Submenus\BreatheStuff.h"
-#include "..\Submenus\VehicleOptions.h"
 #include "..\Submenus\MiscOptions.h"
 #include "..\Submenus\Teleport\Yachts.h"
 #include "..\Submenus\Teleport\TeleMethods.h"
@@ -100,6 +100,8 @@ void Menu::justopened()
 	SET_THIS_SCRIPT_CAN_REMOVE_BLIPS_CREATED_BY_ANY_SCRIPT(0); // lol poopoo dummy me this isn't a ysc
 
 	//sub::SettingsThemes_catind::g_menyooTheme_temp = sub::SettingsThemes_catind::MenyooTheme::CurrentlyActiveTheme();
+
+	sub::PopulateAllPaintIDs();
 
 	g_menuNotOpenedYet = false;
 }
