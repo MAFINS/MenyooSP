@@ -23,6 +23,7 @@
 #include "..\Scripting\Model.h"
 #include "..\Scripting\Game.h"
 #include "..\Memory\GTAmemory.h"
+#include "..\Scripting\World.h"
 
 #include "Settings.h"
 
@@ -34,8 +35,6 @@
 
 namespace sub
 {
-
-	bool firsttime = true;
 	bool lowersuspension = 0;
 	int lastMod = -2;
 	bool selectmod = false;
@@ -299,7 +298,6 @@ namespace sub
 	};
 	std::vector<NamedVehiclePaint> PAINTS_CHAMELEON
 	{
-
 	};
 #pragma endregion
 
@@ -309,29 +307,15 @@ namespace sub
 	INT8 lastfwheel;
 	INT8 lastbwheel;
 
-	void GetAllPaintIDs()
+	void PopulateAllPaintIDs()
 	{
-		firsttime = false;
-		Vehicle veh;
-		DWORD model = GET_HASH_KEY("adder");
-		STREAMING::REQUEST_MODEL(model);
-		int timeC = 2500;
-		ULONGLONG LoadMaxC = GetTickCount64() + timeC;
-		while (!STREAMING::HAS_MODEL_LOADED(model))
-		{
-			if (GetTickCount64() > LoadMaxC)
-			{
-				Game::Print::PrintBottomCentre("Couldn't Load Model, returning");
-				firsttime = true;
-				break;
-			}
-			WAIT(0);
-		}
+		Model model = VEHICLE_ADDER;
+		model.Load(5000);
 
 		//spawn dummy vehicle
 		Vector3 coords = ENTITY::GET_OFFSET_FROM_ENTITY_IN_WORLD_COORDS(PLAYER::PLAYER_PED_ID(), 0.0, 0.0, -100.0);
 		float heading = ENTITY::GET_ENTITY_HEADING(PLAYER::PLAYER_PED_ID());
-		veh = CREATE_VEHICLE(model, coords.x, coords.y, coords.z, heading, 1, 0);
+		Vehicle veh =  CREATE_VEHICLE(model.hash, coords.x, coords.y, coords.z, heading, 1, 0);
 		VEHICLE::SET_VEHICLE_ON_GROUND_PROPERLY(veh, 5.0f);
 		int painttype, colour, pearl, second;
 
@@ -441,11 +425,41 @@ namespace sub
 
 			}
 		}
-		painttype = null;
 		//unloading test vehicle from memory
 		ENTITY::SET_VEHICLE_AS_NO_LONGER_NEEDED(&veh);
 		VEHICLE::DELETE_VEHICLE(&veh);
+		model.Unload();
 
+
+		// Pearl, Wheels, Interior, Dashboard
+		const std::array<std::vector<int>, 7> indicesToOmitAll{ {
+				{}, //not used
+				{}, //Primary
+				{}, //Secondary
+				{11, 12, 15, 29, 30, 31, 32, 33, 40, 41, 57, 58, 59, 65, 79, 80, 82, 83, 84, 85, 86, 90, 91, 94, 101, 102, 103, 104}, //Pearl
+				{3, 4, 5, 6, 7, 9, 10, 11, 12, 13, 14, 15, 16, 17, 19, 20, 22, 23, 25, 29, 31, 32, 33, 34, 35, 36, 37, 39, 41, 42, 43, 44, 45, 46, 48, 49, 50, 51, 52, 54, 55, 56, 57, 59, 65, 66, 68, 69, 70, 72, 73, 74, 75, 76, 77, 78, 79, 80, 81, 82, 83, 84, 85, 86, 89, 90, 92, 93, 94, 100, 101, 103, 104, 105}, //Wheels
+				{4, 11, 12, 13, 15, 16, 17, 20, 28, 29, 30, 31, 32, 33, 40, 41, 42, 43, 47, 54, 57, 58, 59, 60, 65, 79, 80, 82, 83, 84, 85, 86, 87, 90, 91, 94, 101, 102, 103, 104, 105}, //Interior
+				{0, 1, 2, 3, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 24, 25, 29, 30, 31, 32, 33, 34, 35, 37, 40, 41, 42, 43, 44, 45, 55, 57, 58, 59, 60, 65, 66, 67, 68, 69, 73, 75, 79, 80, 82, 83, 84, 85, 86, 90, 91, 92, 93, 94, 96, 97, 99, 101, 102, 103, 104, 105}, //Dashboard
+			} };
+		const std::array<std::vector<NamedVehiclePaint>*, 4> pPaintsArr{ {
+				&PAINTS_PEARL, &PAINTS_WHEELS, &PAINTS_INTERIOR, &PAINTS_DASHBOARD
+		} };
+
+		for (int i = 0; i < pPaintsArr.size(); i++)
+		{
+			int paintVectorId = i + 3;
+			std::vector<NamedVehiclePaint>* pPaints = pPaintsArr[i];
+			for (int paintIt = 0; paintIt < PAINTS_STATIC.size(); paintIt++)
+			{
+				const auto& paintToInclude = PAINTS_STATIC[paintIt];
+				const auto& indicesToOmit = indicesToOmitAll[paintVectorId];
+				// Check if the current index is in the list of indices to omit
+				if (std::find(indicesToOmit.begin(), indicesToOmit.end(), paintToInclude.paint) == indicesToOmit.end())
+				{
+					pPaints->push_back(paintToInclude);
+				}
+			}
+		}
 
 	}
 
@@ -630,10 +644,6 @@ namespace sub
 		AddNumber("Dirt Level", dirtLevel, 2, null, dirtLevel_plus, dirtLevel_minus);
 		AddNumber("CarVariation Colours", carvarcol, 0, carvarcol_input, carvarcol_plus, carvarcol_minus);
 
-		if (firsttime)
-		{
-			GetAllPaintIDs();
-		}
 
 		if (set_mspaints_index_3) {
 			ms_curr_paint_index = 3;
@@ -803,7 +813,7 @@ namespace sub
 		AddOption("Utility", null, nullFunc, SUB::MSPAINTS2_UTIL);
 		AddOption("Worn", null, nullFunc, SUB::MSPAINTS2_WORN);
 
-				if (ms_curr_paint_index < 10)
+		if (ms_curr_paint_index < 10)
 		{
 			AddNumber("Paint Index", paintIndex, 0, paintIndex_input, paintIndex_plus, paintIndex_minus);
 		}
@@ -928,34 +938,33 @@ namespace sub
 
 		void Sub_Shared()
 		{
-			INT paintIndex;
+			INT paintIndex = getpaintCarUsing_index(Static_12, ms_curr_paint_index);
 
-			const std::vector<std::vector<int>> indicesToOmit = {
-				{}, //not used
-				{}, //Primary
-				{}, //Secondary
-				{11, 12, 15, 29, 30, 31, 32, 33, 40, 41, 57, 58, 59, 65, 79, 80, 82, 83, 84, 85, 86, 90, 91, 94, 101, 102, 103, 104}, //Pearl
-				{3, 4, 5, 6, 7, 9, 10, 11, 12, 13, 14, 15, 16, 17, 19, 20, 22, 23, 25, 29, 31, 32, 33, 34, 35, 36, 37, 39, 41, 42, 43, 44, 45, 46, 48, 49, 50, 51, 52, 54, 55, 56, 57, 59, 65, 66, 68, 69, 70, 72, 73, 74, 75, 76, 77, 78, 79, 80, 81, 82, 83, 84, 85, 86, 89, 90, 92, 93, 94, 100, 101, 103, 104, 105}, //Wheels
-				{4, 11, 12, 13, 15, 16, 17, 20, 28, 29, 30, 31, 32, 33, 40, 41, 42, 43, 47, 54, 57, 58, 59, 60, 65, 79, 80, 82, 83, 84, 85, 86, 87, 90, 91, 94, 101, 102, 103, 104, 105}, //Interior
-				{0, 1, 2, 3, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 24, 25, 29, 30, 31, 32, 33, 34, 35, 37, 40, 41, 42, 43, 44, 45, 55, 57, 58, 59, 60, 65, 66, 67, 68, 69, 73, 75, 79, 80, 82, 83, 84, 85, 86, 90, 91, 92, 93, 94, 96, 97, 99, 101, 102, 103, 104, 105}, //Dashboard
-			};
-
-			paintIndex = getpaintCarUsing_index(Static_12, ms_curr_paint_index);
-
-			auto vPaints = PAINTS_WHEELS;
+			const std::vector<NamedVehiclePaint>* pPaints = &PAINTS_NORMAL;
 
 			switch (ms_curr_paint_index)
 			{
 			case 1: case 10: AddTitle(Game::GetGXTEntry("CMOD_COL0_0", "Primary")); break;
 			case 2: case 11: AddTitle(Game::GetGXTEntry("CMOD_COL0_1", "Secondary")); break;
-			case 3: AddTitle(Game::GetGXTEntry("CMOD_COL1_6", "Pearlescent")); break;
-			case 5: AddTitle("Interior"); vPaints = PAINTS_INTERIOR; break;
-			case 6: AddTitle("Dashboard"); vPaints = PAINTS_DASHBOARD; break;
-			case 4: default: AddTitle(Game::GetGXTEntry("CMOD_MOD_WHEM", "Wheels")); vPaints = PAINTS_WHEELS; break;
+			case 3:
+				AddTitle(Game::GetGXTEntry("CMOD_COL1_6", "Pearlescent"));
+				pPaints = &PAINTS_PEARL;
+				break;
+			case 5:
+				AddTitle("Interior");
+				pPaints = &PAINTS_INTERIOR;
+				break;
+			case 6:
+				AddTitle("Dashboard");
+				pPaints = &PAINTS_DASHBOARD;
+				break;
+			case 4: default:
+				AddTitle(Game::GetGXTEntry("CMOD_MOD_WHEM", "Wheels"));
+				pPaints = &PAINTS_WHEELS;
+				break;
 			}
 
-			
-			for (auto& p : vPaints)
+			for (auto& p : *pPaints)
 				AddcarcolOption_(p.name, Static_12, p.paint, p.pearl);
 
 			int totalpaints = 0;
@@ -2400,11 +2409,6 @@ namespace sub
 			int i;
 
 			AddTitle(Game::GetGXTEntry("S_MO_09", "Benny's Lowrider Mods"));
-
-			if (firsttime == true)
-			{
-				GetAllPaintIDs();
-			}
 
 			bool goToInteriorColour = 0;
 			AddOption("Interior Colour", goToInteriorColour, nullFunc, SUB::MSPAINTS2_SHARED); if (goToInteriorColour)
