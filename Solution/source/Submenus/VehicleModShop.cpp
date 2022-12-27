@@ -35,8 +35,6 @@
 
 namespace sub
 {
-
-	bool firsttime = true;
 	bool lowersuspension = 0;
 	int lastMod = -2;
 	bool selectmod = false;
@@ -263,8 +261,6 @@ namespace sub
 
 	void PopulateAllPaintIDs()
 	{
-		firsttime = false;
-
 		Model model = VEHICLE_ADDER;
 		model.Load(5000);
 
