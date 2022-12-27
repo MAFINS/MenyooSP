@@ -65,7 +65,7 @@ namespace sub
 
 	std::vector<NamedVehiclePaint> PAINTS_PEARL{
 
-	};
+	}; 
 
 	const std::vector<NamedVehiclePaint> PAINTS_WHEELS
 	{
@@ -301,10 +301,6 @@ namespace sub
 	{
 
 	};
-	std::vector<NamedVehiclePaint> PAINTS_SHARED
-	{
-
-	};
 #pragma endregion
 
 	INT paintIndex_maxValue = 0;
@@ -349,7 +345,6 @@ namespace sub
 			for (int i = 0; i < numcols; i++)
 			{
 				second = 0;
-				auto& PaintList = PAINTS_SHARED;
 				//set and get colour ID's and names
 				VEHICLE::SET_VEHICLE_MOD_KIT(veh, 0);
 				VEHICLE::SET_VEHICLE_MOD_COLOR_1(veh, painttype, i, 0);
@@ -947,7 +942,7 @@ namespace sub
 
 			paintIndex = getpaintCarUsing_index(Static_12, ms_curr_paint_index);
 
-			auto vPaints = PAINTS_SHARED;
+			auto vPaints = PAINTS_WHEELS;
 
 			switch (ms_curr_paint_index)
 			{
@@ -2412,13 +2407,13 @@ namespace sub
 			}
 
 			bool goToInteriorColour = 0;
-			AddOption("Interior Colour", goToInteriorColour, nullFunc, SUB::MSPAINTS2); if (goToInteriorColour)
+			AddOption("Interior Colour", goToInteriorColour, nullFunc, SUB::MSPAINTS2_SHARED); if (goToInteriorColour)
 			{
 				ms_curr_paint_index = 5;
 			}
 
 			bool goToDashboardColour = 0;
-			AddOption("Dashboard Colour", goToDashboardColour, nullFunc, SUB::MSPAINTS2); if (goToDashboardColour)
+			AddOption("Dashboard Colour", goToDashboardColour, nullFunc, SUB::MSPAINTS2_SHARED); if (goToDashboardColour)
 			{
 				ms_curr_paint_index = 6;
 			}
