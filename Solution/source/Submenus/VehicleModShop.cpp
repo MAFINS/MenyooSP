@@ -39,7 +39,7 @@ namespace sub
 	bool lowersuspension = 0;
 	int lastMod = -2;
 	bool selectmod = false;
-	int lastpaint, lastpearl, lastr, lastg, lastb;
+	int paintindexgroup = -1, lastpaint, lastpearl, lastr, lastg, lastb;
 	bool getpaint = true, iscustompaint;
 
 	// Paints
@@ -67,7 +67,7 @@ namespace sub
 
 	};
 
-	const std::vector<NamedVehiclePaint> PAINTS_WHEELS
+	const std::vector<NamedVehiclePaint> PAINTS_STATIC
 	{
 		{ "Default", 156, -1 },
 		{ "Black", 0, -1 },
@@ -243,7 +243,7 @@ namespace sub
 	{
 
 	};
-	std::vector<NamedVehiclePaint> PAINTS_ADDED
+	std::vector<NamedVehiclePaint> PAINTS_SHARED
 	{
 
 	};
@@ -291,7 +291,7 @@ namespace sub
 			for (int i = 0; i < numcols; i++)
 			{
 				second = 0;
-				auto& PaintList = PAINTS_ADDED;
+				auto& PaintList = PAINTS_SHARED;
 				//set and get colour ID's and names
 				VEHICLE::SET_VEHICLE_MOD_KIT(veh, 0);
 				VEHICLE::SET_VEHICLE_MOD_COLOR_1(veh, painttype, i, 0);
@@ -491,9 +491,8 @@ namespace sub
 
 		if (_globalLSC_Customs)
 		{
-			if (getpaint) //does not run from Sub_Wheels() 
+			if (getpaint)
 			{
-				//Game::Print::PrintBottomCentre("Getting Paint Colours");
 				lastpaint = getpaintCarUsing_index(vehicle, ms_curr_paint_index);
 				lastpearl = getpaintCarUsing_index(vehicle, 3);
 				if (ms_curr_paint_index == 1 && GET_IS_VEHICLE_PRIMARY_COLOUR_CUSTOM(vehicle))
@@ -508,7 +507,6 @@ namespace sub
 				}
 				getpaint = false;
 			}
-			Game::Print::PrintBottomCentre("ms_curr_paint_index: " + std::to_string(ms_curr_paint_index) +", current paint: " + std::to_string(getpaintCarUsing_index(vehicle, ms_curr_paint_index)));
 			AddTickol(text, lastpaint == colour_index, pressed, pressed,
 				IS_THIS_MODEL_A_BIKE(GET_ENTITY_MODEL(vehicle)) ? TICKOL::BIKETHING : TICKOL::CARTHING);
 			if (*Menu::currentopATM == Menu::printingop && getpaintCarUsing_index(vehicle, ms_curr_paint_index) != colour_index)
@@ -562,17 +560,18 @@ namespace sub
 			set_mspaints_index_5 = 0, set_mspaints_index_6 = 0,
 			paintFade_plus = 0, paintFade_minus = 0,
 			dirtLevel_plus = 0, dirtLevel_minus = 0,
-			carvarcol_plus = 0, carvarcol_minus = 0, carvarcol_input = 0,
-			getpaint = true;
+			carvarcol_plus = 0, carvarcol_minus = 0, carvarcol_input = 0;
+		
+		getpaint = true;
 
 		AddTitle("Paints");
 		AddMSPaintsPointOption_(Game::GetGXTEntry("CMOD_COL0_0", "Primary"), 1); // Primary CMOD_COL0_0
 		 //if (_DOES_VEHICLE_HAVE_SECONDARY_COLOUR(Static_12))
 		AddMSPaintsPointOption_(Game::GetGXTEntry("CMOD_COL0_1", "Secondary"), 2); // Secondary CMOD_COL0_1
-		AddOption(Game::GetGXTEntry("CMOD_COL1_6", "Pearlescent"), set_mspaints_index_3, nullFunc, -1, true, false); // Pearlescent CMOD_COL1_6
+		AddOption(Game::GetGXTEntry("CMOD_COL1_6", "Pearlescent"), set_mspaints_index_3, nullFunc, SUB::MSPAINTS2_PEARL, true, false); // Pearlescent CMOD_COL1_6
 		AddOption(Game::GetGXTEntry("CMOD_MOD_WHEM", "Wheels"), set_mspaints_index_4, nullFunc, -1, true);
-		AddOption("Interior Colour", set_mspaints_index_5, nullFunc, SUB::MSPAINTS2_WHEELS, true);
-		AddOption("Dashboard Colour", set_mspaints_index_6, nullFunc, SUB::MSPAINTS2_WHEELS, true);
+		AddOption("Interior Colour", set_mspaints_index_5, nullFunc, SUB::MSPAINTS2_SHARED, true);
+		AddOption("Dashboard Colour", set_mspaints_index_6, nullFunc, SUB::MSPAINTS2_SHARED, true);
 
 
 		AddBreak("---Collateral---");
@@ -586,29 +585,24 @@ namespace sub
 		}
 
 		if (set_mspaints_index_3) {
-			getpaint = true;
 			ms_curr_paint_index = 3;
-			Menu::SetSub_new(SUB::MSPAINTS2_PEARL);
 			return;
 		}
 
 		if (set_mspaints_index_4) {
-			getpaint = true;
 			ms_curr_paint_index = 4;
 			if (GET_VEHICLE_MOD(Static_12, VehicleMod::FrontWheels) < 0)
 				Game::Print::PrintBottomCentre("~b~Note:~s~ Colours cannot always be applied to stock wheels.");
-			Menu::SetSub_new(SUB::MSPAINTS2_WHEELS);
+			Menu::SetSub_new(SUB::MSPAINTS2_SHARED);
 			return;
 		}
 
 		if (set_mspaints_index_5) {
-			getpaint = true;
 			ms_curr_paint_index = 5;
 			return;
 		}
 
 		if (set_mspaints_index_6) {
-			getpaint = true;
 			ms_curr_paint_index = 6;
 			return;
 		}
@@ -884,11 +878,11 @@ namespace sub
 	namespace MSPaints_catind
 	{
 
-		void Sub_Wheels()
+		void Sub_Shared()
 		{
 			INT paintIndex;
 
-			/*const std::vector<std::vector<int>> indicesToOmit = {
+			const std::vector<std::vector<int>> indicesToOmit = {
 				{}, //not used
 				{}, //Primary
 				{}, //Secondary
@@ -900,7 +894,7 @@ namespace sub
 
 			if (paintindexgroup != ms_curr_paint_index)
 			{
-				PAINTS_CURRENT.clear();
+				PAINTS_SHARED.clear();
 				for (int i = 0; i < PAINTS_STATIC.size(); i++) {
 					bool omit = false;
 
@@ -913,11 +907,11 @@ namespace sub
 					}
 
 					if (!omit) {
-						PAINTS_CURRENT.push_back(PAINTS_STATIC[i]);
+						PAINTS_SHARED.push_back(PAINTS_STATIC[i]);
 					}
 				}
 				paintindexgroup = ms_curr_paint_index;
-			}*/
+			}
 
 			paintIndex = getpaintCarUsing_index(Static_12, ms_curr_paint_index);
 
@@ -931,11 +925,7 @@ namespace sub
 			case 4: default: AddTitle(Game::GetGXTEntry("CMOD_MOD_WHEM", "Wheels")); break;
 			}
 
-			auto& vPaints = PAINTS_WHEELS;
-			/*if (ms_curr_paint_index == 3)
-			{
-				vPaints = PAINTS_PEARL;
-			}*/
+			auto& vPaints = PAINTS_SHARED;
 			for (auto& p : vPaints)
 				AddcarcolOption_(p.name, Static_12, p.paint, p.pearl);
 
@@ -982,16 +972,6 @@ namespace sub
 			}
 
 
-
-		}
-		void Sub_Added()
-		{
-			AddTitle("Extra Colours");
-
-			auto& vPaints = PAINTS_ADDED;
-
-			for (auto& p : vPaints)
-				AddcarcolOption_(p.name, Static_12, p.paint, p.pearl);
 
 		}
 		void Sub_Chrome()
@@ -2696,11 +2676,11 @@ namespace sub
 
 		if (set_mspaints_index_4) {
 			ms_curr_paint_index = 4;
-			//if (GET_VEHICLE_MOD(Static_12, 23) > -1) Menu::SetSub_new(SUB::MSPAINTS2_WHEELS);
+			//if (GET_VEHICLE_MOD(Static_12, 23) > -1) Menu::SetSub_new(SUB::MSPAINTS2_SHARED);
 			//else Game::Print::PrintBottomCentre("~r~Error:~s~ Colours cannot be applied to stock wheels.");
 			if (GET_VEHICLE_MOD(Static_12, VehicleMod::FrontWheels) < 0)
 				Game::Print::PrintBottomCentre("~b~Note:~s~ Colours cannot always be applied to stock wheels.");
-			Menu::SetSub_new(SUB::MSPAINTS2_WHEELS);
+			Menu::SetSub_new(SUB::MSPAINTS2_SHARED);
 			return;
 		}
 

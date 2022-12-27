@@ -72,8 +72,7 @@ namespace sub
 
 	namespace MSPaints_catind
 	{
-		void Sub_Wheels();
-		void Sub_Added();
+		void Sub_Shared();
 		void Sub_Chrome();
 		void Sub_Normal();
 		void Sub_Matte();
