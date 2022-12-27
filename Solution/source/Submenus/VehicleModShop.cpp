@@ -496,7 +496,7 @@ namespace sub
 			set_mspaints_index_5 = 0, set_mspaints_index_6 = 0,
 			paintFade_plus = 0, paintFade_minus = 0,
 			dirtLevel_plus = 0, dirtLevel_minus = 0,
-			carvarcol_plus = 0, carvarcol_minus = 0, carvarcol_input = 0,
+			carvarcol_plus = 0, carvarcol_minus = 0, carvarcol_input = 0;
 		getpaint = true;
 
 		AddTitle("Paints");
