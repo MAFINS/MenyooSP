@@ -19,6 +19,8 @@ typedef int INT, Vehicle, Ped, Object, Entity, ScrHandle;
 
 namespace sub
 {
+	void PopulateAllPaintIDs();
+
 	// vehicle - upgrades
 	void set_vehicle_max_upgrades(Vehicle vehicle, bool upgradeIt = true, bool invincible = false, INT8 plateType = 5, std::string plateText = std::string(),
 		bool neonIt = false, UINT8 NeonR = 0, UINT8 NeonG = 0, UINT8 NeonB = 0, INT16 prim_col_index = -3, INT16 sec_col_index = -3);
@@ -72,16 +74,16 @@ namespace sub
 
 	namespace MSPaints_catind
 	{
-		void Sub_Wheels();
+		void Sub_Shared();
 		void Sub_Chrome();
 		void Sub_Normal();
 		void Sub_Matte();
 		void Sub_Metallic();
 		void Sub_Metal();
 		void Sub_Chameleon();
+		void Sub_Pearl();
 		void Sub_Util();
 		void Sub_Worn();
-		void Sub_Added();
 	}
 
 	void rgb_mode_set_carcol(Vehicle veh, INT16 R, INT16 G, INT16 B, INT16 A);

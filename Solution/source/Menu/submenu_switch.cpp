@@ -148,12 +148,12 @@ void Menu::submenu_switch()
 	case SUB::MSPAINTS2_MATTE:			sub::MSPaints_catind::Sub_Matte(); break;
 	case SUB::MSPAINTS2_METAL:			sub::MSPaints_catind::Sub_Metal(); break;
 	case SUB::MSPAINTS2_CHAMELEON:		sub::MSPaints_catind::Sub_Chameleon(); break;
+	case SUB::MSPAINTS2_PEARL:			sub::MSPaints_catind::Sub_Pearl(); break;
 	case SUB::MSPAINTS2_METALLIC:		sub::MSPaints_catind::Sub_Metallic(); break;
 	case SUB::MSPAINTS2_NORMAL:			sub::MSPaints_catind::Sub_Normal(); break;
 	case SUB::MSPAINTS2_UTIL:			sub::MSPaints_catind::Sub_Util(); break;
 	case SUB::MSPAINTS2_WORN:			sub::MSPaints_catind::Sub_Worn(); break;
-	case SUB::MSPAINTS2_ADDED:			sub::MSPaints_catind::Sub_Added(); break;
-	case SUB::MSPAINTS2_WHEELS:			sub::MSPaints_catind::Sub_Wheels(); break; // will do pearl and wheels
+	case SUB::MSPAINTS2_SHARED:			sub::MSPaints_catind::Sub_Shared(); break; // will do wheels, interior and Dashboard
 	case SUB::MSPAINTS_RGB:				sub::MSPaints_RGB(); break;
 	case SUB::MSCATALL:					sub::MSCatall_(); break;
 	case SUB::MSWINDOWS:				sub::MSWindows_catind::MSWindows_(); break;
