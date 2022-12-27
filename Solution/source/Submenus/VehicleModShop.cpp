@@ -407,6 +407,7 @@ namespace sub
 			getpaint = true;
 		}
 	}
+
 	INT getpaintCarUsing_index(Vehicle veh, INT partIndex_CustomK)
 	{
 		GTAvehicle vehicle(veh);
@@ -441,6 +442,7 @@ namespace sub
 
 		return 0;
 	}
+
 	void paintCarUsing_index(Vehicle veh, INT partIndex_CustomK, INT16 colour_index, INT16 pearl_index)
 	{
 		switch (partIndex_CustomK)
@@ -541,7 +543,6 @@ namespace sub
 			}
 		}
 	}
-
 
 	void MSPaints_()
 	{
@@ -696,6 +697,7 @@ namespace sub
 		}
 
 	}
+	
 	void MSPaints2_()
 	{
 		bool paintIndex_plus = 0, paintIndex_minus = 0, paintIndex_input = 0,
@@ -748,11 +750,7 @@ namespace sub
 		AddOption("Utility", null, nullFunc, SUB::MSPAINTS2_UTIL);
 		AddOption("Worn", null, nullFunc, SUB::MSPAINTS2_WORN);
 
-		/* (extrapaints > 0)
-		{
-			AddOption("Extra Colours: " + std::to_string(extrapaints), null, nullFunc, SUB::MSPAINTS2_ADDED);
-		}*/
-		if (ms_curr_paint_index < 10)
+				if (ms_curr_paint_index < 10)
 		{
 			AddNumber("Paint Index", paintIndex, 0, paintIndex_input, paintIndex_plus, paintIndex_minus);
 		}
@@ -971,6 +969,7 @@ namespace sub
 
 
 		}
+		
 		void Sub_Chrome()
 		{
 			AddTitle("Chrome");
@@ -981,6 +980,7 @@ namespace sub
 				AddcarcolOption_(p.name, Static_12, p.paint, p.pearl);
 
 		}
+		
 		void Sub_Normal()
 		{
 			AddTitle("Classic");
@@ -991,6 +991,7 @@ namespace sub
 				AddcarcolOption_(p.name, Static_12, p.paint, p.pearl);
 
 		}
+		
 		void Sub_Matte()
 		{
 			AddTitle("Matte");
@@ -1001,6 +1002,7 @@ namespace sub
 				AddcarcolOption_(p.name, Static_12, p.paint, p.pearl);
 
 		}
+		
 		void Sub_Metallic()
 		{
 			AddTitle("Metallic");
@@ -1010,6 +1012,7 @@ namespace sub
 			for (auto& p : vPaints)
 				AddcarcolOption_(p.name, Static_12, p.paint, p.pearl);
 		}
+		
 		void Sub_Metal()
 		{
 			AddTitle("Metal");
@@ -1019,6 +1022,7 @@ namespace sub
 			for (auto& p : vPaints)
 				AddcarcolOption_(p.name, Static_12, p.paint, p.pearl);
 		}
+		
 		void Sub_Chameleon()
 		{
 			AddTitle("Chameleon");
@@ -1029,6 +1033,7 @@ namespace sub
 				AddcarcolOption_(p.name, Static_12, p.paint, p.pearl);
 
 		}
+		
 		void Sub_Pearl()
 		{
 			AddTitle("Pearlescent");
@@ -1039,6 +1044,7 @@ namespace sub
 				AddcarcolOption_(p.name, Static_12, p.pearl, p.pearl);
 
 		}
+		
 		void Sub_Util()
 		{
 			AddTitle("Utility");
@@ -1048,6 +1054,7 @@ namespace sub
 			for (auto& p : vPaints)
 				AddcarcolOption_(p.name, Static_12, p.paint, p.pearl);
 		}
+		
 		void Sub_Worn()
 		{
 			AddTitle("Worn");
@@ -1104,6 +1111,7 @@ namespace sub
 		}
 
 	}
+	
 	void MSPaints_RGB()
 	{
 		int ms_paints_rgb_r = 0,
@@ -1590,7 +1598,6 @@ namespace sub
 		}*/
 
 	}
-
 
 	// ModShop
 
@@ -2345,7 +2352,6 @@ namespace sub
 
 	namespace Bennys_catind
 	{
-
 		void Sub_BennysMain()
 		{
 			GTAvehicle vehicle = Static_12;
@@ -2396,13 +2402,6 @@ namespace sub
 
 		}
 	}
-
-	// Selected vehicle mod submenu (for selection of mod value)
-	/*void previewvehicleoption(Vehicle vehicle, int modType, int modindex, BOOL customtyres)  //this whole void is completely unused?
-	{
-		SET_VEHICLE_MOD(vehicle, modType, modindex, GET_VEHICLE_MOD_VARIATION(vehicle, modType));
-	}*/
-
 
 	void MSCatall_()
 	{
