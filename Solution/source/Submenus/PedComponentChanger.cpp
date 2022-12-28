@@ -833,6 +833,7 @@ namespace sub
 			case PedHeadOverlay::Eyebrows:
 			case PedHeadOverlay::Beard:
 			case PedHeadOverlay::ChestHair:
+			case PedHeadOverlay::Makeup:
 				return 1; break;
 			case PedHeadOverlay::Blush:
 			case PedHeadOverlay::Lipstick:
