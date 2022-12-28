@@ -432,7 +432,7 @@ namespace sub
 
 
 		// Pearl, Wheels, Interior, Dashboard
-		const std::array<std::vector<int>, 7> indicesToOmitAll{ {
+		/*const std::array<std::vector<int>, 7> indicesToOmitAll{ {
 				{}, //not used
 				{}, //Primary
 				{}, //Secondary
@@ -459,7 +459,7 @@ namespace sub
 					pPaints->push_back(paintToInclude);
 				}
 			}
-		}
+		}*/
 
 	}
 
