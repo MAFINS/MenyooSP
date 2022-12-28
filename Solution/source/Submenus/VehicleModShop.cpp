@@ -90,6 +90,8 @@ namespace sub
 		{ "Slate Blue", 81, -1 },
 		{ "Midnight Blue", 82, -1 },
 		{ "Baby Blue", 87, -1 },
+		{ "Yellow", 88, -1 },
+		{ "Race Yellow", 89, -1 },
 		{ "Dark Copper", 90, -1 },
 		{ "Yellow Bird", 91, -1 },
 		{ "Dark Ivory", 95, -1 },
