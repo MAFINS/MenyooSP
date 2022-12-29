@@ -3221,7 +3221,7 @@ void Menu::loops()
 		// Disable self popo sirens
 		if (loop_vehicle_disableSiren)
 		{
-			if (g_myVeh_model.HasSiren())
+			if (GTAvehicle(g_myVeh).HasSiren_get())
 				DISABLE_VEHICLE_IMPACT_EXPLOSION_ACTIVATION(g_myVeh, TRUE);
 		}
 

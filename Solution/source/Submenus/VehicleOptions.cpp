@@ -141,7 +141,7 @@ namespace sub
 			AddLocal("Cargobob Magnet", myVehicle.IsCargobobHookActive(CargobobHook::Magnet), bToggleCargobobMagnet, bToggleCargobobMagnet);
 		if (myVehicleModel.hash == VEHICLE_MAVERICK || myVehicleModel.hash == VEHICLE_POLMAV)
 			AddOption("Rappel From Helicopter", VehicleOpsRappelHeli);
-		if (myVehicleModel.HasSiren())
+		if (myVehicle.HasSiren_get())
 			AddToggle("Disable Vehicle Siren", loop_vehicle_disableSiren, null, disableSiren_off);
 		if (bMyPedIsInVehicle)
 			AddTexter("CMOD_MOD_MNT", fixCarTexterVal, fixCarTexter, VehicleOpsFixCar_, bFixCar_plus, bFixCar_minus, true); // Fix & Wash
