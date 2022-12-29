@@ -874,6 +874,7 @@ namespace sub
 			{
 				lastpaint = getpaintCarUsing_index(Static_12, ms_curr_paint_index);
 				lastpearl = getpaintCarUsing_index(Static_12, 3);
+				iscustompaint = false;
 			}
 			return;
 		}
@@ -885,6 +886,7 @@ namespace sub
 			{
 				lastpaint = getpaintCarUsing_index(Static_12, ms_curr_paint_index);
 				lastpearl = getpaintCarUsing_index(Static_12, 3);
+				iscustompaint = false;
 			}
 			return;
 		}
@@ -900,6 +902,7 @@ namespace sub
 					{
 						lastpaint = getpaintCarUsing_index(Static_12, ms_curr_paint_index);
 						lastpearl = getpaintCarUsing_index(Static_12, 3);
+						iscustompaint = false;
 					}
 				}
 				catch (...)
@@ -940,11 +943,73 @@ namespace sub
 
 	namespace MSPaints_catind
 	{
-
-		void Sub_Shared()
+		void _AddPaintIndexSlider()
 		{
 			INT paintIndex = getpaintCarUsing_index(Static_12, ms_curr_paint_index);
 
+			int totalpaints = 0;
+			for (int i = 0; i < 5; i++)
+			{
+				totalpaints = totalpaints + GET_NUM_MOD_COLORS(i, 1);
+			}
+			int extrapaints = totalpaints - 232;
+
+			bool paintIndex_plus = 0, paintIndex_minus = 0, paintIndex_input = 0;
+			AddNumber("Paint Index", paintIndex, 0, paintIndex_input, paintIndex_plus, paintIndex_minus);
+			const INT paintIndex_maxValue = 160 + extrapaints;
+			if (paintIndex_plus) {
+				if (paintIndex < paintIndex_maxValue) paintIndex++;
+				else paintIndex = 0;
+				paintCarUsing_index(Static_12, ms_curr_paint_index, paintIndex, -1);
+				if (_globalLSC_Customs)
+				{
+					lastpaint = getpaintCarUsing_index(Static_12, ms_curr_paint_index);
+					lastpearl = getpaintCarUsing_index(Static_12, 3);
+					iscustompaint = false;
+				}
+				return;
+			}
+			if (paintIndex_minus) {
+				if (paintIndex > 0) paintIndex--;
+				else paintIndex = paintIndex_maxValue;
+				paintCarUsing_index(Static_12, ms_curr_paint_index, paintIndex, -1);
+				if (_globalLSC_Customs)
+				{
+					lastpaint = getpaintCarUsing_index(Static_12, ms_curr_paint_index);
+					lastpearl = getpaintCarUsing_index(Static_12, 3);
+					iscustompaint = false;
+				}
+				return;
+			}
+			if (paintIndex_input) {
+				std::string inputStr = Game::InputBox("", 4U, "Enter a paint index:", std::to_string(paintIndex));
+				if (inputStr.length() > 0)
+				{
+					try
+					{
+						paintIndex = stoi(inputStr);
+						paintCarUsing_index(Static_12, ms_curr_paint_index, paintIndex, -1);
+						if (_globalLSC_Customs)
+						{
+							lastpaint = getpaintCarUsing_index(Static_12, ms_curr_paint_index);
+							lastpearl = getpaintCarUsing_index(Static_12, 3);
+							iscustompaint = false;
+						}
+					}
+					catch (...)
+					{
+						Game::Print::PrintError_InvalidInput();
+					}
+				}
+				return;
+				//OnscreenKeyboard::State::Set(OnscreenKeyboard::Purpose::CustomsPaintIndex, std::string(), 3U, "Enter a paint index:", std::to_string(paintIndex));
+				//OnscreenKeyboard::State::arg1._int = Static_12;
+				//OnscreenKeyboard::State::arg2._int = paintIndex;
+			}
+		}
+
+		void Sub_Shared()
+		{
 			const std::vector<NamedVehiclePaint>* pPaints = &PAINTS_NORMAL;
 
 			switch (ms_curr_paint_index)
@@ -972,49 +1037,7 @@ namespace sub
 			for (auto& p : *pPaints)
 				AddcarcolOption_(p.name, Static_12, p.paint, p.pearl);
 
-			int totalpaints = 0;
-			for (int i = 0; i < 5; i++)
-			{
-				totalpaints = totalpaints + GET_NUM_MOD_COLORS(i, 1);
-			}
-			int extrapaints = totalpaints - 232;
-
-			bool paintIndex_plus = 0, paintIndex_minus = 0, paintIndex_input = 0;
-			AddNumber("Paint Index", paintIndex, 0, paintIndex_input, paintIndex_plus, paintIndex_minus);
-			const INT paintIndex_maxValue = 160 + extrapaints;
-			if (paintIndex_plus) {
-				if (paintIndex < paintIndex_maxValue) paintIndex++;
-				else paintIndex = 0;
-				paintCarUsing_index(Static_12, ms_curr_paint_index, paintIndex, -1);
-				return;
-			}
-			if (paintIndex_minus) {
-				if (paintIndex > 0) paintIndex--;
-				else paintIndex = paintIndex_maxValue;
-				paintCarUsing_index(Static_12, ms_curr_paint_index, paintIndex, -1);
-				return;
-			}
-			if (paintIndex_input) {
-				std::string inputStr = Game::InputBox("", 4U, "Enter a paint index:", std::to_string(paintIndex));
-				if (inputStr.length() > 0)
-				{
-					try
-					{
-						paintIndex = stoi(inputStr);
-						paintCarUsing_index(Static_12, ms_curr_paint_index, paintIndex, -1);
-					}
-					catch (...)
-					{
-						Game::Print::PrintError_InvalidInput();
-					}
-				}
-				return;
-				//OnscreenKeyboard::State::Set(OnscreenKeyboard::Purpose::CustomsPaintIndex, std::string(), 3U, "Enter a paint index:", std::to_string(paintIndex));
-				//OnscreenKeyboard::State::arg1._int = Static_12;
-				//OnscreenKeyboard::State::arg2._int = paintIndex;
-			}
-
-
+			_AddPaintIndexSlider();
 
 		}
 		
@@ -1090,6 +1113,8 @@ namespace sub
 
 			for (auto& p : vPaints)
 				AddcarcolOption_(p.name, Static_12, p.pearl, p.pearl);
+
+			_AddPaintIndexSlider();
 
 		}
 		
