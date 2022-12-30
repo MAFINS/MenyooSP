@@ -19,7 +19,7 @@ typedef unsigned short UINT16;
 typedef unsigned int UINT;
 typedef unsigned long DWORD;
 
-enum ControllerInputs : UINT16
+enum ControllerInput : UINT16
 {
 	INPUT_NEXT_CAMERA = 0,
 	INPUT_LOOK_LR = 1,
@@ -360,6 +360,9 @@ enum ControllerInputs : UINT16
 	INPUT_VEH_SLOWMO_DOWN_ONLY = 336,
 	INPUT_MAP_POI = 337
 };
+namespace ControllerInputs {
+	extern const std::vector<std::string> vNames;
+}
 
 enum class ScaleformButton : int
 {

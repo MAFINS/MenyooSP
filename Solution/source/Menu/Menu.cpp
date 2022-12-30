@@ -751,7 +751,7 @@ void Menu::set_opened_IB()
 
 	bit_frontend_addnumber_selected = false;
 }
-void Menu::add_IB(ControllerInputs button_id, std::string string_val)
+void Menu::add_IB(ControllerInput button_id, std::string string_val)
 {
 	vIB.push_back({ button_id, (string_val), false });
 }
@@ -931,7 +931,7 @@ void MouseSupport::Tick()
 
 void MouseSupport::DisableControls()
 {
-	std::vector<ControllerInputs> list
+	std::vector<ControllerInput> list
 	{
 		INPUT_ATTACK,
 		INPUT_FRONTEND_ACCEPT,
