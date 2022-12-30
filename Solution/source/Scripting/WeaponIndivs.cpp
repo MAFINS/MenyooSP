@@ -469,10 +469,10 @@ std::vector<WeaponAndComponents> WeaponIndivs::wc_PISTOLS
 	}, &WeaponIndivs::vCaptions_Tints },   
 
 	{ WEAPON_STUNGUN_MP,{
-		//TODO
 	}, &WeaponIndivs::vCaptions_Tints },
 	{ WEAPON_PISTOLXM3,{
-		//TODO
+		{ "Standard_Clip", GET_HASH_KEY("COMPONENT_PISTOLXM3_CLIP_01") },
+		{ "Suppressor", GET_HASH_KEY("COMPONENT_PISTOLXM3_SUPP") },
 	}, &WeaponIndivs::vCaptions_Tints },
 };
 #pragma endregion
@@ -882,13 +882,16 @@ std::vector<WeaponAndComponents> WeaponIndivs::wc_ASSAULTRIFLES
 	}, &WeaponIndivs::vCaptions_Tints },    
 
 	{ WEAPON_HEAVYRIFLE,{
-		//TODO
+		{ "Standard_Clip", GET_HASH_KEY("COMPONENT_HEAVYRIFLE_CLIP_01") },
+		{ "Extended_Clip", GET_HASH_KEY("COMPONENT_HEAVYRIFLE_CLIP_02") },
 	}, &WeaponIndivs::vCaptions_Tints },
 	{ WEAPON_TACTICALRIFLE,{
-		//TODO
+		{ "Standard_Clip", GET_HASH_KEY("COMPONENT_TACTICALRIFLE_CLIP_01") },
+		{ "Extended_Clip", GET_HASH_KEY("COMPONENT_TACTICALRIFLE_CLIP_02") },
+		{ "Flashlight", GET_HASH_KEY("COMPONENT_AT_AR_FLSH_REH") },
 	}, &WeaponIndivs::vCaptions_Tints },
 	{ WEAPON_PRECISIONRIFLE,{
-		//TODO
+		{ "Standard_Clip", GET_HASH_KEY("COMPONENT_PRECISIONRIFLE_CLIP_01") },
 	}, &WeaponIndivs::vCaptions_Tints },
 };
 #pragma endregion
@@ -1110,8 +1113,10 @@ std::vector<WeaponAndComponents> WeaponIndivs::wc_HEAVY
 	}, &WeaponIndivs::vCaptions_Tints },
 
 	{ WEAPON_EMPLAUNCHER,{
+		{ "Standard_Clip", GET_HASH_KEY("COMPONENT_EMPLAUNCHER_CLIP_01") },
 	}, &WeaponIndivs::vCaptions_Tints },
 	{ WEAPON_RAILGUNXM3,{
+		{ "Standard_Clip", GET_HASH_KEY("COMPONENT_RAILGUNXM3_CLIP_01") },
 	}, &WeaponIndivs::vCaptions_Tints },
 };
 #pragma endregion
