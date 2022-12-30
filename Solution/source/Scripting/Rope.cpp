@@ -43,7 +43,7 @@ bool Rope::Exists()
 
 float Rope::Length()
 {
-	return _GET_ROPE_LENGTH(this->mHandle);
+	return ROPE_GET_DISTANCE_BETWEEN_ENDS(this->mHandle);
 }
 void Rope::SetLength(float value)
 {

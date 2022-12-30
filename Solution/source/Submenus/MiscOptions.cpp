@@ -101,9 +101,9 @@ namespace sub
 		AddOption("Rectangle Draw Tool (Mouse) (ALPHA) [DEV]", null, DrawToolSub_, -1, true);
 
 		bool bEnableCellphoneYsc = false;
-		AddTickol("In-Game Mobile Phone", _GET_NUMBER_OF_INSTANCES_OF_STREAMED_SCRIPT(0xF292D030) > 0, bEnableCellphoneYsc, bEnableCellphoneYsc, TICKOL::BOXTICK, TICKOL::BOXBLANK); if (bEnableCellphoneYsc)
+		AddTickol("In-Game Mobile Phone", GET_NUMBER_OF_THREADS_RUNNING_THE_SCRIPT_WITH_THIS_HASH(0xF292D030) > 0, bEnableCellphoneYsc, bEnableCellphoneYsc, TICKOL::BOXTICK, TICKOL::BOXBLANK); if (bEnableCellphoneYsc)
 		{
-			if (_GET_NUMBER_OF_INSTANCES_OF_STREAMED_SCRIPT(0xF292D030) > 0) // cellphone_controller
+			if (GET_NUMBER_OF_THREADS_RUNNING_THE_SCRIPT_WITH_THIS_HASH(0xF292D030) > 0) // cellphone_controller
 			{
 				TERMINATE_ALL_SCRIPTS_WITH_THIS_NAME("cellphone_controller");
 			}
@@ -242,7 +242,7 @@ namespace sub
 			_JumpAroundMode_::StartJumping(jumpAround_on);
 		}
 
-		if (blackout_off) _SET_BLACKOUT(FALSE);
+		if (blackout_off) SET_ARTIFICIAL_LIGHTS_STATE(FALSE);
 
 		if (explosions_wp_plus) { if (loop_explosion_wp < explosions_wp_names.size() - 1) loop_explosion_wp++; return; }
 		if (explosions_wp_minus) { if (loop_explosion_wp > 0) loop_explosion_wp--; return; }
@@ -259,7 +259,7 @@ namespace sub
 			strength_plus = 0, strength_minus = 0;
 
 		AddTitle("Vision Hax");
-		AddLocal("Heat Vision", _IS_SEETHROUGH_ACTIVE(), heat_vision_on, heat_vision_on);
+		AddLocal("Heat Vision", GET_USINGSEETHROUGH(), heat_vision_on, heat_vision_on);
 		AddToggle("Heat Vision On Aim", loop_HVSnipers);
 		AddToggle("Night Vision (SP)", bit_night_vision, night_vision_on, night_vision_off);
 
@@ -321,7 +321,7 @@ namespace sub
 		AddBreak("---Custom---");
 		AddOption("Input Custom", timecycles_input);
 
-		if (heat_vision_on) { SET_SEETHROUGH(_IS_SEETHROUGH_ACTIVE() ? FALSE : TRUE); return; }
+		if (heat_vision_on) { SET_SEETHROUGH(GET_USINGSEETHROUGH() ? FALSE : TRUE); return; }
 
 		if (night_vision_on) { SET_NIGHTVISION(TRUE); return; }
 		if (night_vision_off) { SET_NIGHTVISION(FALSE); return; }
@@ -411,7 +411,7 @@ namespace sub
 		for (;;)
 		{
 			WAIT(0);
-			_SHOW_CURSOR_THIS_FRAME();
+			SET_MOUSE_CURSOR_THIS_FRAME();
 			DISABLE_ALL_CONTROL_ACTIONS(1);
 
 			Pos = MouseSupport::MousePosition();
@@ -426,12 +426,12 @@ namespace sub
 				sizePos.y = (Pos.y - startPos.y);
 			}
 
-			_SET_SCREEN_DRAW_POSITION(76, 84);
-			_0xF5A2C681787E579D(-0.05f, -0.05f, 0.0f, 0.0f);
-			DRAW_RECT((startPos.x + sizePos.x) / 2, (startPos.y + sizePos.y) / 2, sizePos.x, sizePos.y, 107, 0, 107, 225);
+			SET_SCRIPT_GFX_ALIGN(76, 84);
+			SET_SCRIPT_GFX_ALIGN_PARAMS(-0.05f, -0.05f, 0.0f, 0.0f);
+			DRAW_RECT((startPos.x + sizePos.x) / 2, (startPos.y + sizePos.y) / 2, sizePos.x, sizePos.y, 107, 0, 107, 225, 0);
 
 
-			DRAW_SPRITE("CommonMenu", "Gradient_Bgd", 0.90, 0.14, 0.15, 0.15, 0, 255, 255, 255, 210);
+			DRAW_SPRITE("CommonMenu", "Gradient_Bgd", 0.90, 0.14, 0.15, 0.15, 0, 255, 255, 255, 210, false, 0);
 			Game::Print::setupdraw(7, Vector2(0.4, 0.4), true, false, false);
 			Game::Print::drawstring("Details", 0.90, 0.0675);
 
@@ -761,9 +761,9 @@ namespace sub
 				bool bPlaylistPressed = false;
 				AddOption(pl.first, bPlaylistPressed); if (bPlaylistPressed)
 				{
-					GRAPHICS::_LOAD_TV_CHANNEL(80996397); //0x0AD973CA1E077B60
+					GRAPHICS::IS_TVSHOW_CURRENTLY_PLAYING(80996397); //0x0AD973CA1E077B60
 					GRAPHICS::SET_TV_CHANNEL(-1);
-					GRAPHICS::_0xF7B38B8305F1FE8B(0, const_cast<PCHAR>(pl.second.c_str()), 1);
+					GRAPHICS::SET_TV_CHANNEL_PLAYLIST(0, const_cast<PCHAR>(pl.second.c_str()), 1);
 					GRAPHICS::SET_TV_CHANNEL(0);
 				}
 			}
@@ -781,7 +781,7 @@ namespace sub
 			bool bRevealMinimap_toggle = false;
 			AddToggle("Reveal Entire Minimap", loop_revealMinimap, bRevealMinimap_toggle, bRevealMinimap_toggle); if (bRevealMinimap_toggle)
 			{
-				_SET_MINIMAP_REVEALED(loop_revealMinimap);
+				SET_MINIMAP_HIDE_FOW(loop_revealMinimap);
 			}
 
 			AddToggle("Display XYZH Coords", loop_XYZHcoords);

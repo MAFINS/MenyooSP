@@ -156,7 +156,7 @@ namespace _FlameThrower_ // Why have I made this for 'players' when this is sp a
 				}
 			}
 
-			wobject = GET_CURRENT_PED_WEAPON_ENTITY_INDEX(playerPed.Handle());
+			wobject = GET_CURRENT_PED_WEAPON_ENTITY_INDEX(playerPed.Handle(), 0);
 			Model& wmodel = wobject.Model();
 			gunBone = GET_ENTITY_BONE_INDEX_BY_NAME(wobject.Handle(), "Gun_Nuzzle");
 			//ModelDimensions& wdim = wmodel.Dimensions();
@@ -165,13 +165,13 @@ namespace _FlameThrower_ // Why have I made this for 'players' when this is sp a
 
 			if (!DOES_PARTICLE_FX_LOOPED_EXIST(fxHandle1))
 			{
-				_SET_PTFX_ASSET_NEXT_CALL(fxAsset1);
-				fxHandle1 = _START_PARTICLE_FX_LOOPED_ON_ENTITY_BONE(fxName1, wobject.Handle(), 0.0f, 0.0f, 0.04f, 89.5f, 0.0f, 90.0f, gunBone, scale, 0, 0, 0);
+				USE_PARTICLE_FX_ASSET(fxAsset1);
+				fxHandle1 = START_PARTICLE_FX_LOOPED_ON_ENTITY_BONE(fxName1, wobject.Handle(), 0.0f, 0.0f, 0.04f, 89.5f, 0.0f, 90.0f, gunBone, scale, 0, 0, 0);
 			}
 			/*if (!DOES_PARTICLE_FX_LOOPED_EXIST(fxHandle2))
 			{
-			_SET_PTFX_ASSET_NEXT_CALL(fxAsset2);
-			fxHandle2 = _START_PARTICLE_FX_LOOPED_ON_ENTITY_BONE(fxName2, wobject.Handle(), 0.0f, 2.33f, 0.04f, 89.5f, 0.0f, 90.0f, gunBone, scale, 0, 0, 0);
+			USE_PARTICLE_FX_ASSET(fxAsset2);
+			fxHandle2 = START_PARTICLE_FX_LOOPED_ON_ENTITY_BONE(fxName2, wobject.Handle(), 0.0f, 2.33f, 0.04f, 89.5f, 0.0f, 90.0f, gunBone, scale, 0, 0, 0);
 			}*/
 
 			SET_PARTICLE_FX_LOOPED_EVOLUTION(fxHandle1, "flow", 1.0f, 0);

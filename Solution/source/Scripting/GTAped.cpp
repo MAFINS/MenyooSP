@@ -66,7 +66,7 @@ int PedGroup::GetHandle() const
 
 GTAentity PedGroup::Leader_get() const
 {
-	return _GET_PED_AS_GROUP_LEADER(this->_handle);
+	return GET_PED_AS_GROUP_LEADER(this->_handle);
 }
 void PedGroup::Leader_set(GTAentity ped)
 {
@@ -344,7 +344,7 @@ bool GTAped::IsSubTaskActive(const PedSubTask& taskType)
 PedHeadBlendData GTAped::HeadBlendData_get() const
 {
 	PedHeadBlendData blendData;
-	_GET_PED_HEAD_BLEND_DATA(this->mHandle, &blendData);
+	GET_PED_HEAD_BLEND_DATA(this->mHandle, (Any*)&blendData);
 	return blendData;
 }
 void GTAped::HeadBlendData_set(const PedHeadBlendData& blendData)
@@ -366,7 +366,7 @@ int GTAped::PedType() const
 
 void GTAped::PlaySpeechWithVoice(const std::string& speechName, const std::string& voiceName, const std::string& speechParam, bool unk)
 {
-	_PLAY_AMBIENT_SPEECH_WITH_VOICE(this->mHandle, (PCHAR)speechName.c_str(), (PCHAR)voiceName.c_str(), (PCHAR)speechParam.c_str(), unk);
+	PLAY_PED_AMBIENT_SPEECH_WITH_VOICE_NATIVE(this->mHandle, (PCHAR)speechName.c_str(), (PCHAR)voiceName.c_str(), (PCHAR)speechParam.c_str(), unk);
 }
 
 Hash GTAped::Weapon_get() const
@@ -831,7 +831,7 @@ VehicleSeat GTAped::CurrentVehicleSeat_get()
 		auto& vehHandle = this->CurrentVehicle().Handle();
 		for (INT8 i = -1; i < GET_VEHICLE_MAX_NUMBER_OF_PASSENGERS(vehHandle) - 1; i++)
 		{
-			if (GET_PED_IN_VEHICLE_SEAT(vehHandle, i) == this->mHandle)
+			if (GET_PED_IN_VEHICLE_SEAT(vehHandle, i, 0) == this->mHandle)
 				return (VehicleSeat)i;
 		}
 	}
@@ -888,7 +888,7 @@ void GTAped::ClearBloodDamage()
 }
 void GTAped::ApplyDamage(int damageAmount)
 {
-	APPLY_DAMAGE_TO_PED(this->mHandle, damageAmount, true);
+	APPLY_DAMAGE_TO_PED(this->mHandle, damageAmount, true, 0);
 }
 
 Vector3 GTAped::GetBoneCoord(int boneID) const
@@ -939,7 +939,7 @@ void GTAped::StoreWeaponsInArray(std::vector<s_Weapon_Components_Tint>& result)
 				{
 					if (HAS_PED_GOT_WEAPON_COMPONENT(this->mHandle, c.weaponHash, comp.hash))
 					{
-						wct.componentHashes.push_back({ comp.hash, _0xF0A60040BE558F2D(this->mHandle, c.weaponHash, comp.hash) });
+						wct.componentHashes.push_back({ comp.hash, GET_PED_WEAPON_COMPONENT_TINT_INDEX(this->mHandle, c.weaponHash, comp.hash) });
 					}
 				}
 				wct.tint = GET_PED_WEAPON_TINT_INDEX(this->mHandle, c.weaponHash);
@@ -973,7 +973,7 @@ void GTAped::GiveWeaponsFromArray(const std::vector<s_Weapon_Components_Tint>& v
 				{
 					GIVE_WEAPON_COMPONENT_TO_PED(this->mHandle, cc.weaponHash, compHash.first);
 					if (compHash.second != -1)
-						_0x9FE5633880ECD8ED(this->mHandle, cc.weaponHash, compHash.first, compHash.second);
+						SET_PED_WEAPON_COMPONENT_TINT_INDEX(this->mHandle, cc.weaponHash, compHash.first, compHash.second);
 				}
 			}
 
@@ -981,7 +981,7 @@ void GTAped::GiveWeaponsFromArray(const std::vector<s_Weapon_Components_Tint>& v
 			{
 				int ammo;
 				GET_MAX_AMMO(this->mHandle, cc.weaponHash, &ammo);
-				SET_PED_AMMO(this->mHandle, cc.weaponHash, ammo);
+				SET_PED_AMMO(this->mHandle, cc.weaponHash, ammo, 0);
 				SET_AMMO_IN_CLIP(this->mHandle, cc.weaponHash, GET_MAX_AMMO_IN_CLIP(this->mHandle, cc.weaponHash, true));
 				SET_PED_WEAPON_TINT_INDEX(this->mHandle, cc.weaponHash, cc.tint);
 			}

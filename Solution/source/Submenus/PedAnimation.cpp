@@ -434,7 +434,7 @@ namespace sub
 		SET_PED_CAN_PLAY_AMBIENT_BASE_ANIMS(Static_241, TRUE);
 		SET_PED_CAN_PLAY_GESTURE_ANIMS(Static_241, TRUE);
 		SET_PED_CAN_PLAY_VISEME_ANIMS(Static_241, TRUE, TRUE);
-		_0x33A60D8BDD6E508C(Static_241, TRUE);
+		SET_PED_IS_IGNORED_BY_AUTO_OPEN_DOORS(Static_241, TRUE);
 
 		AddTitle("Animations");
 		AddOption("Stop Animation", null, AnimationSub_StopAnimationCallback);

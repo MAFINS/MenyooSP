@@ -260,7 +260,7 @@ namespace sub::Spooner
 		void Writhe::RunP(GTAped& ep)
 		{
 			//if (!IS_PED_IN_WRITHE(ep.Handle()))
-			TASK_WRITHE(ep.Handle(), PLAYER_PED_ID(), this->durationAfterLife > 0 ? -1 : this->duration, 0);
+			TASK_WRITHE(ep.Handle(), PLAYER_PED_ID(), this->durationAfterLife > 0 ? -1 : this->duration, 0, false, 0);
 			//ep.GiveNM(NMString::nm0526_bodyWrithe);
 		}
 
@@ -912,7 +912,7 @@ namespace sub::Spooner
 				int maxAmmo = 0;
 				GET_MAX_AMMO(pedHandle, this->weaponHash, &maxAmmo);
 				SET_AMMO_IN_CLIP(pedHandle, this->weaponHash, GET_MAX_AMMO_IN_CLIP(pedHandle, this->weaponHash, false));
-				SET_PED_AMMO(pedHandle, this->weaponHash, maxAmmo);
+				SET_PED_AMMO(pedHandle, this->weaponHash, maxAmmo, 0);
 			}
 			SET_CURRENT_PED_WEAPON(pedHandle, this->weaponHash, true);
 			SET_PED_CAN_SWITCH_WEAPON(pedHandle, false);
@@ -1023,7 +1023,7 @@ namespace sub::Spooner
 
 			int ammo;
 			GET_MAX_AMMO(pedHandle, currWeapon, &ammo);
-			SET_PED_AMMO(pedHandle, currWeapon, ammo);
+			SET_PED_AMMO(pedHandle, currWeapon, ammo, 0);
 			SET_AMMO_IN_CLIP(pedHandle, currWeapon, GET_MAX_AMMO_IN_CLIP(pedHandle, currWeapon, true));
 
 			ep.Task().ShootAt(this->coord, this->durationAfterLife > 0 ? -1 : this->duration, FiringPattern::FullAuto);
@@ -1065,7 +1065,7 @@ namespace sub::Spooner
 
 			int ammo;
 			GET_MAX_AMMO(pedHandle, currWeapon, &ammo);
-			SET_PED_AMMO(pedHandle, currWeapon, ammo);
+			SET_PED_AMMO(pedHandle, currWeapon, ammo, 0);
 			SET_AMMO_IN_CLIP(pedHandle, currWeapon, GET_MAX_AMMO_IN_CLIP(pedHandle, currWeapon, true));
 
 			ep.Task().ShootAt(this->targetEntity, this->durationAfterLife > 0 ? -1 : this->duration, FiringPattern::FullAuto);
@@ -1425,7 +1425,7 @@ namespace sub::Spooner
 			}
 			else if (vehModel.IsPlane())
 			{
-				TASK_PLANE_MISSION(0, veh.Handle(), 0, 0, this->destination.x, this->destination.y, this->destination.z, 4, speedInMps, 50.0f, -1.0f, 100, 200);
+				TASK_PLANE_MISSION(0, veh.Handle(), 0, 0, this->destination.x, this->destination.y, this->destination.z, 4, speedInMps, 50.0f, -1.0f, 100, 200, false);
 			}
 			else if (vehModel.IsBoat())
 			{
@@ -1607,7 +1607,7 @@ namespace sub::Spooner
 		}
 		void ChangeTextureVariation::RunP(GTAped& ep)
 		{
-			_0x971DA0055324D033(ep.GetHandle(), this->newValue);
+			SET_OBJECT_TINT_INDEX(ep.GetHandle(), this->newValue);
 		}
 
 		void AchieveVelocity::GetXmlNodeTaskSpecific(pugi::xml_node& nodeTask) const

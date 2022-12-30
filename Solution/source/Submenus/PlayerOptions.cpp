@@ -184,7 +184,7 @@ namespace sub
 		if (PlayerOpsSupermanAUTOOn_) {
 			Vector3 Pos = GET_ENTITY_COORDS(Static_241, 1);
 			CREATE_AMBIENT_PICKUP(PICKUP_PARACHUTE, Pos.x, Pos.y, Pos.z, 0, 300, 1, 0, 1);
-			TASK_PARACHUTE(Static_241, 1);
+			TASK_PARACHUTE(Static_241, true, false);
 			APPLY_FORCE_TO_ENTITY(PLAYER_PED_ID(), 1, 0.0f, 0.0f, 10.0f, 0.0, 0.0, 0.0, 1, 1, 1, 1, 0, 1);
 			if (Menu::bit_controller) Game::Print::PrintBottomLeft("Press ~b~A~s~ for temporary brake.");
 			else Game::Print::PrintBottomLeft("Press ~b~NUMPLUS~s~ for temporary brake.");

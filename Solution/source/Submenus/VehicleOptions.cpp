@@ -213,7 +213,7 @@ namespace sub
 			}
 		}
 
-		if (disableSiren_off) DISABLE_VEHICLE_IMPACT_EXPLOSION_ACTIVATION(g_myVeh, FALSE);
+		if (disableSiren_off) SET_VEHICLE_HAS_MUTED_SIRENS(g_myVeh, FALSE);
 
 		if (VehicleOps_Slam_On) { Game::Print::PrintBottomCentre("~b~Note:~s~ If you try hard enough, you can drive on walls too!"); return; }
 
@@ -293,7 +293,7 @@ namespace sub
 				SET_VEHICLE_BODY_HEALTH(g_myVeh, 1250.0f);
 				SET_VEHICLE_UNDRIVEABLE(g_myVeh, 0);
 				if (!GET_IS_VEHICLE_ENGINE_RUNNING(g_myVeh))
-					SET_VEHICLE_ENGINE_ON(g_myVeh, 1, 1);
+					SET_VEHICLE_ENGINE_ON(g_myVeh, 1, 1, 0);
 
 				if (fixCarTexterVal == 1 || fixCarTexterVal == 3)
 				{
@@ -809,7 +809,7 @@ namespace sub
 					ScrHandle tsk;
 					OPEN_SEQUENCE_TASK(&tsk);
 
-					TASK_PLANE_MISSION(0, vehicle.Handle(), 0, 0, destination.x, destination.y, destination.z, 4, speed, 50.0f, -1.0f, 100, 200);
+					TASK_PLANE_MISSION(0, vehicle.Handle(), 0, 0, destination.x, destination.y, destination.z, 4, speed, 50.0f, -1.0f, 100.0f, 200.0f, false);
 
 					CLOSE_SEQUENCE_TASK(tsk);
 					TASK_PERFORM_SEQUENCE(myPed.Handle(), tsk);
@@ -1246,7 +1246,7 @@ namespace sub
 
 					if (_speedoAlpha < 255) _speedoAlpha += 5;
 
-					UINT8 clockHour = TIME::GET_CLOCK_HOURS();
+					UINT8 clockHour = GET_CLOCK_HOURS();
 					if (clockHour < 19 && clockHour > 7)
 						_currentSpeedoNeedle = { vSpeedoImageNames_All[0].at(0).fileName, vSpeedoImageNames_All[0].at(0).id }; // Day
 					else

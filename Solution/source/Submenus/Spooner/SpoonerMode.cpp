@@ -382,8 +382,8 @@ namespace sub::Spooner
 
 					if (entityInFrontOfCam.Exists() || bIsSomethingHeld)
 					{
-						DRAW_RECT(0.5f, 0.5f, 0.02f, 0.002f, 0, 255, 0, 255);
-						DRAW_RECT(0.5f, 0.5f, 0.001f, 0.03f, 0, 255, 0, 255);
+						DRAW_RECT(0.5f, 0.5f, 0.02f, 0.002f, 0, 255, 0, 255, false);
+						DRAW_RECT(0.5f, 0.5f, 0.001f, 0.03f, 0, 255, 0, 255, false);
 
 						GTAentity* currentEntPtr = bIsSomethingHeld ? &SelectedEntity.Handle : &entityInFrontOfCam;
 						GTAentity& currentEnt = *currentEntPtr;
@@ -413,7 +413,7 @@ namespace sub::Spooner
 								}
 							}
 
-							DRAW_RECT(0.5f, 0.5f, 0.004f, 0.008f, 255, 128, 0, 255);
+							DRAW_RECT(0.5f, 0.5f, 0.004f, 0.008f, 255, 128, 0, 255, false);
 
 							SelectedEntity.Handle.RequestControl();
 							Vector3& r_sl = SelectedEntity.Handle.Rotation_get();
@@ -576,8 +576,8 @@ namespace sub::Spooner
 					}
 					else
 					{
-						DRAW_RECT(0.5f, 0.5f, 0.02f, 0.002f, 255, 255, 255, 255);
-						DRAW_RECT(0.5f, 0.5f, 0.001f, 0.03f, 255, 255, 255, 255);
+						DRAW_RECT(0.5f, 0.5f, 0.02f, 0.002f, 255, 255, 255, 255, false);
+						DRAW_RECT(0.5f, 0.5f, 0.001f, 0.03f, 255, 255, 255, 255, false);
 					}
 				}
 				else // If keyboard + mouse
@@ -661,8 +661,8 @@ namespace sub::Spooner
 
 					if (entityInFrontOfCam.Exists() || bIsSomethingHeld)
 					{
-						DRAW_RECT(0.5f, 0.5f, 0.02f, 0.002f, 0, 255, 0, 255);
-						DRAW_RECT(0.5f, 0.5f, 0.001f, 0.03f, 0, 255, 0, 255);
+						DRAW_RECT(0.5f, 0.5f, 0.02f, 0.002f, 0, 255, 0, 255, false);
+						DRAW_RECT(0.5f, 0.5f, 0.001f, 0.03f, 0, 255, 0, 255, false);
 
 						GTAentity* currentEntPtr = bIsSomethingHeld ? &SelectedEntity.Handle : &entityInFrontOfCam;
 						GTAentity& currentEnt = *currentEntPtr;
@@ -692,7 +692,7 @@ namespace sub::Spooner
 								}
 							}
 
-							DRAW_RECT(0.5f, 0.5f, 0.004f, 0.008f, 255, 128, 0, 255);
+							DRAW_RECT(0.5f, 0.5f, 0.004f, 0.008f, 255, 128, 0, 255, false);
 
 							SelectedEntity.Handle.RequestControl();
 							Vector3& r_sl = SelectedEntity.Handle.Rotation_get();
@@ -857,8 +857,8 @@ namespace sub::Spooner
 					}
 					else
 					{
-						DRAW_RECT(0.5f, 0.5f, 0.02f, 0.002f, 255, 255, 255, 255);
-						DRAW_RECT(0.5f, 0.5f, 0.001f, 0.03f, 255, 255, 255, 255);
+						DRAW_RECT(0.5f, 0.5f, 0.02f, 0.002f, 255, 255, 255, 255, false);
+						DRAW_RECT(0.5f, 0.5f, 0.001f, 0.03f, 255, 255, 255, 255, false);
 					}
 				}
 			}

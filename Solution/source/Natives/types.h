@@ -129,5 +129,3 @@ public:
 		return (left.R == right.R && left.G == right.G && left.B == right.B);
 	}
 };
-
-

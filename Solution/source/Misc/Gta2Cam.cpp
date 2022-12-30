@@ -112,9 +112,9 @@ namespace _Gta2Cam_
 				mainCam.Position_set(myPos + mainCamRelativePos);
 				//mainCam.Rotation_set(-89.5f, 0.0f, 0.0f);
 
-				//_CLAMP_GAMEPLAY_CAM_PITCH(-90.0f, -90.0f);
-				_CLAMP_GAMEPLAY_CAM_PITCH(0.0f, 0.0f);
-				_CLAMP_GAMEPLAY_CAM_YAW(0.0f, 0.0f);
+				//SET_THIRD_PERSON_CAM_RELATIVE_PITCH_LIMITS_THIS_UPDATE(-90.0f, -90.0f);
+				SET_THIRD_PERSON_CAM_RELATIVE_PITCH_LIMITS_THIS_UPDATE(0.0f, 0.0f);
+				SET_THIRD_PERSON_CAM_RELATIVE_HEADING_LIMITS_THIS_UPDATE(0.0f, 0.0f);
 
 				GTAvehicle myVeh = myPed.CurrentVehicle();
 
