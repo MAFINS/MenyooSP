@@ -50,15 +50,15 @@ namespace Game
 		{
 			if (textToShow.length() < 100)
 			{
-				_SET_TEXT_COMPONENT_FORMAT("STRING");
+				BEGIN_TEXT_COMMAND_DISPLAY_HELP("STRING");
 				ADD_TEXT_COMPONENT_SUBSTRING_PLAYER_NAME(textToShow_c);
 			}
 			else
 			{
-				_SET_TEXT_COMPONENT_FORMAT("jamyfafi");
+				BEGIN_TEXT_COMMAND_DISPLAY_HELP("jamyfafi");
 				add_text_component_long_string(textToShow);
 			}
-			_DISPLAY_HELP_TEXT_FROM_STRING_LABEL(0, false, false, -1);
+			END_TEXT_COMMAND_DISPLAY_HELP(0, false, false, -1);
 			//DISPLAY_HELP_TEXT_THIS_FRAME("STRING", 0);
 		}
 
@@ -81,7 +81,7 @@ namespace Game
 	{
 		/*if (Drawing())
 		{
-		UI::HIDE_HELP_TEXT_THIS_FRAME();
+			HIDE_HELP_TEXT_THIS_FRAME();
 		}*/
 		_timer = 0;
 	}

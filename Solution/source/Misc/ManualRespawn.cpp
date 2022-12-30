@@ -44,10 +44,10 @@ namespace _ManualRespawn_
 	{
 		GenericLoopedMode::TurnOff();
 
-		GAMEPLAY::_DISABLE_AUTOMATIC_RESPAWN(false);
-		SCRIPT::SET_NO_LOADING_SCREEN(false);
-		GAMEPLAY::SET_FADE_OUT_AFTER_DEATH(true);
-		GAMEPLAY::SET_FADE_OUT_AFTER_ARREST(true);
+		PAUSE_DEATH_ARREST_RESTART(false);
+		SET_NO_LOADING_SCREEN(false);
+		SET_FADE_OUT_AFTER_DEATH(true);
+		SET_FADE_OUT_AFTER_ARREST(true);
 	}
 
 	bool ManualRespawn::IsSkipPressed()
@@ -420,7 +420,7 @@ namespace _ManualRespawn_
 		{
 			if (IsSkipPressed())
 			{
-				_DISABLE_AUTOMATIC_RESPAWN(false);
+				PAUSE_DEATH_ARREST_RESTART(false);
 				SET_NO_LOADING_SCREEN(false);
 				SET_FADE_OUT_AFTER_DEATH(true);
 				SET_FADE_OUT_AFTER_ARREST(true);
@@ -429,7 +429,7 @@ namespace _ManualRespawn_
 			}
 			else if (!inRespawn)
 			{
-				_DISABLE_AUTOMATIC_RESPAWN(true);
+				PAUSE_DEATH_ARREST_RESTART(true);
 				SET_NO_LOADING_SCREEN(true);
 				SET_FADE_OUT_AFTER_DEATH(false);
 				SET_FADE_OUT_AFTER_ARREST(false);
@@ -467,7 +467,7 @@ namespace _ManualRespawn_
 
 		if ((!is_death && !is_arrest) || _ManualRespawn_::g_manualRespawn.InRespawn())
 			return;
-		if (_GET_NUMBER_OF_INSTANCES_OF_STREAMED_SCRIPT(0xCAC8014F) > 0)//director_mode.ysc
+		if (GET_NUMBER_OF_THREADS_RUNNING_THE_SCRIPT_WITH_THIS_HASH(0xCAC8014F) > 0)//director_mode.ysc
 			return;
 
 		Model& model = playerPed.Model();

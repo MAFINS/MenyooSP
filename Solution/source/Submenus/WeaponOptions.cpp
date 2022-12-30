@@ -1191,7 +1191,7 @@ namespace sub
 						int maxAmmo = 0;
 						GET_MAX_AMMO(ped, whash, &maxAmmo);
 						SET_AMMO_IN_CLIP(ped, whash, GET_MAX_AMMO_IN_CLIP(ped, whash, false));
-						SET_PED_AMMO(ped, whash, maxAmmo);
+						SET_PED_AMMO(ped, whash, maxAmmo, 0);
 					}
 					SET_CURRENT_PED_WEAPON(ped, whash, true);
 				}
@@ -1203,14 +1203,14 @@ namespace sub
 				int maxAmmo = 0;
 				GET_MAX_AMMO(ped, whash, &maxAmmo);
 				SET_AMMO_IN_CLIP(ped, whash, GET_MAX_AMMO_IN_CLIP(ped, whash, false));
-				SET_PED_AMMO(ped, whash, maxAmmo);
+				SET_PED_AMMO(ped, whash, maxAmmo, 0);
 			}
 
 			bool it_FillinfAmmo = 0;
 			AddOption("Empty Ammo", it_FillinfAmmo); if (it_FillinfAmmo)
 			{
 				SET_AMMO_IN_CLIP(ped, whash, -1);
-				SET_PED_AMMO(ped, whash, -1);
+				SET_PED_AMMO(ped, whash, -1, 0);
 			}
 
 			bool it_RemoveWeapon = 0;
@@ -1273,11 +1273,11 @@ namespace sub
 				if (bHasComponent && boost::to_upper_copy(comp.name).find("CAMO") != std::string::npos)
 				{
 					bool bLiveryPressed = false, bLivery_plus = false, bLivery_minus = false;
-					int currentLivery = _0xF0A60040BE558F2D(ped, whash, comp.hash);
+					int currentLivery = GET_PED_WEAPON_COMPONENT_TINT_INDEX(ped, whash, comp.hash);
 					AddTexter(comp.name, 0, std::vector<std::string>{Game::GetGXTEntry("WCT_C_TINT_" + std::to_string(currentLivery))}, bLiveryPressed, bLivery_plus, bLivery_minus);
 					if (bLivery_plus && currentLivery < 31) { currentLivery++; bLiveryPressed = true; }
 					else if (bLivery_minus && currentLivery > 0) { currentLivery--; bLiveryPressed = true; }
-					if (bLiveryPressed) { _0x9FE5633880ECD8ED(ped, whash, comp.hash, currentLivery); }
+					if (bLiveryPressed) { SET_PED_WEAPON_COMPONENT_TINT_INDEX(ped, whash, comp.hash, currentLivery); }
 				}
 				else
 				{
@@ -1663,7 +1663,7 @@ namespace sub
 
 			RaycastResult ray;
 			Vector3 hitCoord;
-			GTAentity gun = WEAPON::GET_CURRENT_PED_WEAPON_ENTITY_INDEX(myPed.Handle());
+			GTAentity gun = WEAPON::GET_CURRENT_PED_WEAPON_ENTITY_INDEX(myPed.Handle(), 0);
 
 			if (gun.Handle() != NULL)
 			{

@@ -70,7 +70,7 @@ namespace sub
 		//{
 		//	if (_DOES_DECORATOR_EXIST(PLAYER_ID(), "MPBitset"))
 		//	{
-		//		uVar0 = unk_0xDDDE59B5(PLAYER_ID(), "MPBitset");
+		//		uVar0 = DECOR_GET_INT(PLAYER_ID(), "MPBitset");
 		//	}
 		//}
 
@@ -90,7 +90,7 @@ namespace sub
 			PTFX::trigger_ptfx_1("proj_xmas_firework", "scr_firework_xmas_burst_rgw", 0, Pos1, Vector3(), 1.0f);
 			//PTFX::trigger_ptfx_1("scr_fbi5a", "scr_fbi5_ped_water_splash", 0, Pos1, Vector3(), 1.5f);
 
-			newcar = CREATE_VEHICLE(model.hash, Pos1.x, Pos1.y, Pos1.z, ped.Heading_get(), 1, 1);
+			newcar = CREATE_VEHICLE(model.hash, Pos1.x, Pos1.y, Pos1.z, ped.Heading_get(), 1, 1, 0);
 			//SET_VEHICLE_ENGINE_ON(newcar, oldCarOn, oldCarOn);
 				
 			//if (!IS_ENTITY_IN_AIR(ped) && !IS_ENTITY_IN_WATER(ped)) SET_VEHICLE_ON_GROUND_PROPERLY(newcar, 0.0f);
@@ -100,7 +100,7 @@ namespace sub
 			SET_ENTITY_ALPHA(newcar, 0, false);
 			SET_VEHICLE_HAS_STRONG_AXLES(newcar, 1);
 			SET_VEHICLE_DIRT_LEVEL(newcar, 0.0f);
-			_SET_VEHICLE_PAINT_FADE(newcar, 0.0f);
+			SET_VEHICLE_ENVEFF_SCALE(newcar, 0.0f);
 			SET_ENTITY_AS_MISSION_ENTITY(newcar, 0, 1); //Fixes the despawning of MP onl;y cars after a couple of secs
 			//	SET_ENTITY_PROOFS(newcar, 1, 1, 1, 1, 1, 1, 1, 1);
 
@@ -119,7 +119,7 @@ namespace sub
 					SET_ENTITY_COLLISION(oldcar, false, true);
 					SET_ENTITY_ALPHA(oldcar, 0, false);
 				}
-				SET_VEHICLE_ENGINE_ON(newcar, true, true);
+				SET_VEHICLE_ENGINE_ON(newcar, true, true, 0);
 				SET_ENTITY_COLLISION(newcar, true, true);
 				RESET_ENTITY_ALPHA(newcar);
 				if (warpIntoVehicle)
@@ -128,7 +128,7 @@ namespace sub
 					int maxi = GET_VEHICLE_MAX_NUMBER_OF_PASSENGERS(newcar);// - 2;
 					for (INT i = -1; i <= maxi; i++)
 					{
-						Ped tempPed = GET_PED_IN_VEHICLE_SEAT(oldcar, i);
+						Ped tempPed = GET_PED_IN_VEHICLE_SEAT(oldcar, i, 0);
 						if (DOES_ENTITY_EXIST(tempPed))
 						{
 							if (GTAentity(tempPed).RequestControl())
@@ -146,7 +146,7 @@ namespace sub
 					int maxi = GET_VEHICLE_MAX_NUMBER_OF_PASSENGERS(oldcar);// - 2;
 					for (INT i = -1; i <= maxi; i++)
 					{
-						Ped tempPed = GET_PED_IN_VEHICLE_SEAT(oldcar, i);
+						Ped tempPed = GET_PED_IN_VEHICLE_SEAT(oldcar, i, 0);
 						if (DOES_ENTITY_EXIST(tempPed))
 						{
 							if (GTAentity(tempPed).RequestControl())
@@ -807,7 +807,7 @@ namespace sub
 			if (menuPos.x > 0.45f)
 				x_coord = menuPos.x - 0.003f;
 
-			DRAW_RECT(x_coord, y_coord, res.x + 0.003f, res.y + 0.003f, 0, 0, 0, 212);
+			DRAW_RECT(x_coord, y_coord, res.x + 0.003f, res.y + 0.003f, 0, 0, 0, 212, false);
 
 			auto vit = std::find(vVehicleBmps.begin(), vVehicleBmps.end(), vehModel.hash);
 			if (vit != vVehicleBmps.end()) //if found
@@ -822,7 +822,7 @@ namespace sub
 					PCHAR imgName = const_cast<PCHAR>(vit->imgName.c_str());
 					if (!HAS_STREAMED_TEXTURE_DICT_LOADED(dict))
 						REQUEST_STREAMED_TEXTURE_DICT(dict, false);
-					DRAW_SPRITE(dict, imgName, x_coord, y_coord, res.x, res.y, 0.0f, 255, 255, 255, 255);
+					DRAW_SPRITE(dict, imgName, x_coord, y_coord, res.x, res.y, 0.0f, 255, 255, 255, 255, false, 0);
 				}
 			}
 			else
@@ -1544,7 +1544,7 @@ namespace sub
 			nodeVehicleStuff.append_child("EngineOn").text() = ev.EngineRunning_get();
 			nodeVehicleStuff.append_child("EngineHealth").text() = ev.EngineHealth_get();
 			nodeVehicleStuff.append_child("LightsOn").text() = ev.LightsOn_get();
-			nodeVehicleStuff.append_child("IsRadioLoud").text() = _IS_VEHICLE_RADIO_LOUD(ev.Handle());// != 0;
+			nodeVehicleStuff.append_child("IsRadioLoud").text() = CAN_VEHICLE_RECEIVE_CB_RADIO(ev.Handle());// != 0;
 			nodeVehicleStuff.append_child("LockStatus").text() = (int)ev.LockStatus_get();
 
 			// Neons
@@ -1858,12 +1858,12 @@ namespace sub
 			auto& nodeVehicleHeadlightIntensity = nodeVehicleStuff.child("HeadlightIntensity");
 			if (nodeVehicleRpmMultiplier)
 			{
-				_SET_VEHICLE_ENGINE_POWER_MULTIPLIER(ev.Handle(), nodeVehicleRpmMultiplier.text().as_float());
+				MODIFY_VEHICLE_TOP_SPEED(ev.Handle(), nodeVehicleRpmMultiplier.text().as_float());
 				g_multList_rpm[ev.Handle()] = nodeVehicleRpmMultiplier.text().as_float();
 			}
 			if (nodeVehicleTorqueMultiplier)
 			{
-				_SET_VEHICLE_ENGINE_TORQUE_MULTIPLIER(ev.Handle(), nodeVehicleTorqueMultiplier.text().as_float());
+				SET_VEHICLE_CHEAT_POWER_INCREASE(ev.Handle(), nodeVehicleTorqueMultiplier.text().as_float());
 				g_multList_torque[ev.Handle()] = nodeVehicleTorqueMultiplier.text().as_float();
 			}
 			if (nodeVehicleMaxSpeed)

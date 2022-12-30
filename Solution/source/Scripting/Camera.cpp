@@ -308,7 +308,7 @@ void Camera::DestroyAllCameras()
 }
 void Camera::RenderScriptCams(bool render)
 {
-	RENDER_SCRIPT_CAMS(render, 0, 3000, 1, 0);
+	RENDER_SCRIPT_CAMS(render, 0, 3000, 1, 0, 0);
 }
 
 Vector3 Camera::ScreenToWorld(const Vector2& screenCoord) const
@@ -377,7 +377,7 @@ Vector3 Camera::DirectionFromScreenCentre_get() const
 
 bool Camera::WorldToScreenRel(const Vector3& worldCoords, Vector2& screenCoords)
 {
-	if (!_WORLD3D_TO_SCREEN2D(worldCoords.x, worldCoords.y, worldCoords.z, &screenCoords.x, &screenCoords.y))
+	if (!GET_SCREEN_COORD_FROM_WORLD_COORD(worldCoords.x, worldCoords.y, worldCoords.z, &screenCoords.x, &screenCoords.y))
 		return false;
 
 	screenCoords.x = (screenCoords.x - 0.5f) * 2.0f;

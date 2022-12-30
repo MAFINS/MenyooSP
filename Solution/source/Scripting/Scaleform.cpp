@@ -79,71 +79,71 @@ void Scaleform::Unload()
 
 void Scaleform::PushFunction(const std::string& function)
 {
-	_PUSH_SCALEFORM_MOVIE_FUNCTION(this->mHandle, const_cast<PCHAR>(function.c_str()));
+	BEGIN_SCALEFORM_MOVIE_METHOD(this->mHandle, const_cast<PCHAR>(function.c_str()));
 }
 void Scaleform::PushInteger(int arg)
 {
-	_PUSH_SCALEFORM_MOVIE_FUNCTION_PARAMETER_INT(arg);
+	SCALEFORM_MOVIE_METHOD_ADD_PARAM_INT(arg);
 }
 void Scaleform::PushBoolean(bool arg)
 {
-	_PUSH_SCALEFORM_MOVIE_FUNCTION_PARAMETER_BOOL(arg);
+	SCALEFORM_MOVIE_METHOD_ADD_PARAM_BOOL(arg);
 }
 void Scaleform::PushFloat(float arg)
 {
-	_PUSH_SCALEFORM_MOVIE_FUNCTION_PARAMETER_FLOAT(arg);
+	SCALEFORM_MOVIE_METHOD_ADD_PARAM_FLOAT(arg);
 }
 void Scaleform::PushString(const std::string& arg)
 {
-	_PUSH_SCALEFORM_MOVIE_FUNCTION_PARAMETER_STRING(const_cast<PCHAR>(arg.c_str()));
+	SCALEFORM_MOVIE_METHOD_ADD_PARAM_TEXTURE_NAME_STRING(const_cast<PCHAR>(arg.c_str()));
 }
 void Scaleform::PushString2(const std::string& arg)
 {
-	_0xE83A3E3557A56640(const_cast<PCHAR>(arg.c_str()));
+	SCALEFORM_MOVIE_METHOD_ADD_PARAM_PLAYER_NAME_STRING(const_cast<PCHAR>(arg.c_str()));
 }
 void Scaleform::PushTextComponent(const std::string& arg)
 {
 	PCHAR text = const_cast<PCHAR>(arg.c_str());
 	if (DOES_TEXT_LABEL_EXIST(text))
 	{
-		_BEGIN_TEXT_COMPONENT(text);
+		BEGIN_TEXT_COMMAND_SCALEFORM_STRING(text);
 	}
 	else
 	{
-		_BEGIN_TEXT_COMPONENT("STRING");
+		BEGIN_TEXT_COMMAND_SCALEFORM_STRING("STRING");
 		ADD_TEXT_COMPONENT_SUBSTRING_PLAYER_NAME(text);
 	}
 	//ADD_TEXT_COMPONENT_INTEGER(-1);
-	_END_TEXT_COMPONENT();
+	END_TEXT_COMMAND_SCALEFORM_STRING();
 }
 void Scaleform::PushRGBA(const RGBA& arg)
 {
-	_PUSH_SCALEFORM_MOVIE_FUNCTION_PARAMETER_INT(arg.R);
-	_PUSH_SCALEFORM_MOVIE_FUNCTION_PARAMETER_INT(arg.G);
-	_PUSH_SCALEFORM_MOVIE_FUNCTION_PARAMETER_INT(arg.B);
-	_PUSH_SCALEFORM_MOVIE_FUNCTION_PARAMETER_INT(arg.A);
+	SCALEFORM_MOVIE_METHOD_ADD_PARAM_INT(arg.R);
+	SCALEFORM_MOVIE_METHOD_ADD_PARAM_INT(arg.G);
+	SCALEFORM_MOVIE_METHOD_ADD_PARAM_INT(arg.B);
+	SCALEFORM_MOVIE_METHOD_ADD_PARAM_INT(arg.A);
 }
 void Scaleform::PushRGB(const RgbS& arg)
 {
-	_PUSH_SCALEFORM_MOVIE_FUNCTION_PARAMETER_INT(arg.R);
-	_PUSH_SCALEFORM_MOVIE_FUNCTION_PARAMETER_INT(arg.G);
-	_PUSH_SCALEFORM_MOVIE_FUNCTION_PARAMETER_INT(arg.B);
+	SCALEFORM_MOVIE_METHOD_ADD_PARAM_INT(arg.R);
+	SCALEFORM_MOVIE_METHOD_ADD_PARAM_INT(arg.G);
+	SCALEFORM_MOVIE_METHOD_ADD_PARAM_INT(arg.B);
 }
 void Scaleform::PushVector2(const Vector2& arg)
 {
-	_PUSH_SCALEFORM_MOVIE_FUNCTION_PARAMETER_FLOAT(arg.x);
-	_PUSH_SCALEFORM_MOVIE_FUNCTION_PARAMETER_FLOAT(arg.y);
+	SCALEFORM_MOVIE_METHOD_ADD_PARAM_FLOAT(arg.x);
+	SCALEFORM_MOVIE_METHOD_ADD_PARAM_FLOAT(arg.y);
 }
 void Scaleform::PushVector3(const Vector3& arg)
 {
-	_PUSH_SCALEFORM_MOVIE_FUNCTION_PARAMETER_FLOAT(arg.x);
-	_PUSH_SCALEFORM_MOVIE_FUNCTION_PARAMETER_FLOAT(arg.y);
-	_PUSH_SCALEFORM_MOVIE_FUNCTION_PARAMETER_FLOAT(arg.z);
+	SCALEFORM_MOVIE_METHOD_ADD_PARAM_FLOAT(arg.x);
+	SCALEFORM_MOVIE_METHOD_ADD_PARAM_FLOAT(arg.y);
+	SCALEFORM_MOVIE_METHOD_ADD_PARAM_FLOAT(arg.z);
 }
 
 void Scaleform::PopFunction()
 {
-	_POP_SCALEFORM_MOVIE_FUNCTION_VOID();
+	END_SCALEFORM_MOVIE_METHOD();
 }
 
 
@@ -157,7 +157,7 @@ void Scaleform::Render2DScreenSpace(const Vector2& location, const Vector2& size
 }
 void Scaleform::Render3D(const Vector3& position, const Vector3& rotation, const Vector3& unk, const Vector3& scale)
 {
-	_DRAW_SCALEFORM_MOVIE_3D_NON_ADDITIVE(this->mHandle, position.x, position.y, position.z, rotation.x, rotation.y, rotation.z, unk.x, unk.y, unk.z, scale.x, scale.y, scale.z, 2);
+	DRAW_SCALEFORM_MOVIE_3D_SOLID(this->mHandle, position.x, position.y, position.z, rotation.x, rotation.y, rotation.z, unk.x, unk.y, unk.z, scale.x, scale.y, scale.z, 2);
 }
 void Scaleform::Render3DAdditive(const Vector3& position, const Vector3& rotation, const Vector3& unk, const Vector3& scale)
 {

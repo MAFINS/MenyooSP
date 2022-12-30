@@ -320,7 +320,7 @@ namespace sub
 		//spawn dummy vehicle
 		Vector3 coords = ENTITY::GET_OFFSET_FROM_ENTITY_IN_WORLD_COORDS(PLAYER::PLAYER_PED_ID(), 0.0, 0.0, -100.0);
 		float heading = ENTITY::GET_ENTITY_HEADING(PLAYER::PLAYER_PED_ID());
-		Vehicle veh =  CREATE_VEHICLE(model.hash, coords.x, coords.y, coords.z, heading, 1, 0);
+		Vehicle veh =  CREATE_VEHICLE(model.hash, coords.x, coords.y, coords.z, heading, 1, 0, 0);
 		VEHICLE::SET_VEHICLE_ON_GROUND_PROPERLY(veh, 5.0f);
 		int painttype, colour, pearl, second;
 
@@ -339,7 +339,7 @@ namespace sub
 				VEHICLE::SET_VEHICLE_MOD_COLOR_1(veh, painttype, i, 0);
 				VEHICLE::GET_VEHICLE_EXTRA_COLOURS(veh, &pearl, &second);
 				VEHICLE::GET_VEHICLE_COLOURS(veh, &colour, &second);
-				colourname = VEHICLE::_0xB45085B721EFD38C(veh, 0);
+				colourname = VEHICLE::GET_VEHICLE_MOD_COLOR_1_NAME(veh, 0);
 				std::string colourid = std::to_string(i);
 				if (colour > paintIndex_maxValue)
 					paintIndex_maxValue = colour;
@@ -624,7 +624,7 @@ namespace sub
 			return;
 		}
 
-		float paintFade = _GET_VEHICLE_PAINT_FADE(Static_12);
+		float paintFade = GET_VEHICLE_ENVEFF_SCALE(Static_12);
 		float dirtLevel = GET_VEHICLE_DIRT_LEVEL(Static_12);
 		float carvarcol = GET_VEHICLE_COLOUR_COMBINATION(Static_12) + 1;
 		bool set_mspaints_index_4 = 0, set_mspaints_index_3 = 0,
@@ -677,13 +677,13 @@ namespace sub
 		{
 			if (paintFade < 1.0f)
 				paintFade += 0.02f;
-			_SET_VEHICLE_PAINT_FADE(Static_12, paintFade);
+			SET_VEHICLE_ENVEFF_SCALE(Static_12, paintFade);
 		}
 		if (paintFade_minus)
 		{
 			if (paintFade > 0.02f)
 				paintFade -= 0.02f;
-			_SET_VEHICLE_PAINT_FADE(Static_12, paintFade);
+			SET_VEHICLE_ENVEFF_SCALE(Static_12, paintFade);
 		}
 
 		if (dirtLevel_plus)
@@ -1179,7 +1179,7 @@ namespace sub
 			_globalSpawnVehicle_neonCol = RgbS(R, G, B);
 			break;
 		case 10:
-			_SET_HUD_COLOUR(Static_12, R, G, B, A);
+			REPLACE_HUD_COLOUR_WITH_RGBA(Static_12, R, G, B, A);
 			break;
 		}
 
@@ -1282,7 +1282,7 @@ namespace sub
 		{
 		case 0: GET_VEHICLE_CUSTOM_PRIMARY_COLOUR(Static_12, &ms_paints_rgb_r, &ms_paints_rgb_g, &ms_paints_rgb_b); break;
 		case 1: GET_VEHICLE_CUSTOM_SECONDARY_COLOUR(Static_12, &ms_paints_rgb_r, &ms_paints_rgb_g, &ms_paints_rgb_b); break;
-		case 2: _GET_VEHICLE_NEON_LIGHTS_COLOUR(Static_12, &ms_paints_rgb_r, &ms_paints_rgb_g, &ms_paints_rgb_b); break;
+		case 2: GET_VEHICLE_NEON_COLOUR(Static_12, &ms_paints_rgb_r, &ms_paints_rgb_g, &ms_paints_rgb_b); break;
 		case 3: ms_paints_rgb_r = _global_MultiPlatNeons_Col.R; ms_paints_rgb_g = _global_MultiPlatNeons_Col.G; ms_paints_rgb_b = _global_MultiPlatNeons_Col.B; break;
 		case 4: GET_VEHICLE_TYRE_SMOKE_COLOR(Static_12, &ms_paints_rgb_r, &ms_paints_rgb_g, &ms_paints_rgb_b); break;
 
@@ -1638,8 +1638,8 @@ namespace sub
 		if (neonIt) // neons
 		{
 			for (i = 0; i <= 3; i++)
-				_SET_VEHICLE_NEON_LIGHT_ENABLED(vehicle, i, TRUE);
-			_SET_VEHICLE_NEON_LIGHTS_COLOUR(vehicle, NeonR, NeonG, NeonB);
+				SET_VEHICLE_NEON_ENABLED(vehicle, i, TRUE);
+			SET_VEHICLE_NEON_COLOUR(vehicle, NeonR, NeonG, NeonB);
 		}
 
 		WAIT(50);
@@ -1770,7 +1770,7 @@ namespace sub
 		if (torqueMultIt != g_multList_torque.end())
 			torqueMultVal = torqueMultIt->second;
 
-		auto maxSpeedMultVal = _GET_VEHICLE_MODEL_MAX_SPEED(vehicleModel.hash);
+		auto maxSpeedMultVal = GET_VEHICLE_MODEL_ESTIMATED_MAX_SPEED(vehicleModel.hash);
 		auto& maxSpeedMultIt = g_multList_maxSpeed.find(vehicle.Handle());
 		if (maxSpeedMultIt != g_multList_maxSpeed.end())
 			maxSpeedMultVal = maxSpeedMultIt->second;
@@ -1864,7 +1864,7 @@ namespace sub
 		if (MSLowerSuspension_) {
 			vehicle.RequestControlOnce();
 			lowersuspension = !lowersuspension;
-			_SET_REDUCE_DRIFT_VEHICLE_SUSPENSION(Static_12, lowersuspension);
+			SET_REDUCED_SUSPENSION_FORCE(Static_12, lowersuspension);
 			return;
 		}
 
@@ -2708,7 +2708,7 @@ namespace sub
 		bool isBike = Static_12_veh_model.IsBike();
 		INT wheel_no = GET_VEHICLE_MOD(Static_12, 23);
 		INT ms_custom_tyres = GET_VEHICLE_MOD_VARIATION(Static_12, 23);
-		BOOL ms_drift_tyres = _GET_DRIFT_TYRES_ENABLED(Static_12);
+		BOOL ms_drift_tyres = GET_DRIFT_TYRES_SET(Static_12);
 
 		lastwheeltype = GET_VEHICLE_WHEEL_TYPE(Static_12);
 		lastfwheel = GET_VEHICLE_MOD(Static_12, VehicleMod::FrontWheels);
@@ -2729,7 +2729,7 @@ namespace sub
 
 		AddLocal("CMOD_TYR_1", ms_custom_tyres, MSWheelsCustomTyres_, MSWheelsCustomTyres_, true); // Custom Tyres
 		AddLocal("CMOD_TYR_2", GET_VEHICLE_TYRES_CAN_BURST(Static_12) == FALSE, MSWheelsBPTyresOn_, MSWheelsBPTyresOn_, true); // Bulletproof Tyres
-		AddLocal("Drift Tyres", _GET_DRIFT_TYRES_ENABLED(Static_12), MSWheelsDriftTyresOn_, MSWheelsDriftTyresOn_, true); // Drift Tyres
+		AddLocal("Drift Tyres", GET_DRIFT_TYRES_SET(Static_12), MSWheelsDriftTyresOn_, MSWheelsDriftTyresOn_, true); // Drift Tyres
 		AddOption("Remove Tires", null, nullFunc, SUB::MS_TYRESBURST);
 
 		AddOption(Game::GetGXTEntry("CMOD_MOD_TYR3", "Tire Smoke Colour"), set_msrgb_index_4, nullFunc, SUB::MSPAINTS_RGB);

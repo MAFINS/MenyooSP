@@ -84,13 +84,13 @@ namespace DxHookIMG
 	void DxTexture::Draw(UINT8 index, const Vector2& position, const Vector2& size, float rotationOutOf360, const RGBA& colour)
 	{
 		//DRAW_SPRITE("MenyooExtras", const_cast<PCHAR>(this->name.c_str()), position.x, position.y, size.x, size.y, rotationOutOf360, colour.R, colour.G, colour.B, colour.A);
-		drawTexture(this->id, index, DxTexture::globalDrawOrder, 55, size.x, size.y, 0.5f, 0.5f, position.x, position.y, rotationOutOf360 / 360.0f, GRAPHICS::_GET_SCREEN_ASPECT_RATIO(false), (float)(colour.R) / 255.0f, (float)(colour.G) / 255.0f, (float)(colour.B) / 255.0f, (float)(colour.A) / 255.0f);
+		drawTexture(this->id, index, DxTexture::globalDrawOrder, 55, size.x, size.y, 0.5f, 0.5f, position.x, position.y, rotationOutOf360 / 360.0f, GET_ASPECT_RATIO(false), (float)(colour.R) / 255.0f, (float)(colour.G) / 255.0f, (float)(colour.B) / 255.0f, (float)(colour.A) / 255.0f);
 		DxTexture::globalDrawOrder++;
 	}
 	void DxTexture::DrawAdvanced(UINT8 index, int level, int time, const Vector2& centrePos, const Vector2& position, const Vector2& size, float rotationOutOf360, const RGBA& colour)
 	{
 		//DRAW_SPRITE("MenyooExtras", const_cast<PCHAR>(this->name.c_str()), position.x, position.y, size.x, size.y, rotationOutOf360, colour.R, colour.G, colour.B, colour.A);
-		drawTexture(this->id, index, level, time, size.x, size.y, centrePos.x, centrePos.y, position.x, position.y, rotationOutOf360 / 360.0f, GRAPHICS::_GET_SCREEN_ASPECT_RATIO(false), (float)(colour.R) / 255.0f, (float)(colour.G) / 255.0f, (float)(colour.B) / 255.0f, (float)(colour.A) / 255.0f);
+		drawTexture(this->id, index, level, time, size.x, size.y, centrePos.x, centrePos.y, position.x, position.y, rotationOutOf360 / 360.0f, GET_ASPECT_RATIO(false), (float)(colour.R) / 255.0f, (float)(colour.G) / 255.0f, (float)(colour.B) / 255.0f, (float)(colour.A) / 255.0f);
 	}
 
 	//DxTexture titleui_spooner;

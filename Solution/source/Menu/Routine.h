@@ -69,7 +69,7 @@ extern Hash kaboom_gun_hash, bullet_gun_hash;
 extern GTAmodel::Model ped_gun_hash, object_gun_hash;
 extern FLOAT current_timescale;
 extern INT Static_241, Static_240, Static_242, Static_12;
-extern PCHAR Static_239;
+extern const char* Static_239;
 extern INT bit_MSPaints_RGB_mode;
 extern bool kaboom_gun_invis, kaboom_gun_rand_bit, ped_gun_rand_bit, object_gun_rand_bit_o, object_gun_rand_bit_v;
 extern bool bit_night_vision;

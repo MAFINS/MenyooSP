@@ -58,10 +58,10 @@ void teleport_net_ped(GTAentity pedd, float X, float Y, float Z, bool bWait)
 					REQUEST_NAMED_PTFX_ASSET(const_cast<PCHAR>(ptfx.asset.c_str()));
 				else
 				{
-					_SET_PTFX_ASSET_NEXT_CALL(const_cast<PCHAR>(ptfx.asset.c_str()));
+					USE_PARTICLE_FX_ASSET(const_cast<PCHAR>(ptfx.asset.c_str()));
 					SET_PARTICLE_FX_NON_LOOPED_COLOUR(GET_RANDOM_FLOAT_IN_RANGE(0, 1), GET_RANDOM_FLOAT_IN_RANGE(0, 1), GET_RANDOM_FLOAT_IN_RANGE(0, 1));
 					SET_PARTICLE_FX_NON_LOOPED_ALPHA(0.7f);
-					_START_PARTICLE_FX_NON_LOOPED_AT_COORD_2(const_cast<PCHAR>(ptfx.effect.c_str()), X, Y, Z, 0.0f, 0.0f, 0.0f, 1.0f, 0, 0, 0);
+					START_NETWORKED_PARTICLE_FX_NON_LOOPED_AT_COORD(const_cast<PCHAR>(ptfx.effect.c_str()), X, Y, Z, 0.0f, 0.0f, 0.0f, 1.0f, 0, 0, 0, false);
 				}
 			}
 		}
@@ -151,7 +151,7 @@ namespace sub::TeleportLocations_catind
 			{
 				Vector3& blipCoords = GTAblip(GET_FIRST_BLIP_INFO_ID(BlipIcon::Waypoint)).Position_get();
 
-				GET_GROUND_Z_FOR_3D_COORD(blipCoords.x, blipCoords.y, 800.0f, &blipCoords.z);
+				GET_GROUND_Z_FOR_3D_COORD(blipCoords.x, blipCoords.y, 800.0f, &blipCoords.z, 0, 0);
 				blipCoords.z += 20.0f;
 				if (!ped.IsInVehicle())
 				{
@@ -165,7 +165,7 @@ namespace sub::TeleportLocations_catind
 					{
 						SET_ENTITY_COORDS(ped.Handle(), blipCoords.x, blipCoords.y, blipCoords.z, 0, 0, 0, 1);
 						WAIT(100);
-						if (GET_GROUND_Z_FOR_3D_COORD(blipCoords.x, blipCoords.y, ____gtaGroundCheckHeight[i], &blipCoords.z))
+						if (GET_GROUND_Z_FOR_3D_COORD(blipCoords.x, blipCoords.y, ____gtaGroundCheckHeight[i], &blipCoords.z, 0, 0))
 							break;
 					}
 					SET_ENTITY_COORDS(ped.Handle(), blipCoords.x, blipCoords.y, blipCoords.z, 0, 0, 0, 1);
@@ -183,7 +183,7 @@ namespace sub::TeleportLocations_catind
 					{
 						SET_ENTITY_COORDS(vehicle.Handle(), blipCoords.x, blipCoords.y, blipCoords.z, 0, 0, 0, 1);
 						WAIT(100);
-						if (GET_GROUND_Z_FOR_3D_COORD(blipCoords.x, blipCoords.y, ____gtaGroundCheckHeight[i], &blipCoords.z))
+						if (GET_GROUND_Z_FOR_3D_COORD(blipCoords.x, blipCoords.y, ____gtaGroundCheckHeight[i], &blipCoords.z, 0, 0))
 							break;
 					}
 					SET_ENTITY_COORDS(vehicle.Handle(), blipCoords.x, blipCoords.y, blipCoords.z, 0, 0, 0, 1);
@@ -217,28 +217,28 @@ namespace sub::TeleportLocations_catind
 			{
 				if (isOnline)
 				{
-					_ENABLE_MP_DLC_MAPS(true);
-					_LOAD_SP_DLC_MAPS();
-					_LOAD_MP_DLC_MAPS();
+					SET_INSTANCE_PRIORITY_MODE(true);
+					ON_ENTER_SP();
+					ON_ENTER_MP();
 				}
 				else
 				{
-					_ENABLE_MP_DLC_MAPS(true);
-					_LOAD_MP_DLC_MAPS();
-					_LOAD_SP_DLC_MAPS();
+					SET_INSTANCE_PRIORITY_MODE(true);
+					ON_ENTER_MP();
+					ON_ENTER_SP();
 				}
 			}
 			else
 			{
 				if (loc.bOnTheLine)
 				{
-					_ENABLE_MP_DLC_MAPS(true);
-					_LOAD_MP_DLC_MAPS();
+					SET_INSTANCE_PRIORITY_MODE(true);
+					ON_ENTER_MP();
 				}
 				else if (loc.bOffTheLine)
 				{
-					_ENABLE_MP_DLC_MAPS(true);
-					_LOAD_SP_DLC_MAPS();
+					SET_INSTANCE_PRIORITY_MODE(true);
+					ON_ENTER_SP();
 				}
 			}
 
@@ -258,21 +258,21 @@ namespace sub::TeleportLocations_catind
 				{
 					if (IS_INTERIOR_DISABLED(interior))
 					{
-						_LOAD_INTERIOR(interior);
+						PIN_INTERIOR_IN_MEMORY(interior);
 						SET_INTERIOR_ACTIVE(interior, true);
 						DISABLE_INTERIOR(interior, false);
 					}
 					for (auto& propName : loc.interiorProps)
 					{
-						_ENABLE_INTERIOR_PROP(interior, (char*)propName.data());
+						ACTIVATE_INTERIOR_ENTITY_SET(interior, (char*)propName.data());
 
 						for (DWORD timeOut = GetTickCount() + 250; GetTickCount() < timeOut;)
 						{
-							if (_IS_INTERIOR_PROP_ENABLED(interior, (char*)propName.data()))
+							if (IS_INTERIOR_ENTITY_SET_ACTIVE(interior, (char*)propName.data()))
 									break;
 							WAIT(0);
 						}
-						_0xC1F1920BAF281317(interior, (char*)propName.data(), 1);
+						SET_INTERIOR_ENTITY_SET_TINT_INDEX(interior, (char*)propName.data(), 1);
 					}
 					REFRESH_INTERIOR(interior);
 				}
@@ -282,19 +282,19 @@ namespace sub::TeleportLocations_catind
 
 			if (loc.bOnTheLine || loc.bOffTheLine)
 			{
-				_ENABLE_MP_DLC_MAPS(false);
+				SET_INSTANCE_PRIORITY_MODE(false);
 			}
 
 			static bool _bNorthYanktonMiniMapEnabled = false;
 			if (loc.name.find("Yankton") != std::string::npos)
 			{
 				_bNorthYanktonMiniMapEnabled = true;
-				_SET_NORTH_YANKTON_MAP(true);
+				SET_MINIMAP_IN_PROLOGUE(true);
 			}
 			else if (_bNorthYanktonMiniMapEnabled)
 			{
 				_bNorthYanktonMiniMapEnabled = false;
-				_SET_NORTH_YANKTON_MAP(false);
+				SET_MINIMAP_IN_PROLOGUE(false);
 			}
 		}
 	}

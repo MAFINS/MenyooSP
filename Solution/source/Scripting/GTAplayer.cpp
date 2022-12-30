@@ -71,15 +71,15 @@ bool GTAplayer::IsAlive() const
 GTAplayer::NetHandle13 GTAplayer::GetNetHandle() const
 {
 	NetHandle13 netHandle;
-	NETWORK_HANDLE_FROM_PLAYER(index, &netHandle._0, 13);
+	NETWORK_HANDLE_FROM_PLAYER(index, (Any*)&netHandle._0, 13);
 	return netHandle;
 }
 ScrHandle GTAplayer::GetClanDescription() const
 {
 	ScrHandle clan = -1;
 	ScrHandle netHandle[13];
-	NETWORK_HANDLE_FROM_PLAYER(index, netHandle, 13);
-	NETWORK_CLAN_PLAYER_GET_DESC(&clan, 35, netHandle);
+	NETWORK_HANDLE_FROM_PLAYER(index, (Any*)netHandle, 13);
+	NETWORK_CLAN_PLAYER_GET_DESC((Any*)&clan, 35, (Any*)netHandle);
 	return clan;
 }
 
