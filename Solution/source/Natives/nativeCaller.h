@@ -20,27 +20,19 @@ static inline void nativePush(T val)
 	nativePush64(val64);
 }
 
-static inline void pushArgs()
-{
-}
-
-template <typename T>
-static inline void pushArgs(T arg)
-{
-	nativePush(arg);
-}
-
-template <typename T, typename... Ts>
-static inline void pushArgs(T arg, Ts... args)
-{
-	nativePush(arg);
-	pushArgs(args...);
-}
-
-template <typename R, typename... Ts>
-static inline R invoke(UINT64 hash, Ts... args)
+template <typename R, typename... Args>
+inline static R invoke(UINT64 hash, Args&&... args)
 {
 	nativeInit(hash);
-	pushArgs(args...);
-	return *reinterpret_cast<R*>(nativeCall());
+
+	(nativePush(std::forward<Args>(args)), ...);
+
+	if constexpr (std::is_void_v<R>)
+	{
+		nativeCall();
+	}
+	else
+	{
+		return *reinterpret_cast<R*>(nativeCall());
+	}
 }
