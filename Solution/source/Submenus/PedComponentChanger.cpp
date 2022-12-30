@@ -95,18 +95,18 @@ namespace sub
 		AddOption("Accessories", null, nullFunc, SUB::COMPONENTSPROPS);
 
 		AddBreak("---Components---");
-		AddpedcomponentOption_("Head", 0);
-		AddpedcomponentOption_("Beard/Mask", 1); // Beard // FACE_BRD
-		AddpedcomponentOption_("Hair", 2); // Hair // FACE_HAIR
-		AddpedcomponentOption_("Torso", 3);
-		AddpedcomponentOption_("Legs", 4);
-		AddpedcomponentOption_("Hands/Back", 5);
-		AddpedcomponentOption_("Shoes", 6); // Shoes // CSHOP_ITEM39
-		AddpedcomponentOption_("Teeth/Scarf/Necklace/Bracelets", 7);
-		AddpedcomponentOption_("Accessory/Tops", 8); // Accessory // PIM_TACCE
-		AddpedcomponentOption_("Task/Armour", 9);
-		AddpedcomponentOption_("Emblem", 10);
-		AddpedcomponentOption_("Tops2 (Outer)", 11);
+		AddpedcomponentOption_("Head", PV_COMP_HEAD);
+		AddpedcomponentOption_("Beard/Mask", PV_COMP_BERD); // Beard // FACE_BRD
+		AddpedcomponentOption_("Hair", PV_COMP_HAIR); // Hair // FACE_HAIR
+		AddpedcomponentOption_("Torso", PV_COMP_UPPR);
+		AddpedcomponentOption_("Legs", PV_COMP_LOWR);
+		AddpedcomponentOption_("Hands/Back", PV_COMP_HAND);
+		AddpedcomponentOption_("Shoes", PV_COMP_FEET); // Shoes // CSHOP_ITEM39
+		AddpedcomponentOption_("Teeth/Scarf/Necklace/Bracelets", PV_COMP_TEEF);
+		AddpedcomponentOption_("Accessory/Tops", PV_COMP_ACCS); // Accessory // PIM_TACCE
+		AddpedcomponentOption_("Task/Armour", PV_COMP_TASK);
+		AddpedcomponentOption_("Emblem", PV_COMP_DECL);
+		AddpedcomponentOption_("Tops2 (Outer)", PV_COMP_JBIB);
 
 		AddOption("Random Components", ComponentChanger_random);
 		AddOption("Default Components", ComponentChanger_default);
