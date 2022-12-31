@@ -114,14 +114,14 @@ std::map<Hash, std::string> WeaponIndivs::vWeaponLabels
     // 1.0.2189.0
 	{ WEAPON_MILITARYRIFLE, "Military Rifle" },
 	{ WEAPON_HEAVYRIFLE, "Heavy Rifle" }, //2545
-	{ WEAPON_TACTICALRIFLE, "Tactical Rifle" }, //2699
-	{ WEAPON_PRECISIONRIFLE, "Precision Rifle" }, //2699                                                              
-	//slot Sniper (5)
+	{ WEAPON_TACTICALRIFLE, "Tactical Rifle" }, //2699                                                             
+	//slot Sniper (6)
 	{ WEAPON_SNIPERRIFLE, "Sniper Rifle" },
 	{ WEAPON_HEAVYSNIPER, "Heavy Sniper" },
 	{ WEAPON_HEAVYSNIPER_MK2, "Heavy Sniper Mk2" },
 	{ WEAPON_MARKSMANRIFLE, "Marksman Rifle" },
 	{ WEAPON_MARKSMANRIFLE_MK2, "Marksman Rifle Mk2" },
+	{ WEAPON_PRECISIONRIFLE, "Precision Rifle" }, //2699 
 	//slot throwables (14)
 	{ WEAPON_GRENADE, "Grenade" },
 	{ WEAPON_STICKYBOMB, "Sticky Bomb" },
@@ -884,14 +884,18 @@ std::vector<WeaponAndComponents> WeaponIndivs::wc_ASSAULTRIFLES
 	{ WEAPON_HEAVYRIFLE,{
 		{ "Standard_Clip", GET_HASH_KEY("COMPONENT_HEAVYRIFLE_CLIP_01") },
 		{ "Extended_Clip", GET_HASH_KEY("COMPONENT_HEAVYRIFLE_CLIP_02") },
+		{ "Iron Sights", GET_HASH_KEY("COMPONENT_HEAVYRIFLE_SIGHT_01") },
+		{ "Medium Scope", GET_HASH_KEY("COMPONENT_AT_SCOPE_MEDIUM") },
+		{ "Flashlight", GET_HASH_KEY("COMPONENT_AT_AR_FLSH") },
+		{ "Suppressor", GET_HASH_KEY("COMPONENT_AT_AR_SUPP") },
+		{ "Grip", GET_HASH_KEY("COMPONENT_AT_AR_AFGRIP") },
 	}, &WeaponIndivs::vCaptions_Tints },
 	{ WEAPON_TACTICALRIFLE,{
 		{ "Standard_Clip", GET_HASH_KEY("COMPONENT_TACTICALRIFLE_CLIP_01") },
 		{ "Extended_Clip", GET_HASH_KEY("COMPONENT_TACTICALRIFLE_CLIP_02") },
 		{ "Flashlight", GET_HASH_KEY("COMPONENT_AT_AR_FLSH_REH") },
-	}, &WeaponIndivs::vCaptions_Tints },
-	{ WEAPON_PRECISIONRIFLE,{
-		{ "Standard_Clip", GET_HASH_KEY("COMPONENT_PRECISIONRIFLE_CLIP_01") },
+		{ "Suppressor", GET_HASH_KEY("COMPONENT_AT_AR_SUPP_02") },
+		{ "Grip", GET_HASH_KEY("COMPONENT_AT_AR_AFGRIP") },
 	}, &WeaponIndivs::vCaptions_Tints },
 };
 #pragma endregion
@@ -1086,6 +1090,10 @@ std::vector<WeaponAndComponents> WeaponIndivs::wc_SNIPERS
 		{ "Camo Independence 1", GET_HASH_KEY("COMPONENT_MARKSMANRIFLE_MK2_CAMO_IND_01") },
 		//{ "Camo Independence 1 Slide", GET_HASH_KEY("COMPONENT_MARKSMANRIFLE_MK2_CAMO_IND_01_SLIDE") },
 	}, &WeaponIndivs::vCaptions_TintsMk2 },
+
+	{ WEAPON_PRECISIONRIFLE,{
+		{ "Standard_Clip", GET_HASH_KEY("COMPONENT_PRECISIONRIFLE_CLIP_01") },
+	}, &WeaponIndivs::vCaptions_Tints },
 };
 #pragma endregion
 #pragma region heavy
