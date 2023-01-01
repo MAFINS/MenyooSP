@@ -430,37 +430,6 @@ namespace sub
 		VEHICLE::DELETE_VEHICLE(&veh);
 		model.Unload();
 
-
-		// Pearl, Wheels, Interior, Dashboard
-		const std::array<std::vector<int>, 7> indicesToOmitAll{ {
-				{}, //not used
-				{}, //Primary
-				{}, //Secondary
-				{11, 12, 15, 29, 30, 31, 32, 33, 40, 41, 57, 58, 59, 65, 79, 80, 82, 83, 84, 85, 86, 90, 91, 94, 101, 102, 103, 104}, //Pearl
-				{3, 4, 5, 6, 7, 9, 10, 11, 12, 13, 14, 15, 16, 17, 19, 20, 22, 23, 25, 29, 31, 32, 33, 34, 35, 36, 37, 39, 41, 42, 43, 44, 45, 46, 48, 49, 50, 51, 52, 54, 55, 56, 57, 59, 65, 66, 68, 69, 70, 72, 73, 74, 75, 76, 77, 78, 79, 80, 81, 82, 83, 84, 85, 86, 89, 90, 92, 93, 94, 100, 101, 103, 104, 105}, //Wheels
-				{4, 11, 12, 13, 15, 16, 17, 20, 28, 29, 30, 31, 32, 33, 40, 41, 42, 43, 47, 54, 57, 58, 59, 60, 65, 79, 80, 82, 83, 84, 85, 86, 87, 90, 91, 94, 101, 102, 103, 104, 105}, //Interior
-				{0, 1, 2, 3, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 24, 25, 29, 30, 31, 32, 33, 34, 35, 37, 40, 41, 42, 43, 44, 45, 55, 57, 58, 59, 60, 65, 66, 67, 68, 69, 73, 75, 79, 80, 82, 83, 84, 85, 86, 90, 91, 92, 93, 94, 96, 97, 99, 101, 102, 103, 104, 105}, //Dashboard
-			} };
-		const std::array<std::vector<NamedVehiclePaint>*, 4> pPaintsArr{ {
-				&PAINTS_PEARL, &PAINTS_WHEELS, &PAINTS_INTERIOR, &PAINTS_DASHBOARD
-		} };
-
-		for (int i = 0; i < pPaintsArr.size(); i++)
-		{
-			int paintVectorId = i + 3;
-			std::vector<NamedVehiclePaint>* pPaints = pPaintsArr[i];
-			for (int paintIt = 0; paintIt < PAINTS_STATIC.size(); paintIt++)
-			{
-				const auto& paintToInclude = PAINTS_STATIC[paintIt];
-				const auto& indicesToOmit = indicesToOmitAll[paintVectorId];
-				// Check if the current index is in the list of indices to omit
-				if (std::find(indicesToOmit.begin(), indicesToOmit.end(), paintToInclude.paint) == indicesToOmit.end())
-				{
-					pPaints->push_back(paintToInclude);
-				}
-			}
-		}
-
 	}
 
 	void AddMSPaintsPointOption_(const std::string& text, INT8 index, bool& extra_option_code = null)
