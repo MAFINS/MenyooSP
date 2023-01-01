@@ -13,7 +13,6 @@
 
 #include <string>
 
-
 Hash GET_HASH_KEY(char* value)
 {
 	size_t len = strlen(value);
@@ -69,7 +68,3 @@ void add_text_component_long_string(const std::string& text)
 		ADD_TEXT_COMPONENT_SUBSTRING_PLAYER_NAME(const_cast<PCHAR>(strComp.c_str()));
 	}
 }
-
-
-
-

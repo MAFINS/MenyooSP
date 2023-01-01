@@ -1251,7 +1251,7 @@ float GTAmemory::WorldGravity_get()
 void GTAmemory::WorldGravity_set(float value)
 {
 	*_writeWorldGravityAddress = value;
-	GAMEPLAY::SET_GRAVITY_LEVEL(0);
+	SET_GRAVITY_LEVEL(0);
 }
 
 /*void GTAmemory::GetVehicleHandles(std::vector<Entity>& result)
@@ -1352,7 +1352,7 @@ void SpSnow::EnableSnow(bool bEnable)
 			{
 				BEGIN_TEXT_COMMAND_PRINT("STRING");
 				ADD_TEXT_COMPONENT_SUBSTRING_PLAYER_NAME("~r~Error:~s~ Snow is not compatible with this GTA Version.");
-				_DRAW_SUBTITLE_TIMED(2000, 1);
+				END_TEXT_COMMAND_PRINT(2000, 1);
 				//auto snow_ptr = GetTunablePtr<INT32>(RawTunableIndex::TURN_SNOW_ON_OFF);
 				//*snow_ptr = bEnable ? 1 : 0;
 				return;
@@ -1375,7 +1375,7 @@ void SpSnow::EnableSnow(bool bEnable)
 		{
 			BEGIN_TEXT_COMMAND_PRINT("STRING");
 			ADD_TEXT_COMPONENT_SUBSTRING_PLAYER_NAME("~r~Error:~s~ Snow is not compatible with this GTA Version.");
-			_DRAW_SUBTITLE_TIMED(2000, 1);
+			END_TEXT_COMMAND_PRINT(2000, 1);
 			//auto snow_ptr = GetTunablePtr<INT32>(RawTunableIndex::TURN_SNOW_ON_OFF);
 			//*snow_ptr = bEnable ? 1 : 0;
 			return;
@@ -1467,8 +1467,8 @@ void SpSnow::EnableSnow(bool bEnable)
 
 		//*snow_ptr = 1;
 
-		//_SET_FORCE_PED_FOOTSTEPS_TRACKS(true);
-		//_SET_FORCE_VEHICLE_TRAILS(true);
+		//USE_SNOW_FOOT_VFX_WHEN_UNSHELTERED(true);
+		//USE_SNOW_WHEEL_VFX_WHEN_UNSHELTERED(true);
 		this->EnableTracks(true, true, true, true);
 		// Now on
 	}
@@ -1484,8 +1484,8 @@ void SpSnow::EnableSnow(bool bEnable)
 
 		//*snow_ptr = 0;
 
-		//_SET_FORCE_PED_FOOTSTEPS_TRACKS(false);
-		//_SET_FORCE_VEHICLE_TRAILS(false);
+		//USE_SNOW_FOOT_VFX_WHEN_UNSHELTERED(false);
+		//USE_SNOW_WHEEL_VFX_WHEN_UNSHELTERED(false);
 		this->EnableTracks(false, false, false, false);
 		// Now off
 	}
@@ -1502,25 +1502,25 @@ void SpSnow::EnableTracks(bool tracksPed, bool deepTracksPed, bool tracksVehicle
 
 	if (tracksPed || tracksVehicle)
 	{
-		STREAMING::REQUEST_NAMED_PTFX_ASSET("core_snow");
-		GRAPHICS::_SET_PTFX_ASSET_NEXT_CALL("core_snow");
+		REQUEST_NAMED_PTFX_ASSET("core_snow");
+		USE_PARTICLE_FX_ASSET("core_snow");
 	}
 	else
 	{
-		STREAMING::_REMOVE_NAMED_PTFX_ASSET("core_snow");
+		REMOVE_NAMED_PTFX_ASSET("core_snow");
 	}
 	if (tracksPed)
 	{
-		AUDIO::REQUEST_SCRIPT_AUDIO_BANK("ICE_FOOTSTEPS", true);
-		AUDIO::REQUEST_SCRIPT_AUDIO_BANK("SNOW_FOOTSTEPS", true);
+		REQUEST_SCRIPT_AUDIO_BANK("ICE_FOOTSTEPS", true, 0);
+		REQUEST_SCRIPT_AUDIO_BANK("SNOW_FOOTSTEPS", true, 0);
 	}
 	else
 	{
-		AUDIO::RELEASE_NAMED_SCRIPT_AUDIO_BANK("ICE_FOOTSTEPS");
-		AUDIO::RELEASE_NAMED_SCRIPT_AUDIO_BANK("SNOW_FOOTSTEPS");
+		RELEASE_NAMED_SCRIPT_AUDIO_BANK("ICE_FOOTSTEPS");
+		RELEASE_NAMED_SCRIPT_AUDIO_BANK("SNOW_FOOTSTEPS");
 	}
-	GRAPHICS::_SET_FORCE_PED_FOOTSTEPS_TRACKS(tracksPed);
-	GRAPHICS::_SET_FORCE_VEHICLE_TRAILS(tracksVehicle);
+	USE_SNOW_FOOT_VFX_WHEN_UNSHELTERED(tracksPed);
+	USE_SNOW_WHEEL_VFX_WHEN_UNSHELTERED(tracksVehicle);
 }
 
 SpSnow::SpSnow()

@@ -88,15 +88,15 @@ namespace GTAmodel
 			if (addr && (*(unsigned char*)(addr + 157) & 0x1F) == 5)//make sure model is valid and is a car
 			{
 				return properName ?
-					(DOES_TEXT_LABEL_EXIST((char*)(addr + _gtaModelDisplayNameOffset)) ? _GET_LABEL_TEXT((char*)(addr + _gtaModelDisplayNameOffset)) : (char*)(addr + _gtaModelDisplayNameOffset))
+					(DOES_TEXT_LABEL_EXIST((char*)(addr + _gtaModelDisplayNameOffset)) ? GET_FILENAME_FOR_AUDIO_CONVERSATION((char*)(addr + _gtaModelDisplayNameOffset)) : (char*)(addr + _gtaModelDisplayNameOffset))
 					: (char*)(addr + _gtaModelDisplayNameOffset);
 			}
 		}
 		else
 		{
-			char* name = GET_DISPLAY_NAME_FROM_VEHICLE_MODEL(this->hash);
+			const char* name = GET_DISPLAY_NAME_FROM_VEHICLE_MODEL(this->hash);
 			return properName ?
-				(DOES_TEXT_LABEL_EXIST(name) ? _GET_LABEL_TEXT(name) : name)
+				(DOES_TEXT_LABEL_EXIST(name) ? GET_FILENAME_FOR_AUDIO_CONVERSATION(name) : name)
 				: name;
 		}
 		return "CARNOTFOUND";
@@ -205,7 +205,7 @@ namespace GTAmodel
 	}
 	bool Model::IsFastBoat() const
 	{
-		return _IS_THIS_MODEL_AN_EMERGENCY_BOAT(this->hash) != 0;
+		return IS_THIS_MODEL_A_JETSKI(this->hash) != 0;
 	}
 	bool Model::IsCargobob() const
 	{

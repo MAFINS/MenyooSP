@@ -188,7 +188,7 @@ public:
 	static void glare_test();
 
 	static void set_opened_IB();
-	static void add_IB(ControllerInputs button_id, std::string string_val);
+	static void add_IB(ControllerInput button_id, std::string string_val);
 	static void add_IB(VirtualKey::VirtualKey button_id, std::string string_val);
 	static void add_IB(ScaleformButton button_id, std::string string_val);
 	static std::string get_key_IB(const Scaleform_IbT& ib);

@@ -95,18 +95,18 @@ namespace sub
 		AddOption("Accessories", null, nullFunc, SUB::COMPONENTSPROPS);
 
 		AddBreak("---Components---");
-		AddpedcomponentOption_("Head", 0);
-		AddpedcomponentOption_("Beard/Mask", 1); // Beard // FACE_BRD
-		AddpedcomponentOption_("Hair", 2); // Hair // FACE_HAIR
-		AddpedcomponentOption_("Torso", 3);
-		AddpedcomponentOption_("Legs", 4);
-		AddpedcomponentOption_("Hands/Back", 5);
-		AddpedcomponentOption_("Shoes", 6); // Shoes // CSHOP_ITEM39
-		AddpedcomponentOption_("Teeth/Scarf/Necklace/Bracelets", 7);
-		AddpedcomponentOption_("Accessory/Tops", 8); // Accessory // PIM_TACCE
-		AddpedcomponentOption_("Task/Armour", 9);
-		AddpedcomponentOption_("Emblem", 10);
-		AddpedcomponentOption_("Tops2 (Outer)", 11);
+		AddpedcomponentOption_("Head", PV_COMP_HEAD);
+		AddpedcomponentOption_("Beard/Mask", PV_COMP_BERD); // Beard // FACE_BRD
+		AddpedcomponentOption_("Hair", PV_COMP_HAIR); // Hair // FACE_HAIR
+		AddpedcomponentOption_("Torso", PV_COMP_UPPR);
+		AddpedcomponentOption_("Legs", PV_COMP_LOWR);
+		AddpedcomponentOption_("Hands/Back", PV_COMP_HAND);
+		AddpedcomponentOption_("Shoes", PV_COMP_FEET); // Shoes // CSHOP_ITEM39
+		AddpedcomponentOption_("Teeth/Scarf/Necklace/Bracelets", PV_COMP_TEEF);
+		AddpedcomponentOption_("Accessory/Tops", PV_COMP_ACCS); // Accessory // PIM_TACCE
+		AddpedcomponentOption_("Task/Armour", PV_COMP_TASK);
+		AddpedcomponentOption_("Emblem", PV_COMP_DECL);
+		AddpedcomponentOption_("Tops2 (Outer)", PV_COMP_JBIB);
 
 		AddOption("Random Components", ComponentChanger_random);
 		AddOption("Default Components", ComponentChanger_default);
@@ -145,9 +145,9 @@ namespace sub
 		}
 
 		if (ComponentChanger_online_police_m) {
-			SET_PED_PROP_INDEX(Static_241, 0, 47, 0, NETWORK_IS_GAME_IN_PROGRESS());
-			SET_PED_PROP_INDEX(Static_241, 1, 10, 0, NETWORK_IS_GAME_IN_PROGRESS());
-			SET_PED_PROP_INDEX(Static_241, 2, 3, 0, NETWORK_IS_GAME_IN_PROGRESS());
+			SET_PED_PROP_INDEX(Static_241, 0, 47, 0, NETWORK_IS_GAME_IN_PROGRESS(), 0);
+			SET_PED_PROP_INDEX(Static_241, 1, 10, 0, NETWORK_IS_GAME_IN_PROGRESS(), 0);
+			SET_PED_PROP_INDEX(Static_241, 2, 3, 0, NETWORK_IS_GAME_IN_PROGRESS(), 0);
 			SET_PED_COMPONENT_VARIATION(Static_241, 0, 0, 0, 0);
 			SET_PED_COMPONENT_VARIATION(Static_241, 1, 0, 0, 0);
 			SET_PED_COMPONENT_VARIATION(Static_241, 3, 0, 0, 0);
@@ -163,7 +163,7 @@ namespace sub
 		}
 
 		if (ComponentChanger_online_police_f) {
-			SET_PED_PROP_INDEX(Static_241, 0, 45, 0, NETWORK_IS_GAME_IN_PROGRESS());
+			SET_PED_PROP_INDEX(Static_241, 0, 45, 0, NETWORK_IS_GAME_IN_PROGRESS(), 0);
 			SET_PED_COMPONENT_VARIATION(Static_241, 3, 100, 0, 0);
 			SET_PED_COMPONENT_VARIATION(Static_241, 4, 34, 0, 0);
 			SET_PED_COMPONENT_VARIATION(Static_241, 11, 48, 0, 0);
@@ -171,7 +171,7 @@ namespace sub
 		}
 
 		if (ComponentChanger_offline_police_michael) {
-			SET_PED_PROP_INDEX(Static_241, 0, 10, 0, NETWORK_IS_GAME_IN_PROGRESS());
+			SET_PED_PROP_INDEX(Static_241, 0, 10, 0, NETWORK_IS_GAME_IN_PROGRESS(), 0);
 			SET_PED_COMPONENT_VARIATION(Static_241, 3, 6, 0, 0);
 			SET_PED_COMPONENT_VARIATION(Static_241, 4, 6, 0, 0);
 			SET_PED_COMPONENT_VARIATION(Static_241, 6, 6, 0, 0);
@@ -181,7 +181,7 @@ namespace sub
 		}
 
 		if (ComponentChanger_offline_firefighter_michael) {
-			SET_PED_PROP_INDEX(Static_241, 0, 0, 0, NETWORK_IS_GAME_IN_PROGRESS());
+			SET_PED_PROP_INDEX(Static_241, 0, 0, 0, NETWORK_IS_GAME_IN_PROGRESS(), 0);
 			SET_PED_COMPONENT_VARIATION(Static_241, 3, 1, 0, 0);
 			SET_PED_COMPONENT_VARIATION(Static_241, 4, 1, 0, 0);
 			SET_PED_COMPONENT_VARIATION(Static_241, 5, 1, 0, 0);
@@ -191,7 +191,7 @@ namespace sub
 		}
 
 		if (ComponentChanger_online_robber_m) {
-			SET_PED_PROP_INDEX(Static_241, 0, 48, 1, NETWORK_IS_GAME_IN_PROGRESS());
+			SET_PED_PROP_INDEX(Static_241, 0, 48, 1, NETWORK_IS_GAME_IN_PROGRESS(), 0);
 			SET_PED_COMPONENT_VARIATION(Static_241, 3, 29, 1, 0);
 			SET_PED_COMPONENT_VARIATION(Static_241, 4, 34, 0, 0);
 			SET_PED_COMPONENT_VARIATION(Static_241, 5, 45, 0, 0);
@@ -203,7 +203,7 @@ namespace sub
 		}
 
 		if (ComponentChanger_online_garbage_m) {
-			SET_PED_PROP_INDEX(Static_241, 1, 4, 0, NETWORK_IS_GAME_IN_PROGRESS());
+			SET_PED_PROP_INDEX(Static_241, 1, 4, 0, NETWORK_IS_GAME_IN_PROGRESS(), 0);
 			SET_PED_COMPONENT_VARIATION(Static_241, 0, 0, 0, 0);
 			SET_PED_COMPONENT_VARIATION(Static_241, 1, 0, 0, 0);
 			SET_PED_COMPONENT_VARIATION(Static_241, 3, 64, 0, 0);
@@ -380,7 +380,7 @@ namespace sub
 
 		if (ComponentChanger_clearAllProps) {
 			thisPed.RequestControlOnce();
-			CLEAR_ALL_PED_PROPS(thisPed.Handle());
+			CLEAR_ALL_PED_PROPS(thisPed.Handle(), 0);
 			return;
 		}
 
@@ -393,7 +393,7 @@ namespace sub
 		bool compon_plus = 0,
 			compon_minus = 0;
 
-		int	prop_type_current = GET_PED_PROP_INDEX(Static_241, Static_12),
+		int	prop_type_current = GET_PED_PROP_INDEX(Static_241, Static_12, 0),
 			prop_texture_current = GET_PED_PROP_TEXTURE_INDEX(Static_241, Static_12);
 		int prop_type_old = prop_type_current,
 			prop_texture_old = prop_texture_current;
@@ -457,9 +457,9 @@ namespace sub
 		if (ped.Exists() && (prop_type_current != prop_type_old || prop_texture_current != prop_texture_old))
 		{
 			if (prop_type_current == -1)
-				CLEAR_PED_PROP(ped.Handle(), propId);
+				CLEAR_PED_PROP(ped.Handle(), propId, 0);
 			else
-				SET_PED_PROP_INDEX(ped.Handle(), propId, prop_type_current, prop_texture_current, NETWORK_IS_GAME_IN_PROGRESS());
+				SET_PED_PROP_INDEX(ped.Handle(), propId, prop_type_current, prop_texture_current, NETWORK_IS_GAME_IN_PROGRESS(), 0);
 		}
 	}
 
@@ -490,7 +490,7 @@ namespace sub
 			if (ped.Exists())
 			{
 				ped.RequestControl(200);
-				PED::_SET_PED_DECORATION(ped.Handle(), this->collection, this->value);
+				PED::ADD_PED_DECORATION_FROM_HASHES(ped.Handle(), this->collection, this->value);
 				vPedsAndDecals[ped.Handle()].push_back({ this->collection, this->value });
 			}
 			else
@@ -513,7 +513,7 @@ namespace sub
 				CLEAR_PED_DECORATIONS(ped.Handle());
 				for (auto& decal : decals)
 				{
-					PED::_SET_PED_DECORATION(ped.Handle(), decal.collection, decal.value);
+					ADD_PED_DECORATION_FROM_HASHES(ped.Handle(), decal.collection, decal.value);
 				}
 			}
 			else
@@ -833,6 +833,7 @@ namespace sub
 			case PedHeadOverlay::Eyebrows:
 			case PedHeadOverlay::Beard:
 			case PedHeadOverlay::ChestHair:
+			case PedHeadOverlay::Makeup:
 				return 1; break;
 			case PedHeadOverlay::Blush:
 			case PedHeadOverlay::Lipstick:
@@ -898,7 +899,7 @@ namespace sub
 				ped.HeadBlendData_set(headBlend);
 			}
 
-			int max_hairColours = _GET_NUM_HAIR_COLORS() - 1;
+			int max_hairColours = GET_NUM_PED_HAIR_TINTS() - 1;
 			int max_eyeColours = 32;
 
 			bool hairColour_plus = 0, hairColour_minus = 0;
@@ -913,8 +914,8 @@ namespace sub
 			AddOption("Shape & Skin Tone", null, nullFunc, SUB::PED_HEADFEATURES_SKINTONE);
 
 			AddBreak("---Hair---");
-			AddNumber("Hair Colour", _pedHead->hairColour, 0, null, hairColour_plus, hairColour_minus); // 0f to _GET_NUM_HAIR_COLORS
-			AddNumber("Hair Streaks Colour", _pedHead->hairColourStreaks, 0, null, hairColourStreaks_plus, hairColourStreaks_minus); // 0f to _GET_NUM_HAIR_COLORS
+			AddNumber("Hair Colour", _pedHead->hairColour, 0, null, hairColour_plus, hairColour_minus); // 0f to GET_NUM_PED_HAIR_TINTS
+			AddNumber("Hair Streaks Colour", _pedHead->hairColourStreaks, 0, null, hairColourStreaks_plus, hairColourStreaks_minus); // 0f to GET_NUM_PED_HAIR_TINTS
 
 			AddBreak("---Eyes---");
 			AddNumber(Game::GetGXTEntry("FACE_APP_EYE", "Eye Colour"), _pedHead->eyeColour, 0, null, eyeColour_plus, eyeColour_minus); // 1f to 32f
@@ -925,33 +926,33 @@ namespace sub
 			if (hairColour_plus)
 			{
 				if (_pedHead->hairColour < max_hairColours) _pedHead->hairColour++;
-				_SET_PED_HAIR_COLOR(ped.Handle(), _pedHead->hairColour, _pedHead->hairColourStreaks);
+				SET_PED_HAIR_TINT(ped.Handle(), _pedHead->hairColour, _pedHead->hairColourStreaks);
 			}
 			if (hairColour_minus)
 			{
 				if (_pedHead->hairColour > 0) _pedHead->hairColour--;
-				_SET_PED_HAIR_COLOR(ped.Handle(), _pedHead->hairColour, _pedHead->hairColourStreaks);
+				SET_PED_HAIR_TINT(ped.Handle(), _pedHead->hairColour, _pedHead->hairColourStreaks);
 			}
 			if (hairColourStreaks_plus)
 			{
 				if (_pedHead->hairColourStreaks < max_hairColours) _pedHead->hairColourStreaks++;
-				_SET_PED_HAIR_COLOR(ped.Handle(), _pedHead->hairColour, _pedHead->hairColourStreaks);
+				SET_PED_HAIR_TINT(ped.Handle(), _pedHead->hairColour, _pedHead->hairColourStreaks);
 			}
 			if (hairColourStreaks_minus)
 			{
 				if (_pedHead->hairColourStreaks > 0) _pedHead->hairColourStreaks--;
-				_SET_PED_HAIR_COLOR(ped.Handle(), _pedHead->hairColour, _pedHead->hairColourStreaks);
+				SET_PED_HAIR_TINT(ped.Handle(), _pedHead->hairColour, _pedHead->hairColourStreaks);
 			}
 
 			if (eyeColour_plus)
 			{
 				if (_pedHead->eyeColour < max_eyeColours) _pedHead->eyeColour++;
-				_SET_PED_EYE_COLOR(ped.Handle(), SYSTEM::ROUND((float)_pedHead->eyeColour)); // What even
+				SET_HEAD_BLEND_EYE_COLOR(ped.Handle(), SYSTEM::ROUND((float)_pedHead->eyeColour)); // What even
 			}
 			if (eyeColour_minus)
 			{
 				if (_pedHead->eyeColour > 0) _pedHead->eyeColour--;
-				_SET_PED_EYE_COLOR(ped.Handle(), SYSTEM::ROUND((float)_pedHead->eyeColour));
+				SET_HEAD_BLEND_EYE_COLOR(ped.Handle(), SYSTEM::ROUND((float)_pedHead->eyeColour));
 			}
 
 		}
@@ -979,8 +980,8 @@ namespace sub
 			bool bColoursAvailable = (colourType != 0);
 
 			auto& currentOverlayData = _pedHead->overlayData[overlayIndex];
-			int currentOverlayValue = _GET_PED_HEAD_OVERLAY_VALUE(ped.Handle(), overlayIndex);
-			int max_overlays = _GET_NUM_HEAD_OVERLAY_VALUES(overlayIndex) - 1;
+			int currentOverlayValue = GET_PED_HEAD_OVERLAY(ped.Handle(), overlayIndex);
+			int max_overlays = GET_PED_HEAD_OVERLAY_NUM(overlayIndex) - 1;
 			int max_colours = 64;
 
 			bool overlay_plus = 0, overlay_minus = 0;
@@ -1048,7 +1049,7 @@ namespace sub
 					if (currentOverlayData.colour < max_colours)
 					{
 						currentOverlayData.colour++;
-						_SET_PED_HEAD_OVERLAY_COLOR(ped.Handle(), overlayIndex, colourType, currentOverlayData.colour, currentOverlayData.colourSecondary);
+						SET_PED_HEAD_OVERLAY_TINT(ped.Handle(), overlayIndex, colourType, currentOverlayData.colour, currentOverlayData.colourSecondary);
 					}
 				}
 				if (colour_minus)
@@ -1056,7 +1057,7 @@ namespace sub
 					if (currentOverlayData.colour > 0)
 					{
 						currentOverlayData.colour--;
-						_SET_PED_HEAD_OVERLAY_COLOR(ped.Handle(), overlayIndex, colourType, currentOverlayData.colour, currentOverlayData.colourSecondary);
+						SET_PED_HEAD_OVERLAY_TINT(ped.Handle(), overlayIndex, colourType, currentOverlayData.colour, currentOverlayData.colourSecondary);
 					}
 				}
 
@@ -1067,7 +1068,7 @@ namespace sub
 					if (currentOverlayData.colourSecondary < max_colours)
 					{
 						currentOverlayData.colourSecondary++;
-						_SET_PED_HEAD_OVERLAY_COLOR(ped.Handle(), overlayIndex, colourType, currentOverlayData.colour, currentOverlayData.colourSecondary);
+						SET_PED_HEAD_OVERLAY_TINT(ped.Handle(), overlayIndex, colourType, currentOverlayData.colour, currentOverlayData.colourSecondary);
 					}
 				}
 				if (colourSecondary_minus)
@@ -1075,7 +1076,7 @@ namespace sub
 					if (currentOverlayData.colourSecondary > 0)
 					{
 						currentOverlayData.colourSecondary--;
-						_SET_PED_HEAD_OVERLAY_COLOR(ped.Handle(), overlayIndex, colourType, currentOverlayData.colour, currentOverlayData.colourSecondary);
+						SET_PED_HEAD_OVERLAY_TINT(ped.Handle(), overlayIndex, colourType, currentOverlayData.colour, currentOverlayData.colourSecondary);
 					}
 				}
 
@@ -1097,13 +1098,13 @@ namespace sub
 				{
 					if (featureValue < 1.0f)
 						featureValue += 0.05f;
-					_SET_PED_FACE_FEATURE(ped.Handle(), i, featureValue);
+					SET_PED_MICRO_MORPH(ped.Handle(), i, featureValue);
 				}
 				if (feature_minus)
 				{
 					if (featureValue > -1.0f)
 						featureValue -= 0.05f;
-					_SET_PED_FACE_FEATURE(ped.Handle(), i, featureValue);
+					SET_PED_MICRO_MORPH(ped.Handle(), i, featureValue);
 				}
 
 			}
@@ -1114,7 +1115,7 @@ namespace sub
 			GTAped ped = Static_241;
 			//auto& blendData = _pedHead->blendData;
 			PedHeadBlendData blendData;
-			_GET_PED_HEAD_BLEND_DATA(ped.Handle(), &blendData);
+			GET_PED_HEAD_BLEND_DATA(ped.Handle(), (Any*)&blendData);
 			std::vector<std::string> vIdNames;//{ "Male Non-DLC", "Female Non-DLC", "Male DLC", "Female DLC" };
 			auto max_ids = max_shapeAndSkinIDs;
 			//for (UINT8 i = 0; i < max_ids - 4; i++) vIdNames.push_back(std::to_string(i));
@@ -1288,8 +1289,8 @@ namespace sub
 						pedHead.hairColourStreaks = nodePedHeadFeatures.child("HairColourStreaks").text().as_int();
 						pedHead.eyeColour = nodePedHeadFeatures.child("EyeColour").text().as_int();
 
-						_SET_PED_HAIR_COLOR(ep.Handle(), pedHead.hairColour, pedHead.hairColourStreaks);
-						_SET_PED_EYE_COLOR(ep.Handle(), SYSTEM::ROUND((float)pedHead.eyeColour)); // Sjaak says so
+						SET_PED_HAIR_TINT(ep.Handle(), pedHead.hairColour, pedHead.hairColourStreaks);
+						SET_HEAD_BLEND_EYE_COLOR(ep.Handle(), SYSTEM::ROUND((float)pedHead.eyeColour)); // Sjaak says so
 
 						auto& nodePedFacialFeatures = nodePedHeadFeatures.child("FacialFeatures");
 						int ii = 0;
@@ -1297,7 +1298,7 @@ namespace sub
 						{
 							ii = stoi(std::string(nodePedFacialFeature.name()).substr(1));
 							pedHead.facialFeatureData[ii] = nodePedFacialFeature.text().as_float();
-							_SET_PED_FACE_FEATURE(ep.Handle(), ii, pedHead.facialFeatureData[ii]);
+							SET_PED_MICRO_MORPH(ep.Handle(), ii, pedHead.facialFeatureData[ii]);
 						}
 
 						auto& nodePedHeadOverlays = nodePedHeadFeatures.child("Overlays");
@@ -1310,7 +1311,7 @@ namespace sub
 							pedHead.overlayData[ii].colourSecondary = nodePedHeadOverlay.attribute("colourSecondary").as_int();
 							pedHead.overlayData[ii].opacity = nodePedHeadOverlay.attribute("opacity").as_float();
 							SET_PED_HEAD_OVERLAY(ep.Handle(), ii, overlayData_index, pedHead.overlayData[ii].opacity);
-							_SET_PED_HEAD_OVERLAY_COLOR(ep.Handle(), ii, sub::PedHeadFeatures_catind::GetPedHeadOverlayColourType((PedHeadOverlay)ii), pedHead.overlayData[ii].colour, pedHead.overlayData[ii].colourSecondary);
+							SET_PED_HEAD_OVERLAY_TINT(ep.Handle(), ii, sub::PedHeadFeatures_catind::GetPedHeadOverlayColourType((PedHeadOverlay)ii), pedHead.overlayData[ii].colour, pedHead.overlayData[ii].colourSecondary);
 						}
 						sub::PedHeadFeatures_catind::vPedHeads[ep.Handle()] = pedHead;
 					}
@@ -1342,7 +1343,7 @@ namespace sub
 							nodeDecal.attribute("value").as_uint()
 						);
 						decalsApplied.push_back(decal);
-						_SET_PED_DECORATION(ep.Handle(), decal.collection, decal.value);
+						ADD_PED_DECORATION_FROM_HASHES(ep.Handle(), decal.collection, decal.value);
 					}
 				}
 			}
@@ -1362,14 +1363,14 @@ namespace sub
 			}
 			if (applyProps)
 			{
-				CLEAR_ALL_PED_PROPS(ep.Handle());
+				CLEAR_ALL_PED_PROPS(ep.Handle(), 0);
 				auto& nodePedProps = nodePedStuff.child("PedProps");
 				for (auto& nodePedPropsObject = nodePedProps.first_child(); nodePedPropsObject; nodePedPropsObject = nodePedPropsObject.next_sibling())
 				{
 					int pedPropId = stoi(std::string(nodePedPropsObject.name()).substr(1));
 					std::string pedPropIdValueStr = nodePedPropsObject.text().as_string();
 
-					SET_PED_PROP_INDEX(ep.Handle(), pedPropId, stoi(pedPropIdValueStr.substr(0, pedPropIdValueStr.find(","))), stoi(pedPropIdValueStr.substr(pedPropIdValueStr.find(",") + 1)), bNetworkIsGameInProgress);
+					SET_PED_PROP_INDEX(ep.Handle(), pedPropId, stoi(pedPropIdValueStr.substr(0, pedPropIdValueStr.find(","))), stoi(pedPropIdValueStr.substr(pedPropIdValueStr.find(",") + 1)), bNetworkIsGameInProgress, 0);
 				}
 			}
 

@@ -90,12 +90,12 @@ Vector3 RaycastResult::SurfaceNormal()
 
 RaycastResult RaycastResult::Raycast(const Vector3& source, const Vector3& target, IntersectOptions options, GTAentity ignoreEntity)
 {
-	return RaycastResult(_CAST_RAY_POINT_TO_POINT(source.x, source.y, source.z, target.x, target.y, target.z, static_cast<int>(options), ignoreEntity.Handle(), 7));
+	return RaycastResult(START_EXPENSIVE_SYNCHRONOUS_SHAPE_TEST_LOS_PROBE(source.x, source.y, source.z, target.x, target.y, target.z, static_cast<int>(options), ignoreEntity.Handle(), 7));
 }
 RaycastResult RaycastResult::Raycast(const Vector3& source, const Vector3& direction, float maxDistance, IntersectOptions options, GTAentity ignoreEntity)
 {
 	Vector3& target = source + (direction * maxDistance);
-	return RaycastResult(_CAST_RAY_POINT_TO_POINT(source.x, source.y, source.z, target.x, target.y, target.z, static_cast<int>(options), ignoreEntity.Handle(), 7));
+	return RaycastResult(START_EXPENSIVE_SYNCHRONOUS_SHAPE_TEST_LOS_PROBE(source.x, source.y, source.z, target.x, target.y, target.z, static_cast<int>(options), ignoreEntity.Handle(), 7));
 }
 RaycastResult RaycastResult::RaycastCapsule(const Vector3& source, const Vector3& target, float radius, IntersectOptions options, GTAentity ignoreEntity)
 {

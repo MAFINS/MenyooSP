@@ -413,9 +413,9 @@
 				<OVERLAY collection="multiplayer_overlays" name="FM_Tat_Award_F_014" caption="Trust No One" />
 				<OVERLAY collection="multiplayer_overlays" name="FM_Tat_Award_F_008" caption="Los Santos Customs" />
 				<OVERLAY collection="multiplayer_overlays" name="FM_Tat_Award_F_005" caption="Angel" />
-                <OVERLAY collection="multiplayer_overlays" name="FM_Tat_F_046" caption="Zip?" />
+                <OVERLAY collection="multiplayer_overlays" name="FM_Tat_F_046" caption="FM_Tat_F_046" />
                 <OVERLAY collection="mphipster_overlays" name="FM_Hip_F_Tat_006" caption="Feather Birds" />
-                <OVERLAY collection="mpchristmas2018_overlays" name="MP_Christmas2018_Tat_000_F" caption="???" />
+                <OVERLAY collection="mpchristmas2018_overlays" name="MP_Christmas2018_Tat_000_F" caption="MP_Christmas2018_Tat_000_F" />
 			</ZONE_BACK>
 			<ZONE_HEAD>
                     <OVERLAY collection="mpheist3_overlays" name="mpHeist3_Tat_022_F" caption="Thong's Sword" />
@@ -1743,8 +1743,8 @@
                    <OVERLAY collection="multiplayer_overlays" name="FM_Tat_Award_M_014" caption="Trust No One" />
                    <OVERLAY collection="multiplayer_overlays" name="FM_Tat_Award_M_008" caption="Los Santos Customs" />
                    <OVERLAY collection="multiplayer_overlays" name="FM_Tat_Award_M_005" caption="Angel" />
-                   <OVERLAY collection="multiplayer_overlays" name="FM_Tat_M_046" caption="Zip?" />Zip???
-                   <OVERLAY collection="mpchristmas2018_overlays" name="MP_Christmas2018_Tat_000_M" caption="Unknowen" />
+                   <OVERLAY collection="multiplayer_overlays" name="FM_Tat_M_046" caption="FM_Tat_M_046" />
+                   <OVERLAY collection="mpchristmas2018_overlays" name="MP_Christmas2018_Tat_000_M" caption="MP_Christmas2018_Tat_000_M" />
 			</ZONE_BACK>
 			<ZONE_HEAD>
                    <OVERLAY collection="mpheist3_overlays" name="mpHeist3_Tat_022_M" caption="Thong's Sword" />

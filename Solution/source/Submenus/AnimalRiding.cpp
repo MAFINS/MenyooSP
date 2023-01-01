@@ -110,7 +110,7 @@ namespace sub
 					{
 						for (auto& a : AnimalRiding_catind::vAnimals)
 						{
-							if (a.model.hash == GET_ENTITY_MODEL(ped) && !IS_ENTITY_DEAD(ped))
+							if (a.model.hash == GET_ENTITY_MODEL(ped) && !IS_ENTITY_DEAD(ped, false))
 							{
 								if (myPos.DistanceTo(GET_ENTITY_COORDS(ped, 1)) < 1.6f)
 								{

@@ -19,7 +19,7 @@ typedef unsigned short UINT16;
 typedef unsigned int UINT;
 typedef unsigned long DWORD;
 
-enum ControllerInputs : UINT16
+enum ControllerInput : UINT16
 {
 	INPUT_NEXT_CAMERA = 0,
 	INPUT_LOOK_LR = 1,
@@ -360,6 +360,9 @@ enum ControllerInputs : UINT16
 	INPUT_VEH_SLOWMO_DOWN_ONLY = 336,
 	INPUT_MAP_POI = 337
 };
+namespace ControllerInputs {
+	extern const std::vector<std::string> vNames;
+}
 
 enum class ScaleformButton : int
 {
@@ -676,7 +679,24 @@ enum WeaponHash : DWORD
     // 1.0.2189.0
 	WEAPON_COMBATSHOTGUN = 0x5A96BA4,
 	WEAPON_GADGETPISTOL = 0x57A4368C,
-	WEAPON_MILITARYRIFLE = 0x9D1F17E6,                        
+	WEAPON_MILITARYRIFLE = 0x9D1F17E6,     
+
+	//The Contract(mpsecurity) - 2545
+	WEAPON_HEAVYRIFLE = 0xc78d71b4,
+	WEAPON_FERTILIZERCAN = 0x184140a1,
+	WEAPON_EMPLAUNCHER = 0xdb26713a,
+	WEAPON_STUNGUN_MP = 0x45cd9cf3,
+
+	//The Criminal Enterprises Update (mpsum2) - 2699
+	WEAPON_METALDETECTOR = 0xdba2e809,
+	WEAPON_TACTICALRIFLE = 0xd1d5f52b,
+	WEAPON_PRECISIONRIFLE = 0x6e7dddec,
+
+	//Drug Wars(mpchristmas3) - 2802
+	WEAPON_CANDYCANE = 0x6589186a,
+	WEAPON_ACIDPACKAGE = 0xf7f1e25e,
+	WEAPON_PISTOLXM3 = 0x1bc4fdb9,
+	WEAPON_RAILGUNXM3 = 0xfea23564,
 };
 enum WeaponComponentHash : DWORD
 {
@@ -1805,6 +1825,24 @@ namespace PedType {
 		Army = 29
 	};
 }
+
+enum ePedVarComp
+{
+	PV_COMP_INVALID = -1,
+	PV_COMP_HEAD,
+	PV_COMP_BERD,
+	PV_COMP_HAIR,
+	PV_COMP_UPPR,
+	PV_COMP_LOWR,
+	PV_COMP_HAND,
+	PV_COMP_FEET,
+	PV_COMP_TEEF,
+	PV_COMP_ACCS,
+	PV_COMP_TASK,
+	PV_COMP_DECL,
+	PV_COMP_JBIB,
+	PV_COMP_MAX
+};
 
 namespace HudColour{
 	enum HudColour : UINT16
