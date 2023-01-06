@@ -52,6 +52,8 @@ void TickMenyooConfig();
 
 void TickRainbowFader();
 
+void TickNeonAnims();
+
 //--------------------------------On tick--------------------------------------------------------
 
 #pragma region variables used declare // p.s. this ain't it chief
@@ -59,6 +61,7 @@ void TickRainbowFader();
 extern INT16 bind_no_clip;
 
 extern RgbS g_fadedRGB;
+extern bool g_neonFlash;
 
 extern UINT8 pause_clock_H, pause_clock_M;
 extern Vehicle g_myVeh;
@@ -129,7 +132,11 @@ loop_vehicle_laser_red, loop_vehicle_turrets_valkyrie, loop_vehicle_flaregun, lo
 loop_car_colour_change, loop_vehicle_invisibility, loop_self_engineOn, loop_hide_hud, loop_showFullHud,
 loop_pause_clock, loop_sync_clock, loop_triple_bullets, loop_rapid_fire, loop_self_resurrectionGun, loop_soulswitch_gun, loop_self_deleteGun, loop_vehicle_fixloop, loop_vehicle_fliploop,
 loop_blackout_mode, loop_simple_blackout_mode, loop_restricted_areas_access, loop_HVSnipers, loop_vehicle_disableSiren, loop_fireworksDisplay,
-bit_infinite_ammo, loop_self_inf_parachutes;
+bit_infinite_ammo, loop_self_inf_parachutes,
+
+loop_neon_anims;
+
+extern int loop_neon_delay;
 
 extern Entity targ_slot_entity;
 extern bool targ_entity_locked;

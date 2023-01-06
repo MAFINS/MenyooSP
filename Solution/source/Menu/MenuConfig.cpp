@@ -256,6 +256,7 @@ void MenuConfig::ConfigRead()
 	loop_vehicle_fixloop = ini.GetBoolValue(section_haxValues, "vehicle_auto_fix", loop_vehicle_fixloop);
 	loop_vehicle_fliploop = ini.GetBoolValue(section_haxValues, "vehicle_auto_flip", loop_vehicle_fliploop);
 	loop_self_engineOn = ini.GetBoolValue(section_haxValues, "vehicle_keep_engine_running", loop_self_engineOn);
+	loop_neon_delay = ini.GetBoolValue(section_haxValues, "vehicle_neon_delay", loop_neon_delay);
 	_VehicleTow_::g_vehicleTow.Enabled() = ini.GetBoolValue(section_haxValues, "vehicle_tow_mode", _VehicleTow_::g_vehicleTow.Enabled());
 	_VehicleFly_::g_vehicleFly.Enabled() = ini.GetBoolValue(section_haxValues, "vehicle_fly_mode", _VehicleFly_::g_vehicleFly.Enabled());
 	loop_multiplat_neons = ini.GetBoolValue(section_haxValues, "vehicle_multiplat_neons", loop_multiplat_neons);
@@ -502,6 +503,7 @@ void MenuConfig::ConfigSave()
 	ini.SetBoolValue(section_haxValues, "vehicle_auto_fix", loop_vehicle_fixloop);
 	ini.SetBoolValue(section_haxValues, "vehicle_auto_flip", loop_vehicle_fliploop);
 	ini.SetBoolValue(section_haxValues, "vehicle_keep_engine_running", loop_self_engineOn);
+	ini.SetBoolValue(section_haxValues, "vehicle_neon_delay", loop_neon_delay);
 	ini.SetBoolValue(section_haxValues, "vehicle_tow_mode", _VehicleTow_::g_vehicleTow.Enabled());
 	ini.SetBoolValue(section_haxValues, "vehicle_fly_mode", _VehicleFly_::g_vehicleFly.Enabled());
 	ini.SetBoolValue(section_haxValues, "vehicle_multiplat_neons", loop_multiplat_neons);

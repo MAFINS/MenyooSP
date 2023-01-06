@@ -3305,6 +3305,8 @@ namespace sub
 
 		AddTitle(Game::GetGXTEntry("PIM_PVEO_004", "Neons Lights"));
 
+		bool neon_delay_plus = 0, neon_delay_minus = 0, neon_delay_input = 0;
+
 		for (auto& i : std::map<VehicleNeonLight, std::pair<Hash, std::string>>{
 			{ VehicleNeonLight::Left,{ 0xCE8DADF3, "Left" } },
 			{ VehicleNeonLight::Right,{ 0x92E936A7, "Right" } },
@@ -3318,6 +3320,22 @@ namespace sub
 			{
 				vehicle.RequestControl(300);
 				vehicle.SetNeonLightOn(i.first, bPressed_on);
+			}
+		}
+
+		AddToggle("Flash Neons", loop_neon_anims);
+		if (loop_neon_anims)
+			AddNumber("Animation Speed (ms)", loop_neon_delay, 0, neon_delay_input, neon_delay_plus, neon_delay_minus);
+
+		if (neon_delay_plus) loop_neon_delay++; 
+		if (neon_delay_minus) loop_neon_delay--;
+		if (neon_delay_input)
+		{
+			std::string inputStr = Game::InputBox("", 4U, "", std::to_string(loop_neon_delay));
+			if (inputStr.length() > 0)
+			{
+				try { loop_neon_delay = std::stoi(inputStr); }
+				catch (...) { Game::Print::PrintError_InvalidInput(); }
 			}
 		}
 
