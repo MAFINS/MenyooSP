@@ -88,6 +88,8 @@
 
 DWORD g_MenyooConfigTick = 0UL;
 DWORD g_FaderTick = 0UL;
+DWORD g_NeonTick = 0UL;
+bool g_ConfigHasNotBeenRead = true;
 
 void Menu::justopened()
 {
@@ -125,6 +127,7 @@ inline void MenyooMain()
 	MenuConfig::ConfigInit();
 	g_MenyooConfigTick = GetTickCount();
 	g_FaderTick = GetTickCount();
+	g_NeonTick = GetTickCount();
 
 	for (;;)
 	{
@@ -133,6 +136,7 @@ inline void MenyooMain()
 		Menu::Tick();
 		TickMenyooConfig();
 		TickRainbowFader();
+		TickNeonAnims();
 		WAIT(0);
 	}
 
@@ -179,6 +183,17 @@ void TickRainbowFader()
 	}
 }
 
+void TickNeonAnims()
+{
+	if (GetTickCount() > g_NeonTick + loop_neon_delay)
+	{
+		auto& neonpower = g_neonFlash;
+		neonpower = !neonpower;
+
+		g_NeonTick = GetTickCount();
+	}
+}
+
 //--------------------------------On tick--------------------------------------------------------
 
 #pragma region variables used define // p.s. this ain't it chief
@@ -186,6 +201,7 @@ void TickRainbowFader()
 INT16 bind_no_clip = VirtualKey::F3;
 
 RgbS g_fadedRGB(255, 0, 0);
+bool g_neonFlash = 0;
 
 UINT8 pause_clock_H, pause_clock_M;
 Vehicle g_myVeh = 0;
@@ -260,7 +276,11 @@ loop_vehicle_laser_red = 0, loop_vehicle_turrets_valkyrie = 0, loop_vehicle_flar
 loop_car_colour_change = 0, loop_vehicle_invisibility = 0, loop_self_engineOn = 0, loop_hide_hud = 0, loop_showFullHud = 0,
 loop_pause_clock = 0, loop_sync_clock = 0, loop_triple_bullets = 0, loop_rapid_fire = 0, loop_self_resurrectionGun = 0, loop_soulswitch_gun = 0, loop_self_deleteGun = 0, loop_vehicle_fixloop = 0, loop_vehicle_fliploop = 0,
 loop_blackout_mode = 0, loop_simple_blackout_mode = 0, loop_restricted_areas_access = 0, loop_HVSnipers = 0, loop_vehicle_disableSiren = 0, loop_fireworksDisplay = 0,
-bit_infinite_ammo = 0, loop_self_inf_parachutes = 0;
+bit_infinite_ammo = 0, loop_self_inf_parachutes = 0,
+
+loop_neon_anims = 0;
+
+int loop_neon_delay = 1000;
 
 Entity targ_slot_entity = 0;
 bool targ_entity_locked = 0;
@@ -2261,6 +2281,17 @@ void set_vehicle_rainbow_mode_tick(GTAvehicle vehicle, bool useFader)
 		vehicle.SecondaryColour_set(rand() % 160);
 	}
 }
+void set_vehicle_neon_anim(GTAvehicle vehicle)
+{
+	vehicle.RequestControlOnce();
+	for (auto & i : std::map<VehicleNeonLight, std::pair<Hash, std::string>>{
+			{ VehicleNeonLight::Left,{ 0xCE8DADF3, "Left" } },
+			{ VehicleNeonLight::Right,{ 0x92E936A7, "Right" } },
+			{ VehicleNeonLight::Front,{ 0x79ABE687, "Front" } },
+			{ VehicleNeonLight::Back,{ 0x6BECCB09, "Back" } }
+		})
+	vehicle.SetNeonLightOn(i.first,g_neonFlash);
+}
 void set_vehicle_heavy_mass_tick(GTAvehicle vehicle)
 {
 	if (!vehicle.Exists())
@@ -3210,6 +3241,9 @@ void Menu::loops()
 		// Vehicle rainbow mode-
 		if (loop_car_colour_change/* && GET_GAME_TIMER() >= delayedTimer - 400*/)
 			set_vehicle_rainbow_mode_tick(g_myVeh, true);
+
+		if (loop_neon_anims)
+			set_vehicle_neon_anim(g_myVeh);
 
 		// Disable self popo sirens
 		if (loop_vehicle_disableSiren)
