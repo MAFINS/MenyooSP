@@ -87,8 +87,9 @@
 //--------------------------------Threads--------------------------------------------------------
 
 DWORD g_MenyooConfigTick = 0UL;
-DWORD g_FaderTick = 0UL;
-DWORD g_NeonTick = 0UL;
+DWORD g_RGBFaderTick = 0UL;
+DWORD g_NeonFaderTick = 0UL;
+DWORD g_FlashTick = 0UL;
 bool g_ConfigHasNotBeenRead = true;
 
 void Menu::justopened()
@@ -126,8 +127,9 @@ inline void MenyooMain()
 
 	MenuConfig::ConfigInit();
 	g_MenyooConfigTick = GetTickCount();
-	g_FaderTick = GetTickCount();
-	g_NeonTick = GetTickCount();
+	g_RGBFaderTick = GetTickCount();
+	g_NeonFaderTick = GetTickCount();
+	g_FlashTick = GetTickCount();
 
 	for (;;)
 	{
@@ -136,7 +138,8 @@ inline void MenyooMain()
 		Menu::Tick();
 		TickMenyooConfig();
 		TickRainbowFader();
-		TickNeonAnims();
+		TickNeonFlashAnim();
+		TickNeonFadeAnim();
 		WAIT(0);
 	}
 
@@ -161,7 +164,7 @@ void TickMenyooConfig()
 
 void TickRainbowFader()
 {
-	if (GetTickCount() > g_FaderTick + 20U) {
+	if (GetTickCount() > g_RGBFaderTick + 20U) {
 		auto& colour = g_fadedRGB;
 		if (colour.R > 0 && colour.B == 0)
 		{
@@ -179,19 +182,35 @@ void TickRainbowFader()
 			colour.B--;
 		}
 
-		g_FaderTick = GetTickCount();
+		g_RGBFaderTick = GetTickCount();
 	}
 }
 
-void TickNeonAnims()
+void TickNeonFlashAnim()
 {
-	if (GetTickCount() > g_NeonTick + loop_neon_delay)
+	if (GetTickCount() > g_FlashTick + loop_neon_delay)
 	{
 		auto& neonpower = g_neonFlash;
 		neonpower = !neonpower;
 
-		g_NeonTick = GetTickCount();
+		g_FlashTick = GetTickCount();
 	}
+}
+void TickNeonFadeAnim()
+{
+	if (GetTickCount() > g_NeonFaderTick + 20U) {
+		auto& fade = g_neonFade;
+		int time = GetTickCount() % (2*loop_neon_delay);
+		if (time > 0)
+			loop_fade_multiplier = 0.5 * (cos((3.14 * time) / loop_neon_delay) + 1);
+		else
+			loop_fade_multiplier = 1;
+		fade.R = g_neon_colour_set.R * loop_fade_multiplier;
+		fade.G = g_neon_colour_set.G * loop_fade_multiplier;
+		fade.B = g_neon_colour_set.B * loop_fade_multiplier;
+		g_NeonFaderTick = GetTickCount();
+	}
+	
 }
 
 //--------------------------------On tick--------------------------------------------------------
@@ -200,7 +219,7 @@ void TickNeonAnims()
 
 INT16 bind_no_clip = VirtualKey::F3;
 
-RgbS g_fadedRGB(255, 0, 0);
+RgbS g_fadedRGB(255, 0, 0), g_neonFade(255, 0, 0);
 bool g_neonFlash = 0;
 
 UINT8 pause_clock_H, pause_clock_M;
@@ -276,11 +295,15 @@ loop_vehicle_laser_red = 0, loop_vehicle_turrets_valkyrie = 0, loop_vehicle_flar
 loop_car_colour_change = 0, loop_vehicle_invisibility = 0, loop_self_engineOn = 0, loop_hide_hud = 0, loop_showFullHud = 0,
 loop_pause_clock = 0, loop_sync_clock = 0, loop_triple_bullets = 0, loop_rapid_fire = 0, loop_self_resurrectionGun = 0, loop_soulswitch_gun = 0, loop_self_deleteGun = 0, loop_vehicle_fixloop = 0, loop_vehicle_fliploop = 0,
 loop_blackout_mode = 0, loop_simple_blackout_mode = 0, loop_restricted_areas_access = 0, loop_HVSnipers = 0, loop_vehicle_disableSiren = 0, loop_fireworksDisplay = 0,
-bit_infinite_ammo = 0, loop_self_inf_parachutes = 0,
+bit_infinite_ammo = 0, loop_self_inf_parachutes = 0;
 
-loop_neon_anims = 0;
+int loop_neon_anims = 0, loop_neon_delay = 1000;
 
-int loop_neon_delay = 1000;
+float loop_fade_multiplier = 1.0f;
+
+bool neonstate[4] = {};
+
+RgbS g_neon_colour_set = _globalSpawnVehicle_neonCol;
 
 Entity targ_slot_entity = 0;
 bool targ_entity_locked = 0;
@@ -2283,14 +2306,59 @@ void set_vehicle_rainbow_mode_tick(GTAvehicle vehicle, bool useFader)
 }
 void set_vehicle_neon_anim(GTAvehicle vehicle)
 {
-	vehicle.RequestControlOnce();
-	for (auto & i : std::map<VehicleNeonLight, std::pair<Hash, std::string>>{
-			{ VehicleNeonLight::Left,{ 0xCE8DADF3, "Left" } },
-			{ VehicleNeonLight::Right,{ 0x92E936A7, "Right" } },
-			{ VehicleNeonLight::Front,{ 0x79ABE687, "Front" } },
-			{ VehicleNeonLight::Back,{ 0x6BECCB09, "Back" } }
-		})
-	vehicle.SetNeonLightOn(i.first,g_neonFlash);
+	switch (loop_neon_anims)
+	{
+		case 1:
+		{
+			vehicle.RequestControlOnce();
+			for (auto& i : std::map<VehicleNeonLight, std::pair<Hash, std::string>>{
+					{ VehicleNeonLight::Left,{ 0xCE8DADF3, "Left" } },
+					{ VehicleNeonLight::Right,{ 0x92E936A7, "Right" } },
+					{ VehicleNeonLight::Front,{ 0x79ABE687, "Front" } },
+					{ VehicleNeonLight::Back,{ 0x6BECCB09, "Back" } }
+				})
+				vehicle.SetNeonLightOn(i.first, neonstate[static_cast<int>(i.first) - 1]);
+			vehicle.NeonLightsColour_set(g_fadedRGB);
+			break;
+		}
+		case 2:
+		{
+			vehicle.RequestControlOnce();
+			for (auto& i : std::map<VehicleNeonLight, std::pair<Hash, std::string>>{
+					{ VehicleNeonLight::Left,{ 0xCE8DADF3, "Left" } },
+					{ VehicleNeonLight::Right,{ 0x92E936A7, "Right" } },
+					{ VehicleNeonLight::Front,{ 0x79ABE687, "Front" } },
+					{ VehicleNeonLight::Back,{ 0x6BECCB09, "Back" } }
+				})
+				vehicle.SetNeonLightOn(i.first, g_neonFlash * neonstate[static_cast<int>(i.first) - 1]);
+			break;
+		}
+		case 3:
+		{			
+			vehicle.RequestControlOnce();
+			for (auto& i : std::map<VehicleNeonLight, std::pair<Hash, std::string>>{
+					{ VehicleNeonLight::Left,{ 0xCE8DADF3, "Left" } },
+					{ VehicleNeonLight::Right,{ 0x92E936A7, "Right" } },
+					{ VehicleNeonLight::Front,{ 0x79ABE687, "Front" } },
+					{ VehicleNeonLight::Back,{ 0x6BECCB09, "Back" } }
+				})
+				vehicle.SetNeonLightOn(i.first, neonstate[static_cast<int>(i.first) - 1]);
+			vehicle.NeonLightsColour_set(g_neonFade);
+			break;
+		}
+		default:
+		{
+			vehicle.RequestControlOnce();
+			for (auto& i : std::map<VehicleNeonLight, std::pair<Hash, std::string>>{
+					{ VehicleNeonLight::Left,{ 0xCE8DADF3, "Left" } },
+					{ VehicleNeonLight::Right,{ 0x92E936A7, "Right" } },
+					{ VehicleNeonLight::Front,{ 0x79ABE687, "Front" } },
+					{ VehicleNeonLight::Back,{ 0x6BECCB09, "Back" } }
+			})
+			vehicle.SetNeonLightOn(i.first, neonstate[static_cast<int>(i.first) - 1]);
+			break;
+		}
+	}
 }
 void set_vehicle_heavy_mass_tick(GTAvehicle vehicle)
 {
@@ -3242,7 +3310,7 @@ void Menu::loops()
 		if (loop_car_colour_change/* && GET_GAME_TIMER() >= delayedTimer - 400*/)
 			set_vehicle_rainbow_mode_tick(g_myVeh, true);
 
-		if (loop_neon_anims)
+		if (loop_neon_anims > 0)
 			set_vehicle_neon_anim(g_myVeh);
 
 		// Disable self popo sirens

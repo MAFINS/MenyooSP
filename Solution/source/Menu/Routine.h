@@ -52,7 +52,9 @@ void TickMenyooConfig();
 
 void TickRainbowFader();
 
-void TickNeonAnims();
+void TickNeonFlashAnim();
+
+void TickNeonFadeAnim();
 
 //--------------------------------On tick--------------------------------------------------------
 
@@ -60,7 +62,7 @@ void TickNeonAnims();
 
 extern INT16 bind_no_clip;
 
-extern RgbS g_fadedRGB;
+extern RgbS g_fadedRGB, g_neonFade;
 extern bool g_neonFlash;
 
 extern UINT8 pause_clock_H, pause_clock_M;
@@ -132,11 +134,15 @@ loop_vehicle_laser_red, loop_vehicle_turrets_valkyrie, loop_vehicle_flaregun, lo
 loop_car_colour_change, loop_vehicle_invisibility, loop_self_engineOn, loop_hide_hud, loop_showFullHud,
 loop_pause_clock, loop_sync_clock, loop_triple_bullets, loop_rapid_fire, loop_self_resurrectionGun, loop_soulswitch_gun, loop_self_deleteGun, loop_vehicle_fixloop, loop_vehicle_fliploop,
 loop_blackout_mode, loop_simple_blackout_mode, loop_restricted_areas_access, loop_HVSnipers, loop_vehicle_disableSiren, loop_fireworksDisplay,
-bit_infinite_ammo, loop_self_inf_parachutes,
+bit_infinite_ammo, loop_self_inf_parachutes;
 
-loop_neon_anims;
+extern int loop_neon_delay, loop_neon_anims;
 
-extern int loop_neon_delay;
+extern float loop_fade_multiplier;
+
+extern bool neonstate[4];
+
+extern RgbS g_neon_colour_set;
 
 extern Entity targ_slot_entity;
 extern bool targ_entity_locked;
