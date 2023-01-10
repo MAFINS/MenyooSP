@@ -56,6 +56,8 @@ void TickNeonFlashAnim();
 
 void TickNeonFadeAnim();
 
+void TickNeonSpinAnim();
+
 //--------------------------------On tick--------------------------------------------------------
 
 #pragma region variables used declare // p.s. this ain't it chief
@@ -64,6 +66,7 @@ extern INT16 bind_no_clip;
 
 extern RgbS g_fadedRGB, g_neonFade;
 extern bool g_neonFlash;
+extern int g_neonSpin,g_neonSpinBack;
 
 extern UINT8 pause_clock_H, pause_clock_M;
 extern Vehicle g_myVeh;

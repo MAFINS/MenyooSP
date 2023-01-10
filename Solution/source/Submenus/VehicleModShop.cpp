@@ -3301,6 +3301,7 @@ namespace sub
 	{
 		if (!DOES_ENTITY_EXIST(Static_12))
 		{
+			loop_neon_anims = 0;
 			Menu::SetSub_previous();
 			return;
 		}

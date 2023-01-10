@@ -90,6 +90,7 @@ DWORD g_MenyooConfigTick = 0UL;
 DWORD g_RGBFaderTick = 0UL;
 DWORD g_NeonFaderTick = 0UL;
 DWORD g_FlashTick = 0UL;
+DWORD g_SpinTick = 0UL;
 bool g_ConfigHasNotBeenRead = true;
 
 void Menu::justopened()
@@ -129,6 +130,7 @@ inline void MenyooMain()
 	g_MenyooConfigTick = GetTickCount();
 	g_RGBFaderTick = GetTickCount();
 	g_NeonFaderTick = GetTickCount();
+	g_SpinTick = GetTickCount();
 	g_FlashTick = GetTickCount();
 
 	for (;;)
@@ -140,6 +142,7 @@ inline void MenyooMain()
 		TickRainbowFader();
 		TickNeonFlashAnim();
 		TickNeonFadeAnim();
+		TickNeonSpinAnim();
 		WAIT(0);
 	}
 
@@ -192,7 +195,6 @@ void TickNeonFlashAnim()
 	{
 		auto& neonpower = g_neonFlash;
 		neonpower = !neonpower;
-
 		g_FlashTick = GetTickCount();
 	}
 }
@@ -212,6 +214,61 @@ void TickNeonFadeAnim()
 	}
 	
 }
+void TickNeonSpinAnim()
+{
+	if (GetTickCount() > g_SpinTick + (loop_neon_delay/4))
+	{
+		auto& spindex = g_neonSpin;
+		auto& spindex2 = g_neonSpinBack;
+		switch (spindex2)
+		{
+		case 0:
+		{
+			spindex2 = 3;
+			break;
+		}
+		case 1:
+		{
+			spindex2 = 2;
+			break;
+		}
+		case 2:
+		{
+			spindex2 = 0;
+			break;
+		}
+		case 3:
+		{
+			spindex2 = 1;
+			break;
+		}
+		}
+		switch (spindex)
+		{
+		case 0:
+		{
+			spindex = 2;
+			break;
+		}
+		case 1:
+		{
+			spindex = 3;
+			break;
+		}
+		case 2:
+		{
+			spindex = 1;
+			break;
+		}
+		case 3:
+		{
+			spindex = 0;
+			break;
+		}
+		}		
+		g_SpinTick = GetTickCount();
+	}
+}
 
 //--------------------------------On tick--------------------------------------------------------
 
@@ -221,6 +278,7 @@ INT16 bind_no_clip = VirtualKey::F3;
 
 RgbS g_fadedRGB(255, 0, 0), g_neonFade(255, 0, 0);
 bool g_neonFlash = 0;
+int g_neonSpin = 0, g_neonSpinBack = 0;
 
 UINT8 pause_clock_H, pause_clock_M;
 Vehicle g_myVeh = 0;
@@ -2310,6 +2368,7 @@ void set_vehicle_neon_anim(GTAvehicle vehicle)
 	{
 		case 1:
 		{
+
 			vehicle.RequestControlOnce();
 			for (auto& i : std::map<VehicleNeonLight, std::pair<Hash, std::string>>{
 					{ VehicleNeonLight::Left,{ 0xCE8DADF3, "Left" } },
@@ -2346,7 +2405,37 @@ void set_vehicle_neon_anim(GTAvehicle vehicle)
 			vehicle.NeonLightsColour_set(g_neonFade);
 			break;
 		}
-		default:
+		case 4:
+		{
+			vehicle.RequestControlOnce();
+			for (auto& i : std::map<VehicleNeonLight, std::pair<Hash, std::string>>{
+					{ VehicleNeonLight::Left,{ 0xCE8DADF3, "Left" } },
+					{ VehicleNeonLight::Right,{ 0x92E936A7, "Right" } },
+					{ VehicleNeonLight::Front,{ 0x79ABE687, "Front" } },
+					{ VehicleNeonLight::Back,{ 0x6BECCB09, "Back" } }
+				})
+				if (static_cast<int>(i.first) == g_neonSpin)
+					vehicle.SetNeonLightOn(i.first, true);
+				else
+					vehicle.SetNeonLightOn(i.first, false);
+			break;
+		}
+		case 5:
+		{
+			vehicle.RequestControlOnce();
+			for (auto& i : std::map<VehicleNeonLight, std::pair<Hash, std::string>>{
+					{ VehicleNeonLight::Left,{ 0xCE8DADF3, "Left" } },
+					{ VehicleNeonLight::Right,{ 0x92E936A7, "Right" } },
+					{ VehicleNeonLight::Front,{ 0x79ABE687, "Front" } },
+					{ VehicleNeonLight::Back,{ 0x6BECCB09, "Back" } }
+				})
+				if (static_cast<int>(i.first) == g_neonSpinBack)
+					vehicle.SetNeonLightOn(i.first, true);
+				else
+					vehicle.SetNeonLightOn(i.first, false);
+			break;
+		}
+		case 0: default:
 		{
 			vehicle.RequestControlOnce();
 			for (auto& i : std::map<VehicleNeonLight, std::pair<Hash, std::string>>{
