@@ -3301,11 +3301,13 @@ namespace sub
 			return;
 		}
 
+		std::vector<std::string> NEON_ANIM	{"None","RGB","Flash","Fade","Spin","SpinBack",};
+
 		GTAvehicle vehicle = Static_12;
 
 		AddTitle(Game::GetGXTEntry("PIM_PVEO_004", "Neons Lights"));
-
-		bool neon_delay_plus = 0, neon_delay_minus = 0, neon_delay_input = 0;
+		
+		bool neon_delay_plus = 0, neon_delay_minus = 0, neon_delay_input = 0, neon_anim_plus = 0, neon_anim_minus = 0;
 
 		for (auto& i : std::map<VehicleNeonLight, std::pair<Hash, std::string>>{
 			{ VehicleNeonLight::Left,{ 0xCE8DADF3, "Left" } },
@@ -3315,20 +3317,39 @@ namespace sub
 			})
 		{
 			bool bPressed_on = false, bPressed_off = false;
-			AddTickol(i.second.second, vehicle.IsNeonLightOn(i.first), bPressed_on, bPressed_off, TICKOL::CARTHING);
+			AddTickol(i.second.second, neonstate[static_cast<int>(i.first) - 1], bPressed_on, bPressed_off, TICKOL::CARTHING);
 			if (bPressed_on || bPressed_off)
 			{
+				neonstate[static_cast<int>(i.first) - 1] = bPressed_on;
 				vehicle.RequestControl(300);
 				vehicle.SetNeonLightOn(i.first, bPressed_on);
 			}
 		}
+		AddTexter("Neon Animation", loop_neon_anims, NEON_ANIM, null, neon_anim_plus, neon_anim_minus); //how do I reset loop_neon_anims to 0 if player is in a new vehicle?
+		
+		if (neon_anim_plus)
+		{
+			for (int i = 1; i < 4; i++)
+			vehicle.NeonLightsColour_set(g_neon_colour_set);
+			if (loop_neon_anims == 5)
+				loop_neon_anims = 0;
+			else
+				loop_neon_anims++;
+		}
+		if (neon_anim_minus)
+		{
+			vehicle.NeonLightsColour_set(g_neon_colour_set);
+			if (loop_neon_anims == 0)
+				loop_neon_anims = 5;
+			else
+				loop_neon_anims--;
+		}
 
-		AddToggle("Flash Neons", loop_neon_anims);
-		if (loop_neon_anims)
+		if (loop_neon_anims > 1)
 			AddNumber("Animation Speed (ms)", loop_neon_delay, 0, neon_delay_input, neon_delay_plus, neon_delay_minus);
 
-		if (neon_delay_plus) loop_neon_delay++; 
-		if (neon_delay_minus) loop_neon_delay--;
+		if (neon_delay_plus) loop_neon_delay+=50; 
+		if (neon_delay_minus) loop_neon_delay-=50;
 		if (neon_delay_input)
 		{
 			std::string inputStr = Game::InputBox("", 4U, "", std::to_string(loop_neon_delay));
@@ -3338,6 +3359,7 @@ namespace sub
 				catch (...) { Game::Print::PrintError_InvalidInput(); }
 			}
 		}
+
 
 		bool rgbmode2 = false;
 		AddOption("Set Colour", rgbmode2, nullFunc, SUB::MSPAINTS_RGB); if (rgbmode2)
