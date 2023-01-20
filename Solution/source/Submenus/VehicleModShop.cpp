@@ -565,7 +565,6 @@ namespace sub
 
 			if (MenuPressTimer::IsButtonTapped(MenuPressTimer::Button::Back))
 			{
-				Game::Print::PrintBottomLeft("Back Pressed - Restoring Paints");
 				paintCarUsing_index(vehicle, ms_curr_paint_index, lastpaint, lastpearl);
 				if (iscustompaint)
 				{
@@ -575,7 +574,6 @@ namespace sub
 						SET_VEHICLE_CUSTOM_SECONDARY_COLOUR(vehicle, lastr, lastg, lastb);
 				}
 				Menu::forceback = 1;
-				Game::Print::PrintBottomLeft("Back Pressed - Paints Restored");
 			}
 		}
 		else
@@ -2483,11 +2481,9 @@ namespace sub
 				}
 				if (MenuPressTimer::IsButtonTapped(MenuPressTimer::Button::Back))
 				{
-					Game::Print::PrintBottomLeft("Back Pressed - Restoring Mod Option");
 					SET_VEHICLE_MOD(vehicle, modType, lastMod, GET_VEHICLE_MOD_VARIATION(vehicle, modType));
 					Menu::forceback = 1;
 					return;
-					Game::Print::PrintBottomLeft("Back Pressed - Mod Option Restored");
 				}
 			}
 		}
@@ -2943,7 +2939,6 @@ namespace sub
 		{
 			if (MenuPressTimer::IsButtonTapped(MenuPressTimer::Button::Back)) // running this here prevents the sript from working for bikes due to (I believe) the return on line 2459. Moving it to before that section causes a crash when using a car. 
 			{
-				Game::Print::PrintBottomLeft("Back Pressed - Restoring Wheels");
 				if (wtype != WheelType::BikeWheels)
 				{
 					SET_VEHICLE_WHEEL_TYPE(Static_12, lastwheeltype);
@@ -2951,7 +2946,6 @@ namespace sub
 					SET_VEHICLE_MOD(Static_12, VehicleMod::BackWheels, lastbwheel, GET_VEHICLE_MOD_VARIATION(Static_12, VehicleMod::BackWheels));
 				}
 				Menu::forceback = 1;
-				Game::Print::PrintBottomLeft("Back Pressed - Wheels Restored");
 			}
 		}
 	}
