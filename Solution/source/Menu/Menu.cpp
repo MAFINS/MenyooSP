@@ -584,7 +584,6 @@ void Menu::while_opened()
 	// B press
 	if (MenuPressTimer::IsButtonTapped(MenuPressTimer::Button::Back) || Menu::forceback)
 	{
-		Game::Print::PrintBottomLeft("Back Pressed - Navigating back one menu");
 		if (currentsub == SUB::MAINMENU)
 			SetSub_closed();
 		else
