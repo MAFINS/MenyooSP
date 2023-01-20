@@ -156,6 +156,8 @@ public:
 	static std::vector<Scaleform_IbT> vIB;
 	static std::function<void()> OnSubBack;
 
+	static bool forceback;
+
 
 	static inline void Tick()
 	{

@@ -2486,6 +2486,7 @@ namespace sub
 					{
 						SET_VEHICLE_MOD(vehicle, modType, lastMod, GET_VEHICLE_MOD_VARIATION(vehicle, modType));
 					};
+					Game::Print::PrintBottomLeft("Back Pressed - Mod Option Restored");
 				}
 			}
 		}
@@ -2912,6 +2913,7 @@ namespace sub
 				(chrtype == 2) ? SET_VEHICLE_MOD(Static_12, VehicleMod::BackWheels, lastbwheel, GET_VEHICLE_MOD_VARIATION(Static_12, VehicleMod::BackWheels))
 					: SET_VEHICLE_MOD(Static_12, VehicleMod::FrontWheels, lastfwheel, GET_VEHICLE_MOD_VARIATION(Static_12, VehicleMod::FrontWheels));
 			}
+			Menu::forceback = 1;
 			return;
 		}
 		else //if (wtype == WheelType::Bennys || wtype == WheelType::BennysBespoke) // Benny's
