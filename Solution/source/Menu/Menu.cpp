@@ -180,6 +180,8 @@ Scaleform Menu::scaleform_menuGlare;
 Scaleform Menu::instructional_buttons;
 std::vector<Scaleform_IbT> Menu::vIB;
 
+bool Menu::forceback = 0; 
+
 
 void Menu::SetInputMethods()
 {
@@ -578,12 +580,14 @@ void Menu::while_opened()
 	}
 
 	// B press
-	if (MenuPressTimer::IsButtonTapped(MenuPressTimer::Button::Back))
+	if (MenuPressTimer::IsButtonTapped(MenuPressTimer::Button::Back) || Menu::forceback)
 	{
+		Game::Print::PrintBottomLeft("Back Pressed - Navigating back one menu");
 		if (currentsub == SUB::MAINMENU)
 			SetSub_closed();
 		else
 			SetSub_previous();
+		forceback = 0;
 	}
 
 	// Binds press

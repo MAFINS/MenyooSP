@@ -154,6 +154,8 @@ public:
 	static Scaleform scaleform_menuGlare, instructional_buttons;
 	static std::vector<Scaleform_IbT> vIB;
 
+	static bool forceback;
+
 
 	static inline void Tick()
 	{
