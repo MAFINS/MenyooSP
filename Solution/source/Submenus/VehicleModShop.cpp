@@ -594,16 +594,19 @@ namespace sub
 				return;
 			}
 
-			if (MenuPressTimer::IsButtonTapped(MenuPressTimer::Button::Back))
+			if (Menu::OnSubBack == nullptr)
 			{
-				paintCarUsing_index(vehicle, ms_curr_paint_index, lastpaint, lastpearl);
-				if (iscustompaint)
+				Menu::OnSubBack = [vehicle]()
 				{
-					if (ms_curr_paint_index == 1)
-						SET_VEHICLE_CUSTOM_PRIMARY_COLOUR(vehicle, lastr, lastg, lastb);
-					else if (ms_curr_paint_index == 2)
-						SET_VEHICLE_CUSTOM_SECONDARY_COLOUR(vehicle, lastr, lastg, lastb);
-				}
+					paintCarUsing_index(vehicle, ms_curr_paint_index, lastpaint, lastpearl);
+					if (iscustompaint)
+					{
+						if (ms_curr_paint_index == 1)
+							SET_VEHICLE_CUSTOM_PRIMARY_COLOUR(vehicle, lastr, lastg, lastb);
+						else if (ms_curr_paint_index == 2)
+							SET_VEHICLE_CUSTOM_SECONDARY_COLOUR(vehicle, lastr, lastg, lastb);
+					}
+				};
 			}
 		}
 		else
@@ -2507,12 +2510,13 @@ namespace sub
 				{
 					lastMod = i;
 					//Menu::SetSub_previous();
-					return;
 				}
-				if (MenuPressTimer::IsButtonTapped(MenuPressTimer::Button::Back))
+				if (Menu::OnSubBack == nullptr)
 				{
-					SET_VEHICLE_MOD(vehicle, modType, lastMod, GET_VEHICLE_MOD_VARIATION(vehicle, modType));
-					return;
+					Menu::OnSubBack = [vehicle, modType]()
+					{
+						SET_VEHICLE_MOD(vehicle, modType, lastMod, GET_VEHICLE_MOD_VARIATION(vehicle, modType));
+					};
 				}
 			}
 		}
@@ -2926,7 +2930,7 @@ namespace sub
 			AddTitle(bIsChromeSelected ? "Chrome Wheels" : "Bike Wheels");
 
 			std::array<int, 5> ids{ 0, 13, 26, 48, ms_max_windices };
-			for (UINT8 j = bIsChromeSelected ? 1 : 0; j < ids.size(); j += 2)
+			for (int j = bIsChromeSelected ? 1 : 0; j < ids.size(); j += 2)
 			{
 				for (i = ids[j]; i < ids[j + 1]; i++)
 				{
@@ -2934,7 +2938,7 @@ namespace sub
 				}
 			}
 
-			if (_globalLSC_Customs && MenuPressTimer::IsButtonTapped(MenuPressTimer::Button::Back)) // this has been split out for bikes, see further comments on the original section below (line 2575)
+			if (_globalLSC_Customs && Menu::OnSubBack == nullptr) // this has been split out for bikes, see further comments on the original section below (line 2575)
 			{
 				(chrtype == 2) ? SET_VEHICLE_MOD(Static_12, VehicleMod::BackWheels, lastbwheel, GET_VEHICLE_MOD_VARIATION(Static_12, VehicleMod::BackWheels))
 					: SET_VEHICLE_MOD(Static_12, VehicleMod::FrontWheels, lastfwheel, GET_VEHICLE_MOD_VARIATION(Static_12, VehicleMod::FrontWheels));
@@ -2965,14 +2969,14 @@ namespace sub
 
 		if (_globalLSC_Customs)
 		{
-			if (MenuPressTimer::IsButtonTapped(MenuPressTimer::Button::Back)) // running this here prevents the sript from working for bikes due to (I believe) the return on line 2459. Moving it to before that section causes a crash when using a car. 
+			if (wtype != WheelType::BikeWheels && Menu::OnSubBack == nullptr)
 			{
-				if (wtype != WheelType::BikeWheels)
+				Menu::OnSubBack = []()
 				{
 					SET_VEHICLE_WHEEL_TYPE(Static_12, lastwheeltype);
 					SET_VEHICLE_MOD(Static_12, VehicleMod::FrontWheels, lastfwheel, GET_VEHICLE_MOD_VARIATION(Static_12, VehicleMod::FrontWheels));
 					SET_VEHICLE_MOD(Static_12, VehicleMod::BackWheels, lastbwheel, GET_VEHICLE_MOD_VARIATION(Static_12, VehicleMod::BackWheels));
-				}
+				};
 			}
 		}
 	}
