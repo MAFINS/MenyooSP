@@ -18,6 +18,7 @@
 #include <vector>
 //#include <array>
 #include <string>
+#include <functional>
 
 typedef int INT, BOOL;
 typedef signed char INT8;
@@ -153,6 +154,7 @@ public:
 	static bool bit_controller, bit_mouse, bit_centre_title, bit_centre_options, bit_centre_breaks, gradients, thin_line_over_screct, bit_glare_test;
 	static Scaleform scaleform_menuGlare, instructional_buttons;
 	static std::vector<Scaleform_IbT> vIB;
+	static std::function<void()> OnSubBack;
 
 	static bool forceback;
 

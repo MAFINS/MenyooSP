@@ -179,6 +179,7 @@ Menu::gradients = 1, Menu::thin_line_over_screct = 1, Menu::bit_glare_test = 1;
 Scaleform Menu::scaleform_menuGlare;
 Scaleform Menu::instructional_buttons;
 std::vector<Scaleform_IbT> Menu::vIB;
+std::function<void()> Menu::OnSubBack = nullptr;
 
 bool Menu::forceback = 0; 
 
@@ -630,6 +631,12 @@ void Menu::Top(bool playSound)
 }
 void Menu::SetSub_previous()
 {
+	if (OnSubBack != nullptr)
+	{
+		OnSubBack();
+		OnSubBack = nullptr;
+	}
+
 	currentsub = currentsub_ar[currentsub_ar_index]; // Get previous submenu from array and set as current submenu
 	currentop = currentop_ar[currentsub_ar_index]; // Get last selected option from array and set as current selected option
 	
