@@ -35,7 +35,6 @@
 
 namespace sub
 {
-	bool lowersuspension = 0;
 	int lastMod = -2;
 	bool selectmod = false;
 	int lastpaint, lastpearl, lastr, lastg, lastb;
@@ -2912,7 +2911,6 @@ namespace sub
 				(chrtype == 2) ? SET_VEHICLE_MOD(Static_12, VehicleMod::BackWheels, lastbwheel, GET_VEHICLE_MOD_VARIATION(Static_12, VehicleMod::BackWheels))
 					: SET_VEHICLE_MOD(Static_12, VehicleMod::FrontWheels, lastfwheel, GET_VEHICLE_MOD_VARIATION(Static_12, VehicleMod::FrontWheels));
 			}
-			Menu::forceback = 1;
 			return;
 		}
 		else //if (wtype == WheelType::Bennys || wtype == WheelType::BennysBespoke) // Benny's
@@ -3302,7 +3300,6 @@ namespace sub
 	{
 		if (!DOES_ENTITY_EXIST(Static_12))
 		{
-			loop_neon_anims = 0;
 			Menu::SetSub_previous();
 			return;
 		}
@@ -3331,6 +3328,15 @@ namespace sub
 				vehicle.SetNeonLightOn(i.first, bPressed_on);
 			}
 		}
+
+		bool rgbmode2 = false;
+		AddOption("Set Colour", rgbmode2, nullFunc, SUB::MSPAINTS_RGB); if (rgbmode2)
+		{
+			bit_MSPaints_RGB_mode = 2;
+		}
+		if (*Menu::currentopATM == Menu::printingop)
+			Add_preset_colour_options_previews(vehicle.NeonLightsColour_get());
+
 		AddTexter("Neon Animation", loop_neon_anims, NEON_ANIM, null, neon_anim_plus, neon_anim_minus); //how do I reset loop_neon_anims to 0 if player is in a new vehicle?
 		
 		if (neon_anim_plus)
@@ -3367,13 +3373,6 @@ namespace sub
 		}
 
 
-		bool rgbmode2 = false;
-		AddOption("Set Colour", rgbmode2, nullFunc, SUB::MSPAINTS_RGB); if (rgbmode2)
-		{
-			bit_MSPaints_RGB_mode = 2;
-		}
-		if (*Menu::currentopATM == Menu::printingop)
-			Add_preset_colour_options_previews(vehicle.NeonLightsColour_get());
 
 	}
 
