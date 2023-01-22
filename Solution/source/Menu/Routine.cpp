@@ -353,7 +353,7 @@ loop_vehicle_laser_red = 0, loop_vehicle_turrets_valkyrie = 0, loop_vehicle_flar
 loop_car_colour_change = 0, loop_vehicle_invisibility = 0, loop_self_engineOn = 0, loop_hide_hud = 0, loop_showFullHud = 0,
 loop_pause_clock = 0, loop_sync_clock = 0, loop_triple_bullets = 0, loop_rapid_fire = 0, loop_self_resurrectionGun = 0, loop_soulswitch_gun = 0, loop_self_deleteGun = 0, loop_vehicle_fixloop = 0, loop_vehicle_fliploop = 0,
 loop_blackout_mode = 0, loop_simple_blackout_mode = 0, loop_restricted_areas_access = 0, loop_HVSnipers = 0, loop_vehicle_disableSiren = 0, loop_fireworksDisplay = 0,
-bit_infinite_ammo = 0, loop_self_inf_parachutes = 0;
+bit_infinite_ammo = 0, loop_self_inf_parachutes = 0, lowersuspension = 0;
 
 int loop_neon_anims = 0, loop_neon_delay = 1000;
 
@@ -2364,6 +2364,16 @@ void set_vehicle_rainbow_mode_tick(GTAvehicle vehicle, bool useFader)
 }
 void set_vehicle_neon_anim(GTAvehicle vehicle)
 {
+	if (Static_12 != g_myVeh) 
+	{
+		loop_neon_flash = 0;
+		loop_neon_fade = 0;
+		loop_neon_rgb = 0;
+		for (int i = 0; i < 4; i++) {
+			neonstate[i] = 0;
+		}
+		lowersuspension = 0;
+	}
 	switch (loop_neon_anims)
 	{
 		case 1:

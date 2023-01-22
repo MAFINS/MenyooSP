@@ -182,9 +182,6 @@ Scaleform Menu::instructional_buttons;
 std::vector<Scaleform_IbT> Menu::vIB;
 std::function<void()> Menu::OnSubBack = nullptr;
 
-bool Menu::forceback = 0; 
-
-
 void Menu::SetInputMethods()
 {
 	bit_controller = MenuInput::IsUsingController();
@@ -582,13 +579,12 @@ void Menu::while_opened()
 	}
 
 	// B press
-	if (MenuPressTimer::IsButtonTapped(MenuPressTimer::Button::Back) || Menu::forceback)
+	if (MenuPressTimer::IsButtonTapped(MenuPressTimer::Button::Back))
 	{
 		if (currentsub == SUB::MAINMENU)
 			SetSub_closed();
 		else
 			SetSub_previous();
-		forceback = 0;
 	}
 
 	// Binds press
@@ -596,7 +592,6 @@ void Menu::while_opened()
 	{
 		SetSub_closed();
 	}
-		
 }
 void Menu::Up(bool playSound)
 {
