@@ -4391,14 +4391,18 @@ enum class VehicleNeonLight : int
 	Front = 2,
 	Back = 3,
 };
-enum VehicleNeonAnimation : int
+/*enum VehicleNeonFlash : int
 {
 	None,
-	Flash,
-	Fade,
+	Simple,
 	Spin,
 	SpinBack,
 };
+enum VehicleNeonFade : int
+{
+	None,
+	Simple,
+};*/
 enum class VehicleRoofState : int
 {
 	Closed,
