@@ -209,6 +209,7 @@ void TickNeonFlashAnim()
 	{
 		auto& neonpower = g_neonFlash;
 		neonpower = !neonpower;
+
 		g_FlashTick = GetTickCount();
 	}
 }
@@ -216,7 +217,7 @@ void TickNeonFadeAnim()
 {
 	if (GetTickCount() > g_NeonFaderTick + 20U) {
 		auto& fade = g_neonFade;
-		int time = GetTickCount() % (2*loop_neon_delay);
+		int time = GetTickCount() % (2 * loop_neon_delay);
 		if (time > 0)
 			loop_fade_multiplier = 0.5 * (cos((3.14 * time) / loop_neon_delay) + 1);
 		else
@@ -226,11 +227,11 @@ void TickNeonFadeAnim()
 		fade.B = g_neon_colour_set.B * loop_fade_multiplier;
 		g_NeonFaderTick = GetTickCount();
 	}
-	
+
 }
 void TickNeonSpinAnim()
 {
-	if (GetTickCount() > g_SpinTick + (loop_neon_delay/4))
+	if (GetTickCount() > g_SpinTick + (loop_neon_delay / 4))
 	{
 		auto& spindex = g_neonSpin;
 		auto& spindex2 = g_neonSpinBack;
@@ -279,7 +280,7 @@ void TickNeonSpinAnim()
 			spindex = 0;
 			break;
 		}
-		}		
+		}
 		g_SpinTick = GetTickCount();
 	}
 }
@@ -367,7 +368,7 @@ loop_vehicle_laser_red = 0, loop_vehicle_turrets_valkyrie = 0, loop_vehicle_flar
 loop_car_colour_change = 0, loop_vehicle_invisibility = 0, loop_self_engineOn = 0, loop_hide_hud = 0, loop_showFullHud = 0,
 loop_pause_clock = 0, loop_sync_clock = 0, loop_triple_bullets = 0, loop_rapid_fire = 0, loop_self_resurrectionGun = 0, loop_soulswitch_gun = 0, loop_self_deleteGun = 0, loop_vehicle_fixloop = 0, loop_vehicle_fliploop = 0,
 loop_blackout_mode = 0, loop_simple_blackout_mode = 0, loop_restricted_areas_access = 0, loop_HVSnipers = 0, loop_vehicle_disableSiren = 0, loop_fireworksDisplay = 0,
-bit_infinite_ammo = 0, loop_self_inf_parachutes = 0, lowersuspension = 0;
+bit_infinite_ammo = 0, loop_self_inf_parachutes = 0, lowersuspension = 0, loop_neon_rgb;
 
 int loop_neon_anims = 0, loop_neon_delay = 1000;
 
@@ -479,7 +480,7 @@ void update_nearby_stuff_arrays_tick()
 
 	INT i, offsettedID, count = 100;
 
-	Ped *peds = new Ped[count * 2 + 2];
+	Ped* peds = new Ped[count * 2 + 2];
 	peds[0] = count;
 	INT found = GET_PED_NEARBY_PEDS(me, (Any*)peds, -1);
 	for (i = 0; i < found; i++)
@@ -502,7 +503,7 @@ void update_nearby_stuff_arrays_tick()
 	delete[] peds;
 
 
-	Vehicle *vehicles = new Vehicle[count * 2 + 2];
+	Vehicle* vehicles = new Vehicle[count * 2 + 2];
 	vehicles[0] = count;
 	found = GET_PED_NEARBY_VEHICLES(me, (Any*)vehicles);
 	for (i = 0; i < found; i++)
@@ -1307,7 +1308,7 @@ void set_forge_gun_dist(float& distance)
 inline void set_forge_gun_rot_hotkeys()
 {
 	Vector3 Rot = GET_ENTITY_ROTATION(targ_slot_entity, 2);
-	FLOAT &precision = _globalForgeGun_prec;
+	FLOAT& precision = _globalForgeGun_prec;
 
 	if (!Menu::bit_controller)
 	{
@@ -2370,21 +2371,32 @@ void set_vehicle_rainbow_mode_tick(GTAvehicle vehicle, bool useFader)
 }
 void set_vehicle_neon_anim(GTAvehicle vehicle)
 {
-	if (Static_12 != g_myVeh) 
+	if (Static_12 != g_myVeh)
 	{
-		loop_neon_flash = 0;
-		loop_neon_fade = 0;
+		loop_neon_anims = 0;
 		loop_neon_rgb = 0;
 		for (int i = 0; i < 4; i++) {
 			neonstate[i] = 0;
 		}
 		lowersuspension = 0;
 	}
+	if (loop_neon_rgb) // only seems to work when loop_neon_anims >0 
+	{
+		vehicle.RequestControlOnce();
+		for (auto& i : std::map<VehicleNeonLight, std::pair<Hash, std::string>>{
+				{ VehicleNeonLight::Left,{ 0xCE8DADF3, "Left" } },
+				{ VehicleNeonLight::Right,{ 0x92E936A7, "Right" } },
+				{ VehicleNeonLight::Front,{ 0x79ABE687, "Front" } },
+				{ VehicleNeonLight::Back,{ 0x6BECCB09, "Back" } }
+			})
+			vehicle.SetNeonLightOn(i.first, neonstate[static_cast<int>(i.first) - 1]);
+		g_neon_colour_set = g_fadedRGB;
+		vehicle.NeonLightsColour_set(g_neon_colour_set);
+	}
 	switch (loop_neon_anims)
 	{
-		case 1:
+		case 0:
 		{
-
 			vehicle.RequestControlOnce();
 			for (auto& i : std::map<VehicleNeonLight, std::pair<Hash, std::string>>{
 					{ VehicleNeonLight::Left,{ 0xCE8DADF3, "Left" } },
@@ -2393,7 +2405,20 @@ void set_vehicle_neon_anim(GTAvehicle vehicle)
 					{ VehicleNeonLight::Back,{ 0x6BECCB09, "Back" } }
 				})
 				vehicle.SetNeonLightOn(i.first, neonstate[static_cast<int>(i.first) - 1]);
-			vehicle.NeonLightsColour_set(g_fadedRGB);
+			vehicle.NeonLightsColour_set(g_neon_colour_set);
+			break;
+		}
+		case 1:
+		{
+			vehicle.RequestControlOnce();
+			for (auto& i : std::map<VehicleNeonLight, std::pair<Hash, std::string>>{
+					{ VehicleNeonLight::Left,{ 0xCE8DADF3, "Left" } },
+					{ VehicleNeonLight::Right,{ 0x92E936A7, "Right" } },
+					{ VehicleNeonLight::Front,{ 0x79ABE687, "Front" } },
+					{ VehicleNeonLight::Back,{ 0x6BECCB09, "Back" } }
+				})
+				vehicle.SetNeonLightOn(i.first, g_neonFlash * neonstate[static_cast<int>(i.first) - 1]);
+			vehicle.NeonLightsColour_set(g_neon_colour_set);
 			break;
 		}
 		case 2:
@@ -2405,23 +2430,11 @@ void set_vehicle_neon_anim(GTAvehicle vehicle)
 					{ VehicleNeonLight::Front,{ 0x79ABE687, "Front" } },
 					{ VehicleNeonLight::Back,{ 0x6BECCB09, "Back" } }
 				})
-				vehicle.SetNeonLightOn(i.first, g_neonFlash * neonstate[static_cast<int>(i.first) - 1]);
-			break;
-		}
-		case 3:
-		{			
-			vehicle.RequestControlOnce();
-			for (auto& i : std::map<VehicleNeonLight, std::pair<Hash, std::string>>{
-					{ VehicleNeonLight::Left,{ 0xCE8DADF3, "Left" } },
-					{ VehicleNeonLight::Right,{ 0x92E936A7, "Right" } },
-					{ VehicleNeonLight::Front,{ 0x79ABE687, "Front" } },
-					{ VehicleNeonLight::Back,{ 0x6BECCB09, "Back" } }
-				})
 				vehicle.SetNeonLightOn(i.first, neonstate[static_cast<int>(i.first) - 1]);
 			vehicle.NeonLightsColour_set(g_neonFade);
 			break;
 		}
-		case 4:
+		case 3:
 		{
 			vehicle.RequestControlOnce();
 			for (auto& i : std::map<VehicleNeonLight, std::pair<Hash, std::string>>{
@@ -2434,9 +2447,10 @@ void set_vehicle_neon_anim(GTAvehicle vehicle)
 					vehicle.SetNeonLightOn(i.first, true);
 				else
 					vehicle.SetNeonLightOn(i.first, false);
+			vehicle.NeonLightsColour_set(g_neon_colour_set);
 			break;
 		}
-		case 5:
+		case 4:
 		{
 			vehicle.RequestControlOnce();
 			for (auto& i : std::map<VehicleNeonLight, std::pair<Hash, std::string>>{
@@ -2449,1120 +2463,1104 @@ void set_vehicle_neon_anim(GTAvehicle vehicle)
 					vehicle.SetNeonLightOn(i.first, true);
 				else
 					vehicle.SetNeonLightOn(i.first, false);
-			break;
-		}
-		case 0: default:
-		{
-			vehicle.RequestControlOnce();
-			for (auto& i : std::map<VehicleNeonLight, std::pair<Hash, std::string>>{
-					{ VehicleNeonLight::Left,{ 0xCE8DADF3, "Left" } },
-					{ VehicleNeonLight::Right,{ 0x92E936A7, "Right" } },
-					{ VehicleNeonLight::Front,{ 0x79ABE687, "Front" } },
-					{ VehicleNeonLight::Back,{ 0x6BECCB09, "Back" } }
-			})
-			vehicle.SetNeonLightOn(i.first, neonstate[static_cast<int>(i.first) - 1]);
+			vehicle.NeonLightsColour_set(g_neon_colour_set);
 			break;
 		}
 	}
 }
-void set_vehicle_heavy_mass_tick(GTAvehicle vehicle)
-{
-	if (!vehicle.Exists())
-		return;
 
-	float speed = vehicle.Speed_get();
-	if (speed < 0.5f)
-		return;
-
-	vehicle.RequestControlOnce();
-
-	set_vehicle_invincible_on(vehicle.Handle());
-	vehicle.Repair(true); // Only if it needs a repair obv
-	vehicle.SetFrictionOverride(100.0f);
-	if (!vehicle.IsSeatFree(VehicleSeat::SEAT_DRIVER))
-		set_ped_seatbelt_on(vehicle.GetPedOnSeat(VehicleSeat::SEAT_DRIVER).Handle());
-
-	float pushForce = speed * 3.5f; // More speed === More bleed
-
-	auto& vehicleArray = vehicle == g_myVeh ? _nearbyVehicles : _worldVehicles;
-
-	for (auto& veh : vehicleArray)
+	void set_vehicle_heavy_mass_tick(GTAvehicle vehicle)
 	{
-		if (vehicle != veh && vehicle.IsTouching(veh))
+		if (!vehicle.Exists())
+			return;
+
+		float speed = vehicle.Speed_get();
+		if (speed < 0.5f)
+			return;
+
+		vehicle.RequestControlOnce();
+
+		set_vehicle_invincible_on(vehicle.Handle());
+		vehicle.Repair(true); // Only if it needs a repair obv
+		vehicle.SetFrictionOverride(100.0f);
+		if (!vehicle.IsSeatFree(VehicleSeat::SEAT_DRIVER))
+			set_ped_seatbelt_on(vehicle.GetPedOnSeat(VehicleSeat::SEAT_DRIVER).Handle());
+
+		float pushForce = speed * 3.5f; // More speed === More bleed
+
+		auto& vehicleArray = vehicle == g_myVeh ? _nearbyVehicles : _worldVehicles;
+
+		for (auto& veh : vehicleArray)
 		{
-			GTAvehicle(veh).ApplyForce(vehicle.CollisionNormal() * pushForce);
-			vehicle.SetForwardSpeed(speed);
-		}
-	}
-
-}
-
-// Vehicle weapons
-Vector3 vehicle_weapons_originR, vehicle_weapons_targetR;
-Vector3 vehicle_weapons_originL, vehicle_weapons_targetL;
-void store_vehicle_weapon_pos(const GTAentity& vehicle)
-{
-	Vector3_t dim1, dim2;
-	vehicle.Model().Dimensions(dim1, dim2);
-
-	if (IS_DISABLED_CONTROL_PRESSED(0, INPUT_LOOK_BEHIND))// || IS_GAMEPLAY_CAM_LOOKING_BEHIND()) // RS
-	{
-		vehicle_weapons_originR = vehicle.GetOffsetInWorldCoords(dim1.x - 0.22f, 0.5f - dim2.y, 0.5f);
-		vehicle_weapons_targetR = vehicle.GetOffsetInWorldCoords(dim1.x - 0.22f, -(dim1.y + 350.0f), 0.5f);
-
-		vehicle_weapons_originL = vehicle.GetOffsetInWorldCoords(0.22f - dim2.x, 0.5f - dim2.y, 0.5f);
-		vehicle_weapons_targetL = vehicle.GetOffsetInWorldCoords(0.22f - dim2.x, -(dim2.y + 350.0f), 0.5f);
-	}
-	else
-	{
-		vehicle_weapons_originR = vehicle.GetOffsetInWorldCoords(dim1.x - 0.22f, dim1.y - 0.5f, 0.5f);
-		vehicle_weapons_targetR = vehicle.GetOffsetInWorldCoords(dim1.x - 0.22f, dim1.y + 350.0f, 0.5f);
-
-		vehicle_weapons_originL = vehicle.GetOffsetInWorldCoords(0.22f - dim2.x, dim1.y - 0.5f, 0.5f);
-		vehicle_weapons_targetL = vehicle.GetOffsetInWorldCoords(0.22f - dim2.x, dim1.y + 350.0f, 0.5f);
-	}
-}
-void set_vehicle_weapon_fire(Hash whash, float speed = 2000.0f)
-{
-	auto& owner = Game::PlayerPed();
-
-	World::ShootBullet(vehicle_weapons_originR, vehicle_weapons_targetR, owner, whash, 200, speed, true, true);
-	World::ShootBullet(vehicle_weapons_originL, vehicle_weapons_targetL, owner, whash, 200, speed, true, true);
-	//BOOL p7 = 0 or 1?
-}
-void set_vehicle_weapon_explosion(const EXPLOSION::EXPLOSION& type)
-{
-	Vector3 targPosR, targPosL;
-
-	GTAvehicle vehicle(g_myVeh);
-
-	if (IS_DISABLED_CONTROL_PRESSED(0, INPUT_LOOK_BEHIND))// || IS_GAMEPLAY_CAM_LOOKING_BEHIND()) // RS
-	{
-		targPosR = vehicle.GetOffsetInWorldCoords(1.24f, -40.0f, 0.0f);
-		targPosL = vehicle.GetOffsetInWorldCoords(-1.24f, -40.0f, 0.0f);
-
-	}
-	else
-	{
-		targPosR = vehicle.GetOffsetInWorldCoords(1.24f, 40.0f, 0.0f);
-		targPosL = vehicle.GetOffsetInWorldCoords(-1.24f, 40.0f, 0.0f);
-	}
-
-	World::AddExplosion(targPosR, type, 5.0f, 0.3f, true, true);
-	World::AddExplosion(targPosL, type, 5.0f, 0.3f, true, true);
-}
-void set_vehicle_weapon_lines()
-{
-	World::DrawLine(vehicle_weapons_originR, vehicle_weapons_targetR, RGBA(titlebox.R, titlebox.G, titlebox.B, 255));
-	World::DrawLine(vehicle_weapons_originL, vehicle_weapons_targetL, RGBA(titlebox.R, titlebox.G, titlebox.B, 255));
-}
-void set_vehicle_weapons()
-{
-	// Store bullet coordinates
-	store_vehicle_weapon_pos(g_myVeh);
-
-	// Vehicle weapons - lines
-	if (loop_vehweap_lines)
-		set_vehicle_weapon_lines();
-
-	// Left stick / numplus press
-	if (Menu::bit_controller ? IS_CONTROL_PRESSED(2, INPUT_FRONTEND_LS) : IsKeyDown(VirtualKey::Add))
-	{
-		if (loop_vehicle_RPG
-			|| loop_vehicle_fireworks
-			|| loop_vehicle_guns
-			|| loop_vehicle_snowballs
-			|| loop_vehicle_balls
-			|| loop_vehicle_waterhyd
-			|| loop_vehicle_flameleak
-			|| loop_vehicle_laser_green
-			|| loop_vehicle_laser_red
-			|| loop_vehicle_turrets_valkyrie
-			|| loop_vehicle_flaregun
-			|| loop_vehicle_heavysnip
-			|| loop_vehicle_tazerweap
-			|| loop_vehicle_molotovweap
-			|| loop_vehicle_combatpdw)
-			CLEAR_AREA_OF_PROJECTILES(vehicle_weapons_originR.x, vehicle_weapons_originR.y, vehicle_weapons_originR.z, 8.0f, 0);
-
-		// RPG
-		if (loop_vehicle_RPG)
-			set_vehicle_weapon_fire(WEAPON_VEHICLE_ROCKET);
-
-		// Fireworks
-		if (loop_vehicle_fireworks)
-			set_vehicle_weapon_fire(WEAPON_FIREWORK);
-
-		// Guns
-		if (loop_vehicle_guns)
-			set_vehicle_weapon_fire(WEAPON_ASSAULTRIFLE);
-
-		// Snowballs
-		if (loop_vehicle_snowballs)
-			set_vehicle_weapon_fire(WEAPON_SNOWBALL, 2970.0f);
-
-		// Balls
-		if (loop_vehicle_balls)
-			set_vehicle_weapon_fire(WEAPON_BALL, 2970.0f);
-
-		// Water hydrant explosions
-		if (loop_vehicle_waterhyd)
-			set_vehicle_weapon_explosion(EXPLOSION::DIR_WATER_HYDRANT);
-
-		// Flame Explosions
-		if (loop_vehicle_flameleak)
-			set_vehicle_weapon_explosion(EXPLOSION::DIR_FLAME_EXPLODE);
-
-		// Green laser
-		if (loop_vehicle_laser_green)
-			set_vehicle_weapon_fire(VEHICLE_WEAPON_PLAYER_LASER);
-
-		// Red laser
-		if (loop_vehicle_laser_red)
-			set_vehicle_weapon_fire(VEHICLE_WEAPON_ENEMY_LASER);
-
-		// Valkyrie turrets
-		if (loop_vehicle_turrets_valkyrie) set_vehicle_weapon_fire(VEHICLE_WEAPON_NOSE_TURRET_VALKYRIE);
-
-		// Flare gun/flare
-		if (loop_vehicle_flaregun)
-			set_vehicle_weapon_fire(WEAPON_FLARE, 2970.0f);
-
-		// Heavy sniper
-		if (loop_vehicle_heavysnip)
-			set_vehicle_weapon_fire(WEAPON_HEAVYSNIPER);
-
-		// Tazer
-		if (loop_vehicle_tazerweap)
-			set_vehicle_weapon_fire(WEAPON_STUNGUN, 2970.0f);
-
-		// Molotov
-		if (loop_vehicle_molotovweap)
-			set_vehicle_weapon_fire(WEAPON_MOLOTOV, 2970.0f);
-
-		// Combat pdw
-		if (loop_vehicle_combatpdw)
-			set_vehicle_weapon_fire(WEAPON_COMBATPDW);
-
-	}
-
-}
-
-// Vehicle - ability - boost
-void set_self_vehicle_boost()
-{
-	//if (!IS_PLAYER_PRESSING_HORN(pIndex)) return;
-
-	GTAvehicle vehicle(g_myVeh);
-
-	if (!vehicle.Exists())
-		return;
-
-	vehicle.RequestControlOnce();
-
-	SET_VEHICLE_BOOST_ACTIVE(vehicle.Handle(), true);
-	APPLY_FORCE_TO_ENTITY(vehicle.Handle(), 1, 0.0f, 1.7f, 0.0f, 0.0f, 0.0f, 0.0f, 0, 1, 1, 1, 0, 1);
-	SET_VEHICLE_BOOST_ACTIVE(vehicle.Handle(), false);
-
-	set_vehicle_nos_ptfx_this_frame(vehicle);
-}
-// Vehicle - ability - native boost
-inline void set_self_vehicle_nativeboost()
-{
-	//if (loop_unlimVehBoost)
-	{
-		GTAentity& myPed = Game::PlayerPed();
-		if (IS_PED_SITTING_IN_ANY_VEHICLE(myPed.GetHandle()) && DOES_ENTITY_EXIST(g_myVeh) && GET_HAS_ROCKET_BOOST(g_myVeh))
-		{
-			//LOG_PRINT("boostCharge %.4f", *boostCharge);
-			if (IS_CONTROL_PRESSED(2, INPUT_VEH_HORN)) //_IS_VEHICLE_ROCKET_BOOST_ACTIVE(g_myVeh))
+			if (vehicle != veh && vehicle.IsTouching(veh))
 			{
-				float* boostCharge = GeneralGlobalHax::GetVehicleBoostChargePtr();
-				if (boostCharge != nullptr)
-					*boostCharge = 1.24f; // 2.5f full 1.25f full after b944
-				GeneralGlobalHax::SetVehicleBoostState(1);
-				//_SET_VEHICLE_ROCKET_BOOST_ACTIVE(g_myVeh, true);
+				GTAvehicle(veh).ApplyForce(vehicle.CollisionNormal() * pushForce);
+				vehicle.SetForwardSpeed(speed);
+			}
+		}
+
+	}
+
+	// Vehicle weapons
+	Vector3 vehicle_weapons_originR, vehicle_weapons_targetR;
+	Vector3 vehicle_weapons_originL, vehicle_weapons_targetL;
+	void store_vehicle_weapon_pos(const GTAentity & vehicle)
+	{
+		Vector3_t dim1, dim2;
+		vehicle.Model().Dimensions(dim1, dim2);
+
+		if (IS_DISABLED_CONTROL_PRESSED(0, INPUT_LOOK_BEHIND))// || IS_GAMEPLAY_CAM_LOOKING_BEHIND()) // RS
+		{
+			vehicle_weapons_originR = vehicle.GetOffsetInWorldCoords(dim1.x - 0.22f, 0.5f - dim2.y, 0.5f);
+			vehicle_weapons_targetR = vehicle.GetOffsetInWorldCoords(dim1.x - 0.22f, -(dim1.y + 350.0f), 0.5f);
+
+			vehicle_weapons_originL = vehicle.GetOffsetInWorldCoords(0.22f - dim2.x, 0.5f - dim2.y, 0.5f);
+			vehicle_weapons_targetL = vehicle.GetOffsetInWorldCoords(0.22f - dim2.x, -(dim2.y + 350.0f), 0.5f);
+		}
+		else
+		{
+			vehicle_weapons_originR = vehicle.GetOffsetInWorldCoords(dim1.x - 0.22f, dim1.y - 0.5f, 0.5f);
+			vehicle_weapons_targetR = vehicle.GetOffsetInWorldCoords(dim1.x - 0.22f, dim1.y + 350.0f, 0.5f);
+
+			vehicle_weapons_originL = vehicle.GetOffsetInWorldCoords(0.22f - dim2.x, dim1.y - 0.5f, 0.5f);
+			vehicle_weapons_targetL = vehicle.GetOffsetInWorldCoords(0.22f - dim2.x, dim1.y + 350.0f, 0.5f);
+		}
+	}
+	void set_vehicle_weapon_fire(Hash whash, float speed = 2000.0f)
+	{
+		auto& owner = Game::PlayerPed();
+
+		World::ShootBullet(vehicle_weapons_originR, vehicle_weapons_targetR, owner, whash, 200, speed, true, true);
+		World::ShootBullet(vehicle_weapons_originL, vehicle_weapons_targetL, owner, whash, 200, speed, true, true);
+		//BOOL p7 = 0 or 1?
+	}
+	void set_vehicle_weapon_explosion(const EXPLOSION::EXPLOSION & type)
+	{
+		Vector3 targPosR, targPosL;
+
+		GTAvehicle vehicle(g_myVeh);
+
+		if (IS_DISABLED_CONTROL_PRESSED(0, INPUT_LOOK_BEHIND))// || IS_GAMEPLAY_CAM_LOOKING_BEHIND()) // RS
+		{
+			targPosR = vehicle.GetOffsetInWorldCoords(1.24f, -40.0f, 0.0f);
+			targPosL = vehicle.GetOffsetInWorldCoords(-1.24f, -40.0f, 0.0f);
+
+		}
+		else
+		{
+			targPosR = vehicle.GetOffsetInWorldCoords(1.24f, 40.0f, 0.0f);
+			targPosL = vehicle.GetOffsetInWorldCoords(-1.24f, 40.0f, 0.0f);
+		}
+
+		World::AddExplosion(targPosR, type, 5.0f, 0.3f, true, true);
+		World::AddExplosion(targPosL, type, 5.0f, 0.3f, true, true);
+	}
+	void set_vehicle_weapon_lines()
+	{
+		World::DrawLine(vehicle_weapons_originR, vehicle_weapons_targetR, RGBA(titlebox.R, titlebox.G, titlebox.B, 255));
+		World::DrawLine(vehicle_weapons_originL, vehicle_weapons_targetL, RGBA(titlebox.R, titlebox.G, titlebox.B, 255));
+	}
+	void set_vehicle_weapons()
+	{
+		// Store bullet coordinates
+		store_vehicle_weapon_pos(g_myVeh);
+
+		// Vehicle weapons - lines
+		if (loop_vehweap_lines)
+			set_vehicle_weapon_lines();
+
+		// Left stick / numplus press
+		if (Menu::bit_controller ? IS_CONTROL_PRESSED(2, INPUT_FRONTEND_LS) : IsKeyDown(VirtualKey::Add))
+		{
+			if (loop_vehicle_RPG
+				|| loop_vehicle_fireworks
+				|| loop_vehicle_guns
+				|| loop_vehicle_snowballs
+				|| loop_vehicle_balls
+				|| loop_vehicle_waterhyd
+				|| loop_vehicle_flameleak
+				|| loop_vehicle_laser_green
+				|| loop_vehicle_laser_red
+				|| loop_vehicle_turrets_valkyrie
+				|| loop_vehicle_flaregun
+				|| loop_vehicle_heavysnip
+				|| loop_vehicle_tazerweap
+				|| loop_vehicle_molotovweap
+				|| loop_vehicle_combatpdw)
+				CLEAR_AREA_OF_PROJECTILES(vehicle_weapons_originR.x, vehicle_weapons_originR.y, vehicle_weapons_originR.z, 8.0f, 0);
+
+			// RPG
+			if (loop_vehicle_RPG)
+				set_vehicle_weapon_fire(WEAPON_VEHICLE_ROCKET);
+
+			// Fireworks
+			if (loop_vehicle_fireworks)
+				set_vehicle_weapon_fire(WEAPON_FIREWORK);
+
+			// Guns
+			if (loop_vehicle_guns)
+				set_vehicle_weapon_fire(WEAPON_ASSAULTRIFLE);
+
+			// Snowballs
+			if (loop_vehicle_snowballs)
+				set_vehicle_weapon_fire(WEAPON_SNOWBALL, 2970.0f);
+
+			// Balls
+			if (loop_vehicle_balls)
+				set_vehicle_weapon_fire(WEAPON_BALL, 2970.0f);
+
+			// Water hydrant explosions
+			if (loop_vehicle_waterhyd)
+				set_vehicle_weapon_explosion(EXPLOSION::DIR_WATER_HYDRANT);
+
+			// Flame Explosions
+			if (loop_vehicle_flameleak)
+				set_vehicle_weapon_explosion(EXPLOSION::DIR_FLAME_EXPLODE);
+
+			// Green laser
+			if (loop_vehicle_laser_green)
+				set_vehicle_weapon_fire(VEHICLE_WEAPON_PLAYER_LASER);
+
+			// Red laser
+			if (loop_vehicle_laser_red)
+				set_vehicle_weapon_fire(VEHICLE_WEAPON_ENEMY_LASER);
+
+			// Valkyrie turrets
+			if (loop_vehicle_turrets_valkyrie) set_vehicle_weapon_fire(VEHICLE_WEAPON_NOSE_TURRET_VALKYRIE);
+
+			// Flare gun/flare
+			if (loop_vehicle_flaregun)
+				set_vehicle_weapon_fire(WEAPON_FLARE, 2970.0f);
+
+			// Heavy sniper
+			if (loop_vehicle_heavysnip)
+				set_vehicle_weapon_fire(WEAPON_HEAVYSNIPER);
+
+			// Tazer
+			if (loop_vehicle_tazerweap)
+				set_vehicle_weapon_fire(WEAPON_STUNGUN, 2970.0f);
+
+			// Molotov
+			if (loop_vehicle_molotovweap)
+				set_vehicle_weapon_fire(WEAPON_MOLOTOV, 2970.0f);
+
+			// Combat pdw
+			if (loop_vehicle_combatpdw)
+				set_vehicle_weapon_fire(WEAPON_COMBATPDW);
+
+		}
+
+	}
+
+	// Vehicle - ability - boost
+	void set_self_vehicle_boost()
+	{
+		//if (!IS_PLAYER_PRESSING_HORN(pIndex)) return;
+
+		GTAvehicle vehicle(g_myVeh);
+
+		if (!vehicle.Exists())
+			return;
+
+		vehicle.RequestControlOnce();
+
+		SET_VEHICLE_BOOST_ACTIVE(vehicle.Handle(), true);
+		APPLY_FORCE_TO_ENTITY(vehicle.Handle(), 1, 0.0f, 1.7f, 0.0f, 0.0f, 0.0f, 0.0f, 0, 1, 1, 1, 0, 1);
+		SET_VEHICLE_BOOST_ACTIVE(vehicle.Handle(), false);
+
+		set_vehicle_nos_ptfx_this_frame(vehicle);
+	}
+	// Vehicle - ability - native boost
+	inline void set_self_vehicle_nativeboost()
+	{
+		//if (loop_unlimVehBoost)
+		{
+			GTAentity& myPed = Game::PlayerPed();
+			if (IS_PED_SITTING_IN_ANY_VEHICLE(myPed.GetHandle()) && DOES_ENTITY_EXIST(g_myVeh) && GET_HAS_ROCKET_BOOST(g_myVeh))
+			{
+				//LOG_PRINT("boostCharge %.4f", *boostCharge);
+				if (IS_CONTROL_PRESSED(2, INPUT_VEH_HORN)) //_IS_VEHICLE_ROCKET_BOOST_ACTIVE(g_myVeh))
+				{
+					float* boostCharge = GeneralGlobalHax::GetVehicleBoostChargePtr();
+					if (boostCharge != nullptr)
+						*boostCharge = 1.24f; // 2.5f full 1.25f full after b944
+					GeneralGlobalHax::SetVehicleBoostState(1);
+					//_SET_VEHICLE_ROCKET_BOOST_ACTIVE(g_myVeh, true);
+				}
+				else
+				{
+					float* boostCharge = GeneralGlobalHax::GetVehicleBoostChargePtr();
+					if (boostCharge != nullptr)
+						*boostCharge = 1.24f;
+					GeneralGlobalHax::SetVehicleBoostState(0);
+					//_SET_VEHICLE_ROCKET_BOOST_ACTIVE(g_myVeh, false);
+				}
+			}
+		}
+	}
+
+	// Vehicle - ability (personal vehicle)
+	GTAvehicle PV_sub_vehicleid;
+	void set_PVops_vehicle_text_world2Screen()
+	{
+		if (PV_sub_vehicleid.Exists())
+		{
+			GTAblip carblip = PV_sub_vehicleid.CurrentBlip();
+
+			GTAped playerPed = PLAYER_PED_ID();
+
+			if (IS_PED_SITTING_IN_VEHICLE(playerPed.Handle(), PV_sub_vehicleid.Handle()))
+			{
+				if (carblip.Exists())
+					carblip.SetAlpha(0);
+				return;
+			}
+
+			if (carblip.Exists())
+				carblip.SetAlpha(255);
+
+			Vector3& carpos = PV_sub_vehicleid.Position_get();
+
+			if (carpos.DistanceTo(playerPed.Position_get()) < 40.0f)
+			{
+				Vector2 newScreenPos;
+				if (GET_SCREEN_COORD_FROM_WORLD_COORD(carpos.x, carpos.y, carpos.z, &newScreenPos.x, &newScreenPos.y))
+				{
+					Game::Print::setupdraw(GTAfont::Impact, Vector2(0.64f, 0.64f), true, false, false);
+					Game::Print::drawstring(PV_sub_vehicleid.Model().VehicleDisplayName(true) + " - PV", newScreenPos.x, newScreenPos.y);
+				}
+			}
+		}
+	}
+
+	// Vehicle - ability (multiplier on tick)
+	std::map<Vehicle, float> g_multList_rpm;
+	std::map<Vehicle, float> g_multList_torque;
+	std::map<Vehicle, float> g_multList_maxSpeed;
+	std::map<Vehicle, float> g_multList_headlights;
+	inline void vehicle_torque_mult_tick()
+	{
+		for (auto it = g_multList_torque.begin(); it != g_multList_torque.end();)
+		{
+			if (DOES_ENTITY_EXIST(it->first))
+			{
+				SET_VEHICLE_CHEAT_POWER_INCREASE(it->first, it->second);
+				++it;
 			}
 			else
 			{
-				float* boostCharge = GeneralGlobalHax::GetVehicleBoostChargePtr();
-				if (boostCharge != nullptr)
-					*boostCharge = 1.24f;
-				GeneralGlobalHax::SetVehicleBoostState(0);
-				//_SET_VEHICLE_ROCKET_BOOST_ACTIVE(g_myVeh, false);
+				it = g_multList_torque.erase(it);
 			}
 		}
 	}
-}
-
-// Vehicle - ability (personal vehicle)
-GTAvehicle PV_sub_vehicleid;
-void set_PVops_vehicle_text_world2Screen()
-{
-	if (PV_sub_vehicleid.Exists())
+	inline void vehicle_maxSpeed_mult_tick()
 	{
-		GTAblip carblip = PV_sub_vehicleid.CurrentBlip();
-
-		GTAped playerPed = PLAYER_PED_ID();
-
-		if (IS_PED_SITTING_IN_VEHICLE(playerPed.Handle(), PV_sub_vehicleid.Handle()))
+		for (auto it = g_multList_maxSpeed.begin(); it != g_multList_maxSpeed.end();)
 		{
-			if (carblip.Exists())
-				carblip.SetAlpha(0);
-			return;
-		}
-
-		if (carblip.Exists())
-			carblip.SetAlpha(255);
-
-		Vector3& carpos = PV_sub_vehicleid.Position_get();
-
-		if (carpos.DistanceTo(playerPed.Position_get()) < 40.0f)
-		{
-			Vector2 newScreenPos;
-			if (GET_SCREEN_COORD_FROM_WORLD_COORD(carpos.x, carpos.y, carpos.z, &newScreenPos.x, &newScreenPos.y))
+			if (DOES_ENTITY_EXIST(it->first))
 			{
-				Game::Print::setupdraw(GTAfont::Impact, Vector2(0.64f, 0.64f), true, false, false);
-				Game::Print::drawstring(PV_sub_vehicleid.Model().VehicleDisplayName(true) + " - PV", newScreenPos.x, newScreenPos.y);
+				SET_ENTITY_MAX_SPEED(it->first, it->second);
+				++it;
+			}
+			else
+			{
+				it = g_multList_maxSpeed.erase(it);
 			}
 		}
 	}
-}
-
-// Vehicle - ability (multiplier on tick)
-std::map<Vehicle, float> g_multList_rpm;
-std::map<Vehicle, float> g_multList_torque;
-std::map<Vehicle, float> g_multList_maxSpeed;
-std::map<Vehicle, float> g_multList_headlights;
-inline void vehicle_torque_mult_tick()
-{
-	for (auto it = g_multList_torque.begin(); it != g_multList_torque.end();)
+	// Vehicle - getter/setter - engine sound
+	std::map<Vehicle, std::string> g_vehList_engSound;
+	std::string get_vehicle_engine_sound_name(const GTAvehicle & vehicle)
 	{
-		if (DOES_ENTITY_EXIST(it->first))
+		auto it = g_vehList_engSound.find(vehicle.GetHandle());
+		if (it != g_vehList_engSound.end())
 		{
-			SET_VEHICLE_CHEAT_POWER_INCREASE(it->first, it->second);
-			++it;
+			return it->second;
+		}
+		else
+			return std::string();
+	}
+	void set_vehicle_engine_sound_name(GTAvehicle vehicle, const std::string & name)
+	{
+		g_vehList_engSound[vehicle.GetHandle()] = name;
+		vehicle.EngineSound_set(name);
+	}
+	// Vehicle - getter/setter - removeTyres
+	std::unordered_set<Vehicle> g_vehWheelsInvisForRussian;
+	bool are_vehicle_wheels_invisible(const GTAvehicle & vehicle)
+	{
+		return (g_vehWheelsInvisForRussian.find(vehicle.GetHandle()) != g_vehWheelsInvisForRussian.end());
+	}
+	void set_vehicle_wheels_invisible(GTAvehicle vehicle, bool enable)
+	{
+		if (enable)
+		{
+			if (g_vehWheelsInvisForRussian.find(vehicle.Handle()) == g_vehWheelsInvisForRussian.end())
+				g_vehWheelsInvisForRussian.insert(vehicle.Handle());
+
+			vehicle.RequestControl(800);
+			vehicle.SetForwardSpeed(DBL_MAX * DBL_MAX);
+			WAIT(100);
+			SET_VEHICLE_CHEAT_POWER_INCREASE(vehicle.Handle(), DBL_MAX * DBL_MAX);
+			MODIFY_VEHICLE_TOP_SPEED(vehicle.Handle(), DBL_MAX * DBL_MAX);
+			vehicle.ApplyForceRelative(Vector3(0, 0, -DBL_MAX * DBL_MAX));
+			WAIT(100);
+			if (g_multList_rpm.count(vehicle.Handle()))
+			{
+				MODIFY_VEHICLE_TOP_SPEED(vehicle.Handle(), g_multList_rpm[vehicle.Handle()]);
+			}
+			else
+			{
+				MODIFY_VEHICLE_TOP_SPEED(vehicle.Handle(), 1.0f);
+			}
+			if (g_multList_torque.count(vehicle.Handle()))
+			{
+				SET_VEHICLE_CHEAT_POWER_INCREASE(vehicle.Handle(), g_multList_torque[vehicle.Handle()]);
+			}
+			else
+			{
+				SET_VEHICLE_CHEAT_POWER_INCREASE(vehicle.Handle(), 1.0f);
+			}
 		}
 		else
 		{
-			it = g_multList_torque.erase(it);
+			if (g_vehWheelsInvisForRussian.find(vehicle.Handle()) != g_vehWheelsInvisForRussian.end())
+				g_vehWheelsInvisForRussian.erase(vehicle.Handle());
+
+			vehicle.RequestControl(800);
+			for (UINT i = 0; i <= 8; i++)
+				vehicle.FixTyre(i);
+			vehicle.Repair(false);
+
+			SET_VEHICLE_CHEAT_POWER_INCREASE(vehicle.Handle(), 0.0f);
+			MODIFY_VEHICLE_TOP_SPEED(vehicle.Handle(), 0.0f);
+			WAIT(100);
+			if (g_multList_rpm.count(vehicle.Handle()))
+			{
+				MODIFY_VEHICLE_TOP_SPEED(vehicle.Handle(), g_multList_rpm[vehicle.Handle()]);
+			}
+			else
+			{
+				MODIFY_VEHICLE_TOP_SPEED(vehicle.Handle(), 1.0f);
+			}
+			if (g_multList_torque.count(vehicle.Handle()))
+			{
+				SET_VEHICLE_CHEAT_POWER_INCREASE(vehicle.Handle(), g_multList_torque[vehicle.Handle()]);
+			}
+			else
+			{
+				SET_VEHICLE_CHEAT_POWER_INCREASE(vehicle.Handle(), 1.0f);
+			}
 		}
 	}
-}
-inline void vehicle_maxSpeed_mult_tick()
-{
-	for (auto it = g_multList_maxSpeed.begin(); it != g_multList_maxSpeed.end();)
+
+	// Ped - ability (multiplier lists)
+	std::map<Ped, std::string> g_pedList_movGrp;
+	std::map<Ped, std::string> g_pedList_wmovGrp;
+	// Spooner/ped - facial mood - getter/setter
+	std::map<Ped, std::string> g_pedList_facialMood;
+	std::string get_ped_facial_mood(GTAentity ped)
 	{
-		if (DOES_ENTITY_EXIST(it->first))
-		{
-			SET_ENTITY_MAX_SPEED(it->first, it->second);
-			++it;
-		}
-		else
-		{
-			it = g_multList_maxSpeed.erase(it);
-		}
+		auto it = g_pedList_facialMood.find(ped.Handle());
+		if (it == g_pedList_facialMood.end())
+			return std::string();
+		else return it->second;
 	}
-}
-// Vehicle - getter/setter - engine sound
-std::map<Vehicle, std::string> g_vehList_engSound;
-std::string get_vehicle_engine_sound_name(const GTAvehicle& vehicle)
-{
-	auto it = g_vehList_engSound.find(vehicle.GetHandle());
-	if (it != g_vehList_engSound.end())
+	void set_ped_facial_mood(GTAentity ped, const std::string & animName)
 	{
-		return it->second;
+		//ped.RequestControl();
+		auto& m = g_pedList_facialMood[ped.Handle()];
+		m = animName;
+		SET_FACIAL_IDLE_ANIM_OVERRIDE(ped.Handle(), const_cast<PCHAR>(animName.c_str()), 0);
 	}
-	else
-		return std::string();
-}
-void set_vehicle_engine_sound_name(GTAvehicle vehicle, const std::string& name)
-{
-	g_vehList_engSound[vehicle.GetHandle()] = name;
-	vehicle.EngineSound_set(name);
-}
-// Vehicle - getter/setter - removeTyres
-std::unordered_set<Vehicle> g_vehWheelsInvisForRussian;
-bool are_vehicle_wheels_invisible(const GTAvehicle& vehicle)
-{
-	return (g_vehWheelsInvisForRussian.find(vehicle.GetHandle()) != g_vehWheelsInvisForRussian.end());
-}
-void set_vehicle_wheels_invisible(GTAvehicle vehicle, bool enable)
-{
-	if (enable)
+	void clear_ped_facial_mood(GTAentity ped)
 	{
-		if (g_vehWheelsInvisForRussian.find(vehicle.Handle()) == g_vehWheelsInvisForRussian.end())
-			g_vehWheelsInvisForRussian.insert(vehicle.Handle());
-
-		vehicle.RequestControl(800);
-		vehicle.SetForwardSpeed(DBL_MAX*DBL_MAX);
-		WAIT(100);
-		SET_VEHICLE_CHEAT_POWER_INCREASE(vehicle.Handle(), DBL_MAX*DBL_MAX);
-		MODIFY_VEHICLE_TOP_SPEED(vehicle.Handle(), DBL_MAX*DBL_MAX);
-		vehicle.ApplyForceRelative(Vector3(0, 0, -DBL_MAX*DBL_MAX));
-		WAIT(100);
-		if (g_multList_rpm.count(vehicle.Handle()))
-		{
-			MODIFY_VEHICLE_TOP_SPEED(vehicle.Handle(), g_multList_rpm[vehicle.Handle()]);
-		}
-		else
-		{
-			MODIFY_VEHICLE_TOP_SPEED(vehicle.Handle(), 1.0f);
-		}
-		if (g_multList_torque.count(vehicle.Handle()))
-		{
-			SET_VEHICLE_CHEAT_POWER_INCREASE(vehicle.Handle(), g_multList_torque[vehicle.Handle()]);
-		}
-		else
-		{
-			SET_VEHICLE_CHEAT_POWER_INCREASE(vehicle.Handle(), 1.0f);
-		}
+		//ped.RequestControl();
+		auto it = g_pedList_facialMood.find(ped.Handle());
+		if (it != g_pedList_facialMood.end())
+			g_pedList_facialMood.erase(it);
+		CLEAR_FACIAL_IDLE_ANIM_OVERRIDE(ped.Handle());
 	}
-	else
+
+	void Set_Walkunderwater(Entity PlayerPed)
 	{
-		if (g_vehWheelsInvisForRussian.find(vehicle.Handle()) != g_vehWheelsInvisForRussian.end())
-			g_vehWheelsInvisForRussian.erase(vehicle.Handle());
-
-		vehicle.RequestControl(800);
-		for (UINT i = 0; i <= 8; i++)
-			vehicle.FixTyre(i);
-		vehicle.Repair(false);
-
-		SET_VEHICLE_CHEAT_POWER_INCREASE(vehicle.Handle(), 0.0f);
-		MODIFY_VEHICLE_TOP_SPEED(vehicle.Handle(), 0.0f);
-		WAIT(100);
-		if (g_multList_rpm.count(vehicle.Handle()))
+		if (IS_ENTITY_IN_WATER(PlayerPed))
 		{
-			MODIFY_VEHICLE_TOP_SPEED(vehicle.Handle(), g_multList_rpm[vehicle.Handle()]);
-		}
-		else
-		{
-			MODIFY_VEHICLE_TOP_SPEED(vehicle.Handle(), 1.0f);
-		}
-		if (g_multList_torque.count(vehicle.Handle()))
-		{
-			SET_VEHICLE_CHEAT_POWER_INCREASE(vehicle.Handle(), g_multList_torque[vehicle.Handle()]);
-		}
-		else
-		{
-			SET_VEHICLE_CHEAT_POWER_INCREASE(vehicle.Handle(), 1.0f);
-		}
-	}
-}
+			SET_PED_CONFIG_FLAG(PlayerPed, 65, false);
+			SET_PED_CONFIG_FLAG(PlayerPed, 66, false);
+			SET_PED_CONFIG_FLAG(PlayerPed, 168, false);
 
-// Ped - ability (multiplier lists)
-std::map<Ped, std::string> g_pedList_movGrp;
-std::map<Ped, std::string> g_pedList_wmovGrp;
-// Spooner/ped - facial mood - getter/setter
-std::map<Ped, std::string> g_pedList_facialMood;
-std::string get_ped_facial_mood(GTAentity ped)
-{
-	auto it = g_pedList_facialMood.find(ped.Handle());
-	if (it == g_pedList_facialMood.end())
-		return std::string();
-	else return it->second;
-}
-void set_ped_facial_mood(GTAentity ped, const std::string& animName)
-{
-	//ped.RequestControl();
-	auto& m = g_pedList_facialMood[ped.Handle()];
-	m = animName;
-	SET_FACIAL_IDLE_ANIM_OVERRIDE(ped.Handle(), const_cast<PCHAR>(animName.c_str()), 0);
-}
-void clear_ped_facial_mood(GTAentity ped)
-{
-	//ped.RequestControl();
-	auto it = g_pedList_facialMood.find(ped.Handle());
-	if (it != g_pedList_facialMood.end())
-		g_pedList_facialMood.erase(it);
-	CLEAR_FACIAL_IDLE_ANIM_OVERRIDE(ped.Handle());
-}
+			Vector3 PlayerPos = GET_ENTITY_COORDS(PlayerPed, 0);
+			DRAW_LIGHT_WITH_RANGEEX(PlayerPos.x, PlayerPos.y, (PlayerPos.z + 1.5f), 255, 255, 251, 100.0f, 1.5f, 0.0f);
+			DRAW_LIGHT_WITH_RANGEEX(PlayerPos.x, PlayerPos.y, (PlayerPos.z + 50.0f), 255, 255, 251, 200.0f, 1.0f, 0.0f);
 
-void Set_Walkunderwater(Entity PlayerPed)
-{
-	if (IS_ENTITY_IN_WATER(PlayerPed))
-	{
-		SET_PED_CONFIG_FLAG(PlayerPed, 65, false);
-		SET_PED_CONFIG_FLAG(PlayerPed, 66, false);
-		SET_PED_CONFIG_FLAG(PlayerPed, 168, false);
-		
-		Vector3 PlayerPos = GET_ENTITY_COORDS(PlayerPed, 0);
-		DRAW_LIGHT_WITH_RANGEEX(PlayerPos.x, PlayerPos.y, (PlayerPos.z + 1.5f), 255, 255, 251, 100.0f, 1.5f, 0.0f);
-		DRAW_LIGHT_WITH_RANGEEX(PlayerPos.x, PlayerPos.y, (PlayerPos.z + 50.0f), 255, 255, 251, 200.0f, 1.0f, 0.0f);
+			if (IS_PED_JUMPING(PlayerPed)) // small pushup so jump feel more natural ( like when not underwater )
+			{
+				APPLY_FORCE_TO_ENTITY(PlayerPed, true, 0, 0, 0.7f, 0, 0, 0, true, true, true, true, false, true);
+			}
 
-		if (IS_PED_JUMPING(PlayerPed)) // small pushup so jump feel more natural ( like when not underwater )
-		{
-			APPLY_FORCE_TO_ENTITY(PlayerPed, true, 0, 0, 0.7f, 0, 0, 0, true, true, true, true, false, true);
-		}
+			if (GET_ENTITY_HEIGHT_ABOVE_GROUND(PlayerPed) > 1) //Do falling down
+			{
+				SET_PED_CONFIG_FLAG(PlayerPed, 60, false);
+				SET_PED_CONFIG_FLAG(PlayerPed, 61, false);
+				SET_PED_CONFIG_FLAG(PlayerPed, 104, false);
+				SET_PED_CONFIG_FLAG(PlayerPed, 276, false);
+				SET_PED_CONFIG_FLAG(PlayerPed, 76, true);
+				APPLY_FORCE_TO_ENTITY(PlayerPed, true, 0, 0, -0.7f, 0, 0, 0, true, true, true, true, false, true);
+			}
 
-		if (GET_ENTITY_HEIGHT_ABOVE_GROUND(PlayerPed) > 1) //Do falling down
-		{
-			SET_PED_CONFIG_FLAG(PlayerPed, 60, false);
-			SET_PED_CONFIG_FLAG(PlayerPed, 61, false);
-			SET_PED_CONFIG_FLAG(PlayerPed, 104, false);
-			SET_PED_CONFIG_FLAG(PlayerPed, 276, false);
-			SET_PED_CONFIG_FLAG(PlayerPed, 76, true);
-			APPLY_FORCE_TO_ENTITY(PlayerPed, true, 0, 0, -0.7f, 0, 0, 0, true, true, true, true, false, true);
-		}
-
-		if (GET_IS_TASK_ACTIVE(PlayerPed, 281)|| IS_PED_SWIMMING(PlayerPed) || IS_PED_SWIMMING_UNDER_WATER(PlayerPed)) // Stop Swimming
-		{
-			CLEAR_PED_TASKS_IMMEDIATELY(PlayerPed);
+			if (GET_IS_TASK_ACTIVE(PlayerPed, 281) || IS_PED_SWIMMING(PlayerPed) || IS_PED_SWIMMING_UNDER_WATER(PlayerPed)) // Stop Swimming
+			{
+				CLEAR_PED_TASKS_IMMEDIATELY(PlayerPed);
+			}
 		}
 	}
-}
 
 #pragma endregion
 
-void Menu::loops()
-{
-	//_programTick = GetTickCount() - _initialProgramTick;
-	//_programTick++; if (_programTick == MAXDWORD) _programTick == 0;
-	//_programTick++; //if(_programTick > MAXDWORD) _programTick = 0;
-	bool gameIsPaused = IS_PAUSE_MENU_ACTIVE() != 0;
-	int iped, player;
-	GTAplayer player2;
-
-	Game::CustomHelpText::Tick();
-
-	update_nearby_stuff_arrays_tick();
-
-	if (gameIsPaused)
-		SetPauseMenuTeleToWpCommand();
-
-	sub::Spooner::SpoonerMode::Tick();
-
-	sub::GhostRiderMode_catind::Tick();//sub::GhostRiderMode_catind::g_ghostRiderMode.Tick();
-	sub::VehicleAutoDrive_catind::Tick();//sub::VehicleAutoDrive_catind::Methods.Tick();
-	sub::GravityGun_catind::Tick();//sub::GravityGun_catind::g_gravityGun.Tick();
-	_MagnetGun_::g_magnetGun.Tick();
-	_SpSnow.Tick();
-	_VehicleTow_::g_vehicleTow.Tick();
-	_VehicleCruise_::g_vehicleCruise.Tick();
-	_VehicleFly_::g_vehicleFly.Tick();
-	sub::WaterHack_catind::Tick();//sub::WaterHack_catind::g_waterHack.Tick();
-	sub::LaserSight_catind::Tick();
-	_MeteorShower_::g_meteorShower.Tick();
-	_SmashAbility_::g_smashAbility.Tick();
-	_RopeGun_::g_ropeGun.Tick();
-	sub::AnimalRiding_catind::Tick();//sub::AnimalRiding_catind::g_animalRidingMode.Tick();
-	_Gta2Cam_::g_gta2Cam.Tick();
-
-	set_Ptfxlop_tick();
-
-	MenuInput::UpdateDeltaCursorNormal();
-
-	if (IS_PED_IN_ANY_VEHICLE(PLAYER_PED_ID(), 0))
+	void Menu::loops()
 	{
-		g_myVeh = GET_VEHICLE_PED_IS_IN(PLAYER_PED_ID(), 0);
-		g_myVeh_model = GET_ENTITY_MODEL(g_myVeh);
-	} // Store current vehicle
+		//_programTick = GetTickCount() - _initialProgramTick;
+		//_programTick++; if (_programTick == MAXDWORD) _programTick == 0;
+		//_programTick++; //if(_programTick > MAXDWORD) _programTick = 0;
+		bool gameIsPaused = IS_PAUSE_MENU_ACTIVE() != 0;
+		int iped, player;
+		GTAplayer player2;
 
-	if (!IS_PLAYER_DEAD(PLAYER_ID()))
-	{
-		GET_CURRENT_PED_WEAPON(PLAYER_PED_ID(), &g_myWeap, 1); // Breaks with /o2 optimisation
-	}
+		Game::CustomHelpText::Tick();
 
-	if (loop_RainbowBoxes /* && GET_GAME_TIMER() >= delayedTimer*/)
-	{
-		//Menu::gradients = false;
-		titlebox = { g_fadedRGB.R, g_fadedRGB.G, g_fadedRGB.B, titlebox.A };
-		//GET_HUD_COLOUR(GET_RANDOM_INT_IN_RANGE(0, 180), &titlebox.R, &titlebox.G, &titlebox.B, &inull);
-		//selectionhi = titlebox;
-		//iped = selectedtext.A; selectedtext = InverseRGB(selectionhi.R, selectionhi.G, selectionhi.B); selectedtext.A = iped;
+		update_nearby_stuff_arrays_tick();
 
-		//GET_HUD_COLOUR(GET_RANDOM_INT_IN_RANGE(0, 180), &BG.R, &BG.G, &BG.B, &inull);
-		//selectedtext.R = RandomRGB(); selectedtext.G = RandomRGB(); selectedtext.B = RandomRGB();
-	}
+		if (gameIsPaused)
+			SetPauseMenuTeleToWpCommand();
 
-	if (loop_Check_self_death_model)
-		_ManualRespawn_::Check_self_death_model();
+		sub::Spooner::SpoonerMode::Tick();
 
-	GeneralGlobalHax::EnableBlockedMpVehiclesInSp(true);
+		sub::GhostRiderMode_catind::Tick();//sub::GhostRiderMode_catind::g_ghostRiderMode.Tick();
+		sub::VehicleAutoDrive_catind::Tick();//sub::VehicleAutoDrive_catind::Methods.Tick();
+		sub::GravityGun_catind::Tick();//sub::GravityGun_catind::g_gravityGun.Tick();
+		_MagnetGun_::g_magnetGun.Tick();
+		_SpSnow.Tick();
+		_VehicleTow_::g_vehicleTow.Tick();
+		_VehicleCruise_::g_vehicleCruise.Tick();
+		_VehicleFly_::g_vehicleFly.Tick();
+		sub::WaterHack_catind::Tick();//sub::WaterHack_catind::g_waterHack.Tick();
+		sub::LaserSight_catind::Tick();
+		_MeteorShower_::g_meteorShower.Tick();
+		_SmashAbility_::g_smashAbility.Tick();
+		_RopeGun_::g_ropeGun.Tick();
+		sub::AnimalRiding_catind::Tick();//sub::AnimalRiding_catind::g_animalRidingMode.Tick();
+		_Gta2Cam_::g_gta2Cam.Tick();
 
-	if (loop_restricted_areas_access)
-	{
-		TERMINATE_ALL_SCRIPTS_WITH_THIS_NAME("am_armybase");
-		TERMINATE_ALL_SCRIPTS_WITH_THIS_NAME("restrictedareas");
-		TERMINATE_ALL_SCRIPTS_WITH_THIS_NAME("re_armybase");
-		TERMINATE_ALL_SCRIPTS_WITH_THIS_NAME("re_lossantosintl");
-		TERMINATE_ALL_SCRIPTS_WITH_THIS_NAME("re_prison");
-		TERMINATE_ALL_SCRIPTS_WITH_THIS_NAME("re_prisonvanbreak");
-		TERMINATE_ALL_SCRIPTS_WITH_THIS_NAME("am_doors");
-	}
+		set_Ptfxlop_tick();
 
-	if (!IS_PLAYER_SWITCH_IN_PROGRESS())
-	{
-		if (loop_pause_clock)
-			NETWORK_OVERRIDE_CLOCK_TIME(pause_clock_H, pause_clock_M, 0);
-		if (loop_sync_clock)
-			set_sync_clock_time();
-		if (sub::Clock_catind::loop_clock)
-			sub::Clock_catind::DisplayClock();
+		MenuInput::UpdateDeltaCursorNormal();
 
-		if (loop_hide_hud)
-			HIDE_HUD_AND_RADAR_THIS_FRAME();
-		if (loop_showFullHud)
-			display_full_hud_this_frame(true);
-
-		if (loop_massacre_mode)
-			set_massacre_mode_tick();
-		if (loop_blackout_mode)
-			set_blackoutEmp_mode();
-		if (loop_simple_blackout_mode)
-			SET_ARTIFICIAL_LIGHTS_STATE(TRUE);
-		if (_JumpAroundMode_::bEnabled)
-			_JumpAroundMode_::Tick();
-	}
-	
-	if (loop_player_Walkunderwater)
-		Set_Walkunderwater(PLAYER_PED_ID());
-
-	if (GET_GAME_TIMER() >= delayedTimer)
-	{
-		player = PLAYER_ID();
-		player2.Handle() = (player);
-		iped = PLAYER_PED_ID();
-
-		// Ignored by everyone
-		if (loop_ignored_by_everyone)
+		if (IS_PED_IN_ANY_VEHICLE(PLAYER_PED_ID(), 0))
 		{
-			network_set_everyone_ignore_player(player);
-			set_self_nearby_peds_calm();
-		}
-		// Freeze wanted level
-		if (loop_self_freezeWantedLevel)
+			g_myVeh = GET_VEHICLE_PED_IS_IN(PLAYER_PED_ID(), 0);
+			g_myVeh_model = GET_ENTITY_MODEL(g_myVeh);
+		} // Store current vehicle
+
+		if (!IS_PLAYER_DEAD(PLAYER_ID()))
 		{
-			SET_PLAYER_WANTED_LEVEL(player, loop_self_freezeWantedLevel, 0);
-			SET_PLAYER_WANTED_LEVEL_NOW(player, 0);
+			GET_CURRENT_PED_WEAPON(PLAYER_PED_ID(), &g_myWeap, 1); // Breaks with /o2 optimisation
 		}
 
-		if (loop_player_unlimSpecialAbility)
+		if (loop_RainbowBoxes /* && GET_GAME_TIMER() >= delayedTimer*/)
 		{
-			//if (!IS_SPECIAL_ABILITY_UNLOCKED(PedHash::FreemodeMale01)) SPECIAL_ABILITY_UNLOCK(PedHash::FreemodeMale01);
-			if (!IS_SPECIAL_ABILITY_ENABLED(player, 0))
-				ENABLE_SPECIAL_ABILITY(player, TRUE, 0);
-			SET_SPECIAL_ABILITY_MULTIPLIER(FLT_MAX);
-			//SPECIAL_ABILITY_CHARGE_ABSOLUTE(player, 15, TRUE);
-			SPECIAL_ABILITY_FILL_METER(player, TRUE, 0);
+			//Menu::gradients = false;
+			titlebox = { g_fadedRGB.R, g_fadedRGB.G, g_fadedRGB.B, titlebox.A };
+			//GET_HUD_COLOUR(GET_RANDOM_INT_IN_RANGE(0, 180), &titlebox.R, &titlebox.G, &titlebox.B, &inull);
+			//selectionhi = titlebox;
+			//iped = selectedtext.A; selectedtext = InverseRGB(selectionhi.R, selectionhi.G, selectionhi.B); selectedtext.A = iped;
+
+			//GET_HUD_COLOUR(GET_RANDOM_INT_IN_RANGE(0, 180), &BG.R, &BG.G, &BG.B, &inull);
+			//selectedtext.R = RandomRGB(); selectedtext.G = RandomRGB(); selectedtext.B = RandomRGB();
 		}
 
-		if (loop_player_autoClean)
+		if (loop_Check_self_death_model)
+			_ManualRespawn_::Check_self_death_model();
+
+		GeneralGlobalHax::EnableBlockedMpVehiclesInSp(true);
+
+		if (loop_restricted_areas_access)
 		{
-			sub::PedDamageTextures_catind::ClearAllBloodDamage(iped);
-			sub::PedDamageTextures_catind::ClearAllVisibleDamage(iped);
+			TERMINATE_ALL_SCRIPTS_WITH_THIS_NAME("am_armybase");
+			TERMINATE_ALL_SCRIPTS_WITH_THIS_NAME("restrictedareas");
+			TERMINATE_ALL_SCRIPTS_WITH_THIS_NAME("re_armybase");
+			TERMINATE_ALL_SCRIPTS_WITH_THIS_NAME("re_lossantosintl");
+			TERMINATE_ALL_SCRIPTS_WITH_THIS_NAME("re_prison");
+			TERMINATE_ALL_SCRIPTS_WITH_THIS_NAME("re_prisonvanbreak");
+			TERMINATE_ALL_SCRIPTS_WITH_THIS_NAME("am_doors");
 		}
 
-		// Fireworks display
-		if (loop_fireworksDisplay)
+		if (!IS_PLAYER_SWITCH_IN_PROGRESS())
 		{
-			start_fireworks_at_coord(GET_OFFSET_FROM_ENTITY_IN_WORLD_COORDS(player2.GetPed().Handle(), GET_RANDOM_FLOAT_IN_RANGE(-10.0f, 10.0f), GET_RANDOM_FLOAT_IN_RANGE(-6.0f, 27.0f), GET_RANDOM_FLOAT_IN_RANGE(-9.0f, 3.5f)), Vector3(0, 0, GET_RANDOM_FLOAT_IN_RANGE(-90.0f, 90.0f)), GET_RANDOM_FLOAT_IN_RANGE(0.4f, 2.45f));
-			if (rand() % (INT)2)
+			if (loop_pause_clock)
+				NETWORK_OVERRIDE_CLOCK_TIME(pause_clock_H, pause_clock_M, 0);
+			if (loop_sync_clock)
+				set_sync_clock_time();
+			if (sub::Clock_catind::loop_clock)
+				sub::Clock_catind::DisplayClock();
+
+			if (loop_hide_hud)
+				HIDE_HUD_AND_RADAR_THIS_FRAME();
+			if (loop_showFullHud)
+				display_full_hud_this_frame(true);
+
+			if (loop_massacre_mode)
+				set_massacre_mode_tick();
+			if (loop_blackout_mode)
+				set_blackoutEmp_mode();
+			if (loop_simple_blackout_mode)
+				SET_ARTIFICIAL_LIGHTS_STATE(TRUE);
+			if (_JumpAroundMode_::bEnabled)
+				_JumpAroundMode_::Tick();
+		}
+
+		if (loop_player_Walkunderwater)
+			Set_Walkunderwater(PLAYER_PED_ID());
+
+		if (GET_GAME_TIMER() >= delayedTimer)
+		{
+			player = PLAYER_ID();
+			player2.Handle() = (player);
+			iped = PLAYER_PED_ID();
+
+			// Ignored by everyone
+			if (loop_ignored_by_everyone)
 			{
-				set_explosion_at_coords(iped, Vector3(GET_RANDOM_FLOAT_IN_RANGE(9.0f, 25.0f), GET_RANDOM_FLOAT_IN_RANGE(5.0f, 25.0f), GET_RANDOM_FLOAT_IN_RANGE(0.4f, 20.0f)), EXPLOSION::DIR_WATER_HYDRANT, 8.0f, 0.0f, true, false, 0);
+				network_set_everyone_ignore_player(player);
+				set_self_nearby_peds_calm();
+			}
+			// Freeze wanted level
+			if (loop_self_freezeWantedLevel)
+			{
+				SET_PLAYER_WANTED_LEVEL(player, loop_self_freezeWantedLevel, 0);
+				SET_PLAYER_WANTED_LEVEL_NOW(player, 0);
+			}
+
+			if (loop_player_unlimSpecialAbility)
+			{
+				//if (!IS_SPECIAL_ABILITY_UNLOCKED(PedHash::FreemodeMale01)) SPECIAL_ABILITY_UNLOCK(PedHash::FreemodeMale01);
+				if (!IS_SPECIAL_ABILITY_ENABLED(player, 0))
+					ENABLE_SPECIAL_ABILITY(player, TRUE, 0);
+				SET_SPECIAL_ABILITY_MULTIPLIER(FLT_MAX);
+				//SPECIAL_ABILITY_CHARGE_ABSOLUTE(player, 15, TRUE);
+				SPECIAL_ABILITY_FILL_METER(player, TRUE, 0);
+			}
+
+			if (loop_player_autoClean)
+			{
+				sub::PedDamageTextures_catind::ClearAllBloodDamage(iped);
+				sub::PedDamageTextures_catind::ClearAllVisibleDamage(iped);
+			}
+
+			// Fireworks display
+			if (loop_fireworksDisplay)
+			{
+				start_fireworks_at_coord(GET_OFFSET_FROM_ENTITY_IN_WORLD_COORDS(player2.GetPed().Handle(), GET_RANDOM_FLOAT_IN_RANGE(-10.0f, 10.0f), GET_RANDOM_FLOAT_IN_RANGE(-6.0f, 27.0f), GET_RANDOM_FLOAT_IN_RANGE(-9.0f, 3.5f)), Vector3(0, 0, GET_RANDOM_FLOAT_IN_RANGE(-90.0f, 90.0f)), GET_RANDOM_FLOAT_IN_RANGE(0.4f, 2.45f));
+				if (rand() % (INT)2)
+				{
+					set_explosion_at_coords(iped, Vector3(GET_RANDOM_FLOAT_IN_RANGE(9.0f, 25.0f), GET_RANDOM_FLOAT_IN_RANGE(5.0f, 25.0f), GET_RANDOM_FLOAT_IN_RANGE(0.4f, 20.0f)), EXPLOSION::DIR_WATER_HYDRANT, 8.0f, 0.0f, true, false, 0);
+				}
+				else
+				{
+					set_explosion_at_coords(iped, Vector3(GET_RANDOM_FLOAT_IN_RANGE(-9.0f, -25.0f), GET_RANDOM_FLOAT_IN_RANGE(5.0f, 25.0f), GET_RANDOM_FLOAT_IN_RANGE(0.4f, 20.0f)), EXPLOSION::DIR_WATER_HYDRANT, 8.0f, 0.0f, true, false, 0);
+				}
+			}
+			//if (loop_laserSightRendering) ENABLE_LASER_SIGHT_RENDERING(1);
+
+			if (_globalRainFXIntensity > 0.0f)
+				SET_RAIN(_globalRainFXIntensity);
+
+			if (g_frozenRadioStation != -1)
+			{
+				if (GET_PLAYER_RADIO_STATION_INDEX() != g_frozenRadioStation)
+					SET_RADIO_TO_STATION_NAME(GET_RADIO_STATION_NAME(g_frozenRadioStation));
+			}
+
+			if (loop_clearWeaponPickups) {
+				REMOVE_ALL_PICKUPS_OF_TYPE(PICKUP_WEAPON_BULLPUPSHOTGUN);
+				REMOVE_ALL_PICKUPS_OF_TYPE(PICKUP_WEAPON_ASSAULTSMG);
+				REMOVE_ALL_PICKUPS_OF_TYPE(PICKUP_VEHICLE_WEAPON_ASSAULTSMG);
+				REMOVE_ALL_PICKUPS_OF_TYPE(PICKUP_WEAPON_PISTOL50);
+				REMOVE_ALL_PICKUPS_OF_TYPE(PICKUP_WEAPON_ASSAULTRIFLE);
+				REMOVE_ALL_PICKUPS_OF_TYPE(PICKUP_WEAPON_CARBINERIFLE);
+				REMOVE_ALL_PICKUPS_OF_TYPE(PICKUP_WEAPON_ADVANCEDRIFLE);
+				REMOVE_ALL_PICKUPS_OF_TYPE(PICKUP_WEAPON_MG);
+				REMOVE_ALL_PICKUPS_OF_TYPE(PICKUP_WEAPON_COMBATMG);
+				REMOVE_ALL_PICKUPS_OF_TYPE(PICKUP_WEAPON_SNIPERRIFLE);
+				REMOVE_ALL_PICKUPS_OF_TYPE(PICKUP_WEAPON_HEAVYSNIPER);
+				REMOVE_ALL_PICKUPS_OF_TYPE(PICKUP_WEAPON_MICROSMG);
+				REMOVE_ALL_PICKUPS_OF_TYPE(PICKUP_WEAPON_SMG);
+				REMOVE_ALL_PICKUPS_OF_TYPE(PICKUP_WEAPON_RPG);
+				REMOVE_ALL_PICKUPS_OF_TYPE(PICKUP_WEAPON_MINIGUN);
+				REMOVE_ALL_PICKUPS_OF_TYPE(PICKUP_WEAPON_PUMPSHOTGUN);
+				REMOVE_ALL_PICKUPS_OF_TYPE(PICKUP_WEAPON_SAWNOFFSHOTGUN);
+				REMOVE_ALL_PICKUPS_OF_TYPE(PICKUP_WEAPON_ASSAULTSHOTGUN);
+				REMOVE_ALL_PICKUPS_OF_TYPE(PICKUP_WEAPON_GRENADE);
+				REMOVE_ALL_PICKUPS_OF_TYPE(PICKUP_WEAPON_MOLOTOV);
+				REMOVE_ALL_PICKUPS_OF_TYPE(PICKUP_WEAPON_SMOKEGRENADE);
+				REMOVE_ALL_PICKUPS_OF_TYPE(PICKUP_WEAPON_STICKYBOMB);
+				REMOVE_ALL_PICKUPS_OF_TYPE(PICKUP_WEAPON_PISTOL);
+				REMOVE_ALL_PICKUPS_OF_TYPE(PICKUP_WEAPON_COMBATPISTOL);
+				REMOVE_ALL_PICKUPS_OF_TYPE(PICKUP_WEAPON_APPISTOL);
+				REMOVE_ALL_PICKUPS_OF_TYPE(PICKUP_WEAPON_GRENADELAUNCHER);
+				REMOVE_ALL_PICKUPS_OF_TYPE(PICKUP_WEAPON_STUNGUN);
+				REMOVE_ALL_PICKUPS_OF_TYPE(PICKUP_WEAPON_FIREEXTINGUISHER);
+				REMOVE_ALL_PICKUPS_OF_TYPE(PICKUP_WEAPON_PETROLCAN);
+				REMOVE_ALL_PICKUPS_OF_TYPE(PICKUP_WEAPON_KNIFE);
+				REMOVE_ALL_PICKUPS_OF_TYPE(PICKUP_WEAPON_NIGHTSTICK);
+				REMOVE_ALL_PICKUPS_OF_TYPE(PICKUP_WEAPON_HAMMER);
+				REMOVE_ALL_PICKUPS_OF_TYPE(PICKUP_WEAPON_BAT);
+				REMOVE_ALL_PICKUPS_OF_TYPE(PICKUP_WEAPON_GOLFCLUB);
+				REMOVE_ALL_PICKUPS_OF_TYPE(PICKUP_WEAPON_CROWBAR);
+				REMOVE_ALL_PICKUPS_OF_TYPE(PICKUP_WEAPON_BULLPUPRIFLE);
+				REMOVE_ALL_PICKUPS_OF_TYPE(PICKUP_WEAPON_BOTTLE);
+				REMOVE_ALL_PICKUPS_OF_TYPE(PICKUP_WEAPON_SNSPISTOL);
+				REMOVE_ALL_PICKUPS_OF_TYPE(PICKUP_WEAPON_GUSENBERG);
+				REMOVE_ALL_PICKUPS_OF_TYPE(PICKUP_WEAPON_HEAVYPISTOL);
+				REMOVE_ALL_PICKUPS_OF_TYPE(PICKUP_WEAPON_SPECIALCARBINE);
+				REMOVE_ALL_PICKUPS_OF_TYPE(PICKUP_WEAPON_DAGGER);
+				REMOVE_ALL_PICKUPS_OF_TYPE(PICKUP_WEAPON_VINTAGEPISTOL);
+				REMOVE_ALL_PICKUPS_OF_TYPE(PICKUP_WEAPON_FIREWORK);
+				REMOVE_ALL_PICKUPS_OF_TYPE(PICKUP_WEAPON_MUSKET);
+				REMOVE_ALL_PICKUPS_OF_TYPE(PICKUP_WEAPON_HEAVYSHOTGUN);
+				REMOVE_ALL_PICKUPS_OF_TYPE(PICKUP_WEAPON_MARKSMANRIFLE);
+				REMOVE_ALL_PICKUPS_OF_TYPE(PICKUP_WEAPON_PROXMINE);
+				REMOVE_ALL_PICKUPS_OF_TYPE(PICKUP_WEAPON_HOMINGLAUNCHER);
+				REMOVE_ALL_PICKUPS_OF_TYPE(PICKUP_WEAPON_FLAREGUN);
+
+				REMOVE_ALL_PICKUPS_OF_TYPE(PICKUP_WEAPON_PISTOL_MK2);
+				REMOVE_ALL_PICKUPS_OF_TYPE(PICKUP_WEAPON_SMG_MK2);
+				REMOVE_ALL_PICKUPS_OF_TYPE(PICKUP_WEAPON_ASSAULTRIFLE_MK2);
+				REMOVE_ALL_PICKUPS_OF_TYPE(PICKUP_WEAPON_CARBINERIFLE_MK2);
+				REMOVE_ALL_PICKUPS_OF_TYPE(PICKUP_WEAPON_COMBATMG_MK2);
+				REMOVE_ALL_PICKUPS_OF_TYPE(PICKUP_WEAPON_HEAVYSNIPER_MK2);
+			}
+
+		}
+
+		// Never wanted
+		if (loop_never_wanted)
+		{
+			//SET_POLICE_IGNORE_PLAYER(PLAYER_ID(), TRUE);
+			SET_MAX_WANTED_LEVEL(0);
+			SET_WANTED_LEVEL_MULTIPLIER(0.0f);
+		}
+
+		set_target_into_slot(); // Set targeted entity into spawner slot (self)
+
+		if (loop_forge_gun)
+			set_forge_gun();
+
+		if (loop_player_seatbelt)
+			set_ped_seatbelt_on(PLAYER_PED_ID()); // PLAYER_ID() seatbelt
+
+		// Ammo hax
+		if (sub::BreatheStuff_catind::loop_player_breatheStuff != sub::BreatheStuff_catind::BreathePtfxType::None)
+			sub::BreatheStuff_catind::set_self_breathe_ptfx(sub::BreatheStuff_catind::loop_player_breatheStuff);
+		if (loop_explosive_rounds)
+			SET_EXPLOSIVE_AMMO_THIS_FRAME(PLAYER_ID());
+		if (loop_explosive_melee)
+			SET_EXPLOSIVE_MELEE_THIS_FRAME(PLAYER_ID());
+		if (loop_flaming_rounds)
+			SET_FIRE_AMMO_THIS_FRAME(PLAYER_ID());
+		if (bit_infinite_ammo && (bit_infinite_ammo_enth != PLAYER_PED_ID() || GET_TIME_SINCE_LAST_DEATH() < 10000))
+		{
+			bit_infinite_ammo_enth = PLAYER_PED_ID();
+			SET_PED_INFINITE_AMMO_CLIP(bit_infinite_ammo_enth, true);
+		}
+		if (loop_self_inf_parachutes)
+			give_ped_parachute(PLAYER_PED_ID());
+
+		if (loop_weapon_damage_increase != 1.0f)
+		{
+			SET_PLAYER_WEAPON_DAMAGE_MODIFIER(PLAYER_ID(), loop_weapon_damage_increase);
+			//SET_PLAYER_WEAPON_DEFENSE_MODIFIER(PLAYER_ID(), loop_weapon_damage_increase);
+			SET_PLAYER_MELEE_WEAPON_DAMAGE_MODIFIER(PLAYER_ID(), loop_weapon_damage_increase, true);
+			//SET_PLAYER_MELEE_WEAPON_DEFENSE_MODIFIER(PLAYER_ID(), loop_weapon_damage_increase);
+		}
+
+		if (IS_PED_SHOOTING(PLAYER_PED_ID()))
+		{
+			if (loop_kaboom_gun)
+				set_explosion_at_bullet_hit(PLAYER_PED_ID(), kaboom_gun_hash, kaboom_gun_invis);
+			if (loop_triggerfx_gun)
+				set_triggerfx_at_bullet_hit(PLAYER_PED_ID(), triggerfx_gun_data.asset, triggerfx_gun_data.effect, Vector3::RandomXYZ() * 180.0f, GET_RANDOM_FLOAT_IN_RANGE(0.63f, 1.40f));
+			if (loop_bullet_gun)
+				set_bullet_gun(); // Bullet gun (self)
+			if (loop_teleport_gun)
+				set_teleport_gun(); // Teleport gun (self)
+			if (loop_ped_gun)
+				set_ped_gun(); // Ped gun (self)
+			if (loop_object_gun)
+				set_object_gun(); // Object gun (self)
+			//if (loop_light_gun)
+				//set_light_gun(); // Light gun (self) - moved to thread loops2
+			if (loop_bullet_time)
+				SET_TIME_SCALE(0.2f); // Bullet time (self)
+			if (loop_triple_bullets)
+				set_triple_bullets(); // Triple bullets (self)
+		}
+		/*else*/ if (GET_GAME_TIMER() >= delayedTimer && loop_bullet_time)
+			SET_TIME_SCALE(current_timescale);
+
+
+		if (loop_super_jump)
+			SET_SUPER_JUMP_THIS_FRAME(PLAYER_ID()); // Superjump (self)
+
+		if (loop_no_clip)
+			set_no_clip(); // No clip mode
+
+		if (loop_super_run)
+			set_local_button_super_run(); // Super run (self)
+
+		if (loop_self_refillHealthInCover)
+			set_self_refill_health_when_in_cover();
+
+		// PLAYER_ID() invincibility
+		if (loop_player_invincibility/* && !GET_PLAYER_INVINCIBLE(PLAYER_ID())*/)
+		{
+			//SET_ABILITY_BAR_VALUE(1.0f, 1.0f);
+			//ENABLE_SPECIAL_ABILITY(PLAYER_ID(), 1);
+			//	FLASH_ABILITY_BAR(10000);
+			//SET_SPECIAL_ABILITY_MULTIPLIER(FLT_MAX);
+			if (!GET_PLAYER_INVINCIBLE(PLAYER_ID()))
+				SET_PLAYER_INVINCIBLE(PLAYER_ID(), 1);
+			set_ped_invincible_on(PLAYER_PED_ID());
+		}
+		if (mult_self_sweat > 0.0f)
+		{
+			iped = PLAYER_PED_ID();
+			SET_PED_SWEAT(iped, mult_self_sweat);
+			if (mult_self_sweat > 4.0f)
+			{
+				SET_PED_WETNESS_ENABLED_THIS_FRAME(iped);
+				SET_PED_WETNESS_HEIGHT(iped, mult_self_sweat / 6);
+			}
+		}
+
+		if (loop_player_noRagdoll)
+			set_ped_no_ragdoll_on(PLAYER_PED_ID()); // PLAYER_ID() no ragdoll
+
+		if (loop_XYZHcoords)
+			xyzh_(); // Display xyzh coords
+
+		if (_FpsCounter_::bDisplayFps)
+			_FpsCounter_::DisplayFps(); // Display Frame rate
+
+
+		// Superman mode (manual)
+		if (loop_superman)
+			set_local_superman_MANUAL();
+
+		if (loop_superman_auto)
+			set_ped_superman_AUTO(PLAYER_PED_ID()); // Superman AUTO (self)
+
+		// Forcefield (self)
+		if (loop_forcefield)
+			set_local_forcefield();
+
+		if (loop_explosion_wp != 0)
+			set_explosion_wp(loop_explosion_wp); // Explosion at waypoint
+
+		// Multiplatform neons
+		if (loop_multiplat_neons)
+			set_multiplat_neons();
+
+		// Decrease vehicle population
+		if (loop_vehicle_population)
+		{
+			SET_VEHICLE_DENSITY_MULTIPLIER_THIS_FRAME(0.0);
+			SET_RANDOM_VEHICLE_DENSITY_MULTIPLIER_THIS_FRAME(0.0);
+			SET_PARKED_VEHICLE_DENSITY_MULTIPLIER_THIS_FRAME(0.0);
+			SET_VEHICLE_POPULATION_BUDGET(0);
+		}
+		// Decrease ped population
+		if (loop_ped_population)
+		{
+			SET_PED_POPULATION_BUDGET(0);
+			SET_PED_DENSITY_MULTIPLIER_THIS_FRAME(0.0);
+		}
+
+		// Drive on water
+		if (loop_drive_on_water)
+			drive_on_water(PLAYER_PED_ID(), g_drive_water_obj);
+
+		if (loop_player_burn)
+			set_ped_burn_mode(PLAYER_PED_ID(), true);
+
+		//if (loop_player_noGravity)
+			//SET_PED_GRAVITY(PLAYER_PED_ID(), false);
+
+		// Multipliers
+		if (mult69_0) // Player movement speed
+		{
+			SET_SWIM_MULTIPLIER_FOR_PLAYER(PLAYER_ID(), mult69_0);
+			SET_RUN_SPRINT_MULTIPLIER_FOR_PLAYER(PLAYER_ID(), mult69_0);
+		}
+
+		if (g_playerVerticalElongationMultiplier != 1.0f) // Player height
+			GeneralGlobalHax::SetPlayerHeight(g_playerVerticalElongationMultiplier);
+
+		// Acceleration and brake 'multipliers'
+		if (IS_PED_IN_ANY_VEHICLE(PLAYER_PED_ID(), 0))
+		{
+			if (!g_myVeh_model.IsHeli())
+			{
+				if (g_myVeh_model.IsPlane() || IS_VEHICLE_ON_ALL_WHEELS(g_myVeh))
+				{
+					if (GET_PED_IN_VEHICLE_SEAT(g_myVeh, VehicleSeat::SEAT_DRIVER, 0) == PLAYER_PED_ID())
+					{
+						if (IS_CONTROL_PRESSED(2, INPUT_VEH_ACCELERATE))
+						{
+							if (mult69_5 != 0)
+								APPLY_FORCE_TO_ENTITY(g_myVeh, 1, 0.0, (float)(mult69_5) / 69.0f, 0.0, 0.0, 0.0, 0.0, 0, 1, 1, 1, 0, 1);
+						}
+						if (mult69_6 != 0 && (IS_CONTROL_PRESSED(2, INPUT_VEH_BRAKE)))
+						{
+							APPLY_FORCE_TO_ENTITY(g_myVeh, 0, 0.0, (float)(0 - mult69_6), 0.0, 0.0, 0.0, 0.0, 0, 1, 1, 1, 0, 1); // -abs
+						}
+						if (GET_ENTITY_SPEED_VECTOR(g_myVeh, true).y > 2)
+							set_Handling_Mult69_7();
+					}
+				}
+			}
+
+			// Vehicle damage and defense modifiers
+			if (loop_vehicle_damageAndDefense != 1.0f)
+			{
+				SET_PLAYER_VEHICLE_DAMAGE_MODIFIER(PLAYER_ID(), loop_vehicle_damageAndDefense);
+				SET_PLAYER_VEHICLE_DEFENSE_MODIFIER(PLAYER_ID(), loop_vehicle_damageAndDefense);
+			}
+		}
+
+		// Player noise multiplier
+		if (mult_playerNoiseValue != 1)
+			SET_PLAYER_NOISE_MULTIPLIER(PLAYER_ID(), mult_playerNoiseValue);
+
+		// Keep engine running
+		if (loop_self_engineOn)
+		{
+			GTAvehicle veh = g_myVeh;
+			if (veh.Exists())
+			{
+				if (!veh.EngineRunning_get())
+					veh.EngineRunning_set(true);
+				if (!veh.LightsOn_get())
+					veh.LightsOn_set(true);
+			}
+		}
+
+
+
+		// ONLY IF SELF IS IN A VEHICLE
+		if (IS_PED_IN_ANY_VEHICLE(PLAYER_PED_ID(), 0))
+		{
+			// Vehicle invincibility
+			if (loop_vehicle_invincibility)
+				set_vehicle_invincible_on(g_myVeh);
+
+			// Vehicle fix
+			if (loop_vehicle_fixloop)
+			{
+				GTAvehicle veh = g_myVeh;
+				if (veh.IsDamaged())
+				{
+					static int __VechicleOpsFixCar_texterVal = 0;
+					auto& fixCarTexterVal = __VechicleOpsFixCar_texterVal;
+					std::array<bool, (int)VehicleWindow::Last> __loop_vehicle_fixloop_windowsIntact;
+					auto& windowsIntact = __loop_vehicle_fixloop_windowsIntact;
+					if (fixCarTexterVal == 1)
+					{
+						for (int i = 0; i < windowsIntact.size(); i++)
+						{
+							windowsIntact[i] = veh.IsWindowIntact((VehicleWindow)i);
+						}
+					}
+
+					SET_VEHICLE_FIXED(veh.Handle());
+					SET_VEHICLE_DIRT_LEVEL(veh.Handle(), 0.0f);
+					//SET_VEHICLE_ENGINE_CAN_DEGRADE(veh.Handle(), false);
+					SET_VEHICLE_ENGINE_HEALTH(veh.Handle(), 2000.0f);
+					SET_VEHICLE_PETROL_TANK_HEALTH(veh.Handle(), 2000.0f);
+					SET_VEHICLE_BODY_HEALTH(veh.Handle(), 2000.0f);
+					SET_VEHICLE_UNDRIVEABLE(veh.Handle(), false);
+					//if(!GET_IS_VEHICLE_ENGINE_RUNNING(veh.Handle())) SET_VEHICLE_ENGINE_ON(veh.Handle(), true, true);
+
+					if (fixCarTexterVal == 1)
+					{
+						for (int i = 0; i < windowsIntact.size(); i++)
+						{
+							if (!windowsIntact[i])
+								veh.RollDownWindow((VehicleWindow)i);
+						}
+					}
+				}
+			}
+
+			// Vehicle flip
+			if (loop_vehicle_fliploop)
+				set_vehicle_fliploop(g_myVeh);
+
+			// Vehicle invisibility
+			if (loop_vehicle_invisibility)
+			{
+				inull = IS_ENTITY_VISIBLE(PLAYER_PED_ID());
+				SET_ENTITY_VISIBLE(g_myVeh, false, false);
+				SET_ENTITY_VISIBLE(PLAYER_PED_ID(), inull, false);
+				loop_vehicle_invisibility = false;
+			}
+
+			// Vehicle rainbow mode-
+			if (loop_car_colour_change/* && GET_GAME_TIMER() >= delayedTimer - 400*/)
+				set_vehicle_rainbow_mode_tick(g_myVeh, true);
+
+			if (loop_neon_anims > 0 || loop_neon_rgb == TRUE)
+				set_vehicle_neon_anim(g_myVeh);
+
+			// Disable self popo sirens
+			if (loop_vehicle_disableSiren)
+			{
+				if (GTAvehicle(g_myVeh).HasSiren_get())
+					SET_VEHICLE_HAS_MUTED_SIRENS(g_myVeh, TRUE);
+			}
+
+			// Slam it
+			if (loop_vehicle_slam)
+			{
+				if (loop_vehicle_slam <= -0.35f || IS_VEHICLE_ON_ALL_WHEELS(g_myVeh))
+					APPLY_FORCE_TO_ENTITY(g_myVeh, 1, 0.0, 0.0, loop_vehicle_slam, 0.0, 0.0, 0.0, 1, 1, 1, 1, 0, 1);
+			}
+
+			// Heavy mass
+			if (loop_vehicle_heavymass)
+				set_vehicle_heavy_mass_tick(g_myVeh);
+
+
+			// ONLY IF PAUSE MENU IS INACTIVE
+			if (!gameIsPaused)
+			{
+				// Race boost (self)
+				if (loop_race_boost && IS_CONTROL_PRESSED(2, INPUT_VEH_HORN))
+				{
+					/*ANIMPOSTFX_PLAY("RaceTurbo", 0, 0);*/
+					set_self_vehicle_boost();
+				}
+
+				// Car jump (self)
+				if (loop_car_jump != 0)
+					set_local_car_jump();
+
+				// Hydraulics (self)
+				if (loop_car_hydraulics)
+					set_local_car_hydraulics();
+
+				// Vehicle super grip
+				if (loop_super_grip)
+					SET_VEHICLE_ON_GROUND_PROPERLY(g_myVeh, 0.0f);
+
+				// SuprKar mode
+				if (loop_SuprKarMode)
+					set_SuprKarMode_self();
+
+				// Vehicle weapons
+				set_vehicle_weapons();
+
+				// Speedometer
+				if (sub::Speedo_catind::loop_speedo != sub::Speedo_catind::SPEEDOMODE_OFF)
+					sub::Speedo_catind::SpeedoTick();
+
+
+			}
+
+
+		}
+		// IF NOT IN A VEHICLE:
+		else
+		{
+			/*VehicleOpsInvincibility_bit =*/ bit_vehicle_gravity = bit_freeze_vehicle = VehicleOpsSlippyTires_bit = false;
+			//ms_light_intensity = 1.0f;
+			//sub::Speedo_catind::_speedoAlpha = 0;
+
+		}
+
+
+		//Print (WORLD2SCREEN) for PV'ops remembered vehicle
+		set_PVops_vehicle_text_world2Screen();
+
+
+	}
+
+	inline void menu_AllPlayerOps()
+	{
+		bool bAmIOnline = NETWORK_IS_IN_SESSION() != 0;
+		int myPlayer = PLAYER_ID();
+
+		// Spectate player
+		if (loop_spectate_player >= 0 && loop_spectate_player < GAME_PLAYERCOUNT)//<= GTA_PLATFORM_SCTVSLOT2)
+		{
+			if (!NETWORK_IS_PLAYER_ACTIVE(loop_spectate_player))
+			{
+				NETWORK_SET_IN_SPECTATOR_MODE_EXTENDED(false, loop_spectate_player, 1);
+				int p = GET_PLAYER_PED(loop_spectate_player);
+				if (DOES_ENTITY_EXIST(p))
+					NETWORK_SET_IN_SPECTATOR_MODE(false, p);
+				NETWORK_SET_ACTIVITY_SPECTATOR(false);
+				loop_spectate_player = -1;
 			}
 			else
 			{
-				set_explosion_at_coords(iped, Vector3(GET_RANDOM_FLOAT_IN_RANGE(-9.0f, -25.0f), GET_RANDOM_FLOAT_IN_RANGE(5.0f, 25.0f), GET_RANDOM_FLOAT_IN_RANGE(0.4f, 20.0f)), EXPLOSION::DIR_WATER_HYDRANT, 8.0f, 0.0f, true, false, 0);
+				NETWORK_SET_IN_SPECTATOR_MODE(true, GET_PLAYER_PED(loop_spectate_player));
 			}
 		}
-		//if (loop_laserSightRendering) ENABLE_LASER_SIGHT_RENDERING(1);
 
-		if (_globalRainFXIntensity > 0.0f)
-			SET_RAIN(_globalRainFXIntensity);
-
-		if (g_frozenRadioStation != -1)
+	}
+	void Thread_menu_loops2()
+	{
+		for (;;)
 		{
-			if (GET_PLAYER_RADIO_STATION_INDEX() != g_frozenRadioStation)
-				SET_RADIO_TO_STATION_NAME(GET_RADIO_STATION_NAME(g_frozenRadioStation));
-		}
+			WAIT(0);
 
-		if (loop_clearWeaponPickups) {
-			REMOVE_ALL_PICKUPS_OF_TYPE(PICKUP_WEAPON_BULLPUPSHOTGUN);
-			REMOVE_ALL_PICKUPS_OF_TYPE(PICKUP_WEAPON_ASSAULTSMG);
-			REMOVE_ALL_PICKUPS_OF_TYPE(PICKUP_VEHICLE_WEAPON_ASSAULTSMG);
-			REMOVE_ALL_PICKUPS_OF_TYPE(PICKUP_WEAPON_PISTOL50);
-			REMOVE_ALL_PICKUPS_OF_TYPE(PICKUP_WEAPON_ASSAULTRIFLE);
-			REMOVE_ALL_PICKUPS_OF_TYPE(PICKUP_WEAPON_CARBINERIFLE);
-			REMOVE_ALL_PICKUPS_OF_TYPE(PICKUP_WEAPON_ADVANCEDRIFLE);
-			REMOVE_ALL_PICKUPS_OF_TYPE(PICKUP_WEAPON_MG);
-			REMOVE_ALL_PICKUPS_OF_TYPE(PICKUP_WEAPON_COMBATMG);
-			REMOVE_ALL_PICKUPS_OF_TYPE(PICKUP_WEAPON_SNIPERRIFLE);
-			REMOVE_ALL_PICKUPS_OF_TYPE(PICKUP_WEAPON_HEAVYSNIPER);
-			REMOVE_ALL_PICKUPS_OF_TYPE(PICKUP_WEAPON_MICROSMG);
-			REMOVE_ALL_PICKUPS_OF_TYPE(PICKUP_WEAPON_SMG);
-			REMOVE_ALL_PICKUPS_OF_TYPE(PICKUP_WEAPON_RPG);
-			REMOVE_ALL_PICKUPS_OF_TYPE(PICKUP_WEAPON_MINIGUN);
-			REMOVE_ALL_PICKUPS_OF_TYPE(PICKUP_WEAPON_PUMPSHOTGUN);
-			REMOVE_ALL_PICKUPS_OF_TYPE(PICKUP_WEAPON_SAWNOFFSHOTGUN);
-			REMOVE_ALL_PICKUPS_OF_TYPE(PICKUP_WEAPON_ASSAULTSHOTGUN);
-			REMOVE_ALL_PICKUPS_OF_TYPE(PICKUP_WEAPON_GRENADE);
-			REMOVE_ALL_PICKUPS_OF_TYPE(PICKUP_WEAPON_MOLOTOV);
-			REMOVE_ALL_PICKUPS_OF_TYPE(PICKUP_WEAPON_SMOKEGRENADE);
-			REMOVE_ALL_PICKUPS_OF_TYPE(PICKUP_WEAPON_STICKYBOMB);
-			REMOVE_ALL_PICKUPS_OF_TYPE(PICKUP_WEAPON_PISTOL);
-			REMOVE_ALL_PICKUPS_OF_TYPE(PICKUP_WEAPON_COMBATPISTOL);
-			REMOVE_ALL_PICKUPS_OF_TYPE(PICKUP_WEAPON_APPISTOL);
-			REMOVE_ALL_PICKUPS_OF_TYPE(PICKUP_WEAPON_GRENADELAUNCHER);
-			REMOVE_ALL_PICKUPS_OF_TYPE(PICKUP_WEAPON_STUNGUN);
-			REMOVE_ALL_PICKUPS_OF_TYPE(PICKUP_WEAPON_FIREEXTINGUISHER);
-			REMOVE_ALL_PICKUPS_OF_TYPE(PICKUP_WEAPON_PETROLCAN);
-			REMOVE_ALL_PICKUPS_OF_TYPE(PICKUP_WEAPON_KNIFE);
-			REMOVE_ALL_PICKUPS_OF_TYPE(PICKUP_WEAPON_NIGHTSTICK);
-			REMOVE_ALL_PICKUPS_OF_TYPE(PICKUP_WEAPON_HAMMER);
-			REMOVE_ALL_PICKUPS_OF_TYPE(PICKUP_WEAPON_BAT);
-			REMOVE_ALL_PICKUPS_OF_TYPE(PICKUP_WEAPON_GOLFCLUB);
-			REMOVE_ALL_PICKUPS_OF_TYPE(PICKUP_WEAPON_CROWBAR);
-			REMOVE_ALL_PICKUPS_OF_TYPE(PICKUP_WEAPON_BULLPUPRIFLE);
-			REMOVE_ALL_PICKUPS_OF_TYPE(PICKUP_WEAPON_BOTTLE);
-			REMOVE_ALL_PICKUPS_OF_TYPE(PICKUP_WEAPON_SNSPISTOL);
-			REMOVE_ALL_PICKUPS_OF_TYPE(PICKUP_WEAPON_GUSENBERG);
-			REMOVE_ALL_PICKUPS_OF_TYPE(PICKUP_WEAPON_HEAVYPISTOL);
-			REMOVE_ALL_PICKUPS_OF_TYPE(PICKUP_WEAPON_SPECIALCARBINE);
-			REMOVE_ALL_PICKUPS_OF_TYPE(PICKUP_WEAPON_DAGGER);
-			REMOVE_ALL_PICKUPS_OF_TYPE(PICKUP_WEAPON_VINTAGEPISTOL);
-			REMOVE_ALL_PICKUPS_OF_TYPE(PICKUP_WEAPON_FIREWORK);
-			REMOVE_ALL_PICKUPS_OF_TYPE(PICKUP_WEAPON_MUSKET);
-			REMOVE_ALL_PICKUPS_OF_TYPE(PICKUP_WEAPON_HEAVYSHOTGUN);
-			REMOVE_ALL_PICKUPS_OF_TYPE(PICKUP_WEAPON_MARKSMANRIFLE);
-			REMOVE_ALL_PICKUPS_OF_TYPE(PICKUP_WEAPON_PROXMINE);
-			REMOVE_ALL_PICKUPS_OF_TYPE(PICKUP_WEAPON_HOMINGLAUNCHER);
-			REMOVE_ALL_PICKUPS_OF_TYPE(PICKUP_WEAPON_FLAREGUN);
+			vehicle_torque_mult_tick();
+			vehicle_maxSpeed_mult_tick();
 
-			REMOVE_ALL_PICKUPS_OF_TYPE(PICKUP_WEAPON_PISTOL_MK2);
-			REMOVE_ALL_PICKUPS_OF_TYPE(PICKUP_WEAPON_SMG_MK2);
-			REMOVE_ALL_PICKUPS_OF_TYPE(PICKUP_WEAPON_ASSAULTRIFLE_MK2);
-			REMOVE_ALL_PICKUPS_OF_TYPE(PICKUP_WEAPON_CARBINERIFLE_MK2);
-			REMOVE_ALL_PICKUPS_OF_TYPE(PICKUP_WEAPON_COMBATMG_MK2);
-			REMOVE_ALL_PICKUPS_OF_TYPE(PICKUP_WEAPON_HEAVYSNIPER_MK2);
-		}
+			_FlameThrower_::Tick();
 
-	}
+			if (sub::TVChannelStuff_catind::loop_basictv)
+				sub::TVChannelStuff_catind::DrawTvWhereItsSupposedToBe();
 
-	// Never wanted
-	if (loop_never_wanted)
-	{
-		//SET_POLICE_IGNORE_PLAYER(PLAYER_ID(), TRUE);
-		SET_MAX_WANTED_LEVEL(0);
-		SET_WANTED_LEVEL_MULTIPLIER(0.0f);
-	}
+			menu_AllPlayerOps();
 
-	set_target_into_slot(); // Set targeted entity into spawner slot (self)
+			if (loop_light_gun)
+				set_light_gun(); // Light gun (self)
 
-	if (loop_forge_gun)
-		set_forge_gun();
+			//if (loop_unloadMapTextures)
+				//_SET_DRAW_MAP_VISIBLE(false);
 
-	if (loop_player_seatbelt)
-		set_ped_seatbelt_on(PLAYER_PED_ID()); // PLAYER_ID() seatbelt
+			GTAentity playerPed = PLAYER_PED_ID();
 
-	// Ammo hax
-	if (sub::BreatheStuff_catind::loop_player_breatheStuff != sub::BreatheStuff_catind::BreathePtfxType::None)
-		sub::BreatheStuff_catind::set_self_breathe_ptfx(sub::BreatheStuff_catind::loop_player_breatheStuff);
-	if (loop_explosive_rounds)
-		SET_EXPLOSIVE_AMMO_THIS_FRAME(PLAYER_ID());
-	if (loop_explosive_melee)
-		SET_EXPLOSIVE_MELEE_THIS_FRAME(PLAYER_ID());
-	if (loop_flaming_rounds)
-		SET_FIRE_AMMO_THIS_FRAME(PLAYER_ID());
-	if (bit_infinite_ammo && (bit_infinite_ammo_enth != PLAYER_PED_ID() || GET_TIME_SINCE_LAST_DEATH() < 10000))
-	{
-		bit_infinite_ammo_enth = PLAYER_PED_ID();
-		SET_PED_INFINITE_AMMO_CLIP(bit_infinite_ammo_enth, true);
-	}
-	if (loop_self_inf_parachutes)
-		give_ped_parachute(PLAYER_PED_ID());
-
-	if (loop_weapon_damage_increase != 1.0f)
-	{
-		SET_PLAYER_WEAPON_DAMAGE_MODIFIER(PLAYER_ID(), loop_weapon_damage_increase);
-		//SET_PLAYER_WEAPON_DEFENSE_MODIFIER(PLAYER_ID(), loop_weapon_damage_increase);
-		SET_PLAYER_MELEE_WEAPON_DAMAGE_MODIFIER(PLAYER_ID(), loop_weapon_damage_increase, true);
-		//SET_PLAYER_MELEE_WEAPON_DEFENSE_MODIFIER(PLAYER_ID(), loop_weapon_damage_increase);
-	}
-
-	if (IS_PED_SHOOTING(PLAYER_PED_ID()))
-	{
-		if (loop_kaboom_gun)
-			set_explosion_at_bullet_hit(PLAYER_PED_ID(), kaboom_gun_hash, kaboom_gun_invis);
-		if (loop_triggerfx_gun)
-			set_triggerfx_at_bullet_hit(PLAYER_PED_ID(), triggerfx_gun_data.asset, triggerfx_gun_data.effect, Vector3::RandomXYZ() * 180.0f, GET_RANDOM_FLOAT_IN_RANGE(0.63f, 1.40f));
-		if (loop_bullet_gun)
-			set_bullet_gun(); // Bullet gun (self)
-		if (loop_teleport_gun)
-			set_teleport_gun(); // Teleport gun (self)
-		if (loop_ped_gun)
-			set_ped_gun(); // Ped gun (self)
-		if (loop_object_gun)
-			set_object_gun(); // Object gun (self)
-		//if (loop_light_gun)
-			//set_light_gun(); // Light gun (self) - moved to thread loops2
-		if (loop_bullet_time)
-			SET_TIME_SCALE(0.2f); // Bullet time (self)
-		if (loop_triple_bullets)
-			set_triple_bullets(); // Triple bullets (self)
-	}
-	/*else*/ if (GET_GAME_TIMER() >= delayedTimer && loop_bullet_time)
-		SET_TIME_SCALE(current_timescale);
-
-
-	if (loop_super_jump)
-		SET_SUPER_JUMP_THIS_FRAME(PLAYER_ID()); // Superjump (self)
-
-	if (loop_no_clip)
-		set_no_clip(); // No clip mode
-
-	if (loop_super_run)
-		set_local_button_super_run(); // Super run (self)
-
-	if (loop_self_refillHealthInCover)
-		set_self_refill_health_when_in_cover();
-	
-	// PLAYER_ID() invincibility
-	if (loop_player_invincibility/* && !GET_PLAYER_INVINCIBLE(PLAYER_ID())*/)
-	{
-		//SET_ABILITY_BAR_VALUE(1.0f, 1.0f);
-		//ENABLE_SPECIAL_ABILITY(PLAYER_ID(), 1);
-		//	FLASH_ABILITY_BAR(10000);
-		//SET_SPECIAL_ABILITY_MULTIPLIER(FLT_MAX);
-		if (!GET_PLAYER_INVINCIBLE(PLAYER_ID()))
-			SET_PLAYER_INVINCIBLE(PLAYER_ID(), 1);
-		set_ped_invincible_on(PLAYER_PED_ID());
-	}
-	if (mult_self_sweat > 0.0f)
-	{
-		iped = PLAYER_PED_ID();
-		SET_PED_SWEAT(iped, mult_self_sweat);
-		if (mult_self_sweat > 4.0f)
-		{
-			SET_PED_WETNESS_ENABLED_THIS_FRAME(iped);
-			SET_PED_WETNESS_HEIGHT(iped, mult_self_sweat / 6);
-		}
-	}
-
-	if (loop_player_noRagdoll)
-		set_ped_no_ragdoll_on(PLAYER_PED_ID()); // PLAYER_ID() no ragdoll
-
-	if (loop_XYZHcoords)
-		xyzh_(); // Display xyzh coords
-
-	if (_FpsCounter_::bDisplayFps)
-		_FpsCounter_::DisplayFps(); // Display Frame rate
-
-
-	// Superman mode (manual)
-	if (loop_superman)
-		set_local_superman_MANUAL();
-
-	if (loop_superman_auto)
-		set_ped_superman_AUTO(PLAYER_PED_ID()); // Superman AUTO (self)
-
-	// Forcefield (self)
-	if (loop_forcefield)
-		set_local_forcefield();
-
-	if (loop_explosion_wp != 0)
-		set_explosion_wp(loop_explosion_wp); // Explosion at waypoint
-
-	// Multiplatform neons
-	if (loop_multiplat_neons)
-		set_multiplat_neons();
-
-	// Decrease vehicle population
-	if (loop_vehicle_population)
-	{
-		SET_VEHICLE_DENSITY_MULTIPLIER_THIS_FRAME(0.0);
-		SET_RANDOM_VEHICLE_DENSITY_MULTIPLIER_THIS_FRAME(0.0);
-		SET_PARKED_VEHICLE_DENSITY_MULTIPLIER_THIS_FRAME(0.0);
-		SET_VEHICLE_POPULATION_BUDGET(0);
-	}
-	// Decrease ped population
-	if (loop_ped_population)
-	{
-		SET_PED_POPULATION_BUDGET(0);
-		SET_PED_DENSITY_MULTIPLIER_THIS_FRAME(0.0);
-	}
-
-	// Drive on water
-	if (loop_drive_on_water)
-		drive_on_water(PLAYER_PED_ID(), g_drive_water_obj);
-
-	if (loop_player_burn)
-		set_ped_burn_mode(PLAYER_PED_ID(), true);
-
-	//if (loop_player_noGravity)
-		//SET_PED_GRAVITY(PLAYER_PED_ID(), false);
-
-	// Multipliers
-	if (mult69_0) // Player movement speed
-	{
-		SET_SWIM_MULTIPLIER_FOR_PLAYER(PLAYER_ID(), mult69_0);
-		SET_RUN_SPRINT_MULTIPLIER_FOR_PLAYER(PLAYER_ID(), mult69_0);
-	}
-
-	if (g_playerVerticalElongationMultiplier != 1.0f) // Player height
-		GeneralGlobalHax::SetPlayerHeight(g_playerVerticalElongationMultiplier);
-
-	// Acceleration and brake 'multipliers'
-	if (IS_PED_IN_ANY_VEHICLE(PLAYER_PED_ID(), 0))
-	{
-		if (!g_myVeh_model.IsHeli())
-		{
-			if (g_myVeh_model.IsPlane() || IS_VEHICLE_ON_ALL_WHEELS(g_myVeh))
+			switch (loop_autoKillEnemies)
 			{
-				if (GET_PED_IN_VEHICLE_SEAT(g_myVeh, VehicleSeat::SEAT_DRIVER, 0) == PLAYER_PED_ID())
-				{
-					if (IS_CONTROL_PRESSED(2, INPUT_VEH_ACCELERATE))
-					{
-						if (mult69_5 != 0)
-							APPLY_FORCE_TO_ENTITY(g_myVeh, 1, 0.0, (float)(mult69_5) / 69.0f, 0.0, 0.0, 0.0, 0.0, 0, 1, 1, 1, 0, 1);
-					}
-					if (mult69_6 != 0 && (IS_CONTROL_PRESSED(2, INPUT_VEH_BRAKE)))
-					{
-						APPLY_FORCE_TO_ENTITY(g_myVeh, 0, 0.0, (float)(0 - mult69_6), 0.0, 0.0, 0.0, 0.0, 0, 1, 1, 1, 0, 1); // -abs
-					}
-					if (GET_ENTITY_SPEED_VECTOR(g_myVeh, true).y > 2)
-						set_Handling_Mult69_7();
-				}
-			}
-		}
-
-		// Vehicle damage and defense modifiers
-		if (loop_vehicle_damageAndDefense != 1.0f)
-		{
-			SET_PLAYER_VEHICLE_DAMAGE_MODIFIER(PLAYER_ID(), loop_vehicle_damageAndDefense);
-			SET_PLAYER_VEHICLE_DEFENSE_MODIFIER(PLAYER_ID(), loop_vehicle_damageAndDefense);
-		}
-	}
-
-	// Player noise multiplier
-	if (mult_playerNoiseValue != 1)
-		SET_PLAYER_NOISE_MULTIPLIER(PLAYER_ID(), mult_playerNoiseValue);
-
-	// Keep engine running
-	if (loop_self_engineOn)
-	{
-		GTAvehicle veh = g_myVeh;
-		if (veh.Exists())
-		{
-			if (!veh.EngineRunning_get())
-				veh.EngineRunning_set(true);
-			if (!veh.LightsOn_get())
-				veh.LightsOn_set(true);
-		}
-	}
-
-
-
-	// ONLY IF SELF IS IN A VEHICLE
-	if (IS_PED_IN_ANY_VEHICLE(PLAYER_PED_ID(), 0))
-	{
-		// Vehicle invincibility
-		if (loop_vehicle_invincibility)
-			set_vehicle_invincible_on(g_myVeh);
-
-		// Vehicle fix
-		if (loop_vehicle_fixloop)
-		{
-			GTAvehicle veh = g_myVeh;
-			if (veh.IsDamaged())
-			{
-				static int __VechicleOpsFixCar_texterVal = 0;
-				auto& fixCarTexterVal = __VechicleOpsFixCar_texterVal;
-				std::array<bool, (int)VehicleWindow::Last> __loop_vehicle_fixloop_windowsIntact;
-				auto& windowsIntact = __loop_vehicle_fixloop_windowsIntact;
-				if (fixCarTexterVal == 1)
-				{
-					for (int i = 0; i < windowsIntact.size(); i++)
-					{
-						windowsIntact[i] = veh.IsWindowIntact((VehicleWindow)i);
-					}
-				}
-
-				SET_VEHICLE_FIXED(veh.Handle());
-				SET_VEHICLE_DIRT_LEVEL(veh.Handle(), 0.0f);
-				//SET_VEHICLE_ENGINE_CAN_DEGRADE(veh.Handle(), false);
-				SET_VEHICLE_ENGINE_HEALTH(veh.Handle(), 2000.0f);
-				SET_VEHICLE_PETROL_TANK_HEALTH(veh.Handle(), 2000.0f);
-				SET_VEHICLE_BODY_HEALTH(veh.Handle(), 2000.0f);
-				SET_VEHICLE_UNDRIVEABLE(veh.Handle(), false);
-				//if(!GET_IS_VEHICLE_ENGINE_RUNNING(veh.Handle())) SET_VEHICLE_ENGINE_ON(veh.Handle(), true, true);
-
-				if (fixCarTexterVal == 1)
-				{
-					for (int i = 0; i < windowsIntact.size(); i++)
-					{
-						if (!windowsIntact[i])
-							veh.RollDownWindow((VehicleWindow)i);
-					}
-				}
-			}
-		}
-
-		// Vehicle flip
-		if (loop_vehicle_fliploop)
-			set_vehicle_fliploop(g_myVeh);
-
-		// Vehicle invisibility
-		if (loop_vehicle_invisibility)
-		{
-			inull = IS_ENTITY_VISIBLE(PLAYER_PED_ID());
-			SET_ENTITY_VISIBLE(g_myVeh, false, false);
-			SET_ENTITY_VISIBLE(PLAYER_PED_ID(), inull, false);
-			loop_vehicle_invisibility = false;
-		}
-
-		// Vehicle rainbow mode-
-		if (loop_car_colour_change/* && GET_GAME_TIMER() >= delayedTimer - 400*/)
-			set_vehicle_rainbow_mode_tick(g_myVeh, true);
-
-		if (loop_neon_anims > 0)
-			set_vehicle_neon_anim(g_myVeh);
-
-		// Disable self popo sirens
-		if (loop_vehicle_disableSiren)
-		{
-			if (GTAvehicle(g_myVeh).HasSiren_get())
-				SET_VEHICLE_HAS_MUTED_SIRENS(g_myVeh, TRUE);
-		}
-
-		// Slam it
-		if (loop_vehicle_slam)
-		{
-			if (loop_vehicle_slam <= -0.35f || IS_VEHICLE_ON_ALL_WHEELS(g_myVeh))
-				APPLY_FORCE_TO_ENTITY(g_myVeh, 1, 0.0, 0.0, loop_vehicle_slam, 0.0, 0.0, 0.0, 1, 1, 1, 1, 0, 1);
-		}
-
-		// Heavy mass
-		if (loop_vehicle_heavymass)
-			set_vehicle_heavy_mass_tick(g_myVeh);
-
-
-		// ONLY IF PAUSE MENU IS INACTIVE
-		if (!gameIsPaused)
-		{
-			// Race boost (self)
-			if (loop_race_boost && IS_CONTROL_PRESSED(2, INPUT_VEH_HORN))
-			{
-				/*ANIMPOSTFX_PLAY("RaceTurbo", 0, 0);*/
-				set_self_vehicle_boost();
+			case 1: //Weak
+				World::KillNearbyPeds(playerPed, FLT_MAX, PedRelationship::Hate);
+				World::KillNearbyPeds(playerPed, FLT_MAX, PedRelationship::Dislike);
+				break;
+			case 2: //Radical
+				World::KillMyEnemies();
+				break;
 			}
 
-			// Car jump (self)
-			if (loop_car_jump != 0)
-				set_local_car_jump();
 
-			// Hydraulics (self)
-			if (loop_car_hydraulics)
-				set_local_car_hydraulics();
+			sub::TeleportLocations_catind::Yachts::Tick();
 
-			// Vehicle super grip
-			if (loop_super_grip)
-				SET_VEHICLE_ON_GROUND_PROPERLY(g_myVeh, 0.0f);
+			_ManualRespawn_::g_manualRespawn.Tick();
 
-			// SuprKar mode
-			if (loop_SuprKarMode)
-				set_SuprKarMode_self();
-
-			// Vehicle weapons
-			set_vehicle_weapons();
-
-			// Speedometer
-			if (sub::Speedo_catind::loop_speedo != sub::Speedo_catind::SPEEDOMODE_OFF)
-				sub::Speedo_catind::SpeedoTick();
-
+			if (loop_unlimVehBoost)
+				set_self_vehicle_nativeboost();
 
 		}
-
-
 	}
-	// IF NOT IN A VEHICLE:
-	else
-	{
-		/*VehicleOpsInvincibility_bit =*/ bit_vehicle_gravity = bit_freeze_vehicle = VehicleOpsSlippyTires_bit = false;
-		//ms_light_intensity = 1.0f;
-		//sub::Speedo_catind::_speedoAlpha = 0;
-
-	}
-
-
-	//Print (WORLD2SCREEN) for PV'ops remembered vehicle
-	set_PVops_vehicle_text_world2Screen();
-
-
-}
-
-inline void menu_AllPlayerOps()
-{
-	bool bAmIOnline = NETWORK_IS_IN_SESSION() != 0;
-	int myPlayer = PLAYER_ID();
-
-	// Spectate player
-	if (loop_spectate_player >= 0 && loop_spectate_player < GAME_PLAYERCOUNT)//<= GTA_PLATFORM_SCTVSLOT2)
-	{
-		if (!NETWORK_IS_PLAYER_ACTIVE(loop_spectate_player))
-		{
-			NETWORK_SET_IN_SPECTATOR_MODE_EXTENDED(false, loop_spectate_player, 1);
-			int p = GET_PLAYER_PED(loop_spectate_player);
-			if (DOES_ENTITY_EXIST(p))
-				NETWORK_SET_IN_SPECTATOR_MODE(false, p);
-			NETWORK_SET_ACTIVITY_SPECTATOR(false);
-			loop_spectate_player = -1;
-		}
-		else
-		{
-			NETWORK_SET_IN_SPECTATOR_MODE(true, GET_PLAYER_PED(loop_spectate_player));
-		}
-	}
-
-}
-void Thread_menu_loops2()
-{
-	for (;;)
-	{
-		WAIT(0);
-
-		vehicle_torque_mult_tick();
-		vehicle_maxSpeed_mult_tick();
-
-		_FlameThrower_::Tick();
-
-		if (sub::TVChannelStuff_catind::loop_basictv)
-			sub::TVChannelStuff_catind::DrawTvWhereItsSupposedToBe();
-
-		menu_AllPlayerOps();
-
-		if (loop_light_gun)
-			set_light_gun(); // Light gun (self)
-
-		//if (loop_unloadMapTextures)
-			//_SET_DRAW_MAP_VISIBLE(false);
-
-		GTAentity playerPed = PLAYER_PED_ID();
-
-		switch (loop_autoKillEnemies)
-		{
-		case 1: //Weak
-			World::KillNearbyPeds(playerPed, FLT_MAX, PedRelationship::Hate);
-			World::KillNearbyPeds(playerPed, FLT_MAX, PedRelationship::Dislike);
-			break;
-		case 2: //Radical
-			World::KillMyEnemies();
-			break;
-		}
-
-
-		sub::TeleportLocations_catind::Yachts::Tick();
-
-		_ManualRespawn_::g_manualRespawn.Tick();
-
-		if (loop_unlimVehBoost)
-			set_self_vehicle_nativeboost();
-
-	}
-}
-
-
-
-
-
-
