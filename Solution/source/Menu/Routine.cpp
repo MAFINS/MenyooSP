@@ -647,7 +647,7 @@ void set_blackoutEmp_mode()
 
 		NETWORK_REQUEST_CONTROL_OF_ENTITY(vehicle);
 		SET_VEHICLE_ENGINE_ON(vehicle, 0, 1, 0);
-		SET_VEHICLE_LIGHTS(vehicle, 4);
+		//SET_VEHICLE_LIGHTS(vehicle, 4);
 
 	}
 
@@ -683,6 +683,11 @@ void set_blackoutEmp_mode()
 	CLEAR_SEQUENCE_TASK(&tempSeq);
 	//SET_ALL_RANDOM_PEDS_FLEE(PLAYER_ID(), 1);
 
+}
+void set_blackout_mode()
+{
+	SET_ARTIFICIAL_LIGHTS_STATE(TRUE);
+	SET_ARTIFICIAL_VEHICLE_LIGHTS_STATE(FALSE);
 }
 
 // Playerped - ability
@@ -2813,7 +2818,7 @@ void Menu::loops()
 		if (loop_blackout_mode)
 			set_blackoutEmp_mode();
 		if (loop_simple_blackout_mode)
-			SET_ARTIFICIAL_LIGHTS_STATE(TRUE);
+			set_blackout_mode();
 		if (_JumpAroundMode_::bEnabled)
 			_JumpAroundMode_::Tick();
 	}
