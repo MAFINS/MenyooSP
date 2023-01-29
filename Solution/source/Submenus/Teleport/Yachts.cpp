@@ -247,9 +247,9 @@ namespace sub::TeleportLocations_catind
 				sprintf_s(buffer, "apa_yacht_grp%s_%i", groupIdStr.c_str(), yachtInfo.internalLocationIndex);
 				std::string iplInitials = buffer;
 
-				REQUEST_IPL(const_cast<PCHAR>((iplInitials).c_str()));
-				REQUEST_IPL(const_cast<PCHAR>((iplInitials + "_int").c_str()));
-				REQUEST_IPL(const_cast<PCHAR>((iplInitials + "_lod").c_str()));
+				REQUEST_IPL((iplInitials).c_str());
+				REQUEST_IPL((iplInitials + "_int").c_str());
+				REQUEST_IPL((iplInitials + "_lod").c_str());
 				SET_INSTANCE_PRIORITY_MODE(false);
 
 				WAIT(200);

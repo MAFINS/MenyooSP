@@ -818,11 +818,9 @@ namespace sub
 				}
 				else//if in-game sprite
 				{
-					PCHAR dict = const_cast<PCHAR>(vit->dict.c_str());
-					PCHAR imgName = const_cast<PCHAR>(vit->imgName.c_str());
-					if (!HAS_STREAMED_TEXTURE_DICT_LOADED(dict))
-						REQUEST_STREAMED_TEXTURE_DICT(dict, false);
-					DRAW_SPRITE(dict, imgName, x_coord, y_coord, res.x, res.y, 0.0f, 255, 255, 255, 255, false, 0);
+					if (!HAS_STREAMED_TEXTURE_DICT_LOADED(vit->dict.c_str()))
+						REQUEST_STREAMED_TEXTURE_DICT(vit->dict.c_str(), false);
+					DRAW_SPRITE(vit->dict.c_str(), vit->imgName.c_str(), x_coord, y_coord, res.x, res.y, 0.0f, 255, 255, 255, 255, false, 0);
 				}
 			}
 			else
@@ -1128,7 +1126,7 @@ namespace sub
 		{
 		if (!vimg.tid.Exists())
 		{
-		PCHAR spriteDictName = const_cast<PCHAR>(vimg.dict.c_str());
+		PCHAR spriteDictName = vimg.dict.c_str();
 		if (!HAS_STREAMED_TEXTURE_DICT_LOADED(spriteDictName))
 		REQUEST_STREAMED_TEXTURE_DICT(spriteDictName, false);
 		}
@@ -1333,7 +1331,7 @@ namespace sub
 			{
 			if (!vimg.tid.Exists())
 			{
-			PCHAR spriteDictName = const_cast<PCHAR>(vimg.dict.c_str());
+			PCHAR spriteDictName = vimg.dict.c_str();
 			if (!HAS_STREAMED_TEXTURE_DICT_LOADED(spriteDictName))
 			REQUEST_STREAMED_TEXTURE_DICT(spriteDictName, false);
 			}

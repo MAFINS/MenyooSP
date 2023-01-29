@@ -61,11 +61,11 @@ namespace TimecycleModification
 	}
 	void SetMod(const std::string& value)
 	{
-		GRAPHICS::SET_TIMECYCLE_MODIFIER(const_cast<PCHAR>(value.c_str()));
+		GRAPHICS::SET_TIMECYCLE_MODIFIER(value.c_str());
 	}
 	void SetMod(const std::string& value, float transition)
 	{
-		GRAPHICS::SET_TRANSITION_TIMECYCLE_MODIFIER(const_cast<PCHAR>(value.c_str()), transition);
+		GRAPHICS::SET_TRANSITION_TIMECYCLE_MODIFIER(value.c_str(), transition);
 	}
 	void SetModStrength(float value)
 	{

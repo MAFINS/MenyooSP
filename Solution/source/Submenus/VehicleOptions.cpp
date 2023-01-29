@@ -1254,8 +1254,8 @@ namespace sub
 
 					/*if (HAS_STREAMED_TEXTURE_DICT_LOADED("MenyooExtras"))
 					{
-						PCHAR bg_name = const_cast<PCHAR>(_currentSpeedoBg.fileName.c_str());
-						PCHAR needle_name = const_cast<PCHAR>(_currentSpeedoNeedle.fileName.c_str());
+						PCHAR bg_name = _currentSpeedoBg.fileName.c_str();
+						PCHAR needle_name = _currentSpeedoNeedle.fileName.c_str();
 
 						Vector3 res = GET_TEXTURE_RESOLUTION("MenyooExtras", bg_name);
 						res.x = res.x * 0.66 / Game::defaultScreenRes.first;

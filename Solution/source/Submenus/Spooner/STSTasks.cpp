@@ -869,14 +869,14 @@ namespace sub::Spooner
 		void PlayAnimation::RunP(GTAped& ep)
 		{
 			if (this->durationToAnimDuration)
-				this->duration = GET_ENTITY_ANIM_TOTAL_TIME(ep.Handle(), const_cast<PCHAR>(this->animDict.c_str()), const_cast<PCHAR>(this->animName.c_str()));
+				this->duration = GET_ENTITY_ANIM_TOTAL_TIME(ep.Handle(), this->animDict.c_str(), this->animName.c_str());
 
-			//if (IS_ENTITY_PLAYING_ANIM(ep.Handle, const_cast<PCHAR>(animDict.c_str()), const_cast<PCHAR>(animDict.c_str()), 3))
+			//if (IS_ENTITY_PLAYING_ANIM(ep.Handle, animDict.c_str(), animDict.c_str(), 3))
 			ep.Task().PlayAnimation(this->animDict, this->animName, this->speed, this->speedMultiplier, this->durationAfterLife > 0 ? -1 : this->duration, this->flag, 0.0f, this->lockPos);
 		}
 		void PlayAnimation::LoadTargetingDressing(Entity u_initHandle, Entity u_e_Handle)
 		{
-			if (HAS_ANIM_DICT_LOADED(const_cast<PCHAR>(this->animDict.c_str())))
+			if (HAS_ANIM_DICT_LOADED(this->animDict.c_str()))
 				Game::RequestAnimDict(this->animDict, 1600);
 		}
 

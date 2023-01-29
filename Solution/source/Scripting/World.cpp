@@ -83,7 +83,7 @@ namespace World
 	void Weather_set(const std::string& weatherName)
 	{
 		CLEAR_OVERRIDE_WEATHER();
-		SET_WEATHER_TYPE_NOW(const_cast<PCHAR>(weatherName.c_str()));
+		SET_WEATHER_TYPE_NOW(weatherName.c_str());
 	}
 	void SetWeatherOverTime(WeatherType weather, DWORD ms)
 	{
@@ -91,19 +91,17 @@ namespace World
 	}
 	void SetWeatherOverTime(const std::string& weatherName, DWORD ms)
 	{
-		SET_WEATHER_TYPE_OVERTIME_PERSIST(const_cast<PCHAR>(weatherName.c_str()), float(ms) / 1000.0f);
+		SET_WEATHER_TYPE_OVERTIME_PERSIST(weatherName.c_str(), float(ms) / 1000.0f);
 	}
 	void SetWeatherOverride(WeatherType weather)
 	{
-		PCHAR weatherName = const_cast<PCHAR>(sWeatherNames[static_cast<int>(weather)].c_str());
-		SET_OVERRIDE_WEATHER(weatherName);
-		//SET_WEATHER_TYPE_NOW(weatherName);
+		SET_OVERRIDE_WEATHER(sWeatherNames[static_cast<int>(weather)].c_str());
+		//SET_WEATHER_TYPE_NOW(sWeatherNames[static_cast<int>(weather)].c_str());
 	}
 	void SetWeatherOverride(const std::string& weatherName)
 	{
-		PCHAR weatherName2 = const_cast<PCHAR>(weatherName.c_str());
-		SET_OVERRIDE_WEATHER(weatherName2);
-		//SET_WEATHER_TYPE_NOW(weatherName2);
+		SET_OVERRIDE_WEATHER(weatherName.c_str());
+		//SET_WEATHER_TYPE_NOW(weatherName);
 	}
 	void ClearWeatherOverride()
 	{

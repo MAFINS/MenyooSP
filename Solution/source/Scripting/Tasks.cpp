@@ -237,7 +237,7 @@ void Tasks::PerformSequence(TaskSequence& sequence)
 }
 bool Tasks::IsPlayingAnimation(const std::string& animDict, const std::string& animName)
 {
-	return IS_ENTITY_PLAYING_ANIM(_ped.Handle(), const_cast<PCHAR>(animDict.c_str()), const_cast<PCHAR>(animName.c_str()), 3) != 0;
+	return IS_ENTITY_PLAYING_ANIM(_ped.Handle(), animDict.c_str(), animName.c_str(), 3) != 0;
 }
 void Tasks::PlayAnimation(const std::string& animDict, const std::string& animName)
 {
@@ -245,17 +245,14 @@ void Tasks::PlayAnimation(const std::string& animDict, const std::string& animNa
 }
 void Tasks::PlayAnimation(const std::string& animDict, const std::string& animName, float speed, float speedMultiplier, int duration, int flag, float playbackRate, bool lockPos)
 {
-	PCHAR animDict1 = const_cast<PCHAR>(animDict.c_str());
-	PCHAR animName1 = const_cast<PCHAR>(animName.c_str());
-
-	REQUEST_ANIM_DICT(animDict1);
+	REQUEST_ANIM_DICT(animDict.c_str());
 	for (DWORD timeOut = GetTickCount() + 1650; GetTickCount() < timeOut;)
 	{
-		if (HAS_ANIM_DICT_LOADED(animDict1)) break;
+		if (HAS_ANIM_DICT_LOADED(animDict.c_str())) break;
 		WAIT(0);
 	}
 
-	TASK_PLAY_ANIM(_ped.Handle(), animDict1, animName1, speed, speedMultiplier, duration, flag, playbackRate, lockPos, lockPos, lockPos);
+	TASK_PLAY_ANIM(_ped.Handle(), animDict.c_str(), animName.c_str(), speed, speedMultiplier, duration, flag, playbackRate, lockPos, lockPos, lockPos);
 }
 void Tasks::PutAwayMobilePhone()
 {
@@ -310,11 +307,11 @@ void Tasks::StandStill(int duration)
 }
 bool Tasks::IsUsingScenario(const std::string& name)
 {
-	return IS_PED_USING_SCENARIO(_ped.Handle(), const_cast<PCHAR>(name.c_str())) != 0;
+	return IS_PED_USING_SCENARIO(_ped.Handle(), name.c_str()) != 0;
 }
 void Tasks::StartScenario(const std::string& name, const Vector3& position, float heading)
 {
-	TASK_START_SCENARIO_AT_POSITION(_ped.Handle(), const_cast<PCHAR>(name.c_str()), position.x, position.y, position.z, heading, 0, 0, 1);
+	TASK_START_SCENARIO_AT_POSITION(_ped.Handle(), name.c_str(), position.x, position.y, position.z, heading, 0, 0, 1);
 	if (name.find("MUSICIAN") != std::string::npos)
 	{
 		//CLEAR_PED_TASKS_IMMEDIATELY(_ped.Handle());
@@ -323,7 +320,7 @@ void Tasks::StartScenario(const std::string& name, const Vector3& position, floa
 }
 void Tasks::StartScenario(const std::string& name, int unkDelay, bool playEnterAnim)
 {
-	TASK_START_SCENARIO_IN_PLACE(_ped.Handle(), const_cast<PCHAR>(name.c_str()), unkDelay, playEnterAnim);
+	TASK_START_SCENARIO_IN_PLACE(_ped.Handle(), name.c_str(), unkDelay, playEnterAnim);
 	if (name.find("MUSICIAN") != std::string::npos)
 	{
 		//CLEAR_PED_TASKS_IMMEDIATELY(_ped.Handle());
@@ -416,7 +413,7 @@ void Tasks::ClearSecondary()
 }
 void Tasks::ClearAnimation(const std::string& animDict, const std::string& animName)
 {
-	STOP_ANIM_TASK(_ped.Handle(), const_cast<PCHAR>(animDict.c_str()), const_cast<PCHAR>(animName.c_str()), -4.0f);
+	STOP_ANIM_TASK(_ped.Handle(), animDict.c_str(), animName.c_str(), -4.0f);
 }
 
 

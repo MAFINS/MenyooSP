@@ -2676,7 +2676,7 @@ void set_ped_facial_mood(GTAentity ped, const std::string& animName)
 	//ped.RequestControl();
 	auto& m = g_pedList_facialMood[ped.Handle()];
 	m = animName;
-	SET_FACIAL_IDLE_ANIM_OVERRIDE(ped.Handle(), const_cast<PCHAR>(animName.c_str()), 0);
+	SET_FACIAL_IDLE_ANIM_OVERRIDE(ped.Handle(), animName.c_str(), 0);
 }
 void clear_ped_facial_mood(GTAentity ped)
 {

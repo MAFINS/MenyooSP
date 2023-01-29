@@ -115,7 +115,7 @@ namespace sub
 		}
 		void StatSetString(const std::string& name, const std::string& value)
 		{
-			STAT_SET_STRING(GET_HASH_KEY(name), const_cast<PCHAR>(value.c_str()), 1);
+			STAT_SET_STRING(GET_HASH_KEY(name), value.c_str(), 1);
 		}
 
 		void __AddOption(const CharStat_t& stat)
