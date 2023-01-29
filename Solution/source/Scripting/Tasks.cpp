@@ -26,7 +26,6 @@
 #include "..\Natives\natives2.h"
 
 //#include <stdarg.h>
-#include <deque>
 
 Tasks::Tasks(GTAentity ped)
 	: _ped(ped)

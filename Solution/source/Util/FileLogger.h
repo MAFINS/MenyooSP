@@ -23,7 +23,7 @@ namespace ige
 	public:
 		std::ofstream myFile;
 
-		explicit FileLogger(const char* fname);
+		explicit FileLogger(std::string fname);
 
 		~FileLogger();
 
@@ -32,11 +32,12 @@ namespace ige
 		FileLogger& operator= (const FileLogger&) = delete;
 	};
 
-	std::ofstream& operator << (std::ofstream& stream, ige::LogType logType);
 	extern ige::FileLogger menyooLogObject;
 	extern std::ofstream& myLog;
 
-} 
+}
+
+std::ofstream& operator << (std::ofstream& stream, ige::LogType logType);
 
 
 

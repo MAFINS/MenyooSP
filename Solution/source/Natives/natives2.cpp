@@ -13,7 +13,7 @@
 
 #include <string>
 
-Hash GET_HASH_KEY(char* value)
+Hash GET_HASH_KEY(const char* value)
 {
 	size_t len = strlen(value);
 	DWORD hash, i;

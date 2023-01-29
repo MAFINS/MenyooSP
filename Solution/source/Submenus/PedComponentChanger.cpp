@@ -1381,7 +1381,7 @@ namespace sub
 				auto nodePedDamagePacks = nodePedStuff.child("DamagePacks");
 				if (nodePedDamagePacks)
 				{
-					auto dmgPacksApplied = sub::PedDamageTextures_catind::vPedsAndDamagePacks[ep.Handle()];
+					auto& dmgPacksApplied = sub::PedDamageTextures_catind::vPedsAndDamagePacks[ep.Handle()];
 					dmgPacksApplied.clear();
 					for (auto nodePedDamagePack = nodePedDamagePacks.first_child(); nodePedDamagePack; nodePedDamagePack = nodePedDamagePack.next_sibling())
 					{
