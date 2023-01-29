@@ -42,7 +42,7 @@
 CSimpleIniA MenuConfig::iniFile;
 bool MenuConfig::bSaveAtIntervals = true;
 
-SI_Error MenuConfig::ConfigInit()
+void MenuConfig::ConfigInit()
 {
 	MenuConfig::iniFile.SetUnicode(true);
 	MenuConfig::iniFile.SetMultiKey(false);

@@ -144,6 +144,11 @@ namespace sub::TeleportLocations_catind
 {
 	namespace TeleMethods
 	{
+		float ____gtaGroundCheckHeight[] = {
+			100.0, 150.0, 50.0, 0.0, 200.0, 250.0, 300.0, 350.0, 400.0,
+			450.0, 500.0, 550.0, 600.0, 650.0, 700.0, 750.0, 800.0, 850.0
+		};
+
 		void ToWaypoint(GTAped ped)
 		{
 			if (IS_WAYPOINT_ACTIVE())
@@ -156,10 +161,7 @@ namespace sub::TeleportLocations_catind
 				{
 					Game::RequestControlOfId(ped.NetID());
 					ped.RequestControl(1000);
-					static float ____gtaGroundCheckHeight[] = {
-						100.0, 150.0, 50.0, 0.0, 200.0, 250.0, 300.0, 350.0, 400.0,
-						450.0, 500.0, 550.0, 600.0, 650.0, 700.0, 750.0, 800.0
-					};
+
 					for (int i = 0; i < sizeof(____gtaGroundCheckHeight) / sizeof(float); i++)
 					{
 						SET_ENTITY_COORDS(ped.Handle(), blipCoords.x, blipCoords.y, blipCoords.z, 0, 0, 0, 1);
@@ -174,10 +176,7 @@ namespace sub::TeleportLocations_catind
 					GTAvehicle vehicle = ped.CurrentVehicle();
 					Game::RequestControlOfId(vehicle.NetID());
 					vehicle.RequestControl(1000);
-					static float ____gtaGroundCheckHeight[] = {
-						100.0, 150.0, 50.0, 0.0, 200.0, 250.0, 300.0, 350.0, 400.0,
-						450.0, 500.0, 550.0, 600.0, 650.0, 700.0, 750.0, 800.0
-					};
+
 					for (int i = 0; i < sizeof(____gtaGroundCheckHeight) / sizeof(float); i++)
 					{
 						SET_ENTITY_COORDS(vehicle.Handle(), blipCoords.x, blipCoords.y, blipCoords.z, 0, 0, 0, 1);
