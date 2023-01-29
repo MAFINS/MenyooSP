@@ -30,14 +30,14 @@ namespace sub::TeleportLocations_catind
 	{
 		namespace Clubhouses
 		{
-			struct ClubhouseLocation { const PCHAR name; Vector3 pos; const PCHAR ipl; };
+			struct ClubhouseLocation { const std::string name; Vector3 pos; const std::string ipl; };
 			const std::vector<ClubhouseLocation> vLocations
 			{
 				{ "1 floor",{ 1109.1124f, -3164.1536f, -37.5186f }, "bkr_biker_interior_placement_interior_0_biker_dlc_int_01_milo_" },
 				{ "2 floors",{ 998.3676f, -3164.6531f, -38.9073f }, "bkr_biker_interior_placement_interior_1_biker_dlc_int_02_milo_" }
 			};
 
-			struct ClubhouseInteriorOption { const PCHAR name; const PCHAR value; };
+			struct ClubhouseInteriorOption { const std::string name; const std::string value; };
 			const std::vector<ClubhouseInteriorOption> vMuralOptions
 			{
 				{ "None", "Mural_00" },
@@ -104,7 +104,7 @@ namespace sub::TeleportLocations_catind
 			ClubhouseInfoStructure currentClubhouseInfo = { nullptr, 0, 0, 0, 0, 0, 0 };
 
 			struct ClubhuseInteriorOptionArray {
-				const PCHAR name; UINT8* ptr; const std::vector<ClubhouseInteriorOption>* arr;
+				const std::string name; UINT8* ptr; const std::vector<ClubhouseInteriorOption>* arr;
 			} vOptionArrays[]{
 				{ "Murals", &currentClubhouseInfo.muralOption, &vMuralOptions },
 				{ "Walls", &currentClubhouseInfo.wallsOption, &vWallsOptions },
@@ -124,7 +124,7 @@ namespace sub::TeleportLocations_catind
 
 					SET_INSTANCE_PRIORITY_MODE(true);
 					ON_ENTER_MP();
-					REQUEST_IPL(loc.ipl);
+					REQUEST_IPL(loc.ipl.c_str());
 					int interior = GET_INTERIOR_AT_COORDS(pos.x, pos.y, pos.z);
 					DISABLE_INTERIOR(interior, true);
 					PIN_INTERIOR_IN_MEMORY(interior);
@@ -135,11 +135,11 @@ namespace sub::TeleportLocations_catind
 					for (auto& oa : vOptionArrays)
 					{
 						for (auto& o : *oa.arr)
-							DEACTIVATE_INTERIOR_ENTITY_SET(interior, const_cast<PCHAR>(o.value));
+							DEACTIVATE_INTERIOR_ENTITY_SET(interior, o.value.c_str());
 					}
 					for (auto& oa : vOptionArrays)
 					{
-						ACTIVATE_INTERIOR_ENTITY_SET(interior, const_cast<PCHAR>(oa.arr->at(*oa.ptr).value));
+						ACTIVATE_INTERIOR_ENTITY_SET(interior, oa.arr->at(*oa.ptr).value.c_str());
 					}
 					REFRESH_INTERIOR(interior);
 				}
@@ -198,7 +198,7 @@ namespace sub::TeleportLocations_catind
 
 		namespace Businesses
 		{
-			struct BusinessLocation { const PCHAR name; Vector3 pos; const PCHAR ipl; std::vector<std::string> options; };
+			struct BusinessLocation { const std::string name; Vector3 pos; const std::string ipl; std::vector<std::string> options; };
 			const std::vector<BusinessLocation> vLocations
 			{
 				{ "Meth Lab",{ 1009.5000f, -3196.6000f, -38.5000f },"bkr_biker_interior_placement_interior_2_biker_dlc_int_ware01_milo_",{
@@ -279,7 +279,7 @@ namespace sub::TeleportLocations_catind
 
 					SET_INSTANCE_PRIORITY_MODE(true);
 					ON_ENTER_MP();
-					REQUEST_IPL(loc.ipl);
+					REQUEST_IPL(loc.ipl.c_str());
 					int interior = GET_INTERIOR_AT_COORDS(pos.x, pos.y, pos.z);
 					DISABLE_INTERIOR(interior, true);
 					PIN_INTERIOR_IN_MEMORY(interior);
@@ -289,12 +289,12 @@ namespace sub::TeleportLocations_catind
 
 					for (auto& ip : loc.options)
 					{
-						DEACTIVATE_INTERIOR_ENTITY_SET(interior, const_cast<PCHAR>(ip.c_str()));
+						DEACTIVATE_INTERIOR_ENTITY_SET(interior, ip.c_str());
 					}
 					if (info.option)
 					{
 						for (UINT8 o = 0; o < info.option; o++)
-							ACTIVATE_INTERIOR_ENTITY_SET(interior, const_cast<PCHAR>(loc.options[o].c_str()));
+							ACTIVATE_INTERIOR_ENTITY_SET(interior, loc.options[o].c_str());
 					}
 					REFRESH_INTERIOR(interior);
 				}

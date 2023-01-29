@@ -265,7 +265,7 @@ namespace sub
 			{
 			}
 			MenyooTheme(bool _grads, bool _rainbow, bool _thinLineOverFooter,
-				RGBA& _ttbox, RGBA& _bgbox, RGBA& _tttext, RGBA& _optext, RGBA& _seltext, RGBA& _opbreak, RGBA& _opcount, RGBA& _selhi, RGBA& _pedtrackers,
+				RGBA _ttbox, RGBA _bgbox, RGBA _tttext, RGBA _optext, RGBA _seltext, RGBA _opbreak, RGBA _opcount, RGBA _selhi, RGBA _pedtrackers,
 				INT8 _f_title, INT8 _f_options, INT8 _f_selection, INT8 _f_breaks, INT8 _f_xyzh, INT8 _f_speedo)
 			{
 				grads = _grads;
@@ -404,7 +404,7 @@ namespace sub
 			std::string name;
 			MenyooTheme theme;
 
-			MenyooThemeNamed(const std::string& newName, MenyooTheme& newTheme)
+			MenyooThemeNamed(const std::string& newName, const MenyooTheme& newTheme)
 			{
 				this->name = newName;
 				this->theme = newTheme;

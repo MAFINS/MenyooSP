@@ -219,14 +219,14 @@ namespace sub::Spooner
 
 		void ThrowProjectile::GetXmlNodeTaskSpecific(pugi::xml_node& nodeTask) const
 		{
-			auto& nodeTargetPos = nodeTask.append_child("TargetPos");
+			auto nodeTargetPos = nodeTask.append_child("TargetPos");
 			nodeTargetPos.append_attribute("X") = this->targetPos.x;
 			nodeTargetPos.append_attribute("Y") = this->targetPos.y;
 			nodeTargetPos.append_attribute("Z") = this->targetPos.z;
 		}
 		void ThrowProjectile::ImportXmlNodeTaskSpecific(pugi::xml_node& nodeTask)
 		{
-			auto& nodeTargetPos = nodeTask.child("TargetPos");
+			auto nodeTargetPos = nodeTask.child("TargetPos");
 			this->targetPos.x = nodeTargetPos.attribute("X").as_float();
 			this->targetPos.y = nodeTargetPos.attribute("Y").as_float();
 			this->targetPos.z = nodeTargetPos.attribute("Z").as_float();
@@ -332,14 +332,14 @@ namespace sub::Spooner
 
 		void LookAtCoord::GetXmlNodeTaskSpecific(pugi::xml_node& nodeTask) const
 		{
-			auto& nodePos = nodeTask.append_child("Position");
+			auto nodePos = nodeTask.append_child("Position");
 			nodePos.append_attribute("X") = this->coord.x;
 			nodePos.append_attribute("Y") = this->coord.y;
 			nodePos.append_attribute("Z") = this->coord.z;
 		}
 		void LookAtCoord::ImportXmlNodeTaskSpecific(pugi::xml_node& nodeTask)
 		{
-			auto& nodePos = nodeTask.child("Position");
+			auto nodePos = nodeTask.child("Position");
 			this->coord.x = nodePos.attribute("X").as_float();
 			this->coord.y = nodePos.attribute("Y").as_float();
 			this->coord.z = nodePos.attribute("Z").as_float();
@@ -419,7 +419,7 @@ namespace sub::Spooner
 		{
 			nodeTask.append_child("TakeVehicleToo").text() = this->takeVehicleToo;
 
-			auto& nodeDest = nodeTask.append_child("Destination");
+			auto nodeDest = nodeTask.append_child("Destination");
 			nodeDest.append_attribute("X") = this->destination.x;
 			nodeDest.append_attribute("Y") = this->destination.y;
 			nodeDest.append_attribute("Z") = this->destination.z;
@@ -428,7 +428,7 @@ namespace sub::Spooner
 		{
 			this->takeVehicleToo = nodeTask.child("TakeVehicleToo").text().as_bool();
 
-			auto& nodeDest = nodeTask.child("Destination");
+			auto nodeDest = nodeTask.child("Destination");
 			this->destination.x = nodeDest.attribute("X").as_float();
 			this->destination.y = nodeDest.attribute("Y").as_float();
 			this->destination.z = nodeDest.attribute("Z").as_float();
@@ -452,8 +452,8 @@ namespace sub::Spooner
 		{
 			if (takeVehicleToo)
 			{
-				auto& veh = ep.CurrentVehicle();
-				(veh.Exists() ? veh : ep).Position_set(this->destination);
+				GTAvehicle veh = ep.CurrentVehicle();
+				(veh.Exists() ? (GTAentity)veh : (GTAentity)ep).Position_set(this->destination);
 				//SET_PED_COORDS_KEEP_VEHICLE(ep.Handle(), this->destination.x, this->destination.y, this->destination.z);
 			}
 			else
@@ -466,7 +466,7 @@ namespace sub::Spooner
 		{
 			nodeTask.append_child("CanPeakInCover").text() = this->canPeekInCover;
 
-			auto& nodeDest = nodeTask.append_child("CoverPos");
+			auto nodeDest = nodeTask.append_child("CoverPos");
 			nodeDest.append_attribute("X") = this->coverPos.x;
 			nodeDest.append_attribute("Y") = this->coverPos.y;
 			nodeDest.append_attribute("Z") = this->coverPos.z;
@@ -475,7 +475,7 @@ namespace sub::Spooner
 		{
 			this->canPeekInCover = nodeTask.child("CanPeakInCover").text().as_bool();
 
-			auto& nodeDest = nodeTask.child("CoverPos");
+			auto nodeDest = nodeTask.child("CoverPos");
 			this->coverPos.x = nodeDest.attribute("X").as_float();
 			this->coverPos.y = nodeDest.attribute("Y").as_float();
 			this->coverPos.z = nodeDest.attribute("Z").as_float();
@@ -508,7 +508,7 @@ namespace sub::Spooner
 			nodeTask.append_child("Speed").text() = this->speed;
 			nodeTask.append_child("Heading").text() = this->heading;
 
-			auto& nodeDest = nodeTask.append_child("Destination");
+			auto nodeDest = nodeTask.append_child("Destination");
 			nodeDest.append_attribute("X") = this->destination.x;
 			nodeDest.append_attribute("Y") = this->destination.y;
 			nodeDest.append_attribute("Z") = this->destination.z;
@@ -518,7 +518,7 @@ namespace sub::Spooner
 			this->speed = nodeTask.child("Speed").text().as_float();
 			this->heading = nodeTask.child("Heading").text().as_float();
 
-			auto& nodeDest = nodeTask.child("Destination");
+			auto nodeDest = nodeTask.child("Destination");
 			this->destination.x = nodeDest.attribute("X").as_float();
 			this->destination.y = nodeDest.attribute("Y").as_float();
 			this->destination.z = nodeDest.attribute("Z").as_float();
@@ -549,7 +549,7 @@ namespace sub::Spooner
 		{
 			nodeTask.append_child("Speed").text() = this->speed;
 
-			auto& nodeDest = nodeTask.append_child("Destination");
+			auto nodeDest = nodeTask.append_child("Destination");
 			nodeDest.append_attribute("X") = this->destination.x;
 			nodeDest.append_attribute("Y") = this->destination.y;
 			nodeDest.append_attribute("Z") = this->destination.z;
@@ -558,7 +558,7 @@ namespace sub::Spooner
 		{
 			this->speed = nodeTask.child("Speed").text().as_float();
 
-			auto& nodeDest = nodeTask.child("Destination");
+			auto nodeDest = nodeTask.child("Destination");
 			if (nodeDest)
 			{
 				this->destination.x = nodeDest.attribute("X").as_float();
@@ -590,10 +590,10 @@ namespace sub::Spooner
 		{
 			nodeTask.append_child("Speed").text() = this->speed;
 
-			auto& nodeRoute = nodeTask.append_child("Route");
+			auto nodeRoute = nodeTask.append_child("Route");
 			for (auto& routePoint : this->route)
 			{
-				auto& nodeRoutePoint = nodeRoute.append_child("Coord");
+				auto nodeRoutePoint = nodeRoute.append_child("Coord");
 				nodeRoutePoint.append_attribute("X") = routePoint.x;
 				nodeRoutePoint.append_attribute("Y") = routePoint.y;
 				nodeRoutePoint.append_attribute("Z") = routePoint.z;
@@ -604,8 +604,8 @@ namespace sub::Spooner
 			this->speed = nodeTask.child("Speed").text().as_float();
 
 			this->route.clear();
-			auto& nodeRoute = nodeTask.child("Route");
-			for (auto& nodeRoutePoint = nodeRoute.first_child(); nodeRoutePoint; nodeRoutePoint = nodeRoutePoint.next_sibling())
+			auto nodeRoute = nodeTask.child("Route");
+			for (auto nodeRoutePoint = nodeRoute.first_child(); nodeRoutePoint; nodeRoutePoint = nodeRoutePoint.next_sibling())
 			{
 				Vector3 nrp;
 				nrp.x = nodeRoutePoint.attribute("X").as_float();
@@ -682,7 +682,7 @@ namespace sub::Spooner
 		void PatrolInRange::GetXmlNodeTaskSpecific(pugi::xml_node& nodeTask) const
 		{
 			nodeTask.append_child("Radius").text() = this->radius;
-			auto& nodeCoord = nodeTask.append_child("Coord");
+			auto nodeCoord = nodeTask.append_child("Coord");
 			nodeCoord.append_attribute("X") = this->coord.x;
 			nodeCoord.append_attribute("Y") = this->coord.y;
 			nodeCoord.append_attribute("Z") = this->coord.z;
@@ -690,7 +690,7 @@ namespace sub::Spooner
 		void PatrolInRange::ImportXmlNodeTaskSpecific(pugi::xml_node& nodeTask)
 		{
 			this->radius = nodeTask.child("Radius").text().as_float();
-			auto& nodeCoord = nodeTask.child("Coord");
+			auto nodeCoord = nodeTask.child("Coord");
 			this->coord.x = nodeCoord.attribute("X").as_float();
 			this->coord.y = nodeCoord.attribute("Y").as_float();
 			this->coord.z = nodeCoord.attribute("Z").as_float();
@@ -730,14 +730,14 @@ namespace sub::Spooner
 
 		void FleeFromCoord::GetXmlNodeTaskSpecific(pugi::xml_node& nodeTask) const
 		{
-			auto& nodeOriginCoords = nodeTask.append_child("Origin");
+			auto nodeOriginCoords = nodeTask.append_child("Origin");
 			nodeOriginCoords.append_attribute("X") = this->originCoords.x;
 			nodeOriginCoords.append_attribute("Y") = this->originCoords.y;
 			nodeOriginCoords.append_attribute("Z") = this->originCoords.z;
 		}
 		void FleeFromCoord::ImportXmlNodeTaskSpecific(pugi::xml_node& nodeTask)
 		{
-			auto& nodeOriginCoords = nodeTask.child("Origin");
+			auto nodeOriginCoords = nodeTask.child("Origin");
 			this->originCoords.x = nodeOriginCoords.attribute("X").as_float();
 			this->originCoords.y = nodeOriginCoords.attribute("Y").as_float();
 			this->originCoords.z = nodeOriginCoords.attribute("Z").as_float();
@@ -869,14 +869,14 @@ namespace sub::Spooner
 		void PlayAnimation::RunP(GTAped& ep)
 		{
 			if (this->durationToAnimDuration)
-				this->duration = GET_ENTITY_ANIM_TOTAL_TIME(ep.Handle(), const_cast<PCHAR>(this->animDict.c_str()), const_cast<PCHAR>(this->animName.c_str()));
+				this->duration = GET_ENTITY_ANIM_TOTAL_TIME(ep.Handle(), this->animDict.c_str(), this->animName.c_str());
 
-			//if (IS_ENTITY_PLAYING_ANIM(ep.Handle, const_cast<PCHAR>(animDict.c_str()), const_cast<PCHAR>(animDict.c_str()), 3))
+			//if (IS_ENTITY_PLAYING_ANIM(ep.Handle, animDict.c_str(), animDict.c_str(), 3))
 			ep.Task().PlayAnimation(this->animDict, this->animName, this->speed, this->speedMultiplier, this->durationAfterLife > 0 ? -1 : this->duration, this->flag, 0.0f, this->lockPos);
 		}
 		void PlayAnimation::LoadTargetingDressing(Entity u_initHandle, Entity u_e_Handle)
 		{
-			if (HAS_ANIM_DICT_LOADED(const_cast<PCHAR>(this->animDict.c_str())))
+			if (HAS_ANIM_DICT_LOADED(this->animDict.c_str()))
 				Game::RequestAnimDict(this->animDict, 1600);
 		}
 
@@ -920,14 +920,14 @@ namespace sub::Spooner
 
 		void AimAtCoord::GetXmlNodeTaskSpecific(pugi::xml_node& nodeTask) const
 		{
-			auto& nodePos = nodeTask.append_child("Position");
+			auto nodePos = nodeTask.append_child("Position");
 			nodePos.append_attribute("X") = this->coord.x;
 			nodePos.append_attribute("Y") = this->coord.y;
 			nodePos.append_attribute("Z") = this->coord.z;
 		}
 		void AimAtCoord::ImportXmlNodeTaskSpecific(pugi::xml_node& nodeTask)
 		{
-			auto& nodePos = nodeTask.child("Position");
+			auto nodePos = nodeTask.child("Position");
 			this->coord.x = nodePos.attribute("X").as_float();
 			this->coord.y = nodePos.attribute("Y").as_float();
 			this->coord.z = nodePos.attribute("Z").as_float();
@@ -991,14 +991,14 @@ namespace sub::Spooner
 
 		void ShootAtCoord::GetXmlNodeTaskSpecific(pugi::xml_node& nodeTask) const
 		{
-			auto& nodePos = nodeTask.append_child("Position");
+			auto nodePos = nodeTask.append_child("Position");
 			nodePos.append_attribute("X") = this->coord.x;
 			nodePos.append_attribute("Y") = this->coord.y;
 			nodePos.append_attribute("Z") = this->coord.z;
 		}
 		void ShootAtCoord::ImportXmlNodeTaskSpecific(pugi::xml_node& nodeTask)
 		{
-			auto& nodePos = nodeTask.child("Position");
+			auto nodePos = nodeTask.child("Position");
 			this->coord.x = nodePos.attribute("X").as_float();
 			this->coord.y = nodePos.attribute("Y").as_float();
 			this->coord.z = nodePos.attribute("Z").as_float();
@@ -1377,7 +1377,7 @@ namespace sub::Spooner
 			nodeTask.append_child("SpeedInKmph").text() = this->speedInKmph;
 			nodeTask.append_child("DrivingStyle").text() = this->drivingStyle;
 
-			auto& nodeDest = nodeTask.append_child("Destination");
+			auto nodeDest = nodeTask.append_child("Destination");
 			nodeDest.append_attribute("X") = this->destination.x;
 			nodeDest.append_attribute("Y") = this->destination.y;
 			nodeDest.append_attribute("Z") = this->destination.z;
@@ -1387,7 +1387,7 @@ namespace sub::Spooner
 			this->speedInKmph = nodeTask.child("SpeedInKmph").text().as_float();
 			this->drivingStyle = nodeTask.child("DrivingStyle").text().as_int();
 
-			auto& nodeDest = nodeTask.child("Destination");
+			auto nodeDest = nodeTask.child("Destination");
 			this->destination.x = nodeDest.attribute("X").as_float();
 			this->destination.y = nodeDest.attribute("Y").as_float();
 			this->destination.z = nodeDest.attribute("Z").as_float();
@@ -1414,8 +1414,8 @@ namespace sub::Spooner
 			float speedInMps = this->speedInKmph / 3.6f;
 			ep.MaxDrivingSpeed_set(speedInMps + 1.0f);
 
-			auto& veh = ep.CurrentVehicle();
-			Model& vehModel = veh.Model();
+			GTAvehicle veh = ep.CurrentVehicle();
+			const Model& vehModel = veh.Model();
 			//ep.Task().DriveTo(ep.CurrentVehicle(), this->destination, 1.0f, speedInMps);
 
 			TaskSequence tsk;
@@ -1497,24 +1497,24 @@ namespace sub::Spooner
 
 		void DriveLandPlane::GetXmlNodeTaskSpecific(pugi::xml_node& nodeTask) const
 		{
-			auto& nodeRunwayStart = nodeTask.append_child("RunwayStart");
+			auto nodeRunwayStart = nodeTask.append_child("RunwayStart");
 			nodeRunwayStart.append_attribute("X") = this->runwayStart.x;
 			nodeRunwayStart.append_attribute("Y") = this->runwayStart.y;
 			nodeRunwayStart.append_attribute("Z") = this->runwayStart.z;
 
-			auto& nodeRunwayEnd = nodeTask.append_child("RunwayEnd");
+			auto nodeRunwayEnd = nodeTask.append_child("RunwayEnd");
 			nodeRunwayEnd.append_attribute("X") = this->runwayEnd.x;
 			nodeRunwayEnd.append_attribute("Y") = this->runwayEnd.y;
 			nodeRunwayEnd.append_attribute("Z") = this->runwayEnd.z;
 		}
 		void DriveLandPlane::ImportXmlNodeTaskSpecific(pugi::xml_node& nodeTask)
 		{
-			auto& nodeRunwayStart = nodeTask.child("RunwayStart");
+			auto nodeRunwayStart = nodeTask.child("RunwayStart");
 			this->runwayStart.x = nodeRunwayStart.attribute("X").as_float();
 			this->runwayStart.y = nodeRunwayStart.attribute("Y").as_float();
 			this->runwayStart.z = nodeRunwayStart.attribute("Z").as_float();
 
-			auto& nodeRunwayEnd = nodeTask.child("RunwayEnd");
+			auto nodeRunwayEnd = nodeTask.child("RunwayEnd");
 			this->runwayEnd.x = nodeRunwayEnd.attribute("X").as_float();
 			this->runwayEnd.y = nodeRunwayEnd.attribute("Y").as_float();
 			this->runwayEnd.z = nodeRunwayEnd.attribute("Z").as_float();
@@ -1657,7 +1657,7 @@ namespace sub::Spooner
 			nodeTask.append_child("Pitch").text() = this->pitch;
 			nodeTask.append_child("Magnitude").text() = this->magnitude;
 
-			auto& nodeOffsetVector = nodeTask.append_child("OffsetVector");
+			auto nodeOffsetVector = nodeTask.append_child("OffsetVector");
 			nodeOffsetVector.append_attribute("X") = this->offsetVector.x;
 			nodeOffsetVector.append_attribute("Y") = this->offsetVector.y;
 			nodeOffsetVector.append_attribute("Z") = this->offsetVector.z;
@@ -1670,7 +1670,7 @@ namespace sub::Spooner
 			this->pitch = nodeTask.child("Pitch").text().as_float();
 			this->magnitude = nodeTask.child("Magnitude").text().as_float();
 
-			auto& nodeOffsetVector = nodeTask.child("OffsetVector");
+			auto nodeOffsetVector = nodeTask.child("OffsetVector");
 			this->offsetVector.x = nodeOffsetVector.attribute("X").as_float();
 			this->offsetVector.y = nodeOffsetVector.attribute("Y").as_float();
 			this->offsetVector.z = nodeOffsetVector.attribute("Z").as_float();
@@ -1700,7 +1700,7 @@ namespace sub::Spooner
 		}
 		void AchievePushForce::RunP(GTAped& ep)
 		{
-			Vector3& dir = Vector3::RotationToDirection(Vector3(this->pitch, 0.0f, this->heading)) * this->magnitude;
+			const Vector3& dir = Vector3::RotationToDirection(Vector3(this->pitch, 0.0f, this->heading)) * this->magnitude;
 			APPLY_FORCE_TO_ENTITY(ep.Handle(), this->forceType, dir.x, dir.y, dir.z, this->offsetVector.x, this->offsetVector.y, this->offsetVector.z, false, this->isRelative, true, true, false, true);
 		}
 
@@ -1709,7 +1709,7 @@ namespace sub::Spooner
 			nodeTask.append_child("AngularFrequency").text() = this->angleFreq;
 			nodeTask.append_child("DampRatio").text() = this->dampRatio;
 
-			auto& nodeDest = nodeTask.append_child("Point");
+			auto nodeDest = nodeTask.append_child("Point");
 			nodeDest.append_attribute("X") = this->destination.x;
 			nodeDest.append_attribute("Y") = this->destination.y;
 			nodeDest.append_attribute("Z") = this->destination.z;
@@ -1719,7 +1719,7 @@ namespace sub::Spooner
 			this->angleFreq = nodeTask.child("AngularFrequency").text().as_float();
 			this->dampRatio = nodeTask.child("DampRatio").text().as_float();
 
-			auto& nodeDest = nodeTask.child("Point");
+			auto nodeDest = nodeTask.child("Point");
 			this->destination.x = nodeDest.attribute("X").as_float();
 			this->destination.y = nodeDest.attribute("Y").as_float();
 			this->destination.z = nodeDest.attribute("Z").as_float();
@@ -1757,7 +1757,7 @@ namespace sub::Spooner
 			else
 				nodeTask.append_child("TargetInitHandle").text() = targetHandle;
 
-			auto& nodeOffsetVector = nodeTask.append_child("OffsetVector");
+			auto nodeOffsetVector = nodeTask.append_child("OffsetVector");
 			nodeOffsetVector.append_attribute("X") = this->offsetVector.x;
 			nodeOffsetVector.append_attribute("Y") = this->offsetVector.y;
 			nodeOffsetVector.append_attribute("Z") = this->offsetVector.z;
@@ -1772,7 +1772,7 @@ namespace sub::Spooner
 			else
 				this->targetEntity.Handle() = nodeTask.child("TargetInitHandle").text().as_int();
 
-			auto& nodeOffsetVector = nodeTask.child("OffsetVector");
+			auto nodeOffsetVector = nodeTask.child("OffsetVector");
 			this->offsetVector.x = nodeOffsetVector.attribute("X").as_float();
 			this->offsetVector.y = nodeOffsetVector.attribute("Y").as_float();
 			this->offsetVector.z = nodeOffsetVector.attribute("Z").as_float();
@@ -1922,18 +1922,18 @@ namespace sub::Spooner
 			nodeTask.append_child("EffectName").text() = this->fx.GetFxData().effect.c_str();
 			nodeTask.append_child("Scale").text() = this->scale;
 
-			auto& nodeColour = nodeTask.append_child("Colour");
+			auto nodeColour = nodeTask.append_child("Colour");
 			nodeColour.append_attribute("R") = this->colour.R;
 			nodeColour.append_attribute("G") = this->colour.G;
 			nodeColour.append_attribute("B") = this->colour.B;
 			nodeColour.append_attribute("A") = this->colour.A;
 
-			auto& nodePos = nodeTask.append_child("RelativePosition");
+			auto nodePos = nodeTask.append_child("RelativePosition");
 			nodePos.append_attribute("X") = this->posOffset.x;
 			nodePos.append_attribute("Y") = this->posOffset.y;
 			nodePos.append_attribute("Z") = this->posOffset.z;
 
-			auto& nodeRot = nodeTask.append_child("RelativeRotation");
+			auto nodeRot = nodeTask.append_child("RelativeRotation");
 			nodeRot.append_attribute("X") = this->rotOffset.x;
 			nodeRot.append_attribute("Y") = this->rotOffset.y;
 			nodeRot.append_attribute("Z") = this->rotOffset.z;
@@ -1944,18 +1944,18 @@ namespace sub::Spooner
 			this->fx = PTFX::NonLoopedPTFX(nodeTask.child("AssetName").text().as_string(), nodeTask.child("EffectName").text().as_string());
 			this->scale = nodeTask.child("Scale").text().as_float();
 
-			auto& nodeColour = nodeTask.child("Colour");
+			auto nodeColour = nodeTask.child("Colour");
 			this->colour.R = nodeColour.attribute("R").as_int();
 			this->colour.G = nodeColour.attribute("G").as_int();
 			this->colour.B = nodeColour.attribute("B").as_int();
 			this->colour.A = nodeColour.attribute("A").as_int();
 
-			auto& nodePos = nodeTask.child("RelativePosition");
+			auto nodePos = nodeTask.child("RelativePosition");
 			this->posOffset.x = nodePos.attribute("X").as_float();
 			this->posOffset.y = nodePos.attribute("Y").as_float();
 			this->posOffset.z = nodePos.attribute("Z").as_float();
 
-			auto& nodeRot = nodeTask.child("RelativeRotation");
+			auto nodeRot = nodeTask.child("RelativeRotation");
 			this->rotOffset.x = nodeRot.attribute("X").as_float();
 			this->rotOffset.y = nodeRot.attribute("Y").as_float();
 			this->rotOffset.z = nodeRot.attribute("Z").as_float();

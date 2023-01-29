@@ -74,7 +74,7 @@ namespace _VehicleTow_
 	}
 	inline void VehicleTow::DoTowTick()
 	{
-		GTAvehicle& vehBehindFirst = GetVehicleBehindFirst();
+		GTAvehicle vehBehindFirst = GetVehicleBehindFirst();
 
 		if (vehBehindFirst.Handle() != NULL && vehBehindFirst.Handle() != currentPair.e2.Handle())
 		{
@@ -103,18 +103,18 @@ namespace _VehicleTow_
 				newVeh.RequestControlOnce();
 
 				auto& initialDistance = it->initialDistance;
-				ModelDimensions& last_md = last.ModelDimensions();
-				ModelDimensions& newVeh_md = newVeh.ModelDimensions();
+				const ModelDimensions& last_md = last.ModelDimensions();
+				const ModelDimensions& newVeh_md = newVeh.ModelDimensions();
 
 				Vector3 offset1(0, -last_md.Dim2.y, 0);
 				Vector3 offset2(0, newVeh_md.Dim1.y, 0);
-				Vector3& pos1 = last.GetOffsetInWorldCoords(offset1 / 2);
-				Vector3& pos2 = newVeh.GetOffsetInWorldCoords(offset2 / 2);
+				const Vector3& pos1 = last.GetOffsetInWorldCoords(offset1 / 2);
+				const Vector3& pos2 = newVeh.GetOffsetInWorldCoords(offset2 / 2);
 				float currentDist = pos1.DistanceTo(pos2);
 
 				if (currentDist > initialDistance) // -0.1f?
 				{
-					Vector3& forceDir = Vector3::Normalize(pos2 - pos1);
+					const Vector3& forceDir = Vector3::Normalize(pos2 - pos1);
 					newVeh.ApplyForce(-forceDir, ForceType::MaxForceRot2);
 				}
 
@@ -138,7 +138,7 @@ namespace _VehicleTow_
 
 		Vector3 newCoord;
 
-		Vector3& oldCoord = last.GetOffsetInWorldCoords(0, -last.Dim2().y, 0);
+		const Vector3& oldCoord = last.GetOffsetInWorldCoords(0, -last.Dim2().y, 0);
 
 		for (GTAentity newVeh : _nearbyVehicles)
 		{
@@ -164,18 +164,18 @@ namespace _VehicleTow_
 		last.RequestControl(300);
 		newVeh.RequestControl(600);
 
-		ModelDimensions& last_md = last.ModelDimensions();
-		ModelDimensions& newVeh_md = newVeh.ModelDimensions();
+		const ModelDimensions& last_md = last.ModelDimensions();
+		const ModelDimensions& newVeh_md = newVeh.ModelDimensions();
 
 		Vector3 offset1(0, -last_md.Dim2.y / 2, 0);
 		Vector3 offset2(0, newVeh_md.Dim1.y / 2, 0);
-		Vector3& pos1 = last.GetOffsetInWorldCoords(offset1);
-		Vector3& pos2 = newVeh.GetOffsetInWorldCoords(offset2);
+		const Vector3& pos1 = last.GetOffsetInWorldCoords(offset1);
+		const Vector3& pos2 = newVeh.GetOffsetInWorldCoords(offset2);
 
 		float dist = pos1.DistanceTo(pos2);
 		currentPair.initialDistance = dist;
 
-		Rope& newRope = Rope::AddRope(RopeType::Normal, pos1, Vector3(0, 0, 5.0f), dist, 0.0f, true);
+		Rope newRope = Rope::AddRope(RopeType::Normal, pos1, Vector3(0, 0, 5.0f), dist, 0.0f, true);
 		newRope.ActivatePhysics();
 		currentPair.rope = newRope;
 		//newRope.PinVertex(0, pos1);

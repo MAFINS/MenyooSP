@@ -20,8 +20,8 @@ class Vector3;
 class GTAentity;
 class GTAped;
 
-void teleport_net_ped(GTAentity ped, float X, float Y, float Z, bool bWait = true);
-void teleport_net_ped(GTAentity ped, const Vector3& pos, bool bWait = true);
+void teleport_net_ped(GTAentity ped, float X, float Y, float Z, bool bWait = true, bool bPtfx = true);
+void teleport_net_ped(GTAentity ped, const Vector3& pos, bool bWait = true, bool bPtfx = true);
 void teleport_to_missionBlip(GTAped ped);
 
 namespace sub::TeleportLocations_catind

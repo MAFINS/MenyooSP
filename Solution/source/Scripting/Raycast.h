@@ -44,17 +44,17 @@ public:
 	RaycastResult(const RaycastResult& handle);
 	RaycastResult(int handle);
 
-	int Result();
+	int Result() const;
 
-	bool DidHitEntity();
+	bool DidHitEntity() const;
 
-	bool DidHitAnything();
+	bool DidHitAnything() const;
 
-	GTAentity HitEntity();
+	GTAentity HitEntity() const;
 
-	Vector3 HitCoords();
+	Vector3 HitCoords() const;
 
-	Vector3 SurfaceNormal();
+	Vector3 SurfaceNormal() const;
 
 	static RaycastResult Raycast(const Vector3& source, const Vector3& target, IntersectOptions options, GTAentity ignoreEntity = 0);
 	static RaycastResult Raycast(const Vector3& source, const Vector3& direction, float maxDistance, IntersectOptions options, GTAentity ignoreEntity = 0);

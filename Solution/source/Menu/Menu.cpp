@@ -470,7 +470,7 @@ void Menu::background()
 	// Draw option count
 	temp = scr_rect_Y - 0.0124f;
 
-	std::string& toPrint = std::to_string(*currentopATM) + " / " + std::to_string(totalop);
+	std::string toPrint = std::to_string(*currentopATM) + " / " + std::to_string(totalop);
 
 	Game::Print::setupdraw(GTAfont::Arial, Vector2(0.0f, 0.26f), false, false, false, optioncount);
 	float width = Game::Print::GetTextWidth(toPrint);
@@ -969,7 +969,7 @@ void MouseSupport::DisableControls()
 void MouseSupport::DoMouseTick()
 {
 
-	Vector2& safezoneOffset = GetSafezoneBounds();
+	//Vector2& safezoneOffset = GetSafezoneBounds();
 
 	SET_MOUSE_CURSOR_THIS_FRAME();
 
@@ -1023,7 +1023,7 @@ void MouseSupport::DrawOptionHighlight()
 	if (Menu::totalop < 1)
 		return;
 
-	Vector2& pos = ItemNumberToItemCoords(MouseSupport::currentopM);
+	Vector2 pos = ItemNumberToItemCoords(MouseSupport::currentopM);
 	Vector2 size = { 0.20f, 0.035f };
 
 	if (Menu::gradients)
@@ -1060,7 +1060,7 @@ Vector2 MouseSupport::MousePosition()
 }
 bool MouseSupport::IsMouseInBounds(Vector2 const& boxCentre, Vector2 const& boxSize)
 {
-	Vector2& pos = MousePosition();
+	Vector2 pos = MousePosition();
 
 	return (pos.x >= boxCentre.x - boxSize.x / 2 && pos.x <= boxCentre.x + boxSize.x / 2)
 		&& (pos.y > boxCentre.y - boxSize.y / 2 && pos.y < boxCentre.y + boxSize.y / 2);
@@ -1171,7 +1171,7 @@ void AddTitle(const std::string& text)
 }
 void AddOption(std::string text, bool& option_code_bool, void(&callback)(), int submenu_index, bool show_arrow, bool gxt)
 {
-	char* tempChar;
+	std::string tempChar;
 
 	Menu::printingop++;
 
@@ -1481,24 +1481,24 @@ void AddNumber(const std::string& text, float value, __int8 decimal_places, bool
 	}
 
 }
-void draw_tickol_tick_BNW(const PCHAR textureDict, const PCHAR normal, const PCHAR selected, const RGBA& colour)
+void draw_tickol_tick_BNW(const std::string& textureDict, const std::string& normal, const std::string& selected, const RGBA& colour)
 {
-	if (!HAS_STREAMED_TEXTURE_DICT_LOADED(textureDict)) REQUEST_STREAMED_TEXTURE_DICT(textureDict, 0);
-	PCHAR textureName;
+	if (!HAS_STREAMED_TEXTURE_DICT_LOADED(textureDict.c_str())) REQUEST_STREAMED_TEXTURE_DICT(textureDict.c_str(), 0);
+	std::string textureName;
 	if (Menu::printingop == *Menu::currentopATM)
 		textureName = selected;
 	else textureName = normal;
-	Vector3 texture_res = GET_TEXTURE_RESOLUTION(textureDict, textureName);
+	Vector3 texture_res = GET_TEXTURE_RESOLUTION(textureDict.c_str(), textureName.c_str());
 	texture_res.x /= (Game::defaultScreenRes.first * 2);
 	texture_res.y /= (Game::defaultScreenRes.second * 2);
-	DRAW_SPRITE(textureDict, textureName, get_xcoord_at_menu_rightEdge(texture_res.x, 0.0f, true), OptionY + 0.016f + menuPos.y, texture_res.x, texture_res.y, 0.0f, 255, 255, 255, colour.A, false, 0);
+	DRAW_SPRITE(textureDict.c_str(), textureName.c_str(), get_xcoord_at_menu_rightEdge(texture_res.x, 0.0f, true), OptionY + 0.016f + menuPos.y, texture_res.x, texture_res.y, 0.0f, 255, 255, 255, colour.A, false, 0);
 
 }
 inline void draw_tickol_tick(TICKOL tickType)
 {
 	RGBA* colour = &optiontext;
 	if (Menu::printingop == *Menu::currentopATM) colour = &selectedtext;
-	PCHAR textureDict, textureName;
+	std::string textureDict, textureName;
 	Vector3 texture_res;
 
 	switch (tickType)
@@ -1560,12 +1560,12 @@ inline void draw_tickol_tick(TICKOL tickType)
 
 	}
 
-	if (!HAS_STREAMED_TEXTURE_DICT_LOADED(textureDict)) REQUEST_STREAMED_TEXTURE_DICT(textureDict, 0);
-	texture_res = GET_TEXTURE_RESOLUTION(textureDict, textureName);
+	if (!HAS_STREAMED_TEXTURE_DICT_LOADED(textureDict.c_str())) REQUEST_STREAMED_TEXTURE_DICT(textureDict.c_str(), 0);
+	texture_res = GET_TEXTURE_RESOLUTION(textureDict.c_str(), textureName.c_str());
 	texture_res.x /= (Game::defaultScreenRes.first * 2);
 	texture_res.y /= (Game::defaultScreenRes.second * 2);
 
-	DRAW_SPRITE(textureDict, textureName, get_xcoord_at_menu_rightEdge(texture_res.x, 0.0f, true), OptionY + 0.016f + menuPos.y, texture_res.x, texture_res.y, 0.0f, colour->R, colour->G, colour->B, colour->A, false, 0);
+	DRAW_SPRITE(textureDict.c_str(), textureName.c_str(), get_xcoord_at_menu_rightEdge(texture_res.x, 0.0f, true), OptionY + 0.016f + menuPos.y, texture_res.x, texture_res.y, 0.0f, colour->R, colour->G, colour->B, colour->A, false, 0);
 
 }
 void AddTickol(const std::string& text, BOOL condition, bool& option_code_ON, bool& option_code_OFF, TICKOL tickTrue, TICKOL tickFalse, bool gxt)
@@ -1631,7 +1631,7 @@ inline void AddTexter(const std::string& text, int selectedindex, const TA& text
 		{
 			chartickStr = textarray.at(selectedindex);
 		}
-		const char* chartick = const_cast<PCHAR>(chartickStr.c_str());
+		const char* chartick = chartickStr.c_str();
 
 		chartick = DOES_TEXT_LABEL_EXIST(chartick) ? GET_FILENAME_FOR_AUDIO_CONVERSATION(chartick) : chartick;
 		FLOAT newXpos;
@@ -1716,7 +1716,7 @@ bool Add_preset_colour_options(INT& r, INT& g, INT& b)
 	for (auto& colol : _vNeonColours)
 	{
 		null = 0;
-		AddTickol(const_cast<PCHAR>(colol.name.c_str()), r == colol.rgb.R && g == colol.rgb.G && b == colol.rgb.B, null, null);
+		AddTickol(colol.name.c_str(), r == colol.rgb.R && g == colol.rgb.G && b == colol.rgb.B, null, null);
 		if (null)
 		{
 			r = colol.rgb.R;

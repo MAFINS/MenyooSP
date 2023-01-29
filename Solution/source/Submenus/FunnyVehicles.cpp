@@ -44,7 +44,7 @@ namespace sub
 					{
 						if (vehicle.IsSeatFree(VehicleSeat(i)))
 							continue;
-						GTAentity& sped = vehicle.GetPedOnSeat(VehicleSeat(i));
+						GTAentity sped = vehicle.GetPedOnSeat(VehicleSeat(i));
 						sped.RequestControl();
 						sped.SetVisible(true);
 					}
@@ -832,8 +832,8 @@ namespace sub
 			auto bone_chassis = vehicle.GetBoneIndex(VBone::chassis_dummy);
 
 			Model building = 0xAC4365DD; // dt1_05_build1_damage
-			ModelDimensions& buildingDim = building.Dimensions();
-			ModelDimensions& vehicleDim = vehicle.ModelDimensions();
+			const ModelDimensions& buildingDim = building.Dimensions();
+			const ModelDimensions& vehicleDim = vehicle.ModelDimensions();
 
 			att_obj_to_veh(building, vehicle, 0, 0, vehicleDim.Dim1.z - buildingDim.Dim2.z, 0, 0, 0, 1, bone_chassis, false, true, false); // Don't set as no longer needed
 

@@ -191,7 +191,7 @@ namespace sub
 				bool bPressed = false;
 				AddOption(name, bPressed); if (bPressed)
 				{
-					LOAD_CLOUD_HAT(const_cast<PCHAR>(name.c_str()), 0.5f);
+					LOAD_CLOUD_HAT(name.c_str(), 0.5f);
 				}
 			}
 		}

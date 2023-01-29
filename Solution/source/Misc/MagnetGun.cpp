@@ -60,7 +60,7 @@ namespace _MagnetGun_
 
 				set_forge_gun_dist(distanceFromCam); // Use buttons to change the hold distance value
 
-				Vector3& targetPos = GameplayCamera::Position_get() + (GameplayCamera::Direction_get() * distanceFromCam);
+				Vector3 targetPos = GameplayCamera::Position_get() + (GameplayCamera::Direction_get() * distanceFromCam);
 
 				World::DrawMarker(MarkerType::DebugSphere, targetPos, Vector3(), Vector3(), Vector3(0.5f, 0.5f, 0.5f), g_fadedRGB.ToRGBA(150));
 

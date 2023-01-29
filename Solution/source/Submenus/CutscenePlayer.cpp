@@ -631,7 +631,7 @@ namespace sub
 
 		void EndCutscene()
 		{
-			GTAplayer& player = Game::Player();
+			GTAplayer player = Game::Player();
 
 			STOP_CUTSCENE_IMMEDIATELY();
 			REMOVE_CUTSCENE();
@@ -648,7 +648,7 @@ namespace sub
 			}
 			else
 			{
-				GTAplayer& player = Game::Player();
+				GTAplayer player = Game::Player();
 
 				if (player.IsAlive())
 				{
@@ -657,7 +657,7 @@ namespace sub
 					player.SetControl(false, 0);
 				}
 
-				REQUEST_CUTSCENE(const_cast<PCHAR>(label.c_str()), 8);
+				REQUEST_CUTSCENE(label.c_str(), 8);
 
 				DWORD timeOut = GetTickCount() + 1500;
 				while (GetTickCount() < timeOut)

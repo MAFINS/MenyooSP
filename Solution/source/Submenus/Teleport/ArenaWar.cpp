@@ -26,7 +26,7 @@ namespace sub::TeleportLocations_catind
 	namespace ArenaWar
 	{
 #pragma region other arena war locations interior props lists
-		const std::vector<PCHAR> x18dlc_int_01{
+		const std::vector<std::string> x18dlc_int_01{
 			"xs_x18int01_light_connector",
 			"xs_x18int01_pit_fencedemo_col",
 			"xs_x18int01_pit_fenceoval_col",
@@ -110,7 +110,7 @@ namespace sub::TeleportLocations_catind
 			"Set_Crowd_D"
 		};
 
-		const std::vector<PCHAR> x18dlc_int_mod{
+		const std::vector<std::string> x18dlc_int_mod{
 			"xs_x18intmod_arenalightsdummy",
 			"xs_x18intmod_b1_2_elev_01",
 			"xs_x18intmod_b1_2_exitdoors_01",
@@ -351,7 +351,7 @@ namespace sub::TeleportLocations_catind
 			"SET_OFFICE_TRINKET_01"
 		};
 
-		const std::vector<PCHAR> x18dlc_int_vip{
+		const std::vector<std::string> x18dlc_int_vip{
 			"xs_x18intvip_bar_emissive_tubes",
 			"xs_x18intvip_bar_stool",
 			"xs_x18intvip_bar_stool001",

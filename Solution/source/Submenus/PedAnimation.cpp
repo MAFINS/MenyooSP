@@ -244,8 +244,8 @@ namespace sub
 		pugi::xml_document doc;
 		if (doc.load_file((const char*)(GetPathffA(Pathff::Main, true) + "FavouriteAnims.xml").c_str()).status == pugi::status_ok)
 		{
-			auto& nodeAnims = doc.child("PedAnims");
-			for (auto& nodeAnim = nodeAnims.first_child(); nodeAnim; nodeAnim = nodeAnim.next_sibling())
+			auto nodeAnims = doc.child("PedAnims");
+			for (auto nodeAnim = nodeAnims.first_child(); nodeAnim; nodeAnim = nodeAnim.next_sibling())
 			{
 				std::string dict = nodeAnim.attribute("dict").as_string();
 				std::string name = nodeAnim.attribute("name").as_string();
@@ -260,9 +260,9 @@ namespace sub
 		if (doc.load_file((const char*)(GetPathffA(Pathff::Main, true) + "FavouriteAnims.xml").c_str()).status != pugi::status_ok)
 			return false;
 
-		auto& nodeAnims = doc.child("PedAnims");
+		auto nodeAnims = doc.child("PedAnims");
 
-		for (auto& nodeAnim = nodeAnims.first_child(); nodeAnim; nodeAnim = nodeAnim.next_sibling())
+		for (auto nodeAnim = nodeAnims.first_child(); nodeAnim; nodeAnim = nodeAnim.next_sibling())
 		{
 			std::string dict = nodeAnim.attribute("dict").as_string();
 			std::string name = nodeAnim.attribute("name").as_string();
@@ -278,15 +278,15 @@ namespace sub
 		if (doc.load_file((const char*)filePath.c_str()).status != pugi::status_ok)
 		{
 			doc.reset();
-			auto& nodeDecleration = doc.append_child(pugi::node_declaration);
+			auto nodeDecleration = doc.append_child(pugi::node_declaration);
 			nodeDecleration.append_attribute("version") = "1.0";
 			nodeDecleration.append_attribute("encoding") = "ISO-8859-1";
 			doc.append_child("PedAnims");
 		}
 
-		auto& nodeAnims = doc.child("PedAnims");
+		auto nodeAnims = doc.child("PedAnims");
 
-		auto& nodeAnim = nodeAnims.append_child("Anim");
+		auto nodeAnim = nodeAnims.append_child("Anim");
 		nodeAnim.append_attribute("dict") = animDict.c_str();
 		nodeAnim.append_attribute("name") = animName.c_str();
 
@@ -298,9 +298,9 @@ namespace sub
 		if (doc.load_file((const char*)(GetPathffA(Pathff::Main, true) + "FavouriteAnims.xml").c_str()).status != pugi::status_ok)
 			return;
 
-		auto& nodeAnims = doc.child("PedAnims");
+		auto nodeAnims = doc.child("PedAnims");
 
-		for (auto& nodeAnim = nodeAnims.first_child(); nodeAnim; nodeAnim = nodeAnim.next_sibling())
+		for (auto nodeAnim = nodeAnims.first_child(); nodeAnim; nodeAnim = nodeAnim.next_sibling())
 		{
 			std::string dict = nodeAnim.attribute("dict").as_string();
 			std::string name = nodeAnim.attribute("name").as_string();
@@ -320,7 +320,7 @@ namespace sub
 		if (anim_name.length() == 0)
 			anim_name = text;
 		bool pressed = false;
-		AddTickol(text, IS_ENTITY_PLAYING_ANIM(Static_241, const_cast<PCHAR>(anim_dict.c_str()), const_cast<PCHAR>(anim_name.c_str()), 3), pressed, pressed, TICKOL::MANWON); if (pressed)
+		AddTickol(text, IS_ENTITY_PLAYING_ANIM(Static_241, anim_dict.c_str(), anim_name.c_str(), 3), pressed, pressed, TICKOL::MANWON); if (pressed)
 		{
 			GTAped ped = Static_241;
 			GTAentity att;
@@ -562,11 +562,11 @@ namespace sub
 			return;
 		}
 
-		auto& nodeAnims = doc.child("PedAnims");
+		auto nodeAnims = doc.child("PedAnims");
 
 		AddTitle("Favourites");
 
-		for (auto& nodeAnim = nodeAnims.first_child(); nodeAnim; nodeAnim = nodeAnim.next_sibling())
+		for (auto nodeAnim = nodeAnims.first_child(); nodeAnim; nodeAnim = nodeAnim.next_sibling())
 		{
 			std::string dict = nodeAnim.attribute("dict").as_string();
 			std::string name = nodeAnim.attribute("name").as_string();
@@ -1061,7 +1061,7 @@ namespace sub
 		void __AddOption(const std::string& text, const std::string& scenarioLabel, int delay = -1, bool playEnterAnim = true)
 		{
 			bool pressed = false;
-			AddTickol(text, IS_PED_USING_SCENARIO(Static_241, const_cast<PCHAR>(scenarioLabel.c_str())), pressed, pressed, TICKOL::MANWON);
+			AddTickol(text, IS_PED_USING_SCENARIO(Static_241, scenarioLabel.c_str()), pressed, pressed, TICKOL::MANWON);
 			if (pressed)
 			{
 				GTAped ped = Static_241;
@@ -1078,7 +1078,7 @@ namespace sub
 				if (!ped.Task().IsUsingScenario(scenarioLabel))
 				{
 					//ped.Task().StartScenario(scenarioLabel, delay, playEnterAnim);
-					TASK_START_SCENARIO_IN_PLACE(Static_241, const_cast<PCHAR>(scenarioLabel.c_str()), delay, playEnterAnim);
+					TASK_START_SCENARIO_IN_PLACE(Static_241, scenarioLabel.c_str(), delay, playEnterAnim);
 				}
 
 				if (scenarioLabel.find("MUSICIAN") != std::string::npos)
@@ -1204,9 +1204,9 @@ namespace sub
 	void set_ped_movement_clipset(GTAentity ped, const std::string& setName)
 	{
 		Game::RequestAnimSet(setName);
-		SET_PED_MOVEMENT_CLIPSET(ped.Handle(), const_cast<PCHAR>(setName.c_str()), 0x3E800000);
+		SET_PED_MOVEMENT_CLIPSET(ped.Handle(), setName.c_str(), 0x3E800000);
 		WAIT(30);
-		Vector3& coord = GET_ENTITY_COORDS(ped.Handle(), 1);
+		Vector3 coord = GET_ENTITY_COORDS(ped.Handle(), 1);
 		SET_ENTITY_COORDS(Static_241, coord.x, coord.y, coord.z + 0.05f, 0, 0, 0, 1);
 		FREEZE_ENTITY_POSITION(ped.Handle(), 0);
 		g_pedList_movGrp[ped.Handle()] = setName;
@@ -1223,9 +1223,9 @@ namespace sub
 	void set_ped_weapon_movement_clipset(GTAentity ped, const std::string& setName)
 	{
 		Game::RequestAnimSet(setName);
-		SET_PED_WEAPON_MOVEMENT_CLIPSET(ped.Handle(), const_cast<PCHAR>(setName.c_str()));
+		SET_PED_WEAPON_MOVEMENT_CLIPSET(ped.Handle(), setName.c_str());
 		WAIT(30);
-		Vector3& coord = GET_ENTITY_COORDS(ped.Handle(), 1);
+		const Vector3& coord = GET_ENTITY_COORDS(ped.Handle(), 1);
 		SET_ENTITY_COORDS(Static_241, coord.x, coord.y, coord.z + 0.05f, 0, 0, 0, 1);
 		FREEZE_ENTITY_POSITION(ped.Handle(), 0);
 		g_pedList_wmovGrp[ped.Handle()] = setName;
@@ -1233,10 +1233,10 @@ namespace sub
 
 	void AddmovgrpOption_(const std::string& text, std::string movgrp = "", bool &extra_option_code = null)
 	{
-		if (movgrp.length() == 0) movgrp = text;
-		PCHAR movgrp2 = const_cast<PCHAR>(movgrp.c_str());
+		if (movgrp.length() == 0)
+			movgrp = text;
 
-		bool bMovGrpIsActive = get_ped_movement_clipset(Static_241) == movgrp2;
+		bool bMovGrpIsActive = get_ped_movement_clipset(Static_241) == movgrp;
 
 		bool pressed = false;
 		AddTickol(text, bMovGrpIsActive, pressed, pressed); if (pressed)
@@ -1247,10 +1247,10 @@ namespace sub
 	}
 	void AddwmovgrpOption_(const std::string& text, std::string movgrp = "", bool &extra_option_code = null)
 	{
-		if (movgrp.length() == 0) movgrp = text;
-		PCHAR movgrp2 = const_cast<PCHAR>(movgrp.c_str());
+		if (movgrp.length() == 0)
+			movgrp = text;
 
-		bool bMovGrpIsActive = get_ped_weapon_movement_clipset(Static_241) == movgrp2;
+		bool bMovGrpIsActive = get_ped_weapon_movement_clipset(Static_241) == movgrp;
 
 		bool pressed = false;
 		AddTickol(text, bMovGrpIsActive, pressed, pressed); if (pressed)
@@ -1443,7 +1443,7 @@ namespace sub
 		void Sub_FacialMood()
 		{
 			GTAentity ped = Static_241;
-			auto& current = get_ped_facial_mood(ped);
+			auto current = get_ped_facial_mood(ped);
 
 			AddTitle("Mood");
 
