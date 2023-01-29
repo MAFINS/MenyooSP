@@ -631,7 +631,7 @@ namespace sub
 
 		void EndCutscene()
 		{
-			GTAplayer& player = Game::Player();
+			GTAplayer player = Game::Player();
 
 			STOP_CUTSCENE_IMMEDIATELY();
 			REMOVE_CUTSCENE();
@@ -648,7 +648,7 @@ namespace sub
 			}
 			else
 			{
-				GTAplayer& player = Game::Player();
+				GTAplayer player = Game::Player();
 
 				if (player.IsAlive())
 				{

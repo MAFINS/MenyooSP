@@ -291,14 +291,14 @@ namespace sub
 				{
 					if (bGunActive && StoreEntities())
 					{
-						Vector3& camPos = GameplayCamera::Position_get();
+						Vector3 camPos = GameplayCamera::Position_get();
 						GTAentity firstEntity = *std::next(entityArray.begin(), 0);
 
 						if (distanceFromCam == 0) distanceFromCam = camPos.DistanceTo(firstEntity.Position_get());
 
 						set_forge_gun_dist(distanceFromCam); // Use buttons to change the hold distance value
 
-						Vector3& targetPos = camPos + (GameplayCamera::Direction_get() * distanceFromCam);
+						Vector3 targetPos = camPos + (GameplayCamera::Direction_get() * distanceFromCam);
 
 						if (entityArray.size() == 1)
 						{
@@ -321,7 +321,7 @@ namespace sub
 							PLAY_SOUND_FROM_ENTITY(-1, "Chopper_Destroyed", ped.Handle(), "FBI_HEIST_FIGHT_CHOPPER_SOUNDS", 0, 0);
 							//PTFX::trigger_ptfx_1("scr_carsteal4", "scr_carsteal4_wheel_burnout", 0, entityArray.front().Position_get(), Vector3(), 0.66f);
 
-							Vector3& force = GameplayCamera::Direction_get() * shootForce;
+							Vector3 force = GameplayCamera::Direction_get() * shootForce;
 
 							for (GTAentity entity : entityArray)
 							{
@@ -352,7 +352,7 @@ namespace sub
 
 				if (entityArray.empty())
 				{
-					GTAentity& aimedEntity = World::EntityFromAimCamRay();
+					GTAentity aimedEntity = World::EntityFromAimCamRay();
 					if (!aimedEntity.Handle())
 						return false;
 
@@ -796,7 +796,7 @@ namespace sub
 			if (doc.load_file((const char*)(GetPathffA(Pathff::Main, true) + xmlFavouriteWeapons).c_str()).status != pugi::status_ok)
 				return false;
 			pugi::xml_node nodeRoot = doc.document_element();
-			for (auto& nodeWeap = nodeRoot.child("Weapon"); nodeWeap; nodeWeap = nodeWeap.next_sibling("Weapon"))
+			for (auto nodeWeap = nodeRoot.child("Weapon"); nodeWeap; nodeWeap = nodeWeap.next_sibling("Weapon"))
 			{
 				Hash whash = nodeWeap.attribute("hash").as_uint();
 				std::string customName = nodeWeap.attribute("customName").as_string();
@@ -827,19 +827,19 @@ namespace sub
 			if (doc.load_file((const char*)(GetPathffA(Pathff::Main, true) + xmlFavouriteWeapons).c_str()).status != pugi::status_ok)
 			{
 				doc.reset();
-				auto& nodeDecleration = doc.append_child(pugi::node_declaration);
+				auto nodeDecleration = doc.append_child(pugi::node_declaration);
 				nodeDecleration.append_attribute("version") = "1.0";
 				nodeDecleration.append_attribute("encoding") = "ISO-8859-1";
-				auto& nodeRoot = doc.append_child("FavouriteWeapons");
+				auto nodeRoot = doc.append_child("FavouriteWeapons");
 				doc.save_file((const char*)(GetPathffA(Pathff::Main, true) + xmlFavouriteWeapons).c_str());
 			}
 			pugi::xml_node nodeRoot = doc.document_element();
 
-			auto& nodeOldLoc = nodeRoot.find_child_by_attribute("hash", int_to_hexstring(whash, true).c_str());
+			auto nodeOldLoc = nodeRoot.find_child_by_attribute("hash", int_to_hexstring(whash, true).c_str());
 			if (nodeOldLoc) // If not null
 			{
 				nodeOldLoc.parent().remove_child(nodeOldLoc);
-				for (auto& wit = WeaponIndivs::vAllWeapons.back()->begin(); wit != WeaponIndivs::vAllWeapons.back()->end(); ++wit)
+				for (auto wit = WeaponIndivs::vAllWeapons.back()->begin(); wit != WeaponIndivs::vAllWeapons.back()->end(); ++wit)
 				{
 					if (wit->weaponHash == whash)
 					{
@@ -848,7 +848,7 @@ namespace sub
 					}
 				}
 			}
-			auto& nodeNewLoc = nodeRoot.append_child("Weapon");
+			auto nodeNewLoc = nodeRoot.append_child("Weapon");
 			nodeNewLoc.append_attribute("hash") = int_to_hexstring(whash, true).c_str();
 			nodeNewLoc.append_attribute("customName") = customName.c_str();
 
@@ -864,14 +864,14 @@ namespace sub
 			if (doc.load_file((const char*)(GetPathffA(Pathff::Main, true) + xmlFavouriteWeapons).c_str()).status != pugi::status_ok)
 				return false;
 			pugi::xml_node nodeRoot = doc.document_element();
-			auto& nodeOldLoc = nodeRoot.find_child_by_attribute("hash", int_to_hexstring(whash, true).c_str());
+			auto nodeOldLoc = nodeRoot.find_child_by_attribute("hash", int_to_hexstring(whash, true).c_str());
 			if (nodeOldLoc) // If not null
 			{
 				nodeOldLoc.parent().remove_child(nodeOldLoc);
 			}
 
 			//auto& wlit = WeaponIndivs::vWeaponLabels.find(whash); if (wlit != WeaponIndivs::vWeaponLabels.end())WeaponIndivs::vWeaponLabels.erase(wlit);
-			for (auto& wit = WeaponIndivs::vAllWeapons.back()->begin(); wit != WeaponIndivs::vAllWeapons.back()->end(); ++wit)
+			for (auto wit = WeaponIndivs::vAllWeapons.back()->begin(); wit != WeaponIndivs::vAllWeapons.back()->end(); ++wit)
 			{
 				if (wit->weaponHash == whash)
 				{
@@ -894,10 +894,10 @@ namespace sub
 			if (doc.load_file((const char*)(GetPathffA(Pathff::Main, true) + xmlFavouriteWeapons).c_str()).status != pugi::status_ok)
 			{
 				doc.reset();
-				auto& nodeDecleration = doc.append_child(pugi::node_declaration);
+				auto nodeDecleration = doc.append_child(pugi::node_declaration);
 				nodeDecleration.append_attribute("version") = "1.0";
 				nodeDecleration.append_attribute("encoding") = "ISO-8859-1";
-				auto& nodeRoot = doc.append_child("FavouriteWeapons");
+				auto nodeRoot = doc.append_child("FavouriteWeapons");
 				doc.save_file((const char*)(GetPathffA(Pathff::Main, true) + xmlFavouriteWeapons).c_str());
 				return;
 			}
@@ -971,7 +971,7 @@ namespace sub
 			{
 				AddBreak("---Added Weapons---");
 
-				for (auto& nodeLocToLoad = nodeRoot.first_child(); nodeLocToLoad; nodeLocToLoad = nodeLocToLoad.next_sibling())
+				for (auto nodeLocToLoad = nodeRoot.first_child(); nodeLocToLoad; nodeLocToLoad = nodeLocToLoad.next_sibling())
 				{
 					const std::string& customName = nodeLocToLoad.attribute("customName").as_string();
 					Model whash = nodeLocToLoad.attribute("hash").as_uint();
@@ -1394,11 +1394,11 @@ namespace sub
 		{
 			pugi::xml_document doc;
 
-			auto& nodeDecleration = doc.append_child(pugi::node_declaration);
+			auto nodeDecleration = doc.append_child(pugi::node_declaration);
 			nodeDecleration.append_attribute("version") = "1.0";
 			nodeDecleration.append_attribute("encoding") = "ISO-8859-1";
 
-			auto& nodeLoadout = doc.append_child("Loadout"); // Root
+			auto nodeLoadout = doc.append_child("Loadout"); // Root
 			nodeLoadout.append_attribute("menyoo_ver") = MENYOO_CURRENT_VER_;
 
 			std::vector<s_Weapon_Components_Tint> wct;
@@ -1406,13 +1406,13 @@ namespace sub
 
 			for (auto& c : wct)
 			{
-				auto& nodeWeapon = nodeLoadout.append_child("Weapon");
+				auto nodeWeapon = nodeLoadout.append_child("Weapon");
 				nodeWeapon.append_attribute("hash") = int_to_hexstring(c.weaponHash, true).c_str();
 				nodeWeapon.append_attribute("tint") = c.tint;
-				auto& nodeComponents = nodeWeapon.append_child("Components");
+				auto nodeComponents = nodeWeapon.append_child("Components");
 				for (auto& cc : c.componentHashes)
 				{
-					auto& nodeComponent = nodeComponents.append_child("Component");
+					auto nodeComponent = nodeComponents.append_child("Component");
 					nodeComponent.append_attribute("hash") = int_to_hexstring(cc.first, true).c_str();
 					nodeComponent.append_attribute("livery") = int_to_hexstring(cc.second, true).c_str();
 				}
@@ -1426,19 +1426,19 @@ namespace sub
 			if (doc.load_file((const char*)filePath.c_str()).status != pugi::status_ok)
 				return false;
 
-			auto& nodeLoadout = doc.child("Loadout"); // Root
+			auto nodeLoadout = doc.child("Loadout"); // Root
 
 			std::vector<s_Weapon_Components_Tint> wct;
-			for (auto& nodeWeapon = nodeLoadout.child("Weapon"); nodeWeapon; nodeWeapon = nodeWeapon.next_sibling("Weapon"))
+			for (auto nodeWeapon = nodeLoadout.child("Weapon"); nodeWeapon; nodeWeapon = nodeWeapon.next_sibling("Weapon"))
 			{
 				s_Weapon_Components_Tint c;
 				c.weaponHash = nodeWeapon.attribute("hash").as_uint();
 				c.tint = nodeWeapon.attribute("tint").as_int();
-				auto& nodeComponents = nodeWeapon.child("Components");
-				for (auto& nodeComponent = nodeComponents.first_child(); nodeComponent; nodeComponent = nodeComponent.next_sibling())
+				auto nodeComponents = nodeWeapon.child("Components");
+				for (auto nodeComponent = nodeComponents.first_child(); nodeComponent; nodeComponent = nodeComponent.next_sibling())
 				{
-					auto& componentHashAttr = nodeComponent.attribute("hash");
-					auto& componentLiveryAttr = nodeComponent.attribute("livery");
+					auto componentHashAttr = nodeComponent.attribute("hash");
+					auto componentLiveryAttr = nodeComponent.attribute("livery");
 					if (componentHashAttr) c.componentHashes.push_back({ componentHashAttr.as_uint(), componentLiveryAttr ? componentLiveryAttr.as_int() : -1 });
 					else c.componentHashes.push_back({ nodeComponent.text().as_uint(), componentLiveryAttr ? componentLiveryAttr.as_int() : -1 });
 				}
@@ -1578,7 +1578,7 @@ namespace sub
 		}
 		void Sub_Loadouts_InItem()
 		{
-			std::string& filePath = _dir + "\\" + _name + ".xml";
+			std::string filePath = _dir + "\\" + _name + ".xml";
 
 			bool bLoad = false, bRename = false, bOverwrite = false, bDelete = false;
 
@@ -1669,8 +1669,8 @@ namespace sub
 			{
 				if (!myPed.IsReloading() && (myPlayer.IsFreeAiming() || myPlayer.IsTargetingAnything()))
 				{
-					Vector3& camDir = GameplayCamera::DirectionFromScreenCentre_get();
-					Vector3& camCoord = GameplayCamera::Position_get();
+					const Vector3& camDir = GameplayCamera::DirectionFromScreenCentre_get();
+					const Vector3& camCoord = GameplayCamera::Position_get();
 
 					ray = RaycastResult::Raycast(camCoord, camDir, 300.0f, IntersectOptions::Everything, myPed);
 

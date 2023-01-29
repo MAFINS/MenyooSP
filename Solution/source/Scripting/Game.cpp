@@ -72,22 +72,22 @@ namespace Game
 		}
 		return false;
 	}
-	void RequestScript(PCHAR scriptName, int stackSize)
+	void RequestScript(const std::string& scriptName, int stackSize)
 	{
-		if (GET_NUMBER_OF_THREADS_RUNNING_THE_SCRIPT_WITH_THIS_HASH(GET_HASH_KEY(scriptName)) == 0 && DOES_SCRIPT_EXIST(scriptName))
+		if (GET_NUMBER_OF_THREADS_RUNNING_THE_SCRIPT_WITH_THIS_HASH(GET_HASH_KEY(scriptName)) == 0 && DOES_SCRIPT_EXIST(scriptName.c_str()))
 		{
-			REQUEST_SCRIPT(scriptName);
+			REQUEST_SCRIPT(scriptName.c_str());
 
 			for (DWORD timeOut = GetTickCount() + 5000; GetTickCount() < timeOut;)
 			{
-				if (HAS_SCRIPT_LOADED(scriptName))
+				if (HAS_SCRIPT_LOADED(scriptName.c_str()))
 					break;
 				WAIT(0);
 			}
-			//while (!HAS_SCRIPT_LOADED(scriptName)) WAIT(0);
+			//while (!HAS_SCRIPT_LOADED(scriptName.c_str())) WAIT(0);
 
-			START_NEW_SCRIPT(scriptName, stackSize); // 1024 on console
-			SET_SCRIPT_AS_NO_LONGER_NEEDED(scriptName);
+			START_NEW_SCRIPT(scriptName.c_str(), stackSize); // 1024 on console
+			SET_SCRIPT_AS_NO_LONGER_NEEDED(scriptName.c_str());
 		}
 	}
 
@@ -209,7 +209,7 @@ namespace Game
 		}
 		void drawstring(std::ostream& os, float X, float Y)
 		{
-			std::string& s = dynamic_cast<std::ostringstream&>(os).str();
+			const std::string& s = dynamic_cast<std::ostringstream&>(os).str();
 			if (s.length() < 100)
 			{
 				BEGIN_TEXT_COMMAND_DISPLAY_TEXT("STRING");
@@ -249,7 +249,7 @@ namespace Game
 		}
 		void drawstringGXT(std::ostream& os, float X, float Y)
 		{
-			std::string& s = dynamic_cast<std::ostringstream&>(os).str();
+			const std::string& s = dynamic_cast<std::ostringstream&>(os).str();
 			char* text = (char*)s.c_str();
 
 			if (DOES_TEXT_LABEL_EXIST(text))

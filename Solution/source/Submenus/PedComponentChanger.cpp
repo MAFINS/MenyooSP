@@ -77,7 +77,7 @@ namespace sub
 			ComponentChanger_offline_police_michael = 0, ComponentChanger_offline_firefighter_michael = 0;
 
 		GTAped thisPed = Static_241;
-		Model& thisPedModel = thisPed.Model();
+		const Model& thisPedModel = thisPed.Model();
 
 		if (g_cam_componentChanger.Exists())
 		{
@@ -533,17 +533,17 @@ namespace sub
 				return;
 			}
 
-			auto& nodeRoot = doc.document_element();
-			for (auto& nodePed = nodeRoot.child("Ped"); nodePed; nodePed = nodePed.next_sibling("Ped"))
+			auto nodeRoot = doc.document_element();
+			for (auto nodePed = nodeRoot.child("Ped"); nodePed; nodePed = nodePed.next_sibling("Ped"))
 			{
 				auto& dictType = vAllDecals[nodePed.attribute("hash").as_uint()];
-				for (auto& nodeType = nodePed.first_child(); nodeType; nodeType = nodeType.next_sibling())
+				for (auto nodeType = nodePed.first_child(); nodeType; nodeType = nodeType.next_sibling())
 				{
 					auto& dictZone = dictType[nodeType.name()];
-					for (auto& nodeZone = nodeType.first_child(); nodeZone; nodeZone = nodeZone.next_sibling())
+					for (auto nodeZone = nodeType.first_child(); nodeZone; nodeZone = nodeZone.next_sibling())
 					{
 						auto& listDecals = dictZone[nodeZone.name()];
-						for (auto& nodeDecal = nodeZone.child("OVERLAY"); nodeDecal; nodeDecal = nodeDecal.next_sibling("OVERLAY"))
+						for (auto nodeDecal = nodeZone.child("OVERLAY"); nodeDecal; nodeDecal = nodeDecal.next_sibling("OVERLAY"))
 						{
 							NamedPedDecal decal;
 							decal.collection = GET_HASH_KEY(nodeDecal.attribute("collection").as_string());
@@ -562,9 +562,9 @@ namespace sub
 		void Sub_Decals_Types()
 		{
 			GTAped ped = Static_241;
-			auto& pedModel = ped.Model();
+			const auto& pedModel = ped.Model();
 
-			auto& vPed = vAllDecals.find(pedModel.hash);
+			const auto& vPed = vAllDecals.find(pedModel.hash);
 			if (vPed == vAllDecals.end())
 			{
 				Menu::SetSub_previous();
@@ -654,7 +654,7 @@ namespace sub
 		void ClearAllVisibleDamage(GTAped ped)
 		{
 			ped.ResetVisibleDamage();
-			auto& it = vPedsAndDamagePacks.find(ped.Handle());
+			const auto& it = vPedsAndDamagePacks.find(ped.Handle());
 			if (it != vPedsAndDamagePacks.end())
 				vPedsAndDamagePacks.erase(it);
 		}
@@ -880,7 +880,7 @@ namespace sub
 
 			_pedHead = &vPedHeads[ped.Handle()];
 
-			auto& headBlend = ped.HeadBlendData_get();
+			auto headBlend = ped.HeadBlendData_get();
 			if (headBlend.shapeFirstID < 0 || headBlend.shapeFirstID > max_shapeAndSkinIDs || headBlend.shapeSecondID < 0 || headBlend.shapeSecondID > max_shapeAndSkinIDs
 				|| headBlend.shapeThirdID < 0 || headBlend.shapeThirdID > max_shapeAndSkinIDs || headBlend.skinFirstID < 0 || headBlend.skinFirstID > max_shapeAndSkinIDs
 				|| headBlend.skinSecondID < 0 || headBlend.skinSecondID > max_shapeAndSkinIDs || headBlend.skinThirdID < 0 || headBlend.skinThirdID > max_shapeAndSkinIDs
@@ -1198,7 +1198,7 @@ namespace sub
 			pugi::xml_document oldXml;
 			if (oldXml.load_file((const char*)filePath.c_str()).status == pugi::status_ok)
 			{
-				auto& nodeOldRoot = oldXml.child("OutfitPedData");
+				auto nodeOldRoot = oldXml.child("OutfitPedData");
 				bClearDecalOverlays = nodeOldRoot.child("ClearDecalOverlays").text().as_bool(bClearDecalOverlays);
 				bAddAttachmentsToSpoonerDb = nodeOldRoot.child("SpoonerAttachments").attribute("SetAttachmentsPersistentAndAddToSpoonerDatabase").as_bool(bAddAttachmentsToSpoonerDb);
 				bStartTaskSeqsOnLoad = nodeOldRoot.child("SpoonerAttachments").attribute("StartTaskSequencesOnLoad").as_bool(bStartTaskSeqsOnLoad);
@@ -1206,16 +1206,16 @@ namespace sub
 
 			pugi::xml_document doc;
 
-			auto& nodeDecleration = doc.append_child(pugi::node_declaration);
+			auto nodeDecleration = doc.append_child(pugi::node_declaration);
 			nodeDecleration.append_attribute("version") = "1.0";
 			nodeDecleration.append_attribute("encoding") = "ISO-8859-1";
 
-			auto& nodeEntity = doc.append_child("OutfitPedData"); // Root
+			auto nodeEntity = doc.append_child("OutfitPedData"); // Root
 			nodeEntity.append_child("ClearDecalOverlays").text() = bClearDecalOverlays;
 			sub::Spooner::FileManagement::AddEntityToXmlNode(eped, nodeEntity);
 
 			// Attachments
-			auto& nodeAttachments = nodeEntity.append_child("SpoonerAttachments");
+			auto nodeAttachments = nodeEntity.append_child("SpoonerAttachments");
 			nodeAttachments.append_attribute("SetAttachmentsPersistentAndAddToSpoonerDatabase") = bAddAttachmentsToSpoonerDb;
 			nodeAttachments.append_attribute("StartTaskSequencesOnLoad") = bStartTaskSeqsOnLoad;
 			for (auto& e : sub::Spooner::Databases::EntityDb)
@@ -1227,7 +1227,7 @@ namespace sub
 					{
 						if (att.Handle() == ped.Handle())
 						{
-							auto& nodeAttachment = nodeAttachments.append_child("Attachment");
+							auto nodeAttachment = nodeAttachments.append_child("Attachment");
 							sub::Spooner::FileManagement::AddEntityToXmlNode(e, nodeAttachment);
 						}
 					}
@@ -1244,13 +1244,13 @@ namespace sub
 				return false;
 
 			bool bNetworkIsGameInProgress = NETWORK::NETWORK_IS_GAME_IN_PROGRESS() != 0;
-			auto& nodeEntity = doc.child("OutfitPedData"); // Root
+			auto nodeEntity = doc.child("OutfitPedData"); // Root
 			ep.RequestControl(400);
 
 			//===========================================================================
 
 			Model eModel = nodeEntity.child("ModelHash").text().as_uint();
-			auto& nodePedStuff = nodeEntity.child("PedProperties");
+			auto nodePedStuff = nodeEntity.child("PedProperties");
 
 			if (applyModelAndHead)
 			{
@@ -1264,10 +1264,10 @@ namespace sub
 
 				if (nodePedStuff.child("HasShortHeight").text().as_bool()) SET_PED_CONFIG_FLAG(ep.Handle(), 223, 1);
 
-				auto& nodePedHeadFeatures = nodePedStuff.child("HeadFeatures");
+				auto nodePedHeadFeatures = nodePedStuff.child("HeadFeatures");
 				if (sub::PedHeadFeatures_catind::DoesPedModelSupportHeadFeatures(eModel) && nodePedHeadFeatures)
 				{
-					auto& nodePedHeadBlend = nodePedHeadFeatures.child("ShapeAndSkinTone");
+					auto nodePedHeadBlend = nodePedHeadFeatures.child("ShapeAndSkinTone");
 					PED::SET_PED_HEAD_BLEND_DATA(ep.Handle(), 0, 0, 0, 1, 1, 1, 0.0f, 0.0f, 0.0f, false);
 					PedHeadBlendData headBlend;
 					headBlend.shapeFirstID = nodePedHeadBlend.child("ShapeFatherId").text().as_int();
@@ -1292,18 +1292,18 @@ namespace sub
 						SET_PED_HAIR_TINT(ep.Handle(), pedHead.hairColour, pedHead.hairColourStreaks);
 						SET_HEAD_BLEND_EYE_COLOR(ep.Handle(), SYSTEM::ROUND((float)pedHead.eyeColour)); // Sjaak says so
 
-						auto& nodePedFacialFeatures = nodePedHeadFeatures.child("FacialFeatures");
+						auto nodePedFacialFeatures = nodePedHeadFeatures.child("FacialFeatures");
 						int ii = 0;
-						for (auto& nodePedFacialFeature = nodePedFacialFeatures.first_child(); nodePedFacialFeature; nodePedFacialFeature = nodePedFacialFeature.next_sibling())
+						for (auto nodePedFacialFeature = nodePedFacialFeatures.first_child(); nodePedFacialFeature; nodePedFacialFeature = nodePedFacialFeature.next_sibling())
 						{
 							ii = stoi(std::string(nodePedFacialFeature.name()).substr(1));
 							pedHead.facialFeatureData[ii] = nodePedFacialFeature.text().as_float();
 							SET_PED_MICRO_MORPH(ep.Handle(), ii, pedHead.facialFeatureData[ii]);
 						}
 
-						auto& nodePedHeadOverlays = nodePedHeadFeatures.child("Overlays");
+						auto nodePedHeadOverlays = nodePedHeadFeatures.child("Overlays");
 						ii = 0;
-						for (auto& nodePedHeadOverlay = nodePedHeadOverlays.first_child(); nodePedHeadOverlay; nodePedHeadOverlay = nodePedHeadOverlay.next_sibling())
+						for (auto nodePedHeadOverlay = nodePedHeadOverlays.first_child(); nodePedHeadOverlay; nodePedHeadOverlay = nodePedHeadOverlay.next_sibling())
 						{
 							ii = stoi(std::string(nodePedHeadOverlay.name()).substr(1));
 							auto overlayData_index = nodePedHeadOverlay.attribute("index").as_int();
@@ -1317,7 +1317,7 @@ namespace sub
 					}
 				}
 
-				auto& nodeFacialMood = nodePedStuff.child("FacialMood");
+				auto nodeFacialMood = nodePedStuff.child("FacialMood");
 				if (nodeFacialMood)
 				{
 					set_ped_facial_mood(ep, nodeFacialMood.text().as_string());
@@ -1333,10 +1333,10 @@ namespace sub
 			decalsApplied.clear();
 			if (applyDecals)
 			{
-				auto& nodePedTattooLogoDecals = nodePedStuff.child("TattooLogoDecals");
+				auto nodePedTattooLogoDecals = nodePedStuff.child("TattooLogoDecals");
 				if (nodePedTattooLogoDecals)
 				{
-					for (auto& nodeDecal = nodePedTattooLogoDecals.first_child(); nodeDecal; nodeDecal = nodeDecal.next_sibling())
+					for (auto nodeDecal = nodePedTattooLogoDecals.first_child(); nodeDecal; nodeDecal = nodeDecal.next_sibling())
 					{
 						sub::PedDecals_catind::PedDecalValue decal(
 							nodeDecal.attribute("collection").as_uint(),
@@ -1350,8 +1350,8 @@ namespace sub
 
 			if (applyComps)
 			{
-				auto& nodePedComps = nodePedStuff.child("PedComps");
-				for (auto& nodePedCompsObject = nodePedComps.first_child(); nodePedCompsObject; nodePedCompsObject = nodePedCompsObject.next_sibling())
+				auto nodePedComps = nodePedStuff.child("PedComps");
+				for (auto nodePedCompsObject = nodePedComps.first_child(); nodePedCompsObject; nodePedCompsObject = nodePedCompsObject.next_sibling())
 				{
 					int pedCompId = stoi(std::string(nodePedCompsObject.name()).substr(1));
 					std::string pedCompIdValueStr = nodePedCompsObject.text().as_string();
@@ -1364,8 +1364,8 @@ namespace sub
 			if (applyProps)
 			{
 				CLEAR_ALL_PED_PROPS(ep.Handle(), 0);
-				auto& nodePedProps = nodePedStuff.child("PedProps");
-				for (auto& nodePedPropsObject = nodePedProps.first_child(); nodePedPropsObject; nodePedPropsObject = nodePedPropsObject.next_sibling())
+				auto nodePedProps = nodePedStuff.child("PedProps");
+				for (auto nodePedPropsObject = nodePedProps.first_child(); nodePedPropsObject; nodePedPropsObject = nodePedPropsObject.next_sibling())
 				{
 					int pedPropId = stoi(std::string(nodePedPropsObject.name()).substr(1));
 					std::string pedPropIdValueStr = nodePedPropsObject.text().as_string();
@@ -1378,12 +1378,12 @@ namespace sub
 			sub::PedDamageTextures_catind::ClearAllVisibleDamage(ep);
 			if (applyDamageTextures)
 			{
-				auto& nodePedDamagePacks = nodePedStuff.child("DamagePacks");
+				auto nodePedDamagePacks = nodePedStuff.child("DamagePacks");
 				if (nodePedDamagePacks)
 				{
-					auto& dmgPacksApplied = sub::PedDamageTextures_catind::vPedsAndDamagePacks[ep.Handle()];
+					auto dmgPacksApplied = sub::PedDamageTextures_catind::vPedsAndDamagePacks[ep.Handle()];
 					dmgPacksApplied.clear();
-					for (auto& nodePedDamagePack = nodePedDamagePacks.first_child(); nodePedDamagePack; nodePedDamagePack = nodePedDamagePack.next_sibling())
+					for (auto nodePedDamagePack = nodePedDamagePacks.first_child(); nodePedDamagePack; nodePedDamagePack = nodePedDamagePack.next_sibling())
 					{
 						const std::string dpnta = nodePedDamagePack.text().as_string();
 						ep.ApplyDamagePack(dpnta, 1.0f, 1.0f);
@@ -1396,7 +1396,7 @@ namespace sub
 			{
 				std::unordered_set<Hash> vModelHashes;
 				std::vector<sub::Spooner::SpoonerEntityWithInitHandle> vSpawnedAttachments;
-				auto& nodeAttachments = nodeEntity.child("SpoonerAttachments");
+				auto nodeAttachments = nodeEntity.child("SpoonerAttachments");
 				bool bAddAttachmentsToSpoonerDb = nodeAttachments.attribute("SetAttachmentsPersistentAndAddToSpoonerDatabase").as_bool(false);
 				bool bStartTaskSeqsOnLoad = nodeAttachments.attribute("StartTaskSequencesOnLoad").as_bool(true);
 				switch (_persistentAttachmentsTexterIndex)
@@ -1405,9 +1405,9 @@ namespace sub
 				case 1: bAddAttachmentsToSpoonerDb = false; break; // ForceOff
 				case 2: bAddAttachmentsToSpoonerDb = true; break; // ForceOn
 				}
-				for (auto& nodeAttachment = nodeAttachments.first_child(); nodeAttachment; nodeAttachment = nodeAttachment.next_sibling())
+				for (auto nodeAttachment = nodeAttachments.first_child(); nodeAttachment; nodeAttachment = nodeAttachment.next_sibling())
 				{
-					auto& e = sub::Spooner::FileManagement::SpawnEntityFromXmlNode(nodeAttachment, vModelHashes);
+					auto e = sub::Spooner::FileManagement::SpawnEntityFromXmlNode(nodeAttachment, vModelHashes);
 					sub::Spooner::EntityManagement::AttachEntity(e.e, ep, e.e.AttachmentArgs.boneIndex, e.e.AttachmentArgs.offset, e.e.AttachmentArgs.rotation);
 					vSpawnedAttachments.push_back(e);
 					if (bAddAttachmentsToSpoonerDb)
@@ -1575,7 +1575,7 @@ namespace sub
 	{
 		std::string& _name = dict;
 		std::string& _dir = dict3;
-		std::string& filePath = _dir + "\\" + _name + ".xml";
+		std::string filePath = _dir + "\\" + _name + ".xml";
 
 		bool outfits2_apply = 0, outfits2_applyAllFeatures = 0, outfits2_applyModel = 0,
 			outfits2_overwrite = 0, outfits2_rename = 0, outfits2_delete = 0;
@@ -1645,10 +1645,10 @@ namespace sub
 		if (doc.load_file((const char*)filePath.c_str()).status == pugi::status_ok)
 		{
 			AddBreak("---Attributes---");
-			auto& nodeEntity = doc.child("OutfitPedData"); // Root
-			auto& nodePedStuff = nodeEntity.child("PedProperties");
+			auto nodeEntity = doc.child("OutfitPedData"); // Root
+			auto nodePedStuff = nodeEntity.child("PedProperties");
 
-			auto& nodeClearDecalOverlays = nodeEntity.child("ClearDecalOverlays");
+			auto nodeClearDecalOverlays = nodeEntity.child("ClearDecalOverlays");
 			bool bToggleClearDecalOverlaysPressed = false;
 			AddTickol("Clear Previous Decals", nodeClearDecalOverlays.text().as_bool(true), bToggleClearDecalOverlaysPressed, bToggleClearDecalOverlaysPressed, TICKOL::BOXTICK, TICKOL::BOXBLANK); if (bToggleClearDecalOverlaysPressed)
 			{
@@ -1657,7 +1657,7 @@ namespace sub
 				doc.save_file((const char*)filePath.c_str());
 			}
 
-			auto& nodeShortHeighted = nodePedStuff.child("HasShortHeight");
+			auto nodeShortHeighted = nodePedStuff.child("HasShortHeight");
 			if (nodeShortHeighted)
 			{
 				bool bToggleShortHeightedPressed = false;
@@ -1668,7 +1668,7 @@ namespace sub
 				}
 			}
 
-			auto& nodeAddAttachmentsToSpoonerDb = nodeEntity.child("SpoonerAttachments").attribute("SetAttachmentsPersistentAndAddToSpoonerDatabase");
+			auto nodeAddAttachmentsToSpoonerDb = nodeEntity.child("SpoonerAttachments").attribute("SetAttachmentsPersistentAndAddToSpoonerDatabase");
 			bool bAddAttachemntsToSpoonerDb = nodeAddAttachmentsToSpoonerDb.as_bool();
 			if (nodeAddAttachmentsToSpoonerDb)
 			{
@@ -1683,7 +1683,7 @@ namespace sub
 
 			if (bAddAttachemntsToSpoonerDb)
 			{
-				auto& nodeStartTaskSeqOnLoad = nodeEntity.child("SpoonerAttachments").attribute("StartTaskSequencesOnLoad");
+				auto nodeStartTaskSeqOnLoad = nodeEntity.child("SpoonerAttachments").attribute("StartTaskSequencesOnLoad");
 				if (nodeStartTaskSeqOnLoad)
 				{
 					bool bToggleStartTaskSeqOnLoadPressed = false;

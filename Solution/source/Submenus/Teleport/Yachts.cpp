@@ -54,7 +54,7 @@ namespace sub::TeleportLocations_catind
 			TeleLocation("Gunrunning Heist (Paleto Bay)", -1368.7260f, 6736.3266f, 7.0000f, IplNames::vYacht_Heist2,{}, true)
 		};
 		struct CoordinatesWithHeading { Vector3 pos; float h; };
-		struct YachtLocation { const PCHAR name; CoordinatesWithHeading poses[3]; };
+		struct YachtLocation { const std::string name; CoordinatesWithHeading poses[3]; };
 		const std::map<UINT8, YachtLocation> vGroupLocations
 		{
 			{ 1,{ "Lago Zancudo",{ { { -3542.8215f, 1488.2498f, 5.4300f }, -123.0449f },{ { -3148.37912f, 2807.5549f, 5.4300f }, 91.95499f },{ { -3280.5012f, 2140.5071f, 5.4300f }, 86.9550f } } } },
@@ -82,7 +82,7 @@ namespace sub::TeleportLocations_catind
 			};
 			Vector3 teleportLocationOffset = { -57.6840f, -3.7550f, -3.2132f };
 		}
-		struct YachtBmp { const PCHAR title; const PCHAR imgName; };
+		struct YachtBmp { const std::string title; const std::string imgName; };
 		const std::map<UINT8, YachtBmp> vOptionNames
 		{
 			{ 1,{ "The Orion", "yacht_model_0_0" } },
@@ -196,10 +196,10 @@ namespace sub::TeleportLocations_catind
 			{
 				auto& vimg = onit->second;
 				std::string imgDict = "dock_dlc_model";
-				if (!HAS_STREAMED_TEXTURE_DICT_LOADED(const_cast<PCHAR>(imgDict.c_str())))
-					REQUEST_STREAMED_TEXTURE_DICT(const_cast<PCHAR>(imgDict.c_str()), false);
+				if (!HAS_STREAMED_TEXTURE_DICT_LOADED(imgDict.c_str()))
+					REQUEST_STREAMED_TEXTURE_DICT(imgDict.c_str(), false);
 				else
-					DRAW_SPRITE(const_cast<PCHAR>(imgDict.c_str()), const_cast<PCHAR>(vimg.imgName), x_coord, y_coord, res.x, res.y, 0, 255, 255, 255, 255, false, 0);
+					DRAW_SPRITE(imgDict.c_str(), vimg.imgName.c_str(), x_coord, y_coord, res.x, res.y, 0, 255, 255, 255, 255, false, 0);
 			}
 			else
 			{
@@ -215,7 +215,7 @@ namespace sub::TeleportLocations_catind
 				auto& posh = yachtInfo.location->second.poses[yachtInfo.internalLocationIndex - 1];
 				float vectorLength = vec.Length();
 				float yaw = posh.h;
-				Vector3& result = Vector3::DirectionToRotation(vec);
+				Vector3 result = Vector3::DirectionToRotation(vec);
 				result.z = yaw - 90.0f;
 				result = Vector3::RotationToDirection(result);
 				result.Normalize();
@@ -273,7 +273,7 @@ namespace sub::TeleportLocations_catind
 					Game::Print::PrintBottomLeft("~r~Error:~s~ Unable to build yacht. Try again.");
 					return;
 				}
-				Vector3& propYachtPos = propYacht.Position_get();
+				const Vector3& propYachtPos = propYacht.Position_get();
 
 				SET_OBJECT_TINT_INDEX(propYacht.Handle(), yachtInfo.yachtPropTextureVariation);
 
@@ -282,7 +282,7 @@ namespace sub::TeleportLocations_catind
 
 
 				sprintf_s(buffer, "apa_mp_apa_yacht_o%u_rail_%c", optionNumber, yachtInfo.railingColour);
-				auto& propRailings = World::CreateProp(std::string(buffer), Vector3(), false, false);
+				GTAprop propRailings = World::CreateProp(std::string(buffer), Vector3(), false, false);
 				propRailings.IsCollisionEnabled_set(true);
 				propRailings.AttachTo(propYachtWin, 0, false, Vector3(0.0032f, 0.0028f, 14.5700f), Vector3());
 				SET_ENTITY_LIGHTS(propRailings.Handle(), 0);
@@ -304,7 +304,7 @@ namespace sub::TeleportLocations_catind
 				}
 				for (Model ms : optionColModels)
 				{
-					auto& p = World::CreateProp(ms, Vector3(), false, false);
+					GTAprop p = World::CreateProp(ms, Vector3(), false, false);
 					p.AttachTo(propYachtWin, 0, false, Vector3(0.0032f, 0.0028f, 14.5700f), Vector3());
 					p.IsCollisionEnabled_set(true);
 					SET_OBJECT_TINT_INDEX(p.Handle(), yachtInfo.yachtPropTextureVariation);
@@ -314,7 +314,7 @@ namespace sub::TeleportLocations_catind
 				}
 
 				sprintf_s(buffer, "apa_mp_apa_y%u_l%u%c", optionNumber, yachtInfo.lightingType, yachtInfo.lightingColour);
-				auto& propLights = World::CreateProp(std::string(buffer), propYachtPos, false, false);
+				GTAprop propLights = World::CreateProp(std::string(buffer), propYachtPos, false, false);
 				propLights.AttachTo(propYachtWin, 0, false, Vector3(0.0032f, 0.0028f, 14.5700f), Vector3());
 				propLights.IsCollisionEnabled_set(true);
 				SET_ENTITY_LIGHTS(propLights.Handle(), 0);
@@ -329,7 +329,7 @@ namespace sub::TeleportLocations_catind
 					{ { -36.8202f, -1.2778f, 0.6500f },{ 0.0000f, 0.0000f, -89.9550f } }
 				})
 				{
-					auto& propDoor = World::CreateProp(std::string(buffer), Vector3(), true, false);
+					GTAprop propDoor = World::CreateProp(std::string(buffer), Vector3(), true, false);
 					propDoor.AttachTo(propYachtWin, 0, false, doorOffset.first, doorOffset.second);
 					propDoor.IsCollisionEnabled_set(true);
 					SET_OBJECT_TINT_INDEX(propDoor.Handle(), yachtInfo.yachtPropTextureVariation);
@@ -339,7 +339,7 @@ namespace sub::TeleportLocations_catind
 				}
 
 				// Flag
-				auto& propFlag = World::CreateProp("apa_prop_flag_" + vFlagSuffixes[yachtInfo.flagIndex], Vector3(), true, false);
+				GTAprop propFlag = World::CreateProp("apa_prop_flag_" + vFlagSuffixes[yachtInfo.flagIndex], Vector3(), true, false);
 				propFlag.AttachTo(propYachtWin, 0, false, Vector3(-56.6221f, -2.0013f, 1.5937f), Vector3(49.6800f, 0.0000f, -89.9500f));
 				propFlag.IsCollisionEnabled_set(true);
 				SET_ENTITY_LIGHTS(propFlag.Handle(), 0);
@@ -347,7 +347,7 @@ namespace sub::TeleportLocations_catind
 				yachtInfo.vSpawnedEntities.push_back(propFlag);
 
 				// Keypad
-				auto& propKeypad = World::CreateProp(0x25286EB9, Vector3(), true, false); // prop_ld_keypad_01b
+				GTAprop propKeypad = World::CreateProp(0x25286EB9, Vector3(), true, false); // prop_ld_keypad_01b
 				propKeypad.AttachTo(propYachtWin, 0, false, Vector3(-36.8196f, -2.8881f, 0.8880f), Vector3(0.0000f, 0.0000f, -84.7550f));
 				propKeypad.IsCollisionEnabled_set(true);
 				SET_ENTITY_LIGHTS(propKeypad.Handle(), 0);
@@ -363,7 +363,7 @@ namespace sub::TeleportLocations_catind
 				auto& radomeOffset = radomeOffsets[optionNumber];
 				for (auto& r : radomeOffset)
 				{
-					auto& propRadome = World::CreateProp(0x49566db0, Vector3(), true, false); // apa_mp_apa_yacht_radar_01a
+					GTAprop propRadome = World::CreateProp(0x49566db0, Vector3(), true, false); // apa_mp_apa_yacht_radar_01a
 					propRadome.AttachTo(propYachtWin, 0, false, r.first, Vector3(0, 0, r.second));
 					propRadome.Detach();
 					propRadome.FreezePosition(true);
@@ -383,7 +383,7 @@ namespace sub::TeleportLocations_catind
 					{ -1619.7332f, -1820.7730f, -0.8027f }
 				})
 				{
-					auto& propBuoy = World::CreateProp(0x51d2a887, Vector3(), true, false); // apa_prop_yacht_float_1a
+					GTAprop propBuoy = World::CreateProp(0x51d2a887, Vector3(), true, false); // apa_prop_yacht_float_1a
 					propBuoy.AttachTo(propYachtWin, 0, false, b, Vector3());
 					propBuoy.Detach();
 					propBuoy.FreezePosition(false);
@@ -397,7 +397,7 @@ namespace sub::TeleportLocations_catind
 				// Jacuzzi
 				if (optionNumber >= 2)
 				{
-					auto& propJacuzzi = World::CreateProp(0x98B5E3D4, Vector3(), true, false); // apa_mp_apa_yacht_jacuzzi_ripple1
+					GTAprop propJacuzzi = World::CreateProp(0x98B5E3D4, Vector3(), true, false); // apa_mp_apa_yacht_jacuzzi_ripple1
 					propJacuzzi.AttachTo(propYachtWin, 0, false, Vector3(-50.8033f, -1.9774f, 0.1368f), Vector3());
 					propJacuzzi.IsCollisionEnabled_set(true);
 					SET_ENTITY_LIGHTS(propJacuzzi.Handle(), 0);
@@ -432,7 +432,7 @@ namespace sub::TeleportLocations_catind
 				auto& vVehicleOffsets = vVehicleOffsetsArr[optionNumber];
 				for (auto& v : vVehicleOffsets)
 				{
-					auto& veh = World::CreateVehicle(std::get<0>(v), Vector3(), 0.0f, false);
+					GTAvehicle veh = World::CreateVehicle(std::get<0>(v), Vector3(), 0.0f, false);
 					veh.AttachTo(propYachtWin, 0, false, std::get<1>(v), std::get<2>(v));
 					veh.Detach();
 					veh.FreezePosition(false);
@@ -450,7 +450,7 @@ namespace sub::TeleportLocations_catind
 					std::make_tuple<Model, Vector3, Vector3, PTFX::sFxData>(PedHash::BoatStaff01Female,{ 23.3344f, -1.6929f, 3.5506f },{ 0.0000f, 0.0000f, 88.9650f },{ "anim@mini@yacht@bar@drink@idle_a", "idle_a_bartender" }),
 				})
 				{
-					auto& ped = World::CreatePed(std::get<0>(p), Vector3(), 0.0f, false);
+					GTAped ped = World::CreatePed(std::get<0>(p), Vector3(), 0.0f, false);
 					ped.AttachTo(propYachtWin, 0, false, std::get<1>(p), std::get<2>(p));
 					ped.Detach();
 					ped.FreezePosition(false);
@@ -466,7 +466,7 @@ namespace sub::TeleportLocations_catind
 				}
 
 				// Blip
-				auto& blipYacht = yachtInfo.blip;
+				GTAblip blipYacht = yachtInfo.blip;
 				blipYacht = propYachtWin.AddBlip();
 				blipYacht.SetIcon(BlipIcon::Yacht);
 				blipYacht.SetBlipName("Menyoo Yacht");
@@ -644,7 +644,7 @@ namespace sub::TeleportLocations_catind
 			if (yachtInfo.location != nullptr && yachtInfo.option != nullptr)
 			{
 				GTAentity myPed = PLAYER_PED_ID();
-				Vector3& myPos = myPed.Position_get();
+				const Vector3& myPos = myPed.Position_get();
 				auto& posh = yachtInfo.location->second.poses[yachtInfo.internalLocationIndex - 1];
 
 				if (myPos.DistanceTo(posh.pos) < 100.0f)
@@ -687,7 +687,7 @@ namespace sub::TeleportLocations_catind
 									myPed.Position_set(p.second);
 									//myPed.Heading_set(same);
 									TaskSequence sq;
-									Vector3& outsideMarkerPos = myPed.GetOffsetInWorldCoords(0, scale + 1.0f, 0);
+									const Vector3& outsideMarkerPos = myPed.GetOffsetInWorldCoords(0, scale + 1.0f, 0);
 									TASK_GO_STRAIGHT_TO_COORD(0, outsideMarkerPos.x, outsideMarkerPos.y, outsideMarkerPos.z, 1.5f, 2000, Vector3::DirectionToRotation(Vector3::Normalize(outsideMarkerPos - p.second)).z, 0.0f);
 									sq.Close();
 									sq.MakePedPerform(myPed);

@@ -177,7 +177,7 @@ namespace sub
 					}
 					else
 					{
-						Vector3& coord = GET_ENTITY_COORDS(entity.GetHandle(), 1);
+						const Vector3& coord = GET_ENTITY_COORDS(entity.GetHandle(), 1);
 						START_NETWORKED_PARTICLE_FX_NON_LOOPED_AT_COORD((PCHAR)effect.fx.c_str(), coord.x, coord.y, coord.z, 0.0f, 0.0f, 0.0f, 1.0f, 0, 0, 0, false);
 					}
 				}

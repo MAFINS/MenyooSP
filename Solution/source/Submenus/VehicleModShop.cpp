@@ -927,14 +927,14 @@ namespace sub
 			case 1:
 				if (GET_IS_VEHICLE_PRIMARY_COLOUR_CUSTOM(Static_12))
 				{
-					auto& copy = vehicle.CustomPrimaryColour_get();
+					RgbS copy = vehicle.CustomPrimaryColour_get();
 					vehicle.CustomSecondaryColour_set(copy.R, copy.G, copy.B);
 				}
 				break;
 			case 2:
 				if (GET_IS_VEHICLE_SECONDARY_COLOUR_CUSTOM(Static_12))
 				{
-					auto& copy = vehicle.CustomSecondaryColour_get();
+					RgbS copy = vehicle.CustomSecondaryColour_get();
 					vehicle.CustomPrimaryColour_set(copy.R, copy.G, copy.B);
 				}
 				break;
@@ -1542,14 +1542,14 @@ namespace sub
 			{
 			case 1:
 			{
-				auto& copy = vehicle.CustomPrimaryColour_get();
+				RgbS copy = vehicle.CustomPrimaryColour_get();
 				paintCarUsing_index(Static_12, ms_curr_paint_index, PAINTS_FINISH[ms_paints_finish].paint, -1);
 				vehicle.CustomPrimaryColour_set(copy.R, copy.G, copy.B);
 				break;
 			}
 			case 2:
 			{
-				auto& copy = vehicle.CustomSecondaryColour_get();
+				RgbS copy = vehicle.CustomSecondaryColour_get();
 				paintCarUsing_index(Static_12, ms_curr_paint_index, PAINTS_FINISH[ms_paints_finish].paint, -1);
 				vehicle.CustomSecondaryColour_set(copy.R, copy.G, copy.B);
 				break;
@@ -1567,7 +1567,7 @@ namespace sub
 			case 1:
 				if (GET_IS_VEHICLE_PRIMARY_COLOUR_CUSTOM(Static_12))
 				{
-					auto& copy = vehicle.CustomPrimaryColour_get();
+					RgbS copy = vehicle.CustomPrimaryColour_get();
 					paintCarUsing_index(Static_12, ms_curr_paint_index, PAINTS_FINISH[ms_paints_finish].paint, -1);
 					vehicle.CustomPrimaryColour_set(copy.R, copy.G, copy.B);
 				}
@@ -1575,7 +1575,7 @@ namespace sub
 			case 2:
 				if (GET_IS_VEHICLE_SECONDARY_COLOUR_CUSTOM(Static_12))
 				{
-					auto& copy = vehicle.CustomSecondaryColour_get();
+					RgbS copy = vehicle.CustomSecondaryColour_get();
 					paintCarUsing_index(Static_12, ms_curr_paint_index, PAINTS_FINISH[ms_paints_finish].paint, -1);
 					vehicle.CustomSecondaryColour_set(copy.R, copy.G, copy.B);
 				}
@@ -1592,7 +1592,7 @@ namespace sub
 			return;
 		srand(time(0));
 		int i;
-		Vector3& Pos = GET_ENTITY_COORDS(vehicle, 1);
+		//const Vector3& Pos = GET_ENTITY_COORDS(vehicle, 1);
 
 		GTAvehicle(vehicle).RequestControl();
 
@@ -1764,22 +1764,22 @@ namespace sub
 			ms_livery2 = GET_VEHICLE_LIVERY2(Static_12) + 1;
 
 		auto rpmMultVal = 1.0f;
-		auto& rpmMultIt = g_multList_rpm.find(vehicle.Handle());
+		const auto& rpmMultIt = g_multList_rpm.find(vehicle.Handle());
 		if (rpmMultIt != g_multList_rpm.end())
 			rpmMultVal = rpmMultIt->second;
 
 		auto torqueMultVal = 1.0f;
-		auto& torqueMultIt = g_multList_torque.find(vehicle.Handle());
+		const auto& torqueMultIt = g_multList_torque.find(vehicle.Handle());
 		if (torqueMultIt != g_multList_torque.end())
 			torqueMultVal = torqueMultIt->second;
 
 		auto maxSpeedMultVal = GET_VEHICLE_MODEL_ESTIMATED_MAX_SPEED(vehicleModel.hash);
-		auto& maxSpeedMultIt = g_multList_maxSpeed.find(vehicle.Handle());
+		const auto& maxSpeedMultIt = g_multList_maxSpeed.find(vehicle.Handle());
 		if (maxSpeedMultIt != g_multList_maxSpeed.end())
 			maxSpeedMultVal = maxSpeedMultIt->second;
 
 		auto headLightsMultVal = 1.0f;
-		auto& headLightsMultIt = g_multList_headlights.find(vehicle.Handle());
+		const auto& headLightsMultIt = g_multList_headlights.find(vehicle.Handle());
 		if (headLightsMultIt != g_multList_headlights.end())
 			headLightsMultVal = headLightsMultIt->second;
 
@@ -2431,7 +2431,7 @@ namespace sub
 		void Sub_BennysMain()
 		{
 			GTAvehicle vehicle = Static_12;
-			auto& vehModel = vehicle.Model();
+			const auto& vehModel = vehicle.Model();
 
 			if (!vehicle.Exists())
 			{

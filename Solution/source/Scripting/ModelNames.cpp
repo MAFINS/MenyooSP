@@ -100,7 +100,7 @@ void PopulatePedModelsArray()
 	if (doc.load_file((const wchar_t*)(GetPathffW(Pathff::Main, true) + (L"PedList.xml")).c_str()).status == pugi::status_ok)
 	{
 		g_pedModels.clear();
-		auto& nodeRoot = doc.document_element();//doc.child("PedList");
+		auto nodeRoot = doc.document_element();//doc.child("PedList");
 		for (auto& cta : std::vector<std::pair<std::string, std::vector<std::pair<std::string, std::string>>*>>{
 			{ "Animal", &g_pedModels_Animal },
 			{ "AmbientFemale", &g_pedModels_AmbientFemale },
@@ -117,10 +117,10 @@ void PopulatePedModelsArray()
 			{ "Others", &g_pedModels_Others },
 		})
 		{
-			auto& nodeCat = nodeRoot.find_child_by_attribute("name", cta.first.c_str());
+			auto nodeCat = nodeRoot.find_child_by_attribute("name", cta.first.c_str());
 			if (nodeCat)
 			{
-				for (auto& nodePed = nodeCat.first_child()/*nodeCat.child("Ped")*/; nodePed; nodePed = nodePed.next_sibling()/*nodeVeh.next_sibling("Ped")*/)
+				for (auto nodePed = nodeCat.first_child()/*nodeCat.child("Ped")*/; nodePed; nodePed = nodePed.next_sibling()/*nodeVeh.next_sibling("Ped")*/)
 				{
 					std::string pedModelName = nodePed.attribute("name").as_string();
 					std::string pedDisplayName = nodePed.attribute("caption").as_string();
@@ -182,7 +182,7 @@ void PopulateVehicleModelsArray()
 	pugi::xml_document doc;
 	if (doc.load_file((const wchar_t*)(GetPathffW(Pathff::Main, true) + (L"VehicleList.xml")).c_str()).status == pugi::status_ok)
 	{
-		auto& nodeRoot = doc.document_element();//doc.child("VehicleList");
+		auto nodeRoot = doc.document_element();//doc.child("VehicleList");
 		for (auto& cta : std::vector<std::pair<std::string, std::vector<Model>*>>{
 			{ "Super", &g_vehHashes_SUPER },
 			{ "Sport", &g_vehHashes_SPORT },
@@ -208,10 +208,10 @@ void PopulateVehicleModelsArray()
 			{ "Other", &g_vehHashes_OTHER },
 		})
 		{
-			auto& nodeCat = nodeRoot.find_child_by_attribute("name", cta.first.c_str());
+			auto nodeCat = nodeRoot.find_child_by_attribute("name", cta.first.c_str());
 			if (nodeCat)
 			{
-				for (auto& nodeVeh = nodeCat.first_child()/*nodeCat.child("Vehicle")*/; nodeVeh; nodeVeh = nodeVeh.next_sibling()/*nodeVeh.next_sibling("Vehicle")*/)
+				for (auto nodeVeh = nodeCat.first_child()/*nodeCat.child("Vehicle")*/; nodeVeh; nodeVeh = nodeVeh.next_sibling()/*nodeVeh.next_sibling("Vehicle")*/)
 				{
 					Hash vehHash = GET_HASH_KEY(nodeVeh.attribute("name").as_string());
 					cta.second->push_back(vehHash);

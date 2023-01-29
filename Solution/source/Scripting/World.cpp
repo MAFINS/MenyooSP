@@ -429,7 +429,7 @@ namespace World
 		{
 			position.z = World::GetGroundHeight(position) + model.Dim1().z;//model.Dim2().z;
 		}
-		auto& ped = CreatePed(model, position, rotation.z, false);
+		auto ped = CreatePed(model, position, rotation.z, false);
 		ped.Position_set(position); // More accurate position
 		if (placeOnGround) ped.PlaceOnGround();
 		ped.Rotation_set((rotation)); // Rotation
@@ -500,7 +500,7 @@ namespace World
 		{
 			position.z = World::GetGroundHeight(position) + model.Dim1().z;//model.Dim2().z;
 		}
-		GTAprop& prop = CreateProp(model, position, dynamic, false);
+		GTAprop prop = CreateProp(model, position, dynamic, false);
 		prop.Position_set(position); // More accurate position
 		if (placeOnGround) prop.PlaceOnGround();
 		prop.Rotation_set(rotation); // Rotation
@@ -612,10 +612,10 @@ namespace World
 		if (aimedEntity.Handle())
 			return aimedEntity;
 
-		Vector3& camCoord = GameplayCamera::Position_get();
-		Vector3 hitCoord = (GameplayCamera::DirectionFromScreenCentre_get() * 1000.0f) + camCoord;
+		const Vector3& camCoord = GameplayCamera::Position_get();
+		const Vector3& hitCoord = (GameplayCamera::DirectionFromScreenCentre_get() * 1000.0f) + camCoord;
 
-		RaycastResult& ray = RaycastResult::Raycast(camCoord, hitCoord, IntersectOptions::Everything, myPed);
+		const RaycastResult& ray = RaycastResult::Raycast(camCoord, hitCoord, IntersectOptions::Everything, myPed);
 
 		return ray.DidHitEntity() ? ray.HitEntity() : 0;
 	}
@@ -668,7 +668,7 @@ namespace World
 		INT i, j;
 		GTAped ped;
 
-		Vector3& originCoord = originPed.Position_get();
+		const Vector3& originCoord = originPed.Position_get();
 
 		Ped *peds = new Ped[140 * 2 + 2]; // Five minutes into doubled stack size and chill and it gives you that ped handle
 		peds[0] = 140;
@@ -742,7 +742,7 @@ namespace World
 
 
 // World - clear area
-void clear_area_of_entities(const EntityType& type, const Vector3& coords, float radius, std::vector<GTAentity> excludes)
+void clear_area_of_entities(const EntityType& type, const Vector3& coords, float radius, const std::vector<GTAentity>& excludes)
 {
 
 	//LOAD_ALL_OBJECTS_NOW();
@@ -762,7 +762,7 @@ void clear_area_of_entities(const EntityType& type, const Vector3& coords, float
 	GTAentity myPed = PLAYER_PED_ID();
 	for (GTAentity ent : entities)
 	{
-		auto& excit = std::find(excludes.begin(), excludes.end(), ent);
+		const auto& excit = std::find(excludes.begin(), excludes.end(), ent);
 		if (excit == excludes.end()) // Not found in excludes
 		{
 			ent.Delete(ent != myPed);
@@ -831,7 +831,7 @@ void clear_area_of_vehicles_around_entity(Entity entity, float radius, bool memr
 	{
 		if (IS_ENTITY_A_PED(entity))
 			clear_area_of_entities(EntityType::VEHICLE, Pos, radius, { GET_VEHICLE_PED_IS_USING(entity) });
-		else clear_area_of_entities(EntityType::VEHICLE, Pos, radius);
+		else clear_area_of_entities(EntityType::VEHICLE, Pos, radius, {});
 	}
 
 
@@ -875,7 +875,7 @@ void clear_area_of_peds_around_entity(Entity entity, float radius, bool memry)
 	{
 		if (IS_ENTITY_A_PED(entity))
 			clear_area_of_entities(EntityType::PED, Pos, radius, { entity });
-		else clear_area_of_entities(EntityType::PED, Pos, radius);
+		else clear_area_of_entities(EntityType::PED, Pos, radius, {});
 	}
 
 }

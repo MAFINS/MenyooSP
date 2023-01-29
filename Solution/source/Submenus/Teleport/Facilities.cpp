@@ -39,7 +39,7 @@ namespace sub::TeleportLocations_catind
 			TeleLocation("Silo", 368.4300f, 6307.8600f, -160.2500f,{ "xm_x17dlc_int_placement_interior_34_x17dlc_int_lab_milo_"_sv },{}, true, false, true),
 			TeleLocation("Avenger", 520.0000f, 4750.0000f, -70.0000f,{ "xm_x17dlc_int_placement_interior_9_x17dlc_int_01_milo_"_sv },{},{ "shell_tint"_sv, "CONTROL_1"_sv, "CONTROL_2"_sv, "CONTROL_3"_sv, "WEAPONS_MOD"_sv, "VEHICLE_MOD"_sv, "GOLD_BLING"_sv }, true, false, true)
 		};
-		struct FacilityLocation { const PCHAR name; Vector3 pos; std::vector<std::string> ipls; };//std::string interior; };
+		struct FacilityLocation { const std::string name; Vector3 pos; std::vector<std::string> ipls; };//std::string interior; };
 		const std::vector<FacilityLocation> vLocations
 		{
 			{ "Regular",{ 462.0900f, 4820.4200f, -59.0000f },{ "xm_x17dlc_int_placement_interior_33_x17dlc_int_02_milo_" } },
@@ -59,7 +59,7 @@ namespace sub::TeleportLocations_catind
 			{ "Supremacy" }
 			} };
 
-		struct FacilityInteriorOption { const PCHAR name; const PCHAR value; UINT8 maxTints; };
+		struct FacilityInteriorOption { const std::string name; const std::string value; UINT8 maxTints; };
 		const std::vector<FacilityInteriorOption> vMainShellOptions
 		{
 			{ "Normal", "set_int_02_shell", 10 },
@@ -172,7 +172,7 @@ namespace sub::TeleportLocations_catind
 		FacilityInfoStructure currentFacilityInfo = { nullptr, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
 
 		struct FacilityInteriorOptionArray {
-			const PCHAR name; FacilityInfoStructure::FacilityInteriorOptionIndex* ptr; const std::vector<FacilityInteriorOption>* arr;
+			const std::string name; FacilityInfoStructure::FacilityInteriorOptionIndex* ptr; const std::vector<FacilityInteriorOption>* arr;
 		} const vOptionArrays[]{
 			//{ NULL, NULL, &vDefaultOptions },
 			{ "Main Shell", &currentFacilityInfo.mainShellOption, &vMainShellOptions },
@@ -210,7 +210,7 @@ namespace sub::TeleportLocations_catind
 				for (auto& oa : vOptionArrays)
 				{
 					for (auto& o : *oa.arr)
-						DEACTIVATE_INTERIOR_ENTITY_SET(interior, const_cast<PCHAR>(o.value));
+						DEACTIVATE_INTERIOR_ENTITY_SET(interior, o.value.c_str());
 				}
 				for (auto& oa : vOptionArrays)
 				{
@@ -218,21 +218,21 @@ namespace sub::TeleportLocations_catind
 					{
 						for (auto& o : *oa.arr)
 						{
-							ACTIVATE_INTERIOR_ENTITY_SET(interior, const_cast<PCHAR>(o.value));
+							ACTIVATE_INTERIOR_ENTITY_SET(interior, o.value.c_str());
 						}
 					}
 					else
 					{
 						auto& o = oa.arr->at(oa.ptr->index);
-						ACTIVATE_INTERIOR_ENTITY_SET(interior, const_cast<PCHAR>(o.value));
+						ACTIVATE_INTERIOR_ENTITY_SET(interior, o.value.c_str());
 						if (o.maxTints > 0)
 						{
 							for (DWORD timeOut = GetTickCount() + 250; GetTickCount() < timeOut;)
 							{
-								if (IS_INTERIOR_ENTITY_SET_ACTIVE(interior, const_cast<PCHAR>(o.value))) break;
+								if (IS_INTERIOR_ENTITY_SET_ACTIVE(interior, o.value.c_str())) break;
 								WAIT(0);
 							}
-							SET_INTERIOR_ENTITY_SET_TINT_INDEX(interior, const_cast<PCHAR>(o.value), oa.ptr->currTint);
+							SET_INTERIOR_ENTITY_SET_TINT_INDEX(interior, o.value.c_str(), oa.ptr->currTint);
 						}
 					}
 				}
@@ -251,18 +251,19 @@ namespace sub::TeleportLocations_catind
 				if (!IS_INTERIOR_DISABLED(interior))
 				{
 					for (auto& p : *arr.arr)
-						DEACTIVATE_INTERIOR_ENTITY_SET(interior, const_cast<PCHAR>(p.value));
+						DEACTIVATE_INTERIOR_ENTITY_SET(interior, p.value.c_str());
 					auto& p = arr.arr->at(arr.ptr->index);
-					PCHAR propName = const_cast<PCHAR>(p.value);
-					ACTIVATE_INTERIOR_ENTITY_SET(interior, propName);
+					const std::string& propName = p.value;
+					ACTIVATE_INTERIOR_ENTITY_SET(interior, propName.c_str());
 					if (p.maxTints > 0)
 					{
 						for (DWORD timeOut = GetTickCount() + 250; GetTickCount() < timeOut;)
 						{
-							if (IS_INTERIOR_ENTITY_SET_ACTIVE(interior, propName)) break;
+							if (IS_INTERIOR_ENTITY_SET_ACTIVE(interior, propName.c_str()))
+								break;
 							WAIT(0);
 						}
-						SET_INTERIOR_ENTITY_SET_TINT_INDEX(interior, propName, arr.ptr->currTint);
+						SET_INTERIOR_ENTITY_SET_TINT_INDEX(interior, propName.c_str(), arr.ptr->currTint);
 					}
 					REFRESH_INTERIOR(interior);
 				}
@@ -312,7 +313,7 @@ namespace sub::TeleportLocations_catind
 
 			for (auto& o : vOptionArrays)
 			{
-				if (o.name != nullptr && o.ptr != nullptr)
+				if (!o.name.empty() && o.ptr != nullptr)
 				{
 					bool bOption_plus = false, bOption_minus = false, bOption_pressed = false;
 					AddTexter(o.name, 0, std::vector<std::string>{ o.arr->at(o.ptr->index).name }, bOption_pressed, bOption_plus, bOption_minus);
@@ -344,7 +345,7 @@ namespace sub::TeleportLocations_catind
 				Menu::SetSub_previous();
 				return;
 			}
-			AddTitle(selectedOptionArray->name == nullptr ? "Option" : selectedOptionArray->name);
+			AddTitle(selectedOptionArray->name.empty() ? "Option" : selectedOptionArray->name);
 
 			for (UINT i = 0; i < selectedOptionArray->arr->size(); i++)
 			{

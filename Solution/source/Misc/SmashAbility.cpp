@@ -44,7 +44,7 @@ namespace _SmashAbility_
 	void SmashAbility::DoLevitate()
 	{
 		GTAped myPed = PLAYER_PED_ID();
-		Vector3& myPos = myPed.Position_get();
+		const Vector3& myPos = myPed.Position_get();
 
 		if (!myPed.Task().IsPlayingAnimation("mini@strip_club@idles@dj@idle_01", "idle_01"))
 			myPed.Task().PlayAnimation("mini@strip_club@idles@dj@idle_01", "idle_01", 1, 1, -1, AnimFlag::UpperBodySecondTask, 0, false);
@@ -55,7 +55,7 @@ namespace _SmashAbility_
 		{
 			if (entity == g_myVeh || entity == myPed.Handle())
 				continue;
-			Vector3& entityPos = entity.Position_get();
+			const Vector3& entityPos = entity.Position_get();
 			OscillateEntity(entity, entityPos + Vector3(0, 0, 0.10f), 1.9f, 0.3f);
 		}
 		/*for (GTAvehicle veh : _nearbyVehicles)
@@ -76,7 +76,7 @@ namespace _SmashAbility_
 	void SmashAbility::DoSmash()
 	{
 		GTAped myPed = PLAYER_PED_ID();
-		auto& myPos = myPed.Position_get();
+		const auto& myPos = myPed.Position_get();
 
 		if (myPed.Task().IsPlayingAnimation("mini@strip_club@idles@dj@idle_01", "idle_01"))
 			myPed.Task().ClearAnimation("mini@strip_club@idles@dj@idle_01", "idle_01");
@@ -87,7 +87,7 @@ namespace _SmashAbility_
 		{
 			if (entity.Handle() == g_myVeh || entity.Handle() == myPed.Handle())
 				continue;
-			Vector3& entityPos = entity.Position_get();
+			const Vector3& entityPos = entity.Position_get();
 			entity.ApplyForce(Vector3(0, 0, -31.0f * entity.HeightAboveGround()), ForceType::MaxForceRot2);
 		}
 		/*for (GTAvehicle veh : _nearbyVehicles)

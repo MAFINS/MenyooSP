@@ -33,11 +33,11 @@
 
 void teleport_net_ped(GTAentity pedd, float X, float Y, float Z, bool bWait)
 {
-	GTAped& myPed = Game::PlayerPed();
-	GTAvehicle& myVeh = myPed.CurrentVehicle();
+	GTAped myPed = Game::PlayerPed();
+	GTAvehicle myVeh = myPed.CurrentVehicle();
 
 	GTAped ped = pedd;
-	GTAvehicle& vehicle = ped.CurrentVehicle();
+	GTAvehicle vehicle = ped.CurrentVehicle();
 
 	PTFX::sFxData ptfx = { "scr_rcbarry2", "scr_clown_death" };
 	if (!vehicle.Exists())
@@ -121,12 +121,12 @@ void teleport_to_missionBlip(GTAped ped)
 				(colour == BlipColour::Blue && icon == BlipIcon::Standard))
 
 			{
-				//Vector3& coord = blip.Position_get();
-				Vector3& coord = Vector3(blip->x, blip->y, blip->z);
+				//Vector3 coord = blip.Position_get();
+				Vector3 coord = Vector3(blip->x, blip->y, blip->z);
 
 				if (ped.IsInVehicle())
 				{
-					auto& vehicle = ped.CurrentVehicle();
+					auto vehicle = ped.CurrentVehicle();
 					if (vehicle.RequestControl(1000))
 						vehicle.Position_set(coord);
 				}
@@ -149,7 +149,7 @@ namespace sub::TeleportLocations_catind
 		{
 			if (IS_WAYPOINT_ACTIVE())
 			{
-				Vector3& blipCoords = GTAblip(GET_FIRST_BLIP_INFO_ID(BlipIcon::Waypoint)).Position_get();
+				Vector3 blipCoords = GTAblip(GET_FIRST_BLIP_INFO_ID(BlipIcon::Waypoint)).Position_get();
 
 				GET_GROUND_Z_FOR_3D_COORD(blipCoords.x, blipCoords.y, 800.0f, &blipCoords.z, 0, 0);
 				blipCoords.z += 20.0f;
@@ -201,7 +201,7 @@ namespace sub::TeleportLocations_catind
 		void ToForward241()
 		{
 			auto& entityToTeleport = Static_241;
-			Vector3& yoffsetforward = GET_OFFSET_FROM_ENTITY_IN_WORLD_COORDS(entityToTeleport, 0.0f, 3.5f, 0.0f);
+			Vector3 yoffsetforward = GET_OFFSET_FROM_ENTITY_IN_WORLD_COORDS(entityToTeleport, 0.0f, 3.5f, 0.0f);
 			teleport_net_ped(entityToTeleport, yoffsetforward.x, yoffsetforward.y, yoffsetforward.z);
 		}
 		void ToCoordinates241(const Vector3& coord)

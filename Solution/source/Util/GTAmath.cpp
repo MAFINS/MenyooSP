@@ -43,7 +43,7 @@ Vector3::Vector3()
 {
 }
 
-Vector3::Vector3(Vector3_t& xyz)
+Vector3::Vector3(const Vector3_t& xyz)
 	: x(xyz.x), y(xyz.y), z(xyz.z)
 {
 }

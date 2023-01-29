@@ -34,7 +34,7 @@ namespace sub::Spooner
 
 		int GetEntityIndexInDb(const GTAentity& entity);
 		int GetEntityIndexInDb(const SpoonerEntity& ent);
-		void AddEntityToDb(SpoonerEntity& ent, bool missionEnt = Settings::bAddToDbAsMissionEntities);
+		void AddEntityToDb(SpoonerEntity ent, bool missionEnt = Settings::bAddToDbAsMissionEntities);
 		void RemoveEntityFromDb(const SpoonerEntity& ent);
 
 		void ClearDb();
@@ -56,7 +56,7 @@ namespace sub::Spooner
 		SpoonerEntity AddVehicle(const GTAmodel::Model& model, const std::string& name, bool unloadModel = true);
 		SpoonerEntity AddEntityOfType(const EntityType& type, const GTAmodel::Model& model, const std::string& name);
 
-		SpoonerEntity CopyEntity(SpoonerEntity& orig, bool isInDb, bool addToDb = true, UINT8 copyAttachments = 0, bool unloadModel = true, UINT8 currAtir = 0);
+		SpoonerEntity CopyEntity(SpoonerEntity orig, bool isInDb, bool addToDb = true, UINT8 copyAttachments = 0, bool unloadModel = true, UINT8 currAtir = 0);
 
 		void DetachEntity(SpoonerEntity& ent);
 		bool GetEntityThisEntityIsAttachedTo(GTAentity& from, GTAentity& to);

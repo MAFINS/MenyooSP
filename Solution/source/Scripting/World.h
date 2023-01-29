@@ -170,7 +170,7 @@ namespace World
 
 
 // World - clear area
-void clear_area_of_entities(const EntityType& type, const Vector3& coords, float radius, std::vector<GTAentity> excludes = {});
+void clear_area_of_entities(const EntityType& type, const Vector3& coords, float radius, const std::vector<GTAentity>& excludes);
 void clear_area_of_vehicles_around_entity(Entity entity, float radius, bool memry = true);
 void clear_area_of_peds_around_entity(Entity entity, float radius, bool memry = true);
 void clear_attachments_off_entity(const GTAentity& entity, const EntityType& entType);

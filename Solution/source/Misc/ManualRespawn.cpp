@@ -131,7 +131,7 @@ namespace _ManualRespawn_
 		if (GET_NUMBER_OF_THREADS_RUNNING_THE_SCRIPT_WITH_THIS_HASH(0xCAC8014F) > 0)//director_mode.ysc
 			return;
 
-		Model& model = playerPed.Model();
+		Model model = playerPed.Model();
 		Model orig_model;
 
 
@@ -152,7 +152,7 @@ namespace _ManualRespawn_
 			tid2[i] = GET_PED_PROP_TEXTURE_INDEX(playerPed, i);
 			}*/
 
-			std::string& ofn = GetPathffA(Pathff::Outfit, true) + "_reserved.xml";
+			const std::string& ofn = GetPathffA(Pathff::Outfit, true) + "_reserved.xml";
 			sub::ComponentChanger_Outfit_catind::Create(PLAYER_PED_ID(), ofn);
 
 

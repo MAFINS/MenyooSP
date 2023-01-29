@@ -28,13 +28,13 @@ namespace sub::TeleportLocations_catind
 	{
 		namespace Bunkers
 		{
-			struct BunkerLocation { const PCHAR name; Vector3 pos; const PCHAR ipl; };
+			struct BunkerLocation { const std::string name; Vector3 pos; const std::string ipl; };
 			const std::vector<BunkerLocation> vLocations
 			{
 				{ "Regular",{ 938.3077f, -3196.1120f, -98.0000f }, "gr_grdlc_interior_placement_interior_1_grdlc_int_02_milo_" },
 			};
 
-			struct BunkerInteriorOption { const PCHAR name; const PCHAR value; };
+			struct BunkerInteriorOption { const std::string name; const std::string value; };
 			const std::vector<BunkerInteriorOption> vStyleOptions
 			{
 				{ "A", "bunker_style_a" },
@@ -99,7 +99,7 @@ namespace sub::TeleportLocations_catind
 			BunkerInfoStructure currentBunkerInfo = { nullptr, 0, 0, 0, 0, 0, 0, 0 };
 
 			struct BunkerInteriorOptionArray {
-				const PCHAR name; UINT8* ptr; const std::vector<BunkerInteriorOption>* arr;
+				const std::string name; UINT8* ptr; const std::vector<BunkerInteriorOption>* arr;
 			} vOptionArrays[]{
 				{ "Style", &currentBunkerInfo.styleOption, &vStyleOptions },
 				{ "Set", &currentBunkerInfo.setOption, &vSetOptions },
@@ -120,7 +120,7 @@ namespace sub::TeleportLocations_catind
 
 					SET_INSTANCE_PRIORITY_MODE(true);
 					ON_ENTER_MP();
-					REQUEST_IPL(loc.ipl);
+					REQUEST_IPL(loc.ipl.c_str());
 					int interior = GET_INTERIOR_AT_COORDS(pos.x, pos.y, pos.z);
 					DISABLE_INTERIOR(interior, true);
 					PIN_INTERIOR_IN_MEMORY(interior);
@@ -131,11 +131,11 @@ namespace sub::TeleportLocations_catind
 					for (auto& oa : vOptionArrays)
 					{
 						for (auto& o : *oa.arr)
-							DEACTIVATE_INTERIOR_ENTITY_SET(interior, const_cast<PCHAR>(o.value));
+							DEACTIVATE_INTERIOR_ENTITY_SET(interior, o.value.c_str());
 					}
 					for (auto& oa : vOptionArrays)
 					{
-						ACTIVATE_INTERIOR_ENTITY_SET(interior, const_cast<PCHAR>(oa.arr->at(*oa.ptr).value));
+						ACTIVATE_INTERIOR_ENTITY_SET(interior, oa.arr->at(*oa.ptr).value.c_str());
 					}
 					REFRESH_INTERIOR(interior);
 				}
@@ -194,13 +194,13 @@ namespace sub::TeleportLocations_catind
 
 		namespace Moc
 		{
-			struct MocLocation { const PCHAR name; Vector3 pos; const PCHAR ipl; };
+			struct MocLocation { const std::string name; Vector3 pos; const std::string ipl; };
 			const std::vector<MocLocation> vLocations
 			{
 				{ "Regular",{ 1103.5620f, -3000.00000f, -38.0000f }, "gr_grdlc_interior_placement_interior_0_grdlc_int_01_milo_" },
 			};
 
-			struct MocInteriorOption { const PCHAR name; const PCHAR value; };
+			struct MocInteriorOption { const std::string name; const std::string value; };
 			const std::vector<MocInteriorOption> vStyleOptions
 			{
 				{ "", "" },
@@ -220,7 +220,7 @@ namespace sub::TeleportLocations_catind
 			MocInfoStructure currentMocInfo = { nullptr, 0 };
 
 			struct MocInteriorOptionArray {
-				const PCHAR name; UINT8* ptr; const std::vector<MocInteriorOption>* arr;
+				const std::string name; UINT8* ptr; const std::vector<MocInteriorOption>* arr;
 			} vOptionArrays[]{
 				{ "~italics~no options available yet", &currentMocInfo.styleOption, &vStyleOptions },
 			};
@@ -235,7 +235,7 @@ namespace sub::TeleportLocations_catind
 
 					SET_INSTANCE_PRIORITY_MODE(true);
 					ON_ENTER_MP();
-					REQUEST_IPL(loc.ipl);
+					REQUEST_IPL(loc.ipl.c_str());
 					int interior = GET_INTERIOR_AT_COORDS(pos.x, pos.y, pos.z);
 					DISABLE_INTERIOR(interior, true);
 					PIN_INTERIOR_IN_MEMORY(interior);
@@ -246,11 +246,11 @@ namespace sub::TeleportLocations_catind
 					for (auto& oa : vOptionArrays)
 					{
 						for (auto& o : *oa.arr)
-							DEACTIVATE_INTERIOR_ENTITY_SET(interior, const_cast<PCHAR>(o.value));
+							DEACTIVATE_INTERIOR_ENTITY_SET(interior, o.value.c_str());
 					}
 					for (auto& oa : vOptionArrays)
 					{
-						ACTIVATE_INTERIOR_ENTITY_SET(interior, const_cast<PCHAR>(oa.arr->at(*oa.ptr).value));
+						ACTIVATE_INTERIOR_ENTITY_SET(interior, oa.arr->at(*oa.ptr).value.c_str());
 					}
 					REFRESH_INTERIOR(interior);
 				}

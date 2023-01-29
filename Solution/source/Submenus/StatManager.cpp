@@ -122,7 +122,7 @@ namespace sub
 		{
 			bool bStatValue_plus = false, bStatValue_minus = false, bStatValue_input = false;
 
-			std::string& statName = selectedCharName->first + stat.name;
+			const std::string& statName = selectedCharName->first + stat.name;
 
 			switch (stat.type)
 			{

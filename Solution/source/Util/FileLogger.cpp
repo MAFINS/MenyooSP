@@ -46,7 +46,7 @@ namespace ige
 
 	}
 
-	std::ofstream& operator<<(std::ofstream& stream, const ige::LogType& logType)
+	std::ofstream& operator<<(std::ofstream& stream, ige::LogType logType)
 	{
 		time_t now = time(0);
 		tm t;

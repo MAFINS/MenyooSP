@@ -154,10 +154,10 @@ namespace sub
 			{
 				if (sit->back() == 'e') // ..._face
 				{
-					std::string& fullNameWithoutExtension = sit->substr(0, sit->rfind('_'));
-					std::string& faceName = *sit + ".png";//fullNameWithoutExtension + "_face.png";
-					std::string& handhName = fullNameWithoutExtension + "_handh.png";
-					std::string& handmName = fullNameWithoutExtension + "_handm.png";
+					std::string fullNameWithoutExtension = sit->substr(0, sit->rfind('_'));
+					std::string faceName = *sit + ".png";//fullNameWithoutExtension + "_face.png";
+					std::string handhName = fullNameWithoutExtension + "_handh.png";
+					std::string handmName = fullNameWithoutExtension + "_handm.png";
 
 					DxHookIMG::DxTexture faceId = GetPathffA(Pathff::Graphics, true) + "Clock\\" + faceName;
 					DxHookIMG::DxTexture hourId = GetPathffA(Pathff::Graphics, true) + "Clock\\" + handhName;
@@ -177,8 +177,8 @@ namespace sub
 
 			auto& cmg = vClockImages[_analogueClockIndex];
 
-			Vector2& size = Vector2(0.1540f, 0.164f) * 0.7f;
-			Vector2& pos = _analogueClockPos;
+			const Vector2& size = Vector2(0.1540f, 0.164f) * 0.7f;
+			const Vector2& pos = _analogueClockPos;
 
 			cmg.faceId.Draw(0, pos, size, 0.0f, RGBA::AllWhite());
 			cmg.hourId.Draw(0, pos, size, (30.0f * t.tm_hour) + (0.5f * t.tm_min), RGBA::AllWhite());

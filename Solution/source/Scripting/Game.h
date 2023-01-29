@@ -39,7 +39,7 @@ namespace Game
 	bool RequestControlOfId(int netid);
 	bool RequestAnimDict(const std::string& anim_dict, DWORD timeOut = 1800);
 	bool RequestAnimSet(const std::string& anim_set, DWORD timeOut = 1800);
-	void RequestScript(PCHAR scriptName, int stackSize = 14000);
+	void RequestScript(const std::string& scriptName, int stackSize = 14000);
 
 	// GXT
 	inline bool DoesGXTEntryExist(const std::string& entry);

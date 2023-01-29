@@ -742,7 +742,7 @@ std::string GTAblip::IconName() const
 	{
 		if (i.iconId == icon) return i.name;
 	}*/
-	auto& it = BlipIcon::vNames.find(this->Icon());
+	const auto& it = BlipIcon::vNames.find(this->Icon());
 	if (it != BlipIcon::vNames.end())
 	{
 		return it->second;

@@ -37,7 +37,7 @@ namespace sub::TeleportLocations_catind
 			{ "3" },
 			{ "Autoshop" }
 		};
-		struct OfficeGarageLocation { Vector3 pos; const PCHAR ipl; };
+		struct OfficeGarageLocation { Vector3 pos; const std::string ipl; };
 		const std::vector<OfficeGarageLocation> vOffices_ArcadiusBusinessCentre_Garages
 		{
 			{ { -197.5016f, -579.3605f, 136.0005f },"imp_dt1_02_cargarage_a" }, // 1
@@ -66,14 +66,14 @@ namespace sub::TeleportLocations_catind
 			{ { -1368.8768f, -471.6262f, 57.1005f },"imp_sm_15_cargarage_c" },
 			{ { -1389.9446f, -480.1762f, 78.2001f },"imp_sm_15_modgarage" },
 		};
-		const std::vector<std::pair<const PCHAR, const std::vector<OfficeGarageLocation>*>> vLocations
+		const std::vector<std::pair<const std::string, const std::vector<OfficeGarageLocation>*>> vLocations
 		{
 			{ "Arcadius Business Centre", &vOffices_ArcadiusBusinessCentre_Garages },
 			{ "Maze Bank Building", &vOffices_MazeBankBuilding_Garages },
 			{ "Lombank West", &vOffices_LombankWest_Garages },
 			{ "Maze Bank West", &vOffices_MazeBankWest_Garages },
 		};
-		struct GarageInteriorOption { const PCHAR name; const PCHAR value; };
+		struct GarageInteriorOption { const std::string name; const std::string value; };
 		const std::vector<GarageInteriorOption> vFloorOptions // For Autoshop
 		{
 			{ "None", "Floor_vinyl_00" },
@@ -173,7 +173,7 @@ namespace sub::TeleportLocations_catind
 
 		struct OfficeGarageInfoStructure
 		{
-			std::pair<const PCHAR, const std::vector<OfficeGarageLocation>*> const * location;
+			std::pair<const std::string, const std::vector<OfficeGarageLocation>*> const * location;
 			UINT8 garageId;
 			UINT8 floorOption;
 			UINT8 decorOption;
@@ -204,10 +204,10 @@ namespace sub::TeleportLocations_catind
 				ON_ENTER_MP();
 				for (auto& ipl : IplNames::vAllOfficeGarages1){					
 					//REMOVE_IPL(ipl);
-					REMOVE_IPL((char*)ipl.data());
+					REMOVE_IPL(ipl.data());
 				}
 					
-				REQUEST_IPL(loc.ipl);
+				REQUEST_IPL(loc.ipl.c_str());
 				int interior = GET_INTERIOR_AT_COORDS(pos.x, pos.y, pos.z); // Ambiguity?
 				DISABLE_INTERIOR(interior, true);
 				PIN_INTERIOR_IN_MEMORY(interior);
@@ -216,20 +216,20 @@ namespace sub::TeleportLocations_catind
 				WAIT(200);
 
 				for (auto& ip : vFloorOptions)
-					DEACTIVATE_INTERIOR_ENTITY_SET(interior, const_cast<PCHAR>(ip.value));
+					DEACTIVATE_INTERIOR_ENTITY_SET(interior, ip.value.c_str());
 				for (auto& ip : vDecorOptions)
-					DEACTIVATE_INTERIOR_ENTITY_SET(interior, const_cast<PCHAR>(ip.value));
+					DEACTIVATE_INTERIOR_ENTITY_SET(interior, ip.value.c_str());
 				for (auto& ip : vLightingOptions)
-					DEACTIVATE_INTERIOR_ENTITY_SET(interior, const_cast<PCHAR>(ip.value));
+					DEACTIVATE_INTERIOR_ENTITY_SET(interior, ip.value.c_str());
 				for (auto& ip : vNumStyleOptions)
 				{
 					for (UINT8 i = 1; i <= 3; i++)
-						DEACTIVATE_INTERIOR_ENTITY_SET(interior, const_cast<PCHAR>(((std::string)ip.value + "_N" + std::to_string(i)).c_str()));
+						DEACTIVATE_INTERIOR_ENTITY_SET(interior, (ip.value + "_N" + std::to_string(i)).c_str());
 				}
-				ACTIVATE_INTERIOR_ENTITY_SET(interior, vFloorOptions[garageInfo.floorOption].value);
-				ACTIVATE_INTERIOR_ENTITY_SET(interior, vDecorOptions[garageInfo.decorOption].value);
-				ACTIVATE_INTERIOR_ENTITY_SET(interior, vLightingOptions[garageInfo.lightingOption].value);
-				ACTIVATE_INTERIOR_ENTITY_SET(interior, const_cast<PCHAR>(((std::string)vNumStyleOptions[garageInfo.numStyleOption].value + "_N" + std::to_string(garageInfo.garageId + 1)).c_str()));
+				ACTIVATE_INTERIOR_ENTITY_SET(interior, vFloorOptions[garageInfo.floorOption].value.c_str());
+				ACTIVATE_INTERIOR_ENTITY_SET(interior, vDecorOptions[garageInfo.decorOption].value.c_str());
+				ACTIVATE_INTERIOR_ENTITY_SET(interior, vLightingOptions[garageInfo.lightingOption].value.c_str());
+				ACTIVATE_INTERIOR_ENTITY_SET(interior, (vNumStyleOptions[garageInfo.numStyleOption].value + "_N" + std::to_string(garageInfo.garageId + 1)).c_str());
 
 				REFRESH_INTERIOR(interior);
 			}

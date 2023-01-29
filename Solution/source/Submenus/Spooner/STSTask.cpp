@@ -118,11 +118,13 @@ namespace sub::Spooner
 
 	void STSTask::Run(void* ve) // Why can't I just make an overload for SpoonerEntity* smh me cba
 	{
-		RunP(GTAped(*reinterpret_cast<GTAentity*>(ve)));
+		GTAped vePed = *reinterpret_cast<GTAentity*>(ve);
+		RunP(vePed);
 	}
 	void STSTask::End(void* ve)
 	{
-		EndP(GTAped(*reinterpret_cast<GTAentity*>(ve)));
+		GTAped vePed = *reinterpret_cast<GTAentity*>(ve);
+		EndP(vePed);
 	}
 	void STSTask::RunP(GTAped& ep)
 	{

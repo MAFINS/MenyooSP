@@ -173,7 +173,7 @@ void Camera::Direction_set(Vector3 dir, __int8 unk)
 }
 void Camera::Direction_set(float X, float Y, float Z, __int8 unk)
 {
-	auto& dir = Vector3::DirectionToRotation(Vector3(X, Y, Z));
+	const auto& dir = Vector3::DirectionToRotation(Vector3(X, Y, Z));
 	SET_CAM_ROT(this->mHandle, dir.x, dir.y, dir.z, unk);
 }
 
@@ -183,7 +183,7 @@ float Camera::Heading_get() const
 }
 void Camera::Heading_set(float value)
 {
-	Vector3& oldRot = this->Rotation_get();
+	const Vector3& oldRot = this->Rotation_get();
 	SET_CAM_ROT(this->mHandle, oldRot.x, oldRot.y, value, 2);
 }
 
@@ -191,15 +191,15 @@ void Camera::Heading_set(float value)
 Vector3 Camera::GetOffsetInWorldCoords(const Vector3& offset) const
 {
 	//return this->Position_get() + (this->Direction_get() * offset);
-	Vector3& rotation = this->Rotation_get();
-	Vector3& forward = Vector3::RotationToDirection(rotation);
+	const Vector3& rotation = this->Rotation_get();
+	const Vector3& forward = Vector3::RotationToDirection(rotation);
 	const double D2R = 0.01745329251994329576923690768489;
 	double num1 = cos(rotation.y * D2R);
 	double x = num1 * cos(-rotation.z  * D2R);
 	double y = num1 * sin(rotation.z  * D2R);
 	double z = sin(-rotation.y * D2R);
-	Vector3& right = Vector3(x, y, z);
-	Vector3& Up = Vector3::Cross(right, forward);
+	const Vector3& right = Vector3(x, y, z);
+	const Vector3& Up = Vector3::Cross(right, forward);
 	return this->Position_get() + (right * offset.x) + (forward * offset.y) + (Up * offset.z);
 }
 Vector3 Camera::GetOffsetInWorldCoords(float X, float Y, float Z) const
@@ -209,16 +209,16 @@ Vector3 Camera::GetOffsetInWorldCoords(float X, float Y, float Z) const
 Vector3 Camera::GetOffsetGivenWorldCoords(const Vector3& worldCoords) const
 {
 	//return this->Position_get() + (this->Direction_get() * Vector3(X, Y, Z));
-	Vector3& rotation = this->Rotation_get();
-	Vector3& forward = Vector3::RotationToDirection(rotation);
+	const Vector3& rotation = this->Rotation_get();
+	const Vector3& forward = Vector3::RotationToDirection(rotation);
 	const double D2R = 0.01745329251994329576923690768489;
 	double num1 = cos(rotation.y * D2R);
 	double x = num1 * cos(-rotation.z  * D2R);
 	double y = num1 * sin(rotation.z  * D2R);
 	double z = sin(-rotation.y * D2R);
-	Vector3& right = Vector3(x, y, z);
-	Vector3& up = Vector3::Cross(right, forward);
-	Vector3& delta = worldCoords - this->Position_get();
+	const Vector3& right = Vector3(x, y, z);
+	const Vector3& up = Vector3::Cross(right, forward);
+	const Vector3& delta = worldCoords - this->Position_get();
 	return Vector3(Vector3::Dot(right, delta), Vector3::Dot(forward, delta), Vector3::Dot(up, delta));
 }
 Vector3 Camera::GetOffsetGivenWorldCoords(float X, float Y, float Z) const
@@ -314,12 +314,12 @@ void Camera::RenderScriptCams(bool render)
 Vector3 Camera::ScreenToWorld(const Vector2& screenCoord) const
 {
 	// Credit to Guadmaz
-	Vector3& camRot = this->Rotation_get();
-	Vector3& camPos = this->Position_get();
+	const Vector3& camRot = this->Rotation_get();
+	const Vector3& camPos = this->Position_get();
 
 	Vector2 vector2;
 	Vector2 vector21;
-	Vector3& direction = Vector3::RotationToDirection(camRot);
+	const Vector3& direction = Vector3::RotationToDirection(camRot);
 	Vector3 vector3 = camRot + Vector3(10.f, 0.f, 0.f);
 	Vector3 vector31 = camRot + Vector3(-10.f, 0.f, 0.f);
 	Vector3 vector32 = camRot + Vector3(0.f, 0.f, -10.f);
@@ -348,9 +348,9 @@ Vector3 Camera::ScreenToWorld(const Vector2& screenCoord) const
 GTAentity Camera::RaycastForEntity(const Vector2& screenCoord, GTAentity ignoreEntity, float maxDistance) const
 {
 	// Credit to Guadmaz
-	Vector3& world = this->ScreenToWorld(screenCoord);
-	Vector3& vector3 = this->Position_get();
-	Vector3& vector31 = world - vector3;
+	const Vector3& world = this->ScreenToWorld(screenCoord);
+	const Vector3& vector3 = this->Position_get();
+	Vector3 vector31 = world - vector3;
 	vector31.Normalize();
 	RaycastResult raycastResult = RaycastResult::Raycast(vector3 + (vector31 * 1.f), vector3 + (vector31 * maxDistance), IntersectOptions(287), ignoreEntity);
 	return raycastResult.DidHitEntity() ? raycastResult.HitEntity() : 0;
@@ -359,8 +359,8 @@ GTAentity Camera::RaycastForEntity(const Vector2& screenCoord, GTAentity ignoreE
 Vector3 Camera::RaycastForCoord(const Vector2& screenCoord, GTAentity ignoreEntity, float maxDistance, float failDistance) const
 {
 	// Credit to Guadmaz
-	Vector3& position = this->Position_get();
-	Vector3& world = this->ScreenToWorld(screenCoord);
+	const Vector3& position = this->Position_get();
+	const Vector3& world = this->ScreenToWorld(screenCoord);
 	Vector3 vector3 = position;
 	Vector3 vector31 = world - vector3;
 	vector31.Normalize();
@@ -370,8 +370,8 @@ Vector3 Camera::RaycastForCoord(const Vector2& screenCoord, GTAentity ignoreEnti
 
 Vector3 Camera::DirectionFromScreenCentre_get() const
 {
-	Vector3& position = this->Position_get();
-	Vector3& world = this->ScreenToWorld(Vector2(0.0f, 0.0f));
+	const Vector3& position = this->Position_get();
+	const Vector3& world = this->ScreenToWorld(Vector2(0.0f, 0.0f));
 	return Vector3::Normalize(world - position);
 }
 

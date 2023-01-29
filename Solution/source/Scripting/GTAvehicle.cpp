@@ -293,7 +293,7 @@ std::string get_mod_slot_name(Vehicle vehicle, INT modType, bool gxt)
 	//	break;
 	//}
 	//return "";
-	PCHAR name;
+	std::string name;
 	if (modType >= 0 && modType < vValues_ModSlotNames.size())
 	{
 		//switch (modType)
@@ -375,7 +375,7 @@ std::string get_mod_slot_name(Vehicle vehicle, INT modType, bool gxt)
 
 	if (gxt)
 	{
-		return DOES_TEXT_LABEL_EXIST(name) ? GET_FILENAME_FOR_AUDIO_CONVERSATION(name) : name;
+		return DOES_TEXT_LABEL_EXIST(name.c_str()) ? GET_FILENAME_FOR_AUDIO_CONVERSATION(name.c_str()) : name;
 	}
 
 	return name;
@@ -449,7 +449,7 @@ void GTAvehicle::Delete(bool tele)
 
 	this->RequestControl();
 
-	GTAblip& blip = this->CurrentBlip();
+	GTAblip blip = this->CurrentBlip();
 	if (blip.Exists())
 		blip.Remove();
 
@@ -3823,7 +3823,7 @@ void add_emblem_to_vehicle(GTAvehicle vehicle, GTAentity playerPed)
 {
 	Vector3 x, y, z;
 	float scale;
-	Model& model = vehicle.Model();
+	const Model& model = vehicle.Model();
 	if (get_vehicle_info_for_emblem_pos(model, x, y, z, scale))
 	{
 		int alpha = 200;
@@ -3841,12 +3841,12 @@ GTAvehicle clone_vehicle(GTAvehicle vehicle, GTAentity pedForEmblem)
 	if (!vehicle.Exists())
 		return GTAvehicle();
 
-	Vector3& Pos = vehicle.Position_get();
-	Vector3& Rot = vehicle.Rotation_get();
+	Vector3 Pos = vehicle.Position_get();
+	Vector3 Rot = vehicle.Rotation_get();
 
-	Model& vehicleModel = vehicle.Model();
+	Model vehicleModel = vehicle.Model();
 
-	GTAvehicle& newVeh = World::CreateVehicle(vehicleModel, Pos, Rot, false);
+	GTAvehicle newVeh = World::CreateVehicle(vehicleModel, Pos, Rot, false);
 	WAIT(40);
 
 	newVeh.PrimaryColour_set(vehicle.PrimaryColour_get());
@@ -3925,25 +3925,25 @@ GTAvehicle clone_vehicle(GTAvehicle vehicle, GTAentity pedForEmblem)
 	}
 
 	// Apply multipliers
-	auto& rpmMultIt = g_multList_rpm.find(vehicle.Handle());
+	auto rpmMultIt = g_multList_rpm.find(vehicle.Handle());
 	if (rpmMultIt != g_multList_rpm.end())
 	{
 		g_multList_rpm[newVeh.Handle()] = rpmMultIt->second;
 		newVeh.EnginePowerMultiplier_set(rpmMultIt->second);
 	}
-	auto& torqueMultIt = g_multList_torque.find(vehicle.Handle());
+	auto torqueMultIt = g_multList_torque.find(vehicle.Handle());
 	if (torqueMultIt != g_multList_torque.end())
 	{
 		g_multList_torque[newVeh.Handle()] = torqueMultIt->second;
 		newVeh.EngineTorqueMultiplier_set(torqueMultIt->second);
 	}
-	auto& maxSpeedMultIt = g_multList_maxSpeed.find(vehicle.Handle());
+	auto maxSpeedMultIt = g_multList_maxSpeed.find(vehicle.Handle());
 	if (maxSpeedMultIt != g_multList_maxSpeed.end())
 	{
 		g_multList_maxSpeed[newVeh.Handle()] = maxSpeedMultIt->second;
 		newVeh.MaxSpeed_set(maxSpeedMultIt->second);
 	}
-	auto& headlightsMultIt = g_multList_headlights.find(vehicle.Handle());
+	auto headlightsMultIt = g_multList_headlights.find(vehicle.Handle());
 	if (headlightsMultIt != g_multList_headlights.end())
 	{
 		g_multList_headlights[newVeh.Handle()] = headlightsMultIt->second;
@@ -3951,7 +3951,7 @@ GTAvehicle clone_vehicle(GTAvehicle vehicle, GTAentity pedForEmblem)
 	}
 
 	// Engine sound
-	auto& engineSoundIt = g_vehList_engSound.find(vehicle.Handle());
+	auto engineSoundIt = g_vehList_engSound.find(vehicle.Handle());
 	if (engineSoundIt != g_vehList_engSound.end())
 	{
 		g_vehList_engSound[newVeh.Handle()] = engineSoundIt->second;

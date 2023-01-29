@@ -64,7 +64,7 @@ void add_text_component_long_string(const std::string& text)
 	const UINT8 maxStrComponentLength = 99;
 	for (int i = 0; i < text.length(); i += maxStrComponentLength)
 	{
-		std::string& strComp = text.substr(i, min(text.length() - i, maxStrComponentLength));
-		ADD_TEXT_COMPONENT_SUBSTRING_PLAYER_NAME(const_cast<PCHAR>(strComp.c_str()));
+		const std::string& strComp = text.substr(i, min(text.length() - i, maxStrComponentLength));
+		ADD_TEXT_COMPONENT_SUBSTRING_PLAYER_NAME(strComp.c_str());
 	}
 }

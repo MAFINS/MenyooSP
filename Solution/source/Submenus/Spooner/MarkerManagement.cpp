@@ -42,7 +42,7 @@ namespace sub::Spooner
 			GTAentity* entityToTeleport = &myPed;
 			bool bMyPedIsInVehicle = myVehicle.Exists();
 
-			Vector3& myDim1 = myPed.Dim1();
+			const Vector3& myDim1 = myPed.Dim1();
 			Vector3 myVehicleDim1;
 
 			std::vector<Vector3> vCoordsToCheckPed
@@ -70,8 +70,8 @@ namespace sub::Spooner
 				};
 			}
 
-			auto& renderingCam = World::RenderingCamera_get();
-			Vector3& camPos = (renderingCam == 0 ? GameplayCamera::Position_get() : renderingCam.Position_get());
+			const auto& renderingCam = World::RenderingCamera_get();
+			const Vector3& camPos = (renderingCam == 0 ? GameplayCamera::Position_get() : renderingCam.Position_get());
 
 			for (auto& marker : Databases::MarkerDb)
 			{
@@ -88,7 +88,7 @@ namespace sub::Spooner
 				{
 					finalPosition = marker.m_attachmentArgs.attachedTo.GetOffsetInWorldCoords(marker.m_attachmentArgs.offset);
 					marker.m_position = finalPosition; // If detached, stay at pos
-					Vector3& entRot = marker.m_attachmentArgs.attachedTo.Rotation_get();
+					const Vector3& entRot = marker.m_attachmentArgs.attachedTo.Rotation_get();
 					//finalDirection = Vector3::DirectionToRotation(entRot);
 					finalRotation = Vector3(0, 0, entRot.z) + marker.m_attachmentArgs.rotation;
 				}
@@ -106,7 +106,7 @@ namespace sub::Spooner
 
 				if (marker.m_showName)
 				{
-					auto& ray = RaycastResult::Raycast(camPos, finalPosition + (Vector3::Normalize(finalPosition - camPos) * Vector3(0, -marker.m_scale, 0)), IntersectOptions::Everything);
+					const auto& ray = RaycastResult::Raycast(camPos, finalPosition + (Vector3::Normalize(finalPosition - camPos) * Vector3(0, -marker.m_scale, 0)), IntersectOptions::Everything);
 					if (!ray.DidHitAnything() && vCoordsToCheck->front().DistanceTo(finalPosition) < 40.0f)
 					{
 						Vector2 scrnPos;

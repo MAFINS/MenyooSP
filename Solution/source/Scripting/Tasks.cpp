@@ -26,6 +26,7 @@
 #include "..\Natives\natives2.h"
 
 //#include <stdarg.h>
+#include <deque>
 
 Tasks::Tasks(GTAentity ped)
 	: _ped(ped)
@@ -130,13 +131,12 @@ void Tasks::FleeFrom(const Vector3& position, int duration)
 {
 	TASK_SMART_FLEE_COORD(_ped.Handle(), position.x, position.y, position.z, 1000.0f, duration, false, false);
 }
+struct Pass
+{
+	template<typename ...T> Pass(T...) {}
+};
 template<typename... Args> void Tasks::FollowPointRoute(float speed, Args... p)
 {
-	struct Pass
-	{
-		template<typename ...T> Pass(T...) {}
-	};
-
 	TASK_FLUSH_ROUTE();
 
 	std::deque<Vector3> points;

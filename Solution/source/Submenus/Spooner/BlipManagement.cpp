@@ -56,14 +56,14 @@ namespace sub::Spooner
 		}
 		std::pair<GTAblip, std::string> CreateRefCoordBlip(const Vector3& position, const std::string& name, bool addToDb)
 		{
-			auto& blip = World::CreateBlip(position);
+			auto blip = World::CreateBlip(position);
 			blip.SetFlashing(false);
 			blip.SetScale(0.8f);
 			blip.SetFriendly(true);
 			blip.SetIcon(BlipIcon::Castle);
 			blip.SetColour(BlipColour::Green);
 			blip.SetBlipName(name);
-			auto& blipAndNamePair = std::make_pair(blip, name);
+			const auto& blipAndNamePair = std::make_pair(blip, name);
 			if (addToDb)
 				AddBlipToRefCoordDb(blipAndNamePair);
 			return blipAndNamePair;

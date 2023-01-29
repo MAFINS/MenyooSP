@@ -27,13 +27,12 @@ namespace ige
 
 		~FileLogger();
 
-		friend std::ofstream& operator << (std::ofstream& stream, const ige::LogType& logType);
-
 		// Basically what inheriting from sf::NonCopyable would be like
 		FileLogger(const FileLogger&) = delete;
 		FileLogger& operator= (const FileLogger&) = delete;
 	};
 
+	std::ofstream& operator << (std::ofstream& stream, ige::LogType logType);
 	extern ige::FileLogger menyooLogObject;
 	extern std::ofstream& myLog;
 

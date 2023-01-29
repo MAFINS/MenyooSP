@@ -41,7 +41,7 @@ namespace TimecycleModification
 		{
 			vTimecycles.clear();
 			pugi::xml_node nodeRoot = doc.child("TimecycModifiers");
-			for (auto& nodeMod = nodeRoot.child("Mod"); nodeMod; nodeMod = nodeMod.next_sibling("Mod"))
+			for (auto nodeMod = nodeRoot.child("Mod"); nodeMod; nodeMod = nodeMod.next_sibling("Mod"))
 			{
 				const pugi::char_t* modCaption = nodeMod.attribute("caption").as_string();
 				const pugi::char_t* modName = nodeMod.attribute("name").as_string();

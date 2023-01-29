@@ -779,7 +779,7 @@ namespace sub
 			for (auto& f : fileNames)
 			{
 				Hash fhash = GET_HASH_KEY(f);
-				auto& it = std::find(vVehicleBmps.begin(), vVehicleBmps.end(), fhash);
+				auto it = std::find(vVehicleBmps.begin(), vVehicleBmps.end(), fhash);
 				if (it == vVehicleBmps.end())
 				{
 					VehBmpSprite bmp(fhash);
@@ -956,7 +956,7 @@ namespace sub
 			}
 			else if (spawnvehicle_input)
 			{
-				std::string& inputStr = Game::InputBox("", 64U, "Enter vehicle model name (e.g. adder):");
+				std::string inputStr = Game::InputBox("", 64U, "Enter vehicle model name (e.g. adder):");
 				if (inputStr.length() == 0)
 					return;
 				model = GET_HASH_KEY(inputStr);
@@ -1060,7 +1060,7 @@ namespace sub
 		if (doc.load_file((const char*)(GetPathffA(Pathff::Main, true) + xmlAddedVehicleModels).c_str()).status != pugi::status_ok)
 			return false;
 		pugi::xml_node nodeRoot = doc.child("AddedVehicleModels");
-		std::string& vehModelName = vehModel.VehicleDisplayName(false);
+		const std::string& vehModelName = vehModel.VehicleDisplayName(false);
 		return nodeRoot.find_child_by_attribute("modelName", vehModelName.c_str())
 			|| nodeRoot.find_child_by_attribute("modelHash", int_to_hexstring(vehModel.hash, true).c_str());
 	}
@@ -1073,17 +1073,17 @@ namespace sub
 		if (doc.load_file((const char*)(GetPathffA(Pathff::Main, true) + xmlAddedVehicleModels).c_str()).status != pugi::status_ok)
 		{
 			doc.reset();
-			auto& nodeDecleration = doc.append_child(pugi::node_declaration);
+			auto nodeDecleration = doc.append_child(pugi::node_declaration);
 			nodeDecleration.append_attribute("version") = "1.0";
 			nodeDecleration.append_attribute("encoding") = "ISO-8859-1";
-			auto& nodeRoot = doc.append_child("AddedVehicleModels");
+			auto nodeRoot = doc.append_child("AddedVehicleModels");
 			doc.save_file((const char*)(GetPathffA(Pathff::Main, true) + xmlAddedVehicleModels).c_str());
 		}
 		pugi::xml_node nodeRoot = doc.child("AddedVehicleModels");
 
 		//if (vehModel.IsInCdImage()){
-		std::string& vehModelName = vehModel.VehicleDisplayName(false);
-		auto& nodeOldLoc = nodeRoot.find_child_by_attribute("modelHash", int_to_hexstring(vehModel.hash, true).c_str());
+		const std::string& vehModelName = vehModel.VehicleDisplayName(false);
+		auto nodeOldLoc = nodeRoot.find_child_by_attribute("modelHash", int_to_hexstring(vehModel.hash, true).c_str());
 		if (!nodeOldLoc) // If null
 		{
 			nodeOldLoc = nodeRoot.find_child_by_attribute("modelName", vehModelName.c_str());
@@ -1092,7 +1092,7 @@ namespace sub
 		{
 			nodeOldLoc.parent().remove_child(nodeOldLoc);
 		}
-		auto& nodeNewLoc = nodeRoot.append_child("VehModel");
+		auto nodeNewLoc = nodeRoot.append_child("VehModel");
 		nodeNewLoc.append_attribute("modelName") = vehModelName.c_str();
 		nodeNewLoc.append_attribute("modelHash") = int_to_hexstring(vehModel.hash, true).c_str();
 		nodeNewLoc.append_attribute("customName") = customName.c_str();
@@ -1106,8 +1106,8 @@ namespace sub
 			return false;
 		pugi::xml_node nodeRoot = doc.child("AddedVehicleModels");
 
-		std::string& vehModelName = vehModel.VehicleDisplayName(false);
-		auto& nodeOldLoc = nodeRoot.find_child_by_attribute("modelHash", int_to_hexstring(vehModel.hash, true).c_str());
+		const std::string& vehModelName = vehModel.VehicleDisplayName(false);
+		auto nodeOldLoc = nodeRoot.find_child_by_attribute("modelHash", int_to_hexstring(vehModel.hash, true).c_str());
 		if (!nodeOldLoc) // If null
 		{
 			nodeOldLoc = nodeRoot.find_child_by_attribute("modelName", vehModelName.c_str());
@@ -1263,10 +1263,10 @@ namespace sub
 		if (doc.load_file((const char*)(GetPathffA(Pathff::Main, true) + xmlAddedVehicleModels).c_str()).status != pugi::status_ok)
 		{
 			doc.reset();
-			auto& nodeDecleration = doc.append_child(pugi::node_declaration);
+			auto nodeDecleration = doc.append_child(pugi::node_declaration);
 			nodeDecleration.append_attribute("version") = "1.0";
 			nodeDecleration.append_attribute("encoding") = "ISO-8859-1";
-			auto& nodeRoot = doc.append_child("AddedVehicleModels");
+			auto nodeRoot = doc.append_child("AddedVehicleModels");
 			doc.save_file((const char*)(GetPathffA(Pathff::Main, true) + xmlAddedVehicleModels).c_str());
 			return;
 		}
@@ -1298,7 +1298,7 @@ namespace sub
 
 		if (bIsInVehicle)
 		{
-			Model& myVehicleModel = myVehicle.Model();
+			const Model& myVehicleModel = myVehicle.Model();
 			bool bIsCurrentModelAFav = SpawnVehicle_IsVehicleModelAFavourite(myVehicleModel);
 			bool bAddCurrentModelToFav = false, bRemoveCurrentModelFromFav = false;
 			AddTickol("Current Vehicle's Model", bIsCurrentModelAFav, bAddCurrentModelToFav, bRemoveCurrentModelFromFav, TICKOL::BOXTICK, TICKOL::BOXBLANK);
@@ -1350,7 +1350,7 @@ namespace sub
 				//OnscreenKeyboard::State::arg1._ptr = reinterpret_cast<void*>(&_searchStr);
 			}
 
-			for (auto& nodeLocToLoad = nodeRoot.first_child(); nodeLocToLoad; nodeLocToLoad = nodeLocToLoad.next_sibling())
+			for (auto nodeLocToLoad = nodeRoot.first_child(); nodeLocToLoad; nodeLocToLoad = nodeLocToLoad.next_sibling())
 			{
 				std::string vehModelName = nodeLocToLoad.attribute("modelName").as_string();
 				Model vehModel = nodeLocToLoad.attribute("modelHash").as_uint(0);
@@ -1466,37 +1466,37 @@ namespace sub
 			pugi::xml_document oldXml;
 			if (oldXml.load_file((const char*)filePath.c_str()).status == pugi::status_ok)
 			{
-				auto& nodeOldRoot = oldXml.child("Vehicle");
+				auto nodeOldRoot = oldXml.child("Vehicle");
 				bAddAttachmentsToSpoonerDb = nodeOldRoot.child("SpoonerAttachments").attribute("SetAttachmentsPersistentAndAddToSpoonerDatabase").as_bool(bAddAttachmentsToSpoonerDb);
 				bStartTaskSeqsOnLoad = nodeOldRoot.child("SpoonerAttachments").attribute("StartTaskSequencesOnLoad").as_bool(bStartTaskSeqsOnLoad);
 			}
 
 			pugi::xml_document doc;
 
-			auto& nodeDecleration = doc.append_child(pugi::node_declaration);
+			auto nodeDecleration = doc.append_child(pugi::node_declaration);
 			nodeDecleration.append_attribute("version") = "1.0";
 			nodeDecleration.append_attribute("encoding") = "ISO-8859-1";
 
-			auto& nodeVehicle = doc.append_child("Vehicle"); // Root
+			auto nodeVehicle = doc.append_child("Vehicle"); // Root
 			nodeVehicle.append_attribute("menyoo_ver") = MENYOO_CURRENT_VER_;
 
-			Model& eModel = ev.Model();
+			const Model& eModel = ev.Model();
 			nodeVehicle.append_child("ModelHash").text() = int_to_hexstring(eModel.hash, true).c_str();
 			nodeVehicle.append_child("InitialHandle").text() = ev.Handle();
 
-			auto& nodeVehicleStuff = nodeVehicle.append_child("VehicleProperties");
+			auto nodeVehicleStuff = nodeVehicle.append_child("VehicleProperties");
 
 			// Colours
-			auto& nodeVehicleColours = nodeVehicleStuff.append_child("Colours");
+			auto nodeVehicleColours = nodeVehicleStuff.append_child("Colours");
 			int mod1a, mod1b, mod1c;
 			GET_VEHICLE_MOD_COLOR_1(ev.Handle(), &mod1a, &mod1b, &mod1c);
 			int mod2a, mod2b;
 			GET_VEHICLE_MOD_COLOR_2(ev.Handle(), &mod2a, &mod2b);
 			bool isPrimaryColourCustom = ev.IsPrimaryColorCustom();
 			bool isSecondaryColourCustom = ev.IsSecondaryColorCustom();
-			auto& cust1 = ev.CustomPrimaryColour_get();
-			auto& cust2 = ev.CustomSecondaryColour_get();
-			auto& tyreSmokeRgb = ev.TyreSmokeColour_get();
+			RgbS cust1 = ev.CustomPrimaryColour_get();
+			RgbS cust2 = ev.CustomSecondaryColour_get();
+			RgbS tyreSmokeRgb = ev.TyreSmokeColour_get();
 			nodeVehicleColours.append_child("Primary").text() = ev.PrimaryColour_get();
 			nodeVehicleColours.append_child("Secondary").text() = ev.SecondaryColour_get();
 			nodeVehicleColours.append_child("Pearl").text() = ev.PearlescentColour_get();
@@ -1548,8 +1548,8 @@ namespace sub
 			nodeVehicleStuff.append_child("LockStatus").text() = (int)ev.LockStatus_get();
 
 			// Neons
-			auto& nodeVehicleNeons = nodeVehicleStuff.append_child("Neons");
-			auto& neonLightsRgb = ev.NeonLightsColour_get();
+			auto nodeVehicleNeons = nodeVehicleStuff.append_child("Neons");
+			RgbS neonLightsRgb = ev.NeonLightsColour_get();
 			nodeVehicleNeons.append_child("Left").text() = ev.IsNeonLightOn(VehicleNeonLight::Left);
 			nodeVehicleNeons.append_child("Right").text() = ev.IsNeonLightOn(VehicleNeonLight::Right);
 			nodeVehicleNeons.append_child("Front").text() = ev.IsNeonLightOn(VehicleNeonLight::Front);
@@ -1559,14 +1559,14 @@ namespace sub
 			nodeVehicleNeons.append_child("B").text() = neonLightsRgb.B;
 
 			// Extras (modExtras)
-			auto& nodeVehicleModExtras = nodeVehicleStuff.append_child("ModExtras");
+			auto nodeVehicleModExtras = nodeVehicleStuff.append_child("ModExtras");
 			for (UINT8 i = 0; i < 60; i++)
 			{
 				if (ev.DoesExtraExist(i)) nodeVehicleModExtras.append_child(("_" + std::to_string(i)).c_str()).text() = ev.ExtraOn_get(i);
 			}
 
 			// Mods (customisations)
-			auto& nodeVehicleMods = nodeVehicleStuff.append_child("Mods");
+			auto nodeVehicleMods = nodeVehicleStuff.append_child("Mods");
 			for (UINT i = 0; i < vValues_ModSlotNames.size(); i++)
 			{
 				bool isToggleable = (i >= 17 && i <= 22);
@@ -1575,7 +1575,7 @@ namespace sub
 			}
 
 			// Doors
-			auto& nodeVehicleDoorsOpen = nodeVehicleStuff.append_child("DoorsOpen");
+			auto nodeVehicleDoorsOpen = nodeVehicleStuff.append_child("DoorsOpen");
 			nodeVehicleDoorsOpen.append_child("BackLeftDoor").text() = ev.IsDoorOpen(VehicleDoor::BackLeftDoor);
 			nodeVehicleDoorsOpen.append_child("BackRightDoor").text() = ev.IsDoorOpen(VehicleDoor::BackRightDoor);
 			nodeVehicleDoorsOpen.append_child("FrontLeftDoor").text() = ev.IsDoorOpen(VehicleDoor::FrontLeftDoor);
@@ -1583,7 +1583,7 @@ namespace sub
 			nodeVehicleDoorsOpen.append_child("Hood").text() = ev.IsDoorOpen(VehicleDoor::Hood);
 			nodeVehicleDoorsOpen.append_child("Trunk").text() = ev.IsDoorOpen(VehicleDoor::Trunk);
 			nodeVehicleDoorsOpen.append_child("Trunk2").text() = ev.IsDoorOpen(VehicleDoor::Trunk2);
-			auto& nodeVehicleDoorsBroken = nodeVehicleStuff.append_child("DoorsBroken");
+			auto nodeVehicleDoorsBroken = nodeVehicleStuff.append_child("DoorsBroken");
 			nodeVehicleDoorsBroken.append_child("BackLeftDoor").text() = ev.IsDoorBroken(VehicleDoor::BackLeftDoor);
 			nodeVehicleDoorsBroken.append_child("BackRightDoor").text() = ev.IsDoorBroken(VehicleDoor::BackRightDoor);
 			nodeVehicleDoorsBroken.append_child("FrontLeftDoor").text() = ev.IsDoorBroken(VehicleDoor::FrontLeftDoor);
@@ -1593,7 +1593,7 @@ namespace sub
 			nodeVehicleDoorsBroken.append_child("Trunk2").text() = ev.IsDoorBroken(VehicleDoor::Trunk2);
 
 			// Tyres Bursted
-			auto& nodeVehicleTyresBursted = nodeVehicleStuff.append_child("TyresBursted");
+			auto nodeVehicleTyresBursted = nodeVehicleStuff.append_child("TyresBursted");
 			nodeVehicleTyresBursted.append_child("FrontLeft").text() = ev.IsTyreBursted(0);
 			nodeVehicleTyresBursted.append_child("FrontRight").text() = ev.IsTyreBursted(1);
 			nodeVehicleTyresBursted.append_child("_2").text() = ev.IsTyreBursted(2);
@@ -1631,7 +1631,7 @@ namespace sub
 			nodeVehicle.append_child("IsOnlyDamagedByPlayer").text() = ev.IsOnlyDamagedByPlayer();
 
 			// Attachments
-			auto& nodeAttachments = nodeVehicle.append_child("SpoonerAttachments");
+			auto nodeAttachments = nodeVehicle.append_child("SpoonerAttachments");
 			nodeAttachments.append_attribute("SetAttachmentsPersistentAndAddToSpoonerDatabase") = bAddAttachmentsToSpoonerDb;
 			nodeAttachments.append_attribute("StartTaskSequencesOnLoad") = bStartTaskSeqsOnLoad;
 			std::vector<GTAentity>vSpoonerAttachmentsSaved;
@@ -1647,7 +1647,7 @@ namespace sub
 						{
 							if (att.Handle() == vSpoonerAttachmentsSaved[bei].Handle()) // baseEntToCheck is vSpoonerAttachmentsSaved[bei]
 							{
-								auto& nodeAttachment = nodeAttachments.append_child("Attachment");
+								auto nodeAttachment = nodeAttachments.append_child("Attachment");
 								sub::Spooner::FileManagement::AddEntityToXmlNode(e, nodeAttachment);
 								std::string attachedToHandleStr = nodeAttachment.child("Attachment").child("AttachedTo").text().as_string();
 								if (attachedToHandleStr == "PLAYER") nodeAttachment.child("Attachment").child("AttachedTo").text() = myPed.Handle();
@@ -1682,7 +1682,7 @@ namespace sub
 			GTAentity myPed = PLAYER_PED_ID();
 			GTAentity myVehicle = g_myVeh;
 
-			auto& nodeVehicle = doc.child("Vehicle"); // Root
+			auto nodeVehicle = doc.child("Vehicle"); // Root
 
 			Model eModel = nodeVehicle.child("ModelHash").text().as_uint();
 			if (!eModel.IsInCdImage())
@@ -1704,16 +1704,16 @@ namespace sub
 
 			WAIT(100);
 
-			auto& nodeVehicleInitialHandle = nodeVehicle.child("InitialHandle");
+			auto nodeVehicleInitialHandle = nodeVehicle.child("InitialHandle");
 			ScrHandle evInitHandle = nodeVehicleInitialHandle.text().as_int();
 
 			ev.HasGravity_set(nodeVehicle.child("HasGravity").text().as_bool(true));
 
-			auto& nodeVehicleStuff = nodeVehicle.child("VehicleProperties");
+			auto nodeVehicleStuff = nodeVehicle.child("VehicleProperties");
 
 			ev.Livery_set(nodeVehicleStuff.child("Livery").text().as_int()); // Livery should be applied before paint is applied
 																			 // Colours
-			auto& nodeVehicleColours = nodeVehicleStuff.child("Colours");
+			auto nodeVehicleColours = nodeVehicleStuff.child("Colours");
 			int mod1a = nodeVehicleColours.child("Mod1_a").text().as_int();
 			int mod1b = nodeVehicleColours.child("Mod1_b").text().as_int();
 			int mod1c = nodeVehicleColours.child("Mod1_c").text().as_int();
@@ -1774,7 +1774,7 @@ namespace sub
 			ev.LockStatus_set((VehicleLockStatus)nodeVehicleStuff.child("LockStatus").text().as_int());
 
 			// Neons
-			auto& nodeVehicleNeons = nodeVehicleStuff.child("Neons");
+			auto nodeVehicleNeons = nodeVehicleStuff.child("Neons");
 			RgbS neonLightsRgb;
 			ev.SetNeonLightOn(VehicleNeonLight::Left, nodeVehicleNeons.child("Left").text().as_bool());
 			ev.SetNeonLightOn(VehicleNeonLight::Right, nodeVehicleNeons.child("Right").text().as_bool());
@@ -1786,15 +1786,15 @@ namespace sub
 			ev.NeonLightsColour_set(neonLightsRgb);
 
 			// Extras (modExtras)
-			auto& nodeVehicleModExtras = nodeVehicleStuff.child("ModExtras");
-			for (auto& nodeVehicleModExtrasObject = nodeVehicleModExtras.first_child(); nodeVehicleModExtrasObject; nodeVehicleModExtrasObject = nodeVehicleModExtrasObject.next_sibling())
+			auto nodeVehicleModExtras = nodeVehicleStuff.child("ModExtras");
+			for (auto nodeVehicleModExtrasObject = nodeVehicleModExtras.first_child(); nodeVehicleModExtrasObject; nodeVehicleModExtrasObject = nodeVehicleModExtrasObject.next_sibling())
 			{
 				ev.ExtraOn_set(stoi(std::string(nodeVehicleModExtrasObject.name()).substr(1)), nodeVehicleModExtrasObject.text().as_bool());
 			}
 
 			// Mods (customisations)
-			auto& nodeVehicleMods = nodeVehicleStuff.child("Mods");
-			for (auto& nodeVehicleModsObject = nodeVehicleMods.first_child(); nodeVehicleModsObject; nodeVehicleModsObject = nodeVehicleModsObject.next_sibling())
+			auto nodeVehicleMods = nodeVehicleStuff.child("Mods");
+			for (auto nodeVehicleModsObject = nodeVehicleMods.first_child(); nodeVehicleModsObject; nodeVehicleModsObject = nodeVehicleModsObject.next_sibling())
 			{
 				int modType = stoi(std::string(nodeVehicleModsObject.name()).substr(1));
 				std::string modValueStr = nodeVehicleModsObject.text().as_string();
@@ -1809,7 +1809,7 @@ namespace sub
 			}
 
 			// Doors
-			auto& nodeVehicleDoorsOpen = nodeVehicleStuff.child("DoorsOpen");
+			auto nodeVehicleDoorsOpen = nodeVehicleStuff.child("DoorsOpen");
 			if (nodeVehicleDoorsOpen)
 			{
 				nodeVehicleDoorsOpen.child("BackLeftDoor").text().as_bool() ? ev.OpenDoor(VehicleDoor::BackLeftDoor, false, true) : ev.CloseDoor(VehicleDoor::BackLeftDoor, true);
@@ -1820,7 +1820,7 @@ namespace sub
 				nodeVehicleDoorsOpen.child("Trunk").text().as_bool() ? ev.OpenDoor(VehicleDoor::Trunk, false, true) : ev.CloseDoor(VehicleDoor::Trunk, true);
 				nodeVehicleDoorsOpen.child("Trunk2").text().as_bool() ? ev.OpenDoor(VehicleDoor::Trunk2, false, true) : ev.CloseDoor(VehicleDoor::Trunk2, true);
 			}
-			auto& nodeVehicleDoorsBroken = nodeVehicleStuff.child("DoorsBroken");
+			auto nodeVehicleDoorsBroken = nodeVehicleStuff.child("DoorsBroken");
 			if (nodeVehicleDoorsBroken)
 			{
 				if (nodeVehicleDoorsBroken.child("BackLeftDoor").text().as_bool()) ev.BreakDoor(VehicleDoor::BackLeftDoor, true);
@@ -1833,7 +1833,7 @@ namespace sub
 			}
 
 			// Tyres
-			auto& nodeVehicleTyresBursted = nodeVehicleStuff.child("TyresBursted");
+			auto nodeVehicleTyresBursted = nodeVehicleStuff.child("TyresBursted");
 			if (nodeVehicleTyresBursted)
 			{
 				if (nodeVehicleTyresBursted.child("FrontLeft").text().as_bool()) ev.BurstTyre(0);
@@ -1852,10 +1852,10 @@ namespace sub
 			if (engSoundName.length()) set_vehicle_engine_sound_name(ev, engSoundName);
 
 			// Multipliers
-			auto& nodeVehicleRpmMultiplier = nodeVehicleStuff.child("RpmMultiplier");
-			auto& nodeVehicleTorqueMultiplier = nodeVehicleStuff.child("TorqueMultiplier");
-			auto& nodeVehicleMaxSpeed = nodeVehicleStuff.child("MaxSpeed");
-			auto& nodeVehicleHeadlightIntensity = nodeVehicleStuff.child("HeadlightIntensity");
+			auto nodeVehicleRpmMultiplier = nodeVehicleStuff.child("RpmMultiplier");
+			auto nodeVehicleTorqueMultiplier = nodeVehicleStuff.child("TorqueMultiplier");
+			auto nodeVehicleMaxSpeed = nodeVehicleStuff.child("MaxSpeed");
+			auto nodeVehicleHeadlightIntensity = nodeVehicleStuff.child("HeadlightIntensity");
 			if (nodeVehicleRpmMultiplier)
 			{
 				MODIFY_VEHICLE_TOP_SPEED(ev.Handle(), nodeVehicleRpmMultiplier.text().as_float());
@@ -1922,7 +1922,7 @@ namespace sub
 			// Attachments
 			std::unordered_set<Hash> vModelHashes;
 			std::vector<sub::Spooner::SpoonerEntityWithInitHandle> vSpawnedAttachments;
-			auto& nodeAttachments = nodeVehicle.child("SpoonerAttachments");
+			auto nodeAttachments = nodeVehicle.child("SpoonerAttachments");
 			bool bAddAttachmentsToSpoonerDb = nodeAttachments.attribute("SetAttachmentsPersistentAndAddToSpoonerDatabase").as_bool(false);
 			bool bStartTaskSeqsOnLoad = nodeAttachments.attribute("StartTaskSequencesOnLoad").as_bool(true);
 			switch (_persistentAttachmentsTexterIndex)
@@ -1932,9 +1932,9 @@ namespace sub
 			case 2: bAddAttachmentsToSpoonerDb = true; break; // ForceOn
 			}
 
-			for (auto& nodeAttachment = nodeAttachments.first_child(); nodeAttachment; nodeAttachment = nodeAttachment.next_sibling())
+			for (auto nodeAttachment = nodeAttachments.first_child(); nodeAttachment; nodeAttachment = nodeAttachment.next_sibling())
 			{
-				auto& e = sub::Spooner::FileManagement::SpawnEntityFromXmlNode(nodeAttachment, vModelHashes);
+				auto e = sub::Spooner::FileManagement::SpawnEntityFromXmlNode(nodeAttachment, vModelHashes);
 				vSpawnedAttachments.push_back(e);
 			}
 
@@ -2020,7 +2020,7 @@ namespace sub
 		int saveCarVars(GTAvehicle vehicle)
 		{
 			std::ofstream outfile;
-			Model& eModel = vehicle.Model();
+			const Model& eModel = vehicle.Model();
 			std::string spawnname = GET_DISPLAY_NAME_FROM_VEHICLE_MODEL(eModel.hash);
 			int color1 = vehicle.PrimaryColour_get(), 
 				color2 = vehicle.SecondaryColour_get(),
@@ -2199,7 +2199,7 @@ namespace sub
 		{
 			auto& _name = dict;
 			auto& _dir = dict3;
-			std::string& filePath = _dir + "\\" + _name + ".xml";
+			std::string filePath = _dir + "\\" + _name + ".xml";
 
 			auto& ped = Static_241;
 			auto vehicle = GET_VEHICLE_PED_IS_USING(ped);
@@ -2223,8 +2223,8 @@ namespace sub
 				std::string inputStr = Game::InputBox("", 28U, "Enter new name:", _name);
 				if (inputStr.length() > 0)
 				{
-					std::string& oldPath = _dir + "\\" + _name + ".xml";
-					std::string& newPath = _dir + "\\" + inputStr + ".xml";
+					std::string oldPath = _dir + "\\" + _name + ".xml";
+					std::string newPath = _dir + "\\" + inputStr + ".xml";
 					if (rename(oldPath.c_str(), (newPath).c_str()) == 0)
 					{
 						Game::Print::PrintBottomLeft("File ~b~renamed~s~.");
@@ -2264,9 +2264,9 @@ namespace sub
 			if (doc.load_file((const char*)filePath.c_str()).status == pugi::status_ok)
 			{
 				AddBreak("---Attributes---");
-				auto& nodeVehicle = doc.child("Vehicle"); // Root
+				auto nodeVehicle = doc.child("Vehicle"); // Root
 
-				auto& nodeDriverVisible = nodeVehicle.child("IsDriverVisible");
+				auto nodeDriverVisible = nodeVehicle.child("IsDriverVisible");
 				if (nodeDriverVisible)
 				{
 					bool bToggleDriverVisiblePressed = false;
@@ -2277,7 +2277,7 @@ namespace sub
 					}
 				}
 
-				auto& nodeAddAttachmentsToSpoonerDb = nodeVehicle.child("SpoonerAttachments").attribute("SetAttachmentsPersistentAndAddToSpoonerDatabase");
+				auto nodeAddAttachmentsToSpoonerDb = nodeVehicle.child("SpoonerAttachments").attribute("SetAttachmentsPersistentAndAddToSpoonerDatabase");
 				bool bAddAttachemntsToSpoonerDb = nodeAddAttachmentsToSpoonerDb.as_bool();
 				bool bToggleAddAttachmentsToSpoonerDbPressed = false;
 				AddTickol("Persistent Attachments (AddToSpoonerDb)", bAddAttachemntsToSpoonerDb, bToggleAddAttachmentsToSpoonerDbPressed, bToggleAddAttachmentsToSpoonerDbPressed, TICKOL::BOXTICK, TICKOL::BOXBLANK); if (bToggleAddAttachmentsToSpoonerDbPressed)
@@ -2289,7 +2289,7 @@ namespace sub
 
 				if (bAddAttachemntsToSpoonerDb)
 				{
-					auto& nodeStartTaskSeqOnLoad = nodeVehicle.child("SpoonerAttachments").attribute("StartTaskSequencesOnLoad");
+					auto nodeStartTaskSeqOnLoad = nodeVehicle.child("SpoonerAttachments").attribute("StartTaskSequencesOnLoad");
 					if (nodeStartTaskSeqOnLoad)
 					{
 						bool bToggleStartTaskSeqOnLoadPressed = false;

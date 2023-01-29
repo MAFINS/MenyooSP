@@ -384,7 +384,7 @@ namespace sub
 		//if (cleararea_peds){ clear_area_of_peds_around_entity(Static_241, _globalClearArea_radius); return; }
 		if (cleararea_vehicles) { clear_area_of_entities(EntityType::VEHICLE, GET_ENTITY_COORDS(Static_241, 1), _globalClearArea_radius, { GET_VEHICLE_PED_IS_IN(Static_241, 0) }); return; }
 		if (cleararea_peds) { clear_area_of_entities(EntityType::PED, GET_ENTITY_COORDS(Static_241, 1), _globalClearArea_radius, { Static_241 }); return; }
-		if (cleararea_objects) { clear_area_of_entities(EntityType::PROP, GET_ENTITY_COORDS(Static_241, 1), _globalClearArea_radius); return; }
+		if (cleararea_objects) { clear_area_of_entities(EntityType::PROP, GET_ENTITY_COORDS(Static_241, 1), _globalClearArea_radius, {}); return; }
 		if (cleararea_all) { clear_area_of_entities(EntityType::ALL, GET_ENTITY_COORDS(Static_241, 1), _globalClearArea_radius, { Static_241, GET_VEHICLE_PED_IS_IN(Static_241, 0) }); return; }
 
 		if (cleararea_radius_input)
@@ -596,7 +596,7 @@ namespace sub
 			{
 				GTAped ped = PLAYER_PED_ID();
 
-				Vector3& centre = ped.Position_get();
+				const Vector3& centre = ped.Position_get();
 
 				std::vector<Vector3> points;
 				centre.PointsOnCircle(points, this->radius, this->radius < 10.0f ? 60.0f : 13.0f, 3.5f, true);

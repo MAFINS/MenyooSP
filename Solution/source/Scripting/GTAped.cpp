@@ -141,7 +141,7 @@ void PedGroup::ToVector(std::vector<GTAentity>& result, bool includeLeader) cons
 {
 	if (includeLeader)
 	{
-		auto& leader = this->Leader_get();
+		auto leader = this->Leader_get();
 
 		if (leader.Exists())
 		{
@@ -151,7 +151,7 @@ void PedGroup::ToVector(std::vector<GTAentity>& result, bool includeLeader) cons
 
 	for (int i = 0; i < this->MemberCount(); i++)
 	{
-		auto& ped = this->GetMember(i);
+		const auto& ped = this->GetMember(i);
 
 		if (ped.Exists())
 		{
