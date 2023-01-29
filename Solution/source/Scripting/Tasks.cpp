@@ -131,45 +131,29 @@ void Tasks::FleeFrom(const Vector3& position, int duration)
 {
 	TASK_SMART_FLEE_COORD(_ped.Handle(), position.x, position.y, position.z, 1000.0f, duration, false, false);
 }
-struct Pass
-{
-	template<typename ...T> Pass(T...) {}
-};
-template<typename... Args> void Tasks::FollowPointRoute(float speed, Args... p)
+template<typename... Args> void Tasks::FollowPointRoute(float speed, Args&&... p)
 {
 	TASK_FLUSH_ROUTE();
 
-	std::deque<Vector3> points;
-	Pass
-	{
-		(
-			[&]()
-	{
-		points.push_front(static_cast<Vector3>(p));
-	}
-			(), 1
-		)...
-	};
+	([&] {
+		const Vector3& point = Vector3(p);
+		TASK_EXTEND_ROUTE(point.x, point.y, point.z);
+	} (), ...);
 
-	for (auto& point : points)
+	TASK_FOLLOW_POINT_ROUTE(_ped.Handle(), speed, 0);
+}
+void Tasks::FollowPointRoute(const std::vector<Vector3>& points, float speed)
+{
+	TASK_FLUSH_ROUTE();
+
+	for (const auto& point : points)
 	{
 		TASK_EXTEND_ROUTE(point.x, point.y, point.z);
 	}
 
 	TASK_FOLLOW_POINT_ROUTE(_ped.Handle(), speed, 0);
 }
-void Tasks::FollowPointRoute(std::vector<Vector3>& points, float speed)
-{
-	TASK_FLUSH_ROUTE();
-
-	for (auto& point : points)
-	{
-		TASK_EXTEND_ROUTE(point.x, point.y, point.z);
-	}
-
-	TASK_FOLLOW_POINT_ROUTE(_ped.Handle(), speed, 0);
-}
-void Tasks::FollowPointRoute(std::initializer_list<Vector3>& points, float speed)
+void Tasks::FollowPointRoute(const std::initializer_list<Vector3>& points, float speed)
 {
 	TASK_FLUSH_ROUTE();
 
