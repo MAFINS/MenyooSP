@@ -210,10 +210,10 @@ namespace sub
 				switch (_____yscScript_texter_index)
 				{
 				case eYscScriptTexterIndex::YSCSCRIPTTEXTER_LOAD:
-					Game::RequestScript(const_cast<PCHAR>(inputStr.c_str()), vYscStackSizes.count(inputStr) ? vYscStackSizes.at(inputStr) : 14000);
+					Game::RequestScript(inputStr.c_str(), vYscStackSizes.count(inputStr) ? vYscStackSizes.at(inputStr) : 14000);
 					break;
 				case eYscScriptTexterIndex::YSCSCRIPTTEXTER_UNLOAD:
-					TERMINATE_ALL_SCRIPTS_WITH_THIS_NAME(const_cast<PCHAR>(inputStr.c_str()));
+					TERMINATE_ALL_SCRIPTS_WITH_THIS_NAME(inputStr.c_str());
 					break;
 				}
 			}
@@ -342,7 +342,7 @@ namespace sub
 			std::string inputStr = Game::InputBox("DEFAULT", 28U);
 			if (inputStr.length())
 			{
-				SET_TIMECYCLE_MODIFIER(const_cast<PCHAR>(inputStr.c_str()));
+				SET_TIMECYCLE_MODIFIER(inputStr.c_str());
 				SET_TIMECYCLE_MODIFIER_STRENGTH(menu_current_timecycle_strength);
 			}
 			return;
@@ -767,7 +767,7 @@ namespace sub
 				{
 					GRAPHICS::IS_TVSHOW_CURRENTLY_PLAYING(80996397); //0x0AD973CA1E077B60
 					GRAPHICS::SET_TV_CHANNEL(-1);
-					GRAPHICS::SET_TV_CHANNEL_PLAYLIST(0, const_cast<PCHAR>(pl.second.c_str()), 1);
+					GRAPHICS::SET_TV_CHANNEL_PLAYLIST(0, pl.second.c_str(), 1);
 					GRAPHICS::SET_TV_CHANNEL(0);
 				}
 			}

@@ -123,7 +123,7 @@ void GameplayCamera::ShakeAmplitude_set(float value)
 
 void GameplayCamera::Shake(CameraShake shakeType, float amplitude)
 {
-	SHAKE_GAMEPLAY_CAM(const_cast<PCHAR>(CameraShakeNames[static_cast<int>(shakeType)].c_str()), amplitude);
+	SHAKE_GAMEPLAY_CAM(CameraShakeNames[static_cast<int>(shakeType)].c_str(), amplitude);
 }
 
 void GameplayCamera::StopShaking(bool value)

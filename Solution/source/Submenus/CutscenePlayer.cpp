@@ -657,7 +657,7 @@ namespace sub
 					player.SetControl(false, 0);
 				}
 
-				REQUEST_CUTSCENE(const_cast<PCHAR>(label.c_str()), 8);
+				REQUEST_CUTSCENE(label.c_str(), 8);
 
 				DWORD timeOut = GetTickCount() + 1500;
 				while (GetTickCount() < timeOut)

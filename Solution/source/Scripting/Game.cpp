@@ -52,10 +52,10 @@ namespace Game
 	}
 	bool RequestAnimDict(const std::string& anim_dict, DWORD timeOutms)
 	{
-		REQUEST_ANIM_DICT(const_cast<PCHAR>(anim_dict.c_str()));
+		REQUEST_ANIM_DICT(anim_dict.c_str());
 		for (DWORD timeOut = GetTickCount() + timeOutms; GetTickCount() < timeOut;)
 		{
-			if (HAS_ANIM_DICT_LOADED(const_cast<PCHAR>(anim_dict.c_str())))
+			if (HAS_ANIM_DICT_LOADED(anim_dict.c_str()))
 				return true;
 			WAIT(0);
 		}
@@ -63,10 +63,10 @@ namespace Game
 	}
 	bool RequestAnimSet(const std::string& anim_set, DWORD timeOutms)
 	{
-		REQUEST_ANIM_SET(const_cast<PCHAR>(anim_set.c_str()));
+		REQUEST_ANIM_SET(anim_set.c_str());
 		for (DWORD timeOut = GetTickCount() + timeOutms; GetTickCount() < timeOut;)
 		{
-			if (HAS_ANIM_SET_LOADED(const_cast<PCHAR>(anim_set.c_str())))
+			if (HAS_ANIM_SET_LOADED(anim_set.c_str()))
 				return true;
 			WAIT(0);
 		}
@@ -94,13 +94,13 @@ namespace Game
 	// GXT
 	inline bool DoesGXTEntryExist(const std::string& entry)
 	{
-		return DOES_TEXT_LABEL_EXIST(const_cast<PCHAR>(entry.c_str())) != 0;
+		return DOES_TEXT_LABEL_EXIST(entry.c_str()) != 0;
 	}
 	std::string GetGXTEntry(const std::string& entry, const std::string& fallback)
 	{
 		if (DoesGXTEntryExist(entry))
 		{
-			return GET_FILENAME_FOR_AUDIO_CONVERSATION(const_cast<PCHAR>(entry.c_str()));
+			return GET_FILENAME_FOR_AUDIO_CONVERSATION(entry.c_str());
 		}
 		return fallback.empty() ? entry : fallback;
 	}
@@ -159,11 +159,11 @@ namespace Game
 
 		void PlayFrontend(const std::string& sound_dict, const std::string& sound_name)
 		{
-			AUDIO::PLAY_SOUND_FRONTEND(-1, const_cast<PCHAR>(sound_name.c_str()), const_cast<PCHAR>(sound_dict.c_str()), FALSE);
+			AUDIO::PLAY_SOUND_FRONTEND(-1, sound_name.c_str(), sound_dict.c_str(), FALSE);
 		}
 		void PlayFrontend_default(const std::string& sound_name)
 		{
-			AUDIO::PLAY_SOUND_FRONTEND(-1, const_cast<PCHAR>(sound_name.c_str()), "HUD_FRONTEND_DEFAULT_SOUNDSET", FALSE);
+			AUDIO::PLAY_SOUND_FRONTEND(-1, sound_name.c_str(), "HUD_FRONTEND_DEFAULT_SOUNDSET", FALSE);
 		}
 	}
 
@@ -198,7 +198,7 @@ namespace Game
 			if (s.length() < 100)
 			{
 				BEGIN_TEXT_COMMAND_DISPLAY_TEXT("STRING");
-				ADD_TEXT_COMPONENT_SUBSTRING_PLAYER_NAME(const_cast<PCHAR>(s.c_str()));
+				ADD_TEXT_COMPONENT_SUBSTRING_PLAYER_NAME(s.c_str());
 			}
 			else
 			{
@@ -213,7 +213,7 @@ namespace Game
 			if (s.length() < 100)
 			{
 				BEGIN_TEXT_COMMAND_DISPLAY_TEXT("STRING");
-				ADD_TEXT_COMPONENT_SUBSTRING_PLAYER_NAME(const_cast<PCHAR>(s.c_str()));
+				ADD_TEXT_COMPONENT_SUBSTRING_PLAYER_NAME(s.c_str());
 			}
 			else
 			{
@@ -224,12 +224,10 @@ namespace Game
 		}
 		void drawstringGXT(const std::string& s, float X, float Y)
 		{
-			char* text = const_cast<PCHAR>(s.c_str());
-
-			if (DOES_TEXT_LABEL_EXIST(text))
+			if (DOES_TEXT_LABEL_EXIST(s.c_str()))
 			{
-				BEGIN_TEXT_COMMAND_DISPLAY_TEXT(text);
-				BEGIN_TEXT_COMMAND_SCALEFORM_STRING(text);
+				BEGIN_TEXT_COMMAND_DISPLAY_TEXT(s.c_str());
+				BEGIN_TEXT_COMMAND_SCALEFORM_STRING(s.c_str());
 				END_TEXT_COMMAND_SCALEFORM_STRING();
 			}
 			else
@@ -237,7 +235,7 @@ namespace Game
 				if (s.length() < 100)
 				{
 					BEGIN_TEXT_COMMAND_DISPLAY_TEXT("STRING");
-					ADD_TEXT_COMPONENT_SUBSTRING_PLAYER_NAME(text);
+					ADD_TEXT_COMPONENT_SUBSTRING_PLAYER_NAME(s.c_str());
 				}
 				else
 				{
@@ -406,16 +404,14 @@ namespace Game
 		// Text width
 		float GetTextWidth(const std::string& s, bool gxt)
 		{
-			PCHAR text = const_cast<PCHAR>(s.c_str());
-
 			if (gxt)
-				BEGIN_TEXT_COMMAND_GET_SCREEN_WIDTH_OF_DISPLAY_TEXT(text);
+				BEGIN_TEXT_COMMAND_GET_SCREEN_WIDTH_OF_DISPLAY_TEXT(s.c_str());
 			else
 			{
 				if (s.length() < 100)
 				{
 					BEGIN_TEXT_COMMAND_GET_SCREEN_WIDTH_OF_DISPLAY_TEXT("STRING");
-					ADD_TEXT_COMPONENT_SUBSTRING_PLAYER_NAME(text);
+					ADD_TEXT_COMPONENT_SUBSTRING_PLAYER_NAME(s.c_str());
 				}
 				else
 				{
@@ -445,7 +441,7 @@ namespace Game
 		preText = preText.substr(0, maxChars);
 
 		//CustomKeyboardText ckt;
-		DISPLAY_ONSCREEN_KEYBOARD(true, "", "", const_cast<PCHAR>(preText.c_str()), "", "", "", maxChars);
+		DISPLAY_ONSCREEN_KEYBOARD(true, "", "", preText.c_str(), "", "", "", maxChars);
 
 		while (UPDATE_ONSCREEN_KEYBOARD() == 0)
 		{
@@ -459,14 +455,14 @@ namespace Game
 			SET_TEXT_EDGE(0, 0, 0, 0, 0);
 			SET_TEXT_OUTLINE();
 
-			if (DOES_TEXT_LABEL_EXIST(const_cast<PCHAR>(titlegxt.c_str())))
+			if (DOES_TEXT_LABEL_EXIST(titlegxt.c_str()))
 			{
-				BEGIN_TEXT_COMMAND_DISPLAY_TEXT(const_cast<PCHAR>(titlegxt.c_str()));
+				BEGIN_TEXT_COMMAND_DISPLAY_TEXT(titlegxt.c_str());
 			}
 			else if (titlegxt.length() < 100)
 			{
 				BEGIN_TEXT_COMMAND_DISPLAY_TEXT("STRING");
-				ADD_TEXT_COMPONENT_SUBSTRING_PLAYER_NAME(const_cast<PCHAR>(titlegxt.c_str()));
+				ADD_TEXT_COMPONENT_SUBSTRING_PLAYER_NAME(titlegxt.c_str());
 			}
 			else
 			{

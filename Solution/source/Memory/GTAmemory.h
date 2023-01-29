@@ -133,7 +133,7 @@ public:
 class GTAmemory final
 {
 public:
-	static unsigned int(*_getHashKey)(char* stringPtr, unsigned int initialHash);
+	static unsigned int(*_getHashKey)(const char* stringPtr, unsigned int initialHash);
 	static UINT64(*_entityAddressFunc)(int handle);
 	static UINT64(*_playerAddressFunc)(int handle);
 	static UINT64(*_ptfxAddressFunc)(int handle);
@@ -267,7 +267,7 @@ public:
 	static void WriteVector3(UINT64 address, const Vector3& value);
 	static inline unsigned int GetHashKey(const std::string& toHash)
 	{
-		return _getHashKey(const_cast<char*>(toHash.c_str()), 0);
+		return _getHashKey(toHash.c_str(), 0);
 	}
 
 	static UINT64 GetEntityAddress(int handle);

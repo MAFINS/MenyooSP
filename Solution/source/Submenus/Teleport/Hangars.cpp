@@ -204,7 +204,7 @@ namespace sub::TeleportLocations_catind
 				ON_ENTER_MP();
 				for (auto& ipl : loc.ipls)
 					REQUEST_IPL(ipl.c_str());
-				int interior = GET_INTERIOR_AT_COORDS_WITH_TYPE(pos.x, pos.y, pos.z, const_cast<PCHAR>(loc.interior.c_str()));
+				int interior = GET_INTERIOR_AT_COORDS_WITH_TYPE(pos.x, pos.y, pos.z, loc.interior.c_str());
 				DISABLE_INTERIOR(interior, true);
 				PIN_INTERIOR_IN_MEMORY(interior);
 				DISABLE_INTERIOR(interior, false);
@@ -251,7 +251,7 @@ namespace sub::TeleportLocations_catind
 				auto& loc = *info.location;
 				auto& pos = loc.pos;
 
-				int interior = GET_INTERIOR_AT_COORDS_WITH_TYPE(pos.x, pos.y, pos.z, const_cast<PCHAR>(loc.interior.c_str()));
+				int interior = GET_INTERIOR_AT_COORDS_WITH_TYPE(pos.x, pos.y, pos.z, loc.interior.c_str());
 				if (!IS_INTERIOR_DISABLED(interior))
 				{
 					for (auto& p : *arr.arr)

@@ -250,7 +250,7 @@ int GTAmemory::modelNum1;
 unsigned short GTAmemory::modelHashEntries;
 std::array<std::vector<unsigned int>, 0x20> GTAmemory::vehicleModels;
 
-unsigned int(*GTAmemory::_getHashKey)(char* stringPtr, unsigned int initialHash);
+unsigned int(*GTAmemory::_getHashKey)(const char* stringPtr, unsigned int initialHash);
 UINT64(*GTAmemory::_entityAddressFunc)(int handle);
 UINT64(*GTAmemory::_playerAddressFunc)(int handle);
 UINT64(*GTAmemory::_ptfxAddressFunc)(int handle);
@@ -784,7 +784,7 @@ void GTAmemory::Init()
 	checkpointPoolAddress = reinterpret_cast<UINT64 *>(*reinterpret_cast<int *>(address + 17) + address + 21);
 
 	address = FindPattern("\x48\x8B\x0B\x33\xD2\xE8\x00\x00\x00\x00\x89\x03", "xxxxxx????xx");
-	_getHashKey = reinterpret_cast<unsigned int(*)(char*, unsigned int)>(*reinterpret_cast<int*>(address + 6) + address + 10);
+	_getHashKey = reinterpret_cast<unsigned int(*)(const char*, unsigned int)>(*reinterpret_cast<int*>(address + 6) + address + 10);
 
 	address = FindPattern("\x48\x63\xC1\x48\x8D\x0D\x00\x00\x00\x00\xF3\x0F\x10\x04\x81\xF3\x0F\x11\x05\x00\x00\x00\x00", "xxxxxx????xxxxxxxxx????");
 	_writeWorldGravityAddress = reinterpret_cast<float *>(*reinterpret_cast<int *>(address + 6) + address + 10);

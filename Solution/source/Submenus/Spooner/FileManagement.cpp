@@ -233,13 +233,13 @@ namespace sub::Spooner
 					nodePedStuff.append_child("WeaponMovementGroupName").text() = wmovGrpIter->second.c_str();
 				}
 
-				bool isUsingScenario = IS_PED_USING_SCENARIO(ep.Handle(), const_cast<PCHAR>(e.LastAnimation.name.c_str())) != 0;
-				bool isPlayingAnim = IS_ENTITY_PLAYING_ANIM(ep.Handle(), const_cast<PCHAR>(e.LastAnimation.dict.c_str()), const_cast<PCHAR>(e.LastAnimation.name.c_str()), 3) != 0;
+				bool isUsingScenario = IS_PED_USING_SCENARIO(ep.Handle(), e.LastAnimation.name.c_str()) != 0;
+				bool isPlayingAnim = IS_ENTITY_PLAYING_ANIM(ep.Handle(), e.LastAnimation.dict.c_str(), e.LastAnimation.name.c_str(), 3) != 0;
 
 				if (isUsingScenario && !(bEntTaskSequenceIsActive && e.TaskSequence.ContainsType(STSTaskType::ScenarioAction)))
 				{
 					nodePedStuff.append_child("ScenarioActive").text() = true;
-					nodePedStuff.append_child("ScenarioName").text() = const_cast<PCHAR>(e.LastAnimation.name.c_str());
+					nodePedStuff.append_child("ScenarioName").text() = e.LastAnimation.name.c_str();
 				}
 				else
 				{
@@ -649,7 +649,7 @@ namespace sub::Spooner
 					std::string movGrpName = nodeMovGrpName.text().as_string();
 					//set_ped_movement_clipset(ep, movGrpName);
 					Game::RequestAnimSet(movGrpName);
-					SET_PED_MOVEMENT_CLIPSET(ep.Handle(), const_cast<PCHAR>(movGrpName.c_str()), 0x3E800000);
+					SET_PED_MOVEMENT_CLIPSET(ep.Handle(), movGrpName.c_str(), 0x3E800000);
 					g_pedList_movGrp[ep.Handle()] = movGrpName;
 				}
 				auto nodeWmovGrpName = nodePedStuff.child("WeaponMovementGroupName");
@@ -658,7 +658,7 @@ namespace sub::Spooner
 					std::string wmovGrpName = nodeWmovGrpName.text().as_string();
 					//set_ped_weapon_movement_clipset(ep, wmovGrpName);
 					Game::RequestAnimSet(wmovGrpName);
-					SET_PED_WEAPON_MOVEMENT_CLIPSET(ep.Handle(), const_cast<PCHAR>(wmovGrpName.c_str()));
+					SET_PED_WEAPON_MOVEMENT_CLIPSET(ep.Handle(), wmovGrpName.c_str());
 					g_pedList_wmovGrp[ep.Handle()] = wmovGrpName;
 				}
 				if (nodeMovGrpName || nodeWmovGrpName)
@@ -1619,7 +1619,7 @@ namespace sub::Spooner
 							e.HashName = get_ped_model_label(eModel, true);
 							for (auto& anmnm : AnimationSub_catind::vPresetPedAnims)
 							{
-								if (IS_ENTITY_PLAYING_ANIM(e.Handle.Handle(), const_cast<PCHAR>(anmnm.animDict.c_str()), const_cast<PCHAR>(anmnm.animName.c_str()), 3))
+								if (IS_ENTITY_PLAYING_ANIM(e.Handle.Handle(), anmnm.animDict.c_str(), anmnm.animName.c_str(), 3))
 								{
 									e.LastAnimation.dict = anmnm.animDict;
 									e.LastAnimation.name = anmnm.animName;
@@ -1629,7 +1629,7 @@ namespace sub::Spooner
 							{
 								for (auto& scnnm : AnimationSub_TaskScenarios::vValues_TaskScenarios)
 								{
-									if (IS_PED_USING_SCENARIO(e.Handle.Handle(), const_cast<PCHAR>(scnnm.c_str())))
+									if (IS_PED_USING_SCENARIO(e.Handle.Handle(), scnnm.c_str()))
 									{
 										e.LastAnimation.name = scnnm;
 									}
@@ -1739,11 +1739,11 @@ namespace sub::Spooner
 							{
 								if (nodeInteriorProp.attribute("enable").as_bool(true))
 								{
-									ACTIVATE_INTERIOR_ENTITY_SET(interior, const_cast<PCHAR>(interiorPropName.c_str()));
+									ACTIVATE_INTERIOR_ENTITY_SET(interior, interiorPropName.c_str());
 								}
 								else
 								{
-									DEACTIVATE_INTERIOR_ENTITY_SET(interior, const_cast<PCHAR>(interiorPropName.c_str()));
+									DEACTIVATE_INTERIOR_ENTITY_SET(interior, interiorPropName.c_str());
 								}
 
 							}
@@ -1815,7 +1815,7 @@ namespace sub::Spooner
 				float timecycModStren = nodeTimecycMod.attribute("strength").as_float(1.0f);
 				if (timecycMod.length() > 0)
 				{
-					SET_TIMECYCLE_MODIFIER(const_cast<PCHAR>(timecycMod.c_str()));
+					SET_TIMECYCLE_MODIFIER(timecycMod.c_str());
 					SET_TIMECYCLE_MODIFIER_STRENGTH(timecycModStren);
 				}
 			}

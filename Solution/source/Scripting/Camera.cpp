@@ -122,7 +122,7 @@ void Camera::SetShake(bool status)
 {
 	if (status)
 	{
-		SHAKE_CAM(this->mHandle, const_cast<PCHAR>(CameraShakeNames[static_cast<int>(this->mShakeType)].c_str()), this->mShakeAmplitude);
+		SHAKE_CAM(this->mHandle, CameraShakeNames[static_cast<int>(this->mShakeType)].c_str(), this->mShakeAmplitude);
 	}
 	else
 	{
@@ -246,7 +246,7 @@ void Camera::ShakeType_set(CameraShake value)
 
 	if (this->IsShaking())
 	{
-		SHAKE_CAM(this->mHandle, const_cast<PCHAR>(CameraShakeNames[static_cast<int>(this->mShakeType)].c_str()), this->mShakeAmplitude);
+		SHAKE_CAM(this->mHandle, CameraShakeNames[static_cast<int>(this->mShakeType)].c_str(), this->mShakeAmplitude);
 	}
 }
 

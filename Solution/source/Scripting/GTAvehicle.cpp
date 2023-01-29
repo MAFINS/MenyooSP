@@ -355,17 +355,17 @@ std::string get_mod_slot_name(Vehicle vehicle, INT modType, bool gxt)
 		Model vehModel = GET_ENTITY_MODEL(vehicle);
 		switch (modType)
 		{
-		default: name = const_cast<PCHAR>(vValues_ModSlotNames[modType].c_str()); break;
-		case VehicleMod::SideSkirt: name = (vehModel.hash == VEHICLE_FAGGIO3) ? "TOP_ARCHCOVER" : vehModel.IsBike() ? "CMM_MOD_S15" : const_cast<PCHAR>(vValues_ModSlotNames[modType].c_str()); break;// Air filter for bikes
+		default: name = vValues_ModSlotNames[modType]; break;
+		case VehicleMod::SideSkirt: name = (vehModel.hash == VEHICLE_FAGGIO3) ? "TOP_ARCHCOVER" : vehModel.IsBike() ? "CMM_MOD_S15" : vValues_ModSlotNames[modType]; break;// Air filter for bikes
 		case VehicleMod::Roof: name = (vehModel.hash == VEHICLE_BAGGER) ? "CMOD_SB_T" : "CMOD_MOD_ROF"; break; // Saddle bags for bagger
-		case VehicleMod::AirFilter: if (vehModel.hash == VEHICLE_SULTANRS) name = "CMM_MOD_S15b"; else name = const_cast<PCHAR>(vValues_ModSlotNames[modType].c_str());
-		case VehicleMod::Struts: if (vehModel.hash == VEHICLE_SULTANRS || vehModel.hash == VEHICLE_BANSHEE2) name = "CMM_MOD_S16b"; else name = const_cast<PCHAR>(vValues_ModSlotNames[modType].c_str());
-		case VehicleMod::ArchCover: if (vehModel.hash == VEHICLE_SULTANRS) name = "CMM_MOD_S17b"; else name = const_cast<PCHAR>(vValues_ModSlotNames[modType].c_str());
-		case VehicleMod::Aerials: if (vehModel.hash == VEHICLE_SULTANRS) name = "CMM_MOD_S18b"; else if (vehModel.hash == VEHICLE_BTYPE3) name = "CMM_MOD_S18c"; else name = const_cast<PCHAR>(vValues_ModSlotNames[modType].c_str());
-		case VehicleMod::Trim: if (vehModel.hash == VEHICLE_SULTANRS) name = "CMM_MOD_S19b"; else if (vehModel.hash == VEHICLE_BTYPE3) name = "CMM_MOD_S19c"; else if (vehModel.hash == VEHICLE_VIRGO2) name = "CMM_MOD_S19d"; else name = const_cast<PCHAR>(vValues_ModSlotNames[modType].c_str());
-		case VehicleMod::Tank: if (vehModel.hash == VEHICLE_SLAMVAN3) name = "CMM_MOD_S27"; else name = const_cast<PCHAR>(vValues_ModSlotNames[modType].c_str());
-		case VehicleMod::Windows: if (vehModel.hash == VEHICLE_BTYPE3) name = "CMM_MOD_S21b"; else name = const_cast<PCHAR>(vValues_ModSlotNames[modType].c_str());
-		case VehicleMod::Unknown47: if (vehModel.hash == VEHICLE_SLAMVAN3) name = "SLVAN3_RDOOR"; else name = const_cast<PCHAR>(vValues_ModSlotNames[modType].c_str());
+		case VehicleMod::AirFilter: if (vehModel.hash == VEHICLE_SULTANRS) name = "CMM_MOD_S15b"; else name = vValues_ModSlotNames[modType];
+		case VehicleMod::Struts: if (vehModel.hash == VEHICLE_SULTANRS || vehModel.hash == VEHICLE_BANSHEE2) name = "CMM_MOD_S16b"; else name = vValues_ModSlotNames[modType];
+		case VehicleMod::ArchCover: if (vehModel.hash == VEHICLE_SULTANRS) name = "CMM_MOD_S17b"; else name = vValues_ModSlotNames[modType];
+		case VehicleMod::Aerials: if (vehModel.hash == VEHICLE_SULTANRS) name = "CMM_MOD_S18b"; else if (vehModel.hash == VEHICLE_BTYPE3) name = "CMM_MOD_S18c"; else name = vValues_ModSlotNames[modType];
+		case VehicleMod::Trim: if (vehModel.hash == VEHICLE_SULTANRS) name = "CMM_MOD_S19b"; else if (vehModel.hash == VEHICLE_BTYPE3) name = "CMM_MOD_S19c"; else if (vehModel.hash == VEHICLE_VIRGO2) name = "CMM_MOD_S19d"; else name = vValues_ModSlotNames[modType];
+		case VehicleMod::Tank: if (vehModel.hash == VEHICLE_SLAMVAN3) name = "CMM_MOD_S27"; else name = vValues_ModSlotNames[modType];
+		case VehicleMod::Windows: if (vehModel.hash == VEHICLE_BTYPE3) name = "CMM_MOD_S21b"; else name = vValues_ModSlotNames[modType];
+		case VehicleMod::Unknown47: if (vehModel.hash == VEHICLE_SLAMVAN3) name = "SLVAN3_RDOOR"; else name = vValues_ModSlotNames[modType];
 		}
 	}
 	else
@@ -491,7 +491,7 @@ void GTAvehicle::Repair(bool checkIfDamaged)
 
 void GTAvehicle::EngineSound_set(const std::string& vehName)
 {
-	FORCE_USE_AUDIO_GAME_OBJECT(this->mHandle, const_cast<PCHAR>(vehName.c_str()));
+	FORCE_USE_AUDIO_GAME_OBJECT(this->mHandle, vehName.c_str());
 }
 
 void GTAvehicle::SetFrictionOverride(float value)
@@ -559,7 +559,7 @@ std::string GTAvehicle::NumberPlateText_get() const
 }
 void GTAvehicle::NumberPlateText_set(const std::string& value)
 {
-	SET_VEHICLE_NUMBER_PLATE_TEXT(this->mHandle, const_cast<PCHAR>(value.c_str()));
+	SET_VEHICLE_NUMBER_PLATE_TEXT(this->mHandle, value.c_str());
 }
 int GTAvehicle::NumberPlateTextIndex_get() const
 {

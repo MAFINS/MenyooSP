@@ -479,11 +479,11 @@ int GTAentity::GetBoneIndex(const std::string& boneLabel) const
 {
 	if (boneLabel.length() == 0)
 		return 0;
-	return GET_ENTITY_BONE_INDEX_BY_NAME(this->mHandle, const_cast<PCHAR>(boneLabel.c_str()));
+	return GET_ENTITY_BONE_INDEX_BY_NAME(this->mHandle, boneLabel.c_str());
 }
 int GTAentity::GetBoneIndex(VBone::VBone value) const
 {
-	return GET_ENTITY_BONE_INDEX_BY_NAME(this->mHandle, const_cast<PCHAR>(VBone::vNames[value].c_str()));
+	return GET_ENTITY_BONE_INDEX_BY_NAME(this->mHandle, VBone::vNames[value].c_str());
 }
 Vector3 GTAentity::GetBoneCoords(int boneIndex) const
 {

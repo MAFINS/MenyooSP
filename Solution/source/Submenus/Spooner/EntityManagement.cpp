@@ -670,12 +670,12 @@ namespace sub::Spooner
 				SET_PED_CAN_PLAY_VISEME_ANIMS(ep.Handle(), true, TRUE);
 				SET_PED_IS_IGNORED_BY_AUTO_OPEN_DOORS(ep.Handle(), true);
 
-				if (!bTaskSeqIsActive && IS_PED_USING_SCENARIO(orig.Handle.Handle(), const_cast<PCHAR>(orig.LastAnimation.name.c_str())))
+				if (!bTaskSeqIsActive && IS_PED_USING_SCENARIO(orig.Handle.Handle(), orig.LastAnimation.name.c_str()))
 				{
 					WAIT(40);
 					ep.Task().StartScenario(orig.LastAnimation.name, -1, false);
 				}
-				if (!bTaskSeqIsActive && IS_ENTITY_PLAYING_ANIM(orig.Handle.Handle(), const_cast<PCHAR>(orig.LastAnimation.dict.c_str()), const_cast<PCHAR>(orig.LastAnimation.name.c_str()), 3))
+				if (!bTaskSeqIsActive && IS_ENTITY_PLAYING_ANIM(orig.Handle.Handle(), orig.LastAnimation.dict.c_str(), orig.LastAnimation.name.c_str(), 3))
 				{
 					ep.Task().PlayAnimation(orig.LastAnimation.dict, orig.LastAnimation.name);
 				}

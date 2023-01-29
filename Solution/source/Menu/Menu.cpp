@@ -1631,7 +1631,7 @@ inline void AddTexter(const std::string& text, int selectedindex, const TA& text
 		{
 			chartickStr = textarray.at(selectedindex);
 		}
-		const char* chartick = const_cast<PCHAR>(chartickStr.c_str());
+		const char* chartick = chartickStr.c_str();
 
 		chartick = DOES_TEXT_LABEL_EXIST(chartick) ? GET_FILENAME_FOR_AUDIO_CONVERSATION(chartick) : chartick;
 		FLOAT newXpos;
@@ -1716,7 +1716,7 @@ bool Add_preset_colour_options(INT& r, INT& g, INT& b)
 	for (auto& colol : _vNeonColours)
 	{
 		null = 0;
-		AddTickol(const_cast<PCHAR>(colol.name.c_str()), r == colol.rgb.R && g == colol.rgb.G && b == colol.rgb.B, null, null);
+		AddTickol(colol.name.c_str(), r == colol.rgb.R && g == colol.rgb.G && b == colol.rgb.B, null, null);
 		if (null)
 		{
 			r = colol.rgb.R;
