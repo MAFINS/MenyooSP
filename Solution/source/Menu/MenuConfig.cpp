@@ -17,6 +17,7 @@
 #include "..\Util\ExePath.h"
 #include "..\Natives\types.h" // RGBA/RgbS
 #include "..\Util\GTAmath.h"
+#include "..\Util\FileLogger.h"
 
 #include "..\Submenus\Spooner\SpoonerMode.h"
 #include "..\Submenus\Spooner\SpoonerSettings.h"
@@ -47,8 +48,13 @@ SI_Error MenuConfig::ConfigInit()
 	MenuConfig::iniFile.SetMultiKey(false);
 	MenuConfig::iniFile.SetMultiLine(false);
 	SetFileAttributesW(GetPathffW(Pathff::Main, false).c_str(), GetFileAttributes(GetPathffW(Pathff::Main, false).c_str()) & ~FILE_ATTRIBUTE_READONLY);
-	return MenuConfig::iniFile.LoadFile((GetPathffA(Pathff::Main, true) + "menyooConfig.ini").c_str());
+
+	if (MenuConfig::iniFile.LoadFile((GetPathffA(Pathff::Main, true) + "menyooConfig.ini").c_str()) < 0)
+		ige::myLog << ige::LogType::LOG_ERROR << "Failed to load menyooConfig from " << GetPathffA(Pathff::Main, true) << "menyooConfig.ini.";
+	else
+		ConfigRead();
 }
+
 void MenuConfig::ConfigRead()
 {
 	auto& ini = MenuConfig::iniFile;
@@ -295,6 +301,7 @@ void MenuConfig::ConfigRead()
 	sub::Speedo_catind::SetCurrentBgIdFromBgNameForConfig();
 
 }
+
 void MenuConfig::ConfigSave()
 {
 	auto& ini = MenuConfig::iniFile;
@@ -541,6 +548,7 @@ void MenuConfig::ConfigSave()
 
 	ini.SaveFile((GetPathffA(Pathff::Main, true) + "menyooConfig.ini").c_str());
 }
+
 void MenuConfig::ConfigResetHaxValues()
 {
 	auto& ini = MenuConfig::iniFile;

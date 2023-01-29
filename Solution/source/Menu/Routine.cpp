@@ -85,10 +85,8 @@
 
 //--------------------------------Threads--------------------------------------------------------
 
-DWORD g_MenyooConfigOnceTick = 0UL;
 DWORD g_MenyooConfigTick = 0UL;
 DWORD g_FaderTick = 0UL;
-bool g_ConfigHasNotBeenRead = true;
 
 void Menu::justopened()
 {
@@ -122,7 +120,7 @@ inline void MenyooMain()
 	SET_RANDOM_SEED(GetTickCount());
 	//_initialProgramTick = GetTickCount();
 
-	g_MenyooConfigOnceTick = GetTickCount();
+	MenuConfig::ConfigInit();
 	g_MenyooConfigTick = GetTickCount();
 	g_FaderTick = GetTickCount();
 
@@ -144,21 +142,7 @@ void ThreadMenyooMain()
 
 void TickMenyooConfig()
 {
-	if (GetTickCount() > g_MenyooConfigOnceTick + 9000U)
-	{
-		if (g_ConfigHasNotBeenRead)
-		{
-			if (MenuConfig::ConfigInit() < 0)
-			{
-				ige::myLog << ige::LogType::LOG_ERROR << "Failed to load menyooConfig from " << GetPathffA(Pathff::Main, true) << "menyooConfig.ini.";
-			}
-			else
-			{
-				MenuConfig::ConfigRead();
-			}
-			g_ConfigHasNotBeenRead = false;
-		}
-
+	//if (GetTickCount() > g_MenyooConfigOnceTick + 9000U)
 		if (GetTickCount() > g_MenyooConfigTick + 30000U)
 		{
 			if (MenuConfig::bSaveAtIntervals)
@@ -167,7 +151,6 @@ void TickMenyooConfig()
 			}
 			g_MenyooConfigTick = GetTickCount();
 		}
-	}
 }
 
 void TickRainbowFader()
