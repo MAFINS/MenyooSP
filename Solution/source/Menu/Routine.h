@@ -56,7 +56,13 @@ void TickNeonFlashAnim();
 
 void TickNeonFadeAnim();
 
+void TickNeonShiftAnim();
+
 void TickNeonSpinAnim();
+
+void TickNeonFwkAnim();
+
+void TickNeonHeartbeatAnim();
 
 //--------------------------------On tick--------------------------------------------------------
 
@@ -64,9 +70,10 @@ void TickNeonSpinAnim();
 
 extern INT16 bind_no_clip;
 
-extern RgbS g_fadedRGB, g_neonFade;
+extern RgbS g_fadedRGB, g_neonFade, g_neonHeart, g_neonShift;
 extern bool g_neonFlash;
 extern int g_neonSpin,g_neonSpinBack;
+extern bool g_neonFwk[4];
 
 extern UINT8 pause_clock_H, pause_clock_M;
 extern Vehicle g_myVeh;
@@ -139,9 +146,9 @@ loop_pause_clock, loop_sync_clock, loop_triple_bullets, loop_rapid_fire, loop_se
 loop_blackout_mode, loop_simple_blackout_mode, loop_restricted_areas_access, loop_HVSnipers, loop_vehicle_disableSiren, loop_fireworksDisplay,
 bit_infinite_ammo, loop_self_inf_parachutes, lowersuspension, loop_neon_rgb;
 
-extern int loop_neon_delay, loop_neon_anims;
+extern int loop_neon_delay, loop_neon_fade, loop_neon_flash;
 
-extern float loop_fade_multiplier;
+extern float loop_fade_multiplier, loop_heart_multiplier;
 
 extern bool neonstate[4];
 
