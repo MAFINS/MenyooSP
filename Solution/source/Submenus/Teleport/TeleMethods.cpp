@@ -31,15 +31,13 @@
 #include <string>
 
 
-void teleport_net_ped(GTAentity pedd, float X, float Y, float Z, bool bWait)
+void teleport_net_ped(GTAentity ped, float X, float Y, float Z, bool bWait, bool bPtfx)
 {
 	GTAped myPed = Game::PlayerPed();
 	GTAvehicle myVeh = myPed.CurrentVehicle();
 
-	GTAped ped = pedd;
-	GTAvehicle vehicle = ped.CurrentVehicle();
+	GTAvehicle vehicle = GTAped(ped).CurrentVehicle();
 
-	PTFX::sFxData ptfx = { "scr_rcbarry2", "scr_clown_death" };
 	if (!vehicle.Exists())
 	{
 		if (bWait)
@@ -52,16 +50,17 @@ void teleport_net_ped(GTAentity pedd, float X, float Y, float Z, bool bWait)
 		//if (NETWORK_HAS_CONTROL_OF_ENTITY(ped))
 		{
 			ped.Position_set(Vector3(X, Y, Z));
-			if (ped.IsVisible())
+			if (bPtfx && ped.IsVisible())
 			{
-				if (!HAS_NAMED_PTFX_ASSET_LOADED(const_cast<PCHAR>(ptfx.asset.c_str())))
-					REQUEST_NAMED_PTFX_ASSET(const_cast<PCHAR>(ptfx.asset.c_str()));
+				const PTFX::sFxData ptfx = { "scr_rcbarry2", "scr_clown_death" };
+				if (!HAS_NAMED_PTFX_ASSET_LOADED(ptfx.asset.c_str()))
+					REQUEST_NAMED_PTFX_ASSET(ptfx.asset.c_str());
 				else
 				{
-					USE_PARTICLE_FX_ASSET(const_cast<PCHAR>(ptfx.asset.c_str()));
+					USE_PARTICLE_FX_ASSET(ptfx.asset.c_str());
 					SET_PARTICLE_FX_NON_LOOPED_COLOUR(GET_RANDOM_FLOAT_IN_RANGE(0, 1), GET_RANDOM_FLOAT_IN_RANGE(0, 1), GET_RANDOM_FLOAT_IN_RANGE(0, 1));
 					SET_PARTICLE_FX_NON_LOOPED_ALPHA(0.7f);
-					START_NETWORKED_PARTICLE_FX_NON_LOOPED_AT_COORD(const_cast<PCHAR>(ptfx.effect.c_str()), X, Y, Z, 0.0f, 0.0f, 0.0f, 1.0f, 0, 0, 0, false);
+					START_NETWORKED_PARTICLE_FX_NON_LOOPED_AT_COORD(ptfx.effect.c_str(), X, Y, Z, 0.0f, 0.0f, 0.0f, 1.0f, 0, 0, 0, false);
 				}
 			}
 		}
@@ -86,9 +85,9 @@ void teleport_net_ped(GTAentity pedd, float X, float Y, float Z, bool bWait)
 	//SET_STREAMING(TRUE);
 
 }
-void teleport_net_ped(GTAentity ped, const Vector3& pos, bool bWait)
+void teleport_net_ped(GTAentity ped, const Vector3& pos, bool bWait, bool bPtfx)
 {
-	teleport_net_ped(ped.Handle(), pos.x, pos.y, pos.z, bWait);
+	teleport_net_ped(ped, pos.x, pos.y, pos.z, bWait, bPtfx);
 }
 void teleport_to_missionBlip(GTAped ped)
 {
@@ -202,7 +201,7 @@ namespace sub::TeleportLocations_catind
 		{
 			auto& entityToTeleport = Static_241;
 			Vector3 yoffsetforward = GET_OFFSET_FROM_ENTITY_IN_WORLD_COORDS(entityToTeleport, 0.0f, 3.5f, 0.0f);
-			teleport_net_ped(entityToTeleport, yoffsetforward.x, yoffsetforward.y, yoffsetforward.z);
+			teleport_net_ped(entityToTeleport, yoffsetforward.x, yoffsetforward.y, yoffsetforward.z, true, false);
 		}
 		void ToCoordinates241(const Vector3& coord)
 		{
