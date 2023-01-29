@@ -174,7 +174,7 @@ namespace sub::TeleportLocations_catind
 		struct FacilityInteriorOptionArray {
 			const std::string name; FacilityInfoStructure::FacilityInteriorOptionIndex* ptr; const std::vector<FacilityInteriorOption>* arr;
 		} const vOptionArrays[]{
-			//{ NULL, NULL, &vDefaultOptions },
+			//{ std::string(), nullptr, &vDefaultOptions },
 			{ "Main Shell", &currentFacilityInfo.mainShellOption, &vMainShellOptions },
 			{ "Graphics", &currentFacilityInfo.graphicsOption, &vGraphicsOptions },
 			{ "Trophy", &currentFacilityInfo.trophyOption, &vTrophyOptions },

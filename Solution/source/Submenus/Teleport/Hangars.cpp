@@ -37,7 +37,7 @@ namespace sub::TeleportLocations_catind
 		struct HangarInteriorOption { const std::string name; const std::string value; UINT8 maxTints; };
 		const std::vector<HangarInteriorOption> vDefaultOptions
 		{
-			{ NULL, "set_lighting_tint_props", 10 },
+			{ std::string(), "set_lighting_tint_props", 10},
 		};
 		const std::vector<HangarInteriorOption> vMainShellOptions
 		{
@@ -176,7 +176,7 @@ namespace sub::TeleportLocations_catind
 		struct HangarInteriorOptionArray {
 			const std::string name; HangarInfoStructure::HangarInteriorOptionIndex* ptr; const std::vector<HangarInteriorOption>* arr;
 		} const vOptionArrays[]{
-			{ NULL, NULL, &vDefaultOptions },
+			{ std::string(), nullptr, &vDefaultOptions},
 			{ "Main Shell", &currentHangarInfo.mainShellOption, &vMainShellOptions },
 			{ "Bedroom", &currentHangarInfo.bedroomOption, &vBedroomOptions },
 			{ "Bedroom Style", &currentHangarInfo.bedroomStyleOption, &vBedroomStyleOptions },
