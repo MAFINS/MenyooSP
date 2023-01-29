@@ -242,7 +242,11 @@ namespace sub
 			_JumpAroundMode_::StartJumping(jumpAround_on);
 		}
 
-		if (blackout_off) SET_ARTIFICIAL_LIGHTS_STATE(FALSE);
+		if (blackout_off)
+		{
+			SET_ARTIFICIAL_LIGHTS_STATE(FALSE);
+			SET_ARTIFICIAL_VEHICLE_LIGHTS_STATE(TRUE);
+		}
 
 		if (explosions_wp_plus) { if (loop_explosion_wp < explosions_wp_names.size() - 1) loop_explosion_wp++; return; }
 		if (explosions_wp_minus) { if (loop_explosion_wp > 0) loop_explosion_wp--; return; }

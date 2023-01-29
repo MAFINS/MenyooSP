@@ -186,6 +186,7 @@ void set_massacre_mode_tick();
 
 // Misc
 void set_blackoutEmp_mode();
+void set_blackout_mode();
 
 // Playerped - ability
 void set_self_nearby_peds_calm();

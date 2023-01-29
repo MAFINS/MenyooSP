@@ -1655,8 +1655,8 @@ void GeneralGlobalHax::EnableBlockedMpVehiclesInSp(bool uSure)
 
 void** GeneralGlobalHax::WorldPtrPtr()
 {
-	static DWORD64 __dwWorldPtrAddr = 0x5;
-	if (__dwWorldPtrAddr == 0x5)
+	static DWORD64 __dwWorldPtrAddr = 0x0U;
+	if (!__dwWorldPtrAddr)
 	{
 		__dwWorldPtrAddr = MemryScan::PatternScanner::FindPattern("48 8B 05 ? ? ? ? 45 ? ? ? ? 48 8B 48 08 48 85 C9 74 07");
 		if (__dwWorldPtrAddr)
@@ -1672,7 +1672,7 @@ float GeneralGlobalHax::GetPlayerHeight()
 	if (baddr)
 	{
 		auto gameVersion = GTAmemory::GetGameVersion();
-		if (gameVersion <= eGameVersion::VER_1_0_2372_0_NOSTEAM)
+		if (gameVersion <= eGameVersion::VER_1_0_2802_0)
 			return *(GetMultilayerPointer<float*>(baddr, std::vector<DWORD>{0x8, 0x88}));
 	}
 	return 1.0f;
@@ -1683,7 +1683,7 @@ void GeneralGlobalHax::SetPlayerHeight(float value)
 	if (baddr)
 	{
 		auto gameVersion = GTAmemory::GetGameVersion();
-		if (gameVersion <= eGameVersion::VER_1_0_2372_0_NOSTEAM)
+		if (gameVersion <= eGameVersion::VER_1_0_2802_0)
 			*(GetMultilayerPointer<float*>(baddr, std::vector<DWORD>{0x8, 0x88})) = value;
 	}
 }

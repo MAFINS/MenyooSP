@@ -846,7 +846,7 @@ void set_blackoutEmp_mode()
 
 		NETWORK_REQUEST_CONTROL_OF_ENTITY(vehicle);
 		SET_VEHICLE_ENGINE_ON(vehicle, 0, 1, 0);
-		SET_VEHICLE_LIGHTS(vehicle, 4);
+		//SET_VEHICLE_LIGHTS(vehicle, 4);
 
 	}
 
@@ -882,6 +882,11 @@ void set_blackoutEmp_mode()
 	CLEAR_SEQUENCE_TASK(&tempSeq);
 	//SET_ALL_RANDOM_PEDS_FLEE(PLAYER_ID(), 1);
 
+}
+void set_blackout_mode()
+{
+	SET_ARTIFICIAL_LIGHTS_STATE(TRUE);
+	SET_ARTIFICIAL_VEHICLE_LIGHTS_STATE(FALSE);
 }
 
 // Playerped - ability
@@ -3124,18 +3129,18 @@ void set_vehicle_neon_anim(GTAvehicle vehicle)
 			if (loop_showFullHud)
 				display_full_hud_this_frame(true);
 
-			if (loop_massacre_mode)
-				set_massacre_mode_tick();
-			if (loop_blackout_mode)
-				set_blackoutEmp_mode();
-			if (loop_simple_blackout_mode)
-				SET_ARTIFICIAL_LIGHTS_STATE(TRUE);
-			if (_JumpAroundMode_::bEnabled)
-				_JumpAroundMode_::Tick();
-		}
-
-		if (loop_player_Walkunderwater)
-			Set_Walkunderwater(PLAYER_PED_ID());
+		if (loop_massacre_mode)
+			set_massacre_mode_tick();
+		if (loop_blackout_mode)
+			set_blackoutEmp_mode();
+		if (loop_simple_blackout_mode)
+			set_blackout_mode();
+		if (_JumpAroundMode_::bEnabled)
+			_JumpAroundMode_::Tick();
+	}
+	
+	if (loop_player_Walkunderwater)
+		Set_Walkunderwater(PLAYER_PED_ID());
 
 		if (GET_GAME_TIMER() >= delayedTimer)
 		{
