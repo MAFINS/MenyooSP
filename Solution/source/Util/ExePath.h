@@ -33,7 +33,8 @@ enum class Pathff
 	Audio,
 	Graphics,
 	Speedo,
-	WeaponsLoadout
+	WeaponsLoadout,
+	Language
 };
 
 std::wstring GetPathffW(Pathff type, bool lastSlash = false);

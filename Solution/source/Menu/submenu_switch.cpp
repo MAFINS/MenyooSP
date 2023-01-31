@@ -68,6 +68,7 @@ void Menu::submenu_switch()
 	case SUB::SETTINGS_COLOURS2:		sub::SettingsColours2(); break;
 	case SUB::SETTINGS_FONTS:			sub::SettingsFonts(); break;
 	case SUB::SETTINGS_FONTS2:			sub::SettingsFonts2(); break;
+	case SUB::SETTINGS_LANGUAGE:		sub::SettingsLanguage(); break;
 	case SUB::TIMECYCLES:				sub::Timecycles_(); break;
 
 	case SUB::OBJECTSPAWNER_OBJS:		sub::ObjectSpawner_objs(); break;

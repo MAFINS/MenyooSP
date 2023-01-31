@@ -232,7 +232,7 @@ enum class TICKOL : UINT8
 	PERCENTAGESTICKER,
 };
 
-void AddTitle(const std::string& text);
+void AddTitle(std::string text);
 void AddOption(std::string text, bool &option_code_bool = null, void(&callback)() = nullFunc, int submenu_index = -1, bool show_arrow = 0, bool gxt = 0);
 inline void AddOption(std::ostream& os, bool &option_code_bool = null, void(&callback)() = nullFunc, int submenu_index = -1, bool show_arrow = 0, bool gxt = 0);
 void OptionStatus(BOOL status);
@@ -240,7 +240,7 @@ void AddToggle(const std::string& text, bool &loop_variable, bool &extra_option_
 void AddToggle(const std::string& text, bool &loop_variable, void(&callback_ON)(), void(&callback_OFF)(), bool gxt = 0);
 void AddLocal(const std::string& text, BOOL condition, bool &option_code_ON, bool &option_code_OFF, bool gxt = 0);
 void AddLocal(const std::string& text, BOOL condition, void(&callback_ON)(), void(&callback_OFF)(), bool gxt = 0);
-void AddBreak(const std::string& text);
+void AddBreak(std::string text);
 void AddNumber(const std::string& text, float value, __int8 decimal_places, bool &A_PRESS = null, bool &RIGHT_PRESS = null, bool &LEFT_PRESS = null, bool gxt = 0);
 void draw_tickol_tick_BNW(const std::string& textureDict, const std::string& normal, const std::string& selected, const RGBA& colour);
 inline void draw_tickol_tick(TICKOL tickType);

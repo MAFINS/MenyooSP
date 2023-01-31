@@ -14,6 +14,7 @@
 #include "..\Menu\Menu.h"
 #include "..\Menu\Routine.h"
 #include "..\Menu\MenuConfig.h"
+#include "..\Menu\Language.h"
 
 #include "..\Natives\natives2.h"
 #include "..\Util\GTAmath.h"
@@ -32,6 +33,11 @@ namespace sub
 		auto& bSyncWithConfig = MenuConfig::bSaveAtIntervals;
 
 		AddTitle("Settings");
+
+		bool bChangeLangPressed = false;
+		AddTexter("Language", 0, { Language::GetSelectedLangTitle() }, bChangeLangPressed); if (bChangeLangPressed)
+			Menu::SetSub_delayed = SUB::SETTINGS_LANGUAGE;
+
 		AddOption("Themes", null, nullFunc, SUB::SETTINGS_THEMES);
 		AddOption("Menu Colours", null, nullFunc, SUB::SETTINGS_COLOURS);
 		AddOption("Menu Fonts", null, nullFunc, SUB::SETTINGS_FONTS);
@@ -233,6 +239,25 @@ namespace sub
 			*settings_font = tempHash;
 			//OnscreenKeyboard::State::Set(OnscreenKeyboard::Purpose::SettingsFont, std::to_string(*settings_font), 6U, "", std::to_string(*settings_font));
 		}
+	}
+
+	void SettingsLanguage()
+	{
+		AddTitle("Language");
+		
+		AddTickol("English", Language::selectedLang == nullptr, Language::ResetSelectedLang, Language::ResetSelectedLang);
+
+		for (auto& l : Language::allLangs)
+		{
+			bool bPressed = false;
+			AddTickol(l.GetName(), Language::selectedLang == &l, bPressed, bPressed); if (bPressed)
+			{
+				Language::SetSelectedLang(&l);
+			}
+		}
+
+		AddTickol("Reload Language Files", true, *reinterpret_cast<void(*)()>(&Language::Init), *reinterpret_cast<void(*)()>(&Language::Init), TICKOL::CROSS);
+
 	}
 
 	namespace SettingsThemes_catind

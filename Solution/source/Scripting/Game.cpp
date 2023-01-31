@@ -15,6 +15,7 @@
 //#include "..\Scripting\enums.h"
 #include "..\Natives\natives2.h"
 #include "..\Memory\GTAmemory.h"
+#include "..\Menu\Language.h"
 #include "GTAentity.h"
 #include "GTAped.h"
 #include "GTAplayer.h"
@@ -284,9 +285,10 @@ namespace Game
 			END_TEXT_COMMAND_DISPLAY_TEXT(X, Y, 0);
 		}
 
-		void PrintBottomCentre(const std::string& s, int time)
+		void PrintBottomCentre(std::string s, int time)
 		{
-			PCHAR text = (PCHAR)s.c_str();
+			s = Language::TranslateToSelected(s);
+			const char* text = s.c_str();
 
 			if (DOES_TEXT_LABEL_EXIST(text))
 			{
@@ -321,9 +323,10 @@ namespace Game
 		{
 			THEFEED_REMOVE_ITEM(this->mHandle);
 		}
-		Notification PrintBottomLeft(const std::string& s, bool gxt)
+		Notification PrintBottomLeft(std::string s, bool gxt)
 		{
-			PCHAR text = (PCHAR)s.c_str();
+			s = Language::TranslateToSelected(s);
+			const char* text = s.c_str();
 
 			if (gxt && DOES_TEXT_LABEL_EXIST(text))
 				BEGIN_TEXT_COMMAND_THEFEED_POST(text);
@@ -355,14 +358,17 @@ namespace Game
 			std::wstring wtext = (dynamic_cast<std::wostringstream&>(s).str());
 			return PrintBottomLeft(std::string(wtext.begin(), wtext.end()), gxt);
 		}
-		Notification PrintBottomLeft(const std::string& s, const std::string& sender, const std::string& subject, const std::string& picName, int iconType, bool flash, bool gxt)
+		Notification PrintBottomLeft(std::string s, const std::string& sender, const std::string& subject, const std::string& picName, int iconType, bool flash, bool gxt)
 		{
-			PCHAR text = (PCHAR)s.c_str();
+			const char* text = s.c_str();
 
 			if (gxt && DOES_TEXT_LABEL_EXIST(text))
 				BEGIN_TEXT_COMMAND_THEFEED_POST(text);
 			else
 			{
+				s = Language::TranslateToSelected(s);
+				text = s.c_str();
+
 				if (s.length() < 100)
 				{
 					BEGIN_TEXT_COMMAND_THEFEED_POST("STRING");
@@ -436,7 +442,7 @@ namespace Game
 	}
 
 	//On screen keyboard
-	std::string InputBox(const std::string& escReturn, int maxChars, const std::string& titlegxt, std::string preText)
+	std::string InputBox(const std::string& escReturn, int maxChars, std::string titlegxt, std::string preText)
 	{
 		preText = preText.substr(0, maxChars);
 
@@ -459,15 +465,19 @@ namespace Game
 			{
 				BEGIN_TEXT_COMMAND_DISPLAY_TEXT(titlegxt.c_str());
 			}
-			else if (titlegxt.length() < 100)
-			{
-				BEGIN_TEXT_COMMAND_DISPLAY_TEXT("STRING");
-				ADD_TEXT_COMPONENT_SUBSTRING_PLAYER_NAME(titlegxt.c_str());
-			}
 			else
 			{
-				BEGIN_TEXT_COMMAND_DISPLAY_TEXT("jamyfafi");
-				add_text_component_long_string(titlegxt);
+				titlegxt = Language::TranslateToSelected(titlegxt);
+				if (titlegxt.length() < 100)
+				{
+					BEGIN_TEXT_COMMAND_DISPLAY_TEXT("STRING");
+					ADD_TEXT_COMPONENT_SUBSTRING_PLAYER_NAME(titlegxt.c_str());
+				}
+				else
+				{
+					BEGIN_TEXT_COMMAND_DISPLAY_TEXT("jamyfafi");
+					add_text_component_long_string(titlegxt);
+				}
 			}
 			END_TEXT_COMMAND_DISPLAY_TEXT(0.5f, 0.37f, 0);
 			WAIT(0);
