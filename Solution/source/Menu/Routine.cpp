@@ -1468,6 +1468,7 @@ void set_no_clip_off1()
 	ENABLE_CONTROL_ACTION(2, INPUT_LOOK_BEHIND, TRUE);
 	ENABLE_CONTROL_ACTION(2, INPUT_VEH_LOOK_BEHIND, TRUE);
 	ENABLE_CONTROL_ACTION(2, INPUT_SELECT_WEAPON, TRUE);
+	bit_noclip_show_help = true;
 }
 void set_no_clip_off2()
 {

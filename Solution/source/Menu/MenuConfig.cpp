@@ -13,6 +13,7 @@
 
 #include "Menu.h"
 #include "Routine.h"
+#include "Language.h"
 
 #include "..\Util\ExePath.h"
 #include "..\Natives\types.h" // RGBA/RgbS
@@ -74,6 +75,8 @@ void MenuConfig::ConfigRead()
 	Menu::bit_centre_title = ini.GetBoolValue(section_settings.c_str(), "centre_title", Menu::bit_centre_title);
 	Menu::bit_centre_options = ini.GetBoolValue(section_settings.c_str(), "centre_options", Menu::bit_centre_options);
 	Menu::bit_centre_breaks = ini.GetBoolValue(section_settings.c_str(), "centre_breaks", Menu::bit_centre_breaks);
+	Language::configLangName = ini.GetValue(section_settings.c_str(), "language", Language::configLangName.c_str());
+	Language::Init();
 
 
 	std::string section_general = "general";/////////
@@ -322,6 +325,7 @@ void MenuConfig::ConfigSave()
 	ini.SetBoolValue(section_settings.c_str(), "centre_title", Menu::bit_centre_title);
 	ini.SetBoolValue(section_settings.c_str(), "centre_options", Menu::bit_centre_options);
 	ini.SetBoolValue(section_settings.c_str(), "centre_breaks", Menu::bit_centre_breaks);
+	ini.SetValue(section_settings.c_str(), "language", Language::configLangName.c_str());
 
 
 	std::string section_general = "general";/////////

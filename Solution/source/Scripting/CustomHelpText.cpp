@@ -12,6 +12,7 @@
 #include "..\macros.h"
 
 #include "..\Natives\natives2.h"
+#include "..\Menu\Language.h"
 
 #include <Windows.h> // PCHAR, GetTickCount
 #include <string>
@@ -35,7 +36,7 @@ namespace Game
 
 	void CustomHelpText::SetText(const std::string& newText)
 	{
-		_text = _tag + newText;
+		_text = _tag + Language::TranslateToSelected(newText);
 	}
 
 	void CustomHelpText::ShowThisFrame(const std::string& textToShow)

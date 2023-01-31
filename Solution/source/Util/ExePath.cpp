@@ -72,7 +72,8 @@ std::string ffPathArray[] =
 		"\\menyooStuff\\Audio",
 		"\\menyooStuff\\Graphics",
 		"\\menyooStuff\\Graphics\\Speedo",
-		"\\menyooStuff\\WeaponsLoadout"
+		"\\menyooStuff\\WeaponsLoadout",
+		"\\menyooStuff\\Language"
 };
 
 std::wstring GetPathffW(Pathff type, bool lastSlash)

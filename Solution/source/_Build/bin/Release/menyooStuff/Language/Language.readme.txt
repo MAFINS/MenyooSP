@@ -1,0 +1,28 @@
+/menyooStuff/Language
+
+Add language translation Json files here
+Syntax:
+
+French.json:
+
+{
+   "Player Options":"Options du Joueur",
+   "Teleport Options":"Options de Téléportation",
+   "Settings":"Paramètres",
+   "French":"Français",
+   "Language":"Langue",
+   "Reload Language Files":"Recharger les fichiers de langue",
+   "Themes":"Thèmes",
+   "Menu Colours":"Couleurs des menus",
+   "Menu Fonts":"Polices des menus",
+   "Menu Position":"Emplacement des menus",
+   "Gradients":"Dégradés",
+   "Titlebox Globe":"Globe de boîte de titre",
+   "Centre Title":"Mettre le titre au centre",
+   "Centre Options":"Mettre les éléments au centre",
+   "Centre Breaks":"Mettre les séparateurs au centre",
+   "Reset Player Model Upon Death (SP)":"Réinitialiser le modèle du joueur en mourant (SP)",
+   "Sync Menyoo With Config File":"Synchroniser avec menyooConfig",
+   "Reset Toggles (Most of Them)":"Réinitialiser menyooConfig bascule"
+}
+
