@@ -310,7 +310,7 @@
     <ClCompile Include="..\external\pugixml\src\pugixml.cpp">
       <Filter>_external</Filter>
     </ClCompile>
-    <ClCompile Include="Translate.cpp">
+    <ClCompile Include="Menu\Language.cpp">
       <Filter>Menu</Filter>
     </ClCompile>
   </ItemGroup>
@@ -640,7 +640,7 @@
     <ClInclude Include="..\external\pugixml\src\pugiconfig.hpp">
       <Filter>_external</Filter>
     </ClInclude>
-    <ClInclude Include="Translate.h">
+    <ClInclude Include="Menu\Language.h">
       <Filter>Menu</Filter>
     </ClInclude>
   </ItemGroup>
