@@ -73,6 +73,7 @@
 #include "..\Submenus\PtfxSubs.h"
 #include "..\Submenus\Spooner\SpoonerEntity.h"
 #include "..\Submenus\Spooner\EntityManagement.h"
+#include "..\Submenus\CutscenePlayer.h"
 
 #include <Windows.h>
 #include <thread>
@@ -115,6 +116,7 @@ inline void MenyooMain()
 	sub::Speech_catind::PopulateVoiceData();
 	TimecycleModification::PopulateTimecycleNames();
 	PopulateGlobalEntityModelsArrays();
+	sub::CutscenePlayer_catind::PopulateCutsceneLabels();
 
 	srand(GetTickCount());
 	SET_RANDOM_SEED(GetTickCount());

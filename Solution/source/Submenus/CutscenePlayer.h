@@ -18,6 +18,8 @@ namespace sub
 	{
 		//extern const std::vector<std::string> vCutsceneLabels;
 
+		void PopulateCutsceneLabels();
+
 		void EndCutscene();
 		//void PlayCutscene(const std::string& label);
 
