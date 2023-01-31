@@ -55,7 +55,7 @@ namespace sub
 		{
 			GTAplayer player = Game::Player();
 
-			STOP_CUTSCENE(0);
+			STOP_CUTSCENE_IMMEDIATELY();
 			REMOVE_CUTSCENE();
 			player.SetControl(true, 32);
 			player.SetControl(true, 16);
@@ -67,7 +67,7 @@ namespace sub
 			if (IS_CUTSCENE_PLAYING())
 			{
 				EndCutscene();
-				return;
+				WAIT(200);
 			}
 
 			GTAplayer player = Game::Player();
