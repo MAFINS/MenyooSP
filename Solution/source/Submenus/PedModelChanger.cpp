@@ -43,6 +43,10 @@ namespace sub
 	namespace PedFavourites_catind
 	{
 		std::string xmlFavouritePeds = "FavouritePeds.xml";
+		std::string _searchStr = std::string();
+
+		void ClearSearchStr() { _searchStr.clear(); }
+
 		bool IsPedAFavourite(GTAmodel::Model model)
 		{
 			pugi::xml_document doc;
@@ -130,6 +134,8 @@ namespace sub
 
 		void Sub_PedFavourites()
 		{
+			Menu::OnSubBack = ClearSearchStr;
+
 			AddTitle("Favourites");
 
 			pugi::xml_document doc;
@@ -176,10 +182,21 @@ namespace sub
 			{
 				AddBreak("---Added Ped Models---");
 
+				bool bSearchPressed = false;
+				AddOption(_searchStr.empty() ? "SEARCH" : _searchStr, bSearchPressed, nullFunc, -1, true); if (bSearchPressed)
+				{
+					_searchStr = Game::InputBox(_searchStr, 126U, "SEARCH", boost::to_lower_copy(_searchStr));
+					boost::to_upper(_searchStr);
+					//OnscreenKeyboard::State::Set(OnscreenKeyboard::Purpose::SearchToUpper, _searchStr, 126U, std::string(), _searchStr);
+					//OnscreenKeyboard::State::arg1._ptr = reinterpret_cast<void*>(&_searchStr);
+				}
+
 				for (auto nodeLocToLoad = nodeRoot.first_child(); nodeLocToLoad; nodeLocToLoad = nodeLocToLoad.next_sibling())
 				{
 					const std::string& customName = nodeLocToLoad.attribute("customName").as_string();
 					Model model = nodeLocToLoad.attribute("hash").as_uint();
+
+					if (!_searchStr.empty()) { if (boost::to_upper_copy(customName).find(_searchStr) == std::string::npos) continue; }
 
 					AddmodelOption_(customName, model);
 				}

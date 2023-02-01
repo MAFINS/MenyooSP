@@ -45,6 +45,9 @@ namespace sub
 
 	namespace AnimationSub_catind
 	{
+		std::string  _searchStr = std::string();
+		void ClearSearchStr() { _searchStr.clear(); }
+
 		//struct NamedAnimation { std::string caption; std::string animDict, animName; };
 		const std::vector<AnimationSub_catind::NamedAnimation> vPresetPedAnims
 		{
@@ -174,13 +177,13 @@ namespace sub
 
 			AddOption(_searchStr.empty() ? "SEARCH" : boost::to_upper_copy(_searchStr), searchobj, nullFunc, -1, true); if (searchobj)
 			{
-				_searchStr = Game::InputBox(_searchStr, 126U, "", _searchStr);
+				_searchStr = Game::InputBox(_searchStr, 126U, "SEARCH", _searchStr);
 				boost::to_lower(_searchStr);
 				//OnscreenKeyboard::State::Set(OnscreenKeyboard::Purpose::SearchToLower, _searchStr, 126U, std::string(), _searchStr);
 				//OnscreenKeyboard::State::arg1._ptr = reinterpret_cast<void*>(&_searchStr);
 			}
 
-			AddOption("Stop Animation", null, AnimationSub_StopAnimationCallback);
+			AddTickol("Stop Animation", true, AnimationSub_StopAnimationCallback, AnimationSub_StopAnimationCallback, TICKOL::CROSS);
 
 			for (auto& current : vAllPedAnims)
 			{
@@ -193,9 +196,14 @@ namespace sub
 							notFoundInDict = true;
 							for (auto& current2 : current.second)
 							{
-								if (current2.find(_searchStr) != std::string::npos) { notFoundInDict = false; break; }
+								if (current2.find(_searchStr) != std::string::npos)
+								{
+									notFoundInDict = false;
+									break;
+								}
 							}
-							if (notFoundInDict) { continue; }
+							if (notFoundInDict)
+								continue;
 						}
 					}
 
@@ -437,7 +445,7 @@ namespace sub
 		SET_PED_IS_IGNORED_BY_AUTO_OPEN_DOORS(Static_241, TRUE);
 
 		AddTitle("Animations");
-		AddOption("Stop Animation", null, AnimationSub_StopAnimationCallback);
+		AddTickol("Stop Animation", true, AnimationSub_StopAnimationCallback, AnimationSub_StopAnimationCallback, TICKOL::CROSS);
 		AddanimOption_("Pole Dance", "mini@strip_club@pole_dance@pole_dance3", "pd_dance_03");
 		AddanimOption_("Hood Dance", "missfbi3_sniping", "dance_m_default");
 		AddanimOption_("Burning", "ragdoll@human", "on_fire");
@@ -561,15 +569,33 @@ namespace sub
 			Menu::SetSub_previous();
 			return;
 		}
-
 		auto nodeAnims = doc.child("PedAnims");
 
+		Menu::OnSubBack = AnimationSub_catind::ClearSearchStr;
+		auto& _searchStr = AnimationSub_catind::_searchStr;
+
 		AddTitle("Favourites");
+
+		bool bSearchPressed = false;
+		AddOption(_searchStr.empty() ? "SEARCH" : boost::to_upper_copy(_searchStr), bSearchPressed, nullFunc, -1, true); if (bSearchPressed)
+		{
+			_searchStr = Game::InputBox(_searchStr, 126U, "SEARCH", _searchStr);
+			boost::to_lower(_searchStr);
+			//OnscreenKeyboard::State::Set(OnscreenKeyboard::Purpose::SearchToUpper, _searchStr, 126U, std::string(), _searchStr);
+			//OnscreenKeyboard::State::arg1._ptr = reinterpret_cast<void*>(&_searchStr);
+		}
 
 		for (auto nodeAnim = nodeAnims.first_child(); nodeAnim; nodeAnim = nodeAnim.next_sibling())
 		{
 			std::string dict = nodeAnim.attribute("dict").as_string();
 			std::string name = nodeAnim.attribute("name").as_string();
+
+			if (!_searchStr.empty())
+			{
+				if (dict.find(_searchStr) == std::string::npos &&
+					name.find(_searchStr) == std::string::npos)
+					continue;
+			}
 
 			AddanimOption_(dict + ", " + name, dict, name);
 		}
@@ -1156,7 +1182,7 @@ namespace sub
 			AddOption("ALL SCENARIOS", clearSearchStr, nullFunc, SUB::ANIMATIONSUB_TASKSCENARIOS2); if (clearSearchStr)
 				_searchStr.clear();
 
-			AddOption("End Scenarios", null, stopScenarioPls);
+			AddTickol("End Scenarios", true, stopScenarioPls, stopScenarioPls, TICKOL::CROSS);
 
 			for (auto& scen : vNamedScenarios)
 			{
@@ -1171,13 +1197,13 @@ namespace sub
 
 			AddOption(_searchStr.empty() ? "SEARCH" : boost::to_upper_copy(_searchStr), searchobj, nullFunc, -1, true); if (searchobj)
 			{
-				_searchStr = Game::InputBox(_searchStr, 126U, "", _searchStr);
+				_searchStr = Game::InputBox(_searchStr, 126U, "SEARCH", _searchStr);
 				boost::to_lower(_searchStr);
 				//OnscreenKeyboard::State::Set(OnscreenKeyboard::Purpose::SearchToLower, _searchStr, 126U, std::string(), _searchStr);
 				//OnscreenKeyboard::State::arg1._ptr = reinterpret_cast<void*>(&_searchStr);
 			}
 
-			AddOption("End Scenarios", null, stopScenarioPls);
+			AddTickol("End Scenarios", true, stopScenarioPls, stopScenarioPls, TICKOL::CROSS);
 
 			for (auto& current : vValues_TaskScenarios)
 			{
