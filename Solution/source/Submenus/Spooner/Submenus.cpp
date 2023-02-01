@@ -914,7 +914,8 @@ namespace sub
 					bool bEntityExists = e.Handle.Exists();
 					bool bEntityPressed = false;
 
-					AddOption((*Menu::currentopATM == Menu::printingop + 1 ? "~bold~[" + e.TypeName() + "]~bold~  " : std::string()) + e.HashName + (bEntityExists ? "" : " (Invalid)"), bEntityPressed); if (bEntityPressed)
+					const std::string& strEntTypeConcat = (*Menu::currentopATM == Menu::printingop + 1 ? "  ~bold~[" + e.TypeName() + "]~bold~" : std::string());
+					AddOption(e.HashName + (bEntityExists ? "" : " (Invalid)") + strEntTypeConcat, bEntityPressed); if (bEntityPressed)
 					{
 						if (bEntityExists)
 						{
