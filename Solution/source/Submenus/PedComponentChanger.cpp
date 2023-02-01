@@ -1488,7 +1488,7 @@ namespace sub
 			bool bSearchPressed = false;
 			AddOption(_searchStr.empty() ? "SEARCH" : _searchStr, bSearchPressed, nullFunc, -1, true); if (bSearchPressed)
 			{
-				_searchStr = Game::InputBox(_searchStr, 126U, "", _searchStr);
+				_searchStr = Game::InputBox(_searchStr, 126U, "SEARCH", boost::to_lower_copy(_searchStr));
 				boost::to_upper(_searchStr);
 				//OnscreenKeyboard::State::Set(OnscreenKeyboard::Purpose::SearchToUpper, _searchStr, 126U, std::string(), _searchStr);
 				//OnscreenKeyboard::State::arg1._ptr = reinterpret_cast<void*>(&_searchStr);
