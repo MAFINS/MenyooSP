@@ -336,7 +336,6 @@ void TickNeonFwkAnim()
 		auto& fwindex = g_neonFwk;
 		int time = GetTickCount() % loop_neon_delay;
 		int step = time/(loop_neon_delay/20);
-		Game::Print::PrintBottomCentre("Time: " + std::to_string(step) + " - Step " + std::to_string(step));
 		switch (step)
 		{
 		case 1:	case 2:

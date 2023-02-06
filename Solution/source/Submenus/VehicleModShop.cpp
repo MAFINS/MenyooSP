@@ -1755,7 +1755,7 @@ namespace sub
 
 		std::vector<std::string> ms_vPlateTypeNames{ "CMOD_PLA_0", "CMOD_PLA_4", "CMOD_PLA_3", "CMOD_PLA_1", "CMOD_PLA_2", "Yankton" }; // BOW1, YOBLA, YOBLU, BOW2, BOW3, YANKTON 
 		if (veh_plate_current < 0) veh_plate_current = 0;
-		if (veh_plate_current >= ms_vPlateTypeNames.size()) veh_plate_current = (INT)ms_vPlateTypeNames.size() - 1;
+		//if (veh_plate_current >= ms_vPlateTypeNames.size()) veh_plate_current = (INT)ms_vPlateTypeNames.size() - 1;
 
 		FLOAT ms_dirtLevel = GET_VEHICLE_DIRT_LEVEL(Static_12);
 
@@ -3322,7 +3322,6 @@ namespace sub
 		{
 			bool bPressed_on = false, bPressed_off = false;
 			AddTickol(i.second.second, neonstate[static_cast<int>(i.first)], bPressed_on, bPressed_off, TICKOL::CARTHING);
-			//AddTickol(i.second.second, vehicle.IsNeonLightOn(i.first), bPressed_on, bPressed_off, TICKOL::CARTHING);
 			if (bPressed_on || bPressed_off)
 			{
 				vehicle.RequestControl(300);
@@ -3347,8 +3346,6 @@ namespace sub
 
 		if (neon_fade_plus)
 		{
-			//for (int i = 1; i < 4; i++)
-				//vehicle.NeonLightsColour_set(g_neon_colour_set);
 			if (loop_neon_fade == NEON_FADE.size()-1)
 				loop_neon_fade = 0;
 			else
@@ -3356,7 +3353,6 @@ namespace sub
 		}
 		if (neon_fade_minus)
 		{
-			//vehicle.NeonLightsColour_set(g_neon_colour_set);
 			if (loop_neon_fade == 0)
 				loop_neon_fade = NEON_FADE.size()-1;
 			else
@@ -3364,8 +3360,6 @@ namespace sub
 		}
 		if (neon_flash_plus)
 		{
-			//for (int i = 1; i < 4; i++)
-				//vehicle.NeonLightsColour_set(g_neon_colour_set);
 			if (loop_neon_flash == NEON_FLASH.size()-1)
 				loop_neon_flash = 0;
 			else
@@ -3373,7 +3367,6 @@ namespace sub
 		}
 		if (neon_flash_minus)
 		{
-			//vehicle.NeonLightsColour_set(g_neon_colour_set);
 			if (loop_neon_flash == 0)
 				loop_neon_flash = NEON_FLASH.size()-1;
 			else
