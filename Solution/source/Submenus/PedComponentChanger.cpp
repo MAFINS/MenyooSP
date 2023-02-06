@@ -1062,7 +1062,7 @@ namespace sub
 				}
 
 				// SECONDARY COLOUR
-				AddNumber(Game::GetGXTEntry("CMOD_COL0_1", "Secondary Colour"), currentOverlayData.colourSecondary, 0, null, colour_plus, colour_minus);
+				AddNumber(Game::GetGXTEntry("CMOD_COL0_1", "Secondary Colour"), currentOverlayData.colourSecondary, 0, null, colourSecondary_plus, colourSecondary_minus);
 				if (colourSecondary_plus)
 				{
 					if (currentOverlayData.colourSecondary < max_colours)
