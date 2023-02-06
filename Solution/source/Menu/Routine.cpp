@@ -2636,7 +2636,7 @@ void set_vehicle_neon_anim(GTAvehicle vehicle)
 	}
 	void set_vehicle_weapon_fire(Hash whash, float speed = 2000.0f)
 	{
-		auto& owner = Game::PlayerPed();
+		const auto& owner = Game::PlayerPed();
 
 		World::ShootBullet(vehicle_weapons_originR, vehicle_weapons_targetR, owner, whash, 200, speed, true, true);
 		World::ShootBullet(vehicle_weapons_originL, vehicle_weapons_targetL, owner, whash, 200, speed, true, true);
@@ -2783,7 +2783,7 @@ void set_vehicle_neon_anim(GTAvehicle vehicle)
 	{
 		//if (loop_unlimVehBoost)
 		{
-			GTAentity& myPed = Game::PlayerPed();
+			const GTAentity& myPed = Game::PlayerPed();
 			if (IS_PED_SITTING_IN_ANY_VEHICLE(myPed.GetHandle()) && DOES_ENTITY_EXIST(g_myVeh) && GET_HAS_ROCKET_BOOST(g_myVeh))
 			{
 				//LOG_PRINT("boostCharge %.4f", *boostCharge);
