@@ -2630,13 +2630,13 @@ void set_vehicle_neon_anim(GTAvehicle vehicle)
 			vehicle_weapons_originR = vehicle.GetOffsetInWorldCoords(dim1.x - 0.22f, dim1.y - 0.5f, 0.5f);
 			vehicle_weapons_targetR = vehicle.GetOffsetInWorldCoords(dim1.x - 0.22f, dim1.y + 350.0f, 0.5f);
 
-		vehicle_weapons_originL = vehicle.GetOffsetInWorldCoords(0.22f - dim2.x, dim1.y - 0.5f, 0.5f);
-		vehicle_weapons_targetL = vehicle.GetOffsetInWorldCoords(0.22f - dim2.x, dim1.y + 350.0f, 0.5f);
+			vehicle_weapons_originL = vehicle.GetOffsetInWorldCoords(0.22f - dim2.x, dim1.y - 0.5f, 0.5f);
+			vehicle_weapons_targetL = vehicle.GetOffsetInWorldCoords(0.22f - dim2.x, dim1.y + 350.0f, 0.5f);
+		}
 	}
-}
-void set_vehicle_weapon_fire(Hash whash, float speed = 2000.0f)
-{
-	const auto& owner = Game::PlayerPed();
+	void set_vehicle_weapon_fire(Hash whash, float speed = 2000.0f)
+	{
+		const auto& owner = Game::PlayerPed();
 
 		World::ShootBullet(vehicle_weapons_originR, vehicle_weapons_targetR, owner, whash, 200, speed, true, true);
 		World::ShootBullet(vehicle_weapons_originL, vehicle_weapons_targetL, owner, whash, 200, speed, true, true);
@@ -2776,36 +2776,36 @@ void set_vehicle_weapon_fire(Hash whash, float speed = 2000.0f)
 		APPLY_FORCE_TO_ENTITY(vehicle.Handle(), 1, 0.0f, 1.7f, 0.0f, 0.0f, 0.0f, 0.0f, 0, 1, 1, 1, 0, 1);
 		SET_VEHICLE_BOOST_ACTIVE(vehicle.Handle(), false);
 
-	set_vehicle_nos_ptfx_this_frame(vehicle);
-}
-// Vehicle - ability - native boost
-inline void set_self_vehicle_nativeboost()
-{
-	//if (loop_unlimVehBoost)
+		set_vehicle_nos_ptfx_this_frame(vehicle);
+	}
+	// Vehicle - ability - native boost
+	inline void set_self_vehicle_nativeboost()
 	{
-		const GTAentity& myPed = Game::PlayerPed();
-		if (IS_PED_SITTING_IN_ANY_VEHICLE(myPed.GetHandle()) && DOES_ENTITY_EXIST(g_myVeh) && GET_HAS_ROCKET_BOOST(g_myVeh))
+		//if (loop_unlimVehBoost)
 		{
-			//LOG_PRINT("boostCharge %.4f", *boostCharge);
-			if (IS_CONTROL_PRESSED(2, INPUT_VEH_HORN)) //_IS_VEHICLE_ROCKET_BOOST_ACTIVE(g_myVeh))
+			const GTAentity& myPed = Game::PlayerPed();
+			if (IS_PED_SITTING_IN_ANY_VEHICLE(myPed.GetHandle()) && DOES_ENTITY_EXIST(g_myVeh) && GET_HAS_ROCKET_BOOST(g_myVeh))
 			{
-				float* boostCharge = GeneralGlobalHax::GetVehicleBoostChargePtr();
-				if (boostCharge != nullptr)
-					*boostCharge = 1.24f; // 2.5f full 1.25f full after b944
-				GeneralGlobalHax::SetVehicleBoostState(1);
-				//_SET_VEHICLE_ROCKET_BOOST_ACTIVE(g_myVeh, true);
-			}
-			else
-			{
-				float* boostCharge = GeneralGlobalHax::GetVehicleBoostChargePtr();
-				if (boostCharge != nullptr)
-					*boostCharge = 1.24f;
-				GeneralGlobalHax::SetVehicleBoostState(0);
-				//_SET_VEHICLE_ROCKET_BOOST_ACTIVE(g_myVeh, false);
+				//LOG_PRINT("boostCharge %.4f", *boostCharge);
+				if (IS_CONTROL_PRESSED(2, INPUT_VEH_HORN)) //_IS_VEHICLE_ROCKET_BOOST_ACTIVE(g_myVeh))
+				{
+					float* boostCharge = GeneralGlobalHax::GetVehicleBoostChargePtr();
+					if (boostCharge != nullptr)
+						*boostCharge = 1.24f; // 2.5f full 1.25f full after b944
+					GeneralGlobalHax::SetVehicleBoostState(1);
+					//_SET_VEHICLE_ROCKET_BOOST_ACTIVE(g_myVeh, true);
+				}
+				else
+				{
+					float* boostCharge = GeneralGlobalHax::GetVehicleBoostChargePtr();
+					if (boostCharge != nullptr)
+						*boostCharge = 1.24f;
+					GeneralGlobalHax::SetVehicleBoostState(0);
+					//_SET_VEHICLE_ROCKET_BOOST_ACTIVE(g_myVeh, false);
+				}
 			}
 		}
 	}
-}
 
 	// Vehicle - ability (personal vehicle)
 	GTAvehicle PV_sub_vehicleid;
