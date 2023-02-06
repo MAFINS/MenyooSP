@@ -41,7 +41,7 @@ namespace TimecycleModification
 		{
 			vTimecycles.clear();
 			pugi::xml_node nodeRoot = doc.child("TimecycModifiers");
-			for (auto& nodeMod = nodeRoot.child("Mod"); nodeMod; nodeMod = nodeMod.next_sibling("Mod"))
+			for (auto nodeMod = nodeRoot.child("Mod"); nodeMod; nodeMod = nodeMod.next_sibling("Mod"))
 			{
 				const pugi::char_t* modCaption = nodeMod.attribute("caption").as_string();
 				const pugi::char_t* modName = nodeMod.attribute("name").as_string();
@@ -61,11 +61,11 @@ namespace TimecycleModification
 	}
 	void SetMod(const std::string& value)
 	{
-		GRAPHICS::SET_TIMECYCLE_MODIFIER(const_cast<PCHAR>(value.c_str()));
+		GRAPHICS::SET_TIMECYCLE_MODIFIER(value.c_str());
 	}
 	void SetMod(const std::string& value, float transition)
 	{
-		GRAPHICS::SET_TRANSITION_TIMECYCLE_MODIFIER(const_cast<PCHAR>(value.c_str()), transition);
+		GRAPHICS::SET_TRANSITION_TIMECYCLE_MODIFIER(value.c_str(), transition);
 	}
 	void SetModStrength(float value)
 	{

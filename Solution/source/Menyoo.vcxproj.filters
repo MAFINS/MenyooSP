@@ -310,6 +310,9 @@
     <ClCompile Include="..\external\pugixml\src\pugixml.cpp">
       <Filter>_external</Filter>
     </ClCompile>
+    <ClCompile Include="Menu\Language.cpp">
+      <Filter>Menu</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Util\ExePath.h">
@@ -636,6 +639,9 @@
     </ClInclude>
     <ClInclude Include="..\external\pugixml\src\pugiconfig.hpp">
       <Filter>_external</Filter>
+    </ClInclude>
+    <ClInclude Include="Menu\Language.h">
+      <Filter>Menu</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -76,7 +76,7 @@ namespace sub::Spooner
 		{
 			return GetEntityIndexInDb(ent.Handle);
 		}
-		void AddEntityToDb(SpoonerEntity& ent, bool missionEnt)
+		void AddEntityToDb(SpoonerEntity ent, bool missionEnt)
 		{
 			if (ent.Handle.Exists())
 			{
@@ -91,7 +91,7 @@ namespace sub::Spooner
 		{
 			GTAentity handle = ent.Handle;
 
-			auto& eit = std::find(Databases::EntityDb.begin(), Databases::EntityDb.end(), ent);
+			const auto& eit = std::find(Databases::EntityDb.begin(), Databases::EntityDb.end(), ent);
 			if (eit != Databases::EntityDb.end())
 			{
 				eit->TaskSequence.Reset(true);
@@ -293,7 +293,7 @@ namespace sub::Spooner
 			}
 			if (!model.IsInCdImage())
 			{
-				std::string& mdlnme = get_prop_model_label(model);
+				const std::string& mdlnme = get_prop_model_label(model);
 				std::string nameOfPlaceWhereYouMayFindThisModelToBeValid = "NO SUGGESTED LOCATIONS";
 				if (!mdlnme.empty())
 				{
@@ -351,7 +351,7 @@ namespace sub::Spooner
 
 			GTAped myPed = PLAYER_PED_ID();
 			SpoonerEntity newEntity;
-			ModelDimensions& dimensions = model.Dimensions();
+			const ModelDimensions& dimensions = model.Dimensions();
 			bool bDynamic = Settings::bSpawnDynamicProps;
 			bool bFreezePos = !bDynamic;
 			bool bCollision = true;
@@ -360,7 +360,7 @@ namespace sub::Spooner
 
 			if (!spoocam.IsActive())
 			{
-				GTAentity myPedOrVehicle = myPed.IsInVehicle() ? myPed.CurrentVehicle() : myPed;
+				GTAentity myPedOrVehicle = myPed.IsInVehicle() ? (GTAentity)myPed.CurrentVehicle() : (GTAentity)myPed;
 
 				newEntity.Handle = World::CreateProp(model, myPedOrVehicle.GetOffsetInWorldCoords(0, myPedOrVehicle.Dim1().y + 2.6f + dimensions.Dim2.y, 0), myPedOrVehicle.Rotation_get(), bDynamic, false);
 				if (unloadModel)
@@ -370,7 +370,7 @@ namespace sub::Spooner
 			}
 			else
 			{
-				Vector3& spawnPos = spoocam.RaycastForCoord(Vector2(0.0f, 0.0f), 0, 120.0f, 30.0f + dimensions.Dim2.y);
+				Vector3 spawnPos = spoocam.RaycastForCoord(Vector2(0.0f, 0.0f), 0, 120.0f, 30.0f + dimensions.Dim2.y);
 				spawnPos.z += dimensions.Dim1.z;
 
 				newEntity.Handle = World::CreateProp(model, spawnPos, Vector3(0, 0, spoocam.Rotation_get().z), bDynamic, false);
@@ -423,7 +423,7 @@ namespace sub::Spooner
 
 			GTAped myPed = PLAYER_PED_ID();
 			SpoonerEntity newEntity;
-			ModelDimensions& dimensions = model.Dimensions();
+			const ModelDimensions& dimensions = model.Dimensions();
 			bool bDynamic = Settings::bSpawnDynamicPeds;
 			bool bFreezePos = !bDynamic;
 			bool bCollision = true;
@@ -432,7 +432,7 @@ namespace sub::Spooner
 
 			if (!spoocam.IsActive())
 			{
-				GTAentity myPedOrVehicle = myPed.IsInVehicle() ? myPed.CurrentVehicle() : myPed;
+				GTAentity myPedOrVehicle = myPed.IsInVehicle() ? (GTAentity)myPed.CurrentVehicle() : (GTAentity)myPed;
 
 				newEntity.Handle = World::CreatePed(model, myPedOrVehicle.GetOffsetInWorldCoords(0, myPedOrVehicle.Dim1().y + 2.6f + dimensions.Dim2.y, 0), myPedOrVehicle.Rotation_get(), myPedOrVehicle.HeightAboveGround() < 3.0f);
 				if (unloadModel)
@@ -440,7 +440,7 @@ namespace sub::Spooner
 			}
 			else
 			{
-				Vector3& spawnPos = spoocam.RaycastForCoord(Vector2(0.0f, 0.0f), 0, 120.0f, 30.0f + dimensions.Dim2.y);
+				Vector3 spawnPos = spoocam.RaycastForCoord(Vector2(0.0f, 0.0f), 0, 120.0f, 30.0f + dimensions.Dim2.y);
 				spawnPos.z += dimensions.Dim1.z;
 
 				newEntity.Handle = World::CreatePed(model, spawnPos, Vector3(0, 0, spoocam.Rotation_get().z), false);
@@ -510,7 +510,7 @@ namespace sub::Spooner
 
 			GTAped myPed = PLAYER_PED_ID();
 			SpoonerEntity newEntity;
-			ModelDimensions& dimensions = model.Dimensions();
+			const ModelDimensions& dimensions = model.Dimensions();
 			bool bDynamic = Settings::bSpawnDynamicVehicles;
 			bool bFreezePos = !bDynamic;
 			bool bCollision = true;
@@ -519,7 +519,7 @@ namespace sub::Spooner
 
 			if (!spoocam.IsActive())
 			{
-				GTAentity myPedOrVehicle = myPed.IsInVehicle() ? myPed.CurrentVehicle() : myPed;
+				GTAentity myPedOrVehicle = myPed.IsInVehicle() ? (GTAentity)myPed.CurrentVehicle() : (GTAentity)myPed;
 
 				newEntity.Handle = World::CreateVehicle(model, myPedOrVehicle.GetOffsetInWorldCoords(0, myPedOrVehicle.Dim1().y + 3.6f + dimensions.Dim2.y, 0), myPedOrVehicle.Rotation_get(), false);
 				if (unloadModel)
@@ -529,7 +529,7 @@ namespace sub::Spooner
 			}
 			else
 			{
-				Vector3& spawnPos = spoocam.RaycastForCoord(Vector2(0.0f, 0.0f), 0, 120.0f, 30.0f + dimensions.Dim2.y);
+				Vector3 spawnPos = spoocam.RaycastForCoord(Vector2(0.0f, 0.0f), 0, 120.0f, 30.0f + dimensions.Dim2.y);
 				spawnPos.z += dimensions.Dim1.z;
 
 				newEntity.Handle = World::CreateVehicle(model, spawnPos, Vector3(0, 0, spoocam.Rotation_get().z), false);
@@ -580,7 +580,7 @@ namespace sub::Spooner
 			return SpoonerEntity();
 		}
 
-		SpoonerEntity CopyEntity(SpoonerEntity& orig, bool isInDb, bool addToDb, UINT8 copyAttachments, bool unloadModel, UINT8 currAtir)
+		SpoonerEntity CopyEntity(SpoonerEntity orig, bool isInDb, bool addToDb, UINT8 copyAttachments, bool unloadModel, UINT8 currAtir)
 		{
 			if (!orig.Handle.Exists())
 				return SpoonerEntity();
@@ -646,10 +646,10 @@ namespace sub::Spooner
 				newEntity.Handle = origPed.Clone(origPed.Heading_get(), true, true);
 				ep = newEntity.Handle;
 
-				auto& movGrpStr = get_ped_movement_clipset(orig.Handle);
+				const auto& movGrpStr = get_ped_movement_clipset(orig.Handle);
 				if (!movGrpStr.empty())
 					set_ped_movement_clipset(ep, movGrpStr);
-				auto& wMovGrpStr = get_ped_weapon_movement_clipset(orig.Handle);
+				const auto& wMovGrpStr = get_ped_weapon_movement_clipset(orig.Handle);
 				if (!wMovGrpStr.empty())
 					set_ped_weapon_movement_clipset(ep, wMovGrpStr);
 
@@ -670,17 +670,17 @@ namespace sub::Spooner
 				SET_PED_CAN_PLAY_VISEME_ANIMS(ep.Handle(), true, TRUE);
 				SET_PED_IS_IGNORED_BY_AUTO_OPEN_DOORS(ep.Handle(), true);
 
-				if (!bTaskSeqIsActive && IS_PED_USING_SCENARIO(orig.Handle.Handle(), const_cast<PCHAR>(orig.LastAnimation.name.c_str())))
+				if (!bTaskSeqIsActive && IS_PED_USING_SCENARIO(orig.Handle.Handle(), orig.LastAnimation.name.c_str()))
 				{
 					WAIT(40);
 					ep.Task().StartScenario(orig.LastAnimation.name, -1, false);
 				}
-				if (!bTaskSeqIsActive && IS_ENTITY_PLAYING_ANIM(orig.Handle.Handle(), const_cast<PCHAR>(orig.LastAnimation.dict.c_str()), const_cast<PCHAR>(orig.LastAnimation.name.c_str()), 3))
+				if (!bTaskSeqIsActive && IS_ENTITY_PLAYING_ANIM(orig.Handle.Handle(), orig.LastAnimation.dict.c_str(), orig.LastAnimation.name.c_str(), 3))
 				{
 					ep.Task().PlayAnimation(orig.LastAnimation.dict, orig.LastAnimation.name);
 				}
 
-				auto& facialMoodStr = get_ped_facial_mood(orig.Handle);
+				const auto& facialMoodStr = get_ped_facial_mood(orig.Handle);
 				if (!facialMoodStr.empty())
 					set_ped_facial_mood(ep, facialMoodStr);
 
@@ -758,7 +758,7 @@ namespace sub::Spooner
 					if (GetEntityThisEntityIsAttachedTo(e.Handle, attTo) && attTo == orig.Handle)
 					{
 						atirModelHashes.insert(e.Handle.Model().hash);
-						auto& newAtt = CopyEntity(e, true, false, copyAttachments, false, currAtir + 1);
+						auto newAtt = CopyEntity(e, true, false, copyAttachments, false, currAtir + 1);
 						EntityManagement::AttachEntity(newAtt, newEntity.Handle, e.AttachmentArgs.boneIndex, e.AttachmentArgs.offset, e.AttachmentArgs.rotation);
 						if (addToDb) Databases::EntityDb.push_back(newAtt);
 					}
@@ -890,21 +890,21 @@ namespace sub::Spooner
 		{
 			if (ent.Exists())
 			{
-				auto& ent_md = ent.ModelDimensions();
+				const auto& ent_md = ent.ModelDimensions();
 
 				// I've used the opposite Z dimensions for reasons
-				auto& boxUpperLeftRear = ent.GetOffsetInWorldCoords(-ent_md.Dim2.x, -ent_md.Dim2.y, ent_md.Dim2.z);
-				auto& boxUpperRightRear = ent.GetOffsetInWorldCoords(ent_md.Dim1.x, -ent_md.Dim2.y, ent_md.Dim2.z);
-				auto& boxLowerLeftRear = ent.GetOffsetInWorldCoords(-ent_md.Dim2.x, -ent_md.Dim2.y, -ent_md.Dim1.z);
-				auto& boxLowerRightRear = ent.GetOffsetInWorldCoords(ent_md.Dim1.x, -ent_md.Dim2.y, -ent_md.Dim1.z);
+				const auto& boxUpperLeftRear = ent.GetOffsetInWorldCoords(-ent_md.Dim2.x, -ent_md.Dim2.y, ent_md.Dim2.z);
+				const auto& boxUpperRightRear = ent.GetOffsetInWorldCoords(ent_md.Dim1.x, -ent_md.Dim2.y, ent_md.Dim2.z);
+				const auto& boxLowerLeftRear = ent.GetOffsetInWorldCoords(-ent_md.Dim2.x, -ent_md.Dim2.y, -ent_md.Dim1.z);
+				const auto& boxLowerRightRear = ent.GetOffsetInWorldCoords(ent_md.Dim1.x, -ent_md.Dim2.y, -ent_md.Dim1.z);
 
-				auto& boxUpperLeftFront = ent.GetOffsetInWorldCoords(-ent_md.Dim2.x, ent_md.Dim1.y, ent_md.Dim2.z);
-				auto& boxUpperRightFront = ent.GetOffsetInWorldCoords(ent_md.Dim1.x, ent_md.Dim1.y, ent_md.Dim2.z);
-				auto& boxLowerLeftFront = ent.GetOffsetInWorldCoords(-ent_md.Dim2.x, ent_md.Dim1.y, -ent_md.Dim1.z);
-				auto& boxLowerRightFront = ent.GetOffsetInWorldCoords(ent_md.Dim1.x, ent_md.Dim1.y, -ent_md.Dim1.z);
+				const auto& boxUpperLeftFront = ent.GetOffsetInWorldCoords(-ent_md.Dim2.x, ent_md.Dim1.y, ent_md.Dim2.z);
+				const auto& boxUpperRightFront = ent.GetOffsetInWorldCoords(ent_md.Dim1.x, ent_md.Dim1.y, ent_md.Dim2.z);
+				const auto& boxLowerLeftFront = ent.GetOffsetInWorldCoords(-ent_md.Dim2.x, ent_md.Dim1.y, -ent_md.Dim1.z);
+				const auto& boxLowerRightFront = ent.GetOffsetInWorldCoords(ent_md.Dim1.x, ent_md.Dim1.y, -ent_md.Dim1.z);
 
-				RGBA& lineColour = colour.ToRGBA(250);
-				RGBA& polyColour = colour.ToRGBA(100);
+				const RGBA& lineColour = colour.ToRGBA(250);
+				const RGBA& polyColour = colour.ToRGBA(100);
 
 				World::DrawLine(boxUpperLeftRear, boxUpperRightRear, lineColour);
 				World::DrawLine(boxLowerLeftRear, boxLowerRightRear, lineColour);
@@ -947,9 +947,9 @@ namespace sub::Spooner
 		{
 			if (ent.Exists())
 			{
-				auto& soe_pos = ent.Position_get();
-				auto& soe_md = ent.ModelDimensions();
-				auto& markerPos = soe_pos + Vector3(0, 0, (std::max)(soe_md.Dim1.z, soe_md.Dim2.z) + 1.4f); // May not be at the right position if the entity is tilted
+				const auto& soe_pos = ent.Position_get();
+				const auto& soe_md = ent.ModelDimensions();
+				const auto& markerPos = soe_pos + Vector3(0, 0, (std::max)(soe_md.Dim1.z, soe_md.Dim2.z) + 1.4f); // May not be at the right position if the entity is tilted
 				World::DrawMarker(MarkerType::UpsideDownCone, markerPos, Vector3(), Vector3(), Vector3(1, 1, 2), colour);
 			}
 		}

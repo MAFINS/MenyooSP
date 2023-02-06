@@ -61,7 +61,7 @@ bool Scaleform::Load(const std::string& scaleformID)
 
 	if (!HAS_SCALEFORM_MOVIE_LOADED(this->mHandle))
 	{
-		this->mHandle = REQUEST_SCALEFORM_MOVIE(const_cast<PCHAR>(scaleformID.c_str()));
+		this->mHandle = REQUEST_SCALEFORM_MOVIE(scaleformID.c_str());
 		if (HAS_SCALEFORM_MOVIE_LOADED(this->mHandle))
 			return true;
 		return false;
@@ -79,7 +79,7 @@ void Scaleform::Unload()
 
 void Scaleform::PushFunction(const std::string& function)
 {
-	BEGIN_SCALEFORM_MOVIE_METHOD(this->mHandle, const_cast<PCHAR>(function.c_str()));
+	BEGIN_SCALEFORM_MOVIE_METHOD(this->mHandle, function.c_str());
 }
 void Scaleform::PushInteger(int arg)
 {
@@ -95,23 +95,22 @@ void Scaleform::PushFloat(float arg)
 }
 void Scaleform::PushString(const std::string& arg)
 {
-	SCALEFORM_MOVIE_METHOD_ADD_PARAM_TEXTURE_NAME_STRING(const_cast<PCHAR>(arg.c_str()));
+	SCALEFORM_MOVIE_METHOD_ADD_PARAM_TEXTURE_NAME_STRING(arg.c_str());
 }
 void Scaleform::PushString2(const std::string& arg)
 {
-	SCALEFORM_MOVIE_METHOD_ADD_PARAM_PLAYER_NAME_STRING(const_cast<PCHAR>(arg.c_str()));
+	SCALEFORM_MOVIE_METHOD_ADD_PARAM_PLAYER_NAME_STRING(arg.c_str());
 }
 void Scaleform::PushTextComponent(const std::string& arg)
 {
-	PCHAR text = const_cast<PCHAR>(arg.c_str());
-	if (DOES_TEXT_LABEL_EXIST(text))
+	if (DOES_TEXT_LABEL_EXIST(arg.c_str()))
 	{
-		BEGIN_TEXT_COMMAND_SCALEFORM_STRING(text);
+		BEGIN_TEXT_COMMAND_SCALEFORM_STRING(arg.c_str());
 	}
 	else
 	{
 		BEGIN_TEXT_COMMAND_SCALEFORM_STRING("STRING");
-		ADD_TEXT_COMPONENT_SUBSTRING_PLAYER_NAME(text);
+		ADD_TEXT_COMPONENT_SUBSTRING_PLAYER_NAME(arg.c_str());
 	}
 	//ADD_TEXT_COMPONENT_INTEGER(-1);
 	END_TEXT_COMMAND_SCALEFORM_STRING();

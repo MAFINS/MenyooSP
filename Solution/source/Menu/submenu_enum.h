@@ -22,6 +22,7 @@ namespace SUB {
 		SETTINGS_COLOURS2,
 		SETTINGS_FONTS,
 		SETTINGS_FONTS2,
+		SETTINGS_LANGUAGE,
 
 		OBJECTSPAWNER_OBJS, // now used for object gun, etc.
 

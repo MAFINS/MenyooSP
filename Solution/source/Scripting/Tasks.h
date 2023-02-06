@@ -58,9 +58,9 @@ public:
 	void FleeFrom(GTAentity ped, int duration);
 	void FleeFrom(const Vector3& position);
 	void FleeFrom(const Vector3& position, int duration);
-	template<typename... Args> void FollowPointRoute(float speed, Args... p);
-	void FollowPointRoute(std::vector<Vector3>& points, float speed = 1.0f);
-	void FollowPointRoute(std::initializer_list<Vector3>& points, float speed = 1.0f);
+	template<typename... Args> void FollowPointRoute(float speed, Args&&... p);
+	void FollowPointRoute(const std::vector<Vector3>& points, float speed = 1.0f);
+	void FollowPointRoute(const std::initializer_list<Vector3>& points, float speed = 1.0f);
 	void GoTo(GTAentity target);
 	void GoTo(GTAentity target, const Vector3& offset);
 	void GoTo(GTAentity target, const Vector3& offset, int timeout);

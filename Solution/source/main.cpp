@@ -30,6 +30,8 @@ BOOL APIENTRY DllMain(HMODULE hInstance, DWORD reason, LPVOID lpReserved)
 
 		if (!GetModuleInformation(GetCurrentProcess(), g_MainModule, &g_MainModuleInfo, sizeof(g_MainModuleInfo)))
 			ige::myLog << ige::LogType::LOG_ERROR << "Unable to get MODULEINFO from GTA5.exe";
+		else
+			ige::myLog << ige::LogType::LOG_INFO << "MODULEINFO: lpBaseofDll=" << g_MainModuleInfo.lpBaseOfDll << ", SizeOfImage=" << g_MainModuleInfo.SizeOfImage << ", EntryPoint=" << g_MainModuleInfo.EntryPoint;
 
 		GTAmemory::Init();
 

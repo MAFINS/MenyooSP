@@ -21,6 +21,7 @@
 #include "..\Scripting\GameplayCamera.h"
 #include "..\Scripting\ModelNames.h" // _vNeonColours
 #include "Routine.h" // (loop_no_clip_toggle, loop_hide_hud)
+#include "Language.h"
 
 #include <Windows.h>
 #include <utility>
@@ -469,7 +470,7 @@ void Menu::background()
 	// Draw option count
 	temp = scr_rect_Y - 0.0124f;
 
-	std::string& toPrint = std::to_string(*currentopATM) + " / " + std::to_string(totalop);
+	std::string toPrint = std::to_string(*currentopATM) + " / " + std::to_string(totalop);
 
 	Game::Print::setupdraw(GTAfont::Arial, Vector2(0.0f, 0.26f), false, false, false, optioncount);
 	float width = Game::Print::GetTextWidth(toPrint);
@@ -967,7 +968,7 @@ void MouseSupport::DisableControls()
 void MouseSupport::DoMouseTick()
 {
 
-	Vector2& safezoneOffset = GetSafezoneBounds();
+	//Vector2& safezoneOffset = GetSafezoneBounds();
 
 	SET_MOUSE_CURSOR_THIS_FRAME();
 
@@ -1021,7 +1022,7 @@ void MouseSupport::DrawOptionHighlight()
 	if (Menu::totalop < 1)
 		return;
 
-	Vector2& pos = ItemNumberToItemCoords(MouseSupport::currentopM);
+	Vector2 pos = ItemNumberToItemCoords(MouseSupport::currentopM);
 	Vector2 size = { 0.20f, 0.035f };
 
 	if (Menu::gradients)
@@ -1058,7 +1059,7 @@ Vector2 MouseSupport::MousePosition()
 }
 bool MouseSupport::IsMouseInBounds(Vector2 const& boxCentre, Vector2 const& boxSize)
 {
-	Vector2& pos = MousePosition();
+	Vector2 pos = MousePosition();
 
 	return (pos.x >= boxCentre.x - boxSize.x / 2 && pos.x <= boxCentre.x + boxSize.x / 2)
 		&& (pos.y > boxCentre.y - boxSize.y / 2 && pos.y < boxCentre.y + boxSize.y / 2);
@@ -1124,8 +1125,10 @@ bool null;
 int inull;
 void nullFunc() { return; }
 
-void AddTitle(const std::string& text)
+void AddTitle(std::string text)
 {
+	text = Language::TranslateToSelected(text);
+
 	if (titletext_ALPHA_DIS_TEMP)
 	{
 		Game::Print::setupdraw(font_title, Vector2(0.26, 0.26), true, false, false, titletext);
@@ -1169,7 +1172,7 @@ void AddTitle(const std::string& text)
 }
 void AddOption(std::string text, bool& option_code_bool, void(&callback)(), int submenu_index, bool show_arrow, bool gxt)
 {
-	char* tempChar;
+	std::string tempChar;
 
 	Menu::printingop++;
 
@@ -1202,7 +1205,8 @@ void AddOption(std::string text, bool& option_code_bool, void(&callback)(), int 
 	OptionY = OptionY * 0.035f + 0.125f;
 
 	Game::Print::setupdraw();
-	if (font_options == 0) SET_TEXT_SCALE(0, 0.33f);
+	if (font_options == 0)
+		SET_TEXT_SCALE(0, 0.33f);
 	SET_TEXT_FONT(font_options);
 	SET_TEXT_COLOUR(optiontext.R, optiontext.G, optiontext.B, optiontext.A);
 	if (Menu::bit_mouse ? Menu::printingop == MouseSupport::currentopM : Menu::printingop == Menu::currentop)
@@ -1216,14 +1220,19 @@ void AddOption(std::string text, bool& option_code_bool, void(&callback)(), int 
 		{
 			/*if (&option_code_bool != &null)*/ option_code_bool = true;
 			callback();
-			if (submenu_index != -1) Menu::SetSub_delayed = submenu_index;
+			if (submenu_index != -1)
+				Menu::SetSub_delayed = submenu_index;
 		}
 	}
 	else
 	{
-		if (font_options == 2 || font_options == 7) tempChar = "  ~b~=="; // Font unsafe
-		else tempChar = "  ~b~>"; // Font safe
+		if (font_options == 2 || font_options == 7)
+			tempChar = "  ~b~=="; // Font unsafe
+		else
+			tempChar = "  ~b~>"; // Font safe
 	}
+
+	text = Language::TranslateToSelected(text);
 
 	if (show_arrow || submenu_index != -1)
 	{
@@ -1238,7 +1247,8 @@ void AddOption(std::string text, bool& option_code_bool, void(&callback)(), int 
 			SET_TEXT_CENTRE(1);
 			Game::Print::drawstringGXT(text, 0.16f + menuPos.x, OptionY + menuPos.y);
 		}
-		else Game::Print::drawstringGXT(text, 0.066f + menuPos.x, OptionY + menuPos.y);
+		else
+			Game::Print::drawstringGXT(text, 0.066f + menuPos.x, OptionY + menuPos.y);
 	}
 	else
 	{
@@ -1247,7 +1257,8 @@ void AddOption(std::string text, bool& option_code_bool, void(&callback)(), int 
 			SET_TEXT_CENTRE(1);
 			Game::Print::drawstring(text, 0.16f + menuPos.x, OptionY + menuPos.y);
 		}
-		else Game::Print::drawstring(text, 0.066f + menuPos.x, OptionY + menuPos.y);
+		else
+			Game::Print::drawstring(text, 0.066f + menuPos.x, OptionY + menuPos.y);
 	}
 }
 inline void AddOption(std::ostream& os, bool& option_code_bool, void(&callback)(), int submenu_index, bool show_arrow, bool gxt)
@@ -1362,7 +1373,7 @@ void AddLocal(const std::string& text, BOOL condition, void(&callback_ON)(), voi
 
 	OptionStatus(condition); // Display ON/OFF
 }
-void AddBreak(const std::string& text)
+void AddBreak(std::string text)
 {
 	Menu::printingop++; Menu::breakcount++;
 
@@ -1417,6 +1428,9 @@ void AddBreak(const std::string& text)
 		}
 
 	}
+
+	text = Language::TranslateToSelected(text);
+
 	if (Menu::bit_centre_breaks)
 	{
 		SET_TEXT_CENTRE(1);
@@ -1479,24 +1493,24 @@ void AddNumber(const std::string& text, float value, __int8 decimal_places, bool
 	}
 
 }
-void draw_tickol_tick_BNW(const PCHAR textureDict, const PCHAR normal, const PCHAR selected, const RGBA& colour)
+void draw_tickol_tick_BNW(const std::string& textureDict, const std::string& normal, const std::string& selected, const RGBA& colour)
 {
-	if (!HAS_STREAMED_TEXTURE_DICT_LOADED(textureDict)) REQUEST_STREAMED_TEXTURE_DICT(textureDict, 0);
-	PCHAR textureName;
+	if (!HAS_STREAMED_TEXTURE_DICT_LOADED(textureDict.c_str())) REQUEST_STREAMED_TEXTURE_DICT(textureDict.c_str(), 0);
+	std::string textureName;
 	if (Menu::printingop == *Menu::currentopATM)
 		textureName = selected;
 	else textureName = normal;
-	Vector3 texture_res = GET_TEXTURE_RESOLUTION(textureDict, textureName);
+	Vector3 texture_res = GET_TEXTURE_RESOLUTION(textureDict.c_str(), textureName.c_str());
 	texture_res.x /= (Game::defaultScreenRes.first * 2);
 	texture_res.y /= (Game::defaultScreenRes.second * 2);
-	DRAW_SPRITE(textureDict, textureName, get_xcoord_at_menu_rightEdge(texture_res.x, 0.0f, true), OptionY + 0.016f + menuPos.y, texture_res.x, texture_res.y, 0.0f, 255, 255, 255, colour.A, false, 0);
+	DRAW_SPRITE(textureDict.c_str(), textureName.c_str(), get_xcoord_at_menu_rightEdge(texture_res.x, 0.0f, true), OptionY + 0.016f + menuPos.y, texture_res.x, texture_res.y, 0.0f, 255, 255, 255, colour.A, false, 0);
 
 }
 inline void draw_tickol_tick(TICKOL tickType)
 {
 	RGBA* colour = &optiontext;
 	if (Menu::printingop == *Menu::currentopATM) colour = &selectedtext;
-	PCHAR textureDict, textureName;
+	std::string textureDict, textureName;
 	Vector3 texture_res;
 
 	switch (tickType)
@@ -1558,12 +1572,12 @@ inline void draw_tickol_tick(TICKOL tickType)
 
 	}
 
-	if (!HAS_STREAMED_TEXTURE_DICT_LOADED(textureDict)) REQUEST_STREAMED_TEXTURE_DICT(textureDict, 0);
-	texture_res = GET_TEXTURE_RESOLUTION(textureDict, textureName);
+	if (!HAS_STREAMED_TEXTURE_DICT_LOADED(textureDict.c_str())) REQUEST_STREAMED_TEXTURE_DICT(textureDict.c_str(), 0);
+	texture_res = GET_TEXTURE_RESOLUTION(textureDict.c_str(), textureName.c_str());
 	texture_res.x /= (Game::defaultScreenRes.first * 2);
 	texture_res.y /= (Game::defaultScreenRes.second * 2);
 
-	DRAW_SPRITE(textureDict, textureName, get_xcoord_at_menu_rightEdge(texture_res.x, 0.0f, true), OptionY + 0.016f + menuPos.y, texture_res.x, texture_res.y, 0.0f, colour->R, colour->G, colour->B, colour->A, false, 0);
+	DRAW_SPRITE(textureDict.c_str(), textureName.c_str(), get_xcoord_at_menu_rightEdge(texture_res.x, 0.0f, true), OptionY + 0.016f + menuPos.y, texture_res.x, texture_res.y, 0.0f, colour->R, colour->G, colour->B, colour->A, false, 0);
 
 }
 void AddTickol(const std::string& text, BOOL condition, bool& option_code_ON, bool& option_code_OFF, TICKOL tickTrue, TICKOL tickFalse, bool gxt)
@@ -1629,9 +1643,8 @@ inline void AddTexter(const std::string& text, int selectedindex, const TA& text
 		{
 			chartickStr = textarray.at(selectedindex);
 		}
-		const char* chartick = const_cast<PCHAR>(chartickStr.c_str());
 
-		chartick = DOES_TEXT_LABEL_EXIST(chartick) ? GET_FILENAME_FOR_AUDIO_CONVERSATION(chartick) : chartick;
+		chartickStr = DOES_TEXT_LABEL_EXIST(chartickStr.c_str()) ? GET_FILENAME_FOR_AUDIO_CONVERSATION(chartickStr.c_str()) : Language::TranslateToSelected(chartickStr);
 		FLOAT newXpos;
 		Game::Print::setupdraw(0, Vector2(0.26, 0.26), true, true, false, optiontext);
 
@@ -1644,26 +1657,26 @@ inline void AddTexter(const std::string& text, int selectedindex, const TA& text
 				textureRes.y /= (Game::defaultScreenRes.second * 2);
 				newXpos = get_xcoord_at_menu_rightEdge(textureRes.x - 0.005, 0.0f, true);
 				DRAW_SPRITE("CommonMenu", "arrowright", newXpos, OptionY + 0.016f + menuPos.y, textureRes.x, textureRes.y, 0.0f, selectedtext.R, selectedtext.G, selectedtext.B, selectedtext.A, false, 0); // Right
-				newXpos = get_xcoord_at_menu_rightEdge(textureRes.x - 0.005, textureRes.x - 0.005 + Game::Print::GetTextWidth(chartick), true);
+				newXpos = get_xcoord_at_menu_rightEdge(textureRes.x - 0.005, textureRes.x - 0.005 + Game::Print::GetTextWidth(chartickStr), true);
 				DRAW_SPRITE("CommonMenu", "arrowleft", newXpos, OptionY + 0.016f + menuPos.y, textureRes.x, textureRes.y, 0.0f, selectedtext.R, selectedtext.G, selectedtext.B, selectedtext.A, false, 0); // Left
 
 				Game::Print::setupdraw(0, Vector2(0.26, 0.26), true, true, false, selectedtext);
-				newXpos = get_xcoord_at_menu_rightEdge(Game::Print::GetTextWidth(chartick), textureRes.x - 0.005, true);
+				newXpos = get_xcoord_at_menu_rightEdge(Game::Print::GetTextWidth(chartickStr), textureRes.x - 0.005, true);
 				Game::Print::setupdraw(0, Vector2(0.26, 0.26), true, true, false, selectedtext);
 			}
 			else
 			{
-				newXpos = get_xcoord_at_menu_rightEdge(Game::Print::GetTextWidth(chartick), 0.0024f, true);
+				newXpos = get_xcoord_at_menu_rightEdge(Game::Print::GetTextWidth(chartickStr), 0.0024f, true);
 				Game::Print::setupdraw(0, Vector2(0.26, 0.26), true, true, false, selectedtext);
 			}
 		}
 		else
 		{
-			newXpos = get_xcoord_at_menu_rightEdge(Game::Print::GetTextWidth(chartick), 0.0024f, true);
+			newXpos = get_xcoord_at_menu_rightEdge(Game::Print::GetTextWidth(chartickStr), 0.0024f, true);
 			Game::Print::setupdraw(0, Vector2(0.26, 0.26), true, true, false, optiontext);
 		}
 
-		Game::Print::drawstring(chartick, newXpos, OptionY + 0.0056 + menuPos.y);
+		Game::Print::drawstring(chartickStr, newXpos, OptionY + 0.0056 + menuPos.y);
 	}
 
 	if (Menu::printingop == *Menu::currentopATM)
@@ -1714,7 +1727,7 @@ bool Add_preset_colour_options(INT& r, INT& g, INT& b)
 	for (auto& colol : _vNeonColours)
 	{
 		null = 0;
-		AddTickol(const_cast<PCHAR>(colol.name.c_str()), r == colol.rgb.R && g == colol.rgb.G && b == colol.rgb.B, null, null);
+		AddTickol(colol.name.c_str(), r == colol.rgb.R && g == colol.rgb.G && b == colol.rgb.B, null, null);
 		if (null)
 		{
 			r = colol.rgb.R;

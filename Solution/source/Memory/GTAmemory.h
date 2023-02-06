@@ -133,7 +133,7 @@ public:
 class GTAmemory final
 {
 public:
-	static unsigned int(*_getHashKey)(char* stringPtr, unsigned int initialHash);
+	static unsigned int(*_getHashKey)(const char* stringPtr, unsigned int initialHash);
 	static UINT64(*_entityAddressFunc)(int handle);
 	static UINT64(*_playerAddressFunc)(int handle);
 	static UINT64(*_ptfxAddressFunc)(int handle);
@@ -172,14 +172,14 @@ public:
 	static UINT64 _gxtLabelFromHashAddr1;
 	// Zorg
 	static char*(__fastcall *_gxtLabelFromHashFuncAddr)(UINT64 address, unsigned int hash);
-	static inline char* GTAmemory::GetGXTEntry(unsigned int labelHash)
+	static inline char* GetGXTEntry(unsigned int labelHash)
 	{
 		return _gxtLabelFromHashFuncAddr(_gxtLabelFromHashAddr1, labelHash);
 	}
 
 	static std::array<std::vector<unsigned int>, 0x20> const& VehicleModels()
 	{
-		return GTAmemory::vehicleModels;
+		return vehicleModels;
 	}
 	static bool IsModelAPed(unsigned int modelHash);
 
@@ -199,75 +199,75 @@ public:
 		return reinterpret_cast<T*>(getGlobalPtr(globalId));
 	}
 
-	static inline char GTAmemory::ReadSByte(UINT64 address)
+	static inline char ReadSByte(UINT64 address)
 	{
 		return *(char*)address;
 	}
-	static inline unsigned char GTAmemory::ReadByte(UINT64 address)
+	static inline unsigned char ReadByte(UINT64 address)
 	{
 		return *(unsigned char*)address;
 	}
-	static inline short GTAmemory::ReadShort(UINT64 address)
+	static inline short ReadShort(UINT64 address)
 	{
 		return *(short*)address;
 	}
-	static inline unsigned short GTAmemory::ReadUShort(UINT64 address)
+	static inline unsigned short ReadUShort(UINT64 address)
 	{
 		return *(unsigned short*)address;
 	}
-	static inline int GTAmemory::ReadInt(UINT64 address)
+	static inline int ReadInt(UINT64 address)
 	{
 		return *(int*)address;
 	}
-	static inline unsigned int GTAmemory::ReadUInt(UINT64 address)
+	static inline unsigned int ReadUInt(UINT64 address)
 	{
 		return *(unsigned int*)address;
 	}
-	static inline float GTAmemory::ReadFloat(UINT64 address)
+	static inline float ReadFloat(UINT64 address)
 	{
 		return *(float*)address;
 	}
-	static inline std::string GTAmemory::ReadString(UINT64 address)
+	static inline std::string ReadString(UINT64 address)
 	{
 		return (char*)address;
 	}
-	static Vector3 GTAmemory::ReadVector3(UINT64 address);
+	static Vector3 ReadVector3(UINT64 address);
 	/*static inline Matrix GTAmemory::ReadMatrix(UINT64 address)
 	{
 	return *(Matrix*)address;
 	}*/
-	static inline void GTAmemory::WriteSByte(UINT64 address, char value)
+	static inline void WriteSByte(UINT64 address, char value)
 	{
 		*(char*)address = value;
 	}
-	static inline void GTAmemory::WriteByte(UINT64 address, unsigned char value)
+	static inline void WriteByte(UINT64 address, unsigned char value)
 	{
 		*(unsigned char*)address = value;
 	}
-	static inline void GTAmemory::WriteShort(UINT64 address, short value)
+	static inline void WriteShort(UINT64 address, short value)
 	{
 		*(short*)address = value;
 	}
-	static inline void GTAmemory::WriteUShort(UINT64 address, unsigned short value)
+	static inline void WriteUShort(UINT64 address, unsigned short value)
 	{
 		*(unsigned short*)address = value;
 	}
-	static inline void GTAmemory::WriteInt(UINT64 address, int value)
+	static inline void WriteInt(UINT64 address, int value)
 	{
 		*(int*)address = value;
 	}
-	static inline void GTAmemory::WriteUInt(UINT64 address, unsigned int value)
+	static inline void WriteUInt(UINT64 address, unsigned int value)
 	{
 		*(unsigned int*)address = value;
 	}
-	static inline void GTAmemory::WriteFloat(UINT64 address, float value)
+	static inline void WriteFloat(UINT64 address, float value)
 	{
 		*(float*)address = value;
 	}
-	static void GTAmemory::WriteVector3(UINT64 address, const Vector3& value);
-	static inline unsigned int GTAmemory::GetHashKey(const std::string& toHash)
+	static void WriteVector3(UINT64 address, const Vector3& value);
+	static inline unsigned int GetHashKey(const std::string& toHash)
 	{
-		return GTAmemory::_getHashKey(const_cast<char*>(toHash.c_str()), 0);
+		return _getHashKey(toHash.c_str(), 0);
 	}
 
 	static UINT64 GetEntityAddress(int handle);

@@ -21,7 +21,7 @@ typedef char *PCHAR;
 
 class GTAentity;
 
-typedef struct { PCHAR label, name; } WeaponS;
+typedef struct { std::string label, name; } WeaponS;
 class s_Weapon_Components_Tint
 {
 public:

@@ -39,7 +39,7 @@ namespace Game
 	bool RequestControlOfId(int netid);
 	bool RequestAnimDict(const std::string& anim_dict, DWORD timeOut = 1800);
 	bool RequestAnimSet(const std::string& anim_set, DWORD timeOut = 1800);
-	void RequestScript(PCHAR scriptName, int stackSize = 14000);
+	void RequestScript(const std::string& scriptName, int stackSize = 14000);
 
 	// GXT
 	inline bool DoesGXTEntryExist(const std::string& entry);
@@ -87,7 +87,7 @@ namespace Game
 		void drawinteger(int text, float X, float Y);
 		void drawfloat(float text, UINT8 decimal_places, float X, float Y);
 		
-		void PrintBottomCentre(const std::string& s, int time = 2500);
+		void PrintBottomCentre(std::string s, int time = 2500);
 		void PrintBottomCentre(std::ostream& s, int time = 2500);
 		void PrintBottomCentre(std::wostream& s, int time = 2500);
 
@@ -107,10 +107,10 @@ namespace Game
 		private:
 			int mHandle;
 		};
-		Notification PrintBottomLeft(const std::string& s, bool gxt = false);
+		Notification PrintBottomLeft(std::string s, bool gxt = false);
 		Notification PrintBottomLeft(std::ostream& s, bool gxt = 0);
 		Notification PrintBottomLeft(std::wostream& s, bool gxt = 0);
-		Notification PrintBottomLeft(const std::string& s, const std::string& sender, const std::string& subject, const std::string& picName, int iconType, bool flash, bool gxt);
+		Notification PrintBottomLeft(std::string s, const std::string& sender, const std::string& subject, const std::string& picName, int iconType, bool flash, bool gxt);
 		Notification PrintBottomLeft(std::ostream& s, const std::string& sender, const std::string& subject, const std::string& picName, int iconType, bool flash, bool gxt);
 		Notification PrintBottomLeft(std::wostream& s, const std::string& sender, const std::string& subject, const std::string& picName, int iconType, bool flash, bool gxt);
 
@@ -125,7 +125,7 @@ namespace Game
 	}
 
 	//On screen keyboard
-	std::string InputBox(const std::string& escReturn = "", int maxChars = 64U, const std::string& titlegxt = "", std::string preText = "");
+	std::string InputBox(const std::string& escReturn = "", int maxChars = 64U, std::string titlegxt = "", std::string preText = "");
 
 	//PLAYER_PED_ID()
 	GTAplayer Player();

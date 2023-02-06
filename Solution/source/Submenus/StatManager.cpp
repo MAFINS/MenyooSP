@@ -115,14 +115,14 @@ namespace sub
 		}
 		void StatSetString(const std::string& name, const std::string& value)
 		{
-			STAT_SET_STRING(GET_HASH_KEY(name), const_cast<PCHAR>(value.c_str()), 1);
+			STAT_SET_STRING(GET_HASH_KEY(name), value.c_str(), 1);
 		}
 
 		void __AddOption(const CharStat_t& stat)
 		{
 			bool bStatValue_plus = false, bStatValue_minus = false, bStatValue_input = false;
 
-			std::string& statName = selectedCharName->first + stat.name;
+			const std::string& statName = selectedCharName->first + stat.name;
 
 			switch (stat.type)
 			{

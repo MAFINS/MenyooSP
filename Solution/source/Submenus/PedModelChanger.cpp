@@ -43,6 +43,10 @@ namespace sub
 	namespace PedFavourites_catind
 	{
 		std::string xmlFavouritePeds = "FavouritePeds.xml";
+		std::string _searchStr = std::string();
+
+		void ClearSearchStr() { _searchStr.clear(); }
+
 		bool IsPedAFavourite(GTAmodel::Model model)
 		{
 			pugi::xml_document doc;
@@ -59,20 +63,20 @@ namespace sub
 			if (doc.load_file((const char*)(GetPathffA(Pathff::Main, true) + xmlFavouritePeds).c_str()).status != pugi::status_ok)
 			{
 				doc.reset();
-				auto& nodeDecleration = doc.append_child(pugi::node_declaration);
+				auto nodeDecleration = doc.append_child(pugi::node_declaration);
 				nodeDecleration.append_attribute("version") = "1.0";
 				nodeDecleration.append_attribute("encoding") = "ISO-8859-1";
-				auto& nodeRoot = doc.append_child("FavouriteWeapons");
+				auto nodeRoot = doc.append_child("FavouriteWeapons");
 				doc.save_file((const char*)(GetPathffA(Pathff::Main, true) + xmlFavouritePeds).c_str());
 			}
 			pugi::xml_node nodeRoot = doc.document_element();
 
-			auto& nodeOldLoc = nodeRoot.find_child_by_attribute("hash", int_to_hexstring(model.hash, true).c_str());
+			auto nodeOldLoc = nodeRoot.find_child_by_attribute("hash", int_to_hexstring(model.hash, true).c_str());
 			if (nodeOldLoc) // If not null
 			{
 				nodeOldLoc.parent().remove_child(nodeOldLoc);
 			}
-			auto& nodeNewLoc = nodeRoot.append_child("Ped");
+			auto nodeNewLoc = nodeRoot.append_child("Ped");
 			nodeNewLoc.append_attribute("hash") = int_to_hexstring(model.hash, true).c_str();
 			nodeNewLoc.append_attribute("customName") = customName.c_str();
 
@@ -84,7 +88,7 @@ namespace sub
 			if (doc.load_file((const char*)(GetPathffA(Pathff::Main, true) + xmlFavouritePeds).c_str()).status != pugi::status_ok)
 				return false;
 			pugi::xml_node nodeRoot = doc.document_element();
-			auto& nodeOldLoc = nodeRoot.find_child_by_attribute("hash", int_to_hexstring(model.hash, true).c_str());
+			auto nodeOldLoc = nodeRoot.find_child_by_attribute("hash", int_to_hexstring(model.hash, true).c_str());
 			if (nodeOldLoc) // If not null
 			{
 				nodeOldLoc.parent().remove_child(nodeOldLoc);
@@ -130,16 +134,18 @@ namespace sub
 
 		void Sub_PedFavourites()
 		{
+			Menu::OnSubBack = ClearSearchStr;
+
 			AddTitle("Favourites");
 
 			pugi::xml_document doc;
 			if (doc.load_file((const char*)(GetPathffA(Pathff::Main, true) + xmlFavouritePeds).c_str()).status != pugi::status_ok)
 			{
 				doc.reset();
-				auto& nodeDecleration = doc.append_child(pugi::node_declaration);
+				auto nodeDecleration = doc.append_child(pugi::node_declaration);
 				nodeDecleration.append_attribute("version") = "1.0";
 				nodeDecleration.append_attribute("encoding") = "ISO-8859-1";
-				auto& nodeRoot = doc.append_child("FavouritePeds");
+				auto nodeRoot = doc.append_child("FavouritePeds");
 				doc.save_file((const char*)(GetPathffA(Pathff::Main, true) + xmlFavouritePeds).c_str());
 				return;
 			}
@@ -176,10 +182,21 @@ namespace sub
 			{
 				AddBreak("---Added Ped Models---");
 
-				for (auto& nodeLocToLoad = nodeRoot.first_child(); nodeLocToLoad; nodeLocToLoad = nodeLocToLoad.next_sibling())
+				bool bSearchPressed = false;
+				AddOption(_searchStr.empty() ? "SEARCH" : _searchStr, bSearchPressed, nullFunc, -1, true); if (bSearchPressed)
+				{
+					_searchStr = Game::InputBox(_searchStr, 126U, "SEARCH", boost::to_lower_copy(_searchStr));
+					boost::to_upper(_searchStr);
+					//OnscreenKeyboard::State::Set(OnscreenKeyboard::Purpose::SearchToUpper, _searchStr, 126U, std::string(), _searchStr);
+					//OnscreenKeyboard::State::arg1._ptr = reinterpret_cast<void*>(&_searchStr);
+				}
+
+				for (auto nodeLocToLoad = nodeRoot.first_child(); nodeLocToLoad; nodeLocToLoad = nodeLocToLoad.next_sibling())
 				{
 					const std::string& customName = nodeLocToLoad.attribute("customName").as_string();
 					Model model = nodeLocToLoad.attribute("hash").as_uint();
+
+					if (!_searchStr.empty()) { if (boost::to_upper_copy(customName).find(_searchStr) == std::string::npos) continue; }
 
 					AddmodelOption_(customName, model);
 				}
@@ -289,8 +306,8 @@ namespace sub
 	}
 	void AddmodelchangerOption_(const std::string& text, const GTAmodel::Model& model)
 	{
-		GTAped& ped = Game::PlayerPed();
-		Model& pedModel = ped.Model();
+		const GTAped& ped = Game::PlayerPed();
+		const Model& pedModel = ped.Model();
 
 		bool pressed = false;
 		AddTickol(text, model.Equals(pedModel), pressed, pressed); if (pressed)

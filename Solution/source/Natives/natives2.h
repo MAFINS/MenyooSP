@@ -71,7 +71,7 @@ static inline void TERMINATE()
 	WAIT(MAXDWORD);
 }
 
-Hash GET_HASH_KEY(char* value);
+Hash GET_HASH_KEY(const char* value);
 Hash GET_HASH_KEY(const std::wstring& value);
 Hash GET_HASH_KEY(const std::string& value);
 

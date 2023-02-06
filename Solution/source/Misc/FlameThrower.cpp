@@ -97,8 +97,8 @@ namespace _FlameThrower_ // Why have I made this for 'players' when this is sp a
 		float scale;
 		int gunBone;
 
-		PCHAR fxAsset1 = "core";
-		PCHAR fxName1 = "ent_sht_flame";
+		std::string fxAsset1 = "core";
+		std::string fxName1 = "ent_sht_flame";
 
 		//PCHAR fxAsset2 = "core";
 		//PCHAR fxName2 = "ent_sht_flame";
@@ -108,13 +108,13 @@ namespace _FlameThrower_ // Why have I made this for 'players' when this is sp a
 
 		scale = 2.0f;
 
-		if (!HAS_NAMED_PTFX_ASSET_LOADED(fxAsset1))
+		if (!HAS_NAMED_PTFX_ASSET_LOADED(fxAsset1.c_str()))
 		{
-			REQUEST_NAMED_PTFX_ASSET(fxAsset1);
+			REQUEST_NAMED_PTFX_ASSET(fxAsset1.c_str());
 		}
-		/*if (!HAS_NAMED_PTFX_ASSET_LOADED(fxAsset2))
+		/*if (!HAS_NAMED_PTFX_ASSET_LOADED(fxAsset2.c_str()))
 		{
-		REQUEST_NAMED_PTFX_ASSET(fxAsset2);
+		REQUEST_NAMED_PTFX_ASSET(fxAsset2.c_str());
 		}*/
 
 		auto& fts = _flameThrowerPlayerandFxArray;
@@ -157,7 +157,7 @@ namespace _FlameThrower_ // Why have I made this for 'players' when this is sp a
 			}
 
 			wobject = GET_CURRENT_PED_WEAPON_ENTITY_INDEX(playerPed.Handle(), 0);
-			Model& wmodel = wobject.Model();
+			Model wmodel = wobject.Model();
 			gunBone = GET_ENTITY_BONE_INDEX_BY_NAME(wobject.Handle(), "Gun_Nuzzle");
 			//ModelDimensions& wdim = wmodel.Dimensions();
 
@@ -165,13 +165,13 @@ namespace _FlameThrower_ // Why have I made this for 'players' when this is sp a
 
 			if (!DOES_PARTICLE_FX_LOOPED_EXIST(fxHandle1))
 			{
-				USE_PARTICLE_FX_ASSET(fxAsset1);
-				fxHandle1 = START_PARTICLE_FX_LOOPED_ON_ENTITY_BONE(fxName1, wobject.Handle(), 0.0f, 0.0f, 0.04f, 89.5f, 0.0f, 90.0f, gunBone, scale, 0, 0, 0);
+				USE_PARTICLE_FX_ASSET(fxAsset1.c_str());
+				fxHandle1 = START_PARTICLE_FX_LOOPED_ON_ENTITY_BONE(fxName1.c_str(), wobject.Handle(), 0.0f, 0.0f, 0.04f, 89.5f, 0.0f, 90.0f, gunBone, scale, 0, 0, 0);
 			}
-			/*if (!DOES_PARTICLE_FX_LOOPED_EXIST(fxHandle2))
+			/*if (!DOES_PARTICLE_FX_LOOPED_EXIST(fxHandle2.c_str()))
 			{
-			USE_PARTICLE_FX_ASSET(fxAsset2);
-			fxHandle2 = START_PARTICLE_FX_LOOPED_ON_ENTITY_BONE(fxName2, wobject.Handle(), 0.0f, 2.33f, 0.04f, 89.5f, 0.0f, 90.0f, gunBone, scale, 0, 0, 0);
+			USE_PARTICLE_FX_ASSET(fxAsset2.c_str());
+			fxHandle2 = START_PARTICLE_FX_LOOPED_ON_ENTITY_BONE(fxName2.c_str(), wobject.Handle(), 0.0f, 2.33f, 0.04f, 89.5f, 0.0f, 90.0f, gunBone, scale, 0, 0, 0);
 			}*/
 
 			SET_PARTICLE_FX_LOOPED_EVOLUTION(fxHandle1, "flow", 1.0f, 0);

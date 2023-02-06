@@ -35,6 +35,8 @@ namespace sub
 	void SettingsFonts();
 	void SettingsFonts2();
 
+	void SettingsLanguage();
+
 	namespace SettingsThemes_catind
 	{
 		void Sub_Main();

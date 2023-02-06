@@ -16,7 +16,7 @@ namespace MenuConfig
 	extern CSimpleIniA iniFile;
 	extern bool bSaveAtIntervals;
 
-	SI_Error ConfigInit();
+	void ConfigInit();
 	void ConfigRead();
 	void ConfigSave();
 	void ConfigResetHaxValues();

@@ -293,7 +293,7 @@ std::string get_mod_slot_name(Vehicle vehicle, INT modType, bool gxt)
 	//	break;
 	//}
 	//return "";
-	PCHAR name;
+	std::string name;
 	if (modType >= 0 && modType < vValues_ModSlotNames.size())
 	{
 		//switch (modType)
@@ -355,17 +355,17 @@ std::string get_mod_slot_name(Vehicle vehicle, INT modType, bool gxt)
 		Model vehModel = GET_ENTITY_MODEL(vehicle);
 		switch (modType)
 		{
-		default: name = const_cast<PCHAR>(vValues_ModSlotNames[modType].c_str()); break;
-		case VehicleMod::SideSkirt: name = (vehModel.hash == VEHICLE_FAGGIO3) ? "TOP_ARCHCOVER" : vehModel.IsBike() ? "CMM_MOD_S15" : const_cast<PCHAR>(vValues_ModSlotNames[modType].c_str()); break;// Air filter for bikes
+		default: name = vValues_ModSlotNames[modType]; break;
+		case VehicleMod::SideSkirt: name = (vehModel.hash == VEHICLE_FAGGIO3) ? "TOP_ARCHCOVER" : vehModel.IsBike() ? "CMM_MOD_S15" : vValues_ModSlotNames[modType]; break;// Air filter for bikes
 		case VehicleMod::Roof: name = (vehModel.hash == VEHICLE_BAGGER) ? "CMOD_SB_T" : "CMOD_MOD_ROF"; break; // Saddle bags for bagger
-		case VehicleMod::AirFilter: if (vehModel.hash == VEHICLE_SULTANRS) name = "CMM_MOD_S15b"; else name = const_cast<PCHAR>(vValues_ModSlotNames[modType].c_str());
-		case VehicleMod::Struts: if (vehModel.hash == VEHICLE_SULTANRS || vehModel.hash == VEHICLE_BANSHEE2) name = "CMM_MOD_S16b"; else name = const_cast<PCHAR>(vValues_ModSlotNames[modType].c_str());
-		case VehicleMod::ArchCover: if (vehModel.hash == VEHICLE_SULTANRS) name = "CMM_MOD_S17b"; else name = const_cast<PCHAR>(vValues_ModSlotNames[modType].c_str());
-		case VehicleMod::Aerials: if (vehModel.hash == VEHICLE_SULTANRS) name = "CMM_MOD_S18b"; else if (vehModel.hash == VEHICLE_BTYPE3) name = "CMM_MOD_S18c"; else name = const_cast<PCHAR>(vValues_ModSlotNames[modType].c_str());
-		case VehicleMod::Trim: if (vehModel.hash == VEHICLE_SULTANRS) name = "CMM_MOD_S19b"; else if (vehModel.hash == VEHICLE_BTYPE3) name = "CMM_MOD_S19c"; else if (vehModel.hash == VEHICLE_VIRGO2) name = "CMM_MOD_S19d"; else name = const_cast<PCHAR>(vValues_ModSlotNames[modType].c_str());
-		case VehicleMod::Tank: if (vehModel.hash == VEHICLE_SLAMVAN3) name = "CMM_MOD_S27"; else name = const_cast<PCHAR>(vValues_ModSlotNames[modType].c_str());
-		case VehicleMod::Windows: if (vehModel.hash == VEHICLE_BTYPE3) name = "CMM_MOD_S21b"; else name = const_cast<PCHAR>(vValues_ModSlotNames[modType].c_str());
-		case VehicleMod::Unknown47: if (vehModel.hash == VEHICLE_SLAMVAN3) name = "SLVAN3_RDOOR"; else name = const_cast<PCHAR>(vValues_ModSlotNames[modType].c_str());
+		case VehicleMod::AirFilter: if (vehModel.hash == VEHICLE_SULTANRS) name = "CMM_MOD_S15b"; else name = vValues_ModSlotNames[modType];
+		case VehicleMod::Struts: if (vehModel.hash == VEHICLE_SULTANRS || vehModel.hash == VEHICLE_BANSHEE2) name = "CMM_MOD_S16b"; else name = vValues_ModSlotNames[modType];
+		case VehicleMod::ArchCover: if (vehModel.hash == VEHICLE_SULTANRS) name = "CMM_MOD_S17b"; else name = vValues_ModSlotNames[modType];
+		case VehicleMod::Aerials: if (vehModel.hash == VEHICLE_SULTANRS) name = "CMM_MOD_S18b"; else if (vehModel.hash == VEHICLE_BTYPE3) name = "CMM_MOD_S18c"; else name = vValues_ModSlotNames[modType];
+		case VehicleMod::Trim: if (vehModel.hash == VEHICLE_SULTANRS) name = "CMM_MOD_S19b"; else if (vehModel.hash == VEHICLE_BTYPE3) name = "CMM_MOD_S19c"; else if (vehModel.hash == VEHICLE_VIRGO2) name = "CMM_MOD_S19d"; else name = vValues_ModSlotNames[modType];
+		case VehicleMod::Tank: if (vehModel.hash == VEHICLE_SLAMVAN3) name = "CMM_MOD_S27"; else name = vValues_ModSlotNames[modType];
+		case VehicleMod::Windows: if (vehModel.hash == VEHICLE_BTYPE3) name = "CMM_MOD_S21b"; else name = vValues_ModSlotNames[modType];
+		case VehicleMod::Unknown47: if (vehModel.hash == VEHICLE_SLAMVAN3) name = "SLVAN3_RDOOR"; else name = vValues_ModSlotNames[modType];
 		}
 	}
 	else
@@ -375,7 +375,7 @@ std::string get_mod_slot_name(Vehicle vehicle, INT modType, bool gxt)
 
 	if (gxt)
 	{
-		return DOES_TEXT_LABEL_EXIST(name) ? GET_FILENAME_FOR_AUDIO_CONVERSATION(name) : name;
+		return DOES_TEXT_LABEL_EXIST(name.c_str()) ? GET_FILENAME_FOR_AUDIO_CONVERSATION(name.c_str()) : name;
 	}
 
 	return name;
@@ -449,7 +449,7 @@ void GTAvehicle::Delete(bool tele)
 
 	this->RequestControl();
 
-	GTAblip& blip = this->CurrentBlip();
+	GTAblip blip = this->CurrentBlip();
 	if (blip.Exists())
 		blip.Remove();
 
@@ -491,7 +491,7 @@ void GTAvehicle::Repair(bool checkIfDamaged)
 
 void GTAvehicle::EngineSound_set(const std::string& vehName)
 {
-	FORCE_USE_AUDIO_GAME_OBJECT(this->mHandle, const_cast<PCHAR>(vehName.c_str()));
+	FORCE_USE_AUDIO_GAME_OBJECT(this->mHandle, vehName.c_str());
 }
 
 void GTAvehicle::SetFrictionOverride(float value)
@@ -559,7 +559,7 @@ std::string GTAvehicle::NumberPlateText_get() const
 }
 void GTAvehicle::NumberPlateText_set(const std::string& value)
 {
-	SET_VEHICLE_NUMBER_PLATE_TEXT(this->mHandle, const_cast<PCHAR>(value.c_str()));
+	SET_VEHICLE_NUMBER_PLATE_TEXT(this->mHandle, value.c_str());
 }
 int GTAvehicle::NumberPlateTextIndex_get() const
 {
@@ -3824,7 +3824,7 @@ void add_emblem_to_vehicle(GTAvehicle vehicle, GTAentity playerPed)
 {
 	Vector3 x, y, z;
 	float scale;
-	Model& model = vehicle.Model();
+	const Model& model = vehicle.Model();
 	if (get_vehicle_info_for_emblem_pos(model, x, y, z, scale))
 	{
 		int alpha = 200;
@@ -3842,12 +3842,12 @@ GTAvehicle clone_vehicle(GTAvehicle vehicle, GTAentity pedForEmblem)
 	if (!vehicle.Exists())
 		return GTAvehicle();
 
-	Vector3& Pos = vehicle.Position_get();
-	Vector3& Rot = vehicle.Rotation_get();
+	Vector3 Pos = vehicle.Position_get();
+	Vector3 Rot = vehicle.Rotation_get();
 
-	Model& vehicleModel = vehicle.Model();
+	Model vehicleModel = vehicle.Model();
 
-	GTAvehicle& newVeh = World::CreateVehicle(vehicleModel, Pos, Rot, false);
+	GTAvehicle newVeh = World::CreateVehicle(vehicleModel, Pos, Rot, false);
 	WAIT(40);
 
 	newVeh.PrimaryColour_set(vehicle.PrimaryColour_get());
@@ -3926,25 +3926,25 @@ GTAvehicle clone_vehicle(GTAvehicle vehicle, GTAentity pedForEmblem)
 	}
 
 	// Apply multipliers
-	auto& rpmMultIt = g_multList_rpm.find(vehicle.Handle());
+	auto rpmMultIt = g_multList_rpm.find(vehicle.Handle());
 	if (rpmMultIt != g_multList_rpm.end())
 	{
 		g_multList_rpm[newVeh.Handle()] = rpmMultIt->second;
 		newVeh.EnginePowerMultiplier_set(rpmMultIt->second);
 	}
-	auto& torqueMultIt = g_multList_torque.find(vehicle.Handle());
+	auto torqueMultIt = g_multList_torque.find(vehicle.Handle());
 	if (torqueMultIt != g_multList_torque.end())
 	{
 		g_multList_torque[newVeh.Handle()] = torqueMultIt->second;
 		newVeh.EngineTorqueMultiplier_set(torqueMultIt->second);
 	}
-	auto& maxSpeedMultIt = g_multList_maxSpeed.find(vehicle.Handle());
+	auto maxSpeedMultIt = g_multList_maxSpeed.find(vehicle.Handle());
 	if (maxSpeedMultIt != g_multList_maxSpeed.end())
 	{
 		g_multList_maxSpeed[newVeh.Handle()] = maxSpeedMultIt->second;
 		newVeh.MaxSpeed_set(maxSpeedMultIt->second);
 	}
-	auto& headlightsMultIt = g_multList_headlights.find(vehicle.Handle());
+	auto headlightsMultIt = g_multList_headlights.find(vehicle.Handle());
 	if (headlightsMultIt != g_multList_headlights.end())
 	{
 		g_multList_headlights[newVeh.Handle()] = headlightsMultIt->second;
@@ -3952,7 +3952,7 @@ GTAvehicle clone_vehicle(GTAvehicle vehicle, GTAentity pedForEmblem)
 	}
 
 	// Engine sound
-	auto& engineSoundIt = g_vehList_engSound.find(vehicle.Handle());
+	auto engineSoundIt = g_vehList_engSound.find(vehicle.Handle());
 	if (engineSoundIt != g_vehList_engSound.end())
 	{
 		g_vehList_engSound[newVeh.Handle()] = engineSoundIt->second;

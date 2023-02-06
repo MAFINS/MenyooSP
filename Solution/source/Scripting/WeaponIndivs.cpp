@@ -1241,7 +1241,7 @@ bool WeaponIndivs::is_weapon_tintable(Hash weaponHash)
 // Weapon - labels
 std::string get_weapon_label(Hash hash, bool gxt)
 {
-	auto& wit = WeaponIndivs::vWeaponLabels.find(hash);
+	auto wit = WeaponIndivs::vWeaponLabels.find(hash);
 	if (wit != WeaponIndivs::vWeaponLabels.end())
 	{
 		return wit->second;

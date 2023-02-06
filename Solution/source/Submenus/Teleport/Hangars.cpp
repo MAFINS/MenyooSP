@@ -28,16 +28,16 @@ namespace sub::TeleportLocations_catind
 {
 	namespace Hangars
 	{
-		struct HangarLocation { const PCHAR name; Vector3 pos; std::vector<std::string> ipls; std::string interior; };
+		struct HangarLocation { const std::string name; Vector3 pos; std::vector<std::string> ipls; std::string interior; };
 		const std::vector<HangarLocation> vLocations
 		{
 			{ "Regular",{ -1253.6600f, -2998.8000f, -48.4900f },{ "sm_smugdlc_interior_placement", "sm_smugdlc_interior_placement_interior_0_smugdlc_int_01_milo_" }, "sm_smugdlc_int_01" },
 		};
 
-		struct HangarInteriorOption { const PCHAR name; const PCHAR value; UINT8 maxTints; };
+		struct HangarInteriorOption { const std::string name; const std::string value; UINT8 maxTints; };
 		const std::vector<HangarInteriorOption> vDefaultOptions
 		{
-			{ NULL, "set_lighting_tint_props", 10 },
+			{ std::string(), "set_lighting_tint_props", 10},
 		};
 		const std::vector<HangarInteriorOption> vMainShellOptions
 		{
@@ -174,9 +174,9 @@ namespace sub::TeleportLocations_catind
 		HangarInfoStructure currentHangarInfo = { nullptr, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
 
 		struct HangarInteriorOptionArray {
-			const PCHAR name; HangarInfoStructure::HangarInteriorOptionIndex* ptr; const std::vector<HangarInteriorOption>* arr;
+			const std::string name; HangarInfoStructure::HangarInteriorOptionIndex* ptr; const std::vector<HangarInteriorOption>* arr;
 		} const vOptionArrays[]{
-			{ NULL, NULL, &vDefaultOptions },
+			{ std::string(), nullptr, &vDefaultOptions},
 			{ "Main Shell", &currentHangarInfo.mainShellOption, &vMainShellOptions },
 			{ "Bedroom", &currentHangarInfo.bedroomOption, &vBedroomOptions },
 			{ "Bedroom Style", &currentHangarInfo.bedroomStyleOption, &vBedroomStyleOptions },
@@ -203,8 +203,8 @@ namespace sub::TeleportLocations_catind
 				SET_INSTANCE_PRIORITY_MODE(true);
 				ON_ENTER_MP();
 				for (auto& ipl : loc.ipls)
-					REQUEST_IPL(const_cast<PCHAR>(ipl.c_str()));
-				int interior = GET_INTERIOR_AT_COORDS_WITH_TYPE(pos.x, pos.y, pos.z, const_cast<PCHAR>(loc.interior.c_str()));
+					REQUEST_IPL(ipl.c_str());
+				int interior = GET_INTERIOR_AT_COORDS_WITH_TYPE(pos.x, pos.y, pos.z, loc.interior.c_str());
 				DISABLE_INTERIOR(interior, true);
 				PIN_INTERIOR_IN_MEMORY(interior);
 				DISABLE_INTERIOR(interior, false);
@@ -214,7 +214,7 @@ namespace sub::TeleportLocations_catind
 				for (auto& oa : vOptionArrays)
 				{
 					for (auto& o : *oa.arr)
-						DEACTIVATE_INTERIOR_ENTITY_SET(interior, const_cast<PCHAR>(o.value));
+						DEACTIVATE_INTERIOR_ENTITY_SET(interior, o.value.c_str());
 				}
 				for (auto& oa : vOptionArrays)
 				{
@@ -222,21 +222,22 @@ namespace sub::TeleportLocations_catind
 					{
 						for (auto& o : *oa.arr)
 						{
-							ACTIVATE_INTERIOR_ENTITY_SET(interior, const_cast<PCHAR>(o.value));
+							ACTIVATE_INTERIOR_ENTITY_SET(interior, o.value.c_str());
 						}
 					}
 					else
 					{
 						auto& o = oa.arr->at(oa.ptr->index);
-						ACTIVATE_INTERIOR_ENTITY_SET(interior, const_cast<PCHAR>(o.value));
+						ACTIVATE_INTERIOR_ENTITY_SET(interior, o.value.c_str());
 						if (o.maxTints > 0)
 						{
 							for (DWORD timeOut = GetTickCount() + 250; GetTickCount() < timeOut;)
 							{
-								if (IS_INTERIOR_ENTITY_SET_ACTIVE(interior, const_cast<PCHAR>(o.value))) break;
+								if (IS_INTERIOR_ENTITY_SET_ACTIVE(interior, o.value.c_str()))
+									break;
 								WAIT(0);
 							}
-							SET_INTERIOR_ENTITY_SET_TINT_INDEX(interior, const_cast<PCHAR>(o.value), oa.ptr->currTint);
+							SET_INTERIOR_ENTITY_SET_TINT_INDEX(interior, o.value.c_str(), oa.ptr->currTint);
 						}
 					}
 				}
@@ -250,22 +251,23 @@ namespace sub::TeleportLocations_catind
 				auto& loc = *info.location;
 				auto& pos = loc.pos;
 
-				int interior = GET_INTERIOR_AT_COORDS_WITH_TYPE(pos.x, pos.y, pos.z, const_cast<PCHAR>(loc.interior.c_str()));
+				int interior = GET_INTERIOR_AT_COORDS_WITH_TYPE(pos.x, pos.y, pos.z, loc.interior.c_str());
 				if (!IS_INTERIOR_DISABLED(interior))
 				{
 					for (auto& p : *arr.arr)
-						DEACTIVATE_INTERIOR_ENTITY_SET(interior, const_cast<PCHAR>(p.value));
+						DEACTIVATE_INTERIOR_ENTITY_SET(interior, p.value.c_str());
 					auto& p = arr.arr->at(arr.ptr->index);
-					PCHAR propName = const_cast<PCHAR>(p.value);
-					ACTIVATE_INTERIOR_ENTITY_SET(interior, propName);
+					const std::string& propName = p.value;
+					ACTIVATE_INTERIOR_ENTITY_SET(interior, propName.c_str());
 					if (p.maxTints > 0)
 					{
 						for (DWORD timeOut = GetTickCount() + 250; GetTickCount() < timeOut;)
 						{
-							if (IS_INTERIOR_ENTITY_SET_ACTIVE(interior, propName)) break;
+							if (IS_INTERIOR_ENTITY_SET_ACTIVE(interior, propName.c_str()))
+								break;
 							WAIT(0);
 						}
-						SET_INTERIOR_ENTITY_SET_TINT_INDEX(interior, propName, arr.ptr->currTint);
+						SET_INTERIOR_ENTITY_SET_TINT_INDEX(interior, propName.c_str(), arr.ptr->currTint);
 					}
 					REFRESH_INTERIOR(interior);
 				}
@@ -304,7 +306,7 @@ namespace sub::TeleportLocations_catind
 
 			for (auto& o : vOptionArrays)
 			{
-				if (o.name != nullptr && o.ptr != nullptr)
+				if (!o.name.empty() && o.ptr != nullptr)
 				{
 					bool bOption_plus = false, bOption_minus = false, bOption_pressed = false;
 					AddTexter(o.name, 0, std::vector<std::string>{ o.arr->at(o.ptr->index).name }, bOption_pressed, bOption_plus, bOption_minus);
@@ -336,7 +338,7 @@ namespace sub::TeleportLocations_catind
 				Menu::SetSub_previous();
 				return;
 			}
-			AddTitle(selectedOptionArray->name == nullptr ? "Option" : selectedOptionArray->name);
+			AddTitle(selectedOptionArray->name.empty() ? "Option" : selectedOptionArray->name);
 
 			for (UINT i = 0; i < selectedOptionArray->arr->size(); i++)
 			{

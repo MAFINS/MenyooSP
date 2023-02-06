@@ -108,7 +108,7 @@ namespace sub::Spooner
 				AddTexter("Colour", 0, std::vector<std::string>{ BlipColour::vNames.at(tskPtr->colour) }, null, colour_plus, colour_minus);
 				if (colour_plus)
 				{
-					auto& colourIt = BlipColour::vNames.find(tskPtr->colour);
+					auto colourIt = BlipColour::vNames.find(tskPtr->colour);
 					if (std::next(colourIt) != BlipColour::vNames.end())
 					{
 						++colourIt;
@@ -117,7 +117,7 @@ namespace sub::Spooner
 				};
 				if (colour_minus)
 				{
-					auto& colourIt = BlipColour::vNames.find(tskPtr->colour);
+					auto colourIt = BlipColour::vNames.find(tskPtr->colour);
 					if (colourIt != BlipColour::vNames.begin())
 					{
 						--colourIt;
@@ -129,7 +129,7 @@ namespace sub::Spooner
 				AddTexter("Icon", 0, std::vector<std::string>{ BlipIcon::vNames.at(tskPtr->icon) }, null, icon_plus, icon_minus);
 				if (icon_plus)
 				{
-					auto& iconIt = BlipIcon::vNames.find(tskPtr->icon);
+					auto iconIt = BlipIcon::vNames.find(tskPtr->icon);
 					if (std::next(iconIt) != BlipIcon::vNames.end())
 					{
 						++iconIt;
@@ -138,7 +138,7 @@ namespace sub::Spooner
 				};
 				if (icon_minus)
 				{
-					auto& iconIt = BlipIcon::vNames.find(tskPtr->icon);
+					auto iconIt = BlipIcon::vNames.find(tskPtr->icon);
 					if (iconIt != BlipIcon::vNames.begin())
 					{
 						--iconIt;
@@ -182,7 +182,7 @@ namespace sub::Spooner
 					bool bSetPosToMe = false;
 					AddOption("Set Target To Player Position", bSetPosToMe); if (bSetPosToMe)
 					{
-						Vector3& myPos = GTAentity(PLAYER_PED_ID()).Position_get();
+						Vector3 myPos = GTAentity(PLAYER_PED_ID()).Position_get();
 						coord = myPos;
 					}
 				}
@@ -191,7 +191,7 @@ namespace sub::Spooner
 					bool bSetPosToHitCoords = false;
 					AddOption("Set Target To Camera Target", bSetPosToHitCoords); if (bSetPosToHitCoords)
 					{
-						Vector3& hitCoords = spoocam.RaycastForCoord(Vector2(0.0f, 0.0f), 0, 160.0f, 3.0f);
+						Vector3 hitCoords = spoocam.RaycastForCoord(Vector2(0.0f, 0.0f), 0, 160.0f, 3.0f);
 						coord = hitCoords;
 					}
 				}
@@ -201,7 +201,7 @@ namespace sub::Spooner
 					AddOption("Set Target To Waypoint", bSetPosToWp); if (bSetPosToWp)
 					{
 						GTAblip wpBlip = GET_FIRST_BLIP_INFO_ID(BlipIcon::Waypoint);
-						Vector3& wpCoords = wpBlip.Position_get();
+						Vector3 wpCoords = wpBlip.Position_get();
 						wpCoords.z = World::GetGroundHeight(wpCoords);
 						coord = wpCoords;
 					}
@@ -266,7 +266,7 @@ namespace sub::Spooner
 					bool bSetPosToMe = false;
 					AddOption("Set Target To Player Position", bSetPosToMe); if (bSetPosToMe)
 					{
-						Vector3& myPos = GTAentity(PLAYER_PED_ID()).Position_get();
+						Vector3 myPos = GTAentity(PLAYER_PED_ID()).Position_get();
 						tskPtr->targetPos = myPos;
 					}
 				}
@@ -275,7 +275,7 @@ namespace sub::Spooner
 					bool bSetPosToHitCoords = false;
 					AddOption("Set Target To Camera Target", bSetPosToHitCoords); if (bSetPosToHitCoords)
 					{
-						Vector3& hitCoords = spoocam.RaycastForCoord(Vector2(0.0f, 0.0f), 0, 160.0f, 3.0f);
+						Vector3 hitCoords = spoocam.RaycastForCoord(Vector2(0.0f, 0.0f), 0, 160.0f, 3.0f);
 						tskPtr->targetPos = hitCoords;
 					}
 				}
@@ -367,7 +367,7 @@ namespace sub::Spooner
 			{
 				auto tskPtr = _selectedSTST->GetTypeTask<STSTasks::FollowRoute>();
 
-				Vector3& entityPos = SelectedEntity.Handle.Position_get();
+				const Vector3& entityPos = SelectedEntity.Handle.Position_get();
 
 				for (auto porit = tskPtr->route.begin(); porit != tskPtr->route.end(); ++porit)
 				{
@@ -413,7 +413,7 @@ namespace sub::Spooner
 					bool bSetPosToMe = false;
 					AddTickol("Add Player Position", true, bSetPosToMe, bSetPosToMe, TICKOL::SMALLNEWSTAR); if (bSetPosToMe)
 					{
-						Vector3& myPos = GTAentity(PLAYER_PED_ID()).Position_get();
+						Vector3 myPos = GTAentity(PLAYER_PED_ID()).Position_get();
 						tskPtr->route.push_back(myPos);
 						Menu::Down();
 					}
@@ -423,7 +423,7 @@ namespace sub::Spooner
 					bool bSetPosToHitCoords = false;
 					AddTickol("Add Camera Target Position", true, bSetPosToHitCoords, bSetPosToHitCoords, TICKOL::SMALLNEWSTAR); if (bSetPosToHitCoords)
 					{
-						Vector3& hitCoords = spoocam.RaycastForCoord(Vector2(0.0f, 0.0f), 0, 160.0f, 3.0f);
+						Vector3 hitCoords = spoocam.RaycastForCoord(Vector2(0.0f, 0.0f), 0, 160.0f, 3.0f);
 						tskPtr->route.push_back(hitCoords);
 						Menu::Down();
 					}
@@ -518,7 +518,7 @@ namespace sub::Spooner
 				bool searchobj = false;
 				AddOption(_searchStr.empty() ? "SEARCH" : boost::to_upper_copy(_searchStr), searchobj, nullFunc, -1, true); if (searchobj)
 				{
-					_searchStr = Game::InputBox(_searchStr, 126U, "", _searchStr);
+					_searchStr = Game::InputBox(_searchStr, 126U, "SEARCH", _searchStr);
 					boost::to_lower(_searchStr);
 					//OnscreenKeyboard::State::Set(OnscreenKeyboard::Purpose::SearchToLower, _searchStr, 126U, std::string(), _searchStr);
 					//OnscreenKeyboard::State::arg1._ptr = reinterpret_cast<void*>(&_searchStr);
@@ -688,7 +688,7 @@ namespace sub::Spooner
 
 				AddOption(_searchStr.empty() ? "SEARCH" : boost::to_upper_copy(_searchStr), searchobj, nullFunc, -1, true); if (searchobj)
 				{
-					_searchStr = Game::InputBox(_searchStr, 126U, "", _searchStr);
+					_searchStr = Game::InputBox(_searchStr, 126U, "SEARCH", _searchStr);
 					boost::to_lower(_searchStr);
 					//OnscreenKeyboard::State::Set(OnscreenKeyboard::Purpose::SearchToLower, _searchStr, 126U, std::string(), _searchStr);
 					//OnscreenKeyboard::State::arg1._ptr = reinterpret_cast<void*>(&_searchStr);
@@ -857,7 +857,7 @@ namespace sub::Spooner
 				bool bSearchPressed = false;
 				AddOption(_searchStr.empty() ? "SEARCH" : _searchStr, bSearchPressed, nullFunc, -1, true); if (bSearchPressed)
 				{
-					_searchStr = Game::InputBox(_searchStr, 126U, "", _searchStr);
+					_searchStr = Game::InputBox(_searchStr, 126U, "SEARCH", boost::to_lower_copy(_searchStr));
 					boost::to_upper(_searchStr);
 					//OnscreenKeyboard::State::Set(OnscreenKeyboard::Purpose::SearchToUpper, _searchStr, 126U, std::string(), _searchStr);
 					//OnscreenKeyboard::State::arg1._ptr = reinterpret_cast<void*>(&_searchStr);
@@ -888,7 +888,7 @@ namespace sub::Spooner
 
 				AddTitle(v.voiceName);
 
-				auto& paramIter = std::find_if(sub::Speech_catind::vSpeechParams.begin(), sub::Speech_catind::vSpeechParams.end(),
+				auto paramIter = std::find_if(sub::Speech_catind::vSpeechParams.begin(), sub::Speech_catind::vSpeechParams.end(),
 					[tskPtr](const sub::Speech_catind::SpeechParamS& item) {
 					return item.label.compare(tskPtr->paramName) == 0;
 				});
@@ -1105,7 +1105,7 @@ namespace sub::Spooner
 						bool bSetPosToMe = false;
 						AddOption("Set To Player Position", bSetPosToMe); if (bSetPosToMe)
 						{
-							Vector3& myPos = GTAentity(PLAYER_PED_ID()).Position_get();
+							Vector3 myPos = GTAentity(PLAYER_PED_ID()).Position_get();
 							*nas.second = myPos;
 						}
 					}
@@ -1114,7 +1114,7 @@ namespace sub::Spooner
 						bool bSetPosToHitCoords = false;
 						AddOption("Set To Camera Target", bSetPosToHitCoords); if (bSetPosToHitCoords)
 						{
-							Vector3& hitCoords = spoocam.RaycastForCoord(Vector2(0.0f, 0.0f), 0, 160.0f, 3.0f);
+							Vector3 hitCoords = spoocam.RaycastForCoord(Vector2(0.0f, 0.0f), 0, 160.0f, 3.0f);
 							*nas.second = hitCoords;
 						}
 					}
@@ -1124,7 +1124,7 @@ namespace sub::Spooner
 						AddOption("Set To Waypoint", bSetPosToWp); if (bSetPosToWp)
 						{
 							GTAblip wpBlip = GET_FIRST_BLIP_INFO_ID(BlipIcon::Waypoint);
-							Vector3& wpCoords = wpBlip.Position_get();
+							Vector3 wpCoords = wpBlip.Position_get();
 							wpCoords.z = World::GetGroundHeight(wpCoords);
 							*nas.second = wpCoords;
 						}
@@ -1179,15 +1179,15 @@ namespace sub::Spooner
 				auto tskPtr = _selectedSTST->GetTypeTask<STSTasks::AchieveVelocity>();
 
 				const GTAentity& thisEntity = SelectedEntity.Handle;
-				Vector3& entityPos = thisEntity.Position_get();
-				Vector3& entityRot = thisEntity.Rotation_get();
-				Vector3& rotForVel = (tskPtr->isRelative ? entityRot : Vector3::Zero()) + Vector3(tskPtr->pitch, 0.0f, tskPtr->heading);
-				Vector3& dirForVel = Vector3::RotationToDirection(rotForVel);
+				const Vector3& entityPos = thisEntity.Position_get();
+				const Vector3& entityRot = thisEntity.Rotation_get();
+				const Vector3& rotForVel = (tskPtr->isRelative ? entityRot : Vector3::Zero()) + Vector3(tskPtr->pitch, 0.0f, tskPtr->heading);
+				const Vector3& dirForVel = Vector3::RotationToDirection(rotForVel);
 
-				ModelDimensions& entityMd = thisEntity.ModelDimensions();
+				const ModelDimensions& entityMd = thisEntity.ModelDimensions();
 
-				Vector3& markerPos = entityPos + (dirForVel * (entityMd.Dim1.y + 2.0f));
-				Vector3& markerRot = rotForVel;
+				const Vector3& markerPos = entityPos + (dirForVel * (entityMd.Dim1.y + 2.0f));
+				const Vector3& markerRot = rotForVel;
 				World::DrawMarker(MarkerType::DebugSphere, markerPos, markerRot, Vector3(), Vector3(0.3f, 0.3f, 0.3f), RGBA(177, 33, 193, 210));
 				World::DrawLine(entityPos, markerPos, RGBA(177, 33, 193, 210));
 
@@ -1215,15 +1215,15 @@ namespace sub::Spooner
 				auto tskPtr = _selectedSTST->GetTypeTask<STSTasks::AchievePushForce>();
 
 				const GTAentity& thisEntity = SelectedEntity.Handle;
-				Vector3& entityPos = thisEntity.Position_get();
-				Vector3& entityRot = thisEntity.Rotation_get();
-				Vector3& rotForFrc = (tskPtr->isRelative ? entityRot : Vector3::Zero()) + Vector3(tskPtr->pitch, 0.0f, tskPtr->heading);
-				Vector3& dirForFrc = Vector3::RotationToDirection(rotForFrc);
+				const Vector3& entityPos = thisEntity.Position_get();
+				const Vector3& entityRot = thisEntity.Rotation_get();
+				const Vector3& rotForFrc = (tskPtr->isRelative ? entityRot : Vector3::Zero()) + Vector3(tskPtr->pitch, 0.0f, tskPtr->heading);
+				const Vector3& dirForFrc = Vector3::RotationToDirection(rotForFrc);
 
-				ModelDimensions& entityMd = thisEntity.ModelDimensions();
+				const ModelDimensions& entityMd = thisEntity.ModelDimensions();
 
-				Vector3& markerPos = entityPos + (dirForFrc * (entityMd.Dim1.y + 2.0f));
-				Vector3& markerRot = rotForFrc;
+				const Vector3& markerPos = entityPos + (dirForFrc * (entityMd.Dim1.y + 2.0f));
+				const Vector3& markerRot = rotForFrc;
 				World::DrawMarker(MarkerType::DebugSphere, markerPos, markerRot, Vector3(), Vector3(0.3f, 0.3f, 0.3f), RGBA(177, 33, 193, 210));
 				World::DrawLine(entityPos, markerPos, RGBA(177, 33, 193, 210));
 
@@ -1364,20 +1364,20 @@ namespace sub::Spooner
 				auto tskPtr = _selectedSTST->GetTypeTask<STSTasks::SetRotation>();
 
 				const GTAentity& thisEntity = SelectedEntity.Handle;
-				Vector3& entityPos = thisEntity.Position_get();
-				Vector3& entityRot = thisEntity.Rotation_get();
-				Vector3& rotForRot = (tskPtr->isRelative ? entityRot : Vector3::Zero()) + tskPtr->rotationValue;
-				Vector3& dirForRot = Vector3::RotationToDirection(rotForRot);
-				Vector3& rotForRoll = Vector3(rotForRot.y + 90.0f, 0.0f, rotForRot.y > 0 ? rotForRot.z - 90.0f : rotForRot.z + 90.0f);
-				Vector3& dirForRoll = Vector3::RotationToDirection(rotForRoll);
+				const Vector3& entityPos = thisEntity.Position_get();
+				const Vector3& entityRot = thisEntity.Rotation_get();
+				const Vector3& rotForRot = (tskPtr->isRelative ? entityRot : Vector3::Zero()) + tskPtr->rotationValue;
+				const Vector3& dirForRot = Vector3::RotationToDirection(rotForRot);
+				const Vector3& rotForRoll = Vector3(rotForRot.y + 90.0f, 0.0f, rotForRot.y > 0 ? rotForRot.z - 90.0f : rotForRot.z + 90.0f);
+				const Vector3& dirForRoll = Vector3::RotationToDirection(rotForRoll);
 
-				ModelDimensions& entityMd = thisEntity.ModelDimensions();
+				const ModelDimensions& entityMd = thisEntity.ModelDimensions();
 
-				Vector3& markerPos = entityPos + (dirForRot * (entityMd.Dim1.y + 2.0f));
-				Vector3& markerRot = rotForRot;
+				const Vector3& markerPos = entityPos + (dirForRot * (entityMd.Dim1.y + 2.0f));
+				const Vector3& markerRot = rotForRot;
 				World::DrawMarker(MarkerType::DebugSphere, markerPos, Vector3(), Vector3(), Vector3(0.3f, 0.3f, 0.3f), RGBA(177, 33, 193, 210));
-				Vector3& rollMarkerPos = markerPos + (dirForRoll * 0.3f);
-				Vector3& rollMarkerRot = rotForRoll;
+				const Vector3& rollMarkerPos = markerPos + (dirForRoll * 0.3f);
+				const Vector3& rollMarkerRot = rotForRoll;
 				World::DrawMarker(MarkerType::DebugSphere, rollMarkerPos, Vector3(), Vector3(), Vector3(0.1f, 0.1f, 0.1f), RGBA(0, 0, 0, 255));
 				World::DrawLine(entityPos, markerPos, RGBA(177, 33, 193, 210));
 
@@ -1529,7 +1529,7 @@ namespace sub::Spooner
 				}
 
 				AddBreak("---FX---");
-				auto& fxData = tskPtr->fx.GetFxData();
+				const auto& fxData = tskPtr->fx.GetFxData();
 				for (auto& ef : sub::Ptfx_catind::vPTFX)
 				{
 					bool bFxNamePressed = false;
@@ -1729,7 +1729,7 @@ namespace sub::Spooner
 				if (bDuration_minus) { if (thisDuration > 0) thisDuration -= 500; }
 				if (bDuration_input)
 				{
-					std::string& oldDurationPreText = std::to_string(float(thisDuration - (thisDuration % 500)) / 1000);
+					std::string oldDurationPreText = std::to_string(float(thisDuration - (thisDuration % 500)) / 1000);
 					oldDurationPreText = oldDurationPreText.substr(0, oldDurationPreText.find('.') + 2);
 					std::string inputStr = Game::InputBox("", 7 + 1, "Enter duration in seconds:", oldDurationPreText);
 					if (inputStr.length() > 0)

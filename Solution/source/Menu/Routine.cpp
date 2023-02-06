@@ -73,6 +73,7 @@
 #include "..\Submenus\PtfxSubs.h"
 #include "..\Submenus\Spooner\SpoonerEntity.h"
 #include "..\Submenus\Spooner\EntityManagement.h"
+#include "..\Submenus\CutscenePlayer.h"
 
 #include <Windows.h>
 #include <thread>
@@ -85,7 +86,6 @@
 
 //--------------------------------Threads--------------------------------------------------------
 
-DWORD g_MenyooConfigOnceTick = 0UL;
 DWORD g_MenyooConfigTick = 0UL;
 DWORD g_RGBFaderTick = 0UL;
 DWORD g_NeonFaderTick = 0UL;
@@ -123,12 +123,13 @@ inline void MenyooMain()
 	sub::Speech_catind::PopulateVoiceData();
 	TimecycleModification::PopulateTimecycleNames();
 	PopulateGlobalEntityModelsArrays();
+	sub::CutscenePlayer_catind::PopulateCutsceneLabels();
 
 	srand(GetTickCount());
 	SET_RANDOM_SEED(GetTickCount());
 	//_initialProgramTick = GetTickCount();
 
-	g_MenyooConfigOnceTick = GetTickCount();
+	MenuConfig::ConfigInit();
 	g_MenyooConfigTick = GetTickCount();
 	g_RGBFaderTick = GetTickCount();
 	g_NeonFaderTick = GetTickCount();
@@ -162,21 +163,7 @@ void ThreadMenyooMain()
 
 void TickMenyooConfig()
 {
-	if (GetTickCount() > g_MenyooConfigOnceTick + 9000U)
-	{
-		if (g_ConfigHasNotBeenRead)
-		{
-			if (MenuConfig::ConfigInit() < 0)
-			{
-				ige::myLog << ige::LogType::LOG_ERROR << "Failed to load menyooConfig from " << GetPathff(Pathff::Main, true) << "menyooConfig.ini.";
-			}
-			else
-			{
-				MenuConfig::ConfigRead();
-			}
-			g_ConfigHasNotBeenRead = false;
-		}
-
+	//if (GetTickCount() > g_MenyooConfigOnceTick + 9000U)
 		if (GetTickCount() > g_MenyooConfigTick + 30000U)
 		{
 			if (MenuConfig::bSaveAtIntervals)
@@ -185,7 +172,6 @@ void TickMenyooConfig()
 			}
 			g_MenyooConfigTick = GetTickCount();
 		}
-	}
 }
 
 void TickRainbowFader()
@@ -910,7 +896,7 @@ void network_set_everyone_ignore_player(Player player)
 // World
 void set_explosion_at_coords(GTAentity entity, Vector3 pos, UINT8 type, float radius, float camshake, bool sound, bool invis, GTAentity owner)
 {
-	Vector3& Pos = (entity.Handle() == 0) ? pos : entity.GetOffsetInWorldCoords(pos);
+	const Vector3& Pos = (entity.Handle() == 0) ? pos : entity.GetOffsetInWorldCoords(pos);
 
 	if (owner.Handle() != 0 && owner.IsPed())
 		ADD_OWNED_EXPLOSION(owner.Handle(), Pos.x, Pos.y, Pos.z, type, radius, sound, invis, camshake);
@@ -923,11 +909,11 @@ void start_fireworks_at_coord(const Vector3& pos, const Vector3& rot, float scal
 	if (!HAS_NAMED_PTFX_ASSET_LOADED("scr_indep_fireworks"))
 		REQUEST_NAMED_PTFX_ASSET("scr_indep_fireworks");
 	{
-		std::vector<PCHAR> fw{ "scr_indep_firework_starburst", "scr_indep_firework_fountain", "scr_indep_firework_shotburst", "scr_indep_firework_trailburst" };
+		std::vector<std::string> fw{ "scr_indep_firework_starburst", "scr_indep_firework_fountain", "scr_indep_firework_shotburst", "scr_indep_firework_trailburst" };
 		//_9C720B61("scr_indep_fireworks");
 		USE_PARTICLE_FX_ASSET("scr_indep_fireworks");
 		SET_PARTICLE_FX_NON_LOOPED_COLOUR(GET_RANDOM_FLOAT_IN_RANGE(0.0f, 1.0f), GET_RANDOM_FLOAT_IN_RANGE(0.0f, 1.0f), GET_RANDOM_FLOAT_IN_RANGE(0.0f, 1.0f));
-		START_NETWORKED_PARTICLE_FX_NON_LOOPED_AT_COORD(fw[rand() % 4], pos.x, pos.y, pos.z, rot.x, rot.y, rot.z, scale, 0, 0, 0, false);
+		START_NETWORKED_PARTICLE_FX_NON_LOOPED_AT_COORD(fw[rand() % 4].c_str(), pos.x, pos.y, pos.z, rot.x, rot.y, rot.z, scale, 0, 0, 0, false);
 	}
 }
 
@@ -1033,7 +1019,7 @@ void set_player_triggerbot(GTAplayer player)
 							Bone::SKEL_L_Foot,
 							Bone::SKEL_R_Foot*/
 						} };
-					Vector3& targetPos = GET_PED_BONE_COORDS(target.Handle(), _triggerbot_bonelist[rand() % _triggerbot_bonelist.size()], 0.0f, 0.0f, 0.0f);
+					const Vector3& targetPos = GET_PED_BONE_COORDS(target.Handle(), _triggerbot_bonelist[rand() % _triggerbot_bonelist.size()], 0.0f, 0.0f, 0.0f);
 					if (player.Handle() == PLAYER_ID())
 					{
 						// Raycast or nah?
@@ -1042,7 +1028,7 @@ void set_player_triggerbot(GTAplayer player)
 					else
 					{
 						GTAentity gunObj = GET_CURRENT_PED_WEAPON_ENTITY_INDEX(playerPed.Handle(), 0);
-						Vector3& launchPos = gunObj.GetOffsetInWorldCoords(0, gunObj.Dim1().y, 0); //GTAentity(GET_CURRENT_PED_WEAPON_ENTITY_INDEX(ped.Handle())).GetBoneCoords("Gun_Nuzzle");
+						const Vector3& launchPos = gunObj.GetOffsetInWorldCoords(0, gunObj.Dim1().y, 0); //GTAentity(GET_CURRENT_PED_WEAPON_ENTITY_INDEX(ped.Handle())).GetBoneCoords("Gun_Nuzzle");
 						CLEAR_AREA_OF_PROJECTILES(launchPos.x, launchPos.y, launchPos.z, 4.0f, 0);
 						World::ShootBullet(launchPos, targetPos, playerPed, weap, 5, -1, true, true);
 					}
@@ -1076,10 +1062,10 @@ void set_rapid_fire()
 		}*/
 		//Vector3& targPos = GameplayCamera::RaycastForCoord(Vector2(0.0f, 0.0f), gunObj, 340.0f, 200.0f); //get_coords_from_cam(340.0f);
 		// //Vector3& targPos = GameplayCamera::GetOffsetInWorldCoords(Vector3(0.0f, 340.0f, 0.0f));
-		Vector3& camDir = GameplayCamera::DirectionFromScreenCentre_get();
-		Vector3& camPos = GameplayCamera::Position_get();
-		Vector3& launchPos = camPos + (camDir * (camPos.DistanceTo(gunObj.Position_get()) + 0.4f));
-		Vector3& targPos = camPos + (camDir * 200.0f);
+		const Vector3& camDir = GameplayCamera::DirectionFromScreenCentre_get();
+		const Vector3& camPos = GameplayCamera::Position_get();
+		const Vector3& launchPos = camPos + (camDir * (camPos.DistanceTo(gunObj.Position_get()) + 0.4f));
+		const Vector3& targPos = camPos + (camDir * 200.0f);
 
 		CLEAR_AREA_OF_PROJECTILES(launchPos.x, launchPos.y, launchPos.z, 6.0f, 0);
 
@@ -1147,7 +1133,7 @@ void set_self_deleteGun()
 	{
 		if (IS_PED_SHOOTING(PLAYER_PED_ID()))
 		{
-			GTAentity& targEntity = World::EntityFromAimCamRay();
+			GTAentity targEntity = World::EntityFromAimCamRay();
 
 			if (targEntity.Handle())
 			{
@@ -1212,14 +1198,14 @@ void set_teleport_gun()
 		GTAentity ent = IS_PED_IN_ANY_VEHICLE(myPed.Handle(), false) ? g_myVeh : myPed;
 		//Vector3& targetPos = myPed.LastWeaponImpactCoord();
 		Vector3 targetPos;
-		Vector3& camPos = GameplayCamera::Position_get();
-		Vector3& camDir = GameplayCamera::DirectionFromScreenCentre_get();
-		auto& ray = RaycastResult::Raycast(camPos, camDir, 15000.0f, IntersectOptions::Everything, myPed);
+		const Vector3& camPos = GameplayCamera::Position_get();
+		const Vector3& camDir = GameplayCamera::DirectionFromScreenCentre_get();
+		auto ray = RaycastResult::Raycast(camPos, camDir, 15000.0f, IntersectOptions::Everything, myPed);
 		if (ray.DidHitAnything())
 		{
 			if (ray.DidHitEntity())
 			{
-				GTAentity& hitEntity = ray.HitEntity();
+				const GTAentity& hitEntity = ray.HitEntity();
 				if (hitEntity.IsVehicle() || !hitEntity.MissionEntity_get())
 					targetPos = hitEntity.Position_get() + Vector3(0, 0, hitEntity.Dim2().z + ent.Dim1().z);
 				else
@@ -1248,10 +1234,10 @@ void set_bullet_gun()
 	//SHOOT_SINGLE_BULLET_BETWEEN_COORDS(launchPos.x, launchPos.y, launchPos.z, targPos.x, targPos.y, targPos.z, 5, 1, bullet_gun_hash.hash, playerPed.Handle(), 0, 1, 2500.0f);
 
 	GTAentity gunObj = GET_CURRENT_PED_WEAPON_ENTITY_INDEX(playerPed.Handle(), 0);
-	Vector3& camDir = GameplayCamera::DirectionFromScreenCentre_get();
-	Vector3& camPos = GameplayCamera::Position_get();
-	Vector3& launchPos = camPos + (camDir * (camPos.DistanceTo(gunObj.Position_get()) + 0.4f));
-	Vector3& targPos = camPos + (camDir * 200.0f);
+	const Vector3& camDir = GameplayCamera::DirectionFromScreenCentre_get();
+	const Vector3& camPos = GameplayCamera::Position_get();
+	const Vector3& launchPos = camPos + (camDir * (camPos.DistanceTo(gunObj.Position_get()) + 0.4f));
+	const Vector3& targPos = camPos + (camDir * 200.0f);
 
 	CLEAR_AREA_OF_PROJECTILES(launchPos.x, launchPos.y, launchPos.z, 6.0f, 0);
 	World::ShootBullet(launchPos, targPos, playerPed, bullet_gun_hash, 5, 2500.0f, true, true);
@@ -1265,8 +1251,8 @@ void set_ped_gun()
 		GTAentity myPed = PLAYER_PED_ID();
 		//GTAentity gunObj = GET_CURRENT_PED_WEAPON_ENTITY_INDEX(myPed.Handle());
 		//Vector3& launchPos = gunObj.GetOffsetInWorldCoords(0, gunObj.Dim1().y + ped_gun_hash.Dim2().y + 0.2f, 0); //GTAentity(GET_CURRENT_PED_WEAPON_ENTITY_INDEX(ped.Handle())).GetBoneCoords("Gun_Nuzzle");
-		Vector3& launchPos = get_coords_from_cam(GameplayCamera::Position_get().DistanceTo(myPed.Position_get()) + ped_gun_hash.Dim2().y + 0.5f);
-		Vector3& Rot = GameplayCamera::Rotation_get();
+		const Vector3& launchPos = get_coords_from_cam(GameplayCamera::Position_get().DistanceTo(myPed.Position_get()) + ped_gun_hash.Dim2().y + 0.5f);
+		const Vector3& Rot = GameplayCamera::Rotation_get();
 
 		GTAentity spawnedPed = CREATE_PED(PedType::Human, ped_gun_hash.hash, launchPos.x, launchPos.y, launchPos.z, Rot.z, 1, 1);
 		spawnedPed.Rotation_set(Rot);
@@ -1290,8 +1276,8 @@ void set_object_gun()
 	{
 		if (object_gun_rand_bit_o || object_gun_rand_bit_v) object_gun_hash.Load(160);
 
-		Vector3& launchPos = get_coords_from_cam(GameplayCamera::Position_get().DistanceTo(GET_ENTITY_COORDS(tempPed, 1)) + object_gun_hash.Dim2().y + 1.355f);
-		Vector3& Rot = GET_GAMEPLAY_CAM_ROT(2);
+		const Vector3& launchPos = get_coords_from_cam(GameplayCamera::Position_get().DistanceTo(GET_ENTITY_COORDS(tempPed, 1)) + object_gun_hash.Dim2().y + 1.355f);
+		const Vector3& Rot = GET_GAMEPLAY_CAM_ROT(2);
 
 		if (object_gun_hash.IsVehicle())
 			tempEntity = CREATE_VEHICLE(object_gun_hash.hash, launchPos.x, launchPos.y, launchPos.z, GET_ENTITY_HEADING(tempPed), 1, 1, 0);
@@ -1311,15 +1297,15 @@ void set_light_gun()
 
 	if (IS_PED_SHOOTING(myPed.Handle()))
 	{
-		auto& colour = RgbS::Random();
+		const auto& colour = RgbS::Random();
 		//Vector2 size = { GET_RANDOM_FLOAT_IN_RANGE(0.6, 1.8), GET_RANDOM_FLOAT_IN_RANGE(2.6, 4.0) };
 		//Vector2 size = { 1.5f, 3.0f };
 
 		Game::Sound::GameSound soundEffect("EPSILONISM_04_SOUNDSET", "IDLE_BEEP");
 		soundEffect.Play(myPed);
 
-		Vector3& camPos = GameplayCamera::Position_get();
-		Vector3& camDir = GameplayCamera::DirectionFromScreenCentre_get();
+		const Vector3& camPos = GameplayCamera::Position_get();
+		const Vector3& camDir = GameplayCamera::DirectionFromScreenCentre_get();
 		float launchDist;
 		GTAentity myWeaponEntity = GET_CURRENT_PED_WEAPON_ENTITY_INDEX(myPed.Handle(), 0);
 		if (myWeaponEntity.Exists())
@@ -1347,7 +1333,7 @@ void set_triple_bullets()
 	Player playerPed = PLAYER_PED_ID();
 
 	GTAentity gunObj = GET_CURRENT_PED_WEAPON_ENTITY_INDEX(playerPed, 0);
-	Vector3& launchPos = gunObj.GetOffsetInWorldCoords(0, gunObj.Dim1().y, 0);
+	const Vector3& launchPos = gunObj.GetOffsetInWorldCoords(0, gunObj.Dim1().y, 0);
 	/*Vector3 myPos[]
 	{
 	get_coords_from_cam(meFromCam() + 0.63f),
@@ -1532,8 +1518,8 @@ void set_explosion_at_bullet_hit(Ped ped, Hash type, bool invisible)
 	Vector3_t Pos;
 	if (!GET_PED_LAST_WEAPON_IMPACT_COORD(ped, &Pos) && ped == PLAYER_PED_ID())
 	{
-		Vector3& camDir = GameplayCamera::Direction_get();
-		Vector3& camCoord = GameplayCamera::Position_get();
+		const Vector3& camDir = GameplayCamera::Direction_get();
+		const Vector3& camCoord = GameplayCamera::Position_get();
 		Vector3 hitCoord = (camDir * 1000.0f) + camCoord;
 
 		RaycastResult ray = RaycastResult::Raycast(camCoord, hitCoord, IntersectOptions::Everything);
@@ -1570,8 +1556,8 @@ void set_triggerfx_at_bullet_hit(Ped ped, const std::string& fxAsset, const std:
 	Vector3_t Pos;
 	if (!GET_PED_LAST_WEAPON_IMPACT_COORD(ped, &Pos) && ped == PLAYER_PED_ID())
 	{
-		Vector3& camDir = GameplayCamera::Direction_get();
-		Vector3& camCoord = GameplayCamera::Position_get();
+		const Vector3& camDir = GameplayCamera::Direction_get();
+		const Vector3& camCoord = GameplayCamera::Position_get();
 		Vector3 hitCoord = (camDir * 1000.0f) + camCoord;
 
 		RaycastResult ray = RaycastResult::Raycast(camCoord, hitCoord, IntersectOptions::Everything);
@@ -1683,6 +1669,7 @@ void set_no_clip_off1()
 	ENABLE_CONTROL_ACTION(2, INPUT_LOOK_BEHIND, TRUE);
 	ENABLE_CONTROL_ACTION(2, INPUT_VEH_LOOK_BEHIND, TRUE);
 	ENABLE_CONTROL_ACTION(2, INPUT_SELECT_WEAPON, TRUE);
+	bit_noclip_show_help = true;
 }
 void set_no_clip_off2()
 {
@@ -1722,6 +1709,7 @@ void set_no_clip()
 						<< "~n~~INPUT_LOOK_LR~ = " << Game::GetGXTEntry("ITEM_MOVE") << "~n~~INPUT_FRONTEND_RT~/~INPUT_FRONTEND_LT~ = " << "Ascend/Descend" << "~n~~INPUT_FRONTEND_RB~ = " << "Hasten", 6000);
 					else Game::CustomHelpText::ShowTimedText(oss_ << "FreeCam:~n~~INPUT_MOVE_UD~/~INPUT_MOVE_LR~ = " << Game::GetGXTEntry("ITEM_MOV_CAM")
 						<< "~n~~INPUT_LOOK_LR~ = " << Game::GetGXTEntry("ITEM_MOVE") << "~n~~INPUT_PARACHUTE_BRAKE_RIGHT~/~INPUT_PARACHUTE_BRAKE_LEFT~ = " << "Ascend/Descend" << "~n~~INPUT_SPRINT~ = " << "Hasten", 6000);
+					bit_noclip_show_help = false;
 				}
 				bit_noclip_already_invis = !ent.IsVisible();
 				bit_noclip_already_collis = ent.IsCollisionEnabled_get();
@@ -1743,8 +1731,8 @@ void set_no_clip()
 		DISABLE_CONTROL_ACTION(2, INPUT_VEH_BRAKE, TRUE);
 		DISABLE_CONTROL_ACTION(2, INPUT_VEH_RADIO_WHEEL, TRUE);
 
-		Vector3& entPos = ent.Position_get();
-		Vector3& camOffset = Vector3();//Vector3(0, -4.0f, 3.6f);
+		const Vector3& entPos = ent.Position_get();
+		const Vector3& camOffset = Vector3();//Vector3(0, -4.0f, 3.6f);
 
 		if (!cam.Exists())
 		{
@@ -1765,7 +1753,7 @@ void set_no_clip()
 		ent.SetVisible(false);
 		myPed.SetVisible(false);
 
-		Vector3& nextRot = cam.Rotation_get() - Vector3(GET_DISABLED_CONTROL_NORMAL(0, INPUT_LOOK_UD), 0, GET_DISABLED_CONTROL_NORMAL(0, INPUT_LOOK_LR)) * (Menu::bit_controller ? 2.5f : 11.0f);
+		Vector3 nextRot = cam.Rotation_get() - Vector3(GET_DISABLED_CONTROL_NORMAL(0, INPUT_LOOK_UD), 0, GET_DISABLED_CONTROL_NORMAL(0, INPUT_LOOK_LR)) * (Menu::bit_controller ? 2.5f : 11.0f);
 		nextRot.y = 0.0f; // No roll
 		ent.Rotation_set(Vector3(0, 0, nextRot.z));
 		cam.Rotation_set(nextRot);
@@ -1978,17 +1966,18 @@ void set_ped_superman_AUTO(Ped ped)
 void set_vehicle_nos_ptfx_this_frame(GTAvehicle vehicle)
 {
 	WeaponS ptfx1 = { "scr_rcbarry1", "scr_alien_teleport" };
-	if (!HAS_NAMED_PTFX_ASSET_LOADED(ptfx1.label)) REQUEST_NAMED_PTFX_ASSET(ptfx1.label);
+	if (!HAS_NAMED_PTFX_ASSET_LOADED(ptfx1.label.c_str()))
+		REQUEST_NAMED_PTFX_ASSET(ptfx1.label.c_str());
 	else
 	{
 		Vector3 dim1, dim2;
 		vehicle.ModelDimensions(dim1, dim2);
-		USE_PARTICLE_FX_ASSET(ptfx1.label);
+		USE_PARTICLE_FX_ASSET(ptfx1.label.c_str());
 		SET_PARTICLE_FX_NON_LOOPED_COLOUR(float(titlebox.R) / 255.0f, float(titlebox.G) / 255.0f, float(titlebox.B) / 255.0f);
-		START_NETWORKED_PARTICLE_FX_NON_LOOPED_ON_ENTITY(ptfx1.name, vehicle.Handle(), dim1.x - 0.2f, 0.4 - dim2.y, 0.0f, 0.0f, 0.0f, 0.0f, 0.1f, 0, 0, 0);
-		USE_PARTICLE_FX_ASSET(ptfx1.label);
+		START_NETWORKED_PARTICLE_FX_NON_LOOPED_ON_ENTITY(ptfx1.name.c_str(), vehicle.Handle(), dim1.x - 0.2f, 0.4 - dim2.y, 0.0f, 0.0f, 0.0f, 0.0f, 0.1f, 0, 0, 0);
+		USE_PARTICLE_FX_ASSET(ptfx1.label.c_str());
 		SET_PARTICLE_FX_NON_LOOPED_COLOUR(float(titlebox.R) / 255.0f, float(titlebox.G) / 255.0f, float(titlebox.B) / 255.0f);
-		START_NETWORKED_PARTICLE_FX_NON_LOOPED_ON_ENTITY(ptfx1.name, vehicle.Handle(), 0.2f - dim2.x, 0.4 - dim2.y, 0.0f, 0.0f, 0.0f, 0.0f, 0.1f, 0, 0, 0);
+		START_NETWORKED_PARTICLE_FX_NON_LOOPED_ON_ENTITY(ptfx1.name.c_str(), vehicle.Handle(), 0.2f - dim2.x, 0.4 - dim2.y, 0.0f, 0.0f, 0.0f, 0.0f, 0.1f, 0, 0, 0);
 	}
 
 	PTFX::NonLoopedPTFX muzzleFlash("scr_carsteal4", "scr_carsteal5_car_muzzle_flash");
@@ -1997,7 +1986,7 @@ void set_vehicle_nos_ptfx_this_frame(GTAvehicle vehicle)
 	else
 	{
 		//auto& otherWayRot = Vector3(vehicle.Pitch_get(), 0, vehicle.Heading_get() - 90.0f);
-		Vector3& otherWayRot = vehicle.Rotation_get() + Vector3(0, 0, -90.0f);
+		const Vector3& otherWayRot = vehicle.Rotation_get() + Vector3(0, 0, -90.0f);
 		for (auto& exh : { VBone::exhaust, VBone::exhaust_2 })
 		{
 			muzzleFlash.Start(vehicle.GetBoneCoords(vehicle.GetBoneIndex(exh)), 1.0f, otherWayRot);
@@ -2110,7 +2099,7 @@ void set_local_car_hydraulics()
 void set_local_forcefield()
 {
 	GTAentity myPed = PLAYER_PED_ID();
-	Vector3& myPos = myPed.Position_get();
+	const Vector3& myPos = myPed.Position_get();
 	switch (loop_forcefield)
 	{
 	case 1: //push out
@@ -2118,7 +2107,7 @@ void set_local_forcefield()
 		{
 			if (ent.Handle() != myPed.Handle() && ent.Handle() != g_myVeh)
 			{
-				Vector3& entPos = ent.Position_get();
+				const Vector3& entPos = ent.Position_get();
 				if (myPos.DistanceTo(entPos) < 10.0f)
 				{
 					ent.ApplyForce(entPos - myPos, ForceType::MaxForceRot2);
@@ -2193,7 +2182,7 @@ void set_local_forcefield()
 }
 
 // World - explosion
-void set_explosion_wp(UINT8& mode)
+void set_explosion_wp(UINT8 mode)
 {
 	if (!IS_WAYPOINT_ACTIVE())
 		return;
@@ -2217,7 +2206,7 @@ void set_explosion_wp(UINT8& mode)
 		break;
 	}
 
-	Vector3& pos = GET_BLIP_INFO_ID_COORD(GET_FIRST_BLIP_INFO_ID(BlipIcon::Waypoint));
+	Vector3 pos = GET_BLIP_INFO_ID_COORD(GET_FIRST_BLIP_INFO_ID(BlipIcon::Waypoint));
 	ADD_EXPLOSION(pos.x, pos.y, pos.z, 16, 36.0f, 1, !visible, camshake, false);
 	GET_GROUND_Z_FOR_3D_COORD(pos.x, pos.y, 600.0f, &pos.z, 0, 0);
 	ADD_EXPLOSION(pos.x, pos.y, pos.z + 5.0f, 29, 36.0f, 1, !visible, camshake, false);
@@ -2332,7 +2321,7 @@ void drive_on_water(GTAped ped, Entity& waterobject)
 	{
 		Model objModel = 0xC42C019A; // prop_ld_ferris_wheel
 		objModel.LoadAndWait();
-		Vector3& Pos = ped.GetOffsetInWorldCoords(0, 4.0f, 0);
+		const Vector3& Pos = ped.GetOffsetInWorldCoords(0, 4.0f, 0);
 		float whh = 0.0f;
 		if (GET_WATER_HEIGHT_NO_WAVES(Pos.x, Pos.y, Pos.z, &whh))
 		{
@@ -2349,8 +2338,8 @@ void drive_on_water(GTAped ped, Entity& waterobject)
 		return;
 	}
 
-	Vector3& myPos = ped.Position_get();
-	Vector3& Pos = GET_ENTITY_COORDS(waterobject, 1);
+	const Vector3& myPos = ped.Position_get();
+	const Vector3& Pos = GET_ENTITY_COORDS(waterobject, 1);
 
 	if (ped.IsInWater())
 	{
@@ -2442,7 +2431,7 @@ void set_vehicle_fliploop(GTAvehicle vehicle)
 	FLOAT roll = GET_ENTITY_ROLL(vehicle.Handle());
 	if (vehicle.IsUpsideDown() && (roll > 160 || roll < -160))
 	{
-		Model& model = vehicle.Model();
+		const Model& model = vehicle.Model();
 		if (!vehicle.IsInAir() && !vehicle.IsInWater() && !model.IsPlane() && !model.IsHeli())
 		{
 			vehicle.RequestControlOnce();
@@ -2838,7 +2827,7 @@ void set_vehicle_neon_anim(GTAvehicle vehicle)
 			if (carblip.Exists())
 				carblip.SetAlpha(255);
 
-			Vector3& carpos = PV_sub_vehicleid.Position_get();
+		const Vector3& carpos = PV_sub_vehicleid.Position_get();
 
 			if (carpos.DistanceTo(playerPed.Position_get()) < 40.0f)
 			{
@@ -2973,33 +2962,33 @@ void set_vehicle_neon_anim(GTAvehicle vehicle)
 		}
 	}
 
-	// Ped - ability (multiplier lists)
-	std::map<Ped, std::string> g_pedList_movGrp;
-	std::map<Ped, std::string> g_pedList_wmovGrp;
-	// Spooner/ped - facial mood - getter/setter
-	std::map<Ped, std::string> g_pedList_facialMood;
-	std::string get_ped_facial_mood(GTAentity ped)
-	{
-		auto it = g_pedList_facialMood.find(ped.Handle());
-		if (it == g_pedList_facialMood.end())
-			return std::string();
-		else return it->second;
-	}
-	void set_ped_facial_mood(GTAentity ped, const std::string & animName)
-	{
-		//ped.RequestControl();
-		auto& m = g_pedList_facialMood[ped.Handle()];
-		m = animName;
-		SET_FACIAL_IDLE_ANIM_OVERRIDE(ped.Handle(), const_cast<PCHAR>(animName.c_str()), 0);
-	}
-	void clear_ped_facial_mood(GTAentity ped)
-	{
-		//ped.RequestControl();
-		auto it = g_pedList_facialMood.find(ped.Handle());
-		if (it != g_pedList_facialMood.end())
-			g_pedList_facialMood.erase(it);
-		CLEAR_FACIAL_IDLE_ANIM_OVERRIDE(ped.Handle());
-	}
+// Ped - ability (multiplier lists)
+std::map<Ped, std::string> g_pedList_movGrp;
+std::map<Ped, std::string> g_pedList_wmovGrp;
+// Spooner/ped - facial mood - getter/setter
+std::map<Ped, std::string> g_pedList_facialMood;
+std::string get_ped_facial_mood(GTAentity ped)
+{
+	auto it = g_pedList_facialMood.find(ped.Handle());
+	if (it == g_pedList_facialMood.end())
+		return std::string();
+	else return it->second;
+}
+void set_ped_facial_mood(GTAentity ped, const std::string& animName)
+{
+	//ped.RequestControl();
+	auto& m = g_pedList_facialMood[ped.Handle()];
+	m = animName;
+	SET_FACIAL_IDLE_ANIM_OVERRIDE(ped.Handle(), animName.c_str(), 0);
+}
+void clear_ped_facial_mood(GTAentity ped)
+{
+	//ped.RequestControl();
+	auto it = g_pedList_facialMood.find(ped.Handle());
+	if (it != g_pedList_facialMood.end())
+		g_pedList_facialMood.erase(it);
+	CLEAR_FACIAL_IDLE_ANIM_OVERRIDE(ped.Handle());
+}
 
 	void Set_Walkunderwater(Entity PlayerPed)
 	{

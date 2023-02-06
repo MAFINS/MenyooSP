@@ -62,27 +62,27 @@ RaycastResult::RaycastResult(int handle)
 }
 
 
-int RaycastResult::Result()
+int RaycastResult::Result() const
 {
 	return this->mResult;
 }
-bool RaycastResult::DidHitEntity()
+bool RaycastResult::DidHitEntity() const
 {
-	return mHitEntity.Handle() != 0;
+	return mHitEntity.GetHandle() != 0;
 }
-bool RaycastResult::DidHitAnything()
+bool RaycastResult::DidHitAnything() const
 {
 	return this->mDidHit;
 }
-GTAentity RaycastResult::HitEntity()
+GTAentity RaycastResult::HitEntity() const
 {
 	return this->mHitEntity;
 }
-Vector3 RaycastResult::HitCoords()
+Vector3 RaycastResult::HitCoords() const
 {
 	return this->mHitCoords;
 }
-Vector3 RaycastResult::SurfaceNormal()
+Vector3 RaycastResult::SurfaceNormal() const
 {
 	return this->mSurfaceNormal;
 }
@@ -94,7 +94,7 @@ RaycastResult RaycastResult::Raycast(const Vector3& source, const Vector3& targe
 }
 RaycastResult RaycastResult::Raycast(const Vector3& source, const Vector3& direction, float maxDistance, IntersectOptions options, GTAentity ignoreEntity)
 {
-	Vector3& target = source + (direction * maxDistance);
+	const Vector3& target = source + (direction * maxDistance);
 	return RaycastResult(START_EXPENSIVE_SYNCHRONOUS_SHAPE_TEST_LOS_PROBE(source.x, source.y, source.z, target.x, target.y, target.z, static_cast<int>(options), ignoreEntity.Handle(), 7));
 }
 RaycastResult RaycastResult::RaycastCapsule(const Vector3& source, const Vector3& target, float radius, IntersectOptions options, GTAentity ignoreEntity)
@@ -103,7 +103,7 @@ RaycastResult RaycastResult::RaycastCapsule(const Vector3& source, const Vector3
 }
 RaycastResult RaycastResult::RaycastCapsule(const Vector3& source, const Vector3& direction, float maxDistance, float radius, IntersectOptions options, GTAentity ignoreEntity)
 {
-	Vector3& target = source + (direction * maxDistance);
+	const Vector3& target = source + (direction * maxDistance);
 	return RaycastResult(START_SHAPE_TEST_CAPSULE(source.x, source.y, source.z, target.x, target.y, target.z, radius, static_cast<int>(options), ignoreEntity.Handle(), 7));
 }
 

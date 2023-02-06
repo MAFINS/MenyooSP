@@ -104,10 +104,10 @@ namespace sub
 			GTAplayer player = Static_240;
 			if (player.IsActive())
 			{
-				GTAped& playerPed = player.GetPed();
+				const GTAped& playerPed = player.GetPed();
 				if (playerPed.IsAlive())
 				{
-					Vector3& pos = playerPed.Position_get();
+					const Vector3& pos = playerPed.Position_get();
 					SET_NEW_WAYPOINT(pos.x, pos.y);
 				}
 				else

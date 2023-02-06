@@ -81,7 +81,7 @@ public:
 	/// Initializes a new instance of the <see cref="Vector3"/> class.
 	/// </summary>
 	/// <param name="xyz">Initial value of the x,y,z components.</param>
-	Vector3(Vector3_t& xyz);
+	Vector3(const Vector3_t& xyz);
 
 	/// <summary>
 	/// Nulls the vector (0,0,0)
