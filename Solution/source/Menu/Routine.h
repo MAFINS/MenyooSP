@@ -56,6 +56,8 @@ void TickNeonFlashAnim();
 
 void TickNeonFadeAnim();
 
+void TickNeonSlideAnim();
+
 void TickNeonShiftAnim();
 
 void TickNeonSpinAnim();
@@ -70,7 +72,7 @@ void TickNeonHeartbeatAnim();
 
 extern INT16 bind_no_clip;
 
-extern RgbS g_fadedRGB, g_neonFade, g_neonHeart, g_neonShift;
+extern RgbS g_fadedRGB, g_neonFade, g_neonSlide, g_neonHeart, g_neonShift;
 extern bool g_neonFlash;
 extern int g_neonSpin,g_neonSpinBack;
 extern bool g_neonFwk[4];

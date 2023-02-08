@@ -89,6 +89,7 @@
 DWORD g_MenyooConfigTick = 0UL;
 DWORD g_RGBFaderTick = 0UL;
 DWORD g_NeonFaderTick = 0UL;
+DWORD g_NeonSliderTick = 0UL;
 DWORD g_NeonShifterTick = 0UL;
 DWORD g_NeonHeartBeatTick = 0UL;
 DWORD g_FlashTick = 0UL;
@@ -133,6 +134,7 @@ inline void MenyooMain()
 	g_MenyooConfigTick = GetTickCount();
 	g_RGBFaderTick = GetTickCount();
 	g_NeonFaderTick = GetTickCount();
+	g_NeonSliderTick = GetTickCount();
 	g_NeonShifterTick = GetTickCount();
 	g_NeonHeartBeatTick = GetTickCount();
 	g_SpinTick = GetTickCount();
@@ -148,6 +150,7 @@ inline void MenyooMain()
 		TickRainbowFader();
 		TickNeonFlashAnim();
 		TickNeonFadeAnim();
+		TickNeonSlideAnim();
 		TickNeonShiftAnim();
 		TickNeonSpinAnim();
 		TickNeonFwkAnim();
@@ -223,6 +226,23 @@ void TickNeonFadeAnim()
 		fade.G = g_neon_colour_set.G * loop_fade_multiplier;
 		fade.B = g_neon_colour_set.B * loop_fade_multiplier;
 		g_NeonFaderTick = GetTickCount();
+	}
+
+}
+void TickNeonSlideAnim()
+{
+	if (GetTickCount() > g_NeonSliderTick + 20U)
+	{
+		auto& slide = g_neonSlide;
+		float loop_slide_multiplier = 1.0f;
+		int time = GetTickCount() % (2 * loop_neon_delay);
+		//loop_slide_multiplier = ((abs(sin((0.5 * 3.14 * time) / loop_neon_delay)) - 1) * floor(cos(3.14 * ((time / loop_neon_delay) + 0.5)))) + (( - abs(cos((0.5 * 3.14 * time) / loop_neon_delay))) * floor(sin((3.14 * time) / loop_neon_delay)));
+		loop_slide_multiplier = ((abs(tanh(4 * sin(((0.5 * 3.142 * time / loop_neon_delay))))) - 1) * floor(cos(3.142 * ((time / loop_neon_delay) + 0.5)))) + ((-(abs(tanh(4 * cos(((0.5 * 3.142 * time) / loop_neon_delay)))))*floor(sin(((3.142 * time) / loop_neon_delay)))));
+		slide.R = g_neon_colour_set.R * loop_slide_multiplier;
+		slide.G = g_neon_colour_set.G * loop_slide_multiplier;
+		slide.B = g_neon_colour_set.B * loop_slide_multiplier;
+		Game::Print::PrintBottomCentre("time = "+ std::to_string(time) + ", loop_slide_multiplier = " + std::to_string(loop_slide_multiplier));
+		g_NeonSliderTick = GetTickCount();
 	}
 
 }
@@ -375,7 +395,7 @@ void TickNeonFwkAnim()
 
 INT16 bind_no_clip = VirtualKey::F3;
 
-RgbS g_fadedRGB(255, 0, 0), g_neonFade(0, 0, 0), g_neonHeart(0,0,0), g_neonShift(0, 0, 0);
+RgbS g_fadedRGB(255, 0, 0), g_neonFade(0, 0, 0), g_neonSlide(0, 0, 0), g_neonHeart(0,0,0), g_neonShift(0, 0, 0);
 bool g_neonFlash = 0;
 int g_neonSpin = 0, g_neonSpinBack = 0;
 bool g_neonFwk[4] = { 0,0,0,0 };
@@ -2572,6 +2592,12 @@ void set_vehicle_neon_anim(GTAvehicle vehicle)
 	{
 		vehicle.RequestControlOnce();
 		vehicle.NeonLightsColour_set(g_neonShift);
+		break;
+	}
+	case 4:
+	{
+		vehicle.RequestControlOnce();
+		vehicle.NeonLightsColour_set(g_neonSlide);
 		break;
 	}
 	}
