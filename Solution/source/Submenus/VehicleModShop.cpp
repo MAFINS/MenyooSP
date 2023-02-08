@@ -3305,7 +3305,7 @@ namespace sub
 		}
 
 		std::vector<std::string> NEON_FLASH{ "None","Simple","Spin","SpinBack", "Firework"};
-		std::vector<std::string> NEON_FADE{ "None","Simple","Heartbeat","Shift"};
+		std::vector<std::string> NEON_FADE{ "None","Simple","Heartbeat","Shift","Slide"};
 
 		GTAvehicle vehicle = Static_12;
 
