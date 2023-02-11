@@ -1180,7 +1180,9 @@ namespace sub
 			settings_hud_c_plus = 0,
 			settings_hud_c_minus = 0,
 			ms_paints_finish_plus = 0,
-			ms_paints_finish_minus = 0;
+			ms_paints_finish_minus = 0,
+			matchprim = 0,
+			matchsec = 0;
 
 		GTAvehicle vehicle = Static_12;
 
@@ -1253,7 +1255,7 @@ namespace sub
 		{
 		case 0: GET_VEHICLE_CUSTOM_PRIMARY_COLOUR(Static_12, &ms_paints_rgb_r, &ms_paints_rgb_g, &ms_paints_rgb_b); break;
 		case 1: GET_VEHICLE_CUSTOM_SECONDARY_COLOUR(Static_12, &ms_paints_rgb_r, &ms_paints_rgb_g, &ms_paints_rgb_b); break;
-		case 2: GET_VEHICLE_NEON_COLOUR(Static_12, &ms_paints_rgb_r, &ms_paints_rgb_g, &ms_paints_rgb_b); break;
+		case 2:  ms_paints_rgb_r = g_neon_colour_set.R; ms_paints_rgb_g = g_neon_colour_set.G; ms_paints_rgb_b = g_neon_colour_set.B; break;
 		case 3: ms_paints_rgb_r = _global_MultiPlatNeons_Col.R; ms_paints_rgb_g = _global_MultiPlatNeons_Col.G; ms_paints_rgb_b = _global_MultiPlatNeons_Col.B; break;
 		case 4: GET_VEHICLE_TYRE_SMOKE_COLOR(Static_12, &ms_paints_rgb_r, &ms_paints_rgb_g, &ms_paints_rgb_b); break;
 
@@ -1279,7 +1281,27 @@ namespace sub
 		if (ms_paints_rgb_a != -1) AddNumber("Opacity", ms_paints_rgb_a, 0, ms_paints_rgb_a_custom, ms_paints_rgb_a_plus, ms_paints_rgb_a_minus);
 		AddTexter("HUD Colour", settings_hud_c, HudColour::vHudColours, settings_hud_c_custom, settings_hud_c_plus, settings_hud_c_minus);
 		AddOption("~b~Input~s~ Hex Code", ms_paints_hexinput);
+		switch (bit_MSPaints_RGB_mode)
+		{
+		case 0: case 1: case 7: default: break;
+		case 2: case 3: case 4: case 9: case 10: 
+		{
+			AddOption("Match Primary", matchprim);
+			AddOption("Match Secondary", matchsec);
+			break;
+		}
+		}
 
+		if(matchprim)
+		{ 
+			GET_VEHICLE_CUSTOM_PRIMARY_COLOUR(Static_12, &ms_paints_rgb_r, &ms_paints_rgb_g, &ms_paints_rgb_b);
+			rgb_mode_set_carcol(Static_12, ms_paints_rgb_r, ms_paints_rgb_g, ms_paints_rgb_b, 255);
+		}
+		if (matchsec) {		
+			GET_VEHICLE_CUSTOM_SECONDARY_COLOUR(Static_12, &ms_paints_rgb_r, &ms_paints_rgb_g, &ms_paints_rgb_b);
+			rgb_mode_set_carcol(Static_12, ms_paints_rgb_r, ms_paints_rgb_g, ms_paints_rgb_b, 255);
+		}
+		
 		AddBreak("---Presets---");
 		if (Add_preset_colour_options(ms_paints_rgb_r, ms_paints_rgb_g, ms_paints_rgb_b))
 			rgb_mode_set_carcol(Static_12, ms_paints_rgb_r, ms_paints_rgb_g, ms_paints_rgb_b, ms_paints_rgb_a);
@@ -3337,7 +3359,8 @@ namespace sub
 			bit_MSPaints_RGB_mode = 2;
 		}
 		if (*Menu::currentopATM == Menu::printingop)
-			Add_preset_colour_options_previews(vehicle.NeonLightsColour_get());
+			Add_preset_colour_options_previews(g_neon_colour_set);
+
 
 		AddToggle("Neon RGB", loop_neon_rgb, neon_rgb_toggle, neon_rgb_toggle);
 
