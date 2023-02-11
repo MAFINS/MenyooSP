@@ -219,7 +219,7 @@ void TickNeonFadeAnim()
 		float loop_fade_multiplier = 1.0f;
 		int time = GetTickCount() % (2 * loop_neon_delay);
 		if (time > 0)
-			loop_fade_multiplier = 0.5 * (cos((3.14 * time) / loop_neon_delay) + 1);
+			loop_fade_multiplier = 0.5 * (cos((3.142 * time) / loop_neon_delay) + 1);
 		else
 			loop_fade_multiplier = 1;
 		fade.R = g_neon_colour_set.R * loop_fade_multiplier;
@@ -236,12 +236,10 @@ void TickNeonSlideAnim()
 		auto& slide = g_neonSlide;
 		float loop_slide_multiplier = 1.0f;
 		int time = GetTickCount() % (2 * loop_neon_delay);
-		//loop_slide_multiplier = ((abs(sin((0.5 * 3.14 * time) / loop_neon_delay)) - 1) * floor(cos(3.14 * ((time / loop_neon_delay) + 0.5)))) + (( - abs(cos((0.5 * 3.14 * time) / loop_neon_delay))) * floor(sin((3.14 * time) / loop_neon_delay)));
-		loop_slide_multiplier = ((abs(tanh(4 * sin(((0.5 * 3.142 * time / loop_neon_delay))))) - 1) * floor(cos(3.142 * ((time / loop_neon_delay) + 0.5)))) + ((-(abs(tanh(4 * cos(((0.5 * 3.142 * time) / loop_neon_delay)))))*floor(sin(((3.142 * time) / loop_neon_delay)))));
+		loop_slide_multiplier = ((abs(1.2*tanh(1.2 * sin(((0.5 * 3.142 * time / loop_neon_delay))))) - 1) * floor(cos(3.142 * ((time / loop_neon_delay) + 0.5)))) + (1.2*(-(abs(tanh(1.2 * cos(((0.5 * 3.142 * time) / loop_neon_delay)))))*floor(sin(((3.142 * time) / loop_neon_delay)))));
 		slide.R = g_neon_colour_set.R * loop_slide_multiplier;
 		slide.G = g_neon_colour_set.G * loop_slide_multiplier;
 		slide.B = g_neon_colour_set.B * loop_slide_multiplier;
-		Game::Print::PrintBottomCentre("time = "+ std::to_string(time) + ", loop_slide_multiplier = " + std::to_string(loop_slide_multiplier));
 		g_NeonSliderTick = GetTickCount();
 	}
 
@@ -251,15 +249,10 @@ void TickNeonShiftAnim()
 	if (GetTickCount() > g_NeonShifterTick + 20U)
 	{
 		auto& shift = g_neonShift;
-		float loop_fade_multiplier = 1.0f;
-		int time = GetTickCount() % (2 * loop_neon_delay);
-		if (time > 0)
-			loop_fade_multiplier = 0.4 * (sin((3.14 * time) / (0.5*loop_neon_delay))) + 0.5;
-		else
-			loop_fade_multiplier = 1;
-		shift.R = g_neon_colour_set.R * loop_fade_multiplier;
-		shift.G = g_neon_colour_set.G * loop_fade_multiplier;
-		shift.B = g_neon_colour_set.B * loop_fade_multiplier;
+		int time = GetTickCount() % (2*loop_neon_delay);
+		shift.R = (96 - (0.75 * g_neon_colour_set.R)) * (sin((3.142 * time) / loop_neon_delay)) + 96 + (0.25 * g_neon_colour_set.R);
+		shift.G = (96 - (0.75 * g_neon_colour_set.G)) * (sin((3.142 * time) / loop_neon_delay)) + 96 + (0.25 * g_neon_colour_set.G);
+		shift.B = (96 - 0.75 * (g_neon_colour_set.B)) * (sin((3.142 * time) / loop_neon_delay)) + 96 + (0.25 * g_neon_colour_set.B);
 		g_NeonShifterTick = GetTickCount();
 	}
 
@@ -271,7 +264,7 @@ void TickNeonHeartbeatAnim() {
 		auto& fade = g_neonHeart;
 		int time = GetTickCount() % (loop_neon_delay);
 		if (time < loop_neon_delay / 2)
-			loop_heart_multiplier = 1 - abs(((cos((3.14 * (time)) / loop_neon_delay * 4))));
+			loop_heart_multiplier = 1 - abs(((cos((3.142 * (time)) / loop_neon_delay * 4))));
 		else
 			loop_heart_multiplier = 0;
 		fade.R = g_neon_colour_set.R * loop_heart_multiplier;

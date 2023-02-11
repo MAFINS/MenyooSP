@@ -150,7 +150,7 @@ bit_infinite_ammo, loop_self_inf_parachutes, lowersuspension, loop_neon_rgb;
 
 extern int loop_neon_delay, loop_neon_fade, loop_neon_flash;
 
-extern float loop_fade_multiplier, loop_heart_multiplier;
+//extern float loop_fade_multiplier, loop_heart_multiplier;
 
 extern bool neonstate[4];
 
