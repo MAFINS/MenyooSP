@@ -1648,7 +1648,8 @@ void GeneralGlobalHax::EnableBlockedMpVehiclesInSp(bool uSure)
 	case eGameVersion::VER_1_0_2699_0_NOSTEAM: case eGameVersion::VER_1_0_2699_0_STEAM:
 	case eGameVersion::VER_1_0_2699_16:
 		*GTAmemory::GetGlobalPtr<INT32>(4539659) = uSure ? 1 : 0; break;
-	case eGameVersion::VER_1_0_2802_0: default:
+	case eGameVersion::VER_1_0_2802_0:
+	case eGameVersion::VER_1_0_2824_0:default:
 		*GTAmemory::GetGlobalPtr<INT32>(4540726) = uSure ? 1 : 0; break;
 	}
 }
@@ -1672,7 +1673,7 @@ float GeneralGlobalHax::GetPlayerHeight()
 	if (baddr)
 	{
 		auto gameVersion = GTAmemory::GetGameVersion();
-		if (gameVersion <= eGameVersion::VER_1_0_2802_0)
+		if (gameVersion <= eGameVersion::VER_1_0_2824_0)
 			return *(GetMultilayerPointer<float*>(baddr, std::vector<DWORD>{0x8, 0x88}));
 	}
 	return 1.0f;
@@ -1683,7 +1684,7 @@ void GeneralGlobalHax::SetPlayerHeight(float value)
 	if (baddr)
 	{
 		auto gameVersion = GTAmemory::GetGameVersion();
-		if (gameVersion <= eGameVersion::VER_1_0_2802_0)
+		if (gameVersion <= eGameVersion::VER_1_0_2824_0)
 			*(GetMultilayerPointer<float*>(baddr, std::vector<DWORD>{0x8, 0x88})) = value;
 	}
 }
