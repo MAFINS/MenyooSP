@@ -898,6 +898,12 @@ void set_soulswitch_gun()
 		if (soulswitchentity.IsPed() && soulswitchentity.IsAlive()
 			&& (IS_DISABLED_CONTROL_JUST_PRESSED(0, INPUT_ATTACK) || (IS_PED_IN_ANY_VEHICLE(playerPed.Handle(), false) && IS_DISABLED_CONTROL_JUST_PRESSED(2, INPUT_VEH_ATTACK))))
 		{
+			if (IS_SPECIAL_ABILITY_ACTIVE(PLAYER_ID(), 0))
+			{
+				SPECIAL_ABILITY_DEACTIVATE_FAST(PLAYER_ID(), 0);
+				WAIT(16);
+			}
+
 			Game::Sound::PlayFrontend("Knuckle_Crack_Hard_Cel", "MP_SNACKS_SOUNDSET");
 			ANIMPOSTFX_PLAY("MinigameEndNeutral", 0, 0); // FocusIn
 			set_become_ped(soulswitchentity);
