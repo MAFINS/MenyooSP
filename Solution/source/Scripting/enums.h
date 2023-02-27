@@ -4013,7 +4013,7 @@ namespace VBone {
 		wing_rf,
 		wing_rr,
 		wingtip_1,
-		wingtip_2,
+		wingtip_2
 	};
 
 	extern const std::vector<std::string> vNames;
