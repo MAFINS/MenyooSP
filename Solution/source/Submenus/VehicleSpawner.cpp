@@ -886,7 +886,7 @@ namespace sub
 					_globalSpawnVehicle_neonCol.R, _globalSpawnVehicle_neonCol.G, _globalSpawnVehicle_neonCol.B,
 					_globalSpawnVehicle_PrimCol, _globalSpawnVehicle_SecCol);
 
-				if (!NETWORK_IS_IN_SESSION())
+				if (!NETWORK_IS_IN_SESSION() && !_globalSpawnVehicle_persistent)
 					SET_VEHICLE_AS_NO_LONGER_NEEDED(&vehicle);
 			}
 		}
@@ -969,7 +969,7 @@ namespace sub
 					_globalSpawnVehicle_neonCol.R, _globalSpawnVehicle_neonCol.G, _globalSpawnVehicle_neonCol.B,
 					_globalSpawnVehicle_PrimCol, _globalSpawnVehicle_SecCol);
 
-				if (!NETWORK_IS_IN_SESSION())
+				if (!NETWORK_IS_IN_SESSION() && !_globalSpawnVehicle_persistent)
 					SET_VEHICLE_AS_NO_LONGER_NEEDED(&spawnedVehicle);
 			}
 			else Game::Print::PrintError_InvalidModel();
@@ -1004,6 +1004,7 @@ namespace sub
 		AddToggle("Auto-Sit In Vehicle", _globalSpawnVehicle_autoSit);
 		AddToggle("Spawn Pre-Upgraded", _globalSpawnVehicle_autoUpgrade);
 		AddToggle("Spawn Invincible", _globalSpawnVehicle_invincible);
+		AddToggle("Spawn Persistent", _globalSpawnVehicle_persistent);
 		AddOption("Primary Paint", set_mspaint_index_10, nullFunc, SUB::MSPAINTS2); // Primary Paint
 		AddOption("Secondary Paint", set_mspaint_index_11, nullFunc, SUB::MSPAINTS2); // Secondary Paint
 		AddBreak("---Neons---");
@@ -2000,7 +2001,7 @@ namespace sub
 				}
 				for (auto& e : vSpawnedAttachments)
 				{
-					e.e.Handle.NoLongerNeeded();
+					if (!_globalSpawnVehicle_persistent) e.e.Handle.NoLongerNeeded();
 				}
 			}
 

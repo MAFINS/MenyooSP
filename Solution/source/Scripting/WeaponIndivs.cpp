@@ -240,12 +240,32 @@ std::vector<WeaponAndComponents> WeaponIndivs::wc_MELEE
 	}, nullptr },
 
 	{ WEAPON_KNIFE,{
+		{ "Eyes", GET_HASH_KEY("COMPONENT_KNIFE_VARMOD_XM3") },
+		{ "Spatter", GET_HASH_KEY("COMPONENT_KNIFE_VARMOD_XM3_01") },
+		{ "Flames", GET_HASH_KEY("COMPONENT_KNIFE_VARMOD_XM3_02") },
+		{ "Lightning", GET_HASH_KEY("COMPONENT_KNIFE_VARMOD_XM3_03") },
+		{ "Pills", GET_HASH_KEY("COMPONENT_KNIFE_VARMOD_XM3_04") },
+		{ "Snakeskin", GET_HASH_KEY("COMPONENT_KNIFE_VARMOD_XM3_05") },
+		{ "Lucha Libre", GET_HASH_KEY("COMPONENT_KNIFE_VARMOD_XM3_06") },
+		{ "Trippy", GET_HASH_KEY("COMPONENT_KNIFE_VARMOD_XM3_07") },
+		{ "Tequilya", GET_HASH_KEY("COMPONENT_KNIFE_VARMOD_XM3_08") },
+		{ "Orang-O-Tang", GET_HASH_KEY("COMPONENT_KNIFE_VARMOD_XM3_09") },
 	}, nullptr },
 	{ WEAPON_NIGHTSTICK,{
 	}, nullptr },
 	{ WEAPON_HAMMER,{
 	}, nullptr },
 	{ WEAPON_BAT,{
+		{ "Blagueurs", GET_HASH_KEY("COMPONENT_BAT_VARMOD_XM3") },
+		{ "Spatter", GET_HASH_KEY("COMPONENT_BAT_VARMOD_XM3_01") },
+		{ "Bullet Holes", GET_HASH_KEY("COMPONENT_BAT_VARMOD_XM3_02") },
+		{ "Burger Shot", GET_HASH_KEY("COMPONENT_BAT_VARMOD_XM3_03") },
+		{ "Cluckin' Bell", GET_HASH_KEY("COMPONENT_BAT_VARMOD_XM3_04") },
+		{ "Fatal Incursion", GET_HASH_KEY("COMPONENT_BAT_VARMOD_XM3_05") },
+		{ "Lucha Libre", GET_HASH_KEY("COMPONENT_BAT_VARMOD_XM3_06") },
+		{ "Trippy", GET_HASH_KEY("COMPONENT_BAT_VARMOD_XM3_07") },
+		{ "Tie-Dye", GET_HASH_KEY("COMPONENT_BAT_VARMOD_XM3_08") },
+		{ "Wall", GET_HASH_KEY("COMPONENT_BAT_VARMOD_XM3_09") },
 	}, nullptr },
 	{ WEAPON_GOLFCLUB,{
 	}, nullptr },
@@ -321,6 +341,8 @@ std::vector<WeaponAndComponents> WeaponIndivs::wc_PISTOLS
 		//{ "Camo 10 Slide", GET_HASH_KEY("COMPONENT_PISTOL_MK2_CAMO_10_SLIDE") },
 		{ "Camo Independence 1", GET_HASH_KEY("COMPONENT_PISTOL_MK2_CAMO_IND_01") },
 		//{ "Camo Independence 1 Slide", GET_HASH_KEY("COMPONENT_PISTOL_MK2_CAMO_IND_01_SLIDE") },
+		{ "Season's Greetings Frame", GET_HASH_KEY("COMPONENT_PISTOL_MK2_VARMOD_XM3") },
+		{ "Season's Greetings Slide", GET_HASH_KEY("COMPONENT_PISTOL_MK2_VARMOD_XM3_SLIDE") },
 	}, &WeaponIndivs::vCaptions_TintsMk2 },
 
 	{ WEAPON_COMBATPISTOL,{
@@ -335,6 +357,7 @@ std::vector<WeaponAndComponents> WeaponIndivs::wc_PISTOLS
 		{ "Suppressor", COMPONENT_AT_PI_SUPP },
 		{ "Flashlight", COMPONENT_AT_PI_FLSH },
 		{ "Gilded Gun Metal Finish", COMPONENT_APPISTOL_VARMOD_LUXE },
+		{ "Record A Finish", GET_HASH_KEY("COMPONENT_APPISTOL_VARMOD_SECURITY") },
 	}, &WeaponIndivs::vCaptions_Tints },
 
 	{ WEAPON_PISTOL50,{
@@ -485,6 +508,8 @@ std::vector<WeaponAndComponents> WeaponIndivs::wc_SMGS
 		{ "Suppressor", COMPONENT_AT_AR_SUPP_02 },
 		{ "Flashlight", COMPONENT_AT_PI_FLSH },
 		{ "Yusuf Amir Luxury Finish", COMPONENT_MICROSMG_VARMOD_LUXE },
+		{ "Organics Finish", GET_HASH_KEY("COMPONENT_MICROSMG_VARMOD_SECURITY") },
+		{ "Dildodude Camo", GET_HASH_KEY("COMPONENT_MICROSMG_VARMOD_XM3") },
 	}, &WeaponIndivs::vCaptions_Tints },
 
 	{ WEAPON_SMG,{
@@ -906,6 +931,8 @@ std::vector<WeaponAndComponents> WeaponIndivs::wc_SHOTGUNS
 		{ "Suppressor", COMPONENT_AT_SR_SUPP },
 		{ "Flashlight", COMPONENT_AT_AR_FLSH },
 		{ "Yusuf Amir Luxury Finish", COMPONENT_PUMPSHOTGUN_VARMOD_LOWRIDER },
+		{ "Bone Finish", GET_HASH_KEY("COMPONENT_PUMPSHOTGUN_VARMOD_SECURITY") },
+		{ "Dildodude Camo", GET_HASH_KEY("COMPONENT_PUMPSHOTGUN_VARMOD_XM3") },
 	}, &WeaponIndivs::vCaptions_Tints },
 
 	{ WEAPON_PUMPSHOTGUN_MK2,{
