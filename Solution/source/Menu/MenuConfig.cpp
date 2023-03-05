@@ -284,6 +284,7 @@ void MenuConfig::ConfigRead()
 	_globalSpawnVehicle_autoSit = ini.GetBoolValue(section_haxValues.c_str(), "vehicle_spawner_auto_sit", _globalSpawnVehicle_autoSit);
 	_globalSpawnVehicle_autoUpgrade = ini.GetBoolValue(section_haxValues.c_str(), "vehicle_spawner_auto_upgrade", _globalSpawnVehicle_autoUpgrade);
 	_globalSpawnVehicle_invincible = ini.GetBoolValue(section_haxValues.c_str(), "vehicle_spawner_invincible", _globalSpawnVehicle_invincible);
+	_globalSpawnVehicle_persistent = ini.GetBoolValue(section_haxValues.c_str(), "vehicle_spawner_persistent", _globalSpawnVehicle_persistent);
 	_globalSpawnVehicle_deleteOld = ini.GetBoolValue(section_haxValues.c_str(), "vehicle_spawner_delete_old", _globalSpawnVehicle_deleteOld);
 	_globalSpawnVehicle_neonToggle = ini.GetBoolValue(section_haxValues.c_str(), "vehicle_spawner_neons_on", _globalSpawnVehicle_neonToggle);
 	_globalSpawnVehicle_neonCol.R = ini.GetLongValue(section_haxValues.c_str(), "vehicle_spawner_neons_R", _globalSpawnVehicle_neonCol.R);
@@ -555,6 +556,7 @@ void MenuConfig::ConfigSave()
 	ini.SetBoolValue(section_haxValues.c_str(), "vehicle_spawner_auto_sit", _globalSpawnVehicle_autoSit);
 	ini.SetBoolValue(section_haxValues.c_str(), "vehicle_spawner_auto_upgrade", _globalSpawnVehicle_autoUpgrade);
 	ini.SetBoolValue(section_haxValues.c_str(), "vehicle_spawner_invincible", _globalSpawnVehicle_invincible);
+	ini.SetBoolValue(section_haxValues.c_str(), "vehicle_spawner_persistent", _globalSpawnVehicle_persistent);
 	ini.SetBoolValue(section_haxValues.c_str(), "vehicle_spawner_delete_old", _globalSpawnVehicle_deleteOld);
 	ini.SetBoolValue(section_haxValues.c_str(), "vehicle_spawner_neons_on", _globalSpawnVehicle_neonToggle);
 	ini.SetLongValue(section_haxValues.c_str(), "vehicle_spawner_neons_R", _globalSpawnVehicle_neonCol.R);

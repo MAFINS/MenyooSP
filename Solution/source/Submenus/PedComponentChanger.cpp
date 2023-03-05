@@ -997,11 +997,13 @@ namespace sub
 				{
 					currentOverlayValue++;
 					SET_PED_HEAD_OVERLAY(ped.Handle(), overlayIndex, currentOverlayValue, currentOverlayData.opacity);
+					SET_PED_HEAD_OVERLAY_TINT(ped.Handle(), overlayIndex, colourType, currentOverlayData.colour, currentOverlayData.colourSecondary);
 				}
 				else
 				{
 					currentOverlayValue = currentOverlayValue == 255 ? 0 : 255;
 					SET_PED_HEAD_OVERLAY(ped.Handle(), overlayIndex, currentOverlayValue, currentOverlayData.opacity);
+					SET_PED_HEAD_OVERLAY_TINT(ped.Handle(), overlayIndex, colourType, currentOverlayData.colour, currentOverlayData.colourSecondary);
 				}
 			}
 			if (overlay_minus)
@@ -1062,7 +1064,7 @@ namespace sub
 				}
 
 				// SECONDARY COLOUR
-				AddNumber(Game::GetGXTEntry("CMOD_COL0_1", "Secondary Colour"), currentOverlayData.colourSecondary, 0, null, colour_plus, colour_minus);
+				AddNumber(Game::GetGXTEntry("CMOD_COL0_1", "Secondary Colour"), currentOverlayData.colourSecondary, 0, null, colourSecondary_plus, colourSecondary_minus);
 				if (colourSecondary_plus)
 				{
 					if (currentOverlayData.colourSecondary < max_colours)
