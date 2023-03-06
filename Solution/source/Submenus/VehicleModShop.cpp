@@ -2507,7 +2507,6 @@ namespace sub
 					{
 						SET_VEHICLE_MOD(vehicle, modType, lastMod, GET_VEHICLE_MOD_VARIATION(vehicle, modType));
 					};
-					Game::Print::PrintBottomLeft("Back Pressed - Mod Option Restored");
 				}
 			}
 		}
