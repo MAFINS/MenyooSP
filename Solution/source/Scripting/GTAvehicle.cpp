@@ -294,6 +294,7 @@ std::string get_mod_slot_name(Vehicle vehicle, INT modType, bool gxt)
 	//}
 	//return "";
 	std::string name;
+	std::string debug;
 	if (modType >= 0 && modType < vValues_ModSlotNames.size())
 	{
 		//switch (modType)
@@ -353,7 +354,16 @@ std::string get_mod_slot_name(Vehicle vehicle, INT modType, bool gxt)
 		//case 48: Return = "Liveries 9"; break;
 		//}
 		Model vehModel = GET_ENTITY_MODEL(vehicle);
-		switch (modType)
+		REQUEST_ADDITIONAL_TEXT("mod_mnu", 19);
+		while (!HAS_ADDITIONAL_TEXT_LOADED(19)) {
+			WAIT(0);
+		}
+		if (GET_MOD_SLOT_NAME(vehicle, modType) == nullptr || std::strlen(GET_MOD_SLOT_NAME(vehicle, modType)) < 2)
+			name = vValues_ModSlotNames[modType];
+		else
+			name = GET_MOD_SLOT_NAME(vehicle, modType);
+		
+		/*switch (modType)
 		{
 		default: name = vValues_ModSlotNames[modType]; break;
 		case VehicleMod::SideSkirt: name = (vehModel.hash == VEHICLE_FAGGIO3) ? "TOP_ARCHCOVER" : vehModel.IsBike() ? "CMM_MOD_S15" : vValues_ModSlotNames[modType]; break;// Air filter for bikes
@@ -366,7 +376,7 @@ std::string get_mod_slot_name(Vehicle vehicle, INT modType, bool gxt)
 		case VehicleMod::Tank: if (vehModel.hash == VEHICLE_SLAMVAN3) name = "CMM_MOD_S27"; else name = vValues_ModSlotNames[modType];
 		case VehicleMod::Windows: if (vehModel.hash == VEHICLE_BTYPE3) name = "CMM_MOD_S21b"; else name = vValues_ModSlotNames[modType];
 		case VehicleMod::Unknown47: if (vehModel.hash == VEHICLE_SLAMVAN3) name = "SLVAN3_RDOOR"; else name = vValues_ModSlotNames[modType];
-		}
+		}*/
 	}
 	else
 	{
