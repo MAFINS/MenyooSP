@@ -3049,6 +3049,63 @@ void clear_ped_facial_mood(GTAentity ped)
 		}
 	}
 
+	std::array<int, 3> gethsvfromrbg(int r, int g, int b)
+	{
+		std::array<int, 3> hsv;
+		//setup
+		float R = (r / 255.0f),
+			G = (g / 255.0f),
+			B = (b / 255.0f),
+			M = max(R, max(G, B)),
+			m = min(R, min(G, B)),
+			C = M - m;
+		int H = 0,
+			S = 0;
+		//Hue
+		if (C != 0)
+		{
+			if (M == R)
+			{
+				H = 60 * ((G - B) / C);
+			}
+			else if (M == G)
+			{
+				H = 60 * (((B - R) / C) + 2);
+			}
+			else if (M == B)
+			{
+				H = 60 * (((R - G) / C) + 4);
+			}
+			H %= 360;
+			if (H < 0)
+				H += 360;
+		}
+		//Saturation
+		if (M != 0)
+			S = static_cast<int>((C / M) * 100);
+
+		hsv[0] = H;
+		hsv[1] = S;
+		hsv[2] = static_cast<int>(M * 100);
+
+		return hsv;
+	}
+	
+	void gethsvfromrbg(RgbS colour)
+	{
+		int r, g, b;
+		r = colour.R;
+		g = colour.G;
+		b = colour.B;;
+		gethsvfromrbg(r,g,b);
+	}
+
+	float normalisehsv(int h, int s, int v)
+	{
+		float normalout = sqrt(pow(h,2) + pow(s,2) + pow(v/2,2));
+		return normalout;
+	}
+
 #pragma endregion
 
 	void Menu::loops()

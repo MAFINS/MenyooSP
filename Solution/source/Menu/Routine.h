@@ -98,7 +98,8 @@ extern FLOAT menu_current_timecycle_strength;
 extern INT mult69_5, mult69_6, mult69_7;
 extern INT16 g_frozenRadioStation;
 extern bool bit_vehicle_gravity, bit_freeze_vehicle, VehicleOpsSlippyTires_bit;
-
+extern std::array<int, 3> gethsvfromrbg(int r, int g, int b);
+extern float normalisehsv(int h, int s, int v);
 extern INT ms_curr_paint_index;
 
 // String variables used in various submenus for search, storage, etc.

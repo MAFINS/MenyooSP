@@ -16,7 +16,7 @@
 #define _CRT_SECURE_NO_WARNINGS
 
 // version
-#define MENYOO_CURRENT_VER_ "1.8.2"
+#define MENYOO_CURRENT_VER_ "1.8.3 - Custom Skysder Build"
 
 #define GAME_PLAYERCOUNT 30
 

@@ -32,6 +32,7 @@
 #include <iomanip>
 #include <vector>
 #include <array>
+#include <fstream>
 
 namespace sub
 {
@@ -1181,6 +1182,7 @@ namespace sub
 			settings_hud_c_minus = 0,
 			ms_paints_finish_plus = 0,
 			ms_paints_finish_minus = 0,
+			ms_paints_savergb = 0,
 			matchprim = 0,
 			matchsec = 0;
 
