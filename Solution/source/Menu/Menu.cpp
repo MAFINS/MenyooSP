@@ -182,7 +182,6 @@ Scaleform Menu::instructional_buttons;
 std::vector<Scaleform_IbT> Menu::vIB;
 std::function<void()> Menu::OnSubBack = nullptr;
 
-
 void Menu::SetInputMethods()
 {
 	bit_controller = MenuInput::IsUsingController();
@@ -593,7 +592,6 @@ void Menu::while_opened()
 	{
 		SetSub_closed();
 	}
-		
 }
 void Menu::Up(bool playSound)
 {

@@ -251,8 +251,8 @@ namespace sub
 
 				playerPed.IsCollisionEnabled_set(bHasCollision);
 
-				//SET_PED_DEFAULT_COMPONENT_VARIATION(playerPed.Handle());
-				SET_PED_RANDOM_COMPONENT_VARIATION(playerPed.Handle(), 0);
+				SET_PED_DEFAULT_COMPONENT_VARIATION(playerPed.Handle());
+				//SET_PED_RANDOM_COMPONENT_VARIATION(playerPed.Handle(), 0);
 
 				model.Unload();
 
@@ -312,7 +312,7 @@ namespace sub
 		bool pressed = false;
 		AddTickol(text, model.Equals(pedModel), pressed, pressed); if (pressed)
 		{
-			PTFX::trigger_ptfx_1("scr_solomon3", "scr_trev4_747_blood_impact", 0, ped.GetOffsetInWorldCoords(0.37, -0.32f, -1.32f), Vector3(90.0f, 0, 0), 0.7f);
+			//PTFX::trigger_ptfx_1("scr_solomon3", "scr_trev4_747_blood_impact", 0, ped.GetOffsetInWorldCoords(0.37, -0.32f, -1.32f), Vector3(90.0f, 0, 0), 0.7f);
 			ChangeModel_(model);
 		}
 	}

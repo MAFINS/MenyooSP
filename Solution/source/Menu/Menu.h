@@ -156,7 +156,6 @@ public:
 	static std::vector<Scaleform_IbT> vIB;
 	static std::function<void()> OnSubBack;
 
-
 	static inline void Tick()
 	{
 		MouseSupport::Tick();

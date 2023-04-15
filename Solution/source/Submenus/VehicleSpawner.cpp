@@ -2016,6 +2016,99 @@ namespace sub
 			Game::Print::PrintBottomLeft(ss);
 		}
 
+		void saveColourVals()
+		{
+			std::ofstream outfile;
+			auto& _dir = dict3;
+			int r, g, b;
+			VEHICLE::GET_VEHICLE_CUSTOM_PRIMARY_COLOUR(Static_12, &r, &g, &b);
+			std::array<int, 3> hsv = gethsvfromrbg(r, g, b);
+			float normalisedcolour = normalisehsv(hsv[0], hsv[1], hsv[2]);
+
+			std::vector<std::pair<std::string, std::pair<std::string, float>>> ColourNames
+			{
+				{"3850041493", {"black", 0}},
+				{"807368168", {"grey", 35}},
+				{"607306136", {"silver", 53}},
+				{"4066575219", {"white", 71}},
+				{"1325014621", {"beige", 72}},
+				{"2201497177", {"brown", 110}},
+				{"1585269136", {"red", 122}},
+				{"2639756769", {"orange", 129}},
+				{"3440150791", {"yellow", 136}},
+				{"306110198", {"green", 171}},
+				{"1345033317", {"graphite", 214}},
+				{"3826758445", {"blue", 240}},
+				{"2019367074", {"pink", 352}},
+			};
+
+			float minDiff = INFINITY;
+			std::string nearestColour;
+			std::string nearestAudio;
+			for (const auto& colour : ColourNames)
+			{
+				float diff = std::abs(colour.second.second - normalisedcolour);
+				if (diff < minDiff)
+				{
+					minDiff = diff;
+					nearestColour = colour.second.first;
+					nearestAudio = colour.first;
+				}
+			}
+			int prim, sec;
+			std::string finish;
+			GET_VEHICLE_COLOURS(Static_12, &prim, &sec);
+			switch (prim)
+			{
+			case 0:
+				finish = "1";
+				break;
+			case 111:
+				finish = "2";
+				break;
+			case 12:
+				finish = "3";
+				break;
+			case 15:
+				finish = "4";
+				break;
+			case 21:
+				finish = "5";
+				break;
+			case 117:
+				finish = "6";
+				break;
+			case 120:
+				finish = "7";
+				break;
+			case 158:
+				finish = "8";
+				break;
+			case 159:
+				finish = "9";
+				break;
+			case 2: default:
+				finish = "normal";
+				break;
+			}		
+
+			std::string customname = Game::InputBox("noname", 64, "Enter Colour Name");
+
+			outfile.open(dict3 + "\\Custom colours.txt", std::ios_base::app); // append instead of overwrite
+			outfile << "Check https://gtamods.com/wiki/Carcols.ymt for all colour names, audio hashes and IDs.\n";
+			outfile << "<Item>\n";
+			outfile << "      <color value = \"0xFF" + int_to_hexstring(r, false) + int_to_hexstring(g, false) + int_to_hexstring(b, false) + "\"/>\n";
+			outfile << "      <metallicID>EVehicleModelColorMetallic_" + finish + "< / metallicID>\n";
+			outfile << "      <audioColor>POLICE_SCANNER_COLOUR_"+nearestColour+"< / audioColor>\n";
+			outfile << "      <audioPrefix>none</audioPrefix>\n";
+			outfile << "      <audioColorHash value=\"" + nearestAudio + "\"/>\n";
+			outfile << "      <audioPrefixHash value=\"0\"/>\n";
+			outfile << "      <colorName> " + std::to_string(static_cast<int>(normalisedcolour)) + " " + customname +" < / colorName>\n";
+			outfile << "</Item>\n";
+			outfile << "\n";
+			Game::Print::PrintBottomLeft("Saved Current Colour: " + std::to_string(normalisedcolour)+ " " + customname + "\n" + "HSV: " + std::to_string(hsv[0]) + ", " + std::to_string(hsv[1]) + ", " + std::to_string(hsv[2]));
+		}
+
 		int saveCarVars(GTAvehicle vehicle)
 		{
 			std::ofstream outfile;
@@ -2052,7 +2145,7 @@ namespace sub
 			auto vehicle = GET_VEHICLE_PED_IS_USING(ped);
 			bool isPedInVeh = IS_PED_IN_ANY_VEHICLE(ped, 0) || IS_PED_SITTING_IN_ANY_VEHICLE(ped);
 
-			bool save2 = false, bCreateFolderPressed = false, savecarvar = false;
+			bool save2 = false, bCreateFolderPressed = false, savecarvar = false, ms_paints_savergb = false;
 			std::vector<std::string> vfilnames;
 
 			AddTitle("Saved Vehicles");
@@ -2071,6 +2164,8 @@ namespace sub
 			AddOption("Save Current Vehicle", save2);
 
 			//AddOption("Store CarVariations", savecarvar);
+
+			//AddOption("Save Colour Profile", ms_paints_savergb);
 
 			AddOption("Create New Folder", bCreateFolderPressed);
 
@@ -2167,6 +2262,9 @@ namespace sub
 				if (isPedInVeh)
 					saveCarVars(vehicle);
 			}
+
+			if (ms_paints_savergb)
+				saveColourVals();
 
 			if (bCreateFolderPressed)
 			{

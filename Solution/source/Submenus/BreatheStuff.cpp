@@ -335,6 +335,7 @@ namespace sub
 					_globalBreatheStuff_ptfx.Remove();
 
 				loop_player_breatheStuff = type;
+				loop_player_breatheStuff = type;
 			}
 		}
 

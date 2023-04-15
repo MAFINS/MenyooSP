@@ -52,13 +52,30 @@ void TickMenyooConfig();
 
 void TickRainbowFader();
 
+void TickNeonFlashAnim();
+
+void TickNeonFadeAnim();
+
+void TickNeonSlideAnim();
+
+void TickNeonShiftAnim();
+
+void TickNeonSpinAnim();
+
+void TickNeonFwkAnim();
+
+void TickNeonHeartbeatAnim();
+
 //--------------------------------On tick--------------------------------------------------------
 
 #pragma region variables used declare // p.s. this ain't it chief
 
 extern INT16 bind_no_clip;
 
-extern RgbS g_fadedRGB;
+extern RgbS g_fadedRGB, g_neonFade, g_neonSlide, g_neonHeart, g_neonShift;
+extern bool g_neonFlash;
+extern int g_neonSpin,g_neonSpinBack;
+extern bool g_neonFwk[4];
 
 extern UINT8 pause_clock_H, pause_clock_M;
 extern Vehicle g_myVeh;
@@ -81,7 +98,8 @@ extern FLOAT menu_current_timecycle_strength;
 extern INT mult69_5, mult69_6, mult69_7;
 extern INT16 g_frozenRadioStation;
 extern bool bit_vehicle_gravity, bit_freeze_vehicle, VehicleOpsSlippyTires_bit;
-
+extern std::array<int, 3> gethsvfromrbg(int r, int g, int b);
+extern float normalisehsv(int h, int s, int v);
 extern INT ms_curr_paint_index;
 
 // String variables used in various submenus for search, storage, etc.
@@ -129,7 +147,15 @@ loop_vehicle_laser_red, loop_vehicle_turrets_valkyrie, loop_vehicle_flaregun, lo
 loop_car_colour_change, loop_vehicle_invisibility, loop_self_engineOn, loop_hide_hud, loop_showFullHud,
 loop_pause_clock, loop_sync_clock, loop_triple_bullets, loop_rapid_fire, loop_self_resurrectionGun, loop_soulswitch_gun, loop_self_deleteGun, loop_vehicle_fixloop, loop_vehicle_fliploop,
 loop_blackout_mode, loop_simple_blackout_mode, loop_restricted_areas_access, loop_HVSnipers, loop_vehicle_disableSiren, loop_fireworksDisplay,
-bit_infinite_ammo, loop_self_inf_parachutes;
+bit_infinite_ammo, loop_self_inf_parachutes, lowersuspension, loop_neon_rgb;
+
+extern int loop_neon_delay, loop_neon_fade, loop_neon_flash;
+
+//extern float loop_fade_multiplier, loop_heart_multiplier;
+
+extern bool neonstate[4];
+
+extern RgbS g_neon_colour_set;
 
 extern Entity targ_slot_entity;
 extern bool targ_entity_locked;
