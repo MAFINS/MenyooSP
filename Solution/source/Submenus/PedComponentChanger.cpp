@@ -337,10 +337,10 @@ namespace sub
             || compon_texture_old != compon_texture_current
             || compon_palette_old != compon_palette_current)
         {
-        	//if (IS_PED_COMPONENT_VARIATION_VALID(Static_241, Static_12, compon_drawable_current, compon_texture_current))
-        	SET_PED_COMPONENT_VARIATION(Static_241, Static_12, compon_drawable_current, compon_texture_current, compon_palette_current);
             while (!HasPedSpecificDrawable(compon_drawable_current))
             {
+            	//if (IS_PED_COMPONENT_VARIATION_VALID(Static_241, Static_12, compon_drawable_current, compon_texture_current))
+            	SET_PED_COMPONENT_VARIATION(Static_241, Static_12, compon_drawable_current, compon_texture_current, compon_palette_current);
                 if (compon_plus)
                 {
                     if (compon_drawable_current < GET_NUMBER_OF_PED_DRAWABLE_VARIATIONS(Static_241, Static_12) - 1)
@@ -368,7 +368,7 @@ namespace sub
                         compon_texture_current = 0;
                     }
                 }
-                SET_PED_COMPONENT_VARIATION(Static_241, Static_12, compon_drawable_current, compon_texture_current, compon_palette_current);
+                //SET_PED_COMPONENT_VARIATION(Static_241, Static_12, compon_drawable_current, compon_texture_current, compon_palette_current);
             }
         }
     }
