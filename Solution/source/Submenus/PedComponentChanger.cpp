@@ -342,7 +342,6 @@ namespace sub
 		}
 	}
 	void ComponentChangerProps_()
-            || compon_palette_old != compon_palette_current)
 	{
 		GTAped thisPed = Static_241;
 
