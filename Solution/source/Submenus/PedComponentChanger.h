@@ -40,8 +40,10 @@ namespace sub
 
 	void ComponentChanger_();
 	void ComponentChanger2_();
+	bool HasPedSpecificDrawable(int compon_drawable_new);
 	void ComponentChangerProps_();
 	void ComponentChangerProps2_();
+	bool HasPedSpecificPropType(int prop_type_new);
 
 	// Decals - tattoos & badges
 
