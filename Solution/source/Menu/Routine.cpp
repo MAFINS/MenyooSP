@@ -2089,9 +2089,7 @@ void set_multiplat_neons()
 
 	if (loop_multiplat_neons_rainbow) // rainbow loop
 	{
-		//colour = g_fadedRGB;
-		if (GET_GAME_TIMER() >= Menu::delayedTimer - 200)
-			colour = RgbS(rand() % 256, rand() % 256, rand() % 256);
+		colour = g_fadedRGB;
 	}
 
 	if (IS_PED_IN_ANY_VEHICLE(PLAYER_PED_ID(), 0))
