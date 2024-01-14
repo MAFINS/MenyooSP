@@ -91,7 +91,7 @@ DWORD g_FaderTick = 0UL;
 
 void Menu::justopened()
 {
-	Game::Print::PrintBottomLeft(oss_ << "Menyoo PC v" << MENYOO_CURRENT_VER_ << " by MAFINS.");
+	Game::Print::PrintBottomLeft(oss_ << "Menyoo PC v" << MENYOO_CURRENT_VER_ << " by ItsJustCurtis and MAFINS");
 
 	SET_AUDIO_FLAG("IsDirectorModeActive", true);
 
