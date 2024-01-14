@@ -1785,9 +1785,8 @@ namespace sub
 
 		std::string ms_plateText = GET_VEHICLE_NUMBER_PLATE_TEXT(Static_12);
 
-		std::vector<std::string> ms_vPlateTypeNames{ "CMOD_PLA_0", "CMOD_PLA_4", "CMOD_PLA_3", "CMOD_PLA_1", "CMOD_PLA_2", "Yankton" }; // BOW1, YOBLA, YOBLU, BOW2, BOW3, YANKTON 
+		std::vector<std::string> ms_vPlateTypeNames{ "CMOD_PLA_0", "CMOD_PLA_4", "CMOD_PLA_3", "CMOD_PLA_1", "CMOD_PLA_2", "Yankton", "eCola", "Las Venturas", "Liberty City", "LS Car Meet", "Los Santos Panic", "Los Santos Pounders", "Sprunk"}; // BOW1, YOBLA, YOBLU, BOW2, BOW3, YANKTON 
 		if (veh_plate_current < 0) veh_plate_current = 0;
-		if (veh_plate_current >= ms_vPlateTypeNames.size()) veh_plate_current = (INT)ms_vPlateTypeNames.size() - 1;
 
 		FLOAT ms_dirtLevel = GET_VEHICLE_DIRT_LEVEL(Static_12);
 
