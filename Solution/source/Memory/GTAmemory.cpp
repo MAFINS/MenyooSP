@@ -1344,7 +1344,7 @@ void SpSnow::EnableSnow(bool bEnable)
 	auto& addr22 = SpSnow_addr22;
 
 	// Patterns may change
-	if (!addr1)
+	/*if (!addr1)  //Outdated memory edits for snow coverage, no longer required - IJC
 	{
 		if (!addr12)
 		{
@@ -1367,7 +1367,7 @@ void SpSnow::EnableSnow(bool bEnable)
 		{
 			addr1 = addr12;
 		}
-	}
+	}*/
 
 	if (!addr2)
 	{
@@ -1391,11 +1391,11 @@ void SpSnow::EnableSnow(bool bEnable)
 	if (!this->bInitialized)
 	{
 		// Unprotect Memory
-		VirtualProtect((void*)addr1, 13, PAGE_EXECUTE_READWRITE, nullptr);
+		//VirtualProtect((void*)addr1, 13, PAGE_EXECUTE_READWRITE, nullptr); // Memory related to Snow Coverage, no longer required - IJC
 		VirtualProtect((void*)addr2, 14, PAGE_EXECUTE_READWRITE, nullptr);
 
 		// Copy original Memory
-		memcpy(&original1, (void*)addr1, 13);
+		//memcpy(&original1, (void*)addr1, 13); // Memory related to Snow Coverage, no longer required - IJC
 		memcpy(&original2, (void*)addr2, 14);
 
 		this->traxv_call = MemryScan::PatternScanner::FindPattern("\x40\x38\x3D\x00\x00\x00\x00\x48\x8B\x42\x20", "xxx????xxxx");
@@ -1426,7 +1426,7 @@ void SpSnow::EnableSnow(bool bEnable)
 	if (bEnable)
 	{
 		// NOP checks
-		if (bUseAddr13)
+		/*if (bUseAddr13) //Outdated memory edits for snow coverage, no longer required - IJC
 		{
 			BYTE* pFrom = (BYTE*)addr1;
 			BYTE* pTo = (BYTE*)addr1 + 0x1B;
@@ -1442,7 +1442,7 @@ void SpSnow::EnableSnow(bool bEnable)
 		else
 		{
 			memset((void*)addr1, 0x90, 13);
-		}
+		}*/
 
 		if (bUseAddr22)
 		{
@@ -1470,12 +1470,13 @@ void SpSnow::EnableSnow(bool bEnable)
 		//USE_SNOW_FOOT_VFX_WHEN_UNSHELTERED(true);
 		//USE_SNOW_WHEEL_VFX_WHEN_UNSHELTERED(true);
 		this->EnableTracks(true, true, true, true);
+		FORCE_GROUND_SNOW_PASS(true);
 		// Now on
 	}
 	else
 	{
 		// Copy original bytes back
-		memcpy((void*)addr1, &original1, 13);
+		//memcpy((void*)addr1, &original1, 13); // Memory related to Snow Coverage, no longer required - IJ
 		memcpy((void*)addr2, &original2, 14);
 
 		// Weather
@@ -1487,6 +1488,7 @@ void SpSnow::EnableSnow(bool bEnable)
 		//USE_SNOW_FOOT_VFX_WHEN_UNSHELTERED(false);
 		//USE_SNOW_WHEEL_VFX_WHEN_UNSHELTERED(false);
 		this->EnableTracks(false, false, false, false);
+		FORCE_GROUND_SNOW_PASS(false);
 		// Now off
 	}
 }

@@ -1357,6 +1357,7 @@ namespace GRAPHICS
 	static void USE_SNOW_FOOT_VFX_WHEN_UNSHELTERED(BOOL toggle) { invoke<Void>(0xAEEDAD1420C65CC0, toggle); } // 0xAEEDAD1420C65CC0 0xC53576CA b323
 	static void USE_SNOW_WHEEL_VFX_WHEN_UNSHELTERED(BOOL toggle) { invoke<Void>(0x4CC7F0FEA5283FE0, toggle); } // 0x4CC7F0FEA5283FE0 0x7158B1EA b323
 	static void DISABLE_REGION_VFX(Any p0) { invoke<Void>(0xEFD97FF47B745B8D, p0); } // 0xEFD97FF47B745B8D b791
+	static void FORCE_GROUND_SNOW_PASS(BOOL toggle) { invoke<Void>(0x6E9EF3A33C8899F8, toggle); } // 0x6E9EF3A33C8899F8 b3095
 	static void PRESET_INTERIOR_AMBIENT_CACHE(const char* timecycleModifierName) { invoke<Void>(0xD7021272EB0A451E, timecycleModifierName); } // 0xD7021272EB0A451E 0x137E3E24 b323
 	static void SET_TIMECYCLE_MODIFIER(const char* modifierName) { invoke<Void>(0x2C933ABF17A1DF41, modifierName); } // 0x2C933ABF17A1DF41 0xA81F3638 b323
 	static void SET_TIMECYCLE_MODIFIER_STRENGTH(float strength) { invoke<Void>(0x82E7FFCD5B2326B3, strength); } // 0x82E7FFCD5B2326B3 0x458F4F45 b323
