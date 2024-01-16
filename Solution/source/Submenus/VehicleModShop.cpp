@@ -1212,7 +1212,8 @@ namespace sub
 			settings_hud_c_plus = 0,
 			settings_hud_c_minus = 0,
 			ms_paints_finish_plus = 0,
-			ms_paints_finish_minus = 0;
+			ms_paints_finish_minus = 0,
+			ms_paints_savergb = 0;
 
 		GTAvehicle vehicle = Static_12;
 
