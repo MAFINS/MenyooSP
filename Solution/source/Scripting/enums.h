@@ -5398,6 +5398,13 @@ namespace PlateTextIndex {
 		BlueOnWhite,
 		Exempt,
 		Yankton,
+		ECola,
+		LasVenturas,
+		LibertyCity,
+		LosSantosCarMeet,
+		LSPanic,
+		LSPounders,
+		Sprunk
 	};
 }
 namespace NumberPlateType {

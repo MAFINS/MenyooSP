@@ -997,7 +997,7 @@ namespace sub
 
 		auto& plateTexter_value = _globalSpawnVehicle_plateTexter_value;
 		std::vector<std::string> plateTexter{ _globalSpawnVehicle_plateText, "Random" };
-		std::vector<std::string> ms_vPlateTypeNames{ "CMOD_PLA_0", "CMOD_PLA_4", "CMOD_PLA_3", "CMOD_PLA_1", "CMOD_PLA_2", "Yankton" }; // BOW1, YOBLA, YOBLU, BOW2, BOW3, YANKTON 
+		std::vector<std::string> ms_vPlateTypeNames{ "CMOD_PLA_0", "CMOD_PLA_4", "CMOD_PLA_3", "CMOD_PLA_1", "CMOD_PLA_2", "Yankton", "CMOD_PLA_6", "CMOD_PLA_7", "CMOD_PLA_8", "CMOD_PLA_9", "CMOD_PLA_10", "CMOD_PLA_11", "CMOD_PLA_12" }; // BOW1, YOBLA, YOBLU, BOW2, BOW3, YANKTON, ECOLA, LASVENTURAS, LIBERTYCITY, LSCARMEET, LSPOUNDERS, SPRUNK 
 
 		AddTitle("Spawn Settings");
 		AddToggle("Delete Old Vehicle", _globalSpawnVehicle_deleteOld);
@@ -1028,7 +1028,7 @@ namespace sub
 		if (set_mspaint_index_11) ms_curr_paint_index = 11;
 		if (set_rgbcarcol_index_9) bit_MSPaints_RGB_mode = 9;
 
-		if (veh_plate_plus) { if (_globalSpawnVehicle_plateType < 5) _globalSpawnVehicle_plateType++; return; }
+		if (veh_plate_plus) { if (_globalSpawnVehicle_plateType < (INT)(ms_vPlateTypeNames.size() - 1)) _globalSpawnVehicle_plateType++; return; }
 		if (veh_plate_minus) { if (_globalSpawnVehicle_plateType > 0) _globalSpawnVehicle_plateType--; return; }
 
 		if (veh_plate_text_plus) { if (plateTexter_value < 1) plateTexter_value++; return; }
