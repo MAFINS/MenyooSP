@@ -333,15 +333,57 @@ namespace sub
 
 		}
 
-		if (compon_drawable_old != compon_drawable_current
-			|| compon_texture_old != compon_texture_current
-			|| compon_texture_old != compon_palette_current)
-		{
-			//if (IS_PED_COMPONENT_VARIATION_VALID(Static_241, Static_12, compon_drawable_current, compon_texture_current))
-			SET_PED_COMPONENT_VARIATION(Static_241, Static_12, compon_drawable_current, compon_texture_current, compon_palette_current);
-		}
-	}
-	void ComponentChangerProps_()
+        if (compon_drawable_old != compon_drawable_current
+            || compon_texture_old != compon_texture_current
+            || compon_palette_old != compon_palette_current)
+        {
+        	//if (IS_PED_COMPONENT_VARIATION_VALID(Static_241, Static_12, compon_drawable_current, compon_texture_current))
+        	SET_PED_COMPONENT_VARIATION(Static_241, Static_12, compon_drawable_current, compon_texture_current, compon_palette_current);
+            while (!HasPedSpecificDrawable(compon_drawable_current))
+            {
+                if (compon_plus)
+                {
+                    if (compon_drawable_current < GET_NUMBER_OF_PED_DRAWABLE_VARIATIONS(Static_241, Static_12) - 1)
+                    {
+                        compon_drawable_current++;
+                        compon_texture_current = 0;
+                    }
+                    else
+                    {
+                        compon_drawable_current = 0;
+                        compon_texture_current = 0;
+                    }
+                }
+                else if (compon_minus)
+                {
+                    if (compon_drawable_current > -1)
+                    {
+                        compon_drawable_current--;
+                        compon_texture_current = 0;
+                        //Game::Print::PrintBottomLeft(oss_ << "compon_drawable_current prev " << compon_drawable_current << ".");
+                    }
+                    else
+                    {
+                        compon_drawable_current = GET_NUMBER_OF_PED_DRAWABLE_VARIATIONS(Static_241, Static_12) - 1;
+                        compon_texture_current = 0;
+                    }
+                }
+                SET_PED_COMPONENT_VARIATION(Static_241, Static_12, compon_drawable_current, compon_texture_current, compon_palette_current);
+            }
+        }
+    }
+
+    bool HasPedSpecificDrawable(int compon_drawable_new)
+    {
+        bool compon_drawable_correct = false;
+        int compon_drawable_current = GET_PED_DRAWABLE_VARIATION(Static_241, Static_12);
+        if (compon_drawable_new == compon_drawable_current)
+        {
+            compon_drawable_correct = true;
+        }
+        return compon_drawable_correct;
+    }
+    void ComponentChangerProps_()
 	{
 		GTAped thisPed = Static_241;
 
@@ -459,8 +501,50 @@ namespace sub
 			if (prop_type_current == -1)
 				CLEAR_PED_PROP(ped.Handle(), propId, 0);
 			else
+			{
 				SET_PED_PROP_INDEX(ped.Handle(), propId, prop_type_current, prop_texture_current, NETWORK_IS_GAME_IN_PROGRESS(), 0);
+				while (!HasPedSpecificPropType(prop_type_current))
+				{
+					if (compon_plus)
+					{
+						if (prop_type_current < GET_NUMBER_OF_PED_PROP_DRAWABLE_VARIATIONS(Static_241, Static_12) - 1)
+						{
+							prop_type_current++;
+							prop_texture_current = 0;
+						}
+						else
+						{
+							prop_type_current = -1;
+							prop_texture_current = 0;
+						}
+					}
+					else if (compon_minus)
+					{
+						if (prop_type_current > -1)
+						{
+							prop_type_current--;
+							prop_texture_current = 0;
+						}
+						else
+						{
+							prop_type_current = GET_NUMBER_OF_PED_PROP_DRAWABLE_VARIATIONS(Static_241, Static_12) - 1;
+							prop_texture_current = 0;
+						}
+					}
+				SET_PED_PROP_INDEX(ped.Handle(), propId, prop_type_current, prop_texture_current, NETWORK_IS_GAME_IN_PROGRESS(), 0);
+				}
+			}
 		}
+	}
+	bool HasPedSpecificPropType(int prop_type_new)
+	{
+		bool prop_type_correct = false;
+		int prop_type_current = GET_PED_PROP_INDEX(Static_241, Static_12, 0);
+		if (prop_type_new == prop_type_current)
+		{
+			prop_type_correct = true;
+		}
+		return prop_type_correct;
 	}
 
 	// Decals - tattoos & badges
