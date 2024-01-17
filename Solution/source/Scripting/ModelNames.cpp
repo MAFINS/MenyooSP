@@ -29,6 +29,7 @@
 
 #pragma region Vehicle model labels
 std::vector<GTAmodel::Model> g_vehHashes;
+std::vector<GTAmodel::Model> g_vehHashes_OPENWHEEL;
 std::vector<GTAmodel::Model> g_vehHashes_SUPER;
 std::vector<GTAmodel::Model> g_vehHashes_SPORT;
 std::vector<GTAmodel::Model> g_vehHashes_SPORTSCLASSIC;
@@ -156,6 +157,7 @@ void PopulatePedModelsArray()
 void PopulateVehicleModelsArray()
 {
 	g_vehHashes.clear();
+	g_vehHashes_OPENWHEEL.clear();
 	g_vehHashes_SUPER.clear();
 	g_vehHashes_SPORT.clear();
 	g_vehHashes_SPORTSCLASSIC.clear();
@@ -184,6 +186,7 @@ void PopulateVehicleModelsArray()
 	{
 		auto nodeRoot = doc.document_element();//doc.child("VehicleList");
 		for (auto& cta : std::vector<std::pair<std::string, std::vector<Model>*>>{
+			{ "Openwheel", &g_vehHashes_OPENWHEEL },
 			{ "Super", &g_vehHashes_SUPER },
 			{ "Sport", &g_vehHashes_SPORT },
 			{ "SportsClassic", &g_vehHashes_SPORTSCLASSIC },
@@ -268,7 +271,7 @@ void PopulateVehicleModelsArray()
 	auto& hashes = GTAmemory::VehicleModels();
 	std::unordered_map<VehicleClass, std::vector<Model>*> vDestMap
 	{
-		{ VehicleClass::Super, &g_vehHashes_SUPER },{ VehicleClass::Sport, &g_vehHashes_SPORT },{ VehicleClass::SportsClassic, &g_vehHashes_SPORTSCLASSIC },
+		{ VehicleClass::Openwheel, &g_vehHashes_OPENWHEEL }, { VehicleClass::Super, &g_vehHashes_SUPER },{ VehicleClass::Sport, &g_vehHashes_SPORT },{ VehicleClass::SportsClassic, &g_vehHashes_SPORTSCLASSIC },
 		{ VehicleClass::Coupe, &g_vehHashes_COUPE },{ VehicleClass::Muscle, &g_vehHashes_MUSCLE },{ VehicleClass::Offroad, &g_vehHashes_OFFROAD },{ VehicleClass::SUV, &g_vehHashes_SUV },
 		{ VehicleClass::Sedan, &g_vehHashes_SEDAN },{ VehicleClass::Compact, &g_vehHashes_COMPACT },
 		{ VehicleClass::Van, &g_vehHashes_VAN },{ VehicleClass::Service, &g_vehHashes_SERVICE },{ VehicleClass::Industrial, &g_vehHashes_SERVICE },
@@ -312,6 +315,7 @@ void PopulateVehicleModelsArray()
 	std::vector<std::vector<Model>*> vHashLists
 	{
 		{ &g_vehHashes },
+		{ &g_vehHashes_OPENWHEEL },
 		{ &g_vehHashes_SUPER },
 		{ &g_vehHashes_SPORT },
 		{ &g_vehHashes_SPORTSCLASSIC },

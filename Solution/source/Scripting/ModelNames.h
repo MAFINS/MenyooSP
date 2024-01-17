@@ -22,6 +22,7 @@ namespace GTAmodel {
 }
 
 extern std::vector<GTAmodel::Model> g_vehHashes;
+extern std::vector<GTAmodel::Model> g_vehHashes_OPENWHEEL;
 extern std::vector<GTAmodel::Model> g_vehHashes_SUPER;
 extern std::vector<GTAmodel::Model> g_vehHashes_SPORT;
 extern std::vector<GTAmodel::Model> g_vehHashes_SPORTSCLASSIC;

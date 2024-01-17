@@ -4647,6 +4647,7 @@ enum class VehicleClass : int
 	Military = 19,
 	Commercial = 20,
 	Train = 21,
+	Openwheel = 22,
 };
 enum VehicleHash : DWORD
 {

@@ -835,6 +835,7 @@ namespace sub
 			std::vector<Model>* tempvecp;
 			switch (index)
 			{
+			case OPENWHEEL:			tempvecp = &g_vehHashes_OPENWHEEL; break;
 			case SUPER:			tempvecp = &g_vehHashes_SUPER; break;
 			case SPORT:			tempvecp = &g_vehHashes_SPORT; break;
 			case SPORTSCLASSIC: tempvecp = &g_vehHashes_SPORTSCLASSIC; break;
@@ -910,6 +911,7 @@ namespace sub
 		AddOption("Funny Vehicles (Old)", null, nullFunc, SUB::FUNNYVEHICLES);
 
 		AddBreak("---Cars---");
+		AddvcatOption_("Openwheel", OPENWHEEL);
 		AddvcatOption_("Super", SUPER);
 		AddvcatOption_("Sports", SPORT);
 		AddvcatOption_("Sports Classics", SPORTSCLASSIC);
@@ -1137,6 +1139,7 @@ namespace sub
 
 		switch (SpawnVehicle_index)
 		{
+		case OPENWHEEL:			tempvecp = &g_vehHashes_OPENWHEEL; break;
 		case SUPER:			tempvecp = &g_vehHashes_SUPER; break;
 		case SPORT:			tempvecp = &g_vehHashes_SPORT; break;
 		case SPORTSCLASSIC: tempvecp = &g_vehHashes_SPORTSCLASSIC; break;
