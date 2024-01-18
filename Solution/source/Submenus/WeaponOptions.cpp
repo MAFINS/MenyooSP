@@ -762,20 +762,18 @@ namespace sub
 		AddvcatOption_("Compacts", Indices::COMPACT);
 
 		AddBreak("---Industrial---");
-		AddvcatOption_("Pickups", Indices::PICKUP);
 		AddvcatOption_("Vans", Indices::VAN);
-		AddvcatOption_("Trucks", Indices::TRUCK);
 		AddvcatOption_("Services", Indices::SERVICE);
-		AddvcatOption_("Trailers", Indices::TRAILER);
+		AddvcatOption_("Industrial", Indices::INDUSTRIAL);
+		AddvcatOption_("Commercial", Indices::COMMERCIAL);
+		AddvcatOption_("Utility", Indices::UTILITY);
 		AddvcatOption_("Trains", Indices::TRAIN);
 
 		AddBreak("---Others---");
 		AddvcatOption_("Emergency", Indices::EMERGENCY);
+		AddvcatOption_("Military", Indices::MILITARY);
 		AddvcatOption_("Motorcycles", Indices::MOTORCYCLE);
 		AddvcatOption_("Bicycles", Indices::BICYCLE);
-		AddvcatOption_("Planes", Indices::PLANE);
-		AddvcatOption_("Helicopters", Indices::HELICOPTER);
-		AddvcatOption_("Boats", Indices::BOAT);
 		AddvcatOption_("Others", Indices::OTHER);
 
 		/*PCHAR chartick;

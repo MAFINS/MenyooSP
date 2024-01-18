@@ -39,11 +39,8 @@ std::vector<GTAmodel::Model> g_vehHashes_OFFROAD;
 std::vector<GTAmodel::Model> g_vehHashes_SUV;
 std::vector<GTAmodel::Model> g_vehHashes_SEDAN;
 std::vector<GTAmodel::Model> g_vehHashes_COMPACT;
-std::vector<GTAmodel::Model> g_vehHashes_PICKUP;
 std::vector<GTAmodel::Model> g_vehHashes_VAN;
-std::vector<GTAmodel::Model> g_vehHashes_TRUCK;
 std::vector<GTAmodel::Model> g_vehHashes_SERVICE;
-std::vector<GTAmodel::Model> g_vehHashes_TRAILER;
 std::vector<GTAmodel::Model> g_vehHashes_TRAIN;
 std::vector<GTAmodel::Model> g_vehHashes_EMERGENCY;
 std::vector<GTAmodel::Model> g_vehHashes_MOTORCYCLE;
@@ -51,6 +48,10 @@ std::vector<GTAmodel::Model> g_vehHashes_BICYCLE;
 std::vector<GTAmodel::Model> g_vehHashes_PLANE;
 std::vector<GTAmodel::Model> g_vehHashes_HELICOPTER;
 std::vector<GTAmodel::Model> g_vehHashes_BOAT;
+std::vector<GTAmodel::Model> g_vehHashes_UTILITY;
+std::vector<GTAmodel::Model> g_vehHashes_INDUSTRIAL;
+std::vector<GTAmodel::Model> g_vehHashes_COMMERCIAL;
+std::vector<GTAmodel::Model> g_vehHashes_MILITARY;
 std::vector<GTAmodel::Model> g_vehHashes_OTHER;
 
 #pragma endregion
@@ -167,11 +168,8 @@ void PopulateVehicleModelsArray()
 	g_vehHashes_SUV.clear();
 	g_vehHashes_SEDAN.clear();
 	g_vehHashes_COMPACT.clear();
-	g_vehHashes_PICKUP.clear();
 	g_vehHashes_VAN.clear();
-	g_vehHashes_TRUCK.clear();
 	g_vehHashes_SERVICE.clear();
-	g_vehHashes_TRAILER.clear();
 	g_vehHashes_TRAIN.clear();
 	g_vehHashes_EMERGENCY.clear();
 	g_vehHashes_MOTORCYCLE.clear();
@@ -179,6 +177,10 @@ void PopulateVehicleModelsArray()
 	g_vehHashes_PLANE.clear();
 	g_vehHashes_HELICOPTER.clear();
 	g_vehHashes_BOAT.clear();
+	g_vehHashes_INDUSTRIAL.clear();
+	g_vehHashes_COMMERCIAL.clear();
+	g_vehHashes_UTILITY.clear();
+	g_vehHashes_MILITARY.clear();
 	g_vehHashes_OTHER.clear();
 
 	GTAmemory::GenerateVehicleModelList();
@@ -188,8 +190,8 @@ void PopulateVehicleModelsArray()
 		{ VehicleClass::Openwheel, &g_vehHashes_OPENWHEEL }, { VehicleClass::Super, &g_vehHashes_SUPER },{ VehicleClass::Sport, &g_vehHashes_SPORT },{ VehicleClass::SportsClassic, &g_vehHashes_SPORTSCLASSIC },
 		{ VehicleClass::Coupe, &g_vehHashes_COUPE },{ VehicleClass::Muscle, &g_vehHashes_MUSCLE },{ VehicleClass::Offroad, &g_vehHashes_OFFROAD },{ VehicleClass::SUV, &g_vehHashes_SUV },
 		{ VehicleClass::Sedan, &g_vehHashes_SEDAN },{ VehicleClass::Compact, &g_vehHashes_COMPACT },
-		{ VehicleClass::Van, &g_vehHashes_VAN },{ VehicleClass::Service, &g_vehHashes_SERVICE },{ VehicleClass::Industrial, &g_vehHashes_SERVICE },
-		{ VehicleClass::Military, &g_vehHashes_SERVICE },{ VehicleClass::Commercial, &g_vehHashes_SERVICE },{ VehicleClass::Utility, &g_vehHashes_SERVICE },
+		{ VehicleClass::Van, &g_vehHashes_VAN },{ VehicleClass::Service, &g_vehHashes_SERVICE },{ VehicleClass::Industrial, &g_vehHashes_INDUSTRIAL },
+		{ VehicleClass::Military, &g_vehHashes_MILITARY },{ VehicleClass::Commercial, &g_vehHashes_COMMERCIAL },{ VehicleClass::Utility, &g_vehHashes_UTILITY },
 		{ VehicleClass::Train, &g_vehHashes_TRAIN },{ VehicleClass::Emergency, &g_vehHashes_EMERGENCY },{ VehicleClass::Motorcycle, &g_vehHashes_MOTORCYCLE },
 		{ VehicleClass::Cycle, &g_vehHashes_BICYCLE },{ VehicleClass::Plane, &g_vehHashes_PLANE },{ VehicleClass::Helicopter, &g_vehHashes_HELICOPTER },{ VehicleClass::Boat, &g_vehHashes_BOAT }
 	};
@@ -222,11 +224,8 @@ void PopulateVehicleModelsArray()
 		{ &g_vehHashes_SUV },
 		{ &g_vehHashes_SEDAN },
 		{ &g_vehHashes_COMPACT },
-		{ &g_vehHashes_PICKUP },
 		{ &g_vehHashes_VAN },
-		{ &g_vehHashes_TRUCK },
 		{ &g_vehHashes_SERVICE },
-		{ &g_vehHashes_TRAILER },
 		{ &g_vehHashes_TRAIN },
 		{ &g_vehHashes_EMERGENCY },
 		{ &g_vehHashes_MOTORCYCLE },
@@ -234,6 +233,10 @@ void PopulateVehicleModelsArray()
 		{ &g_vehHashes_PLANE },
 		{ &g_vehHashes_HELICOPTER },
 		{ &g_vehHashes_BOAT },
+		{ &g_vehHashes_INDUSTRIAL },
+		{ &g_vehHashes_COMMERCIAL },
+		{ &g_vehHashes_UTILITY },
+		{ &g_vehHashes_MILITARY },
 		{ &g_vehHashes_OTHER }
 	};
 	for (auto& hlist : vHashLists)
