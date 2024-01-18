@@ -912,7 +912,7 @@ namespace sub
 		AddOption("Funny Vehicles (Old)", null, nullFunc, SUB::FUNNYVEHICLES);
 
 		AddBreak("---Cars---");
-		AddvcatOption_("Openwheel", OPENWHEEL);
+		AddvcatOption_("Open Wheel", OPENWHEEL);
 		AddvcatOption_("Super", SUPER);
 		AddvcatOption_("Sports", SPORT);
 		AddvcatOption_("Sports Classics", SPORTSCLASSIC);

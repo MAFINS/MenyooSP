@@ -750,7 +750,7 @@ namespace sub
 		AddOption("Favourites", null, nullFunc, SUB::SPAWNVEHICLE_FAVOURITES);
 
 		AddBreak("---Cars---");
-		AddvcatOption_("Openwheel", Indices::OPENWHEEL);
+		AddvcatOption_("Open Wheel", Indices::OPENWHEEL);
 		AddvcatOption_("Super", Indices::SUPER);
 		AddvcatOption_("Sports", Indices::SPORT);
 		AddvcatOption_("Sports Classics", Indices::SPORTSCLASSIC);
