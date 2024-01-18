@@ -181,48 +181,6 @@ void PopulateVehicleModelsArray()
 	g_vehHashes_BOAT.clear();
 	g_vehHashes_OTHER.clear();
 
-	pugi::xml_document doc;
-	if (doc.load_file((const wchar_t*)(GetPathffW(Pathff::Main, true) + (L"VehicleList.xml")).c_str()).status == pugi::status_ok)
-	{
-		auto nodeRoot = doc.document_element();//doc.child("VehicleList");
-		for (auto& cta : std::vector<std::pair<std::string, std::vector<Model>*>>{
-			{ "Openwheel", &g_vehHashes_OPENWHEEL },
-			{ "Super", &g_vehHashes_SUPER },
-			{ "Sport", &g_vehHashes_SPORT },
-			{ "SportsClassic", &g_vehHashes_SPORTSCLASSIC },
-			{ "Coupe", &g_vehHashes_COUPE },
-			{ "Muscle", &g_vehHashes_MUSCLE },
-			{ "Offroad", &g_vehHashes_OFFROAD },
-			{ "SUV", &g_vehHashes_SUV },
-			{ "Sedan", &g_vehHashes_SEDAN },
-			{ "Compact", &g_vehHashes_COMPACT },
-			{ "Pickup", &g_vehHashes_PICKUP },
-			{ "Van", &g_vehHashes_VAN },
-			{ "Truck", &g_vehHashes_TRUCK },
-			{ "Service", &g_vehHashes_SERVICE },
-			{ "Trailer", &g_vehHashes_TRAILER },
-			{ "Train", &g_vehHashes_TRAIN },
-			{ "Emergency", &g_vehHashes_EMERGENCY },
-			{ "Motorcycle", &g_vehHashes_MOTORCYCLE },
-			{ "Bicycle", &g_vehHashes_BICYCLE },
-			{ "Plane", &g_vehHashes_PLANE },
-			{ "Helicopter", &g_vehHashes_HELICOPTER },
-			{ "Boat", &g_vehHashes_BOAT },
-			{ "Other", &g_vehHashes_OTHER },
-		})
-		{
-			auto nodeCat = nodeRoot.find_child_by_attribute("name", cta.first.c_str());
-			if (nodeCat)
-			{
-				for (auto nodeVeh = nodeCat.first_child()/*nodeCat.child("Vehicle")*/; nodeVeh; nodeVeh = nodeVeh.next_sibling()/*nodeVeh.next_sibling("Vehicle")*/)
-				{
-					Hash vehHash = GET_HASH_KEY(nodeVeh.attribute("name").as_string());
-					cta.second->push_back(vehHash);
-					g_vehHashes.push_back(vehHash);
-				}
-			}
-		}
-	}
 	GTAmemory::GenerateVehicleModelList();
 	auto& hashes = GTAmemory::VehicleModels();
 	std::unordered_map<VehicleClass, std::vector<Model>*> vDestMap
