@@ -46,6 +46,7 @@
 		<Vehicle name="THRAX" />
 		<Vehicle name="TIGON" />
 		<Vehicle name="TORERO2" /><!-- Torero XO -->
+		<Vehicle name="TURISMO3" /><!-- Turismo Omaggio -->
 		<Vehicle name="TURISMOR" />
 		<Vehicle name="TYRANT" />
 		<Vehicle name="TYRUS" />
@@ -67,6 +68,7 @@
 		<Vehicle name="F620" />
 		<Vehicle name="FELON" />
 		<Vehicle name="FELON2" /><!-- Felon GT -->
+		<Vehicle name="FR36" />
 		<Vehicle name="JACKAL" />
 		<Vehicle name="KANJOSJ" />
 		<Vehicle name="ORACLE" />
@@ -126,7 +128,7 @@
 		<Vehicle name="IMORGON" />
 		<Vehicle name="ISSI7" /><!-- Issi Sport -->
 		<Vehicle name="ITALIGTO" />
-		<Vehicle name="STINGERTT" /><!-- Issi GTO Stinger TT -->
+		<Vehicle name="STINGERTT" /><!-- Itali GTO Stinger TT -->
 		<Vehicle name="ITALIRSX" />
 		<Vehicle name="JESTER" />
 		<Vehicle name="JESTER2" /><!-- Jester (Racecar) -->
@@ -208,6 +210,7 @@
 		<Vehicle name="DEVIANT" />
 		<Vehicle name="DOMINATOR" />
 		<Vehicle name="DOMINATOR7" /><!-- Dominator ASP -->
+		<Vehicle name="DOMINATOR9" /><!-- Dominator GT -->
 		<Vehicle name="DOMINATOR8" /><!-- Dominator GTT -->
 		<Vehicle name="DOMINATOR3" /><!-- Dominator GTX -->
 		<Vehicle name="YOSEMITE2" /><!-- Drift Yosemite -->
@@ -231,6 +234,7 @@
 		<Vehicle name="HOTKNIFE" />
 		<Vehicle name="HUSTLER" />
 		<Vehicle name="IMPALER" />
+		<Vehicle name="IMPALER6" /><!-- Impaler LX -->
 		<Vehicle name="SLAMVAN2" /><!-- Lost Slamvan -->
 		<Vehicle name="LURCHER" />
 		<Vehicle name="MANANA2" /><!-- Manana Custom -->
@@ -264,11 +268,12 @@
 		<Vehicle name="VAMOS" />
 		<Vehicle name="VIGERO" />
 		<Vehicle name="VIGERO2" /><!-- Vigero ZX -->
+		<Vehicle name="VIGERO3" /><!-- Vigero ZX Convertible -->
 		<Vehicle name="VIRGO" />
 		<Vehicle name="VIRGO3" /><!-- Virgo Classic -->
 		<Vehicle name="VIRGO2" /><!-- Virgo Classic Custom -->
-		<Vehicle name="VOODOO" />
-		<Vehicle name="VOODOO2" /><!-- Voodoo Custom -->
+		<Vehicle name="VOODOO2" />
+		<Vehicle name="VOODOO" /><!-- Voodoo Custom -->
 		<Vehicle name="TAMPA3" /><!-- Weaponized Tampa -->
 		<Vehicle name="WEEVIL2" /><!-- Weevil Custom -->
 		<Vehicle name="YOSEMITE" />
@@ -323,6 +328,7 @@
 	<Category name="Truck"><!-- Commercial + Industrial -->
 		<Vehicle name="CERBERUS" /><!-- Apocalypse Cerberus -->
 		<Vehicle name="BENSON" />
+		<Vehicle name="BENSON2" /><!-- Benson (Cluckin' Bell) -->
 		<Vehicle name="BIFF" />
 		<Vehicle name="CUTTER" />
 		<Vehicle name="HANDLER" /><!-- Dock Handler -->
@@ -344,6 +350,7 @@
 		<Vehicle name="PHANTOM" />
 		<Vehicle name="PHANTOM3" /><!-- Phantom Custom -->
 		<Vehicle name="PHANTOM2" /><!-- Phantom Wedge -->
+		<Vehicle name="PHANTOM4" /><!-- Phantom (Happy Holidays Hauler) -->
 		<Vehicle name="POUNDER" />
 		<Vehicle name="POUNDER2" /><!-- Pounder Custom -->
 		<Vehicle name="RUBBLE" />
@@ -357,6 +364,7 @@
 		<Vehicle name="ASEA" />
 		<Vehicle name="ASEA2" /><!-- Asea North Yankton variant -->
 		<Vehicle name="ASTEROPE" />
+		<Vehicle name="ASTEROPE2" /><!-- Asterope GZ -->
 		<Vehicle name="CINQUEMILA" />
 		<Vehicle name="COGNOSCENTI" />
 		<Vehicle name="COGNOSCENTI2" /><!-- Cognoscenti (Armored) -->
@@ -369,6 +377,7 @@
 		<Vehicle name="FUGITIVE" />
 		<Vehicle name="GLENDALE" />
 		<Vehicle name="GLENDALE2" /><!-- Glendale Custom -->
+		<Vehicle name="IMPALER5" /><!-- Impaler SZ -->
 		<Vehicle name="INGOT" />
 		<Vehicle name="INTRUDER" />
 		<Vehicle name="PREMIER" />
@@ -452,6 +461,7 @@
 		<Vehicle name="TECHNICAL" />
 		<Vehicle name="TECHNICAL2" /><!-- Technical Aqua -->
 		<Vehicle name="TECHNICAL3" /><!-- Technical Custom -->
+		<Vehicle name="TERMINUS" />
 		<Vehicle name="TROPHYTRUCK" />
 		<Vehicle name="VAGRANT" />
 		<Vehicle name="VERUS" />
@@ -461,6 +471,7 @@
 		<Vehicle name="ZHABA" />
 	</Category>
 	<Category name="SUV">
+		<Vehicle name="ALEUTIAN" />
 		<Vehicle name="ASTRON" />
 		<Vehicle name="BALLER" />
 		<Vehicle name="BALLER2" /><!-- Baller 2nd gen variant -->
@@ -469,10 +480,13 @@
 		<Vehicle name="BALLER4" /><!-- Baller LE LWB -->
 		<Vehicle name="BALLER6" /><!-- Baller LE LWB (Armored) -->
 		<Vehicle name="BALLER7" /><!-- Baller ST -->
+		<Vehicle name="BALLER8" /><!-- Baller STD -->
 		<Vehicle name="BJXL" />
 		<Vehicle name="CAVALCADE" />
 		<Vehicle name="CAVALCADE2" /><!-- Cavalcade 2nd gen variant -->
+		<Vehicle name="CAVALCADE3" /><!-- Cavalcade XL -->
 		<Vehicle name="CONTENDER" />
+		<Vehicle name="DORADO" />
 		<Vehicle name="DUBSTA" />
 		<Vehicle name="DUBSTA2" /><!-- Dubsta black variant -->
 		<Vehicle name="FQ2" />
@@ -499,6 +513,7 @@
 		<Vehicle name="SERRANO" />
 		<Vehicle name="SQUADDIE" />
 		<Vehicle name="TOROS" />
+		<Vehicle name="VIVANITE" />
 		<Vehicle name="XLS" />
 		<Vehicle name="XLS2" /><!-- XLS (Armored) -->
 	</Category>
@@ -546,6 +561,7 @@
 		<Vehicle name="BOXVILLE2" /><!-- Go Postal Boxville -->
 		<Vehicle name="BOXVILLE3" /><!-- Humane Labs Boxville -->
 		<Vehicle name="BOXVILLE4" /><!-- PostOp Boxville -->
+		<Vehicle name="BOXVILLE6" /><!-- Boxville (LSDS) -->
 		<Vehicle name="BURRITO" />
 		<Vehicle name="BURRITO2" /><!-- Burrito Bugstars variant -->
 		<Vehicle name="BURRITO3" /><!-- Burrito civilian variant -->
@@ -606,6 +622,8 @@
 		<Vehicle name="TOURBUS" />
 		<Vehicle name="TOWTRUCK2" /><!-- Tow Truck Slamvan variant -->
 		<Vehicle name="TOWTRUCK" /><!-- Towtruck Yankee variant -->
+		<Vehicle name="TOWTRUCK3" /><!-- Tow Truck (Chop Shop, rusty) -->
+		<Vehicle name="TOWTRUCK4" /><!-- Tow Truck (Chop Shop, clean) -->
 		<Vehicle name="TRACTOR" />
 		<Vehicle name="TRASH" />
 		<Vehicle name="TRASH2" /><!-- Trashmaster heist variant -->
@@ -620,6 +638,8 @@
 		<Vehicle name="ARMYTRAILER2" />
 		<Vehicle name="BALETRAILER" />
 		<Vehicle name="BOATTRAILER" />
+		<Vehicle name="BOATTRAILER2" />
+		<Vehicle name="BOATTRAILER3" />
 		<Vehicle name="DOCKTRAILER" />
 		<Vehicle name="FREIGHTTRAILER" />
 		<Vehicle name="GRAINTRAILER" />
@@ -635,14 +655,17 @@
 		<Vehicle name="TRAILERS2" />
 		<Vehicle name="TRAILERS3" />
 		<Vehicle name="TRAILERS4" />
+		<Vehicle name="TRAILERS5" /><!-- Happy Holidays Hauler -->
 		<Vehicle name="TRAILERLARGE" />
 		<Vehicle name="TRAILERSMALL" />
 		<Vehicle name="TRAILERSMALL2" />
 		<Vehicle name="TRFLAT" />
 		<Vehicle name="TVTRAILER" />
+		<Vehicle name="TVTRAILER2" />
 	</Category>
 	<Category name="Train">
 		<Vehicle name="FREIGHT" />
+		<Vehicle name="FREIGHT2" />
 		<Vehicle name="FREIGHTCAR" />
 		<Vehicle name="FREIGHTCONT1" />
 		<Vehicle name="FREIGHTCONT2" />
@@ -664,6 +687,7 @@
 		<Vehicle name="FIRETRUK" />
 		<Vehicle name="HALFTRACK" />
 		<Vehicle name="SCARAB2" /><!-- Future Shock Scarab -->
+		<Vehicle name="POLGAUNTLET" /><!-- Gauntlet Interceptor -->
 		<Vehicle name="LGUARD" />
 		<Vehicle name="SCARAB3" /><!-- Nightmare Scarab -->
 		<Vehicle name="PRANGER" /><!-- Park Ranger -->
@@ -681,6 +705,7 @@
 		<Vehicle name="RHINO" />
 		<Vehicle name="SHERIFF" /><!-- Sheriff Cruiser -->
 		<Vehicle name="SHERIFF2" /><!-- Sheriff SUV -->
+		<Vehicle name="POLICE5" /><!-- Stanier LE Cruiser -->
 		<Vehicle name="THRUSTER" />
 		<Vehicle name="KHANJALI" /><!-- TM-02 Khanjali -->
 		<Vehicle name="POLICE4" /><!-- Unmarked Cruiser -->
@@ -861,5 +886,15 @@
 		<Vehicle name="TROPIC" />
 		<Vehicle name="TROPIC2" /><!-- Tropic yacht variant -->
 		<Vehicle name="TUG" />
+	</Category>
+	<Category name="Drift">
+		<Vehicle name="DRIFTEUROS" />
+		<Vehicle name="DRIFTFR36" />
+		<Vehicle name="DRIFTFUTO" />
+		<Vehicle name="DRIFTJESTER" />
+		<Vehicle name="DRIFTREMUS" />
+		<Vehicle name="DRIFTTAMPA" />
+		<Vehicle name="DRIFTYOSEMITE" />
+		<Vehicle name="DRIFTZR350" />
 	</Category>
 </VehicleList>
