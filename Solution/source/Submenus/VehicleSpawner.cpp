@@ -835,6 +835,7 @@ namespace sub
 			std::vector<Model>* tempvecp;
 			switch (index)
 			{
+			case OPENWHEEL:		tempvecp = &g_vehHashes_OPENWHEEL; break;
 			case SUPER:			tempvecp = &g_vehHashes_SUPER; break;
 			case SPORT:			tempvecp = &g_vehHashes_SPORT; break;
 			case SPORTSCLASSIC: tempvecp = &g_vehHashes_SPORTSCLASSIC; break;
@@ -844,11 +845,8 @@ namespace sub
 			case SUV:			tempvecp = &g_vehHashes_SUV; break;
 			case SEDAN:			tempvecp = &g_vehHashes_SEDAN; break;
 			case COMPACT:		tempvecp = &g_vehHashes_COMPACT; break;
-			case PICKUP:		tempvecp = &g_vehHashes_PICKUP; break;
 			case VAN:			tempvecp = &g_vehHashes_VAN; break;
-			case TRUCK:			tempvecp = &g_vehHashes_TRUCK; break;
 			case SERVICE:		tempvecp = &g_vehHashes_SERVICE; break;
-			case TRAILER:		tempvecp = &g_vehHashes_TRAILER; break;
 			case TRAIN:			tempvecp = &g_vehHashes_TRAIN; break;
 			case EMERGENCY:		tempvecp = &g_vehHashes_EMERGENCY; break;
 			case MOTORCYCLE:	tempvecp = &g_vehHashes_MOTORCYCLE; break;
@@ -856,7 +854,12 @@ namespace sub
 			case PLANE:			tempvecp = &g_vehHashes_PLANE; break;
 			case HELICOPTER:	tempvecp = &g_vehHashes_HELICOPTER; break;
 			case BOAT:			tempvecp = &g_vehHashes_BOAT; break;
+			case INDUSTRIAL:	tempvecp = &g_vehHashes_INDUSTRIAL; break;
+			case COMMERCIAL:	tempvecp = &g_vehHashes_COMMERCIAL; break;
+			case UTILITY:		tempvecp = &g_vehHashes_UTILITY; break;
+			case MILITARY:		tempvecp = &g_vehHashes_MILITARY; break;
 			case OTHER:			tempvecp = &g_vehHashes_OTHER; break;
+			case DRIFT:			tempvecp = &g_vehHashes_DRIFT; break;
 			}
 			if (tempvecp->empty())
 				return;
@@ -910,6 +913,7 @@ namespace sub
 		AddOption("Funny Vehicles (Old)", null, nullFunc, SUB::FUNNYVEHICLES);
 
 		AddBreak("---Cars---");
+		AddvcatOption_("Open Wheel", OPENWHEEL);
 		AddvcatOption_("Super", SUPER);
 		AddvcatOption_("Sports", SPORT);
 		AddvcatOption_("Sports Classics", SPORTSCLASSIC);
@@ -919,17 +923,19 @@ namespace sub
 		AddvcatOption_("SUVs", SUV);
 		AddvcatOption_("Sedans", SEDAN);
 		AddvcatOption_("Compacts", COMPACT);
+		AddvcatOption_("Drift", DRIFT);
 
 		AddBreak("---Industrial---");
-		AddvcatOption_("Pickups", PICKUP);
 		AddvcatOption_("Vans", VAN);
-		AddvcatOption_("Trucks", TRUCK);
 		AddvcatOption_("Services", SERVICE);
-		AddvcatOption_("Trailers", TRAILER);
+		AddvcatOption_("Industrial", INDUSTRIAL);
+		AddvcatOption_("Commercial", COMMERCIAL);
+		AddvcatOption_("Utility", UTILITY);
 		AddvcatOption_("Trains", TRAIN);
 
 		AddBreak("---Others---");
 		AddvcatOption_("Emergency", EMERGENCY);
+		AddvcatOption_("Military", MILITARY);
 		AddvcatOption_("Motorcycles", MOTORCYCLE);
 		AddvcatOption_("Bicycles", BICYCLE);
 		AddvcatOption_("Planes", PLANE);
@@ -1137,6 +1143,7 @@ namespace sub
 
 		switch (SpawnVehicle_index)
 		{
+		case OPENWHEEL:		tempvecp = &g_vehHashes_OPENWHEEL; break;
 		case SUPER:			tempvecp = &g_vehHashes_SUPER; break;
 		case SPORT:			tempvecp = &g_vehHashes_SPORT; break;
 		case SPORTSCLASSIC: tempvecp = &g_vehHashes_SPORTSCLASSIC; break;
@@ -1146,11 +1153,8 @@ namespace sub
 		case SUV:			tempvecp = &g_vehHashes_SUV; break;
 		case SEDAN:			tempvecp = &g_vehHashes_SEDAN; break;
 		case COMPACT:		tempvecp = &g_vehHashes_COMPACT; break;
-		case PICKUP:		tempvecp = &g_vehHashes_PICKUP; break;
 		case VAN:			tempvecp = &g_vehHashes_VAN; break;
-		case TRUCK:			tempvecp = &g_vehHashes_TRUCK; break;
 		case SERVICE:		tempvecp = &g_vehHashes_SERVICE; break;
-		case TRAILER:		tempvecp = &g_vehHashes_TRAILER; break;
 		case TRAIN:			tempvecp = &g_vehHashes_TRAIN; break;
 		case EMERGENCY:		tempvecp = &g_vehHashes_EMERGENCY; break;
 		case MOTORCYCLE:	tempvecp = &g_vehHashes_MOTORCYCLE; break;
@@ -1158,7 +1162,12 @@ namespace sub
 		case PLANE:			tempvecp = &g_vehHashes_PLANE; break;
 		case HELICOPTER:	tempvecp = &g_vehHashes_HELICOPTER; break;
 		case BOAT:			tempvecp = &g_vehHashes_BOAT; break;
+		case INDUSTRIAL:	tempvecp = &g_vehHashes_INDUSTRIAL; break;
+		case COMMERCIAL:	tempvecp = &g_vehHashes_COMMERCIAL; break;
+		case UTILITY:		tempvecp = &g_vehHashes_UTILITY; break;
+		case MILITARY:		tempvecp = &g_vehHashes_MILITARY; break;
 		case OTHER:			tempvecp = &g_vehHashes_OTHER; break;
+		case DRIFT:			tempvecp = &g_vehHashes_DRIFT; break;
 		}
 
 		//std::vector<std::string>&tempvecp2 = *tempvecp;

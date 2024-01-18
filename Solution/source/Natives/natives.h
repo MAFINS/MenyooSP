@@ -6538,6 +6538,7 @@ namespace VEHICLE
 	static BOOL GET_DRIFT_TYRES_SET(Vehicle vehicle) { return invoke<BOOL>(0x2F5A72430E78C8D3, vehicle); } // 0x2F5A72430E78C8D3 b2372
 	static void NETWORK_USE_HIGH_PRECISION_TRAIN_BLENDING(Vehicle vehicle, BOOL toggle) { invoke<Void>(0xEC0C1D4922AF9754, vehicle, toggle); } // 0xEC0C1D4922AF9754 b2372
 	static void SET_CHECK_FOR_ENOUGH_ROOM_FOR_PED(Vehicle vehicle, BOOL p1) { invoke<Void>(0xEF9D388F8D377F44, vehicle, p1); } // 0xEF9D388F8D377F44 b2699
+	static BOOL IS_VEHICLE_GEN9_EXCLUSIVE_MODEL(Hash vehicleModel) { return invoke<BOOL>(0x6638C0F19DE692FE, vehicleModel); } // 0x6638C0F19DE692FE  b3095
 }
 
 namespace WATER

@@ -22,6 +22,7 @@ namespace GTAmodel {
 }
 
 extern std::vector<GTAmodel::Model> g_vehHashes;
+extern std::vector<GTAmodel::Model> g_vehHashes_OPENWHEEL;
 extern std::vector<GTAmodel::Model> g_vehHashes_SUPER;
 extern std::vector<GTAmodel::Model> g_vehHashes_SPORT;
 extern std::vector<GTAmodel::Model> g_vehHashes_SPORTSCLASSIC;
@@ -31,11 +32,8 @@ extern std::vector<GTAmodel::Model> g_vehHashes_OFFROAD;
 extern std::vector<GTAmodel::Model> g_vehHashes_SUV;
 extern std::vector<GTAmodel::Model> g_vehHashes_SEDAN;
 extern std::vector<GTAmodel::Model> g_vehHashes_COMPACT;
-extern std::vector<GTAmodel::Model> g_vehHashes_PICKUP;
 extern std::vector<GTAmodel::Model> g_vehHashes_VAN;
-extern std::vector<GTAmodel::Model> g_vehHashes_TRUCK;
 extern std::vector<GTAmodel::Model> g_vehHashes_SERVICE;
-extern std::vector<GTAmodel::Model> g_vehHashes_TRAILER;
 extern std::vector<GTAmodel::Model> g_vehHashes_TRAIN;
 extern std::vector<GTAmodel::Model> g_vehHashes_EMERGENCY;
 extern std::vector<GTAmodel::Model> g_vehHashes_MOTORCYCLE;
@@ -43,7 +41,12 @@ extern std::vector<GTAmodel::Model> g_vehHashes_BICYCLE;
 extern std::vector<GTAmodel::Model> g_vehHashes_PLANE;
 extern std::vector<GTAmodel::Model> g_vehHashes_HELICOPTER;
 extern std::vector<GTAmodel::Model> g_vehHashes_BOAT;
+extern std::vector<GTAmodel::Model> g_vehHashes_INDUSTRIAL;
+extern std::vector<GTAmodel::Model> g_vehHashes_COMMERCIAL;
+extern std::vector<GTAmodel::Model> g_vehHashes_UTILITY;
+extern std::vector<GTAmodel::Model> g_vehHashes_MILITARY;
 extern std::vector<GTAmodel::Model> g_vehHashes_OTHER;
+extern std::vector<GTAmodel::Model> g_vehHashes_DRIFT;
 void PopulateVehicleModelsArray();
 
 struct NamedRgbS{ std::string name; RgbS rgb; };

@@ -29,6 +29,7 @@
 
 #pragma region Vehicle model labels
 std::vector<GTAmodel::Model> g_vehHashes;
+std::vector<GTAmodel::Model> g_vehHashes_OPENWHEEL;
 std::vector<GTAmodel::Model> g_vehHashes_SUPER;
 std::vector<GTAmodel::Model> g_vehHashes_SPORT;
 std::vector<GTAmodel::Model> g_vehHashes_SPORTSCLASSIC;
@@ -38,11 +39,8 @@ std::vector<GTAmodel::Model> g_vehHashes_OFFROAD;
 std::vector<GTAmodel::Model> g_vehHashes_SUV;
 std::vector<GTAmodel::Model> g_vehHashes_SEDAN;
 std::vector<GTAmodel::Model> g_vehHashes_COMPACT;
-std::vector<GTAmodel::Model> g_vehHashes_PICKUP;
 std::vector<GTAmodel::Model> g_vehHashes_VAN;
-std::vector<GTAmodel::Model> g_vehHashes_TRUCK;
 std::vector<GTAmodel::Model> g_vehHashes_SERVICE;
-std::vector<GTAmodel::Model> g_vehHashes_TRAILER;
 std::vector<GTAmodel::Model> g_vehHashes_TRAIN;
 std::vector<GTAmodel::Model> g_vehHashes_EMERGENCY;
 std::vector<GTAmodel::Model> g_vehHashes_MOTORCYCLE;
@@ -50,7 +48,12 @@ std::vector<GTAmodel::Model> g_vehHashes_BICYCLE;
 std::vector<GTAmodel::Model> g_vehHashes_PLANE;
 std::vector<GTAmodel::Model> g_vehHashes_HELICOPTER;
 std::vector<GTAmodel::Model> g_vehHashes_BOAT;
+std::vector<GTAmodel::Model> g_vehHashes_UTILITY;
+std::vector<GTAmodel::Model> g_vehHashes_INDUSTRIAL;
+std::vector<GTAmodel::Model> g_vehHashes_COMMERCIAL;
+std::vector<GTAmodel::Model> g_vehHashes_MILITARY;
 std::vector<GTAmodel::Model> g_vehHashes_OTHER;
+std::vector<GTAmodel::Model> g_vehHashes_DRIFT;
 
 #pragma endregion
 
@@ -156,6 +159,7 @@ void PopulatePedModelsArray()
 void PopulateVehicleModelsArray()
 {
 	g_vehHashes.clear();
+	g_vehHashes_OPENWHEEL.clear();
 	g_vehHashes_SUPER.clear();
 	g_vehHashes_SPORT.clear();
 	g_vehHashes_SPORTSCLASSIC.clear();
@@ -165,11 +169,8 @@ void PopulateVehicleModelsArray()
 	g_vehHashes_SUV.clear();
 	g_vehHashes_SEDAN.clear();
 	g_vehHashes_COMPACT.clear();
-	g_vehHashes_PICKUP.clear();
 	g_vehHashes_VAN.clear();
-	g_vehHashes_TRUCK.clear();
 	g_vehHashes_SERVICE.clear();
-	g_vehHashes_TRAILER.clear();
 	g_vehHashes_TRAIN.clear();
 	g_vehHashes_EMERGENCY.clear();
 	g_vehHashes_MOTORCYCLE.clear();
@@ -177,133 +178,54 @@ void PopulateVehicleModelsArray()
 	g_vehHashes_PLANE.clear();
 	g_vehHashes_HELICOPTER.clear();
 	g_vehHashes_BOAT.clear();
+	g_vehHashes_INDUSTRIAL.clear();
+	g_vehHashes_COMMERCIAL.clear();
+	g_vehHashes_UTILITY.clear();
+	g_vehHashes_MILITARY.clear();
 	g_vehHashes_OTHER.clear();
+	g_vehHashes_DRIFT.clear();
 
-	pugi::xml_document doc;
-	if (doc.load_file((const wchar_t*)(GetPathffW(Pathff::Main, true) + (L"VehicleList.xml")).c_str()).status == pugi::status_ok)
-	{
-		auto nodeRoot = doc.document_element();//doc.child("VehicleList");
-		for (auto& cta : std::vector<std::pair<std::string, std::vector<Model>*>>{
-			{ "Super", &g_vehHashes_SUPER },
-			{ "Sport", &g_vehHashes_SPORT },
-			{ "SportsClassic", &g_vehHashes_SPORTSCLASSIC },
-			{ "Coupe", &g_vehHashes_COUPE },
-			{ "Muscle", &g_vehHashes_MUSCLE },
-			{ "Offroad", &g_vehHashes_OFFROAD },
-			{ "SUV", &g_vehHashes_SUV },
-			{ "Sedan", &g_vehHashes_SEDAN },
-			{ "Compact", &g_vehHashes_COMPACT },
-			{ "Pickup", &g_vehHashes_PICKUP },
-			{ "Van", &g_vehHashes_VAN },
-			{ "Truck", &g_vehHashes_TRUCK },
-			{ "Service", &g_vehHashes_SERVICE },
-			{ "Trailer", &g_vehHashes_TRAILER },
-			{ "Train", &g_vehHashes_TRAIN },
-			{ "Emergency", &g_vehHashes_EMERGENCY },
-			{ "Motorcycle", &g_vehHashes_MOTORCYCLE },
-			{ "Bicycle", &g_vehHashes_BICYCLE },
-			{ "Plane", &g_vehHashes_PLANE },
-			{ "Helicopter", &g_vehHashes_HELICOPTER },
-			{ "Boat", &g_vehHashes_BOAT },
-			{ "Other", &g_vehHashes_OTHER },
-		})
-		{
-			auto nodeCat = nodeRoot.find_child_by_attribute("name", cta.first.c_str());
-			if (nodeCat)
-			{
-				for (auto nodeVeh = nodeCat.first_child()/*nodeCat.child("Vehicle")*/; nodeVeh; nodeVeh = nodeVeh.next_sibling()/*nodeVeh.next_sibling("Vehicle")*/)
-				{
-					Hash vehHash = GET_HASH_KEY(nodeVeh.attribute("name").as_string());
-					cta.second->push_back(vehHash);
-					g_vehHashes.push_back(vehHash);
-				}
-			}
-		}
-	}
-
-	//UINT64 address = MemryScan::PatternScanner::FindPattern("\x66\x81\xF9\x00\x00\x74\x10\x4D\x85\xC0", "xxx??xxxxx");
-	//if (address)
-	//{
-	//	UINT64 baseFuncAddr = *reinterpret_cast<int*>(address - 0x21) + address - 0x1D;
-	//	int classOffset = *reinterpret_cast<int*>(address + 0x10);
-	//	UINT16 HashTableEntries = *reinterpret_cast<UINT16*>(baseFuncAddr + *reinterpret_cast<int*>(baseFuncAddr + 3) + 7);
-	//	int cmp1 = *reinterpret_cast<int*>(*reinterpret_cast<int*>(baseFuncAddr + 0x52) + baseFuncAddr + 0x56);
-	//	UINT64 mov2 = *reinterpret_cast<UINT64*>(*reinterpret_cast<int*>(baseFuncAddr + 0x63) + baseFuncAddr + 0x67);
-	//	UINT64 mul3 = *reinterpret_cast<UINT64*>(*reinterpret_cast<int*>(baseFuncAddr + 0x7A) + baseFuncAddr + 0x7E);
-	//	UINT64 add4 = *reinterpret_cast<UINT64*>(*reinterpret_cast<int*>(baseFuncAddr + 0x81) + baseFuncAddr + 0x85);
-	//	struct HashNode
-	//	{
-	//		int hash;
-	//		UINT16 data;
-	//		UINT16 padding;
-	//		HashNode* next;
-	//	};
-	//	HashNode** HashMap = *reinterpret_cast<HashNode***>(*reinterpret_cast<int*>(baseFuncAddr + 0x24) + baseFuncAddr + 0x28);
-	//	//I know 0x20 items are defined but there are only 0x16 vehicle classes.
-	//	//But keeping it at 0x20 is just being safe as the & 0x1F in theory supports up to 0x20
-	//	std::array<std::vector<int>, 0x20> hashes;
-	//	for (int i = 0; i < HashTableEntries; i++)
-	//	{
-	//		for (HashNode* cur = HashMap[i]; cur; cur = cur->next)
-	//		{
-	//			UINT16 data = cur->data;
-	//			if ((int)data < cmp1 && (*reinterpret_cast<int*>(mov2 + (4 * data >> 5)) & (1 << (data & 0x1F))) != 0)
-	//			{
-	//				UINT64 addr1 = add4 + mul3 * data;
-	//				if (addr1)
-	//				{
-	//					UINT64 addr2 = *reinterpret_cast<PUINT64>(addr1);
-	//					if (addr2)
-	//					{
-	//						if ((*reinterpret_cast<PBYTE>(addr2 + 157) & 0x1F) == 5)
-	//						{
-	//							hashes[*reinterpret_cast<PBYTE>(addr2 + classOffset) & 0x1F].push_back(cur->hash);
-	//						}
-	//					}
-	//				}
-	//			}
-	//		}
-	//	}
 	GTAmemory::GenerateVehicleModelList();
 	auto& hashes = GTAmemory::VehicleModels();
 	std::unordered_map<VehicleClass, std::vector<Model>*> vDestMap
 	{
-		{ VehicleClass::Super, &g_vehHashes_SUPER },{ VehicleClass::Sport, &g_vehHashes_SPORT },{ VehicleClass::SportsClassic, &g_vehHashes_SPORTSCLASSIC },
+		{ VehicleClass::Openwheel, &g_vehHashes_OPENWHEEL }, { VehicleClass::Super, &g_vehHashes_SUPER },{ VehicleClass::Sport, &g_vehHashes_SPORT },{ VehicleClass::SportsClassic, &g_vehHashes_SPORTSCLASSIC },
 		{ VehicleClass::Coupe, &g_vehHashes_COUPE },{ VehicleClass::Muscle, &g_vehHashes_MUSCLE },{ VehicleClass::Offroad, &g_vehHashes_OFFROAD },{ VehicleClass::SUV, &g_vehHashes_SUV },
 		{ VehicleClass::Sedan, &g_vehHashes_SEDAN },{ VehicleClass::Compact, &g_vehHashes_COMPACT },
-		{ VehicleClass::Van, &g_vehHashes_VAN },{ VehicleClass::Service, &g_vehHashes_SERVICE },{ VehicleClass::Industrial, &g_vehHashes_SERVICE },
-		{ VehicleClass::Military, &g_vehHashes_SERVICE },{ VehicleClass::Commercial, &g_vehHashes_SERVICE },{ VehicleClass::Utility, &g_vehHashes_SERVICE },
-		//{VehicleClass::Trailer, &g_vehHashes_TRAILER }, //{VehicleClass::Truck, &g_vehHashes_TRUCK }, //{VehicleClass::Pickup, &g_vehHashes_PICKUP },
+		{ VehicleClass::Van, &g_vehHashes_VAN },{ VehicleClass::Service, &g_vehHashes_SERVICE },{ VehicleClass::Industrial, &g_vehHashes_INDUSTRIAL },
+		{ VehicleClass::Military, &g_vehHashes_MILITARY },{ VehicleClass::Commercial, &g_vehHashes_COMMERCIAL },{ VehicleClass::Utility, &g_vehHashes_UTILITY },
 		{ VehicleClass::Train, &g_vehHashes_TRAIN },{ VehicleClass::Emergency, &g_vehHashes_EMERGENCY },{ VehicleClass::Motorcycle, &g_vehHashes_MOTORCYCLE },
 		{ VehicleClass::Cycle, &g_vehHashes_BICYCLE },{ VehicleClass::Plane, &g_vehHashes_PLANE },{ VehicleClass::Helicopter, &g_vehHashes_HELICOPTER },{ VehicleClass::Boat, &g_vehHashes_BOAT }
 	};
-	/*if (GTAmemory::GetGameVersion() >= eGameVersion::VER_1_0_1604_0_STEAM)
+	
+	for (int d = 0x0; d < 0x20; d++)
 	{
-	for (auto& dd : hashes[0x1F])
-	{
-	if (std::find(g_vehHashes.begin(), g_vehHashes.end(), Model(dd)) == g_vehHashes.end())
-	{
-	auto dit = vDestMap.find(VehicleClass(GET_VEHICLE_CLASS_FROM_NAME(dd)));
-	if (dit != vDestMap.end())
-	dit->second->push_back(dd);
-	else g_vehHashes_OTHER.push_back(dd);
-	g_vehHashes.push_back(dd);
-	}
-	}
-	}
-	else*/
-	{
-		for (int d = 0x0; d < 0x20; d++)
+		for (auto& dd : hashes[d])
 		{
-			for (auto& dd : hashes[d])
+			if (std::find(g_vehHashes.begin(), g_vehHashes.end(), Model(dd)) == g_vehHashes.end())
 			{
-				if (std::find(g_vehHashes.begin(), g_vehHashes.end(), Model(dd)) == g_vehHashes.end())
+				if(!IS_VEHICLE_GEN9_EXCLUSIVE_MODEL(dd))
 				{
-					auto dit = vDestMap.find(VehicleClass(d));
-					if (dit != vDestMap.end())
-						dit->second->push_back(dd);
-					else g_vehHashes_OTHER.push_back(dd);
-					g_vehHashes.push_back(dd);
+					switch (dd)
+					{
+						//drift vehicles from Chop Shop DLC
+						case VEHICLE_DRIFTTAMPA:
+						case VEHICLE_DRIFTYOSEMITE:
+						case VEHICLE_DRIFTJESTER:
+						case VEHICLE_DRIFTEUROS:
+						case VEHICLE_DRIFTREMUS:
+						case VEHICLE_DRIFTFUTO:
+						case VEHICLE_DRIFTZR350:
+						case VEHICLE_DRIFTFR36:
+							g_vehHashes_DRIFT.push_back(dd);
+						break;
+					default:
+						auto dit = vDestMap.find(VehicleClass(d));
+						if (dit != vDestMap.end())
+							dit->second->push_back(dd);
+						else g_vehHashes_OTHER.push_back(dd);
+						g_vehHashes.push_back(dd);
+					}
 				}
 			}
 		}
@@ -312,6 +234,7 @@ void PopulateVehicleModelsArray()
 	std::vector<std::vector<Model>*> vHashLists
 	{
 		{ &g_vehHashes },
+		{ &g_vehHashes_OPENWHEEL },
 		{ &g_vehHashes_SUPER },
 		{ &g_vehHashes_SPORT },
 		{ &g_vehHashes_SPORTSCLASSIC },
@@ -321,11 +244,8 @@ void PopulateVehicleModelsArray()
 		{ &g_vehHashes_SUV },
 		{ &g_vehHashes_SEDAN },
 		{ &g_vehHashes_COMPACT },
-		{ &g_vehHashes_PICKUP },
 		{ &g_vehHashes_VAN },
-		{ &g_vehHashes_TRUCK },
 		{ &g_vehHashes_SERVICE },
-		{ &g_vehHashes_TRAILER },
 		{ &g_vehHashes_TRAIN },
 		{ &g_vehHashes_EMERGENCY },
 		{ &g_vehHashes_MOTORCYCLE },
@@ -333,7 +253,12 @@ void PopulateVehicleModelsArray()
 		{ &g_vehHashes_PLANE },
 		{ &g_vehHashes_HELICOPTER },
 		{ &g_vehHashes_BOAT },
-		{ &g_vehHashes_OTHER }
+		{ &g_vehHashes_INDUSTRIAL },
+		{ &g_vehHashes_COMMERCIAL },
+		{ &g_vehHashes_UTILITY },
+		{ &g_vehHashes_MILITARY },
+		{ &g_vehHashes_OTHER },
+		{ &g_vehHashes_DRIFT },
 	};
 	for (auto& hlist : vHashLists)
 	{
