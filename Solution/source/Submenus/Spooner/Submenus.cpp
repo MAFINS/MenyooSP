@@ -3131,6 +3131,7 @@ namespace sub
 			AddvcatOption_("SUVs", Indices::SUV);
 			AddvcatOption_("Sedans", Indices::SEDAN);
 			AddvcatOption_("Compacts", Indices::COMPACT);
+			AddvcatOption_("Drift", Indices::DRIFT);
 
 			AddBreak("---Industrial---");
 			AddvcatOption_("Vans", Indices::VAN);

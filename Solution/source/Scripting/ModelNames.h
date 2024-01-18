@@ -46,6 +46,7 @@ extern std::vector<GTAmodel::Model> g_vehHashes_COMMERCIAL;
 extern std::vector<GTAmodel::Model> g_vehHashes_UTILITY;
 extern std::vector<GTAmodel::Model> g_vehHashes_MILITARY;
 extern std::vector<GTAmodel::Model> g_vehHashes_OTHER;
+extern std::vector<GTAmodel::Model> g_vehHashes_DRIFT;
 void PopulateVehicleModelsArray();
 
 struct NamedRgbS{ std::string name; RgbS rgb; };

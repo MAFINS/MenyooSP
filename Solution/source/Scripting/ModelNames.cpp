@@ -53,6 +53,7 @@ std::vector<GTAmodel::Model> g_vehHashes_INDUSTRIAL;
 std::vector<GTAmodel::Model> g_vehHashes_COMMERCIAL;
 std::vector<GTAmodel::Model> g_vehHashes_MILITARY;
 std::vector<GTAmodel::Model> g_vehHashes_OTHER;
+std::vector<GTAmodel::Model> g_vehHashes_DRIFT;
 
 #pragma endregion
 
@@ -182,6 +183,7 @@ void PopulateVehicleModelsArray()
 	g_vehHashes_UTILITY.clear();
 	g_vehHashes_MILITARY.clear();
 	g_vehHashes_OTHER.clear();
+	g_vehHashes_DRIFT.clear();
 
 	GTAmemory::GenerateVehicleModelList();
 	auto& hashes = GTAmemory::VehicleModels();
@@ -202,11 +204,29 @@ void PopulateVehicleModelsArray()
 		{
 			if (std::find(g_vehHashes.begin(), g_vehHashes.end(), Model(dd)) == g_vehHashes.end())
 			{
-				auto dit = vDestMap.find(VehicleClass(d));
-				if (dit != vDestMap.end())
-					dit->second->push_back(dd);
-				else g_vehHashes_OTHER.push_back(dd);
-				g_vehHashes.push_back(dd);
+				if(!IS_VEHICLE_GEN9_EXCLUSIVE_MODEL(dd))
+				{
+					switch (dd)
+					{
+						//drift vehicles from Chop Shop DLC
+						case VEHICLE_DRIFTTAMPA:
+						case VEHICLE_DRIFTYOSEMITE:
+						case VEHICLE_DRIFTJESTER:
+						case VEHICLE_DRIFTEUROS:
+						case VEHICLE_DRIFTREMUS:
+						case VEHICLE_DRIFTFUTO:
+						case VEHICLE_DRIFTZR350:
+						case VEHICLE_DRIFTFR36:
+							g_vehHashes_DRIFT.push_back(dd);
+						break;
+					default:
+						auto dit = vDestMap.find(VehicleClass(d));
+						if (dit != vDestMap.end())
+							dit->second->push_back(dd);
+						else g_vehHashes_OTHER.push_back(dd);
+						g_vehHashes.push_back(dd);
+					}
+				}
 			}
 		}
 	}
@@ -237,7 +257,8 @@ void PopulateVehicleModelsArray()
 		{ &g_vehHashes_COMMERCIAL },
 		{ &g_vehHashes_UTILITY },
 		{ &g_vehHashes_MILITARY },
-		{ &g_vehHashes_OTHER }
+		{ &g_vehHashes_OTHER },
+		{ &g_vehHashes_DRIFT },
 	};
 	for (auto& hlist : vHashLists)
 	{

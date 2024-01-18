@@ -859,6 +859,7 @@ namespace sub
 			case UTILITY:		tempvecp = &g_vehHashes_UTILITY; break;
 			case MILITARY:		tempvecp = &g_vehHashes_MILITARY; break;
 			case OTHER:			tempvecp = &g_vehHashes_OTHER; break;
+			case DRIFT:			tempvecp = &g_vehHashes_DRIFT; break;
 			}
 			if (tempvecp->empty())
 				return;
@@ -922,6 +923,7 @@ namespace sub
 		AddvcatOption_("SUVs", SUV);
 		AddvcatOption_("Sedans", SEDAN);
 		AddvcatOption_("Compacts", COMPACT);
+		AddvcatOption_("Drift", DRIFT);
 
 		AddBreak("---Industrial---");
 		AddvcatOption_("Vans", VAN);
@@ -1165,6 +1167,7 @@ namespace sub
 		case UTILITY:		tempvecp = &g_vehHashes_UTILITY; break;
 		case MILITARY:		tempvecp = &g_vehHashes_MILITARY; break;
 		case OTHER:			tempvecp = &g_vehHashes_OTHER; break;
+		case DRIFT:			tempvecp = &g_vehHashes_DRIFT; break;
 		}
 
 		//std::vector<std::string>&tempvecp2 = *tempvecp;
