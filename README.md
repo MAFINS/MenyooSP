@@ -21,13 +21,13 @@ Visual Studio 2017 required
 
 ## Versioning
 vM.m.p-a/b/rcN
-M - Major: Changes require complete re-install of Menyoo including all Menyoostuff items
-m - Minor: Feature update that adds functionality to the .asi only
-p - Patch: Bug fixes with no new features.
-a - Alpha: Unstable pre-release with new features not fully tested
-b - Beta: Stable pre-release released for beta testing
-rc - Release Candidate: Stable pre-release with no planned changes ready for public release
-N - Iteration: Numerical iteration of pre-release. 
+- M - Major: Changes require complete re-install of Menyoo including all Menyoostuff items
+- m - Minor: Feature update that adds functionality to the .asi only
+- p - Patch: Bug fixes with no new features.
+- a - Alpha: Unstable pre-release with new features not fully tested
+- b - Beta: Stable pre-release released for beta testing
+- rc - Release Candidate: Stable pre-release with no planned changes ready for public release
+- N - Iteration: Numerical iteration of pre-release. 
 
 ## Download
 Compiled binary material can be found at [releases](https://github.com/itsjustcurtis/MenyooSP/releases).
