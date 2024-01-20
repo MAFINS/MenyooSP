@@ -2635,13 +2635,13 @@ namespace sub
 					SET_VEHICLE_WHEEL_TYPE(vehicle, wheelType);
 					if (wheelType == WheelType::BikeWheels)
 					{
-						isBikeBack ? SET_VEHICLE_MOD(vehicle, VehicleMod::BackWheels, wheelIndex, GET_VEHICLE_MOD_VARIATION(vehicle, VehicleMod::BackWheels))
-							: SET_VEHICLE_MOD(vehicle, VehicleMod::FrontWheels, wheelIndex, GET_VEHICLE_MOD_VARIATION(vehicle, VehicleMod::FrontWheels));
+						isBikeBack ? SET_VEHICLE_MOD(vehicle, VehicleMod::BackWheels, wheelIndex, GET_VEHICLE_MOD_VARIATION(vehicle, VehicleMod::BackWheels))	//for some reason, inverting this allows the previews to work, albeit reversed.
+							: SET_VEHICLE_MOD(vehicle, VehicleMod::FrontWheels, wheelIndex, GET_VEHICLE_MOD_VARIATION(vehicle, VehicleMod::FrontWheels));		//but as it stands now, refuses to preview the wheels at all. 
 					}
 					else
 					{
 						SET_VEHICLE_MOD(vehicle, VehicleMod::FrontWheels, wheelIndex, GET_VEHICLE_MOD_VARIATION(vehicle, VehicleMod::FrontWheels));
-						SET_VEHICLE_MOD(vehicle, VehicleMod::BackWheels, wheelIndex, GET_VEHICLE_MOD_VARIATION(vehicle, VehicleMod::BackWheels));
+						//SET_VEHICLE_MOD(vehicle, VehicleMod::BackWheels, wheelIndex, GET_VEHICLE_MOD_VARIATION(vehicle, VehicleMod::BackWheels)); //redundant on non-bike tuning
 					}
 				}
 
