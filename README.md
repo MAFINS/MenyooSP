@@ -10,6 +10,7 @@
 
 ## Requirements
 - [ScriptHookV by Alexander Blade](http://www.dev-c.com/gtav/scripthookv/)
+- GTA V Version 3095.0 or newer.
 
 ## Build
 Visual Studio 2017 required
