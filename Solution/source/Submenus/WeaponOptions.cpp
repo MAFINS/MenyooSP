@@ -760,6 +760,7 @@ namespace sub
 		AddvcatOption_("SUVs", Indices::SUV);
 		AddvcatOption_("Sedans", Indices::SEDAN);
 		AddvcatOption_("Compacts", Indices::COMPACT);
+		AddvcatOption_("Drift", Indices::DRIFT);
 
 		AddBreak("---Industrial---");
 		AddvcatOption_("Vans", Indices::VAN);
@@ -774,7 +775,6 @@ namespace sub
 		AddvcatOption_("Military", Indices::MILITARY);
 		AddvcatOption_("Motorcycles", Indices::MOTORCYCLE);
 		AddvcatOption_("Bicycles", Indices::BICYCLE);
-		AddvcatOption_("Drift", Indices::DRIFT);
 		AddvcatOption_("Others", Indices::OTHER);
 
 		/*PCHAR chartick;
