@@ -1651,12 +1651,12 @@ void GeneralGlobalHax::EnableBlockedMpVehiclesInSp(bool uSure)
 	case eGameVersion::VER_1_0_2699_16:
 		*GTAmemory::GetGlobalPtr<INT32>(4539659) = uSure ? 1 : 0; break;
 	case eGameVersion::VER_1_0_2802_0: case eGameVersion::VER_1_0_2824_0:
-	case eGameVersion::VER_1_0_2845_0:
+	case eGameVersion::VER_1_0_2845_0: default:
 		*GTAmemory::GetGlobalPtr<INT32>(4540726) = uSure ? 1 : 0; break;
-	case eGameVersion::VER_1_0_2944_0: case eGameVersion::VER_1_0_3028_0:
-		*GTAmemory::GetGlobalPtr<INT32>(4540731) = uSure ? 1 : 0; break;
-	case eGameVersion::VER_1_0_3095_0: default:
-		*GTAmemory::GetGlobalPtr<INT32>(4541411) = uSure ? 1 : 0; break;
+	/*case eGameVersion::VER_1_0_2944_0: case eGameVersion::VER_1_0_3028_0: 
+		*GTAmemory::GetGlobalPtr<INT32>(4540731) = uSure ? 1 : 0; break; // keeping this temporarily whilst I wait for confirmation from players with these game versions. 
+	case eGameVersion::VER_1_0_3095_0: 
+		*GTAmemory::GetGlobalPtr<INT32>(4541411) = uSure ? 1 : 0; break;*/ //turns out this whole section is redundant, uknowncheats lied to me. 
 	}
 }
 
