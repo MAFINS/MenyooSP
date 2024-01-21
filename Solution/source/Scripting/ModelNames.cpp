@@ -197,29 +197,30 @@ void PopulateVehicleModelsArray()
 		{ VehicleClass::Train, &g_vehHashes_TRAIN },{ VehicleClass::Emergency, &g_vehHashes_EMERGENCY },{ VehicleClass::Motorcycle, &g_vehHashes_MOTORCYCLE },
 		{ VehicleClass::Cycle, &g_vehHashes_BICYCLE },{ VehicleClass::Plane, &g_vehHashes_PLANE },{ VehicleClass::Helicopter, &g_vehHashes_HELICOPTER },{ VehicleClass::Boat, &g_vehHashes_BOAT }
 	};
-	
+
+	const bool isMinGameVersion3095 = GTAmemory::GetGameVersion() >= eGameVersion::VER_1_0_3095_0;
 	for (int d = 0x0; d < 0x20; d++)
 	{
 		for (auto& dd : hashes[d])
 		{
 			if (std::find(g_vehHashes.begin(), g_vehHashes.end(), Model(dd)) == g_vehHashes.end())
 			{
-				if(!IS_VEHICLE_GEN9_EXCLUSIVE_MODEL(dd))
+				switch (dd)
 				{
-					switch (dd)
+					//drift vehicles from Chop Shop DLC
+					case VEHICLE_DRIFTTAMPA:
+					case VEHICLE_DRIFTYOSEMITE:
+					case VEHICLE_DRIFTJESTER:
+					case VEHICLE_DRIFTEUROS:
+					case VEHICLE_DRIFTREMUS:
+					case VEHICLE_DRIFTFUTO:
+					case VEHICLE_DRIFTZR350:
+					case VEHICLE_DRIFTFR36:
+						g_vehHashes_DRIFT.push_back(dd);
+					break;
+				default:
+					if(!isMinGameVersion3095 || !IS_VEHICLE_GEN9_EXCLUSIVE_MODEL(dd))
 					{
-						//drift vehicles from Chop Shop DLC
-						case VEHICLE_DRIFTTAMPA:
-						case VEHICLE_DRIFTYOSEMITE:
-						case VEHICLE_DRIFTJESTER:
-						case VEHICLE_DRIFTEUROS:
-						case VEHICLE_DRIFTREMUS:
-						case VEHICLE_DRIFTFUTO:
-						case VEHICLE_DRIFTZR350:
-						case VEHICLE_DRIFTFR36:
-							g_vehHashes_DRIFT.push_back(dd);
-						break;
-					default:
 						auto dit = vDestMap.find(VehicleClass(d));
 						if (dit != vDestMap.end())
 							dit->second->push_back(dd);
