@@ -251,8 +251,8 @@ namespace sub
 
 				playerPed.IsCollisionEnabled_set(bHasCollision);
 
-				//SET_PED_DEFAULT_COMPONENT_VARIATION(playerPed.Handle());
-				SET_PED_RANDOM_COMPONENT_VARIATION(playerPed.Handle(), 0);
+				SET_PED_DEFAULT_COMPONENT_VARIATION(playerPed.Handle());
+				//SET_PED_RANDOM_COMPONENT_VARIATION(playerPed.Handle(), 0);
 
 				model.Unload();
 
