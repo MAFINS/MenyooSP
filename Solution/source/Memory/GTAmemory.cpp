@@ -39,6 +39,9 @@
 HMODULE g_MainModule = 0;
 MODULEINFO g_MainModuleInfo = { 0 };
 
+ScriptTable* scriptTable;
+ScriptHeader* shopController;
+
 template<typename R> R GetMultilayerPointer(void* base, const std::vector<DWORD>& offsets)
 {
 	DWORD64 addr = (UINT64)base;
@@ -1294,6 +1297,24 @@ void GTAmemory::GetEntityHandles(std::vector<Entity>& result)
 	GTAmemory::GetPropHandles(result);
 }*/
 
+uintptr_t GTAmemory::FindPattern(const char *pattern, const char *mask, const char* startAddress, size_t size) {
+	const char* address_end = startAddress + size;
+	const auto mask_length = static_cast<size_t>(strlen(mask) - 1);
+
+	for (size_t i = 0; startAddress < address_end; startAddress++) {
+		if (*startAddress == pattern[i] || mask[i] == '?') {
+			if (mask[i + 1] == '\0') {
+				return reinterpret_cast<uintptr_t>(startAddress) - mask_length;
+			}
+			i++;
+		}
+		else {
+			i = 0;
+		}
+	}
+	return 0;
+}
+
 uintptr_t GTAmemory::FindPattern(const char *pattern, const char *mask)
 {
 	MODULEINFO modInfo = g_MainModuleInfo;
@@ -1598,66 +1619,79 @@ void GeneralGlobalHax::DisableAnnoyingRecordingUI(bool uSure)
 		*GTAmemory::GetGlobalPtr<INT32>(0x56C3 + 0x82) = uSure ? 1 : 0; break;
 	}
 }
-void GeneralGlobalHax::EnableBlockedMpVehiclesInSp(bool uSure)
-{
-	// Has to be updated every patch.
 
-	switch (GTAmemory::GetGameVersion())
-	{
-	case eGameVersion::VER_1_0_757_4_NOSTEAM: case eGameVersion::VER_1_0_757_4_STEAM:
-		*GTAmemory::GetGlobalPtr<INT32>(0x271803) = uSure ? 1 : 0; break;
-	case eGameVersion::VER_1_0_791_2_NOSTEAM: case eGameVersion::VER_1_0_791_2_STEAM:
-		*GTAmemory::GetGlobalPtr<INT32>(0x272A34) = uSure ? 1 : 0; break;
-	case eGameVersion::VER_1_0_877_1_NOSTEAM: case eGameVersion::VER_1_0_877_1_STEAM:
-		*GTAmemory::GetGlobalPtr<INT32>(0x2750BD) = uSure ? 1 : 0; break;
-	case eGameVersion::VER_1_0_944_2_NOSTEAM: case eGameVersion::VER_1_0_944_2_STEAM:
-		*GTAmemory::GetGlobalPtr<INT32>(0x279476) = uSure ? 1 : 0; break;
-	case eGameVersion::VER_1_0_1011_1_NOSTEAM: case eGameVersion::VER_1_0_1011_1_STEAM:
-	case eGameVersion::VER_1_0_1032_1_NOSTEAM: case eGameVersion::VER_1_0_1032_1_STEAM:
-		*GTAmemory::GetGlobalPtr<INT32>(2593970) = uSure ? 1 : 0; break;
-	case eGameVersion::VER_1_0_1103_2_NOSTEAM: case eGameVersion::VER_1_0_1103_2_STEAM:
-		*GTAmemory::GetGlobalPtr<INT32>(2599337) = uSure ? 1 : 0; break;
-	case eGameVersion::VER_1_0_1180_2_NOSTEAM: case eGameVersion::VER_1_0_1180_2_STEAM:
-		*GTAmemory::GetGlobalPtr<INT32>(2606794) = uSure ? 1 : 0; break;
-	case eGameVersion::VER_1_0_1290_1_NOSTEAM: case eGameVersion::VER_1_0_1290_1_STEAM:
-	case eGameVersion::VER_1_0_1365_1_NOSTEAM: case eGameVersion::VER_1_0_1365_1_STEAM:
-		*GTAmemory::GetGlobalPtr<INT32>(4265719) = uSure ? 1 : 0; break;
-	case eGameVersion::VER_1_0_1493_0_NOSTEAM: case eGameVersion::VER_1_0_1493_0_STEAM:
-	case eGameVersion::VER_1_0_1493_1_NOSTEAM: case eGameVersion::VER_1_0_1493_1_STEAM:
-		*GTAmemory::GetGlobalPtr<INT32>(4266042) = uSure ? 1 : 0; break;
-	case eGameVersion::VER_1_0_1604_0_NOSTEAM: case eGameVersion::VER_1_0_1604_0_STEAM:
-	case eGameVersion::VER_1_0_1604_1_NOSTEAM: case eGameVersion::VER_1_0_1604_1_STEAM:
-		*GTAmemory::GetGlobalPtr<INT32>(4266905) = uSure ? 1 : 0; break;
-	case eGameVersion::VER_1_0_1737_0_NOSTEAM: case eGameVersion::VER_1_0_1737_0_STEAM:
-	case eGameVersion::VER_1_0_1737_6_NOSTEAM: case eGameVersion::VER_1_0_1737_6_STEAM:
-        *GTAmemory::GetGlobalPtr<INT32>(4267883) = uSure ? 1 : 0; break;
-	case eGameVersion::VER_1_0_1868_0_NOSTEAM: case eGameVersion::VER_1_0_1868_0_STEAM:
-	case eGameVersion::VER_1_0_1868_1_NOSTEAM: case eGameVersion::VER_1_0_1868_1_STEAM:
-        *GTAmemory::GetGlobalPtr<INT32>(4268190) = uSure ? 1 : 0; break;
-	case eGameVersion::VER_1_0_2060_0_NOSTEAM: case eGameVersion::VER_1_0_2060_0_STEAM:
-	case eGameVersion::VER_1_0_2060_1_NOSTEAM: case eGameVersion::VER_1_0_2060_1_STEAM:
-		*GTAmemory::GetGlobalPtr<INT32>(4268340) = uSure ? 1 : 0; break;
-    case eGameVersion::VER_1_0_2189_0_NOSTEAM: case eGameVersion::VER_1_0_2189_0_STEAM:
-	case eGameVersion::VER_1_0_2215_0_NOSTEAM: case eGameVersion::VER_1_0_2215_0_STEAM:
-	case eGameVersion::VER_1_0_2245_0_NOSTEAM: case eGameVersion::VER_1_0_2245_0_STEAM:
-		*GTAmemory::GetGlobalPtr<INT32>(4269479) = uSure ? 1 : 0; break;
-	case eGameVersion::VER_1_0_2372_0_NOSTEAM: case eGameVersion::VER_1_0_2372_0_STEAM:
-		*GTAmemory::GetGlobalPtr<INT32>(4270934) = uSure ? 1 : 0; break;
-	case eGameVersion::VER_1_0_2545_0_NOSTEAM: case eGameVersion::VER_1_0_2545_0_STEAM:
-	case eGameVersion::VER_1_0_2612_1_NOSTEAM: case eGameVersion::VER_1_0_2612_1_STEAM:
-	case eGameVersion::VER_1_0_2628_2_NOSTEAM: case eGameVersion::VER_1_0_2628_2_STEAM:
-		*GTAmemory::GetGlobalPtr<INT32>(4533757) = uSure ? 1 : 0; break;
-	case eGameVersion::VER_1_0_2699_0_NOSTEAM: case eGameVersion::VER_1_0_2699_0_STEAM:
-	case eGameVersion::VER_1_0_2699_16:
-		*GTAmemory::GetGlobalPtr<INT32>(4539659) = uSure ? 1 : 0; break;
-	case eGameVersion::VER_1_0_2802_0: case eGameVersion::VER_1_0_2824_0:
-	case eGameVersion::VER_1_0_2845_0: default:
-		*GTAmemory::GetGlobalPtr<INT32>(4540726) = uSure ? 1 : 0; break;
-	/*case eGameVersion::VER_1_0_2944_0: case eGameVersion::VER_1_0_3028_0: 
-		*GTAmemory::GetGlobalPtr<INT32>(4540731) = uSure ? 1 : 0; break; // keeping this temporarily whilst I wait for confirmation from players with these game versions. 
-	case eGameVersion::VER_1_0_3095_0: 
-		*GTAmemory::GetGlobalPtr<INT32>(4541411) = uSure ? 1 : 0; break;*/ //turns out this whole section is redundant, uknowncheats lied to me. 
+//https://github.com/ikt32/GTAVAddonLoader/blob/master/GTAVAddonLoader/NativeMemory.cpp
+void GeneralGlobalHax::EnableBlockedMpVehiclesInSp()
+{	
+	const char* patt617_1 = "\x2C\x01\x00\x00\x20\x56\x04\x00\x6E\x2E\x00\x01\x5F\x00\x00\x00\x00\x04\x00\x6E\x2E\x00\x01";
+	const char* mask617_1 = "xx??xxxxxx?xx????xxxx?x";
+	const unsigned int offset617_1 = 13;
+
+	const char* patt1604_0 = "\x2D\x00\x00\x00\x00\x2C\x01\x00\x00\x56\x04\x00\x6E\x2E\x00\x01\x5F\x00\x00\x00\x00\x04\x00\x6E\x2E\x00\x01";
+	const char* mask1604_0 = "x??xxxx??xxxxx?xx????xxxx?x";
+	const unsigned int offset1064_0 = 17;
+
+	// Updated pattern entirely thanks to @alexguirre
+	const char* patt2802_0 = "\x2D\x00\x00\x00\x00\x2C\x01\x00\x00\x56\x04\x00\x71\x2E\x00\x01\x62\x00\x00\x00\x00\x04\x00\x71\x2E\x00\x01";
+	const char* mask2802_0 = "x??xxxx??xxxxx?xx????xxxx?x";
+	const unsigned int offset2802_0 = 17;
+
+	const char* pattern = patt617_1;
+	const char* mask = mask617_1;
+	int offset = offset617_1;
+
+	if (getGameVersion() >= 80) {
+		pattern = patt2802_0;
+		mask = mask2802_0;
+		offset = offset2802_0;
 	}
+	else if (getGameVersion() >= 46) {
+		pattern = patt1604_0;
+		mask = mask1604_0;
+		offset = offset1064_0;
+	}
+
+	for (int i = 0; i < shopController->CodePageCount(); i++)
+	{
+		int size = shopController->GetCodePageSize(i);
+		if (size)
+		{
+			uintptr_t address = GTAmemory::FindPattern(pattern, mask, (const char*)shopController->GetCodePageAddress(i), size);
+			if (address)
+			{
+				int globalindex = *(int*)(address + offset) & 0xFFFFFF;
+				ige::myLog << ige::LogType::LOG_INFO << "Setting Global Variable " << std::to_string(globalindex) << " to true";
+				*GTAmemory::GetGlobalPtr<INT32>(globalindex) = 1;
+				return;
+			}
+		}
+	}
+
+	ige::myLog << ige::LogType::LOG_ERROR << "Global Variable not found, check game version >= 1.0.678.1";
+}
+
+// from EnableMPCars by drp4lyf
+bool GTAmemory::FindShopController() {
+	__int64 patternAddr = FindPattern("\x48\x03\x15\x00\x00\x00\x00\x4C\x23\xC2\x49\x8B\x08", "xxx????xxxxxx");
+	if (!patternAddr) {
+		ige::myLog << ige::LogType::LOG_ERROR << "ERROR: finding address 1";
+		ige::myLog << ige::LogType::LOG_ERROR << "Aborting...";
+		return false;
+	}
+	scriptTable = (ScriptTable*)(patternAddr + *(int*)(patternAddr + 3) + 7);
+    
+	ScriptTableItem* Item = scriptTable->FindScript(0x39DA738B);
+	if (Item == NULL) {
+		ige::myLog << ige::LogType::LOG_ERROR << "ERROR: finding script 0x39DA738B";
+		ige::myLog << ige::LogType::LOG_ERROR << "Aborting...";
+		return false;
+	}
+	while (!Item->IsLoaded())
+		Sleep(100);
+    
+	shopController = Item->Header;
+	//ige::myLog << ige::LogType::LOG_INFO << "Found shopcontroller";
+	return true;
 }
 
 void** GeneralGlobalHax::WorldPtrPtr()
