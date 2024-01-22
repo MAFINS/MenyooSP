@@ -125,6 +125,9 @@ inline void MenyooMain()
 	MenuConfig::ConfigInit();
 	g_MenyooConfigTick = GetTickCount();
 	g_FaderTick = GetTickCount();
+	
+	if (GTAmemory::FindShopController())
+		GeneralGlobalHax::EnableBlockedMpVehiclesInSp();
 
 	for (;;)
 	{
@@ -2834,8 +2837,6 @@ void Menu::loops()
 
 	if (loop_Check_self_death_model)
 		_ManualRespawn_::Check_self_death_model();
-
-	GeneralGlobalHax::EnableBlockedMpVehiclesInSp(true);
 
 	if (loop_restricted_areas_access)
 	{
