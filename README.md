@@ -1,9 +1,10 @@
-[![GitHub Latest nightly)](https://img.shields.io/github/v/release/itsjustcurtis/MenyooSP?include_prereleases&label=pre-release&logo=GitHub)](https://github.com/itsjustcurtis/MenyooSP/releases/tag/latest)
+[![GitHub Current Version)](https://img.shields.io/github/v/release/itsjustcurtis/MenyooSP?logo=GitHub)](https://github.com/itsjustcurtis/MenyooSP/releases/latest/download/MenyooSP.zip)
+[![GitHub Latest nightly)](https://img.shields.io/github/v/release/itsjustcurtis/MenyooSP?include_prereleases&label=pre-release&logo=GitHub)](https://github.com/itsjustcurtis/MenyooSP/releases/)
 [![GitHub latest release](https://img.shields.io/github/downloads/itsjustcurtis/MenyooSP/latest/total?label=latest-release&logo=GitHub)](https://github.com/itsjustcurtis/MenyooSP/releases/latest)
 [![GitHub all releases](https://img.shields.io/github/downloads/itsjustcurtis/MenyooSP/total?label=all-releases&logo=GitHub)](https://github.com/itsjustcurtis/MenyooSP/releases)
 
-<!--# Menyoo PC - [DOWNLOAD LATEST RELEASE](https://github.com/itsjustcurtis/MenyooSP/releases/latest/download/MenyooSP.zip)
-# Menyoo PC - [DOWNLOAD LATEST NIGHTLY](https://github.com/itsjustcurtis/MenyooSP/releases/download/latest/MenyooSP.zip)-->
+# Menyoo PC - [DOWNLOAD LATEST RELEASE](https://github.com/itsjustcurtis/MenyooSP/releases/latest/download/MenyooSP.zip)
+# Menyoo PC - [DOWNLOAD LATEST NIGHTLY](https://github.com/itsjustcurtis/MenyooSP/releases/)
 ### a.k.a. MenyooSP
 #### Trainer for Grand Theft Auto V (Single-player and FiveM).
 ---
@@ -13,8 +14,8 @@
 - GTA V Version 3095.0 or newer.
 
 ## Build
-Visual Studio 2017 required
-- I used v15.9.7
+Visual Studio 2022 required
+- I used v17.0.4
 
 ## Install
  Copy the Menyoo.asi file along with the menyooStuff folder to the Grand Theft Auto V game directory.  
