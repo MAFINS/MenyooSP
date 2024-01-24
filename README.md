@@ -3,6 +3,9 @@
 [![GitHub latest release](https://img.shields.io/github/downloads/itsjustcurtis/MenyooSP/latest/total?label=latest-release&logo=GitHub)](https://github.com/itsjustcurtis/MenyooSP/releases/latest)
 [![GitHub all releases](https://img.shields.io/github/downloads/itsjustcurtis/MenyooSP/total?label=all-releases&logo=GitHub)](https://github.com/itsjustcurtis/MenyooSP/releases)
 
+![image](https://github.com/itsjustcurtis/MenyooSP/assets/70447190/38f28c30-5585-4f77-b204-6a8c8149defe)
+
+
 # Menyoo PC - [DOWNLOAD LATEST RELEASE](https://github.com/itsjustcurtis/MenyooSP/releases/latest/download/MenyooSP.zip)
 # Menyoo PC - [DOWNLOAD LATEST NIGHTLY](https://github.com/itsjustcurtis/MenyooSP/releases/)
 ### a.k.a. MenyooSP
