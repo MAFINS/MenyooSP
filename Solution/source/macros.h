@@ -16,7 +16,7 @@
 #define _CRT_SECURE_NO_WARNINGS
 
 // version
-#define MENYOO_CURRENT_VER_ "2.0.1a"
+#define MENYOO_CURRENT_VER_ "2.0.1"
 
 #define GAME_PLAYERCOUNT 30
 
