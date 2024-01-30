@@ -1364,8 +1364,10 @@ void SpSnow::EnableSnow(bool bEnable)
 	auto& addr13 = SpSnow_addr13;
 	auto& addr22 = SpSnow_addr22;
 
+	const bool isMinGameVersion3095 = GTAmemory::GetGameVersion() >= eGameVersion::VER_1_0_3095_0;
+
 	// Patterns may change
-	/*if (!addr1)  //Outdated memory edits for snow coverage, no longer required - IJC
+	if (!addr1 && !isMinGameVersion3095)
 	{
 		if (!addr12)
 		{
@@ -1388,7 +1390,7 @@ void SpSnow::EnableSnow(bool bEnable)
 		{
 			addr1 = addr12;
 		}
-	}*/
+	}
 
 	if (!addr2)
 	{
@@ -1412,11 +1414,11 @@ void SpSnow::EnableSnow(bool bEnable)
 	if (!this->bInitialized)
 	{
 		// Unprotect Memory
-		//VirtualProtect((void*)addr1, 13, PAGE_EXECUTE_READWRITE, nullptr); // Memory related to Snow Coverage, no longer required - IJC
+		if(!isMinGameVersion3095) VirtualProtect((void*)addr1, 13, PAGE_EXECUTE_READWRITE, nullptr); 
 		VirtualProtect((void*)addr2, 14, PAGE_EXECUTE_READWRITE, nullptr);
 
 		// Copy original Memory
-		//memcpy(&original1, (void*)addr1, 13); // Memory related to Snow Coverage, no longer required - IJC
+		if (!isMinGameVersion3095) memcpy(&original1, (void*)addr1, 13);
 		memcpy(&original2, (void*)addr2, 14);
 
 		this->traxv_call = MemryScan::PatternScanner::FindPattern("\x40\x38\x3D\x00\x00\x00\x00\x48\x8B\x42\x20", "xxx????xxxx");
@@ -1447,23 +1449,26 @@ void SpSnow::EnableSnow(bool bEnable)
 	if (bEnable)
 	{
 		// NOP checks
-		/*if (bUseAddr13) //Outdated memory edits for snow coverage, no longer required - IJC
+		if (!isMinGameVersion3095)
 		{
-			BYTE* pFrom = (BYTE*)addr1;
-			BYTE* pTo = (BYTE*)addr1 + 0x1B;
-			DWORD protect;
-			VirtualProtect(pFrom, 16, PAGE_EXECUTE_READWRITE, &protect);
-			pFrom[0] = 0x48;  // mov rax, func
-			pFrom[1] = 0xB8;
-			*reinterpret_cast<BYTE **>(&pFrom[2]) = pTo;
-			pFrom[10] = 0x50; // push rax
-			pFrom[11] = 0xC3; // ret
-			VirtualProtect(pFrom, 16, protect, &protect);
+			if (bUseAddr13)
+			{
+				BYTE* pFrom = (BYTE*)addr1;
+				BYTE* pTo = (BYTE*)addr1 + 0x1B;
+				DWORD protect;
+				VirtualProtect(pFrom, 16, PAGE_EXECUTE_READWRITE, &protect);
+				pFrom[0] = 0x48;  // mov rax, func
+				pFrom[1] = 0xB8;
+				*reinterpret_cast<BYTE**>(&pFrom[2]) = pTo;
+				pFrom[10] = 0x50; // push rax
+				pFrom[11] = 0xC3; // ret
+				VirtualProtect(pFrom, 16, protect, &protect);
+			}
+			else
+			{
+				memset((void*)addr1, 0x90, 13);
+			}
 		}
-		else
-		{
-			memset((void*)addr1, 0x90, 13);
-		}*/
 
 		if (bUseAddr22)
 		{
@@ -1491,13 +1496,14 @@ void SpSnow::EnableSnow(bool bEnable)
 		//USE_SNOW_FOOT_VFX_WHEN_UNSHELTERED(true);
 		//USE_SNOW_WHEEL_VFX_WHEN_UNSHELTERED(true);
 		this->EnableTracks(true, true, true, true);
-		FORCE_GROUND_SNOW_PASS(true);
+		if (isMinGameVersion3095) 
+			FORCE_GROUND_SNOW_PASS(true);
 		// Now on
 	}
 	else
 	{
 		// Copy original bytes back
-		//memcpy((void*)addr1, &original1, 13); // Memory related to Snow Coverage, no longer required - IJ
+		if (!isMinGameVersion3095) memcpy((void*)addr1, &original1, 13);
 		memcpy((void*)addr2, &original2, 14);
 
 		// Weather
@@ -1509,7 +1515,8 @@ void SpSnow::EnableSnow(bool bEnable)
 		//USE_SNOW_FOOT_VFX_WHEN_UNSHELTERED(false);
 		//USE_SNOW_WHEEL_VFX_WHEN_UNSHELTERED(false);
 		this->EnableTracks(false, false, false, false);
-		FORCE_GROUND_SNOW_PASS(false);
+		if (isMinGameVersion3095) 
+			FORCE_GROUND_SNOW_PASS(false);
 		// Now off
 	}
 }
