@@ -2928,9 +2928,9 @@ namespace sub
 			bool bIsChromeSelected = chrtype == 1 || chrtype == 3;
 
 			AddTitle(bIsChromeSelected ? "Chrome Wheels" : "Bike Wheels");
-
+			
 			std::array<int, 5> ids{ 0, 13, 26, 48, ms_max_windices };
-			for (int j = bIsChromeSelected ? 1 : 0; j < ids.size(); j += 2)
+			for (int j = bIsChromeSelected ? 0 : 0; j < ids.size(); j += 1)
 			{
 				for (i = ids[j]; i < ids[j + 1]; i++)
 				{

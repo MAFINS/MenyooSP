@@ -1081,13 +1081,13 @@ namespace sub
 				{
 					currentOverlayValue++;
 					SET_PED_HEAD_OVERLAY(ped.Handle(), overlayIndex, currentOverlayValue, currentOverlayData.opacity);
-					SET_PED_HEAD_OVERLAY_TINT(ped.Handle(), overlayIndex, colourType, currentOverlayData.colour, currentOverlayData.colourSecondary);
+					SET_PED_HEAD_OVERLAY_TINT(ped.Handle(), overlayIndex, 0, currentOverlayData.colour=0, currentOverlayData.colourSecondary=0);
 				}
 				else
 				{
 					currentOverlayValue = currentOverlayValue == 255 ? 0 : 255;
 					SET_PED_HEAD_OVERLAY(ped.Handle(), overlayIndex, currentOverlayValue, currentOverlayData.opacity);
-					SET_PED_HEAD_OVERLAY_TINT(ped.Handle(), overlayIndex, colourType, currentOverlayData.colour, currentOverlayData.colourSecondary);
+					SET_PED_HEAD_OVERLAY_TINT(ped.Handle(), overlayIndex, 0, currentOverlayData.colour=0, currentOverlayData.colourSecondary=0);
 				}
 			}
 			if (overlay_minus)
@@ -1096,11 +1096,13 @@ namespace sub
 				{
 					currentOverlayValue = currentOverlayValue > max_overlays ? max_overlays : currentOverlayValue - 1;
 					SET_PED_HEAD_OVERLAY(ped.Handle(), overlayIndex, currentOverlayValue, currentOverlayData.opacity);
+					SET_PED_HEAD_OVERLAY_TINT(ped.Handle(), overlayIndex, 0, currentOverlayData.colour=0, currentOverlayData.colourSecondary=0);
 				}
 				else
 				{
 					currentOverlayValue = 255;
 					SET_PED_HEAD_OVERLAY(ped.Handle(), overlayIndex, currentOverlayValue, currentOverlayData.opacity);
+					SET_PED_HEAD_OVERLAY_TINT(ped.Handle(), overlayIndex, 0, currentOverlayData.colour=0, currentOverlayData.colourSecondary=0);
 				}
 			}
 
