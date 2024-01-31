@@ -8,7 +8,7 @@
 		<Ped name="mp_f_freemode_01" caption="Freemode MP Female" />
 		<Ped name="mp_m_freemode_01" caption="Freemode MP Male" />		
 	</Category>
-	<Category name="Animals">
+	<Category name="Animal">
 		<Ped name="a_c_boar" caption="Boar" />
 		<Ped name="a_c_boar_02" caption="Boar 2 (Halloween)" />
 		<Ped name="a_c_cat_01" caption="Cat" />
@@ -1046,6 +1046,7 @@
 		<Ped name="u_m_y_tattoo_01" caption="Tattoo Artist" />
 		<Ped name="u_m_y_ushi" caption="Ushi" />
 		<Ped name="u_m_y_zombie_01" caption="Zombie" />
+	</Category>
 	<Category name="Others">
 		<Ped name="hc_driver" caption="Jewel Heist Driver" />
 		<Ped name="hc_gunman" caption="Jewel Heist Gunman" />
