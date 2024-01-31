@@ -1046,6 +1046,7 @@
 		<Ped name="u_m_y_tattoo_01" caption="Tattoo Artist" />
 		<Ped name="u_m_y_ushi" caption="Ushi" />
 		<Ped name="u_m_y_zombie_01" caption="Zombie" />
+	</Category>
 	<Category name="Others">
 		<Ped name="hc_driver" caption="Jewel Heist Driver" />
 		<Ped name="hc_gunman" caption="Jewel Heist Gunman" />
