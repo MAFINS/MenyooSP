@@ -80,9 +80,9 @@ namespace sub
 			{
 				float spacing1 = Model(GET_ENTITY_MODEL(oldcar)).Dim1().y + model.Dim2().y + 1.0f;
 				if(deleteOld)
-					Pos1 = GET_OFFSET_FROM_ENTITY_IN_WORLD_COORDS(oldcar, 0, 0, 0);
+					Pos1 = GET_OFFSET_FROM_ENTITY_IN_WORLD_COORDS(oldcar, 0, 0, 0.5f);
 				else
-					Pos1 = GET_OFFSET_FROM_ENTITY_IN_WORLD_COORDS(oldcar, 0, spacing1, 0);
+					Pos1 = GET_OFFSET_FROM_ENTITY_IN_WORLD_COORDS(oldcar, 0, spacing1, 0.5f);
 			}
 			else
 				Pos1 = ped.GetOffsetInWorldCoords(Vector3());
@@ -95,32 +95,32 @@ namespace sub
 				
 			//if (!IS_ENTITY_IN_AIR(ped) && !IS_ENTITY_IN_WATER(ped)) SET_VEHICLE_ON_GROUND_PROPERLY(newcar, 0.0f);
 			
-			
-			SET_ENTITY_COLLISION(newcar, false, true);
+
 			SET_ENTITY_ALPHA(newcar, 0, false);
-			SET_VEHICLE_HAS_STRONG_AXLES(newcar, 1);
+			SET_ENTITY_COLLISION(newcar, false, true);
+			//SET_VEHICLE_HAS_STRONG_AXLES(newcar, 1);
 			SET_VEHICLE_DIRT_LEVEL(newcar, 0.0f);
-			SET_VEHICLE_ENVEFF_SCALE(newcar, 0.0f);
-			SET_ENTITY_AS_MISSION_ENTITY(newcar, 0, 1); //Fixes the despawning of MP onl;y cars after a couple of secs
+			//SET_VEHICLE_ENVEFF_SCALE(newcar, 0.0f);
+			//SET_ENTITY_AS_MISSION_ENTITY(newcar, 0, 1); //Fixes the despawning of MP onl;y cars after a couple of secs
 			//	SET_ENTITY_PROOFS(newcar, 1, 1, 1, 1, 1, 1, 1, 1);
 
-			int newnetid = VEH_TO_NET(newcar);
-			Game::RequestControlOfId(newnetid);
+			///int newnetid = VEH_TO_NET(newcar);
+			//Game::RequestControlOfId(newnetid);
 			//SET_NETWORK_ID_CAN_MIGRATE(newnetid, 1);
 			//SET_NETWORK_ID_EXISTS_ON_ALL_MACHINES(newnetid, 1);
 
 			if (oldcarBool && DOES_ENTITY_EXIST(oldcar))
 			{
 				GTAvehicle(newcar).RequestControl();
+				SET_VEHICLE_ENGINE_ON(newcar, oldCarOn, true, 0);
+				SET_ENTITY_COLLISION(newcar, true, true);
 				SET_ENTITY_VELOCITY(newcar, oldVelocity.x, oldVelocity.y, oldVelocity.z);
 				if (deleteOld)
 				{ 
-					FREEZE_ENTITY_POSITION(oldcar, true);
+					//FREEZE_ENTITY_POSITION(oldcar, true);
 					SET_ENTITY_COLLISION(oldcar, false, true);
 					SET_ENTITY_ALPHA(oldcar, 0, false);
 				}
-				SET_VEHICLE_ENGINE_ON(newcar, true, true, 0);
-				SET_ENTITY_COLLISION(newcar, true, true);
 				RESET_ENTITY_ALPHA(newcar);
 				if (warpIntoVehicle)
 				{
@@ -158,7 +158,7 @@ namespace sub
 					}
 					WAIT(0);
 					GTAvehicle(oldcar).RequestControl();
-					SET_ENTITY_AS_MISSION_ENTITY(oldcar, 0, 1);
+					//SET_ENTITY_AS_MISSION_ENTITY(oldcar, 0, 1);
 					SET_ENTITY_COORDS(oldcar, 32.2653f, 7683.5249f, 0.5696f, 0, 0, 0, 1);
 					DELETE_VEHICLE(&oldcar);
 				}
