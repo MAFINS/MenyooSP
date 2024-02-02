@@ -3,81 +3,108 @@
 	<Category name="Player">
 		<Ped name="player_zero" caption="Michael" />
 		<Ped name="player_one" caption="Franklin" />
+		<Ped name="p_franklin_02" caption="Franklin 2" />
 		<Ped name="player_two" caption="Trevor" />
-		<Ped name="mp_f_freemode_01" caption="Freemode Female" />
-		<Ped name="mp_m_freemode_01" caption="Freemode Male" />		
-		</Category>
+		<Ped name="mp_f_freemode_01" caption="Freemode MP Female" />
+		<Ped name="mp_m_freemode_01" caption="Freemode MP Male" />		
+	</Category>
 	<Category name="Animal">
-		<Ped name="a_c_shepherd" caption="Australian Shepherd" />
 		<Ped name="a_c_boar" caption="Boar" />
+		<Ped name="a_c_boar_02" caption="Boar 2 (Halloween)" />
 		<Ped name="a_c_cat_01" caption="Cat" />
-		<Ped name="a_c_chimp" caption="Chimp" />
-		<Ped name="a_c_chop" caption="Chop" />
+		<Ped name="a_c_chickenhawk" caption="Hawk" />
+		<Ped name="a_c_chimp" caption="Chimp 2" />
+		<Ped name="a_c_chimp_02" caption="Chimp" />
+		<Ped name="a_c_chop" caption="Chop (Young)" />
+		<Ped name="a_c_chop_02" caption="Chop (Old)" />
 		<Ped name="a_c_cormorant" caption="Cormorant" />
 		<Ped name="a_c_cow" caption="Cow" />
 		<Ped name="a_c_coyote" caption="Coyote" />
+		<Ped name="a_c_coyote_02" caption="Coyote (Halloween)" />
 		<Ped name="a_c_crow" caption="Crow" />
 		<Ped name="a_c_deer" caption="Deer" />
+		<Ped name="a_c_deer_02" caption="Deer (Halloween)" />
 		<Ped name="a_c_dolphin" caption="Dolphin" />
 		<Ped name="a_c_fish" caption="Fish" />
-		<Ped name="a_c_sharkhammer" caption="Hammerhead Shark" />
-		<Ped name="a_c_chickenhawk" caption="Hawk" />
 		<Ped name="a_c_hen" caption="Hen" />
-		<Ped name="a_c_humpback" caption="Humpback" />
+		<Ped name="a_c_humpback" caption="Humpback Whale" />
 		<Ped name="a_c_husky" caption="Husky" />
 		<Ped name="a_c_killerwhale" caption="Killer Whale" />
 		<Ped name="a_c_mtlion" caption="Mountain Lion" />
-        <Ped name="a_c_panther" caption="Panther" />
+		<Ped name="a_c_mtlion_02" caption="Mountain Lion (Halloween)" />
 		<Ped name="a_c_pig" caption="Pig" />
 		<Ped name="a_c_pigeon" caption="Pigeon" />
 		<Ped name="a_c_poodle" caption="Poodle" />
+		<Ped name="a_c_pug" caption="Pug (Halloween)" />
 		<Ped name="a_c_pug" caption="Pug" />
 		<Ped name="a_c_rabbit_01" caption="Rabbit" />
+		<Ped name="a_c_rabbit_02" caption="Rabbit (Huge)" />
 		<Ped name="a_c_rat" caption="Rat" />
 		<Ped name="a_c_retriever" caption="Retriever" />
-		<Ped name="a_c_rhesus" caption="Rhesus" />
+		<Ped name="a_c_rhesus" caption="Rhesus The Chimp" />
 		<Ped name="a_c_rottweiler" caption="Rottweiler" />
 		<Ped name="a_c_seagull" caption="Seagull" />
-		<Ped name="a_c_stingray" caption="Stingray" />
+		<Ped name="a_c_sharkhammer" caption="Hammerhead Shark" />
 		<Ped name="a_c_sharktiger" caption="Tiger Shark" />
+		<Ped name="a_c_shepherd" caption="Australian Shepherd" />
+		<Ped name="a_c_stingray" caption="Stingray" />
 		<Ped name="a_c_westy" caption="Westie" />
+        <Ped name="a_c_panther" caption="Panther" />
 	</Category>
 	<Category name="AmbientFemale">
-		<Ped name="a_f_y_carclub_01" caption="Car Club Female" />
 		<Ped name="a_f_m_beach_01" caption="Beach Female" />
-		<Ped name="a_f_m_trampbeac_01" caption="Beach Tramp Female" />
-		<Ped name="a_f_y_beach_01" caption="Beach Young Female" />
-        <Ped name="a_f_y_beach_02" caption="Beach Young Female 2" />
 		<Ped name="a_f_m_bevhills_01" caption="Beverly Hills Female" />
 		<Ped name="a_f_m_bevhills_02" caption="Beverly Hills Female 2" />
+		<Ped name="a_f_m_bodybuild_01" caption="Bodybuilder Female" />
+		<Ped name="a_f_m_business_02" caption="Business Female 2" />
+		<Ped name="a_f_m_downtown_01" caption="Downtown Female" />
+		<Ped name="a_f_m_eastsa_01" caption="East SA Female" />
+		<Ped name="a_f_m_eastsa_02" caption="East SA Female 2" />
+		<Ped name="a_f_m_fatbla_01" caption="Fat Black Female" />
+		<Ped name="a_f_m_fatcult_01" caption="Fat Cult Female" />
+		<Ped name="a_f_m_fatwhite_01" caption="Fat White Female" />
+		<Ped name="a_f_m_genbiker_01" caption="General Biker Female" />
+		<Ped name="a_f_m_genstreet_01" caption="General Street Young Female" />
+		<Ped name="a_f_m_ktown_01" caption="Korean Female" />
+		<Ped name="a_f_m_ktown_02" caption="Korean Female 2" />
+		<Ped name="a_f_m_prolhost_01" caption="Prologue Host Female" />
+		<Ped name="a_f_m_salton_01" caption="Salton Female" />
+		<Ped name="a_f_m_skidrow_01" caption="Skid Row Female" />
+		<Ped name="a_f_m_soucent_01" caption="South Central Female" />
+		<Ped name="a_f_m_soucent_02" caption="South Central Female 2" />
+		<Ped name="a_f_m_soucentmc_01" caption="South Central MC Female" />
+		<Ped name="a_f_m_tourist_01" caption="Tourist Female" />
+		<Ped name="a_f_m_tramp_01" caption="Tramp Female" />
+		<Ped name="a_f_m_trampbeac_01" caption="Beach Tramp Female" />
+		<Ped name="a_f_o_genstreet_01" caption="General Street Old Female" />
+		<Ped name="a_f_o_indian_01" caption="Indian Old Female" />
+		<Ped name="a_f_o_ktown_01" caption="Korean Old Female" />
+		<Ped name="a_f_o_salton_01" caption="Salton Old Female" />
+		<Ped name="a_f_o_soucent_01" caption="South Central Old Female" />
+		<Ped name="a_f_o_soucent_02" caption="South Central Old Female 2" />
+		<Ped name="a_f_y_beach_01" caption="Beach Young Female" />
 		<Ped name="a_f_y_bevhills_01" caption="Beverly Hills Young Female" />
 		<Ped name="a_f_y_bevhills_02" caption="Beverly Hills Young Female 2" />
 		<Ped name="a_f_y_bevhills_03" caption="Beverly Hills Young Female 3" />
 		<Ped name="a_f_y_bevhills_04" caption="Beverly Hills Young Female 4" />
-		<Ped name="a_f_m_bodybuild_01" caption="Bodybuilder Female" />
-		<Ped name="a_f_m_business_02" caption="Business Female 2" />
+		<Ped name="a_f_y_bevhills_05" caption="Beverly Hills Young Female 5" />
 		<Ped name="a_f_y_business_01" caption="Business Young Female" />
 		<Ped name="a_f_y_business_02" caption="Business Young Female 2" />
 		<Ped name="a_f_y_business_03" caption="Business Young Female 3" />
 		<Ped name="a_f_y_business_04" caption="Business Young Female 4" />
-		<Ped name="a_f_m_downtown_01" caption="Downtown Female" />
-		<Ped name="a_f_y_scdressy_01" caption="Dressy Female" />
-		<Ped name="a_f_m_eastsa_01" caption="East SA Female" />
-		<Ped name="a_f_m_eastsa_02" caption="East SA Female 2" />
+		<Ped name="a_f_y_carclub_01" caption="Car Club Female" />
+		<Ped name="a_f_y_clubcust_01" caption="Club Customer Female 1" />
+		<Ped name="a_f_y_clubcust_02" caption="Club Customer Female 2" />
+		<Ped name="a_f_y_clubcust_03" caption="Club Customer Female 3" />
 		<Ped name="a_f_y_eastsa_01" caption="East SA Young Female" />
 		<Ped name="a_f_y_eastsa_02" caption="East SA Young Female 2" />
 		<Ped name="a_f_y_eastsa_03" caption="East SA Young Female 3" />
 		<Ped name="a_f_y_epsilon_01" caption="Epsilon Female" />
-		<Ped name="a_f_m_fatbla_01" caption="Fat Black Female" />
-		<Ped name="a_f_m_fatcult_01" caption="Fat Cult Female" />
-		<Ped name="a_f_m_fatwhite_01" caption="Fat White Female" />
 		<Ped name="a_f_y_femaleagent" caption="Female Agent" />
 		<Ped name="a_f_y_fitness_01" caption="Fitness Female" />
 		<Ped name="a_f_y_fitness_02" caption="Fitness Female 2" />
-		<Ped name="a_f_y_genhot_01" caption="General Hot Young Female" />
-		<Ped name="a_f_o_genstreet_01" caption="General Street Old Female" />
 		<Ped name="a_f_y_gencaspat_01" caption="Casual Casino Guest" />
-		<Ped name="a_f_y_smartcaspat_01" caption="Formel Casino Guest" />
+		<Ped name="a_f_y_genhot_01" caption="General Hot Young Female" />
 		<Ped name="a_f_y_golfer_01" caption="Golfer Young Female" />
 		<Ped name="a_f_y_hiker_01" caption="Hiker Female" />
 		<Ped name="a_f_y_hippie_01" caption="Hippie Female" />
@@ -85,398 +112,416 @@
 		<Ped name="a_f_y_hipster_02" caption="Hipster Female 2" />
 		<Ped name="a_f_y_hipster_03" caption="Hipster Female 3" />
 		<Ped name="a_f_y_hipster_04" caption="Hipster Female 4" />
-		<Ped name="a_f_o_indian_01" caption="Indian Old Female" />
 		<Ped name="a_f_y_indian_01" caption="Indian Young Female" />
-		<Ped name="a_f_y_runner_01" caption="Jogger Female" />
 		<Ped name="a_f_y_juggalo_01" caption="Juggalo Female" />
-		<Ped name="a_f_m_ktown_01" caption="Korean Female" />
-		<Ped name="a_f_m_ktown_02" caption="Korean Female 2" />
-		<Ped name="a_f_o_ktown_01" caption="Korean Old Female" />
-		<Ped name="a_f_m_prolhost_01" caption="Prologue Host Female" />
+		<Ped name="a_f_y_runner_01" caption="Jogger Female" />
 		<Ped name="a_f_y_rurmeth_01" caption="Rural Meth Addict Female" />
-		<Ped name="a_f_m_salton_01" caption="Salton Female" />
-		<Ped name="a_f_o_salton_01" caption="Salton Old Female" />
+		<Ped name="a_f_y_scdressy_01" caption="Dressy Female" />
 		<Ped name="a_f_y_skater_01" caption="Skater Female" />
-		<Ped name="a_f_m_skidrow_01" caption="Skid Row Female" />
-		<Ped name="a_f_m_soucent_01" caption="South Central Female" />
-		<Ped name="a_f_m_soucent_02" caption="South Central Female 2" />
-		<Ped name="a_f_m_soucentmc_01" caption="South Central MC Female" />
-		<Ped name="a_f_o_soucent_01" caption="South Central Old Female" />
-		<Ped name="a_f_o_soucent_02" caption="South Central Old Female 2" />
+		<Ped name="a_f_y_smartcaspat_01" caption="Formal Casino Guest" />
 		<Ped name="a_f_y_soucent_01" caption="South Central Young Female" />
 		<Ped name="a_f_y_soucent_02" caption="South Central Young Female 2" />
 		<Ped name="a_f_y_soucent_03" caption="South Central Young Female 3" />
+		<Ped name="a_f_y_studioparty_01" caption="Studio Party Female" />
+		<Ped name="a_f_y_studioparty_02" caption="Studio Party Female 2" />
 		<Ped name="a_f_y_tennis_01" caption="Tennis Player Female" />
 		<Ped name="a_f_y_topless_01" caption="Topless" />
-		<Ped name="a_f_m_tourist_01" caption="Tourist Female" />
 		<Ped name="a_f_y_tourist_01" caption="Tourist Young Female" />
 		<Ped name="a_f_y_tourist_02" caption="Tourist Young Female 2" />
-		<Ped name="a_f_m_tramp_01" caption="Tramp Female" />
 		<Ped name="a_f_y_vinewood_01" caption="Vinewood Female" />
 		<Ped name="a_f_y_vinewood_02" caption="Vinewood Female 2" />
 		<Ped name="a_f_y_vinewood_03" caption="Vinewood Female 3" />
 		<Ped name="a_f_y_vinewood_04" caption="Vinewood Female 4" />
 		<Ped name="a_f_y_yoga_01" caption="Yoga Female" />
-		<Ped name="a_f_y_clubcust_01" caption="Club Customer Female 1" />
-		<Ped name="a_f_y_clubcust_02" caption="Club Customer Female 2" />
-		<Ped name="a_f_y_clubcust_03" caption="Club Customer Female 3" />
+        <Ped name="a_f_y_beach_02" caption="Beach Young Female 2" />
         <Ped name="a_f_y_clubcust_04" caption="Club Customer Female 4" />
-		<Ped name="a_f_y_bevhills_05" caption="Beverly Hills Young Female 5" />
 	</Category>
 	<Category name="AmbientMale">
-		<Ped name="a_m_y_carclub_01" caption="Car Club Male" />
-		<Ped name="a_m_y_tattoocust_01" caption="Tattoo Cust Male" />
-		<Ped name="a_m_m_afriamer_01" caption="African American Male" />
 		<Ped name="a_m_m_acult_01" caption="Altruist Cult Mid-Age Male" />
-		<Ped name="a_m_o_acult_01" caption="Altruist Cult Old Male" />
-		<Ped name="a_m_o_acult_02" caption="Altruist Cult Old Male 2" />
-		<Ped name="a_m_y_acult_01" caption="Altruist Cult Young Male" />
-		<Ped name="a_m_y_acult_02" caption="Altruist Cult Young Male 2" />
+		<Ped name="a_m_m_afriamer_01" caption="African American Male" />
+		<Ped name="a_m_m_bankrobber_01" caption="Bank Robber Male" />
 		<Ped name="a_m_m_beach_01" caption="Beach Male" />
 		<Ped name="a_m_m_beach_02" caption="Beach Male 2" />
-		<Ped name="a_m_y_musclbeac_01" caption="Beach Muscle Male" />
-		<Ped name="a_m_y_musclbeac_02" caption="Beach Muscle Male 2" />
-		<Ped name="a_m_m_mlcrisis_01" caption="Midlife Crisis Casino Bikers" />
-		<Ped name="a_m_y_gencaspat_01" caption="Casual Casino Guests" />
-		<Ped name="a_m_y_smartcaspat_01" caption="Formel Casino Guests" />
-		<Ped name="a_m_o_beach_01" caption="Beach Old Male" />
-        <Ped name="a_m_o_beach_02" caption="Beach Old Male 2" />
-		<Ped name="a_m_m_trampbeac_01" caption="Beach Tramp Male" />
-		<Ped name="a_m_y_beach_01" caption="Beach Young Male" />
-		<Ped name="a_m_y_beach_02" caption="Beach Young Male 2" />
-		<Ped name="a_m_y_beach_03" caption="Beach Young Male 3" />
-        <Ped name="a_m_y_beach_04" caption="Beach Young Male 4" />
 		<Ped name="a_m_m_bevhills_01" caption="Beverly Hills Male" />
 		<Ped name="a_m_m_bevhills_02" caption="Beverly Hills Male 2" />
-		<Ped name="a_m_y_bevhills_01" caption="Beverly Hills Young Male" />
-		<Ped name="a_m_y_bevhills_02" caption="Beverly Hills Young Male 2" />
-		<Ped name="a_m_y_stbla_01" caption="Black Street Male" />
-		<Ped name="a_m_y_stbla_02" caption="Black Street Male 2" />
-		<Ped name="a_m_y_breakdance_01" caption="Breakdancer Male" />
-		<Ped name="a_m_y_busicas_01" caption="Business Casual" />
 		<Ped name="a_m_m_business_01" caption="Business Male" />
-		<Ped name="a_m_y_business_01" caption="Business Young Male" />
-		<Ped name="a_m_y_business_02" caption="Business Young Male 2" />
-		<Ped name="a_m_y_business_03" caption="Business Young Male 3" />
-		<Ped name="a_m_y_cyclist_01" caption="Cyclist Male" />
-		<Ped name="a_m_y_dhill_01" caption="Downhill Cyclist" />
-		<Ped name="a_m_y_downtown_01" caption="Downtown Male" />
 		<Ped name="a_m_m_eastsa_01" caption="East SA Male" />
 		<Ped name="a_m_m_eastsa_02" caption="East SA Male 2" />
-		<Ped name="a_m_y_eastsa_01" caption="East SA Young Male" />
-		<Ped name="a_m_y_eastsa_02" caption="East SA Young Male 2" />
-		<Ped name="a_m_y_epsilon_01" caption="Epsilon Male" />
-		<Ped name="a_m_y_epsilon_02" caption="Epsilon Male 2" />
 		<Ped name="a_m_m_farmer_01" caption="Farmer" />
 		<Ped name="a_m_m_fatlatin_01" caption="Fat Latino Male" />
-		<Ped name="a_m_y_gay_01" caption="Gay Male" />
-		<Ped name="a_m_y_gay_02" caption="Gay Male 2" />
+		<Ped name="a_m_m_genbiker_01" caption="General Biker Male" />
 		<Ped name="a_m_m_genfat_01" caption="General Fat Male" />
 		<Ped name="a_m_m_genfat_02" caption="General Fat Male 2" />
-		<Ped name="a_m_o_genstreet_01" caption="General Street Old Male" />
-		<Ped name="a_m_y_genstreet_01" caption="General Street Young Male" />
-		<Ped name="a_m_y_genstreet_02" caption="General Street Young Male 2" />
 		<Ped name="a_m_m_golfer_01" caption="Golfer Male" />
-		<Ped name="a_m_y_golfer_01" caption="Golfer Young Male" />
 		<Ped name="a_m_m_hasjew_01" caption="Hasidic Jew Male" />
-		<Ped name="a_m_y_hasjew_01" caption="Hasidic Jew Young Male" />
-		<Ped name="a_m_y_hiker_01" caption="Hiker Male" />
 		<Ped name="a_m_m_hillbilly_01" caption="Hillbilly Male" />
 		<Ped name="a_m_m_hillbilly_02" caption="Hillbilly Male 2" />
-		<Ped name="a_m_y_hippy_01" caption="Hippie Male" />
-		<Ped name="a_m_y_hipster_01" caption="Hipster Male" />
-		<Ped name="a_m_y_hipster_02" caption="Hipster Male 2" />
-		<Ped name="a_m_y_hipster_03" caption="Hipster Male 3" />
 		<Ped name="a_m_m_indian_01" caption="Indian Male" />
-		<Ped name="a_m_y_indian_01" caption="Indian Young Male" />
-		<Ped name="a_m_y_jetski_01" caption="Jetskier" />
-		<Ped name="a_m_y_runner_01" caption="Jogger Male" />
-		<Ped name="a_m_y_runner_02" caption="Jogger Male 2" />
-		<Ped name="a_m_y_juggalo_01" caption="Juggalo Male" />
 		<Ped name="a_m_m_ktown_01" caption="Korean Male" />
-		<Ped name="a_m_o_ktown_01" caption="Korean Old Male" />
-		<Ped name="a_m_y_ktown_01" caption="Korean Young Male" />
-		<Ped name="a_m_y_ktown_02" caption="Korean Young Male 2" />
-		<Ped name="a_m_m_stlat_02" caption="Latino Street Male 2" />
-		<Ped name="a_m_y_stlat_01" caption="Latino Street Young Male" />
-		<Ped name="a_m_y_latino_01" caption="Latino Young Male" />
 		<Ped name="a_m_m_malibu_01" caption="Malibu Male" />
-		<Ped name="a_m_y_methhead_01" caption="Meth Addict" />
-		<Ped name="a_m_m_mexlabor_01" caption="Mexican Labourer" />
 		<Ped name="a_m_m_mexcntry_01" caption="Mexican Rural" />
-		<Ped name="a_m_y_mexthug_01" caption="Mexican Thug" />
-		<Ped name="a_m_y_motox_01" caption="Motocross Biker" />
-		<Ped name="a_m_y_motox_02" caption="Motocross Biker 2" />
+		<Ped name="a_m_m_mexlabor_01" caption="Mexican Labourer" />
+		<Ped name="a_m_m_mlcrisis_01" caption="Midlife Crisis Casino Bikers" />
 		<Ped name="a_m_m_og_boss_01" caption="OG Boss" />
 		<Ped name="a_m_m_paparazzi_01" caption="Paparazzi Male" />
 		<Ped name="a_m_m_polynesian_01" caption="Polynesian" />
-		<Ped name="a_m_y_polynesian_01" caption="Polynesian Young" />
 		<Ped name="a_m_m_prolhost_01" caption="Prologue Host Male" />
-		<Ped name="a_m_y_roadcyc_01" caption="Road Cyclist" />
 		<Ped name="a_m_m_rurmeth_01" caption="Rural Meth Addict Male" />
 		<Ped name="a_m_m_salton_01" caption="Salton Male" />
 		<Ped name="a_m_m_salton_02" caption="Salton Male 2" />
 		<Ped name="a_m_m_salton_03" caption="Salton Male 3" />
 		<Ped name="a_m_m_salton_04" caption="Salton Male 4" />
-		<Ped name="a_m_o_salton_01" caption="Salton Old Male" />
-		<Ped name="a_m_y_salton_01" caption="Salton Young Male" />
 		<Ped name="a_m_m_skater_01" caption="Skater Male" />
-		<Ped name="a_m_y_skater_01" caption="Skater Young Male" />
-		<Ped name="a_m_y_skater_02" caption="Skater Young Male 2" />
 		<Ped name="a_m_m_skidrow_01" caption="Skid Row Male" />
 		<Ped name="a_m_m_socenlat_01" caption="South Central Latino Male" />
 		<Ped name="a_m_m_soucent_01" caption="South Central Male" />
 		<Ped name="a_m_m_soucent_02" caption="South Central Male 2" />
 		<Ped name="a_m_m_soucent_03" caption="South Central Male 3" />
 		<Ped name="a_m_m_soucent_04" caption="South Central Male 4" />
+		<Ped name="a_m_m_stlat_02" caption="Latino Street Male 2" />
+		<Ped name="a_m_m_tennis_01" caption="Tennis Player Male" />
+		<Ped name="a_m_m_tourist_01" caption="Tourist Male" />
+		<Ped name="a_m_m_tramp_01" caption="Tramp Male" />
+		<Ped name="a_m_m_trampbeac_01" caption="Beach Tramp Male" />
+		<Ped name="a_m_m_tranvest_01" caption="Transvestite Male" />
+		<Ped name="a_m_m_tranvest_02" caption="Transvestite Male 2" />
+		<Ped name="a_m_n_studioparty_01" caption="Studio Party Male" />
+		<Ped name="a_m_o_acult_01" caption="Altruist Cult Old Male" />
+		<Ped name="a_m_o_acult_02" caption="Altruist Cult Old Male 2" />
+		<Ped name="a_m_o_beach_01" caption="Beach Old Male" />
+		<Ped name="a_m_o_genstreet_01" caption="General Street Old Male" />
+		<Ped name="a_m_o_ktown_01" caption="Korean Old Male" />
+		<Ped name="a_m_o_salton_01" caption="Salton Old Male" />
 		<Ped name="a_m_o_soucent_01" caption="South Central Old Male" />
 		<Ped name="a_m_o_soucent_02" caption="South Central Old Male 2" />
 		<Ped name="a_m_o_soucent_03" caption="South Central Old Male 3" />
+		<Ped name="a_m_o_tramp_01" caption="Tramp Old Male" />
+		<Ped name="a_m_y_acult_01" caption="Altruist Cult Young Male" />
+		<Ped name="a_m_y_acult_02" caption="Altruist Cult Young Male 2" />
+		<Ped name="a_m_y_beach_01" caption="Beach Young Male" />
+		<Ped name="a_m_y_beach_02" caption="Beach Young Male 2" />
+		<Ped name="a_m_y_beach_03" caption="Beach Young Male 3" />
+		<Ped name="a_m_y_beachvesp_01" caption="Vespucci Beach Male" />
+		<Ped name="a_m_y_beachvesp_02" caption="Vespucci Beach Male 2" />
+		<Ped name="a_m_y_bevhills_01" caption="Beverly Hills Young Male" />
+		<Ped name="a_m_y_bevhills_02" caption="Beverly Hills Young Male 2" />
+		<Ped name="a_m_y_breakdance_01" caption="Breakdancer Male" />
+		<Ped name="a_m_y_busicas_01" caption="Business Casual" />
+		<Ped name="a_m_y_business_01" caption="Business Young Male" />
+		<Ped name="a_m_y_business_02" caption="Business Young Male 2" />
+		<Ped name="a_m_y_business_03" caption="Business Young Male 3" />
+		<Ped name="a_m_y_carclub_01" caption="Car Club Male" />
+		<Ped name="a_m_y_clubcust_01" caption="Club Customer Male 1" />
+		<Ped name="a_m_y_clubcust_02" caption="Club Customer Male 2" />
+		<Ped name="a_m_y_clubcust_03" caption="Club Customer Male 3" />
+		<Ped name="a_m_y_cyclist_01" caption="Cyclist Male" />
+		<Ped name="a_m_y_dhill_01" caption="Downhill Cyclist" />
+		<Ped name="a_m_y_downtown_01" caption="Downtown Male" />
+		<Ped name="a_m_y_eastsa_01" caption="East SA Young Male" />
+		<Ped name="a_m_y_eastsa_02" caption="East SA Young Male 2" />
+		<Ped name="a_m_y_epsilon_01" caption="Epsilon Male" />
+		<Ped name="a_m_y_epsilon_02" caption="Epsilon Male 2" />
+		<Ped name="a_m_y_gay_01" caption="Gay Male" />
+		<Ped name="a_m_y_gay_02" caption="Gay Male 2" />
+		<Ped name="a_m_y_gencaspat_01" caption="Casual Casino Guests" />
+		<Ped name="a_m_y_genstreet_01" caption="General Street Young Male" />
+		<Ped name="a_m_y_genstreet_02" caption="General Street Young Male 2" />
+		<Ped name="a_m_y_golfer_01" caption="Golfer Young Male" />
+		<Ped name="a_m_y_hasjew_01" caption="Hasidic Jew Young Male" />
+		<Ped name="a_m_y_hiker_01" caption="Hiker Male" />
+		<Ped name="a_m_y_hippy_01" caption="Hippie Male" />
+		<Ped name="a_m_y_hipster_01" caption="Hipster Male" />
+		<Ped name="a_m_y_hipster_02" caption="Hipster Male 2" />
+		<Ped name="a_m_y_hipster_03" caption="Hipster Male 3" />
+		<Ped name="a_m_y_indian_01" caption="Indian Young Male" />
+		<Ped name="a_m_y_jetski_01" caption="Jetskier" />
+		<Ped name="a_m_y_juggalo_01" caption="Juggalo Male" />
+		<Ped name="a_m_y_ktown_01" caption="Korean Young Male" />
+		<Ped name="a_m_y_ktown_02" caption="Korean Young Male 2" />
+		<Ped name="a_m_y_latino_01" caption="Latino Young Male" />
+		<Ped name="a_m_y_methhead_01" caption="Meth Addict" />
+		<Ped name="a_m_y_mexthug_01" caption="Mexican Thug" />
+		<Ped name="a_m_y_motox_01" caption="Motocross Biker" />
+		<Ped name="a_m_y_motox_02" caption="Motocross Biker 2" />
+		<Ped name="a_m_y_musclbeac_01" caption="Beach Muscle Male" />
+		<Ped name="a_m_y_musclbeac_02" caption="Beach Muscle Male 2" />
+		<Ped name="a_m_y_polynesian_01" caption="Polynesian Young" />
+		<Ped name="a_m_y_roadcyc_01" caption="Road Cyclist" />
+		<Ped name="a_m_y_runner_01" caption="Jogger Male" />
+		<Ped name="a_m_y_runner_02" caption="Jogger Male 2" />
+		<Ped name="a_m_y_salton_01" caption="Salton Young Male" />
+		<Ped name="a_m_y_skater_01" caption="Skater Young Male" />
+		<Ped name="a_m_y_skater_02" caption="Skater Young Male 2" />
+		<Ped name="a_m_y_smartcaspat_01" caption="Formal Casino Guests" />
 		<Ped name="a_m_y_soucent_01" caption="South Central Young Male" />
 		<Ped name="a_m_y_soucent_02" caption="South Central Young Male 2" />
 		<Ped name="a_m_y_soucent_03" caption="South Central Young Male 3" />
 		<Ped name="a_m_y_soucent_04" caption="South Central Young Male 4" />
+		<Ped name="a_m_y_stbla_01" caption="Black Street Male" />
+		<Ped name="a_m_y_stbla_02" caption="Black Street Male 2" />
+		<Ped name="a_m_y_stlat_01" caption="Latino Street Young Male" />
+		<Ped name="a_m_y_studioparty_01" caption="Studio Party Male 2" />
+		<Ped name="a_m_y_stwhi_01" caption="White Street Male" />
+		<Ped name="a_m_y_stwhi_02" caption="White Street Male 2" />
 		<Ped name="a_m_y_sunbathe_01" caption="Sunbather Male" />
 		<Ped name="a_m_y_surfer_01" caption="Surfer" />
-		<Ped name="a_m_m_tennis_01" caption="Tennis Player Male" />
-		<Ped name="a_m_m_tourist_01" caption="Tourist Male" />
-		<Ped name="a_m_m_tramp_01" caption="Tramp Male" />
-		<Ped name="a_m_o_tramp_01" caption="Tramp Old Male" />
-		<Ped name="a_m_m_tranvest_01" caption="Transvestite Male" />
-		<Ped name="a_m_m_tranvest_02" caption="Transvestite Male 2" />
-		<Ped name="a_m_y_beachvesp_01" caption="Vespucci Beach Male" />
-		<Ped name="a_m_y_beachvesp_02" caption="Vespucci Beach Male 2" />
+		<Ped name="a_m_y_tattoocust_01" caption="Tattoo Cust Male" />
 		<Ped name="a_m_y_vindouche_01" caption="Vinewood Douche" />
 		<Ped name="a_m_y_vinewood_01" caption="Vinewood Male" />
 		<Ped name="a_m_y_vinewood_02" caption="Vinewood Male 2" />
 		<Ped name="a_m_y_vinewood_03" caption="Vinewood Male 3" />
 		<Ped name="a_m_y_vinewood_04" caption="Vinewood Male 4" />
-		<Ped name="a_m_y_stwhi_01" caption="White Street Male" />
-		<Ped name="a_m_y_stwhi_02" caption="White Street Male 2" />
 		<Ped name="a_m_y_yoga_01" caption="Yoga Male" />
-		<Ped name="a_m_y_clubcust_01" caption="Club Customer Male 1" />
-		<Ped name="a_m_y_clubcust_02" caption="Club Customer Male 2" />
-		<Ped name="a_m_y_clubcust_03" caption="Club Customer Male 3" />
+        <Ped name="a_m_o_beach_02" caption="Beach Old Male 2" />
+        <Ped name="a_m_y_beach_04" caption="Beach Young Male 4" />
         <Ped name="a_m_y_clubcust_04" caption="Club Customer Male 4" />
 	</Category>
 	<Category name="Cutscene">
-		<Ped name="csb_avischwartzman_02" caption="Avi Schwartzman" />
-		<Ped name="csb_drugdealer" caption="Drug Dealer" />
-		<Ped name="csb_hao_02" caption="Hao 2" />
-		<Ped name="csb_mimi" caption="Mimi" />
-		<Ped name="csb_moodyman_02" caption="Moodyman" />
-		<Ped name="csb_sessanta" caption="sessanta" />
-		<Ped name="csb_abigail" caption="Abigail Mathers" />
-		<Ped name="csb_agent" caption="Agent" />
-		<Ped name="csb_agatha" caption="Agatha Baker" />
-        <Ped name="csb_ary" caption="Ary" />
-		<Ped name="csb_avery" caption="Avery Duggan" />
-		<Ped name="csb_mp_agent14" caption="Agent 14" />
 		<Ped name="cs_amandatownley" caption="Amanda De Santa" />
 		<Ped name="cs_andreas" caption="Andreas Sanchez" />
-		<Ped name="csb_anita" caption="Anita Mendoza" />
-		<Ped name="csb_anton" caption="Anton Beaudelaire" />
 		<Ped name="cs_ashley" caption="Ashley Butler" />
-		<Ped name="csb_avon" caption="Avon Hertz" />
-		<Ped name="csb_ballasog" caption="Ballas OG" />
 		<Ped name="cs_bankman" caption="Bank Manager" />
 		<Ped name="cs_barry" caption="Barry" />
 		<Ped name="cs_beverly" caption="Beverly Felton" />
-		<Ped name="csb_brucie2" caption="Brucie Kibbutz" />
-		<Ped name="cs_orleans" caption="Bigfoot" />
-		<Ped name="csb_bogdan" caption="Bogdan" />
 		<Ped name="cs_brad" caption="Brad" />
 		<Ped name="cs_bradcadaver" caption="Brad's Cadaver" />
-		<Ped name="csb_bride" caption="Bride" />
-		<Ped name="csb_burgerdrug" caption="Burger Drug Worker" />
-		<Ped name="csb_car3guy1" caption="Car 3 Guy 1" />
-		<Ped name="csb_car3guy2" caption="Car 3 Guy 2" />
 		<Ped name="cs_carbuyer" caption="Car Buyer" />
 		<Ped name="cs_casey" caption="Casey" />
-		<Ped name="csb_chef" caption="Chef" />
-		<Ped name="csb_chef2" caption="Chef" />
-		<Ped name="csb_chin_goon" caption="Chinese Goon" />
-		<Ped name="cs_clay" caption="Clay Simons (The Lost)" />
-		<Ped name="csb_cletus" caption="Cletus" />
-		<Ped name="csb_cop" caption="Cop" />
+		<Ped name="cs_chengsr" caption="Wei Cheng Sr" />
 		<Ped name="cs_chrisformage" caption="Cris Formage" />
-		<Ped name="csb_customer" caption="Customer" />
+		<Ped name="cs_clay" caption="Clay Simons (The Lost)" />
 		<Ped name="cs_dale" caption="Dale" />
 		<Ped name="cs_davenorton" caption="Dave Norton" />
 		<Ped name="cs_debra" caption="Debra" />
 		<Ped name="cs_denise" caption="Denise" />
-		<Ped name="csb_denise_friend" caption="Denise's Friend" />
 		<Ped name="cs_devin" caption="Devin" />
-		<Ped name="csb_popov" caption="Dima Popov" />
 		<Ped name="cs_dom" caption="Dom Beasley" />
+		<Ped name="cs_dreyfuss" caption="Peter Dreyfuss" />
 		<Ped name="cs_drfriedlander" caption="Dr. Friedlander" />
-		<Ped name="cs_tomepsilon" caption="Epsilon Tom" />
+		<Ped name="cs_drfriedlander_02" caption="Dr. Friedlander 2" />
 		<Ped name="cs_fabien" caption="Fabien" />
-		<Ped name="csb_ramp_gang" caption="Families Gang Member?" />
-		<Ped name="cs_mrk" caption="Ferdinand Kerimov (Mr. K)" />
 		<Ped name="cs_fbisuit_01" caption="FIB Suit" />
 		<Ped name="cs_floyd" caption="Floyd Hebert" />
-		<Ped name="csb_fos_rep" caption="FOS Rep?" />
-        <Ped name="csb_gustavo" caption="Gustavo" />
-		<Ped name="csb_g" caption="Gerald" />
-		<Ped name="csb_groom" caption="Groom" />
-		<Ped name="csb_grove_str_dlr" caption="Grove Street Dealer" />
 		<Ped name="cs_guadalope" caption="Guadalope" />
 		<Ped name="cs_gurk" caption="GURK?" />
-		<Ped name="csb_hao" caption="Hao" />
-		<Ped name="csb_ramp_hic" caption="Hick" />
-		<Ped name="csb_ramp_hipster" caption="Hipster" />
-        <Ped name="csb_helmsmanpavel " caption="Helmsman Pavel" />
-		<Ped name="csb_hugh" caption="Hugh Welsh" />
 		<Ped name="cs_hunter" caption="Hunter" />
-        <Ped name="csb_isldj_00" caption="Island Dj" />
-        <Ped name="csb_isldj_01" caption="Island Dj 1" />
-        <Ped name="csb_isldj_02" caption="Island Dj 2" />
-        <Ped name="csb_isldj_03" caption="Island Dj 3" />
-        <Ped name="csb_isldj_04" caption="Island Dj 4" />
-		<Ped name="csb_imran" caption="Imran Shinowa" />
-		<Ped name="csb_jackhowitzer" caption="Jack Howitzer" />
 		<Ped name="cs_janet" caption="Janet" />
-		<Ped name="csb_janitor" caption="Janitor" />
 		<Ped name="cs_jewelass" caption="Jeweller Assistant" />
 		<Ped name="cs_jimmyboston" caption="Jimmy Boston" />
 		<Ped name="cs_jimmydisanto" caption="Jimmy De Santa" />
-        <Ped name="csb_jio" caption="Jio" />
+		<Ped name="cs_jimmydisanto2" caption="Jimmy De Santa 2" />
+		<Ped name="cs_joeminuteman" caption="Minuteman Joe" />
 		<Ped name="cs_johnnyklebitz" caption="Johnny Klebitz" />
 		<Ped name="cs_josef" caption="Josef" />
 		<Ped name="cs_josh" caption="Josh" />
-        <Ped name="csb_juanstrickler" caption="Juan Strickler" />
 		<Ped name="cs_karen_daniels" caption="Karen Daniels" />
 		<Ped name="cs_lamardavis" caption="Lamar Davis" />
+		<Ped name="cs_lamardavis_02" caption="Lamar Davis 2" />
 		<Ped name="cs_lazlow" caption="Lazlow" />
+		<Ped name="cs_lazlow_2" caption="Lazlow 2" />
 		<Ped name="cs_lestercrest" caption="Lester Crest" />
+		<Ped name="cs_lestercrest_2" caption="Lester Crest 2" />
+		<Ped name="cs_lestercrest_3" caption="Lester Crest 3" />
 		<Ped name="cs_lifeinvad_01" caption="Life Invader" />
 		<Ped name="cs_magenta" caption="Magenta" />
 		<Ped name="cs_manuel" caption="Manuel" />
-		<Ped name="csb_ramp_marine" caption="Marine" />
 		<Ped name="cs_marnie" caption="Marnie Allen" />
 		<Ped name="cs_martinmadrazo" caption="Martin Madrazo" />
 		<Ped name="cs_maryann" caption="Mary-Ann Quinn" />
-		<Ped name="csb_maude" caption="Maude" />
-		<Ped name="csb_rashcosvki" caption="Maxim Rashkovsky" />
-		<Ped name="csb_mweather" caption="Merryweather Merc" />
-		<Ped name="csb_ramp_mex" caption="Mexican" />
 		<Ped name="cs_michelle" caption="Michelle" />
-        <Ped name="csb_miguelmadrazo" caption="Miguel Madrazo" />
 		<Ped name="cs_milton" caption="Milton McIlroy" />
-        <Ped name="csb_mjo" caption="Mjo" />
-		<Ped name="cs_joeminuteman" caption="Minuteman Joe" />
 		<Ped name="cs_molly" caption="Molly" />
-		<Ped name="csb_money" caption="Money Man" />
 		<Ped name="cs_movpremf_01" caption="Movie Premiere Female" />
 		<Ped name="cs_movpremmale" caption="Movie Premiere Male" />
-		<Ped name="cs_mrsphillips" caption="Mrs. Phillips" />
-		<Ped name="csb_mrs_r" caption="Mrs. Rackman" />
+		<Ped name="cs_mrk" caption="Ferdinand Kerimov (Mr. K)" />
 		<Ped name="cs_mrs_thornhill" caption="Mrs. Thornhill" />
+		<Ped name="cs_mrsphillips" caption="Mrs. Phillips" />
 		<Ped name="cs_natalia" caption="Natalia" />
 		<Ped name="cs_nervousron" caption="Nervous Ron" />
+		<Ped name="cs_nervousron_02" caption="Nervous Ron 2" />
 		<Ped name="cs_nigel" caption="Nigel" />
 		<Ped name="cs_old_man1a" caption="Old Man 1" />
 		<Ped name="cs_old_man2" caption="Old Man 2" />
 		<Ped name="cs_omega" caption="Omega" />
-		<Ped name="csb_ortega" caption="Ortega" />
-		<Ped name="csb_oscar" caption="Oscar" />
-		<Ped name="csb_paige" caption="Paige Harris" />
+		<Ped name="cs_orleans" caption="Bigfoot" />
+		<Ped name="cs_paper" caption="United Paper Man" />
 		<Ped name="cs_patricia" caption="Patricia" />
-        <Ped name="cs_patricia2" caption="Patricia 2" />
-		<Ped name="cs_dreyfuss" caption="Peter Dreyfuss" />
-		<Ped name="csb_porndudes" caption="Porn Dude" />
+		<Ped name="cs_patricia_02" caption="Patricia 2" />
 		<Ped name="cs_priest" caption="Priest" />
-		<Ped name="csb_prologuedriver" caption="Prologue Driver" />
-		<Ped name="csb_prolsec" caption="Prologue Security" />
 		<Ped name="cs_prolsec_02" caption="Prologue Security 2" />
-		<Ped name="csb_reporter" caption="Reporter" />
-		<Ped name="csb_roccopelosi" caption="Rocco Pelosi" />
 		<Ped name="cs_russiandrunk" caption="Russian Drunk" />
-		<Ped name="csb_screen_writer" caption="Screenwriter" />
 		<Ped name="cs_siemonyetarian" caption="Simeon Yetarian" />
 		<Ped name="cs_solomon" caption="Solomon Richards" />
-        <Ped name="csb_sss" caption="Sss" />
 		<Ped name="cs_stevehains" caption="Steve Haines" />
 		<Ped name="cs_stretch" caption="Stretch" />
-		<Ped name="csb_stripper_01" caption="Stripper" />
-		<Ped name="csb_stripper_02" caption="Stripper 2" />
 		<Ped name="cs_tanisha" caption="Tanisha" />
 		<Ped name="cs_taocheng" caption="Tao Cheng" />
 		<Ped name="cs_taocheng2" caption="Tao Cheng (Casino)" />
 		<Ped name="cs_taostranslator" caption="Tao's Translator" />
-		<Ped name="cs_taostranslator2" caption="Tao's Translator (Casino)" />
+		<Ped name="cs_taostranslator2" caption="Tao's Translator 2" />
 		<Ped name="cs_tenniscoach" caption="Tennis Coach" />
 		<Ped name="cs_terry" caption="Terry" />
 		<Ped name="cs_tom" caption="Tom" />
-		<Ped name="csb_tomcasino" caption="Tom Connors" />
-		<Ped name="csb_tonya" caption="Tonya" />
-		<Ped name="csb_thornton" caption="Thornton Duggan" />
+		<Ped name="cs_tomepsilon" caption="Epsilon Tom" />
 		<Ped name="cs_tracydisanto" caption="Tracey De Santa" />
-		<Ped name="csb_trafficwarden" caption="Traffic Warden" />
-		<Ped name="csb_undercover" caption="Undercover Cop" />
-		<Ped name="cs_paper" caption="United Paper Man" />
-		<Ped name="csb_vagspeak" caption="Vagos Speak" />
-		<Ped name="csb_vincent" caption="Vincent (Casino)" />
 		<Ped name="cs_wade" caption="Wade" />
-		<Ped name="cs_chengsr" caption="Wei Cheng" />
 		<Ped name="cs_zimbor" caption="Zimbor" />
+		<Ped name="csb_abigail" caption="Abigail Mathers" />
+		<Ped name="csb_agatha" caption="Agatha Baker" />
+		<Ped name="csb_agent" caption="Agent" />
+		<Ped name="csb_alan" caption="Alan Jerome" />
+		<Ped name="csb_anita" caption="Anita Mendoza" />
+		<Ped name="csb_anton" caption="Anton Beaudelaire" />
+		<Ped name="csb_ary" caption="Dr Dre" />
+		<Ped name="csb_ary_02" caption="Dr Dre 2" />
+		<Ped name="csb_avery" caption="Avery Duggan" />
+		<Ped name="csb_avischwartzman_02" caption="Avi Schwartzman 2" />
+		<Ped name="csb_avischwartzman_03" caption="Avi Schwartzman 3" />
+		<Ped name="csb_avon" caption="Avon Hertz" />
+		<Ped name="csb_ballas_leader" caption="Ballas Leader" />
+		<Ped name="csb_ballasog" caption="Ballas OG" />
+		<Ped name="csb_billionaire" caption="Billionaire Male" />
+		<Ped name="csb_bogdan" caption="Bogdan" />
+		<Ped name="csb_bride" caption="Bride" />
+		<Ped name="csb_brucie2" caption="Brucie Kibbutz" />
+		<Ped name="csb_bryony" caption="Bryony" />
+		<Ped name="csb_burgerdrug" caption="Burger Shot Drug Worker" />
+		<Ped name="csb_callgirl_01" caption="Call Girl" />
+		<Ped name="csb_car3guy1" caption="Car 3 Guy 1" />
+		<Ped name="csb_car3guy2" caption="Car 3 Guy 2" />
+		<Ped name="csb_celeb_01" caption="Celebrity 1" />
+		<Ped name="csb_charlie_reed" caption="Charlie Reed 2" />
+		<Ped name="csb_chef" caption="Chef" />
+		<Ped name="csb_chef_02" caption="Chef 2" />
+		<Ped name="csb_chef_03" caption="Chef 3" />
+		<Ped name="csb_chin_goon" caption="Chinese Goon" />
+		<Ped name="csb_cletus" caption="Cletus" />
+		<Ped name="csb_cop" caption="Cop" />
+		<Ped name="csb_customer" caption="Customer" />
+		<Ped name="csb_denise_friend" caption="Denise's Friend" />
+		<Ped name="csb_dix" caption="DJ Dixon" />
 		<Ped name="csb_djblamadon" caption="DJ Black Madonna" />
-		<Ped name="csb_dix" caption="Dixon" />
+		<Ped name="csb_drugdealer" caption="Drug Dealer" />
 		<Ped name="csb_englishdave" caption="English Dave" />
-        <Ped name="csb_englishdave2" caption="English Dave 2" />
-		<Ped name="cs_lazlow_2" caption="Lazlow 2" />
+		<Ped name="csb_englishdave2" caption="English Dave 2" />
+		<Ped name="csb_fos_rep" caption="Fame Or Shame Rep" />
+		<Ped name="csb_g" caption="Gerald" />
+		<Ped name="csb_georginacheng" caption="Georgina Cheng" />
+		<Ped name="csb_golfer_a" caption="Golfer" />
+		<Ped name="csb_golfer_b" caption="Golfer 2" />
+		<Ped name="csb_groom" caption="Groom" />
+		<Ped name="csb_grove_str_dlr" caption="Grove Street Dealer" />
+		<Ped name="csb_gustavo" caption="Gustavo" />
+		<Ped name="csb_hao" caption="Hao" />
+		<Ped name="csb_hao_02" caption="Hao 2" />
+		<Ped name="csb_helmsmanpavel " caption="Helmsman Pavel" />
+		<Ped name="csb_huang" caption="Huang" />
+		<Ped name="csb_hugh" caption="Hugh Welsh" />
+		<Ped name="csb_imani" caption="Imani" />
+		<Ped name="csb_imani" caption="Luchadora" />
+		<Ped name="csb_imran" caption="Imran Shinowa" />
+		<Ped name="csb_isldj_00" caption="Island Dj" />
+		<Ped name="csb_isldj_01" caption="Island Dj 1" />
+		<Ped name="csb_isldj_02" caption="Island Dj 2" />
+		<Ped name="csb_isldj_03" caption="Island Dj 3" />
+		<Ped name="csb_isldj_04" caption="Island Dj 4" />
+		<Ped name="csb_jackhowitzer" caption="Jack Howitzer" />
+		<Ped name="csb_jamalamir" caption="Jamal Amir" />
+		<Ped name="csb_janitor" caption="Janitor" />
+		<Ped name="csb_jio" caption="Jimmy Lovine" />
+		<Ped name="csb_jonnyguns" caption="Jonny Guns" />
+		<Ped name="csb_juanstrickler" caption="El Rubio" />
+		<Ped name="csb_labrat" caption="Labrat" />
+		<Ped name="csb_maude" caption="Maude" />
+		<Ped name="csb_miguelmadrazo" caption="Miguel Madrazo" />
+		<Ped name="csb_mimi" caption="Mimi" />
+		<Ped name="csb_mjo" caption="DJ Pooh" />
+		<Ped name="csb_mjo_02" caption="DJ Pooh 2" />
+		<Ped name="csb_money" caption="Avi Schwartzman" />
+		<Ped name="csb_moodyman_02" caption="Moodyman" />
+		<Ped name="csb_mp_agent14" caption="Agent 14" />
+		<Ped name="csb_mrs_r" caption="Mrs. Rackman" />
+		<Ped name="csb_musician_00" caption="Musician Male" />
+		<Ped name="csb_mweather" caption="Merryweather Merc" />
+		<Ped name="csb_ortega" caption="Ortega" />
+		<Ped name="csb_oscar" caption="Oscar" />
+		<Ped name="csb_paige" caption="Paige Harris" />
+		<Ped name="csb_party_promo" caption="Party Promoter" />
+		<Ped name="csb_popov" caption="Dima Popov" />
+		<Ped name="csb_porndudes" caption="Porn Dude" />
+		<Ped name="csb_prologuedriver" caption="Prologue Driver" />
+		<Ped name="csb_prolsec" caption="Prologue Security" />
+		<Ped name="csb_ramp_gang" caption="Families Gang Member" />
+		<Ped name="csb_ramp_hic" caption="Hick" />
+		<Ped name="csb_ramp_hipster" caption="Hipster" />
+		<Ped name="csb_ramp_marine" caption="Marine" />
+		<Ped name="csb_ramp_mex" caption="Mexican" />
+		<Ped name="csb_rashcosvki" caption="Maxim Rashkovsky" />
+		<Ped name="csb_reporter" caption="Reporter" />
+		<Ped name="csb_req_officer" caption="Charlie Reed" />
+		<Ped name="csb_roccopelosi" caption="Rocco Pelosi" />
+		<Ped name="csb_screen_writer" caption="Screenwriter" />
+		<Ped name="csb_security_a" caption="Security Male" />
+		<Ped name="csb_sessanta" caption="sessanta" />
 		<Ped name="csb_sol" caption="Soloman" />
+		<Ped name="csb_sss" caption="Scott Storch (Cayo Perico)" />
+		<Ped name="csb_stripper_01" caption="Stripper" />
+		<Ped name="csb_stripper_02" caption="Stripper 2" />
 		<Ped name="csb_talcc" caption="Tale of Us 1" />
 		<Ped name="csb_talmm" caption="Tale of Us 2" />
-		<Ped name="csb_tonyprince" caption="Tony Prince" />
-		<Ped name="csb_alan" caption="Alan Jerome" />
-		<Ped name="csb_bryony" caption="Bryony" />
-		<Ped name="csb_celeb_01" caption="Celeb 1" />
-		<Ped name="csb_georginacheng" caption="Georgina Cheng" />
-		<Ped name="csb_huang" caption="Huang" />
-		<Ped name="csb_vincent_2" caption="Vincent (Casino) 2" />
+		<Ped name="csb_thornton" caption="Thornton Duggan" />
+		<Ped name="csb_tomcasino" caption="Tom Connors" />
+		<Ped name="csb_tonya" caption="Tonya" />
+		<Ped name="csb_tonyprince" caption="'Gay' Tony Prince" />
+		<Ped name="csb_trafficwarden" caption="Traffic Warden" />
+		<Ped name="csb_undercover" caption="Undercover Cop" />
+		<Ped name="csb_vagos_leader" caption="Vagos Gang Leader" />
+		<Ped name="csb_vagspeak" caption="Vagos Funeral Speaker" />
+		<Ped name="csb_vincent" caption="Vincent (Casino)" />
+		<Ped name="csb_vincent_2" caption="Vincent" />
+		<Ped name="csb_vincent_4" caption="Vincent 4" />
 		<Ped name="csb_wendy" caption="Wendy" />
-		<Ped name="cs_jimmydisanto2" caption="Jimmy De Santa 2" />
-		<Ped name="cs_lestercrest_3" caption="Lester Crest 3" />
+		<Ped name="csb_yusufamir" caption="Yusuf Amir" />
 	</Category>
 	<Category name="GangFemale">
 		<Ped name="g_f_importexport_01" caption="Gang Female (Import-Export)" />
+		<Ped name="g_f_importexport_01" caption="Import Export Female" />
 		<Ped name="g_f_y_ballas_01" caption="Ballas Female" />
 		<Ped name="g_f_y_families_01" caption="Families Female" />
-		<Ped name="g_f_importexport_01" caption="Import Export Female" />
 		<Ped name="g_f_y_lost_01" caption="The Lost MC Female" />
 		<Ped name="g_f_y_vagos_01" caption="Vagos Female" />
 	</Category>
 	<Category name="GangMale">
-		<Ped name="g_m_m_prisoners_01" caption="Gang Prisoner Male" />
-		<Ped name="g_m_m_slasher_01" caption="Gang Slasher Male" />
 		<Ped name="g_m_importexport_01" caption="Gang Male (Import-Export)" />
 		<Ped name="g_m_m_armboss_01" caption="Armenian Boss" />
 		<Ped name="g_m_m_armgoon_01" caption="Armenian Goon" />
-		<Ped name="g_m_y_armgoon_02" caption="Armenian Goon 2" />
 		<Ped name="g_m_m_armlieut_01" caption="Armenian Lieutenant" />
+		<Ped name="g_m_m_casrn_01" caption="Casino Guests?" />
+		<Ped name="g_m_m_chemwork_01" caption="Chemical Plant Worker" />
+		<Ped name="g_m_m_chiboss_01" caption="Chinese Boss" />
+		<Ped name="g_m_m_chicold_01" caption="Chinese Goon Older" />
+		<Ped name="g_m_m_chigoon_01" caption="Chinese Goon" />
+		<Ped name="g_m_m_chigoon_02" caption="Chinese Goon 2" />
+		<Ped name="g_m_m_fooliganz_01" caption="Fooliganz Male" />
+		<Ped name="g_m_m_korboss_01" caption="Korean Boss" />
+		<Ped name="g_m_m_mexboss_01" caption="Mexican Boss" />
+		<Ped name="g_m_m_mexboss_02" caption="Mexican Boss 2" />
+		<Ped name="g_m_m_prisoners_01" caption="Gang Prisoner Male" />
+		<Ped name="g_m_m_slasher_01" caption="Gang Slasher Male" />
+		<Ped name="g_m_y_armgoon_02" caption="Armenian Goon 2" />
 		<Ped name="g_m_y_azteca_01" caption="Azteca" />
 		<Ped name="g_m_y_ballaeast_01" caption="Ballas East Male" />
 		<Ped name="g_m_y_ballaorig_01" caption="Ballas Original Male" />
 		<Ped name="g_m_y_ballasout_01" caption="Ballas South Male" />
-        <Ped name="g_m_m_cartelguards_01" caption="Cartel Guard" />
-        <Ped name="g_m_m_cartelguards_02" caption="Cartel Guard 2" />
-		<Ped name="g_m_m_casrn_01" caption="Casino Guests?" />
-		<Ped name="g_m_m_chemwork_01" caption="Chemical Plant Worker" />
-		<Ped name="g_m_m_chiboss_01" caption="Chinese Boss" />
-		<Ped name="g_m_m_chigoon_01" caption="Chinese Goon" />
-		<Ped name="g_m_m_chigoon_02" caption="Chinese Goon 2" />
-		<Ped name="g_m_m_chicold_01" caption="Chinese Goon Older" />
 		<Ped name="g_m_y_famca_01" caption="Families CA Male" />
 		<Ped name="g_m_y_famdnf_01" caption="Families DNF Male" />
 		<Ped name="g_m_y_famfor_01" caption="Families FOR Male" />
-		<Ped name="g_m_m_korboss_01" caption="Korean Boss" />
-		<Ped name="g_m_y_korlieut_01" caption="Korean Lieutenant" />
 		<Ped name="g_m_y_korean_01" caption="Korean Young Male" />
 		<Ped name="g_m_y_korean_02" caption="Korean Young Male 2" />
-		<Ped name="g_m_m_mexboss_01" caption="Mexican Boss" />
-		<Ped name="g_m_m_mexboss_02" caption="Mexican Boss 2" />
+		<Ped name="g_m_y_korlieut_01" caption="Korean Lieutenant" />
+		<Ped name="g_m_y_lost_01" caption="The Lost MC Male" />
+		<Ped name="g_m_y_lost_02" caption="The Lost MC Male 2" />
+		<Ped name="g_m_y_lost_03" caption="The Lost MC Male 3" />
 		<Ped name="g_m_y_mexgang_01" caption="Mexican Gang Member" />
 		<Ped name="g_m_y_mexgoon_01" caption="Mexican Goon" />
 		<Ped name="g_m_y_mexgoon_02" caption="Mexican Goon 2" />
@@ -489,72 +534,207 @@
 		<Ped name="g_m_y_salvagoon_03" caption="Salvadoran Goon 3" />
 		<Ped name="g_m_y_strpunk_01" caption="Street Punk" />
 		<Ped name="g_m_y_strpunk_02" caption="Street Punk 2" />
-		<Ped name="g_m_y_lost_01" caption="The Lost MC Male" />
-		<Ped name="g_m_y_lost_02" caption="The Lost MC Male 2" />
-		<Ped name="g_m_y_lost_03" caption="The Lost MC Male 3" />
+        <Ped name="g_m_m_cartelguards_01" caption="Cartel Guard" />
+        <Ped name="g_m_m_maragrande_01" caption="Mara Grande Gang Male" />
 	</Category>
-	<Category name="Story">
-		<Ped name="ig_avischwartzman_02" caption="Avi Schawrtzman" />
-		<Ped name="ig_benny_02" caption="Benny (Los Santos Tuners)" />
-		<Ped name="ig_drugdealer" caption="Drugdealer" />
-		<Ped name="ig_hao_02" caption="Hao" />
-		<Ped name="ig_lildee" caption="Lil Dee" />
-		<Ped name="ig_mimi" caption="Mimi" />
-		<Ped name="ig_moodyman_02" caption="Moodyman" />
-		<Ped name="ig_sessanta" caption="Sessanta" />
-		<Ped name="player_zero" caption="Michael" />
-		<Ped name="player_one" caption="Franklin" />
-		<Ped name="player_two" caption="Trevor" />
+	<Category name="Story"> 
 		<Ped name="ig_abigail" caption="Abigail Mathers" />
-		<Ped name="ig_agent" caption="Agent" />
+		<Ped name="ig_acidlabcook" caption="Acid Lab Cook" />
 		<Ped name="ig_agatha" caption="Agatha Baker" />
-        <Ped name="ig_ary" caption="Ary" />
-		<Ped name="ig_avery" caption="Avery Duggan" />
-		<Ped name="ig_mp_agent14" caption="Agent 14" />
+		<Ped name="ig_agent" caption="Agent Male" />
+		<Ped name="ig_agent_02" caption="Agent Female" />
 		<Ped name="ig_amandatownley" caption="Amanda De Santa" />
 		<Ped name="ig_andreas" caption="Andreas Sanchez" />
+		<Ped name="ig_ary" caption="Dr Dre" />
+		<Ped name="ig_ary_02" caption="Dr Dre" />
 		<Ped name="ig_ashley" caption="Ashley Butler" />
+		<Ped name="ig_avery" caption="Avery Duggan" />
+		<Ped name="ig_avischwartzman_02" caption="Avi Schawrtzman" />
+		<Ped name="ig_avischwartzman_03" caption="Avi Schwartzman 3" />
 		<Ped name="ig_avon" caption="Avon Hertz" />
+		<Ped name="ig_ballas_leader" caption="Ballas Leader" />
 		<Ped name="ig_ballasog" caption="Ballas OG" />
-		<Ped name="ig_benny" caption="Benny" />
 		<Ped name="ig_bankman" caption="Bank Manager" />
 		<Ped name="ig_barry" caption="Barry" />
+		<Ped name="ig_benny" caption="Benny" />
+		<Ped name="ig_benny_02" caption="Benny (Los Santos Tuners)" />
 		<Ped name="ig_bestmen" caption="Best Man" />
 		<Ped name="ig_beverly" caption="Beverly Felton" />
-		<Ped name="ig_brucie2" caption="Brucie Kibbutz" />
-		<Ped name="ig_orleans" caption="Bigfoot" />
 		<Ped name="ig_brad" caption="Brad" />
 		<Ped name="ig_bride" caption="Bride" />
+		<Ped name="ig_brucie2" caption="Brucie Kibbutz" />
+		<Ped name="ig_callgirl1" caption="Call Girl" />
+		<Ped name="ig_callgirl2" caption="Call Girl 2" />
 		<Ped name="ig_car3guy1" caption="Car 3 Guy 1" />
 		<Ped name="ig_car3guy2" caption="Car 3 Guy 2" />
 		<Ped name="ig_casey" caption="Casey" />
+		<Ped name="ig_celeb_01" caption="Celeb 1" />
 		<Ped name="ig_chef" caption="Chef" />
-		<Ped name="ig_chef2" caption="Chef" />
-		<Ped name="ig_claypain" caption="Clay Jackson (The Pain Giver)" />
-		<Ped name="ig_clay" caption="Clay Simons (The Lost)" />
-		<Ped name="ig_cletus" caption="Cletus" />
+		<Ped name="ig_chef2" caption="Chef 2" />
+		<Ped name="ig_chengsr" caption="Wei Cheng" />
 		<Ped name="ig_chrisformage" caption="Cris Formage" />
+		<Ped name="ig_clay" caption="Clay Simons (The Lost)" />
+		<Ped name="ig_claypain" caption="Clay Jackson (The Pain Giver)" />
+		<Ped name="ig_cletus" caption="Cletus" />
 		<Ped name="ig_dale" caption="Dale" />
 		<Ped name="ig_davenorton" caption="Dave Norton" />
+		<Ped name="ig_dax" caption="Dax" />
 		<Ped name="ig_denise" caption="Denise" />
 		<Ped name="ig_devin" caption="Devin" />
-		<Ped name="ig_popov" caption="Dima Popov" />
+		<Ped name="ig_dix" caption="Dixon" />
+		<Ped name="ig_djblamadon" caption="DJ Black Madonna" />
+		<Ped name="ig_djblamrupert" caption="DJ Rupert" />
+		<Ped name="ig_djblamryans" caption="DJ Ryan S" />
+		<Ped name="ig_djdixmanager" caption="DJ Dixon Manager" />
+		<Ped name="ig_djgeneric_01" caption="Generic DJ" />
+		<Ped name="ig_djsolfotios" caption="DJ Fotios" />
+		<Ped name="ig_djsoljakob" caption="DJ Jakob" />
+		<Ped name="ig_djsolmanager" caption="Soloman Manager" />
+		<Ped name="ig_djsolmike" caption="DJ Mike T" />
+		<Ped name="ig_djsolrobt" caption="DJ Rob T" />
+		<Ped name="ig_djtalaurelia" caption=" DJ Aurelia" />
+		<Ped name="ig_djtalignazio" caption="DJ Ignazio" />
 		<Ped name="ig_dom" caption="Dom Beasley" />
+		<Ped name="ig_dreyfuss" caption="Peter Dreyfuss" />
 		<Ped name="ig_drfriedlander" caption="Dr. Friedlander" />
-		<Ped name="ig_tomepsilon" caption="Epsilon Tom" />
+		<Ped name="ig_drfriedlander_02" caption="Dr. Friedlander 2" />
+		<Ped name="ig_drugdealer" caption="Drugdealer" />
+		<Ped name="ig_englishdave" caption="English Dave" />
+		<Ped name="ig_entourage_b" caption="Entourage Female 2" />
 		<Ped name="ig_fabien" caption="Fabien" />
-		<Ped name="ig_ramp_gang" caption="Families Gang Member?" />
-		<Ped name="ig_mrk" caption="Ferdinand Kerimov (Mr. K)" />
 		<Ped name="ig_fbisuit_01" caption="FIB Suit" />
 		<Ped name="ig_floyd" caption="Floyd Hebert" />
+		<Ped name="ig_fooliganz_01" caption="Fooliganz Female" />
+		<Ped name="ig_fooliganz_02" caption="Fooliganz 2 Female" />
 		<Ped name="ig_g" caption="Gerald" />
+		<Ped name="ig_georginacheng" caption="Georgina Cheng" />
+		<Ped name="ig_golfer_a" caption="Golfer Male" />
+		<Ped name="ig_golfer_b" caption="Golfer Male 2" />
 		<Ped name="ig_groom" caption="Groom" />
-        <Ped name="ig_gustavo" caption="Gustavo" />
+		<Ped name="ig_gunvanseller" caption="Gun Van Seller" />
 		<Ped name="ig_hao" caption="Hao" />
+		<Ped name="ig_hao_02" caption="Hao" />
+		<Ped name="ig_huang" caption="Huang" />
+		<Ped name="ig_hunter" caption="Hunter" />
+		<Ped name="ig_imani" caption="Imani" />
+		<Ped name="ig_jamalamir" caption="Jamal Amir" />
+		<Ped name="ig_janet" caption="Janet" />
+		<Ped name="ig_jay_norris" caption="Jay Norris" />
+		<Ped name="ig_jewelass" caption="Jeweller Assistant" />
+		<Ped name="ig_jimmyboston" caption="Jimmy Boston" />
+		<Ped name="ig_jimmyboston_02" caption="Jimmy Boston 2" />
+		<Ped name="ig_jimmydisanto" caption="Jimmy De Santa" />
+		<Ped name="ig_jimmydisanto2" caption="Jimmy De Santa 2" />
+		<Ped name="ig_jio_02" caption="Jimmy Lovine" />
+		<Ped name="ig_joeminuteman" caption="Minuteman Joe" />
+		<Ped name="ig_johnnyklebitz" caption="Johnny Klebitz" />
+		<Ped name="ig_jonny_guns" caption="Johnny Guns" />
+		<Ped name="ig_josef" caption="Josef" />
+		<Ped name="ig_josh" caption="Josh" />
+		<Ped name="ig_karen_daniels" caption="Karen Daniels" />
+		<Ped name="ig_kerrymcintosh" caption="Kerry McIntosh" />
+		<Ped name="ig_kerrymcintosh_02" caption="Kerry McIntosh 2" />
+		<Ped name="ig_labrat" caption="Labrat" />
+		<Ped name="ig_lacey_jones_02" caption="Lacy Jones 2" />
+		<Ped name="ig_lamardavis" caption="Lamar Davis" />
+		<Ped name="ig_lazlow" caption="Lazlow" />
+		<Ped name="ig_lazlow_2" caption="Lazlow 2" />
+		<Ped name="ig_lestercrest" caption="Lester Crest" />
+		<Ped name="ig_lestercrest_2" caption="Lester Crest 2" />
+		<Ped name="ig_lestercrest_3" caption="Lester Crest 3" />
+		<Ped name="ig_lifeinvad_01" caption="Life Invader" />
+		<Ped name="ig_lifeinvad_02" caption="Life Invader 2" />
+		<Ped name="ig_lildee" caption="Lil Dee" />
+		<Ped name="ig_magenta" caption="Magenta" />
+		<Ped name="ig_manuel" caption="Manuel" />
+		<Ped name="ig_marnie" caption="Marnie Allen" />
+		<Ped name="ig_maryann" caption="Mary-Ann Quinn" />
+		<Ped name="ig_maude" caption="Maude" />
+		<Ped name="ig_mechanic_01" caption="Mechanic Male (Red's Auto Parts)" />
+		<Ped name="ig_mechanic_02" caption="Mechanic Female (Red's Auto Parts)" />
+		<Ped name="ig_michelle" caption="Michelle" />
+		<Ped name="ig_milton" caption="Milton McIlroy" />
+		<Ped name="ig_mimi" caption="Mimi" />
+		<Ped name="ig_molly" caption="Molly" />
+		<Ped name="ig_money" caption="Avi Schawrtzman" />
+		<Ped name="ig_moodyman_02" caption="Moodyman" />
+		<Ped name="ig_mp_agent14" caption="Agent 14" />
+		<Ped name="ig_mrk" caption="Ferdinand Kerimov (Mr. K)" />
+		<Ped name="ig_mrs_thornhill" caption="Mrs. Thornhill" />
+		<Ped name="ig_mrsphillips" caption="Mrs. Phillips" />
+		<Ped name="ig_natalia" caption="Natalia" />
+		<Ped name="ig_nervousron" caption="Nervous Ron" />
+		<Ped name="ig_nigel" caption="Nigel" />
+		<Ped name="ig_old_man1a" caption="Old Man 1" />
+		<Ped name="ig_old_man2" caption="Old Man 2" />
+		<Ped name="ig_omega" caption="Omega" />
+		<Ped name="ig_oneil" caption="O'Neil Brothers" />
+		<Ped name="ig_orleans" caption="Bigfoot / Sasquash" />
+		<Ped name="ig_ortega" caption="Ortega" />
+		<Ped name="ig_paige" caption="Paige Harris" />
+		<Ped name="ig_paper" caption="United Paper Man" />
+		<Ped name="ig_patricia" caption="Patricia" />
+		<Ped name="ig_patricia_02" caption="Patricia 2" />
+		<Ped name="ig_pilot_02" caption="Pilot 2" />
+		<Ped name="ig_popov" caption="Dima Popov" />
+		<Ped name="ig_priest" caption="Priest" />
+		<Ped name="ig_prolsec_02" caption="Prologue Security 2" />
+		<Ped name="ig_ramp_gang" caption="Families Gang Member?" />
 		<Ped name="ig_ramp_hic" caption="Hick" />
 		<Ped name="ig_ramp_hipster" caption="Hipster" />
+		<Ped name="ig_ramp_mex" caption="Mexican" />
+		<Ped name="ig_rashcosvki" caption="Maxim Rashkovsky" />
+		<Ped name="ig_req_officer" caption="Charlie Reed" />
+		<Ped name="ig_roccopelosi" caption="Rocco Pelosi" />
+		<Ped name="ig_roostermcraw" caption="Rooster McCraw" />
+		<Ped name="ig_russiandrunk" caption="Russian Drunk" />
+		<Ped name="ig_sacha" caption="Sacha Yetarian" />
+		<Ped name="ig_screen_writer" caption="Screenwriter" />
+		<Ped name="ig_security_a" caption="Security Male" />
+		<Ped name="ig_sessanta" caption="Sessanta" />
+		<Ped name="ig_siemonyetarian" caption="Simeon Yetarian" />
+		<Ped name="ig_sol" caption="Soloman" />
+		<Ped name="ig_solomon" caption="Solomon Richards" />
+		<Ped name="ig_soundeng" caption="Sound Engineer Female" />
+		<Ped name="ig_stevehains" caption="Steve Haines" />
+		<Ped name="ig_stretch" caption="Stretch" />
+		<Ped name="ig_subscrewhead" caption="Sub Crew Head" />
+		<Ped name="ig_talcc" caption="Tale of Us 1" />
+		<Ped name="ig_talina" caption="Talina" />
+		<Ped name="ig_talmm" caption="Tale of Us 2" />
+		<Ped name="ig_tanisha" caption="Tanisha" />
+		<Ped name="ig_taocheng" caption="Tao Cheng" />
+		<Ped name="ig_taocheng2" caption="Tao Cheng (Casino)" />
+		<Ped name="ig_taostranslator" caption="Tao's Translator" />
+		<Ped name="ig_taostranslator2" caption="Tao's Translator (Casino)" />
+		<Ped name="ig_tenniscoach" caption="Tennis Coach" />
+		<Ped name="ig_terry" caption="Terry" />
+		<Ped name="ig_thornton" caption="Thornton Duggan" />
+		<Ped name="ig_tomcasino" caption="Tom Connors" />
+		<Ped name="ig_tomepsilon" caption="Epsilon Tom" />
+		<Ped name="ig_tonya" caption="Tonya" />
+		<Ped name="ig_tonyprince" caption="Tony Prince" />
+		<Ped name="ig_tracydisanto" caption="Tracey De Santa" />
+		<Ped name="ig_trafficwarden" caption="Traffic Warden" />
+		<Ped name="ig_tylerdix" caption="Tyler Dixon" />
+		<Ped name="ig_tylerdix_02" caption="Tyler Dixon 2" />
+		<Ped name="ig_vagos_leader" caption="Vagos Gang Leader" />
+		<Ped name="ig_vagspeak" caption="Vagos Funeral Speaker" />
+		<Ped name="ig_vernon" caption="Vernon" />
+		<Ped name="ig_vincent" caption="Vincent" />
+		<Ped name="ig_vincent_2" caption="Vincent 2" />
+		<Ped name="ig_vincent_3" caption="Vincent 3" />
+		<Ped name="ig_vincent_4" caption="Vincent 4" />
+		<Ped name="ig_wade" caption="Wade" />
+		<Ped name="ig_wendy" caption="Wendy" />
+		<Ped name="ig_yusufamir" caption="DJ Blam Ryan H" />
+		<Ped name="ig_yusufamir" caption="Pernell Moss" />
+		<Ped name="ig_yusufamir" caption="Yusuf Amir" />
+		<Ped name="ig_zimbor" caption="Zimbor" />
+    	<Ped name="ig_malc" caption="Malc" />
+        <Ped name="ig_englishdave_02" caption="English Dave 2" />
+        <Ped name="ig_gustavo" caption="Gustavo" />
         <Ped name="ig_helmsmanpavel" caption="Helmsman Pavel" />
-		<Ped name="ig_hunter" caption="Hunter" />
         <Ped name="ig_isldj_00" caption="Island Dj" />
         <Ped name="ig_isldj_01" caption="Island Dj 1" />
         <Ped name="ig_isldj_02" caption="Island Dj 2" />
@@ -564,249 +744,118 @@
         <Ped name="ig_isldj_04_D_02" caption="Island Dj 4D2" />
         <Ped name="ig_isldj_04_E_01" caption="Island Dj 4E" />
         <Ped name="ig_jackie" caption="Jackie" />
-		<Ped name="ig_janet" caption="Janet" />
-		<Ped name="ig_jay_norris" caption="Jay Norris" />
-		<Ped name="ig_jewelass" caption="Jeweller Assistant" />
-		<Ped name="ig_jimmyboston" caption="Jimmy Boston" />
-		<Ped name="ig_jimmydisanto" caption="Jimmy De Santa" />
-        <Ped name="ig_jio" caption="Jio" />
-		<Ped name="ig_johnnyklebitz" caption="Johnny Klebitz" />
-		<Ped name="ig_josef" caption="Josef" />
-		<Ped name="ig_josh" caption="Josh" />
+        <Ped name="ig_jio" caption="Jimmy Lovine" />
         <Ped name="ig_juanstrickler" caption="Juan Strickler" />
         <Ped name="ig_kaylee" caption="Kaylee" />
-		<Ped name="ig_karen_daniels" caption="Karen Daniels" />
-		<Ped name="ig_kerrymcintosh" caption="Kerry McIntosh" />
-		<Ped name="ig_lamardavis" caption="Lamar Davis" />
-		<Ped name="ig_lazlow" caption="Lazlow" />
-		<Ped name="ig_lestercrest" caption="Lester Crest" />
-		<Ped name="ig_lestercrest_2" caption="Lester Crest (Doomsday Heist)" />
-		<Ped name="ig_lifeinvad_01" caption="Life Invader" />
-		<Ped name="ig_lifeinvad_02" caption="Life Invader 2" />
-		<Ped name="ig_magenta" caption="Magenta" />
-		<Ped name="ig_manuel" caption="Manuel" />
-		<Ped name="ig_marnie" caption="Marnie Allen" />
-		<Ped name="ig_maryann" caption="Mary-Ann Quinn" />
-		<Ped name="ig_maude" caption="Maude" />
-		<Ped name="ig_rashcosvki" caption="Maxim Rashkovsky" />
-		<Ped name="ig_ramp_mex" caption="Mexican" />
-		<Ped name="ig_michelle" caption="Michelle" />
         <Ped name="ig_miguelmadrazo" caption="Miguel Madrazo" />
-		<Ped name="ig_milton" caption="Milton McIlroy" />
-		<Ped name="ig_joeminuteman" caption="Minuteman Joe" />
-    	<Ped name="ig_malc" caption="Malc" />
-		<Ped name="ig_molly" caption="Molly" />
-		<Ped name="ig_money" caption="Money Man" />
-		<Ped name="ig_mrsphillips" caption="Mrs. Phillips" />
-		<Ped name="ig_mrs_thornhill" caption="Mrs. Thornhill" />
-        <Ped name="ig_mjo" caption="Mjo" />
-		<Ped name="ig_natalia" caption="Natalia" />
-		<Ped name="ig_nervousron" caption="Nervous Ron" />
-		<Ped name="ig_nigel" caption="Nigel" />
-		<Ped name="ig_old_man1a" caption="Old Man 1" />
-		<Ped name="ig_old_man2" caption="Old Man 2" />
-		<Ped name="ig_omega" caption="Omega" />
+        <Ped name="ig_mjo" caption="DJ Pooh" />
         <Ped name="ig_oldrichguy" caption="Old Rich Guy" />
-		<Ped name="ig_oneil" caption="O'Neil Brothers" />
-		<Ped name="ig_ortega" caption="Ortega" />
-		<Ped name="ig_paige" caption="Paige Harris" />
-		<Ped name="ig_patricia" caption="Patricia" />
         <Ped name="ig_patricia_02" caption="Patricia 2" />
         <Ped name="ig_pilot" caption="Pilot" />
-		<Ped name="ig_dreyfuss" caption="Peter Dreyfuss" />
-		<Ped name="ig_priest" caption="Priest" />
-		<Ped name="ig_prolsec_02" caption="Prologue Security 2" />
-		<Ped name="ig_roccopelosi" caption="Rocco Pelosi" />
-		<Ped name="ig_russiandrunk" caption="Russian Drunk" />
-		<Ped name="ig_screen_writer" caption="Screenwriter" />
-		<Ped name="ig_siemonyetarian" caption="Simeon Yetarian" />
-		<Ped name="ig_solomon" caption="Solomon Richards" />
-        <Ped name="ig_sss" caption="Sss" />
-		<Ped name="ig_stevehains" caption="Steve Haines" />
-		<Ped name="ig_stretch" caption="Stretch" />
-		<Ped name="ig_talina" caption="Talina" />
-		<Ped name="ig_tanisha" caption="Tanisha" />
-		<Ped name="ig_taocheng" caption="Tao Cheng" />
-		<Ped name="ig_taocheng2" caption="Tao Cheng (Casino)" />
-		<Ped name="ig_taostranslator" caption="Tao's Translator" />
-		<Ped name="ig_taostranslator2" caption="Tao's Translator (Casino)" />
-		<Ped name="ig_tenniscoach" caption="Tennis Coach" />
-		<Ped name="ig_terry" caption="Terry" />
-		<Ped name="ig_tonya" caption="Tonya" />
-		<Ped name="ig_tracydisanto" caption="Tracey De Santa" />
-		<Ped name="ig_trafficwarden" caption="Traffic Warden" />
-		<Ped name="ig_tylerdix" caption="Tyler Dixon" />
-		<Ped name="ig_paper" caption="United Paper Man" />
-		<Ped name="ig_vagspeak" caption="Vagos Funeral Speaker" />
-		<Ped name="ig_wade" caption="Wade" />
-		<Ped name="ig_chengsr" caption="Wei Cheng" />
-		<Ped name="ig_zimbor" caption="Zimbor" />
-		<Ped name="ig_djblamadon" caption="DJ Black Madonna" />
-		<Ped name="ig_djblamryans" caption="DJ Ryan S" />
-		<Ped name="ig_djblamrupert" caption="DJ Rupert" />
-		<Ped name="ig_djdixmanager" caption="DJ Dixon Manager" />
-		<Ped name="ig_djsolfotios" caption="DJ Fotios" />
-		<Ped name="ig_djsoljakob" caption="DJ Jakob" />
-		<Ped name="ig_djsolmike" caption="DJ Mike T" />
-		<Ped name="ig_djsolrobt" caption="DJ Rob T" />
-		<Ped name="ig_djtalaurelia" caption=" DJ Aurelia" />
-		<Ped name="ig_djtalignazio" caption="DJ Ignazio" />
-		<Ped name="ig_dix" caption="Dixon" />
-		<Ped name="ig_englishdave" caption="English Dave" />
-        <Ped name="ig_englishdave_02" caption="English Dave" />
-		<Ped name="ig_djgeneric_01" caption="Generic DJ" />
-		<Ped name="ig_jimmyboston_02" caption="Jimmy Boston 2" />
-		<Ped name="ig_kerrymcintosh_02" caption="Kerry McIntosh 2" />
-		<Ped name="ig_lacey_jones_02" caption="Lacy Jones 2" />
-		<Ped name="ig_lazlow_2" caption="Lazlow 2" />
-		<Ped name="ig_sol" caption="Soloman" />
-		<Ped name="ig_djsolmanager" caption="Soloman Manager" />
-		<Ped name="ig_talcc" caption="Tale of Us 1" />
-		<Ped name="ig_talmm" caption="Tale of Us 2" />
-		<Ped name="ig_tylerdix_02" caption="Tyler Dixon 2" />
-		<Ped name="ig_tonyprince" caption="Tony Prince" />
-		<Ped name="ig_sacha" caption="Sacha Yetarian" />
-		<Ped name="ig_thornton" caption="Thornton Duggan" />
-		<Ped name="ig_tomcasino" caption="Tom Connors" />
-		<Ped name="ig_vincent" caption="Vincent (Casino)" />
-		<Ped name="ig_celeb_01" caption="Celeb 1" />
-		<Ped name="ig_georginacheng" caption="Georgina Cheng" />
-		<Ped name="ig_huang" caption="Huang" />
-		<Ped name="ig_jimmydisanto2" caption="Jimmy De Santa 2" />
-		<Ped name="ig_lestercrest_3" caption="Lester Crest 3" />
-		<Ped name="ig_vincent_2" caption="Vincent (Casino) 2" />
-		<Ped name="ig_wendy" caption="Wendy" />
+        <Ped name="ig_sss" caption="Scott Storch" />
 	</Category>
 	<Category name="Multiplayer">
-		<Ped name="mp_s_m_armoured_01" caption="Armoured Van Security Male" />
-		<Ped name="mp_m_avongoon" caption="Avon Goon" />
-		<Ped name="mp_f_cocaine_01" caption="Biker Cocaine Female" />
-		<Ped name="mp_m_cocaine_01" caption="Biker Cocaine Male" />
-		<Ped name="mp_f_counterfeit_01" caption="Biker Counterfeit Female" />
-		<Ped name="mp_m_counterfeit_01" caption="Biker Counterfeit Male" />
-		<Ped name="mp_f_forgery_01" caption="Biker Forgery Female" />
-		<Ped name="mp_m_forgery_01" caption="Biker Forgery Male" />
-		<Ped name="mp_f_meth_01" caption="Biker Meth Female" /> 
-		<Ped name="mp_m_meth_01" caption="Biker Meth Male" />
-		<Ped name="mp_f_weed_01" caption="Biker Weed Female" />
-		<Ped name="mp_m_weed_01" caption="Biker Weed Male" />
+		<Ped name="mp_f_bennymech_01" caption="Benny Mechanic (Female)" />
 		<Ped name="mp_f_boatstaff_01" caption="Boat-Staff Female" />
-		<Ped name="mp_m_boatstaff_01" caption="Boat-Staff Male" />
-		<Ped name="mp_m_bogdangoon" caption="Bogdan Goon" />
+		<Ped name="mp_f_cardesign_01" caption="Office Garage Mechanic (Female)" />
 		<Ped name="mp_f_chbar_01" caption="Clubhouse Bar Female" />
-		<Ped name="mp_m_claude_01" caption="Claude Speed" />
+		<Ped name="mp_f_cocaine_01" caption="Biker Cocaine Female" />
+		<Ped name="mp_f_counterfeit_01" caption="Biker Counterfeit Female" />
 		<Ped name="mp_f_deadhooker" caption="Dead Hooker" />
-		<Ped name="mp_m_exarmy_01" caption="Ex-Army Male" />
 		<Ped name="mp_f_execpa_01" caption="Executive PA Female" />
 		<Ped name="mp_f_execpa_02" caption="Executive PA Female 2" />
+		<Ped name="mp_f_forgery_01" caption="Biker Forgery Female" />
+		<Ped name="mp_f_helistaff_01" caption="Heli-Staff Female" />
+		<Ped name="mp_f_meth_01" caption="Biker Meth Female" /> 
+		<Ped name="mp_f_misty_01" caption="Misty" />
+		<Ped name="mp_f_stripperlite" caption="Stripper Lite (Female)" />
+		<Ped name="mp_f_weed_01" caption="Biker Weed Female" />
+		<Ped name="mp_g_m_pros_01" caption="Pros" />
+		<Ped name="mp_m_avongoon" caption="Avon Goon" />
+		<Ped name="mp_m_boatstaff_01" caption="Boat-Staff Male" />
+		<Ped name="mp_m_bogdangoon" caption="Bogdan Goon" />
+		<Ped name="mp_m_claude_01" caption="Claude Speed" />
+		<Ped name="mp_m_cocaine_01" caption="Biker Cocaine Male" />
+		<Ped name="mp_m_counterfeit_01" caption="Biker Counterfeit Male" />
+		<Ped name="mp_m_exarmy_01" caption="Ex-Army Male" />
 		<Ped name="mp_m_execpa_01" caption="Executive PA Male" />
 		<Ped name="mp_m_famdd_01" caption="Families DD Male" />
 		<Ped name="mp_m_fibsec_01" caption="FIB Security" />
-		<Ped name="mp_f_freemode_01" caption="Freemode Female" />
-		<Ped name="mp_m_freemode_01" caption="Freemode Male" />
-		<Ped name="mp_f_helistaff_01" caption="Heli-Staff Female" />
+		<Ped name="mp_m_forgery_01" caption="Biker Forgery Male" />
+		<Ped name="mp_m_g_vagfun_01" caption="Vagos Funeral" />
 		<Ped name="mp_m_marston_01" caption="John Marston" />
-		<Ped name="mp_f_misty_01" caption="Misty" />
+		<Ped name="mp_m_meth_01" caption="Biker Meth Male" />
 		<Ped name="mp_m_niko_01" caption="Niko Bellic" />
-		<Ped name="mp_f_cardesign_01" caption="Office Garage Mechanic (Female)" />
-		<Ped name="mp_g_m_pros_01" caption="Pros" />
 		<Ped name="mp_m_securoguard_01" caption="Securoserve Guard (Male)" />
 		<Ped name="mp_m_shopkeep_01" caption="Shopkeeper (Male)" />
-		<Ped name="mp_f_stripperlite" caption="Stripper Lite (Female)" />
-		<Ped name="mp_m_g_vagfun_01" caption="Vagos Funeral" />
 		<Ped name="mp_m_waremech_01" caption="Warehouse Mechanic (Male)" />
+		<Ped name="mp_m_weed_01" caption="Biker Weed Male" />
+		<Ped name="mp_s_m_armoured_01" caption="Armoured Van Security Male" />
   		<Ped name="mp_m_weapexp_01" caption="Weapon Exp (Male)" />
   		<Ped name="mp_m_weapwork_01" caption="Weapon Work (Male)" />
-		<Ped name="mp_f_bennymech_01" caption="Benny Mechanic (Female)" />
-		</Category>
+	</Category>
 	<Category name="ScenarioFemale">
 		<Ped name="s_f_m_autoshop_01" caption="Autoshop Worker Female" />
-		<Ped name="s_f_m_retailstaff_01" caption="Retailstaff" />
-		<Ped name="s_f_y_airhostess_01" caption="Air Hostess" />
 		<Ped name="s_f_m_fembarber" caption="Barber Female" />
+		<Ped name="s_f_m_maid_01" caption="Maid" />
+		<Ped name="s_f_m_retailstaff_01" caption="Retailstaff" />
+		<Ped name="s_f_m_shop_high" caption="Sales Assistant (High-End)" />
+		<Ped name="s_f_m_studioassist_01" caption="Studio Assistant" />
+		<Ped name="s_f_m_sweatshop_01" caption="Sweatshop Worker" />
+		<Ped name="s_f_m_warehouse_01" caption="Warehouse Employee Female" />
+		<Ped name="s_f_y_airhostess_01" caption="Air Hostess" />
 		<Ped name="s_f_y_bartender_01" caption="Bartender" />
 		<Ped name="s_f_y_baywatch_01" caption="Baywatch Female" />
-        <Ped name="s_f_y_beachbarstaff_01" caption="Beach Bar Staff" />
 		<Ped name="s_f_y_casino_01" caption="Casino Staff" />
+		<Ped name="s_f_y_clubbar_01" caption="Club Bartender Female" />
 		<Ped name="s_f_y_cop_01" caption="Cop Female" />
 		<Ped name="s_f_y_factory_01" caption="Factory Worker Female" />
 		<Ped name="s_f_y_hooker_01" caption="Hooker" />
 		<Ped name="s_f_y_hooker_02" caption="Hooker 2" />
 		<Ped name="s_f_y_hooker_03" caption="Hooker 3" />
-		<Ped name="s_f_y_scrubs_01" caption="Hospital Scrubs Female" />
-		<Ped name="s_f_m_maid_01" caption="Maid" />
 		<Ped name="s_f_y_migrant_01" caption="Migrant Female" />
 		<Ped name="s_f_y_movprem_01" caption="Movie Premiere Female" />
-		<Ped name="s_f_y_ranger_01" caption="Ranger Female" />
-		<Ped name="s_f_m_shop_high" caption="Sales Assistant (High-End)" />
+		<Ped name="s_f_y_ranger_01" caption="Park Ranger Female" />
+		<Ped name="s_f_y_scrubs_01" caption="Hospital Scrubs Female" />
+		<Ped name="s_f_y_sheriff_01" caption="Sheriff Female" />
 		<Ped name="s_f_y_shop_low" caption="Sales Assistant (Low-End)" />
 		<Ped name="s_f_y_shop_mid" caption="Sales Assistant (Mid-Price)" />
-		<Ped name="s_f_y_sheriff_01" caption="Sheriff Female" />
 		<Ped name="s_f_y_stripper_01" caption="Stripper" />
 		<Ped name="s_f_y_stripper_02" caption="Stripper 2" />
 		<Ped name="s_f_y_stripperlite" caption="Stripper Lite" />
-		<Ped name="s_f_m_sweatshop_01" caption="Sweatshop Worker" />
 		<Ped name="s_f_y_sweatshop_01" caption="Sweatshop Worker Young" />
-		<Ped name="s_f_y_clubbar_01" caption="Club Bartender Female" />
+        <Ped name="s_f_y_beachbarstaff_01" caption="Beach Bar Staff" />
         <Ped name="s_f_y_clubbar_02" caption="Club Bartender Female 2" />
 	</Category>
 	<Category name="ScenarioMale">
 		<Ped name="s_m_m_Autoshop_03" caption="Autoshop Worker 3" />
-		<Ped name="s_m_m_raceorg_01" caption="Racer Organisator" />
-		<Ped name="s_m_m_tattoo_01" caption="Tattoo Artist 2" />
-		<Ped name="s_m_y_airworker" caption="Air Worker Male" />
-		<Ped name="s_m_m_movalien_01" caption="Alien" />
-		<Ped name="s_m_y_ammucity_01" caption="Ammu-Nation City Clerk" />
 		<Ped name="s_m_m_ammucountry" caption="Ammu-Nation Rural Clerk" />
 		<Ped name="s_m_m_armoured_01" caption="Armoured Van Security" />
 		<Ped name="s_m_m_armoured_02" caption="Armoured Van Security 2" />
-		<Ped name="s_m_y_armymech_01" caption="Army Mechanic" />
-		<Ped name="s_m_y_autopsy_01" caption="Autopsy Tech" />
 		<Ped name="s_m_m_autoshop_01" caption="Autoshop Worker" />
 		<Ped name="s_m_m_autoshop_02" caption="Autoshop Worker 2" />
-		<Ped name="s_m_y_barman_01" caption="Barman" />
-		<Ped name="s_m_m_cntrybar_01" caption="Bartender (Rural)" />
-		<Ped name="s_m_y_baywatch_01" caption="Baywatch Male" />
-		<Ped name="s_m_y_blackops_01" caption="Black Ops Soldier" />
-		<Ped name="s_m_y_blackops_02" caption="Black Ops Soldier 2" />
-		<Ped name="s_m_y_blackops_03" caption="Black Ops Soldier 3" />
 		<Ped name="s_m_m_bouncer_01" caption="Bouncer" />
-        <Ped name="s_m_m_bouncer_02" caption="Bouncer 2" />
-		<Ped name="s_m_y_busboy_01" caption="Busboy" />
-		<Ped name="s_m_o_busker_01" caption="Busker" />
-		<Ped name="s_m_y_casino_01" caption="Casino Staff" />
-		<Ped name="s_m_y_chef_01" caption="Chef" />
-		<Ped name="s_m_m_chemsec_01" caption="Chemical Plant Security" />
-		<Ped name="s_m_y_clown_01" caption="Clown" />
-		<Ped name="s_m_y_construct_01" caption="construction Worker" />
-		<Ped name="s_m_y_construct_02" caption="construction Worker 2" />
-		<Ped name="s_m_y_cop_01" caption="Cop Male" />
 		<Ped name="s_m_m_ccrew_01" caption="Crew Member" />
-		<Ped name="s_m_y_dealer_01" caption="Dealer" />
-		<Ped name="s_m_y_devinsec_01" caption="Devin's Security" />
+		<Ped name="s_m_m_ccrew_02" caption="Crew Member 2" />
+		<Ped name="s_m_m_ccrew_03" caption="Crew Member 3" />
+		<Ped name="s_m_m_chemsec_01" caption="Chemical Plant Security" />
+		<Ped name="s_m_m_ciasec_01" caption="IAA Security" />
+		<Ped name="s_m_m_cntrybar_01" caption="Bartender (Rural)" />
+		<Ped name="s_m_m_cop_01" caption="Cop Male 2" />
 		<Ped name="s_m_m_dockwork_01" caption="Dock Worker" />
-		<Ped name="s_m_y_dockwork_01" caption="Dock Worker" />
 		<Ped name="s_m_m_doctor_01" caption="Doctor" />
-		<Ped name="s_m_y_doorman_01" caption="Doorman" />
-        <Ped name="s_m_m_drugprocess_01" caption="Drug Processer" />
-		<Ped name="s_m_y_dwservice_01" caption="DW Airport Worker" />
-		<Ped name="s_m_y_dwservice_02" caption="DW Airport Worker 2" />
-		<Ped name="s_m_y_factory_01" caption="Factory Worker Male" />
 		<Ped name="s_m_m_fiboffice_01" caption="FIB Office Worker" />
 		<Ped name="s_m_m_fiboffice_02" caption="FIB Office Worker 2" />
 		<Ped name="s_m_m_fibsec_01" caption="FIB Security" />
-        <Ped name="s_m_m_fieldworker_01" caption="Field Worker" />
-		<Ped name="s_m_y_fireman_01" caption="Fireman Male" />
 		<Ped name="s_m_m_gaffer_01" caption="Gaffer" />
-		<Ped name="s_m_y_garbage" caption="Garbage Worker" />
 		<Ped name="s_m_m_gardener_01" caption="Gardener" />
-		<Ped name="s_m_y_grip_01" caption="Grip" />
+		<Ped name="s_m_m_gentransport" caption="Transport Worker Male" />
 		<Ped name="s_m_m_hairdress_01" caption="Hairdresser Male" />
+		<Ped name="s_m_m_hazmatworker_01" caption="Hazmat Worker Male" />
 		<Ped name="s_m_m_highsec_01" caption="High Security" />
 		<Ped name="s_m_m_highsec_02" caption="High Security 2" />
-        <Ped name="s_m_m_highsec_04" caption="High Security 4" />
-		<Ped name="s_m_y_hwaycop_01" caption="Highway Cop" />
-		<Ped name="s_m_m_ciasec_01" caption="IAA Security" />
+		<Ped name="s_m_m_highsec_03" caption="High Security 3" />
+		<Ped name="s_m_m_highsec_05" caption="High Security 5" />
 		<Ped name="s_m_m_janitor" caption="Janitor" />
 		<Ped name="s_m_m_lathandy_01" caption="Latino Handyman Male" />
 		<Ped name="s_m_m_lifeinvad_01" caption="Life Invader Male" />
@@ -815,145 +864,188 @@
 		<Ped name="s_m_m_mariachi_01" caption="Mariachi" />
 		<Ped name="s_m_m_marine_01" caption="Marine" />
 		<Ped name="s_m_m_marine_02" caption="Marine 2" />
-		<Ped name="s_m_y_marine_01" caption="Marine Young" />
-		<Ped name="s_m_y_marine_02" caption="Marine Young 2" />
-		<Ped name="s_m_y_marine_03" caption="Marine Young 3" />
-		<Ped name="s_m_y_xmech_01" caption="Mechanic" />
-		<Ped name="s_m_y_xmech_02" caption="MC Clubhouse Mechanic" />
 		<Ped name="s_m_m_migrant_01" caption="Migrant Male" />
-		<Ped name="s_m_y_mime" caption="Mime Artist" />
-		<Ped name="s_m_m_movspace_01" caption="Movie Astronaut" />
+		<Ped name="s_m_m_movalien_01" caption="Alien" />
 		<Ped name="s_m_m_movprem_01" caption="Movie Premiere Male" />
+		<Ped name="s_m_m_movspace_01" caption="Movie Astronaut" />
 		<Ped name="s_m_m_paramedic_01" caption="Paramedic" />
-		<Ped name="s_m_y_pestcont_01" caption="Pest Control" />
 		<Ped name="s_m_m_pilot_01" caption="Pilot" />
-		<Ped name="s_m_y_pilot_01" caption="Pilot" />
 		<Ped name="s_m_m_pilot_02" caption="Pilot 2" />
 		<Ped name="s_m_m_postal_01" caption="Postal Worker Male" />
 		<Ped name="s_m_m_postal_02" caption="Postal Worker Male 2" />
 		<Ped name="s_m_m_prisguard_01" caption="Prison Guard" />
-		<Ped name="s_m_y_prisoner_01" caption="Prisoner" />
-		<Ped name="s_m_y_prismuscl_01" caption="Prisoner (Muscular)" />
-		<Ped name="s_m_y_ranger_01" caption="Ranger Male" />
-		<Ped name="s_m_y_robber_01" caption="Robber" />
-		<Ped name="s_m_y_shop_mask" caption="Mask Salesman" />
+		<Ped name="s_m_m_raceorg_01" caption="Racer Organisator" />
 		<Ped name="s_m_m_scientist_01" caption="Scientist" />
 		<Ped name="s_m_m_security_01" caption="Security Guard" />
-		<Ped name="s_m_y_sheriff_01" caption="Sheriff Male" />
 		<Ped name="s_m_m_snowcop_01" caption="Snow Cop Male" />
 		<Ped name="s_m_m_strperf_01" caption="Street Performer" />
 		<Ped name="s_m_m_strpreach_01" caption="Street Preacher" />
 		<Ped name="s_m_m_strvend_01" caption="Street Vendor" />
-		<Ped name="s_m_y_strvend_01" caption="Street Vendor Young" />
-		<Ped name="s_m_y_swat_01" caption="SWAT" />
-		<Ped name="s_m_m_gentransport" caption="Transport Worker Male" />
+		<Ped name="s_m_m_studioassist_02" caption="Studio Assistant Male" />
+		<Ped name="s_m_m_studioprod_01" caption="Studio Producer Male" />
+		<Ped name="s_m_m_studiosoung_02" caption="Studio Sound Engineer Male" />
+		<Ped name="s_m_m_subcrew_01" caption="Sub Crew Male" />
+		<Ped name="s_m_m_tattoo_01" caption="Tattoo Artist 2" />
 		<Ped name="s_m_m_trucker_01" caption="Trucker Male" />
 		<Ped name="s_m_m_ups_01" caption="UPS Driver" />
 		<Ped name="s_m_m_ups_02" caption="UPS Driver 2" />
+		<Ped name="s_m_m_warehouse_01" caption="Warehouse Employee Male" />
+		<Ped name="s_m_o_busker_01" caption="Busker" />
+		<Ped name="s_m_y_airworker" caption="Air Worker Male" />
+		<Ped name="s_m_y_ammucity_01" caption="Ammu-Nation City Clerk" />
+		<Ped name="s_m_y_armymech_01" caption="Army Mechanic" />
+		<Ped name="s_m_y_autopsy_01" caption="Autopsy Tech" />
+		<Ped name="s_m_y_barman_01" caption="Barman" />
+		<Ped name="s_m_y_baywatch_01" caption="Baywatch Male" />
+		<Ped name="s_m_y_blackops_01" caption="Black Ops Soldier" />
+		<Ped name="s_m_y_blackops_02" caption="Black Ops Soldier 2" />
+		<Ped name="s_m_y_blackops_03" caption="Black Ops Soldier 3" />
+		<Ped name="s_m_y_busboy_01" caption="Busboy" />
+		<Ped name="s_m_y_casino_01" caption="Casino Staff" />
+		<Ped name="s_m_y_chef_01" caption="Chef" />
+		<Ped name="s_m_y_clown_01" caption="Clown" />
+		<Ped name="s_m_y_clubbar_01" caption="Club Bartender Male" />
+		<Ped name="s_m_y_construct_01" caption="construction Worker" />
+		<Ped name="s_m_y_construct_02" caption="construction Worker 2" />
+		<Ped name="s_m_y_cop_01" caption="Cop Male" />
+		<Ped name="s_m_y_dealer_01" caption="Dealer" />
+		<Ped name="s_m_y_devinsec_01" caption="Devin's Security" />
+		<Ped name="s_m_y_dockwork_01" caption="Dock Worker" />
+		<Ped name="s_m_y_doorman_01" caption="Doorman" />
+		<Ped name="s_m_y_dwservice_01" caption="DW Airport Worker" />
+		<Ped name="s_m_y_dwservice_02" caption="DW Airport Worker 2" />
+		<Ped name="s_m_y_factory_01" caption="Factory Worker Male" />
+		<Ped name="s_m_y_fireman_01" caption="Fireman Male" />
+		<Ped name="s_m_y_garbage" caption="Garbage Worker" />
+		<Ped name="s_m_y_grip_01" caption="Grip" />
+		<Ped name="s_m_y_hwaycop_01" caption="Highway Cop" />
+		<Ped name="s_m_y_marine_01" caption="Marine Young" />
+		<Ped name="s_m_y_marine_02" caption="Marine Young 2" />
+		<Ped name="s_m_y_marine_03" caption="Marine Young 3" />
+		<Ped name="s_m_y_mime" caption="Mime Artist" />
+		<Ped name="s_m_y_pestcont_01" caption="Pest Control" />
+		<Ped name="s_m_y_pilot_01" caption="Pilot" />
+		<Ped name="s_m_y_prismuscl_01" caption="Prisoner (Muscular)" />
+		<Ped name="s_m_y_prisoner_01" caption="Prisoner" />
+		<Ped name="s_m_y_ranger_01" caption="Ranger Male" />
+		<Ped name="s_m_y_robber_01" caption="Robber" />
+		<Ped name="s_m_y_sheriff_01" caption="Sheriff Male" />
+		<Ped name="s_m_y_shop_mask" caption="Mask Salesman" />
+		<Ped name="s_m_y_strvend_01" caption="Street Vendor Young" />
+		<Ped name="s_m_y_swat_01" caption="SWAT" />
 		<Ped name="s_m_y_uscg_01" caption="US Coastguard" />
 		<Ped name="s_m_y_valet_01" caption="Valet" />
 		<Ped name="s_m_y_waiter_01" caption="Waiter" />
-		<Ped name="s_m_y_westsec_01" caption="Duggan Secruity" />
-		<Ped name="s_m_y_winclean_01" caption="Window Cleaner" />
-		<Ped name="s_m_y_clubbar_01" caption="Club Bartender Male" />
 		<Ped name="s_m_y_waretech_01" caption="Warehouse Technician" />
-		<Ped name="s_m_m_highsec_03" caption="High Security 3" />
+		<Ped name="s_m_y_westsec_01" caption="Duggan Secruity" />
 		<Ped name="s_m_y_westsec_02" caption="Duggan Security 2" />
+		<Ped name="s_m_y_winclean_01" caption="Window Cleaner" />
+		<Ped name="s_m_y_xmech_01" caption="Mechanic" />
+		<Ped name="s_m_y_xmech_02" caption="MC Clubhouse Mechanic" />
+        <Ped name="s_m_m_bouncer_02" caption="Bouncer 2" />
+        <Ped name="s_m_m_drugprocess_01" caption="Drug Processer" />
+        <Ped name="s_m_m_fieldworker_01" caption="Field Worker" />
+        <Ped name="s_m_m_highsec_04" caption="High Security 4" />
 	</Category>
 	<Category name="StoryScenarioFemale">
-		<Ped name="u_f_y_bikerchic" caption="Biker Chic Female" />
-		<Ped name="u_f_m_corpse_01" caption="Corpse Female" />
 		<Ped name="u_f_m_casinocash_01" caption="Casino Cashier" />
 		<Ped name="u_f_m_casinoshop_01" caption="Casino shop owner" />
+		<Ped name="u_f_m_corpse_01" caption="Corpse Female" />
 		<Ped name="u_f_m_debbie_01" caption="Debbie (AgathaÂ´s Secretary)" />
+		<Ped name="u_f_m_drowned_01" caption="Drowned Victim Female" />
+		<Ped name="u_f_m_miranda" caption="Miranda" />
+		<Ped name="u_f_m_miranda_02" caption="Miranda 2" />
+		<Ped name="u_f_m_promourn_01" caption="Prologue Mourner Female" />
 		<Ped name="u_f_o_carol" caption="Carol" />
 		<Ped name="u_f_o_eileen" caption="Eileen" />
+		<Ped name="u_f_o_moviestar" caption="Movie Star Female" />
+		<Ped name="u_f_o_prolhost_01" caption="Prologue Host Old Female" />
 		<Ped name="u_f_y_beth" caption="Beth" />
-		<Ped name="u_f_y_lauren" caption="Lauren" />
-		<Ped name="u_f_y_taylor" caption="Taylor" />
+		<Ped name="u_f_y_bikerchic" caption="Biker Chic Female" />
+		<Ped name="u_f_y_comjane" caption="Jane" />
 		<Ped name="u_f_y_corpse_01" caption="Corpse Young Female" />
 		<Ped name="u_f_y_corpse_02" caption="Corpse Young Female 2" />
-		<Ped name="u_f_y_hotposh_01" caption="Hot Posh Female" />
-		<Ped name="u_f_y_comjane" caption="Jane" />
-		<Ped name="u_f_y_jewelass_01" caption="Jeweller Assistant" />
-		<Ped name="u_f_m_miranda" caption="Miranda" />
-		<Ped name="u_f_y_mistress" caption="Mistress" />
-		<Ped name="u_f_o_moviestar" caption="Movie Star Female" />
-		<Ped name="u_f_y_poppymich" caption="Poppy Mitchell" />
-		<Ped name="u_f_y_princess" caption="Princess" />
-		<Ped name="u_f_o_prolhost_01" caption="Prologue Host Old Female" />
-		<Ped name="u_f_m_promourn_01" caption="Prologue Mourner Female" />
-		<Ped name="u_f_y_spyactress" caption="Spy Actress" />
-		<Ped name="u_f_m_miranda_02" caption="Miranda 2" />
-		<Ped name="u_f_y_poppymich_02" caption="Poppy Mitchell 2" />
 		<Ped name="u_f_y_danceburl_01" caption="Female Club Dancer (Burlesque)" />
 		<Ped name="u_f_y_dancelthr_01" caption="Female Club Dancer (Leather)" />
 		<Ped name="u_f_y_dancerave_01" caption="Female Club Dancer (Rave)" />
+		<Ped name="u_f_y_hotposh_01" caption="Hot Posh Female" />
+		<Ped name="u_f_y_jewelass_01" caption="Jeweller Assistant" />
+		<Ped name="u_f_y_lauren" caption="Lauren" />
+		<Ped name="u_f_y_mistress" caption="Mistress" />
+		<Ped name="u_f_y_poppymich" caption="Poppy Mitchell" />
+		<Ped name="u_f_y_poppymich_02" caption="Poppy Mitchell 2" />
+		<Ped name="u_f_y_princess" caption="Princess" />
+		<Ped name="u_f_y_spyactress" caption="Spy Actress" />
+		<Ped name="u_f_y_taylor" caption="Taylor" />
 	</Category>
 	<Category name="StoryScenarioMale">
-		<Ped name="u_m_y_abner" caption="Abner" />
+		<Ped name="U_M_M_Yeti" caption="Yeti (White Bigfoot / Sassquash)" />
 		<Ped name="u_m_m_aldinapoli" caption="Al Di Napoli Male" />
-		<Ped name="u_m_y_antonb" caption="Anton Beaudelaire" />
-		<Ped name="u_m_y_juggernaut_01" caption="Avon Juggernaut" />
-		<Ped name="u_m_y_babyd" caption="Baby D" />
 		<Ped name="u_m_m_bankman" caption="Bank Manager Male" />
 		<Ped name="u_m_m_bikehire_01" caption="Bike Hire Guy" />
 		<Ped name="u_m_m_blane" caption="Blane" />
 		<Ped name="u_m_m_curtis" caption="Curtis" />
-		<Ped name="u_m_m_vince" caption="Vince" />
-		<Ped name="u_m_o_dean" caption="Dean" />
-		<Ped name="u_m_y_caleb" caption="Caleb" />
-		<Ped name="u_m_y_croupthief_01" caption="Casino Thief" />
-		<Ped name="u_m_y_gabriel" caption="Gabriel" />
-		<Ped name="u_m_y_ushi" caption="Ushi" />
-		<Ped name="u_m_y_burgerdrug_01" caption="Burger Drug Worker" />
-		<Ped name="u_m_y_chip" caption="Chip" />
-		<Ped name="u_m_y_cyclist_01" caption="Cyclist Male" />
-		<Ped name="u_m_y_corpse_01" caption="Dead Courier" />
-		<Ped name="u_m_m_doa_01" caption="DOA Man" />
+		<Ped name="u_m_m_doa_01" caption="DOA Male" />
 		<Ped name="u_m_m_edtoh" caption="Ed Toh" />
-		<Ped name="u_m_y_militarybum" caption="Ex-Mil Bum" />
 		<Ped name="u_m_m_fibarchitect" caption="FIB Architect" />
-		<Ped name="u_m_y_fibmugger_01" caption="FIB Mugger" />
-		<Ped name="u_m_o_finguru_01" caption="Financial Guru" />
+		<Ped name="u_m_m_filmdirector" caption="Movie Director" />
 		<Ped name="u_m_m_glenstank_01" caption="Glen-Stank Male" />
 		<Ped name="u_m_m_griff_01" caption="Griff" />
-		<Ped name="u_m_y_guido_01" caption="Guido" />
-		<Ped name="u_m_y_gunvend_01" caption="Gun Vendor" />
-		<Ped name="u_m_y_smugmech_01" caption="Hangar Mechanic" />
-		<Ped name="u_m_y_hippie_01" caption="Hippie Male" />
-		<Ped name="u_m_m_streetart_01" caption="Street Art Male" />
-		<Ped name="u_m_y_imporage" caption="Impotent Rage" />
-		<Ped name="u_m_o_taphillbilly" caption="Jesco White (Tapdancing Hillbilly)" />
 		<Ped name="u_m_m_jesus_01" caption="Jesus" />
-		<Ped name="u_m_m_jewelthief" caption="Jewel Thief" />
 		<Ped name="u_m_m_jewelsec_01" caption="Jeweller Security" />
-		<Ped name="u_m_y_justin" caption="Justin" />
-		<Ped name="u_m_y_baygor" caption="Kifflom Guy" />
-		<Ped name="u_m_m_willyfist" caption="Love Fist Willy" />
-		<Ped name="u_m_y_mani" caption="Mani" />
+		<Ped name="u_m_m_jewelthief" caption="Jewel Thief" />
+		<Ped name="u_m_m_juggernaut_03" caption="Avon Juggernaut 3" />
 		<Ped name="u_m_m_markfost" caption="Mark Fostenburg" />
-		<Ped name="u_m_m_filmdirector" caption="Movie Director" />
-		<Ped name="u_m_o_filmnoir" caption="Movie Corpse (Suited)" />
-		<Ped name="u_m_y_paparazzi" caption="Paparazzi Young Male" />
 		<Ped name="u_m_m_partytarget" caption="Party Target" />
-		<Ped name="u_m_y_party_01" caption="Partygoer" />
-		<Ped name="u_m_y_pogo_01" caption="Pogo the Monkey" />
-		<Ped name="u_m_y_prisoner_01" caption="Prisoner" />
-		<Ped name="u_m_y_proldriver_01" caption="Prologue Driver" />
-		<Ped name="u_m_m_promourn_01" caption="Prologue Mourner Male" />
 		<Ped name="u_m_m_prolsec_01" caption="Prologue Security" />
-		<Ped name="u_m_y_rsranger_01" caption="Republican Space Ranger" />
+		<Ped name="u_m_m_promourn_01" caption="Prologue Mourner Male" />
 		<Ped name="u_m_m_rivalpap" caption="Rival Paparazzo" />
-		<Ped name="u_m_y_sbike" caption="Sports Biker" />
 		<Ped name="u_m_m_spyactor" caption="Spy Actor" />
-		<Ped name="u_m_y_staggrm_01" caption="Stag Party Groom" />
-		<Ped name="u_m_y_tattoo_01" caption="Tattoo Artist" />
+		<Ped name="u_m_m_streetart_01" caption="Street Art Male" />
+		<Ped name="u_m_m_vince" caption="Vince" />
+		<Ped name="u_m_m_willyfist" caption="Love Fist Willy" />
+		<Ped name="u_m_m_yulemonster" caption="The Gooch (Grinch Parody)" />
+		<Ped name="u_m_o_dean" caption="Dean" />
+		<Ped name="u_m_o_filmnoir" caption="Movie Corpse (Suited)" />
+		<Ped name="u_m_o_finguru_01" caption="Financial Guru" />
+		<Ped name="u_m_o_taphillbilly" caption="Jesco White (Tapdancing Hillbilly)" />
 		<Ped name="u_m_o_tramp_01" caption="Tramp Old Male" />
-		<Ped name="u_m_y_zombie_01" caption="Zombie" />
+		<Ped name="u_m_y_abner" caption="Abner" />
+		<Ped name="u_m_y_antonb" caption="Anton Beaudelaire" />
+		<Ped name="u_m_y_babyd" caption="Baby D" />
+		<Ped name="u_m_y_baygor" caption="Kifflom Guy" />
+		<Ped name="u_m_y_burgerdrug_01" caption="Burger Drug Worker" />
+		<Ped name="u_m_y_caleb" caption="Caleb" />
+		<Ped name="u_m_y_chip" caption="Chip" />
+		<Ped name="u_m_y_corpse_01" caption="Dead Courier" />
+		<Ped name="u_m_y_croupthief_01" caption="Casino Thief" />
+		<Ped name="u_m_y_cyclist_01" caption="Cyclist Male" />
 		<Ped name="u_m_y_danceburl_01" caption="Male Club Dancer (Burlesque)" />
 		<Ped name="u_m_y_dancelthr_01" caption="Male Club Dancer (Leather)" />
 		<Ped name="u_m_y_dancerave_01" caption="Male Club Dancer (Rave)" />
+		<Ped name="u_m_y_fibmugger_01" caption="FIB Mugger" />
+		<Ped name="u_m_y_gabriel" caption="Gabriel" />
+		<Ped name="u_m_y_guido_01" caption="Guido" />
+		<Ped name="u_m_y_gunvend_01" caption="Gun Vendor" />
+		<Ped name="u_m_y_hippie_01" caption="Hippie Male" />
+		<Ped name="u_m_y_imporage" caption="Impotent Rage" />
+		<Ped name="u_m_y_juggernaut_01" caption="Avon Juggernaut 2" />
+		<Ped name="u_m_y_juggernaut_01" caption="Avon Juggernaut" />
+		<Ped name="u_m_y_justin" caption="Justin Sex Tape Male" />
+		<Ped name="u_m_y_mani" caption="Mani" />
+		<Ped name="u_m_y_militarybum" caption="Ex-Mil Bum" />
+		<Ped name="u_m_y_paparazzi" caption="Paparazzi Young Male" />
+		<Ped name="u_m_y_party_01" caption="Partygoer Male" />
+		<Ped name="u_m_y_pogo_01" caption="Pogo the Monkey" />
+		<Ped name="u_m_y_prisoner_01" caption="Prisoner" />
+		<Ped name="u_m_y_proldriver_01" caption="Prologue Driver" />
+		<Ped name="u_m_y_rsranger_01" caption="Republican Space Ranger" />
+		<Ped name="u_m_y_sbike" caption="Sports Biker" />
+		<Ped name="u_m_y_smugmech_01" caption="Hangar Mechanic" />
+		<Ped name="u_m_y_staggrm_01" caption="Stag Party Groom" />
+		<Ped name="u_m_y_tattoo_01" caption="Tattoo Artist" />
+		<Ped name="u_m_y_ushi" caption="Ushi" />
+		<Ped name="u_m_y_zombie_01" caption="Zombie" />
 	</Category>
 	<Category name="Others">
 		<Ped name="hc_driver" caption="Jewel Heist Driver" />
