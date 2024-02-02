@@ -712,6 +712,8 @@ namespace sub
 				try
 				{
 					carvarcol = stoi(inputStr);
+					CLEAR_VEHICLE_CUSTOM_PRIMARY_COLOUR(Static_12);
+					CLEAR_VEHICLE_CUSTOM_SECONDARY_COLOUR(Static_12);
 					SET_VEHICLE_COLOUR_COMBINATION(Static_12, carvarcol - 1);
 					if (_globalLSC_Customs)
 					{
@@ -735,11 +737,15 @@ namespace sub
 			if (carvarcol < GET_NUMBER_OF_VEHICLE_COLOURS(Static_12))
 			{
 				carvarcol += 1;
+				CLEAR_VEHICLE_CUSTOM_PRIMARY_COLOUR(Static_12);
+				CLEAR_VEHICLE_CUSTOM_SECONDARY_COLOUR(Static_12);
 				SET_VEHICLE_COLOUR_COMBINATION(Static_12, carvarcol - 1);
 			}
 			else
 			{
 				carvarcol = 1;
+				CLEAR_VEHICLE_CUSTOM_PRIMARY_COLOUR(Static_12);
+				CLEAR_VEHICLE_CUSTOM_SECONDARY_COLOUR(Static_12);
 				SET_VEHICLE_COLOUR_COMBINATION(Static_12, carvarcol - 1);
 			}
 			if (_globalLSC_Customs)
@@ -753,11 +759,15 @@ namespace sub
 			if (carvarcol > 1)
 			{
 				carvarcol -= 1;
+				CLEAR_VEHICLE_CUSTOM_PRIMARY_COLOUR(Static_12);
+				CLEAR_VEHICLE_CUSTOM_SECONDARY_COLOUR(Static_12);
 				SET_VEHICLE_COLOUR_COMBINATION(Static_12, carvarcol - 1);
 			}
 			else
 			{
 				carvarcol = GET_NUMBER_OF_VEHICLE_COLOURS(Static_12);
+				CLEAR_VEHICLE_CUSTOM_PRIMARY_COLOUR(Static_12);
+				CLEAR_VEHICLE_CUSTOM_SECONDARY_COLOUR(Static_12);
 				SET_VEHICLE_COLOUR_COMBINATION(Static_12, carvarcol - 1);
 			}
 			if (_globalLSC_Customs)
