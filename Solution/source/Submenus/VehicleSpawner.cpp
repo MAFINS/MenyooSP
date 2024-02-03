@@ -114,6 +114,7 @@ namespace sub
 				GTAvehicle(newcar).RequestControl();
 				SET_VEHICLE_ENGINE_ON(newcar, oldCarOn, true, 0);
 				SET_ENTITY_COLLISION(newcar, true, true);
+				SET_VEHICLE_FORWARD_SPEED(newcar, abs(oldVelocity.y));
 				SET_ENTITY_VELOCITY(newcar, oldVelocity.x, oldVelocity.y, oldVelocity.z);
 				if (deleteOld)
 				{ 
