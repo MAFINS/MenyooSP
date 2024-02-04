@@ -1637,11 +1637,11 @@ namespace sub
 					SET_VEHICLE_MOD(vehicle, i, modIndex, 0);
 					continue;
 				}
-				UINT8 modIndex = GET_NUM_VEHICLE_MODS(vehicle, i) - 1;
+				UINT8 modIndex = GET_NUM_VEHICLE_MODS(vehicle, i) - 1;				
 				if (modIndex > -1)
 					modIndex = std::rand() % (modIndex + 2) - 1;
-				if (i == VehicleMod::Horns)
-					modIndex = 44; // Liberty City Loop
+				if (11 <= i && 16 >= i)
+					modIndex = GET_NUM_VEHICLE_MODS(vehicle, i) - 1;
 				SET_VEHICLE_MOD(vehicle, i, modIndex, 0);
 			}
 			SET_VEHICLE_WINDOW_TINT(vehicle, 1);
