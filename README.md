@@ -12,7 +12,7 @@
 #### Trainer for Grand Theft Auto V (Single-player and FiveM).
 ---
 
-##Community
+## Community
 - [Discord](https://discord.gg/v29AwqAemT)
 
 ## Requirements
