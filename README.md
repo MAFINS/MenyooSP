@@ -12,6 +12,9 @@
 #### Trainer for Grand Theft Auto V (Single-player and FiveM).
 ---
 
+##Community
+- [Discord](https://discord.gg/v29AwqAemT)
+
 ## Requirements
 - [ScriptHookV by Alexander Blade](http://www.dev-c.com/gtav/scripthookv/)
 - GTA V Version 3095.0 or newer.
