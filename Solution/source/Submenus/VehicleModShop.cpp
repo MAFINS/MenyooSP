@@ -712,6 +712,8 @@ namespace sub
 				try
 				{
 					carvarcol = stoi(inputStr);
+					CLEAR_VEHICLE_CUSTOM_PRIMARY_COLOUR(Static_12);
+					CLEAR_VEHICLE_CUSTOM_SECONDARY_COLOUR(Static_12);
 					SET_VEHICLE_COLOUR_COMBINATION(Static_12, carvarcol - 1);
 					if (_globalLSC_Customs)
 					{
@@ -735,11 +737,15 @@ namespace sub
 			if (carvarcol < GET_NUMBER_OF_VEHICLE_COLOURS(Static_12))
 			{
 				carvarcol += 1;
+				CLEAR_VEHICLE_CUSTOM_PRIMARY_COLOUR(Static_12);
+				CLEAR_VEHICLE_CUSTOM_SECONDARY_COLOUR(Static_12);
 				SET_VEHICLE_COLOUR_COMBINATION(Static_12, carvarcol - 1);
 			}
 			else
 			{
 				carvarcol = 1;
+				CLEAR_VEHICLE_CUSTOM_PRIMARY_COLOUR(Static_12);
+				CLEAR_VEHICLE_CUSTOM_SECONDARY_COLOUR(Static_12);
 				SET_VEHICLE_COLOUR_COMBINATION(Static_12, carvarcol - 1);
 			}
 			if (_globalLSC_Customs)
@@ -753,11 +759,15 @@ namespace sub
 			if (carvarcol > 1)
 			{
 				carvarcol -= 1;
+				CLEAR_VEHICLE_CUSTOM_PRIMARY_COLOUR(Static_12);
+				CLEAR_VEHICLE_CUSTOM_SECONDARY_COLOUR(Static_12);
 				SET_VEHICLE_COLOUR_COMBINATION(Static_12, carvarcol - 1);
 			}
 			else
 			{
 				carvarcol = GET_NUMBER_OF_VEHICLE_COLOURS(Static_12);
+				CLEAR_VEHICLE_CUSTOM_PRIMARY_COLOUR(Static_12);
+				CLEAR_VEHICLE_CUSTOM_SECONDARY_COLOUR(Static_12);
 				SET_VEHICLE_COLOUR_COMBINATION(Static_12, carvarcol - 1);
 			}
 			if (_globalLSC_Customs)
@@ -817,7 +827,8 @@ namespace sub
 		AddOption("Matte", null, nullFunc, SUB::MSPAINTS2_MATTE, true, true); // CMOD_COL1_5
 		AddOption("Metallic", null, nullFunc, SUB::MSPAINTS2_METALLIC, true, true); // CMOD_COL1_3
 		AddOption("Metal", null, nullFunc, SUB::MSPAINTS2_METAL, true, true); // CMOD_COL1_4
-		AddOption("Chameleon", null, nullFunc, SUB::MSPAINTS2_CHAMELEON, true, true); // CMOD_COL1_4
+		if(IS_DLC_PRESENT(GET_HASH_KEY("spchameleon")))
+			AddOption("Chameleon", null, nullFunc, SUB::MSPAINTS2_CHAMELEON, true, true); // CMOD_COL1_4
 		AddOption("Utility", null, nullFunc, SUB::MSPAINTS2_UTIL);
 		AddOption("Worn", null, nullFunc, SUB::MSPAINTS2_WORN);
 
@@ -1627,11 +1638,11 @@ namespace sub
 					SET_VEHICLE_MOD(vehicle, i, modIndex, 0);
 					continue;
 				}
-				UINT8 modIndex = GET_NUM_VEHICLE_MODS(vehicle, i) - 1;
+				UINT8 modIndex = GET_NUM_VEHICLE_MODS(vehicle, i) - 1;				
 				if (modIndex > -1)
 					modIndex = std::rand() % (modIndex + 2) - 1;
-				if (i == VehicleMod::Horns)
-					modIndex = 44; // Liberty City Loop
+				if (11 <= i && 16 >= i)
+					modIndex = GET_NUM_VEHICLE_MODS(vehicle, i) - 1;
 				SET_VEHICLE_MOD(vehicle, i, modIndex, 0);
 			}
 			SET_VEHICLE_WINDOW_TINT(vehicle, 1);
