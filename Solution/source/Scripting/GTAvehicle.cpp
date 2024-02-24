@@ -875,7 +875,7 @@ bool GTAvehicle::EngineRunning_get() const
 }
 void GTAvehicle::EngineRunning_set(bool value)
 {
-	SET_VEHICLE_ENGINE_ON(this->mHandle, value, true, 0);
+	SET_VEHICLE_ENGINE_ON(this->mHandle, value, true, true);
 }
 
 void GTAvehicle::EnginePowerMultiplier_set(float value)
