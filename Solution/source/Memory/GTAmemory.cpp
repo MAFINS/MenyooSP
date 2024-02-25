@@ -26,6 +26,7 @@
 #include "..\main.h"
 #include "..\Natives\natives2.h"
 #include "..\Util\FileLogger.h"
+#include "..\Menu\Menu.h"
 
 #include <Windows.h>
 #include <Psapi.h>
@@ -1667,37 +1668,37 @@ void GeneralGlobalHax::EnableBlockedMpVehiclesInSp()
 			if (address)
 			{
 				int globalindex = *(int*)(address + offset) & 0xFFFFFF;
-				ige::myLog << ige::LogType::LOG_INFO << "Setting Global Variable " << std::to_string(globalindex) << " to true";
+				addlog(loglevel, ige::LogType::LOG_INFO,  "Setting Global Variable " + std::to_string(globalindex) + " to true");
 				*GTAmemory::GetGlobalPtr<INT32>(globalindex) = 1;
 				return;
 			}
 		}
 	}
 
-	ige::myLog << ige::LogType::LOG_ERROR << "Global Variable not found, check game version >= 1.0.678.1";
+	addlog(loglevel, ige::LogType::LOG_ERROR,  "Global Variable not found, check game version >= 1.0.678.1");
 }
 
 // from EnableMPCars by drp4lyf
 bool GTAmemory::FindShopController() {
 	__int64 patternAddr = FindPattern("\x48\x03\x15\x00\x00\x00\x00\x4C\x23\xC2\x49\x8B\x08", "xxx????xxxxxx");
 	if (!patternAddr) {
-		ige::myLog << ige::LogType::LOG_ERROR << "ERROR: finding address 1";
-		ige::myLog << ige::LogType::LOG_ERROR << "Aborting...";
+		addlog(loglevel, ige::LogType::LOG_ERROR,  "ERROR: finding address 1");
+		addlog(loglevel, ige::LogType::LOG_ERROR,  "Aborting...");
 		return false;
 	}
 	scriptTable = (ScriptTable*)(patternAddr + *(int*)(patternAddr + 3) + 7);
     
 	ScriptTableItem* Item = scriptTable->FindScript(0x39DA738B);
 	if (Item == NULL) {
-		ige::myLog << ige::LogType::LOG_ERROR << "ERROR: finding script 0x39DA738B";
-		ige::myLog << ige::LogType::LOG_ERROR << "Aborting...";
+		addlog(loglevel, ige::LogType::LOG_ERROR,  "ERROR: finding script 0x39DA738B");
+		addlog(loglevel, ige::LogType::LOG_ERROR,  "Aborting...");
 		return false;
 	}
 	while (!Item->IsLoaded())
 		Sleep(100);
     
 	shopController = Item->Header;
-	//ige::myLog << ige::LogType::LOG_INFO << "Found shopcontroller";
+	//addlog(loglevel, ige::LogType::LOG_INFO,  "Found shopcontroller");
 	return true;
 }
 

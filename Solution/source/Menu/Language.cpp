@@ -11,11 +11,11 @@
 
 #include "..\Util\ExePath.h"
 #include "..\Util\FileLogger.h"
+#include "..\Menu\Menu.h"
 
 #include <fstream>
 #include <json\single_include\nlohmann\json.hpp>
 using Json = nlohmann::json;
-
 
 namespace Language
 {
@@ -101,11 +101,11 @@ namespace Language
 				{
 					Json doc = Json::parse(stream);
 					lang.Dictionary() = doc;
-					ige::myLog << ige::LogType::LOG_INFO << "Loaded language file " << lang.GetFilePath();
+					addlog(loglevel, ige::LogType::LOG_INFO,  "Loaded language file " + lang.GetFilePath());
 				}
 				catch (...)
 				{
-					ige::myLog << ige::LogType::LOG_ERROR << "Unable to load language file " << lang.GetFilePath();
+					addlog(loglevel, ige::LogType::LOG_ERROR,  "Unable to load language file " + lang.GetFilePath());
 					return -1;
 				}
 
@@ -113,7 +113,7 @@ namespace Language
 			}
 		}
 
-		ige::myLog << ige::LogType::LOG_ERROR << "Cannot find selected language in memory. Resetting to default";
+		addlog(loglevel, ige::LogType::LOG_ERROR,  "Cannot find selected language in memory. Resetting to default");
 		ResetSelectedLang();
 		return -1;
 	}

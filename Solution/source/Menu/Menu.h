@@ -93,6 +93,7 @@ extern RGBA _globalPedTrackers_Col;
 extern std::pair<UINT16, UINT16> menubindsGamepad;
 extern UINT16 menubinds;
 extern UINT16 respawnbinds;
+extern INT8 loglevel;
 
 class MenuInput final
 {

@@ -16,9 +16,12 @@ http://dev-c.com
 #include "Memory\GTAmemory.h"
 #include "Util\FileLogger.h"
 #include "Menu\Routine.h"
+#include "Menu\Menu.h"
+#include "Menu\MenuConfig.h"
 
 #include <Windows.h>
 #include <Psapi.h>
+#include <sstream>
 
 BOOL APIENTRY DllMain(HMODULE hInstance, DWORD reason, LPVOID lpReserved)
 {
@@ -29,9 +32,16 @@ BOOL APIENTRY DllMain(HMODULE hInstance, DWORD reason, LPVOID lpReserved)
 		g_MainModule = GetModuleHandle(NULL);
 
 		if (!GetModuleInformation(GetCurrentProcess(), g_MainModule, &g_MainModuleInfo, sizeof(g_MainModuleInfo)))
-			ige::myLog << ige::LogType::LOG_ERROR << "Unable to get MODULEINFO from GTA5.exe";
+			addlog(loglevel, ige::LogType::LOG_INIT, "Unable to get MODULEINFO from GTA5.exe");
 		else
-			ige::myLog << ige::LogType::LOG_INFO << "MODULEINFO: lpBaseofDll=" << g_MainModuleInfo.lpBaseOfDll << ", SizeOfImage=" << g_MainModuleInfo.SizeOfImage << ", EntryPoint=" << g_MainModuleInfo.EntryPoint;
+		{
+			std::ostringstream moduleinfostream;
+			moduleinfostream << "MODULEINFO: lpBaseofDll=" << g_MainModuleInfo.lpBaseOfDll
+				<< ", SizeOfImage=" << g_MainModuleInfo.SizeOfImage
+				<< ", EntryPoint=" << g_MainModuleInfo.EntryPoint;
+
+			addlog(loglevel, ige::LogType::LOG_INIT, moduleinfostream.str());
+		}
 
 		GTAmemory::Init();
 

@@ -613,7 +613,7 @@ namespace sub
 			pugi::xml_document doc;
 			if (doc.load_file((const char*)(GetPathffA(Pathff::Main, true) + "PedDecalOverlays.xml").c_str()).status != pugi::status_ok)
 			{
-				ige::myLog << ige::LogType::LOG_ERROR << "Unable to open PedDecalOverlays.xml";
+				addlog(loglevel, ige::LogType::LOG_ERROR,  "Unable to open PedDecalOverlays.xml");
 				return;
 			}
 

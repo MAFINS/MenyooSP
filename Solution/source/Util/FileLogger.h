@@ -17,7 +17,7 @@
 // One time use only
 namespace ige
 {
-	enum class LogType { LOG_ERROR, LOG_WARNING, LOG_INFO, LOG_NORMAL };
+	enum class LogType { LOG_INIT = -1, LOG_ERROR, LOG_WARNING, LOG_INFO, LOG_DEBUG, LOG_TRACE };
 	class FileLogger
 	{
 	public:
@@ -34,11 +34,9 @@ namespace ige
 
 	extern ige::FileLogger menyooLogObject;
 	extern std::ofstream& myLog;
+	extern void addlog(int loglevel, ige::LogType logType, std::string message);
 
 }
 
 std::ofstream& operator << (std::ofstream& stream, ige::LogType logType);
-
-
-
 

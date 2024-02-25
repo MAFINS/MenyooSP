@@ -12,6 +12,7 @@
 #include "..\macros.h"
 
 #include "..\Menu\Routine.h"
+#include "..\Menu\Menu.h"
 
 #include "..\Util\GTAmath.h"
 #include "..\Natives\types.h" // RgbS
@@ -149,7 +150,7 @@ namespace _JumpAroundMode_
 		}
 		catch (std::exception& e)
 		{
-			ige::myLog << ige::LogType::LOG_ERROR << "JumpAroundMode countered an exception -> " << e.what();
+			addlog(loglevel, ige::LogType::LOG_ERROR,  "JumpAroundMode countered an exception -> " + static_cast<std::string>(e.what()));
 		}
 	}
 

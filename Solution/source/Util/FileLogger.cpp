@@ -12,6 +12,7 @@
 #include "..\macros.h"
 
 #include <fstream>
+#include <iomanip>
 #include <time.h>
 
 namespace ige
@@ -30,7 +31,7 @@ namespace ige
 			localtime_s(&t, &now);
 
 			myFile << "Menyoo " << MENYOO_CURRENT_VER_ << std::endl;
-			myFile << "Log file created " << t.tm_mday << "/" << t.tm_mon + 1 << "/" << t.tm_year + 1900 << std::endl << std::endl << std::endl;
+			myFile << "Log file created " << std::setfill('0') << std::setw(2) << t.tm_mday << "/" << std::setfill('0') << std::setw(2) << (t.tm_mon + 1) << "/" << t.tm_year + 1900 << std::endl << std::endl << std::endl;
 		}
 
 	}
@@ -46,6 +47,13 @@ namespace ige
 
 	}
 
+	void addlog(int loglevel, ige::LogType logType, std::string message)
+	{
+		if (static_cast<int>(logType) <= loglevel)
+		{
+			ige::myLog << logType << message << std::endl;
+		}
+	}
 }
 
 std::ofstream& operator<<(std::ofstream& stream, ige::LogType logType)
@@ -54,16 +62,17 @@ std::ofstream& operator<<(std::ofstream& stream, ige::LogType logType)
 	tm t;
 	localtime_s(&t, &now);
 
-	stream << std::endl;
-
 	switch (logType)
 	{
+	case ige::LogType::LOG_INIT: stream << "INIT: "; break;
 	case ige::LogType::LOG_ERROR: stream << "ERROR: "; break;
 	case ige::LogType::LOG_WARNING: stream << "WARNING: "; break;
 	case ige::LogType::LOG_INFO: stream << "INFO: "; break;
+	case ige::LogType::LOG_DEBUG: stream << "DEBUG: "; break;
+	case ige::LogType::LOG_TRACE: stream << "TRACE: "; break;
 	}
 
-	stream << "[" << t.tm_hour << ":" << t.tm_min << ":" << t.tm_sec << "] ";
+	stream << "[" << std::setfill('0') << std::setw(2) << t.tm_hour << ":" << std::setfill('0') << std::setw(2) << t.tm_min << ":" << std::setfill('0') << std::setw(2) << t.tm_sec << "] ";
 
 	return stream;
 }

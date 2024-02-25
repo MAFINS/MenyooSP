@@ -14,6 +14,8 @@
 #include "..\Util\GTAmath.h"
 #include "..\Natives\natives2.h"
 #include "..\Util\FileLogger.h"
+#include "..\Menu\Menu.h"
+#include "..\Menu\MenuConfig.h"
 
 #include "..\Util\ExePath.h"
 
@@ -51,7 +53,7 @@ namespace DxHookIMG
 	{
 		if (does_file_exist(file))
 		{
-			ige::myLog << ige::LogType::LOG_INFO << "[DX-HOOK] Loading texture: " << file;
+			addlog(loglevel, ige::LogType::LOG_INIT,  "[DX-HOOK] Loading texture: " + file);
 			this->id = createTexture(file.c_str());
 
 			/*auto slashPos = file.rfind("\\");
@@ -61,7 +63,7 @@ namespace DxHookIMG
 		}
 		else
 		{
-			ige::myLog << ige::LogType::LOG_ERROR << "[DX-HOOK] Unable to find: " << file;
+			addlog(loglevel, ige::LogType::LOG_ERROR,  "[DX-HOOK] Unable to find: " + file);
 			this->id = 0;
 		}
 	}

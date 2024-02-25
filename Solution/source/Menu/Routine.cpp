@@ -89,6 +89,7 @@
 DWORD g_MenyooConfigTick = 0UL;
 DWORD g_FaderTick = 0UL;
 
+
 void Menu::justopened()
 {
 	Game::Print::PrintBottomLeft(oss_ << "Menyoo PC v" << MENYOO_CURRENT_VER_ << " by ItsJustCurtis and MAFINS");
