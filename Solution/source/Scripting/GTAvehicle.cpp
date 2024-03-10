@@ -1712,6 +1712,25 @@ void GTAvehicle::CargoBobMagnetReleaseVehicle()
 	}
 }
 
+bool GTAvehicle::IsBoatAnchored()
+{
+	return IS_BOAT_ANCHORED(this->mHandle);
+}
+
+bool GTAvehicle::CanBoatAnchorHere()
+{
+	return CAN_ANCHOR_BOAT_HERE(this->mHandle);
+}
+
+void GTAvehicle::AnchorBoat(bool anchored)
+{
+	if (this->CanBoatAnchorHere())
+	{
+		SET_BOAT_ANCHOR(this->mHandle, anchored);
+		SET_BOAT_REMAINS_ANCHORED_WHILE_PLAYER_IS_DRIVER(this->mHandle, anchored);
+	}
+}
+
 bool GTAvehicle::IsTyreBursted(int wheel, bool completely) const
 {
 	return IS_VEHICLE_TYRE_BURST(this->mHandle, wheel, completely) != 0;
