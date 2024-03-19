@@ -549,8 +549,8 @@ void set_sync_clock_time()
 	time_t now = time(0);
 	tm t;
 	localtime_s(&t, &now);
-	NETWORK_OVERRIDE_CLOCK_TIME(t.tm_hour, t.tm_min, t.tm_sec);
-	SET_CLOCK_DATE(t.tm_year + 1900, t.tm_mon, t.tm_mday);
+	SET_CLOCK_DATE(t.tm_mday, t.tm_mon, t.tm_year + 1900);
+	SET_CLOCK_TIME(t.tm_hour, t.tm_min, t.tm_sec);
 }
 
 // Misc - massacre mode
