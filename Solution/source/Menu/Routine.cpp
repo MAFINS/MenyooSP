@@ -111,7 +111,7 @@ void Menu::justopened()
 		)
 	{
 		Game::Print::PrintBottomCentre("~r~Warning~s~: 9th Gen content detected, some instability may occur. See MenyooLog for details.");
-		ige::myLog << ige::LogType::LOG_WARNING << "Gen9 Content found in dlcpacks, this can cause crashes if attempted to be loaded by Menyoo." << std::endl << "				   You can find these in your dlclist.xml by searching for ""g9"" and removing these lines or using a comment." << std::endl << "				   For example: <!--<Item>dlcpacks:/mpg9ec/</Item>-->" << std::endl;
+		ige::myLog << ige::LogType::LOG_WARNING << "Gen9 Content found in dlcpacks, this can cause crashes if attempted to be loaded by Menyoo." << std::endl << "				    You can find these in your dlclist.xml by searching for \"g9\" and removing these lines or using a comment." << std::endl << "				    For example: <!--<Item>dlcpacks:/mpg9ec/</Item>-->" << std::endl;
 	}
 
 
