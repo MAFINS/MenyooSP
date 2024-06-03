@@ -25,7 +25,7 @@ Visual Studio 2022 required
 
 ## Install
  Copy the Menyoo.asi file along with the menyooStuff folder to the Grand Theft Auto V game directory.  
- **IMPORTANT:** Please make sure that you have asiloader and ScriptHookV installed and they are up to date.
+ **IMPORTANT:** Please make sure that you have asiloader and ScriptHookV installed and that they are up to date.
 
 ## Versioning
 vM.m.p-a/b/rcN
@@ -41,5 +41,5 @@ vM.m.p-a/b/rcN
 Compiled binary material can be found at [releases](https://github.com/itsjustcurtis/MenyooSP/releases).
 
 ## License
-Majority of the source code is licensed under the [GNU GPL v3](LICENSE.txt) license.
+The majority of the source code is licensed under the [GNU GPL v3](LICENSE.txt) license.
 Source content taken from other projects is tagged with the respective license(s) wherever found.
