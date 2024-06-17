@@ -1001,6 +1001,8 @@
         <OVERLAY collection="mpsum2_overlays" name="MP_Sum2_Hair_001_F" caption="MP_Sum2_Hair_001_F" />
         <OVERLAY collection="mpsum2_overlays" name="MP_Sum2_Hair_003_F" caption="MP_Sum2_Hair_003_F" />
         <OVERLAY collection="mptuner_overlays" name="MP_Tuner_Hair_000_F" caption="MP_Tuner_Hair_000_F" />
+        <OVERLAY collection="mp202302_overlays" name="MP_2023_02_Hair_000_M" caption="MP_2023_02_Hair_M" />
+        <OVERLAY collection="mp202302_overlays" name="MP_2023_02_Hair_001_F" caption="MP_2023_02_Hair_F" />
       </ZONE_HEAD>
     </USERTYPE_HAIR>
     <TYPE_BADGE>
