@@ -4398,7 +4398,8 @@ enum class VehicleRoofState : int
 	Opened,
 	Closing,
 };
-enum VehicleSeat : int
+enum Vehicle
+	: int
 {
 	SEAT_NONE = -3,
 	SEAT_ANY = -2,
