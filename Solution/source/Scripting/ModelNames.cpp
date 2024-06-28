@@ -216,6 +216,10 @@ void PopulateVehicleModelsArray()
 					case VEHICLE_DRIFTFUTO:
 					case VEHICLE_DRIFTZR350:
 					case VEHICLE_DRIFTFR36:
+					case VEHICLE_DRIFTCYPHER:
+					case VEHICLE_DRIFTNEBULA:
+					case VEHICLE_DRIFTSENTINEL:
+					case VEHICLE_DRIFTVORSCHLAG:
 						g_vehHashes_DRIFT.push_back(dd);
 					break;
 				default:
