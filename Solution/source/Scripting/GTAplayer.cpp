@@ -150,9 +150,9 @@ void GTAplayer::SetControl(bool toggle, int flag)
 
 
 
-bool GTAplayer::operator == (GTAplayer const& right)
+bool GTAplayer::operator == (const GTAplayer& other) const
 {
-	return this->index == right.index;
+	return this->index == other.index;
 }
 
 
