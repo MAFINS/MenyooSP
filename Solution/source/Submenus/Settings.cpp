@@ -461,11 +461,12 @@ namespace sub
 		{
 			AddTitle("Themes");
 
-			bool pressed = 0;
+			bool pressed = false;
 			for (auto& them : vValues_MenyooThemes)
 			{
-				pressed = 0;
-				AddTickol(them.name, them.theme == MenyooTheme::CurrentlyActiveTheme(), pressed, pressed, TICKOL::MAKEUPTHING, TICKOL::NONE);
+				pressed = false;
+				BOOL isActive = (them.theme == MenyooTheme::CurrentlyActiveTheme()) ? TRUE : FALSE;
+				AddTickol(them.name, isActive, pressed, pressed, TICKOL::MAKEUPTHING, TICKOL::NONE, false);
 				if (pressed)
 				{
 					them.theme.SetActive();
