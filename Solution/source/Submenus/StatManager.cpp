@@ -33,7 +33,7 @@ namespace sub
 		const std::array<NamedCharStatList_t, 5> vCharStatLists
 		{ {
 			{ "Cash",{
-				{ "TOTAL_CASH", "Total Cash", StatDataType_t::INT, 0, INT_MAX }
+				{ "TOTAL_CASH", "Total Cash", StatDataType_t::INT, 0, static_cast<int>(INT_MAX) }
 				//{ "TOTAL_CASH_EARNED", "Earned Cash", StatDataType_t::INT, 0, INT_MAX }
 			} },
 			{ "Abilities (ALPHA)",{
@@ -50,8 +50,8 @@ namespace sub
 				{ "SPECIAL_ABILITY_UNLOCKED", "Special Capacity", StatDataType_t::INT, 0, 100 }
 			} },
 			{ "K/D Ratio",{
-				{ "KILLS", "Kill Count", StatDataType_t::INT, 0, INT_MAX },
-				{ "DEATHS", "Death Count", StatDataType_t::INT, 0, INT_MAX }
+				{ "KILLS", "Kill Count", StatDataType_t::INT, 0, static_cast<int>(INT_MAX) },
+				{ "DEATHS", "Death Count", StatDataType_t::INT, 0, static_cast<int>(INT_MAX) }
 			} },
 			{ "Properties",{
 				{ "PROP_BOUGHT_TRAF", "Arms Trafficking", StatDataType_t::BOOL, 0, 0 },
