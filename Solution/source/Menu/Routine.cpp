@@ -99,6 +99,23 @@ void Menu::justopened()
 	SET_THIS_SCRIPT_CAN_BE_PAUSED(0);
 	SET_THIS_SCRIPT_CAN_REMOVE_BLIPS_CREATED_BY_ANY_SCRIPT(0); // lol poopoo dummy me this isn't a ysc
 
+	if (
+		IS_DLC_PRESENT(GET_HASH_KEY("mp2023_01_g9ec")) or
+		IS_DLC_PRESENT(GET_HASH_KEY("mp2023_02_g9ec")) or
+		IS_DLC_PRESENT(GET_HASH_KEY("mpchristmas3_g9ec")) or
+		IS_DLC_PRESENT(GET_HASH_KEY("mpg9ec")) or
+		IS_DLC_PRESENT(GET_HASH_KEY("mpSum2_G9EC")) or
+		IS_DLC_PRESENT(GET_HASH_KEY("patch2023_01_g9ec")) or
+		IS_DLC_PRESENT(GET_HASH_KEY("patchday27g9ecng")) or
+		IS_DLC_PRESENT(GET_HASH_KEY("patchday28g9ecng")) or
+		IS_DLC_PRESENT(GET_HASH_KEY("patchdayg9ecng"))			//this hardcoding needs to get in the bin.
+		)
+	{
+		Game::Print::PrintBottomCentre("~r~Warning~s~: 9th Gen content detected, some instability may occur. See MenyooLog for details.");
+		ige::myLog << ige::LogType::LOG_WARNING << "Gen9 Content found in dlcpacks, this can cause crashes if attempted to be loaded by Menyoo." << std::endl << "				    You can find these in your dlclist.xml by searching for \"g9\" and removing these lines or using a comment." << std::endl << "				    For example: <!--<Item>dlcpacks:/mpg9ec/</Item>-->" << std::endl;
+	}
+
+
 	//sub::SettingsThemes_catind::g_menyooTheme_temp = sub::SettingsThemes_catind::MenyooTheme::CurrentlyActiveTheme();
 
 	sub::PopulateAllPaintIDs();
@@ -550,8 +567,8 @@ void set_sync_clock_time()
 	time_t now = time(0);
 	tm t;
 	localtime_s(&t, &now);
-	NETWORK_OVERRIDE_CLOCK_TIME(t.tm_hour, t.tm_min, t.tm_sec);
-	SET_CLOCK_DATE(t.tm_year + 1900, t.tm_mon, t.tm_mday);
+	SET_CLOCK_DATE(t.tm_mday, t.tm_mon, t.tm_year + 1900);
+	SET_CLOCK_TIME(t.tm_hour, t.tm_min, t.tm_sec);
 }
 
 // Misc - massacre mode

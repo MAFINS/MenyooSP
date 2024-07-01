@@ -678,33 +678,30 @@ namespace sub
 
 		if (paintFade_plus)
 		{
-			if (paintFade < 1.0f)
-				paintFade += 0.02f;
+			paintFade += 0.02f;
+			if (paintFade > 1.0f) paintFade = 1.0f;
 			SET_VEHICLE_ENVEFF_SCALE(Static_12, paintFade);
 		}
 		if (paintFade_minus)
 		{
-			if (paintFade > 0.02f)
-				paintFade -= 0.02f;
+			paintFade -= 0.02f;
+			if (paintFade < 0.0f) paintFade = 0.0f;
 			SET_VEHICLE_ENVEFF_SCALE(Static_12, paintFade);
 		}
 
 		if (dirtLevel_plus)
 		{
-			if (dirtLevel < 15.0f)
-			{
-				dirtLevel += 0.1f;
-				SET_VEHICLE_DIRT_LEVEL(Static_12, dirtLevel);
-			}
+			dirtLevel += 0.1f;
+			if (dirtLevel > 15.0f) dirtLevel = 15.0f;
+			SET_VEHICLE_DIRT_LEVEL(Static_12, dirtLevel);
 		}
 		if (dirtLevel_minus)
 		{
-			if (dirtLevel > 0.0f)
-			{
-				dirtLevel -= 0.1f;
-				SET_VEHICLE_DIRT_LEVEL(Static_12, dirtLevel);
-			}
+			dirtLevel -= 0.1f;
+			if (dirtLevel < 0.0f) dirtLevel = 0.0f;
+			SET_VEHICLE_DIRT_LEVEL(Static_12, dirtLevel);
 		}
+
 		if (carvarcol_input) {
 			std::string inputStr = Game::InputBox("", 4, "Enter a CarVariation index:", std::to_string(carvarcol));
 			if (inputStr.length() > 0)
