@@ -26,7 +26,7 @@ namespace DxHookIMG
 {
 	int DxTexture::globalDrawOrder = -9999;
 
-	bool DxTexture::operator == (const DxTexture& right)
+	bool DxTexture::operator == (const DxTexture& right) const
 	{
 		return (this->id == right.id);
 	}

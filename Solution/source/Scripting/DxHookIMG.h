@@ -27,7 +27,7 @@ namespace DxHookIMG
 
 		static int globalDrawOrder;
 	public:
-		bool operator == (const DxTexture& right);
+		bool operator == (const DxTexture& right) const;
 		DxTexture& operator = (const DxTexture& right);
 
 		/// <summary>
