@@ -71,6 +71,7 @@ namespace AUDIO
 	static void STOP_PED_RINGTONE(Ped ped) { invoke<Void>(0x6C5AE23EFA885092, ped); } // 0x6C5AE23EFA885092 0xFEEA107C b323
 	static BOOL IS_MOBILE_PHONE_CALL_ONGOING() { return invoke<BOOL>(0x7497D2CE2C30D24C); } // 0x7497D2CE2C30D24C 0x4ED1400A b323
 	static BOOL IS_MOBILE_INTERFERENCE_ACTIVE() { return invoke<BOOL>(0xC8B1B2425604CDD0); } // 0xC8B1B2425604CDD0 0x16FB88B5 b323
+	static int GET_CURRENT_TV_SHOW_PLAY_TIME() { return invoke<int>(0xDD3AA743AB7D4D75); } // 0xDD3AA743AB7D4D75 b3095
 	static void CREATE_NEW_SCRIPTED_CONVERSATION() { invoke<Void>(0xD2C91A0B572AAE56); } // 0xD2C91A0B572AAE56 0xB2BC25F8 b323
 	static void ADD_LINE_TO_CONVERSATION(int index, const char* p1, const char* p2, int p3, int p4, BOOL p5, BOOL p6, BOOL p7, BOOL p8, int p9, BOOL p10, BOOL p11, BOOL p12) { invoke<Void>(0xC5EF963405593646, index, p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12); } // 0xC5EF963405593646 0x96CD0513 b323
 	static void ADD_PED_TO_CONVERSATION(int index, Ped ped, const char* p2) { invoke<Void>(0x95D9F4BC443956E7, index, ped, p2); } // 0x95D9F4BC443956E7 0xF8D5EB86 b323
@@ -276,6 +277,7 @@ namespace AUDIO
 	static void PLAY_VEHICLE_DOOR_OPEN_SOUND(Vehicle vehicle, int doorId) { invoke<Void>(0x3A539D52857EA82D, vehicle, doorId); } // 0x3A539D52857EA82D 0x84930330 b323
 	static void PLAY_VEHICLE_DOOR_CLOSE_SOUND(Vehicle vehicle, int doorId) { invoke<Void>(0x62A456AA4769EF34, vehicle, doorId); } // 0x62A456AA4769EF34 0xBA2CF407 b323
 	static void ENABLE_STALL_WARNING_SOUNDS(Vehicle vehicle, BOOL toggle) { invoke<Void>(0xC15907D667F7CFB2, vehicle, toggle); } // 0xC15907D667F7CFB2 0x563B635D b323
+	static void ENABLE_DRAG_RACE_STATIONARY_WARNING_SOUNDS_(Vehicle vehicle, BOOL enable) { invoke<Void>(0xBEFB80290414FD4F, vehicle, enable); } // 0xBEFB80290414FD4F b3095
 	static BOOL IS_GAME_IN_CONTROL_OF_MUSIC() { return invoke<BOOL>(0x6D28DC1671E334FD); } // 0x6D28DC1671E334FD 0x7643170D b323
 	static void SET_GPS_ACTIVE(BOOL active) { invoke<Void>(0x3BD3F52BA9B1E4E8, active); } // 0x3BD3F52BA9B1E4E8 0x0FC3379A b323
 	static void PLAY_MISSION_COMPLETE_AUDIO(const char* audioName) { invoke<Void>(0xB138AAB8A70D3C69, audioName); } // 0xB138AAB8A70D3C69 0x3033EA1D b323
@@ -403,6 +405,7 @@ namespace CAM
 	static void SET_CAM_DOF_FOCUS_DISTANCE_BIAS(Cam camera, float p1) { invoke<Void>(0xC669EEA5D031B7DE, camera, p1); } // 0xC669EEA5D031B7DE b323
 	static void SET_CAM_DOF_MAX_NEAR_IN_FOCUS_DISTANCE(Cam camera, float p1) { invoke<Void>(0xC3654A441402562D, camera, p1); } // 0xC3654A441402562D b323
 	static void SET_CAM_DOF_MAX_NEAR_IN_FOCUS_DISTANCE_BLEND_LEVEL(Cam camera, float p1) { invoke<Void>(0x2C654B4943BDDF7C, camera, p1); } // 0x2C654B4943BDDF7C b323
+	static void SET_CAM_DOF_SHOULD_KEEP_LOOK_AT_TARGET_IN_FOCUS(Cam camera, BOOL state) { invoke<Void>(0x7CF3AF51DCFE4108, camera, state); } // 0x7CF3AF51DCFE4108 b2944
 	static void ATTACH_CAM_TO_ENTITY(Cam cam, Entity entity, float xOffset, float yOffset, float zOffset, BOOL isRelative) { invoke<Void>(0xFEDB7D269E8C60E3, cam, entity, xOffset, yOffset, zOffset, isRelative); } // 0xFEDB7D269E8C60E3 0xAD7C45F6 b323
 	static void ATTACH_CAM_TO_PED_BONE(Cam cam, Ped ped, int boneIndex, float x, float y, float z, BOOL heading) { invoke<Void>(0x61A3DBA14AB7F411, cam, ped, boneIndex, x, y, z, heading); } // 0x61A3DBA14AB7F411 0x506BB35C b323
 	static void HARD_ATTACH_CAM_TO_PED_BONE(Cam cam, Ped ped, int boneIndex, float p3, float p4, float p5, float p6, float p7, float p8, BOOL p9) { invoke<Void>(0x149916F50C34A40D, cam, ped, boneIndex, p3, p4, p5, p6, p7, p8, p9); } // 0x149916F50C34A40D b1180
@@ -507,6 +510,8 @@ namespace CAM
 	static void SET_THIRD_PERSON_CAM_RELATIVE_HEADING_LIMITS_THIS_UPDATE(float minimum, float maximum) { invoke<Void>(0x8F993D26E0CA5E8E, minimum, maximum); } // 0x8F993D26E0CA5E8E 0x749909AC b323
 	static void SET_THIRD_PERSON_CAM_RELATIVE_PITCH_LIMITS_THIS_UPDATE(float minimum, float maximum) { invoke<Void>(0xA516C198B7DCA1E1, minimum, maximum); } // 0xA516C198B7DCA1E1 0xFA3A16E7 b323
 	static void SET_THIRD_PERSON_CAM_ORBIT_DISTANCE_LIMITS_THIS_UPDATE(float p0, float distance) { invoke<Void>(0xDF2E1F7742402E81, p0, distance); } // 0xDF2E1F7742402E81 0x77340650 b323
+	static float GET_THIRD_PERSON_CAM_MIN_ORBIT_DISTANCE_SPRING_() { return invoke<float>(0xBC456FB703431785); } // 0xBC456FB703431785 b3095
+	static float GET_THIRD_PERSON_CAM_MAX_ORBIT_DISTANCE_SPRING_() { return invoke<float>(0xD4592A16D36673ED); } // 0xD4592A16D36673ED b3095
 	static void SET_IN_VEHICLE_CAM_STATE_THIS_UPDATE(Vehicle p0, int p1) { invoke<Void>(0xE9EA16D6E54CDCA4, p0, p1); } // 0xE9EA16D6E54CDCA4 0x4B22C5CB b323
 	static void DISABLE_ON_FOOT_FIRST_PERSON_VIEW_THIS_UPDATE() { invoke<Void>(0xDE2EF5DA284CC8DF); } // 0xDE2EF5DA284CC8DF b323
 	static void DISABLE_FIRST_PERSON_FLASH_EFFECT_THIS_UPDATE() { invoke<Void>(0x59424BD75174C9B1); } // 0x59424BD75174C9B1 b323
@@ -831,6 +836,7 @@ namespace ENTITY
 	static Vector3 GET_WORLD_POSITION_OF_ENTITY_BONE(Entity entity, int boneIndex) { return invoke<Vector3_t>(0x44A8FCB8ED227738, entity, boneIndex); } // 0x44A8FCB8ED227738 0x7C6339DF b323
 	static Player GET_NEAREST_PLAYER_TO_ENTITY(Entity entity) { return invoke<Player>(0x7196842CB375CDB3, entity); } // 0x7196842CB375CDB3 0xCE17FDEC b323
 	static Player GET_NEAREST_PLAYER_TO_ENTITY_ON_TEAM(Entity entity, int team) { return invoke<Player>(0x4DC9A62F844D9337, entity, team); } // 0x4DC9A62F844D9337 0xB1808F56 b323
+	static int GET_NEAREST_PARTICIPANT_TO_ENTITY(Entity entity) { return invoke<int>(0xFFBD7052D65BE0FF, entity); } // 0xFFBD7052D65BE0FF b2944
 	static int GET_ENTITY_TYPE(Entity entity) { return invoke<int>(0x8ACD366038D14505, entity); } // 0x8ACD366038D14505 0x0B1BD08D b323
 	static int GET_ENTITY_POPULATION_TYPE(Entity entity) { return invoke<int>(0xF6F5161F4534EDFF, entity); } // 0xF6F5161F4534EDFF 0xFC30DDFF b323
 	static BOOL IS_AN_ENTITY(ScrHandle handle) { return invoke<BOOL>(0x731EC8A916BD11A1, handle); } // 0x731EC8A916BD11A1 0xD4B9715A b323
@@ -871,6 +877,7 @@ namespace ENTITY
 	static void ATTACH_ENTITY_BONE_TO_ENTITY_BONE(Entity entity1, Entity entity2, int boneIndex1, int boneIndex2, BOOL p4, BOOL p5) { invoke<Void>(0x5C48B75732C8456C, entity1, entity2, boneIndex1, boneIndex2, p4, p5); } // 0x5C48B75732C8456C b791
 	static void ATTACH_ENTITY_BONE_TO_ENTITY_BONE_Y_FORWARD(Entity entity1, Entity entity2, int boneIndex1, int boneIndex2, BOOL p4, BOOL p5) { invoke<Void>(0xFD1695C5D3B05439, entity1, entity2, boneIndex1, boneIndex2, p4, p5); } // 0xFD1695C5D3B05439 b791
 	static void ATTACH_ENTITY_TO_ENTITY_PHYSICALLY(Entity entity1, Entity entity2, int boneIndex1, int boneIndex2, float xPos1, float yPos1, float zPos1, float xPos2, float yPos2, float zPos2, float xRot, float yRot, float zRot, float breakForce, BOOL fixedRot, BOOL p15, BOOL collision, BOOL p17, int p18) { invoke<Void>(0xC3675780C92F90F9, entity1, entity2, boneIndex1, boneIndex2, xPos1, yPos1, zPos1, xPos2, yPos2, zPos2, xRot, yRot, zRot, breakForce, fixedRot, p15, collision, p17, p18); } // 0xC3675780C92F90F9 0x0547417F b323
+	static void ATTACH_ENTITY_TO_ENTITY_PHYSICALLY_OVERRIDE_INVERSE_MASS(Entity firstEntityIndex, Entity secondEntityIndex, int firstEntityBoneIndex, int secondEntityBoneIndex, float secondEntityOffsetX, float secondEntityOffsetY, float secondEntityOffsetZ, float firstEntityOffsetX, float firstEntityOffsetY, float firstEntityOffsetZ, float vecRotationX, float vecRotationY, float vecRotationZ, float physicalStrength, BOOL constrainRotation, BOOL doInitialWarp, BOOL collideWithEntity, BOOL addInitialSeperation, int rotOrder, float invMassScaleA, float invMassScaleB) { invoke<Void>(0x168A09D1B25B0BA4, firstEntityIndex, secondEntityIndex, firstEntityBoneIndex, secondEntityBoneIndex, secondEntityOffsetX, secondEntityOffsetY, secondEntityOffsetZ, firstEntityOffsetX, firstEntityOffsetY, firstEntityOffsetZ, vecRotationX, vecRotationY, vecRotationZ, physicalStrength, constrainRotation, doInitialWarp, collideWithEntity, addInitialSeperation, rotOrder, invMassScaleA, invMassScaleB); } // 0x168A09D1B25B0BA4 b2944
 	static void PROCESS_ENTITY_ATTACHMENTS(Entity entity) { invoke<Void>(0xF4080490ADC51C6F, entity); } // 0xF4080490ADC51C6F 0x6909BA59 b323
 	static int GET_ENTITY_BONE_INDEX_BY_NAME(Entity entity, const char* boneName) { return invoke<int>(0xFB71170B7E76ACBA, entity, boneName); } // 0xFB71170B7E76ACBA 0xE4ECAC22 b323
 	static void CLEAR_ENTITY_LAST_DAMAGE_ENTITY(Entity entity) { invoke<Void>(0xA72CD9CA74A5ECBA, entity); } // 0xA72CD9CA74A5ECBA 0x2B83F43B b323
@@ -1291,6 +1298,7 @@ namespace GRAPHICS
 	static void SET_PARTICLE_FX_LOOPED_ALPHA(int ptfxHandle, float alpha) { invoke<Void>(0x726845132380142E, ptfxHandle, alpha); } // 0x726845132380142E 0x5ED49BE1 b323
 	static void SET_PARTICLE_FX_LOOPED_SCALE(int ptfxHandle, float scale) { invoke<Void>(0xB44250AAA456492D, ptfxHandle, scale); } // 0xB44250AAA456492D 0x099B8B49 b323
 	static void SET_PARTICLE_FX_LOOPED_FAR_CLIP_DIST(int ptfxHandle, float range) { invoke<Void>(0xDCB194B85EF7B541, ptfxHandle, range); } // 0xDCB194B85EF7B541 0x233DE879 b323
+	static void SET_PARTICLE_FX_LOOPED_CAMERA_BIAS_(int ptfxHandle, float p1) { invoke<Void>(0x4100BF0346A8D2C3, ptfxHandle, p1); } // 0x4100BF0346A8D2C3 b3095
 	static void SET_PARTICLE_FX_CAM_INSIDE_VEHICLE(BOOL p0) { invoke<Void>(0xEEC4047028426510, p0); } // 0xEEC4047028426510 0x19EC0001 b323
 	static void SET_PARTICLE_FX_CAM_INSIDE_NONPLAYER_VEHICLE(Vehicle vehicle, BOOL p1) { invoke<Void>(0xACEE6F360FC1F6B6, vehicle, p1); } // 0xACEE6F360FC1F6B6 0x6B125A02 b323
 	static void SET_PARTICLE_FX_SHOOTOUT_BOAT(Any p0) { invoke<Void>(0x96EF97DAEB89BEF5, p0); } // 0x96EF97DAEB89BEF5 0xD938DEE0 b323
@@ -1314,6 +1322,7 @@ namespace GRAPHICS
 	static void USE_PARTICLE_FX_ASSET(const char* name) { invoke<Void>(0x6C38AF3693A69A91, name); } // 0x6C38AF3693A69A91 0x9C720B61 b323
 	static void SET_PARTICLE_FX_OVERRIDE(const char* oldAsset, const char* newAsset) { invoke<Void>(0xEA1E2D93F6F75ED9, oldAsset, newAsset); } // 0xEA1E2D93F6F75ED9 0xC92719A7 b323
 	static void RESET_PARTICLE_FX_OVERRIDE(const char* name) { invoke<Void>(0x89C8553DD3274AAE, name); } // 0x89C8553DD3274AAE 0x9E8D8B72 b323
+	static int START_VEHICLE_PARTICLE_FX_LOOPED_(Vehicle vehicle, const char* effectName, BOOL frontBack, BOOL leftRight, BOOL localOnly) { return invoke<int>(0xDF269BE2909E181A, vehicle, effectName, frontBack, leftRight, localOnly); } // 0xDF269BE2909E181A b3095
 	static void SET_WEATHER_PTFX_USE_OVERRIDE_SETTINGS(BOOL p0) { invoke<Void>(0xA46B73FAA3460AE1, p0); } // 0xA46B73FAA3460AE1 b323
 	static void SET_WEATHER_PTFX_OVERRIDE_CURR_LEVEL(float p0) { invoke<Void>(0xF78B803082D4386F, p0); } // 0xF78B803082D4386F b323
 	static void WASH_DECALS_IN_RANGE(float x, float y, float z, float range, float p4) { invoke<Void>(0x9C30613D50A6ADEF, x, y, z, range, p4); } // 0x9C30613D50A6ADEF 0xDEECBC57 b323
@@ -1355,6 +1364,7 @@ namespace GRAPHICS
 	static void RENDER_SHADOWED_LIGHTS_WITH_NO_SHADOWS(BOOL p0) { invoke<Void>(0x03300B57FCAC6DDB, p0); } // 0x03300B57FCAC6DDB 0x60F72371 b323
 	static void REQUEST_EARLY_LIGHT_CHECK() { invoke<Void>(0x98EDF76A7271E4F2); } // 0x98EDF76A7271E4F2 b323
 	static void USE_SNOW_FOOT_VFX_WHEN_UNSHELTERED(BOOL toggle) { invoke<Void>(0xAEEDAD1420C65CC0, toggle); } // 0xAEEDAD1420C65CC0 0xC53576CA b323
+	static void FORCE_ALLOW_SNOW_FOOT_VFX_ON_ICE_(BOOL toggle) { invoke<Void>(0xA342A3763B3AFB6C, toggle); } // 0xA342A3763B3AFB6C b3095
 	static void USE_SNOW_WHEEL_VFX_WHEN_UNSHELTERED(BOOL toggle) { invoke<Void>(0x4CC7F0FEA5283FE0, toggle); } // 0x4CC7F0FEA5283FE0 0x7158B1EA b323
 	static void DISABLE_REGION_VFX(Any p0) { invoke<Void>(0xEFD97FF47B745B8D, p0); } // 0xEFD97FF47B745B8D b791
 	static void FORCE_GROUND_SNOW_PASS(BOOL toggle) { invoke<Void>(0x6E9EF3A33C8899F8, toggle); } // 0x6E9EF3A33C8899F8 b3095
@@ -1433,6 +1443,7 @@ namespace GRAPHICS
 	static void DRAW_TV_CHANNEL(float xPos, float yPos, float xScale, float yScale, float rotation, int red, int green, int blue, int alpha) { invoke<Void>(0xFDDC2B4ED3C69DF0, xPos, yPos, xScale, yScale, rotation, red, green, blue, alpha); } // 0xFDDC2B4ED3C69DF0 0x8129EF89 b323
 	static void SET_TV_CHANNEL_PLAYLIST(int tvChannel, const char* playlistName, BOOL restart) { invoke<Void>(0xF7B38B8305F1FE8B, tvChannel, playlistName, restart); } // 0xF7B38B8305F1FE8B 0xB262DE67 b323
 	static void SET_TV_CHANNEL_PLAYLIST_AT_HOUR(int tvChannel, const char* playlistName, int hour) { invoke<Void>(0x2201C576FACAEBE8, tvChannel, playlistName, hour); } // 0x2201C576FACAEBE8 0x78C4DCBE b323
+	static void SET_TV_CHANNEL_PLAYLIST_DIRTY_(int tvChannel, BOOL p1) { invoke<Void>(0xEE831F15A8D0D94A, tvChannel, p1); } // 0xEE831F15A8D0D94A b3095
 	static void CLEAR_TV_CHANNEL_PLAYLIST(int tvChannel) { invoke<Void>(0xBEB3D46BB7F043C0, tvChannel); } // 0xBEB3D46BB7F043C0 0xCBE7068F b323
 	static BOOL IS_PLAYLIST_ON_CHANNEL(int tvChannel, Any p1) { return invoke<BOOL>(0x1F710BFF7DAE6261, tvChannel, p1); } // 0x1F710BFF7DAE6261 b1604
 	static BOOL IS_TVSHOW_CURRENTLY_PLAYING(Hash videoCliphash) { return invoke<BOOL>(0x0AD973CA1E077B60, videoCliphash); } // 0x0AD973CA1E077B60 0x4D1EB0FB b323
@@ -1587,6 +1598,7 @@ namespace HUD
 	static BOOL IS_RADAR_HIDDEN() { return invoke<BOOL>(0x157F93B036700462); } // 0x157F93B036700462 0x1AB3B954 b323
 	static BOOL IS_MINIMAP_RENDERING() { return invoke<BOOL>(0xAF754F20EB5CD51A); } // 0xAF754F20EB5CD51A 0x9CD18314 b323
 	static void USE_VEHICLE_TARGETING_RETICULE(Any p0) { invoke<Void>(0x0C698D8F099174C7, p0); } // 0x0C698D8F099174C7 b1180
+	static void USE_VEHICLE_TARGETING_RETICULE_ON_VEHICLES_(BOOL enable) { invoke<Void>(0x1BC0EA2912708625, enable); } // 0x1BC0EA2912708625 b3095
 	static void ADD_VALID_VEHICLE_HIT_HASH(Any p0) { invoke<Void>(0xE4C3B169876D33D7, p0); } // 0xE4C3B169876D33D7 b1290
 	static void CLEAR_VALID_VEHICLE_HIT_HASHES() { invoke<Void>(0xEB81A3DADD503187); } // 0xEB81A3DADD503187 b1290
 	static void SET_BLIP_ROUTE(Blip blip, BOOL enabled) { invoke<Void>(0x4F7D8A9BFB0B43E9, blip, enabled); } // 0x4F7D8A9BFB0B43E9 0x3E160C90 b323
@@ -1620,6 +1632,7 @@ namespace HUD
 	static void SET_TEXT_CENTRE(BOOL align) { invoke<Void>(0xC02F4DBFB51D988B, align); } // 0xC02F4DBFB51D988B 0xE26D39A1 b323
 	static void SET_TEXT_RIGHT_JUSTIFY(BOOL toggle) { invoke<Void>(0x6B3C4650BC8BEE47, toggle); } // 0x6B3C4650BC8BEE47 0x45B60520 b323
 	static void SET_TEXT_JUSTIFICATION(int justifyType) { invoke<Void>(0x4E096588B13FFECA, justifyType); } // 0x4E096588B13FFECA 0x68CDFA60 b323
+	static void SET_TEXT_LINE_HEIGHT_MULT(float lineHeightMult) { invoke<Void>(0x9F4624F76E6953D1, lineHeightMult); } // 0x9F4624F76E6953D1 b3095
 	static void SET_TEXT_WRAP(float start, float end) { invoke<Void>(0x63145D9C883A1A70, start, end); } // 0x63145D9C883A1A70 0x6F60AB54 b323
 	static void SET_TEXT_LEADING(int p0) { invoke<Void>(0xA50ABC31E3CDFAFF, p0); } // 0xA50ABC31E3CDFAFF 0x98CE21D4 b323
 	static void SET_TEXT_PROPORTIONAL(BOOL p0) { invoke<Void>(0x038C1F517D7FDCF8, p0); } // 0x038C1F517D7FDCF8 0xF49D8A08 b323
@@ -1734,6 +1747,7 @@ namespace HUD
 	static void SETUP_FAKE_CONE_DATA(Blip blip, float p1, float p2, float p3, float p4, float p5, float p6, Any p7, int p8) { invoke<Void>(0xF83D0FEBE75E62C9, blip, p1, p2, p3, p4, p5, p6, p7, p8); } // 0xF83D0FEBE75E62C9 b1290
 	static void REMOVE_FAKE_CONE_DATA(Blip blip) { invoke<Void>(0x35A3CD97B2C0A6D2, blip); } // 0x35A3CD97B2C0A6D2 b1290
 	static void CLEAR_FAKE_CONE_ARRAY() { invoke<Void>(0x8410C5E0CD847B9D); } // 0x8410C5E0CD847B9D b1290
+	static void SET_BLIP_GPS_ROUTE_DISPLAY_DISTANCE_(Blip blip, int blipChangeParam46, BOOL blipChangeParam47) { invoke<Void>(0x25D984CFB64ED6DE, blip, blipChangeParam46, blipChangeParam47); } // 0x25D984CFB64ED6DE b3095
 	static BOOL SET_MINIMAP_COMPONENT(int componentId, BOOL toggle, int overrideColor) { return invoke<BOOL>(0x75A9A10948D1DEA6, componentId, toggle, overrideColor); } // 0x75A9A10948D1DEA6 0x419DCDC4 b323
 	static void SET_MINIMAP_SONAR_SWEEP(BOOL toggle) { invoke<Void>(0x6B50FC8749632EC1, toggle); } // 0x6B50FC8749632EC1 b2189
 	static void SHOW_ACCOUNT_PICKER() { invoke<Void>(0x60E892BA4F5BDCA4); } // 0x60E892BA4F5BDCA4 b323
@@ -1750,6 +1764,7 @@ namespace HUD
 	static void HIDE_MINIMAP_EXTERIOR_MAP_THIS_FRAME() { invoke<Void>(0x5FBAE526203990C9); } // 0x5FBAE526203990C9 0x1A4318F7 b323
 	static void HIDE_MINIMAP_INTERIOR_MAP_THIS_FRAME() { invoke<Void>(0x20FE7FDFEEAD38C0); } // 0x20FE7FDFEEAD38C0 0xCE36E3FE b323
 	static void SET_USE_ISLAND_MAP(BOOL toggle) { invoke<Void>(0x5E1460624D194A38, toggle); } // 0x5E1460624D194A38 b2189
+	static void SET_PAUSE_EXTERIOR_RENDERING_WHILE_IN_INTERIOR_() { invoke<Void>(0x35CCE12EAECB4A51); } // 0x35CCE12EAECB4A51 b2944
 	static void DONT_TILT_MINIMAP_THIS_FRAME() { invoke<Void>(0x6D14BFDC33B34F55); } // 0x6D14BFDC33B34F55 0x334EFD46 b323
 	static void DONT_ZOOM_MINIMAP_WHEN_RUNNING_THIS_FRAME() { invoke<Void>(0x89DA85D949CE57A0); } // 0x89DA85D949CE57A0 b2802
 	static void DONT_ZOOM_MINIMAP_WHEN_SNIPING_THIS_FRAME() { invoke<Void>(0x55F5A5F07134DE60); } // 0x55F5A5F07134DE60 0x7A569F78 b1180
@@ -1939,7 +1954,7 @@ namespace HUD
 	static void OPEN_ONLINE_POLICIES_MENU() { invoke<Void>(0x805D7CBB36FD6C4C); } // 0x805D7CBB36FD6C4C 0x19FCBBB2 b323
 	static BOOL ARE_ONLINE_POLICIES_UP_TO_DATE() { return invoke<BOOL>(0xF13FE2A80C05C561); } // 0xF13FE2A80C05C561 0x850690FF b323
 	static BOOL IS_ONLINE_POLICIES_MENU_ACTIVE() { return invoke<BOOL>(0x6F72CD94F7B5B68C); } // 0x6F72CD94F7B5B68C 0x9D4934F4 b323
-	static void OPEN_SOCIAL_CLUB_MENU() { invoke<Void>(0x75D3691713C3B05A); } // 0x75D3691713C3B05A 0x57218529 b323
+	static void OPEN_SOCIAL_CLUB_MENU(Hash menu) { invoke<Void>(0x75D3691713C3B05A, menu); } // 0x75D3691713C3B05A 0x57218529 b323
 	static void CLOSE_SOCIAL_CLUB_MENU() { invoke<Void>(0xD2B32BE3FC1626C6); } // 0xD2B32BE3FC1626C6 0x5F86AA39 b323
 	static void SET_SOCIAL_CLUB_TOUR(const char* name) { invoke<Void>(0x9E778248D6685FE0, name); } // 0x9E778248D6685FE0 0x7AD67C95 b323
 	static BOOL IS_SOCIAL_CLUB_ACTIVE() { return invoke<BOOL>(0xC406BE343FC4B9AF); } // 0xC406BE343FC4B9AF 0xD4DA14EF b323
@@ -2385,6 +2400,8 @@ namespace MISC
 	static void USE_ACTIVE_CAMERA_FOR_TIMESLICING_CENTRE() { invoke<Void>(0x693478ACBD7F18E7); } // 0x693478ACBD7F18E7 b1103
 	static void SET_CONTENT_ID_INDEX(Hash contentId, int index) { invoke<Void>(0x4B82FA6F2D624634, contentId, index); } // 0x4B82FA6F2D624634 b2612
 	static int GET_CONTENT_ID_INDEX(Hash contentId) { return invoke<int>(0xECF041186C5A94DC, contentId); } // 0xECF041186C5A94DC b2612
+	static void SET_CONTENT_PROP_TYPE_(Hash model, int type) { invoke<Void>(0xBA4583AF4C678A9B, model, type); } // 0xBA4583AF4C678A9B b3095
+	static int GET_CONTENT_PROP_TYPE_(Hash model) { return invoke<int>(0x8BAF8AD59F47AAFC, model); } // 0x8BAF8AD59F47AAFC b3095
 }
 
 namespace MOBILE
@@ -2456,7 +2473,7 @@ namespace MONEY
 	static void NETWORK_EARN_FROM_PROPERTY(int amount, Hash propertyName) { invoke<Void>(0x849648349D77F5C5, amount, propertyName); } // 0x849648349D77F5C5 0x9BE4F7E1 b323
 	static void NETWORK_EARN_FROM_AI_TARGET_KILL(Any p0, Any p1) { invoke<Void>(0x515B4A22E4D3C6D7, p0, p1); } // 0x515B4A22E4D3C6D7 0x866004A8 b323
 	static void NETWORK_EARN_FROM_NOT_BADSPORT(int amount) { invoke<Void>(0x4337511FA8221D36, amount); } // 0x4337511FA8221D36 0xCC068380 b323
-	static void NETWORK_EARN_FROM_ROCKSTAR(int amount) { invoke<Void>(0x02CE1D6AC0FC73EA, amount); } // 0x02CE1D6AC0FC73EA 0x5A3733CC b323
+
 	static void NETWORK_EARN_FROM_VEHICLE(Any p0, Any p1, Any p2, Any p3, Any p4, Any p5, Any p6, Any p7) { invoke<Void>(0xB539BD8A4C1EECF8, p0, p1, p2, p3, p4, p5, p6, p7); } // 0xB539BD8A4C1EECF8 0xF803589D b323
 	static void NETWORK_EARN_FROM_PERSONAL_VEHICLE(Any p0, Any p1, Any p2, Any p3, Any p4, Any p5, Any p6, Any p7, Any p8) { invoke<Void>(0x3F4D00167E41E0AD, p0, p1, p2, p3, p4, p5, p6, p7, p8); } // 0x3F4D00167E41E0AD 0x96B8BEE8 b323
 	static void NETWORK_EARN_FROM_DAILY_OBJECTIVES(int amount, const char* type, int characterSlot) { invoke<Void>(0x6EA318C91C1A8786, amount, type, characterSlot); } // 0x6EA318C91C1A8786 0xAB6BD72F b323
@@ -2470,8 +2487,8 @@ namespace MONEY
 	static void NETWORK_EARN_AGENCY(Any p0, Any p1, Any p2, Any p3) { invoke<Void>(0x0CB1BE0633C024A8, p0, p1, p2, p3); } // 0x0CB1BE0633C024A8 b573
 	static void NETWORK_EARN_FROM_WAREHOUSE(int amount, int id) { invoke<Void>(0x3E4ADAFF1830F146, amount, id); } // 0x3E4ADAFF1830F146 b757
 	static void NETWORK_EARN_FROM_CONTRABAND(int amount, Any p1) { invoke<Void>(0xECA658CE2A4E5A72, amount, p1); } // 0xECA658CE2A4E5A72 b757
-	static void NETWORK_EARN_FROM_DESTROYING_CONTRABAND(Any p0) { invoke<Void>(0x84C0116D012E8FC2, p0); } // 0x84C0116D012E8FC2 b757
-	static void NETWORK_EARN_FROM_SMUGGLER_WORK(Any p0, Any p1, Any p2, Any p3, Any p4) { invoke<Void>(0x6B7E4FB50D5F3D65, p0, p1, p2, p3, p4); } // 0x6B7E4FB50D5F3D65 b1180
+	static void NETWORK_EARN_FROM_DESTROYING_CONTRABAND(Any p0, Any p1, Any p2) { invoke<Void>(0x84C0116D012E8FC2, p0, p1, p2); } // 0x84C0116D012E8FC2 b757
+	static void NETWORK_EARN_FROM_SMUGGLER_WORK(Any p0, Any p1, Any p2, Any p3, Any p4, Any p5) { invoke<Void>(0x6B7E4FB50D5F3D65, p0, p1, p2, p3, p4, p5); } // 0x6B7E4FB50D5F3D65 b1180
 	static void NETWORK_EARN_FROM_HANGAR_TRADE(Any p0, Any p1) { invoke<Void>(0x31BA138F6304FB9F, p0, p1); } // 0x31BA138F6304FB9F b1180
 	static void NETWORK_EARN_PURCHASE_CLUB_HOUSE(Any p0, Any p1) { invoke<Void>(0x55A1E095DB052FA5, p0, p1); } // 0x55A1E095DB052FA5 b877
 	static void NETWORK_EARN_FROM_BUSINESS_PRODUCT(int amount, Any p1, Any p2, Any p3) { invoke<Void>(0x8586789730B10CAF, amount, p1, p2, p3); } // 0x8586789730B10CAF b877
@@ -2495,7 +2512,7 @@ namespace MONEY
 	static void NETWORK_SPENT_IN_STRIPCLUB(Any p0, BOOL p1, Any p2, BOOL p3) { invoke<Void>(0xEE99784E4467689C, p0, p1, p2, p3); } // 0xEE99784E4467689C 0x8957038E b323
 	static void NETWORK_BUY_HEALTHCARE(int cost, BOOL p1, BOOL p2) { invoke<Void>(0xD9B067E55253E3DD, cost, p1, p2); } // 0xD9B067E55253E3DD 0x832150E5 b323
 	static void NETWORK_BUY_AIRSTRIKE(int cost, BOOL p1, BOOL p2, Any p3) { invoke<Void>(0x763B4BD305338F19, cost, p1, p2, p3); } // 0x763B4BD305338F19 0x40470683 b323
-	static void NETWORK_BUY_BACKUP_GANG(int p0, int p1, BOOL p2, BOOL p3) { invoke<Void>(0xA3EDDAA42411D3B9, p0, p1, p2, p3); } // 0xA3EDDAA42411D3B9 0x2AD2EC51 b323
+	static void NETWORK_BUY_BACKUP_GANG(int p0, int p1, BOOL p2, BOOL p3, int npcProvider) { invoke<Void>(0xA3EDDAA42411D3B9, p0, p1, p2, p3, npcProvider); } // 0xA3EDDAA42411D3B9 0x2AD2EC51 b323
 	static void NETWORK_BUY_HELI_STRIKE(int cost, BOOL p1, BOOL p2, Any p3) { invoke<Void>(0x81AA4610E3FD3A69, cost, p1, p2, p3); } // 0x81AA4610E3FD3A69 0x047547D4 b323
 	static void NETWORK_SPENT_AMMO_DROP(Any p0, BOOL p1, BOOL p2, Any p3) { invoke<Void>(0xB162DC95C0A3317B, p0, p1, p2, p3); } // 0xB162DC95C0A3317B 0x4B643076 b323
 	static void NETWORK_BUY_BOUNTY(int amount, Player victim, BOOL p2, BOOL p3, Any p4) { invoke<Void>(0x7B718E197453F2D9, amount, victim, p2, p3, p4); } // 0x7B718E197453F2D9 0xCB89CBE0 b323
@@ -2538,7 +2555,7 @@ namespace MONEY
 	static void NETWORK_SPEND_GOON(int p0, int p1, int amount) { invoke<Void>(0x08A1B82B91900682, p0, p1, amount); } // 0x08A1B82B91900682 b573
 	static void NETWORK_SPEND_BOSS(Any p0, Any p1, Any p2) { invoke<Void>(0xDBC966A01C02BCA7, p0, p1, p2); } // 0xDBC966A01C02BCA7 b573
 	static void NETWORK_SPENT_MOVE_YACHT(int amount, BOOL p1, BOOL p2) { invoke<Void>(0xE7DF4E0545DFB56E, amount, p1, p2); } // 0xE7DF4E0545DFB56E b573
-	static void NETWORK_SPENT_RENAME_ORGANIZATION(Any p0, Any p1, Any p2) { invoke<Void>(0xFC4EE00A7B3BFB76, p0, p1, p2); } // 0xFC4EE00A7B3BFB76 b573
+	static void NETWORK_SPENT_RENAME_ORGANIZATION(Any p0, Any p1, Any p2, Any p3) { invoke<Void>(0xFC4EE00A7B3BFB76, p0, p1, p2, p3); } // 0xFC4EE00A7B3BFB76 b573
 	static void NETWORK_BUY_CONTRABAND_MISSION(int p0, int p1, Hash p2, BOOL p3, BOOL p4) { invoke<Void>(0x30FD873ECE50E9F6, p0, p1, p2, p3, p4); } // 0x30FD873ECE50E9F6 b757
 	static void NETWORK_SPENT_PA_SERVICE_HELI(Any p0, Any p1, Any p2, Any p3) { invoke<Void>(0x112209CE0290C03A, p0, p1, p2, p3); } // 0x112209CE0290C03A b757
 	static void NETWORK_SPENT_PA_SERVICE_VEHICLE(Any p0, Any p1, Any p2, Any p3) { invoke<Void>(0xED5FD7AF10F5E262, p0, p1, p2, p3); } // 0xED5FD7AF10F5E262 b757
@@ -2546,8 +2563,8 @@ namespace MONEY
 	static void NETWORK_SPENT_PA_SERVICE_DANCER(Any p0, Any p1, Any p2, Any p3) { invoke<Void>(0xB49ECA122467D05F, p0, p1, p2, p3); } // 0xB49ECA122467D05F b757
 	static void NETWORK_SPENT_PA_SERVICE_IMPOUND(Any p0, Any p1, Any p2) { invoke<Void>(0xE23ADC6FCB1F29AE, p0, p1, p2); } // 0xE23ADC6FCB1F29AE b757
 	static void NETWORK_SPENT_PA_HELI_PICKUP(Any p0, Any p1, Any p2, Any p3) { invoke<Void>(0x0FE8E1FCD2B86B33, p0, p1, p2, p3); } // 0x0FE8E1FCD2B86B33 b757
-	static void NETWORK_SPENT_PURCHASE_OFFICE_PROPERTY(Any p0, Any p1, Any p2, Any p3) { invoke<Void>(0x69EF772B192614C1, p0, p1, p2, p3); } // 0x69EF772B192614C1 b757
-	static void NETWORK_SPENT_UPGRADE_OFFICE_PROPERTY(Any p0, Any p1, Any p2, Any p3) { invoke<Void>(0x8E243837643D9583, p0, p1, p2, p3); } // 0x8E243837643D9583 b757
+	static void NETWORK_SPENT_PURCHASE_OFFICE_PROPERTY(Any p0, Any p1, Any p2, Any p3, Any p4) { invoke<Void>(0x69EF772B192614C1, p0, p1, p2, p3, p4); } // 0x69EF772B192614C1 b757
+	static void NETWORK_SPENT_UPGRADE_OFFICE_PROPERTY(Any p0, Any p1, Any p2, Any p3, Any p4) { invoke<Void>(0x8E243837643D9583, p0, p1, p2, p3, p4); } // 0x8E243837643D9583 b757
 	static void NETWORK_SPENT_PURCHASE_WAREHOUSE_PROPERTY(Any p0, Any p1, Any p2, Any p3) { invoke<Void>(0xBD0EFB25CCA8F97A, p0, p1, p2, p3); } // 0xBD0EFB25CCA8F97A b757
 	static void NETWORK_SPENT_UPGRADE_WAREHOUSE_PROPERTY(Any p0, Any p1, Any p2, Any p3) { invoke<Void>(0xA95F667A755725DA, p0, p1, p2, p3); } // 0xA95F667A755725DA b757
 	static void NETWORK_SPENT_PURCHASE_IMPEXP_WAREHOUSE_PROPERTY(int amount, Any* data, BOOL p2, BOOL p3) { invoke<Void>(0x33981D6804E62F49, amount, data, p2, p3); } // 0x33981D6804E62F49 b944
@@ -2745,6 +2762,17 @@ namespace MONEY
 	static void _NETWORK_EARN_TAXI_JOB(Any p0, Any p1) { invoke<Void>(0x991E1588FAD9019D, p0, p1); } // 0x991E1588FAD9019D b2802
 	static void _NETWORK_EARN_DAILY_STASH_HOUSE_COMPLETED(Any p0, Any p1) { invoke<Void>(0xCABC9874AFA70D6D, p0, p1); } // 0xCABC9874AFA70D6D b2802
 	static void _NETWORK_EARN_DAILY_STASH_HOUSE_PARTICIPATION(Any p0, Any p1) { invoke<Void>(0x9C0C6BD0F94CE391, p0, p1); } // 0x9C0C6BD0F94CE391 b2802
+	static void NETWORK_EARN_AVENGER_(int amount, int p1) { invoke<Void>(0x55F006B9D4A46C1D, amount, p1); } // 0x55F006B9D4A46C1D b2944
+	static void NETWORK_EARN_SMUGGLER_OPS_(Any p0, Any p1, Any p2) { invoke<Void>(0xDEA273D5F8A9661A, p0, p1, p2); } // 0xDEA273D5F8A9661A b2944
+	static void NETWORK_EARN_BONUS_OBJECTIVE_(int amount, Any p1, Any p2) { invoke<Void>(0xDCEF983C24191997, amount, p1, p2); } // 0xDCEF983C24191997 b2944
+	static void NETWORK_EARN_PROGRESS_HUB_(Any p0, Any p1) { invoke<Void>(0xF8332B06F0EECC9C, p0, p1); } // 0xF8332B06F0EECC9C b2944
+	static void NETWORK_SPENT_AIR_FREIGHT_(int hangarCargoSourcingPrice, BOOL fromBank, BOOL fromBankAndWallet, int cost, int warehouseId, int warehouseSlot) { invoke<Void>(0x8C7E8D6F96C9E948, hangarCargoSourcingPrice, fromBank, fromBankAndWallet, cost, warehouseId, warehouseSlot); } // 0x8C7E8D6F96C9E948 b2944
+	static void NETWORK_SPENT_SKIP_CARGO_SOURCE_SETUP_(int amount, BOOL fromBank, BOOL fromBankAndWallet, int cost) { invoke<Void>(0xED1B407BADA42CEC, amount, fromBank, fromBankAndWallet, cost); } // 0xED1B407BADA42CEC b2944
+	static void NETWORK_SPENT_STEALTH_MODULE_(int amount, BOOL fromBank, BOOL fromBankAndWallet, Hash p3) { invoke<Void>(0x95CE79A6939C537A, amount, fromBank, fromBankAndWallet, p3); } // 0x95CE79A6939C537A b2944
+	static void NETWORK_SPENT_MISSILE_JAMMER_(int amount, BOOL fromBank, BOOL fromBankAndWallet, Hash p3) { invoke<Void>(0xD687100F616163F4, amount, fromBank, fromBankAndWallet, p3); } // 0xD687100F616163F4 b2944
+	static void NETWORK_SPENT_GENERIC_(int price, BOOL p1, BOOL p2, Hash stat, Hash spent, const char* p5, const char* p6, Any* data) { invoke<Void>(0x2803B027479FB640, price, p1, p2, stat, spent, p5, p6, data); } // 0x2803B027479FB640 b3095
+	static void NETWORK_EARN_GENERIC_(int amount, Hash earn, const char* p2, const char* p3, Any* data) { invoke<Void>(0xBF7B5BB7ED890380, amount, earn, p2, p3, data); } // 0xBF7B5BB7ED890380 b3095
+	static void NETWORK_CLEAR_TRANSACTION_TELEMETRY_NONCE_() { invoke<Void>(0xE03B9F95556E48E9); } // 0xE03B9F95556E48E9 b3095
 	static int NETWORK_GET_VC_BANK_BALANCE() { return invoke<int>(0x76EF28DA05EA395A); } // 0x76EF28DA05EA395A 0x16184FB5 b323
 	static int NETWORK_GET_VC_WALLET_BALANCE(int characterSlot) { return invoke<int>(0xA40F9C2623F6A8B5, characterSlot); } // 0xA40F9C2623F6A8B5 0x4F5B781C b323
 	static int NETWORK_GET_VC_BALANCE() { return invoke<int>(0x5CBAD97E059E1B94); } // 0x5CBAD97E059E1B94 0xADF8F882 b323
@@ -2752,7 +2780,7 @@ namespace MONEY
 	static int NETWORK_GET_PVC_BALANCE() { return invoke<int>(0x4F54F3B6C202FB4E); } // 0x4F54F3B6C202FB4E 0x56485B56 b323
 	static const char* NETWORK_GET_STRING_WALLET_BALANCE(int characterSlot) { return invoke<const char*>(0xF9B10B529DCFB33B, characterSlot); } // 0xF9B10B529DCFB33B 0xC1A11435 b323
 	static const char* NETWORK_GET_STRING_BANK_BALANCE() { return invoke<const char*>(0xA6FA3979BED01B81); } // 0xA6FA3979BED01B81 0xAA7EA3BD b323
-	static const char* NETWORK_GET_STRING_BANK_WALLET_BALANCE() { return invoke<const char*>(0x700AF71AE615E6DD); } // 0x700AF71AE615E6DD 0x7D4FD28C b323
+	static const char* NETWORK_GET_STRING_BANK_WALLET_BALANCE(int character) { return invoke<const char*>(0x700AF71AE615E6DD, character); } // 0x700AF71AE615E6DD 0x7D4FD28C b323
 	static BOOL NETWORK_GET_CAN_SPEND_FROM_WALLET(int amount, int characterSlot) { return invoke<BOOL>(0xED5AB8860415BABA, amount, characterSlot); } // 0xED5AB8860415BABA 0x0EA2188C b323
 	static BOOL NETWORK_GET_CAN_SPEND_FROM_BANK(int amount) { return invoke<BOOL>(0xA31FD6A0865B6D14, amount); } // 0xA31FD6A0865B6D14 0xABED6020 b323
 	static BOOL NETWORK_GET_CAN_SPEND_FROM_BANK_AND_WALLET(int amount, int characterSlot) { return invoke<BOOL>(0xDC18531D7019A535, amount, characterSlot); } // 0xDC18531D7019A535 0xCA23FD25 b323
@@ -2832,6 +2860,7 @@ namespace NETWORK
 	static BOOL NETWORK_HAS_AGE_RESTRICTIONS() { return invoke<BOOL>(0x1353F87E89946207); } // 0x1353F87E89946207 b323
 	static BOOL NETWORK_HAVE_USER_CONTENT_PRIVILEGES(int p0) { return invoke<BOOL>(0x72D918C99BCACC54, p0); } // 0x72D918C99BCACC54 0x1F88819D b323
 	static BOOL NETWORK_HAVE_COMMUNICATION_PRIVILEGES(int p0, Player player) { return invoke<BOOL>(0xAEEF48CDF5B6CE7C, p0, player); } // 0xAEEF48CDF5B6CE7C 0x2D817A5E b323
+	static BOOL NETWORK_HAVE_PLATFORM_COMMUNICATION_PRIVILEGES_() { return invoke<BOOL>(0xE1E02509169C124E); } // 0xE1E02509169C124E b3095
 	static BOOL NETWORK_CHECK_ONLINE_PRIVILEGES(Any p0, BOOL p1) { return invoke<BOOL>(0x78321BEA235FD8CD, p0, p1); } // 0x78321BEA235FD8CD b323
 	static BOOL NETWORK_CHECK_USER_CONTENT_PRIVILEGES(int p0, int p1, BOOL p2) { return invoke<BOOL>(0x595F028698072DD9, p0, p1, p2); } // 0x595F028698072DD9 0xBB54AA3D b323
 	static BOOL NETWORK_CHECK_COMMUNICATION_PRIVILEGES(int p0, int p1, BOOL p2) { return invoke<BOOL>(0x83F28CE49FBBFFBA, p0, p1, p2); } // 0x83F28CE49FBBFFBA 0xA79E5B05 b323
@@ -2858,8 +2887,8 @@ namespace NETWORK
 	static BOOL NETWORK_CAN_ACCESS_MULTIPLAYER(int* loadingState) { return invoke<BOOL>(0xAF50DA1A3F8B1BA4, loadingState); } // 0xAF50DA1A3F8B1BA4 0xA520B982 b323
 	static BOOL NETWORK_IS_MULTIPLAYER_DISABLED() { return invoke<BOOL>(0x9747292807126EDA); } // 0x9747292807126EDA 0x05518C0F b323
 	static BOOL NETWORK_CAN_ENTER_MULTIPLAYER() { return invoke<BOOL>(0x7E782A910C362C25); } // 0x7E782A910C362C25 0x4A23B9C9 b323
-	static BOOL NETWORK_SESSION_DO_FREEROAM_QUICKMATCH(Any p0, Any p1, Any p2, int maxPlayers) { return invoke<BOOL>(0x330ED4D05491934F, p0, p1, p2, maxPlayers); } // 0x330ED4D05491934F b323
-	static BOOL NETWORK_SESSION_DO_FRIEND_MATCHMAKING(int p0, int p1, int maxPlayers) { return invoke<BOOL>(0x2CFC76E0D087C994, p0, p1, maxPlayers); } // 0x2CFC76E0D087C994 b323
+	static BOOL NETWORK_SESSION_DO_FREEROAM_QUICKMATCH(Any p0, Any p1, Any p2) { return invoke<BOOL>(0x330ED4D05491934F, p0, p1, p2); } // 0x330ED4D05491934F b323
+	static BOOL NETWORK_SESSION_DO_FRIEND_MATCHMAKING(int p0, int p1, int p2) { return invoke<BOOL>(0x2CFC76E0D087C994, p0, p1, p2); } // 0x2CFC76E0D087C994 b323
 	static BOOL NETWORK_SESSION_DO_CREW_MATCHMAKING(int crewId, int p1, int p2, int maxPlayers) { return invoke<BOOL>(0x94BC51E9449D917F, crewId, p1, p2, maxPlayers); } // 0x94BC51E9449D917F b323
 	static BOOL NETWORK_SESSION_DO_ACTIVITY_QUICKMATCH(Any p0, Any p1, Any p2, Any p3, Any p4) { return invoke<BOOL>(0xBE3E347A87ACEB82, p0, p1, p2, p3, p4); } // 0xBE3E347A87ACEB82 b323
 	static BOOL NETWORK_SESSION_HOST(int p0, int maxPlayers, BOOL p2) { return invoke<BOOL>(0x6F3D4ED9BEE4E61D, p0, maxPlayers, p2); } // 0x6F3D4ED9BEE4E61D 0x6716460F b323
@@ -2869,6 +2898,7 @@ namespace NETWORK
 	static BOOL NETWORK_SESSION_IS_CLOSED_CREW() { return invoke<BOOL>(0x74732C6CA90DA2B4); } // 0x74732C6CA90DA2B4 0xA95299B9 b323
 	static BOOL NETWORK_SESSION_IS_SOLO() { return invoke<BOOL>(0xF3929C2379B60CCE); } // 0xF3929C2379B60CCE 0x3D2C1916 b323
 	static BOOL NETWORK_SESSION_IS_PRIVATE() { return invoke<BOOL>(0xCEF70AA5B3F89BA1); } // 0xCEF70AA5B3F89BA1 0xDB67785D b323
+	static BOOL NETWORK_SESSION_LEAVE_INCLUDING_REASON_(int leaveFlags, int leaveReason) { return invoke<BOOL>(0xE0128328CF1FD9F4, leaveFlags, leaveReason); } // 0xE0128328CF1FD9F4 b3095
 	static BOOL NETWORK_SESSION_END(BOOL p0, BOOL p1) { return invoke<BOOL>(0xA02E59562D711006, p0, p1); } // 0xA02E59562D711006 0xBCACBEA2 b323
 	static BOOL NETWORK_SESSION_LEAVE(Any p0) { return invoke<BOOL>(0xB9351A07A0D458B1, p0); } // 0xB9351A07A0D458B1 b2060
 	static void NETWORK_SESSION_KICK_PLAYER(Player player) { invoke<Void>(0xFA8904DC5F304220, player); } // 0xFA8904DC5F304220 0x1E20138A b323
@@ -2881,6 +2911,7 @@ namespace NETWORK
 	static int NETWORK_SESSION_GET_MATCHMAKING_GROUP_FREE(int p0) { return invoke<int>(0x56CE820830EF040B, p0); } // 0x56CE820830EF040B 0x36EAD960 b323
 	static void NETWORK_SESSION_ADD_ACTIVE_MATCHMAKING_GROUP(int groupId) { invoke<Void>(0xCAE55F48D3D7875C, groupId); } // 0xCAE55F48D3D7875C 0x5BE529F7 b323
 	static void NETWORK_SESSION_SET_UNIQUE_CREW_LIMIT(Any p0) { invoke<Void>(0xF49ABC20D8552257, p0); } // 0xF49ABC20D8552257 0x454C7B67 b323
+	static int NETWORK_SESSION_GET_UNIQUE_CREW_LIMIT() { return invoke<int>(0xCDC936BF35EDCB73); } // 0xCDC936BF35EDCB73 b3095
 	static void NETWORK_SESSION_SET_UNIQUE_CREW_LIMIT_TRANSITION(Any p0) { invoke<Void>(0x4811BBAC21C5FCD5, p0); } // 0x4811BBAC21C5FCD5 0xE5961511 b323
 	static void NETWORK_SESSION_SET_UNIQUE_CREW_ONLY_CREWS_TRANSITION(BOOL p0) { invoke<Void>(0x5539C3EBF104A53A, p0); } // 0x5539C3EBF104A53A 0xAE396263 b323
 	static void NETWORK_SESSION_SET_CREW_LIMIT_MAX_MEMBERS_TRANSITION(Any p0) { invoke<Void>(0x702BC4D605522539, p0); } // 0x702BC4D605522539 0x913FD7D6 b323
@@ -2931,6 +2962,7 @@ namespace NETWORK
 	static BOOL NETWORK_IS_GAME_IN_PROGRESS() { return invoke<BOOL>(0x10FAB35428CCC9D7); } // 0x10FAB35428CCC9D7 0x09B88E3E b323
 	static BOOL NETWORK_IS_SESSION_ACTIVE() { return invoke<BOOL>(0xD83C2B94E7508980); } // 0xD83C2B94E7508980 0x715CB8C4 b323
 	static BOOL NETWORK_IS_IN_SESSION() { return invoke<BOOL>(0xCA97246103B63917); } // 0xCA97246103B63917 0x4BC4105E b323
+	static BOOL NETWORK_IS_AMERICAS_VERSION_() { return invoke<BOOL>(0x0292BD7F3766CEBC); } // 0x0292BD7F3766CEBC b3095
 	static BOOL NETWORK_IS_SESSION_STARTED() { return invoke<BOOL>(0x9DE624D2FC4B603F); } // 0x9DE624D2FC4B603F 0x9D854A37 b323
 	static BOOL NETWORK_IS_SESSION_BUSY() { return invoke<BOOL>(0xF4435D66A8E2905E); } // 0xF4435D66A8E2905E 0x8592152D b323
 	static BOOL NETWORK_CAN_SESSION_END() { return invoke<BOOL>(0x4EEBC3694E49C572); } // 0x4EEBC3694E49C572 0xE1FCCDBA b323
@@ -3070,9 +3102,9 @@ namespace NETWORK
 	static BOOL NETWORK_PLAYER_IS_CHEATER() { return invoke<BOOL>(0x655B91F1495A9090); } // 0x655B91F1495A9090 0xA51DC214 b323
 	static int NETWORK_PLAYER_GET_CHEATER_REASON() { return invoke<int>(0x172F75B6EE2233BA); } // 0x172F75B6EE2233BA 0x1720ABA6 b323
 	static BOOL NETWORK_PLAYER_IS_BADSPORT() { return invoke<BOOL>(0x19D8DA0E5A68045A); } // 0x19D8DA0E5A68045A 0xA19708E3 b323
-	static BOOL TRIGGER_PLAYER_CRC_HACKER_CHECK(Player player, int p1, Hash scriptHash) { return invoke<BOOL>(0x46FB3ED415C7641C, player, p1, scriptHash); } // 0x46FB3ED415C7641C 0xF9A51B92 b323
-	static BOOL TRIGGER_TUNING_CRC_HACKER_CHECK(Player player, const char* p1, const char* p2) { return invoke<BOOL>(0xA12D3A5A3753CC23, player, p1, p2); } // 0xA12D3A5A3753CC23 b1103
-	static BOOL TRIGGER_FILE_CRC_HACKER_CHECK(Player player, const char* p1) { return invoke<BOOL>(0xF287F506767CC8A9, player, p1); } // 0xF287F506767CC8A9 b1103
+
+
+
 	static BOOL REMOTE_CHEATER_PLAYER_DETECTED(Player player, int a, int b) { return invoke<BOOL>(0x472841A026D26D8B, player, a, b); } // 0x472841A026D26D8B b1103
 	static BOOL BAD_SPORT_PLAYER_LEFT_DETECTED(Any* gamerHandle, int event, int amountReceived) { return invoke<BOOL>(0xEC5E3AF5289DCA81, gamerHandle, event, amountReceived); } // 0xEC5E3AF5289DCA81 0x4C2C6B6A b323
 	static void NETWORK_ADD_INVALID_OBJECT_MODEL(Hash modelHash) { invoke<Void>(0x7F562DBC212E81F9, modelHash); } // 0x7F562DBC212E81F9 b2545
@@ -3125,6 +3157,7 @@ namespace NETWORK
 	static void NETWORK_SET_CURRENT_CHAT_OPTION(int newChatOption) { invoke<Void>(0x3DAD00265FBF356B, newChatOption); } // 0x3DAD00265FBF356B b2802
 	static void NETWORK_SET_CURRENT_SPAWN_LOCATION_OPTION(Hash mpSettingSpawn) { invoke<Void>(0xAA6D5451DC3448B6, mpSettingSpawn); } // 0xAA6D5451DC3448B6 b2699
 	static void NETWORK_SET_VEHICLE_DRIVEN_IN_TEST_DRIVE(BOOL toggle) { invoke<Void>(0x8C70252FC40F320B, toggle); } // 0x8C70252FC40F320B b2699
+	static void NETWORK_SET_VEHICLE_DRIVEN_LOCATION(Hash location) { invoke<Void>(0xA0CE91E47531D3BB, location); } // 0xA0CE91E47531D3BB b2944
 	static void NETWORK_RESURRECT_LOCAL_PLAYER(float x, float y, float z, float heading, BOOL p4, BOOL changetime, BOOL p6, int p7, int p8) { invoke<Void>(0xEA23C49EAA83ACFB, x, y, z, heading, p4, changetime, p6, p7, p8); } // 0xEA23C49EAA83ACFB 0xF1F9D4B4 b323
 	static void NETWORK_SET_LOCAL_PLAYER_INVINCIBLE_TIME(int time) { invoke<Void>(0x2D95C7E2D7E07307, time); } // 0x2D95C7E2D7E07307 0xFEA9B85C b323
 	static BOOL NETWORK_IS_LOCAL_PLAYER_INVINCIBLE() { return invoke<BOOL>(0x8A8694B48715B000); } // 0x8A8694B48715B000 0x8DE13B36 b323
@@ -3199,6 +3232,9 @@ namespace NETWORK
 	static BOOL NETWORK_GET_PLAYER_OWNS_WAYPOINT(Player player) { return invoke<BOOL>(0x82377B65E943F72D, player); } // 0x82377B65E943F72D 0xB802B671 b323
 	static BOOL NETWORK_CAN_SET_WAYPOINT() { return invoke<BOOL>(0xC927EC229934AF60); } // 0xC927EC229934AF60 0x009E68F3 b323
 	static void NETWORK_IGNORE_REMOTE_WAYPOINTS() { invoke<Void>(0x4C2A9FDC22377075); } // 0x4C2A9FDC22377075 b372
+	static BOOL NETWORK_DOES_COMMUNICATION_GROUP_EXIST_(int communicationType) { return invoke<BOOL>(0xDBDF80673BBA3D65, communicationType); } // 0xDBDF80673BBA3D65 b3095
+	static int NETWORK_GET_COMMUNICATION_GROUP_FLAGS_(int communicationType) { return invoke<int>(0x40DF02F371F40883, communicationType); } // 0x40DF02F371F40883 b3095
+	static void NETWORK_SET_COMMUNICATION_GROUP_FLAGS_(int communicationType, int communicationGroupFlag) { invoke<Void>(0xE549F846DE7D32D5, communicationType, communicationGroupFlag); } // 0xE549F846DE7D32D5 b3095
 	static BOOL NETWORK_IS_PLAYER_ON_BLOCKLIST(Any* gamerHandle) { return invoke<BOOL>(0xAD4326FCA30D62F8, gamerHandle); } // 0xAD4326FCA30D62F8 b2802
 	static BOOL NETWORK_SET_SCRIPT_AUTOMUTED(Any p0) { return invoke<BOOL>(0xB309EBEA797E001F, p0); } // 0xB309EBEA797E001F 0x5C0AB2A9 b323
 	static BOOL NETWORK_HAS_AUTOMUTE_OVERRIDE() { return invoke<BOOL>(0x26F07DD83A5F7F98); } // 0x26F07DD83A5F7F98 0x9A176B6E b323
@@ -3303,17 +3339,17 @@ namespace NETWORK
 	static void NETWORK_SET_ENTITY_ONLY_EXISTS_FOR_PARTICIPANTS(Entity entity, BOOL toggle) { invoke<Void>(0xF1CA12B18AEF5298, entity, toggle); } // 0xF1CA12B18AEF5298 0x09CBC4B0 b323
 	static void SET_NETWORK_ID_VISIBLE_IN_CUTSCENE(int netId, BOOL p1, BOOL p2) { invoke<Void>(0xA6928482543022B4, netId, p1, p2); } // 0xA6928482543022B4 0x199E75EF b323
 	static void SET_NETWORK_ID_VISIBLE_IN_CUTSCENE_HACK(int netId, BOOL p1, BOOL p2) { invoke<Void>(0x32EBD154CB6B8B99, netId, p1, p2); } // 0x32EBD154CB6B8B99 b505
-	static void SET_NETWORK_ID_VISIBLE_IN_CUTSCENE_REMAIN_HACK(Any p0, Any p1) { invoke<Void>(0x76B3F29D3F967692, p0, p1); } // 0x76B3F29D3F967692 b2189
+	static void SET_NETWORK_ID_VISIBLE_IN_CUTSCENE_REMAIN_HACK(Any p0, Any p1, Any p2) { invoke<Void>(0x76B3F29D3F967692, p0, p1, p2); } // 0x76B3F29D3F967692 b2189
 	static void SET_NETWORK_CUTSCENE_ENTITIES(BOOL toggle) { invoke<Void>(0xAAA553E7DD28A457, toggle); } // 0xAAA553E7DD28A457 0xFD0F7EDD b323
 	static BOOL ARE_CUTSCENE_ENTITIES_NETWORKED() { return invoke<BOOL>(0x66D6A5E9C511214A); } // 0x66D6A5E9C511214A b2699
 	static void SET_NETWORK_ID_PASS_CONTROL_IN_TUTORIAL(int netId, BOOL state) { invoke<Void>(0x3FA36981311FA4FF, netId, state); } // 0x3FA36981311FA4FF 0x00AE4E17 b323
 	static BOOL IS_NETWORK_ID_OWNED_BY_PARTICIPANT(int netId) { return invoke<BOOL>(0xA1607996431332DF, netId); } // 0xA1607996431332DF 0xEA5176C0 b323
 	static void SET_REMOTE_PLAYER_VISIBLE_IN_CUTSCENE(Player player, BOOL locallyVisible) { invoke<Void>(0x96320E6549DAE7B4, player, locallyVisible); } // 0x96320E6549DAE7B4 b2802
 	static void SET_LOCAL_PLAYER_VISIBLE_IN_CUTSCENE(BOOL p0, BOOL p1) { invoke<Void>(0xD1065D68947E7B6E, p0, p1); } // 0xD1065D68947E7B6E 0x59F3479B b323
-	static void SET_LOCAL_PLAYER_INVISIBLE_LOCALLY(BOOL p0) { invoke<Void>(0xE5F773C1A1D9D168, p0); } // 0xE5F773C1A1D9D168 0x764F6222 b323
-	static void SET_LOCAL_PLAYER_VISIBLE_LOCALLY(BOOL p0) { invoke<Void>(0x7619364C82D3BF14, p0); } // 0x7619364C82D3BF14 0x324B56DB b323
-	static void SET_PLAYER_INVISIBLE_LOCALLY(Player player, BOOL toggle) { invoke<Void>(0x12B37D54667DB0B8, player, toggle); } // 0x12B37D54667DB0B8 0x18227209 b323
-	static void SET_PLAYER_VISIBLE_LOCALLY(Player player, BOOL toggle) { invoke<Void>(0xFAA10F1FAFB11AF2, player, toggle); } // 0xFAA10F1FAFB11AF2 0xBA2BB4B4 b323
+	static void SET_LOCAL_PLAYER_INVISIBLE_LOCALLY(BOOL bIncludePlayersVehicle) { invoke<Void>(0xE5F773C1A1D9D168, bIncludePlayersVehicle); } // 0xE5F773C1A1D9D168 0x764F6222 b323
+	static void SET_LOCAL_PLAYER_VISIBLE_LOCALLY(BOOL bIncludePlayersVehicle) { invoke<Void>(0x7619364C82D3BF14, bIncludePlayersVehicle); } // 0x7619364C82D3BF14 0x324B56DB b323
+	static void SET_PLAYER_INVISIBLE_LOCALLY(Player player, BOOL bIncludePlayersVehicle) { invoke<Void>(0x12B37D54667DB0B8, player, bIncludePlayersVehicle); } // 0x12B37D54667DB0B8 0x18227209 b323
+	static void SET_PLAYER_VISIBLE_LOCALLY(Player player, BOOL bIncludePlayersVehicle) { invoke<Void>(0xFAA10F1FAFB11AF2, player, bIncludePlayersVehicle); } // 0xFAA10F1FAFB11AF2 0xBA2BB4B4 b323
 	static void FADE_OUT_LOCAL_PLAYER(BOOL p0) { invoke<Void>(0x416DBD4CD6ED8DD2, p0); } // 0x416DBD4CD6ED8DD2 0x8FA7CEBD b323
 	static void NETWORK_FADE_OUT_ENTITY(Entity entity, BOOL normal, BOOL slow) { invoke<Void>(0xDE564951F95E09ED, entity, normal, slow); } // 0xDE564951F95E09ED 0x47EDEE56 b323
 	static void NETWORK_FADE_IN_ENTITY(Entity entity, BOOL state, Any p2) { invoke<Void>(0x1F4ED342ACEFE62D, entity, state, p2); } // 0x1F4ED342ACEFE62D 0x9B9FCD02 b323
@@ -3575,6 +3611,7 @@ namespace NETWORK
 	static const char* UGC_GET_CACHED_DESCRIPTION(Any p0, Any p1) { return invoke<const char*>(0x40F7E66472DF3E5C, p0, p1); } // 0x40F7E66472DF3E5C 0x70A2845C b323
 	static BOOL UGC_RELEASE_CACHED_DESCRIPTION(Any p0) { return invoke<BOOL>(0x5A34CD9C3C5BEC44, p0); } // 0x5A34CD9C3C5BEC44 0x346B506C b323
 	static void UGC_RELEASE_ALL_CACHED_DESCRIPTIONS() { invoke<Void>(0x68103E2247887242); } // 0x68103E2247887242 0x0095DB71 b323
+	static BOOL UGC_HAS_PERMISSION_TO_WRITE() { return invoke<BOOL>(0xC33E7CBC06EC1A8D); } // 0xC33E7CBC06EC1A8D b3095
 	static BOOL UGC_PUBLISH(const char* contentId, const char* baseContentId, const char* contentTypeName) { return invoke<BOOL>(0x1DE0F5F50D723CAA, contentId, baseContentId, contentTypeName); } // 0x1DE0F5F50D723CAA 0xAD334B40 b323
 	static BOOL UGC_SET_BOOKMARKED(const char* contentId, BOOL bookmarked, const char* contentTypeName) { return invoke<BOOL>(0x274A1519DFC1094F, contentId, bookmarked, contentTypeName); } // 0x274A1519DFC1094F 0x980D45D7 b323
 	static BOOL UGC_SET_DELETED(Any* p0, BOOL p1, const char* p2) { return invoke<BOOL>(0xD05D1A6C74DA3498, p0, p1, p2); } // 0xD05D1A6C74DA3498 0x48CCC328 b323
@@ -3618,6 +3655,8 @@ namespace NETWORK
 	static BOOL NETWORK_HAS_ROS_PRIVILEGE_END_DATE(int privilege, int* banType, Any* timeData) { return invoke<BOOL>(0xC22912B1D85F26B1, privilege, banType, timeData); } // 0xC22912B1D85F26B1 0x8570DD34 b323
 	static BOOL NETWORK_HAS_ROS_PRIVILEGE_PLAYED_LAST_GEN() { return invoke<BOOL>(0x593570C289A77688); } // 0x593570C289A77688 b323
 	static BOOL NETWORK_HAS_ROS_PRIVILEGE_SPECIAL_EDITION_CONTENT() { return invoke<BOOL>(0x91B87C55093DE351); } // 0x91B87C55093DE351 b323
+	static BOOL NETWORK_HAS_ROS_PRIVILEGE_MP_TEXT_COMMUNICATION_() { return invoke<BOOL>(0xD9719341663C385F); } // 0xD9719341663C385F b3095
+	static BOOL NETWORK_HAS_ROS_PRIVILEGE_MP_VOICE_COMMUNICATION_() { return invoke<BOOL>(0x8956A309BE90057C); } // 0x8956A309BE90057C b3095
 	static int NETWORK_START_COMMUNICATION_PERMISSIONS_CHECK(Any p0) { return invoke<int>(0x36391F397731595D, p0); } // 0x36391F397731595D b323
 	static int NETWORK_START_USER_CONTENT_PERMISSIONS_CHECK(Any* netHandle) { return invoke<int>(0xDEB2B99A1AF1A2A6, netHandle); } // 0xDEB2B99A1AF1A2A6 b323
 	static void NETWORK_SKIP_RADIO_RESET_NEXT_CLOSE() { invoke<Void>(0x9465E683B12D3F6B); } // 0x9465E683B12D3F6B 0x273C6180 b323
@@ -3641,7 +3680,7 @@ namespace NETWORK
 	static Vector3 NETWORK_GET_LAST_ENTITY_POS_RECEIVED_OVER_NETWORK(Entity entity) { return invoke<Vector3_t>(0x64D779659BC37B19, entity); } // 0x64D779659BC37B19 b393
 	static Vector3 NETWORK_GET_LAST_PLAYER_POS_RECEIVED_OVER_NETWORK(Player player) { return invoke<Vector3_t>(0x125E6D638B8605D4, player); } // 0x125E6D638B8605D4 b393
 	static Vector3 NETWORK_GET_LAST_VEL_RECEIVED_OVER_NETWORK(Entity entity) { return invoke<Vector3_t>(0x33DE49EDF4DDE77A, entity); } // 0x33DE49EDF4DDE77A b1103
-	static Vector3 NETWORK_GET_PREDICTED_VELOCITY(Entity entity) { return invoke<Vector3_t>(0xAA5FAFCD2C5F5E47, entity); } // 0xAA5FAFCD2C5F5E47 b1103
+	static Vector3 NETWORK_GET_PREDICTED_VELOCITY(Entity entity, float maxSpeedToPredict) { return invoke<Vector3_t>(0xAA5FAFCD2C5F5E47, entity, maxSpeedToPredict); } // 0xAA5FAFCD2C5F5E47 b1103
 	static void NETWORK_DUMP_NET_IF_CONFIG() { invoke<Void>(0xAEDF1BC1C133D6E3); } // 0xAEDF1BC1C133D6E3 b323
 	static void NETWORK_GET_SIGNALLING_INFO(Any* p0) { invoke<Void>(0x2555CF7DA5473794, p0); } // 0x2555CF7DA5473794 b323
 	static void NETWORK_GET_NET_STATISTICS_INFO(Any* p0) { invoke<Void>(0x6FD992C4A1C1B986, p0); } // 0x6FD992C4A1C1B986 b323
@@ -3658,7 +3697,7 @@ namespace OBJECT
 	static BOOL PLACE_OBJECT_ON_GROUND_OR_OBJECT_PROPERLY(Object object) { return invoke<BOOL>(0xD76EEEF746057FD6, object); } // 0xD76EEEF746057FD6 b505
 	static BOOL ROTATE_OBJECT(Object object, float p1, float p2, BOOL p3) { return invoke<BOOL>(0xAFE24E4D29249E4A, object, p1, p2, p3); } // 0xAFE24E4D29249E4A b1734
 	static BOOL SLIDE_OBJECT(Object object, float toX, float toY, float toZ, float speedX, float speedY, float speedZ, BOOL collision) { return invoke<BOOL>(0x2FDFF4107B8C1147, object, toX, toY, toZ, speedX, speedY, speedZ, collision); } // 0x2FDFF4107B8C1147 0x63BFA7A0 b323
-	static void SET_OBJECT_TARGETTABLE(Object object, BOOL targettable) { invoke<Void>(0x8A7391690F5AFD81, object, targettable); } // 0x8A7391690F5AFD81 0x3F88CD86 b323
+	static void SET_OBJECT_TARGETTABLE(Object object, BOOL targettable, Any p2) { invoke<Void>(0x8A7391690F5AFD81, object, targettable, p2); } // 0x8A7391690F5AFD81 0x3F88CD86 b323
 	static void SET_OBJECT_FORCE_VEHICLES_TO_AVOID(Object object, BOOL toggle) { invoke<Void>(0x77F33F2CCF64B3AA, object, toggle); } // 0x77F33F2CCF64B3AA 0x483C5C88 b323
 	static Object GET_CLOSEST_OBJECT_OF_TYPE(float x, float y, float z, float radius, Hash modelHash, BOOL isMission, BOOL p6, BOOL p7) { return invoke<Object>(0xE143FA2249364369, x, y, z, radius, modelHash, isMission, p6, p7); } // 0xE143FA2249364369 0x45619B33 b323
 	static BOOL HAS_OBJECT_BEEN_BROKEN(Object object, Any p1) { return invoke<BOOL>(0x8ABFB70C49CC43E2, object, p1); } // 0x8ABFB70C49CC43E2 0xFE21F891 b323
@@ -3899,6 +3938,7 @@ namespace PATHFIND
 	static void ADJUST_AMBIENT_PED_SPAWN_DENSITIES_THIS_FRAME(Any p0, Any p1, Any p2, Any p3, Any p4, Any p5, Any p6) { invoke<Void>(0xAA76052DDA9BFC3E, p0, p1, p2, p3, p4, p5, p6); } // 0xAA76052DDA9BFC3E 0xD0F51299 b323
 	static void SET_PED_PATHS_BACK_TO_ORIGINAL(float x1, float y1, float z1, float x2, float y2, float z2, Any p6) { invoke<Void>(0xE04B48F2CC926253, x1, y1, z1, x2, y2, z2, p6); } // 0xE04B48F2CC926253 0x3F1ABDA4 b323
 	static BOOL GET_RANDOM_VEHICLE_NODE(float x, float y, float z, float radius, BOOL p4, BOOL p5, BOOL p6, Vector3_t* outPosition, int* nodeId) { return invoke<BOOL>(0x93E0DB8440B73A7D, x, y, z, radius, p4, p5, p6, outPosition, nodeId); } // 0x93E0DB8440B73A7D 0xAD1476EA b323
+	static Vector3 GET_SPAWN_COORDS_FOR_VEHICLE_NODE(int nodeAddress, float towardsCoorsX, float towardsCoorsY, float towardsCoorsZ, Vector3_t* centrePoint, float* heading) { return invoke<Vector3_t>(0x809549AFC7AEC597, nodeAddress, towardsCoorsX, towardsCoorsY, towardsCoorsZ, centrePoint, heading); } // 0x809549AFC7AEC597 b2944
 	static void GET_STREET_NAME_AT_COORD(float x, float y, float z, Hash* streetName, Hash* crossingRoad) { invoke<Void>(0x2EB41072B4C1E4C0, x, y, z, streetName, crossingRoad); } // 0x2EB41072B4C1E4C0 0xDEBEEFCF b323
 	static int GENERATE_DIRECTIONS_TO_COORD(float x, float y, float z, BOOL p3, int* direction, float* p5, float* distToNxJunction) { return invoke<int>(0xF90125F1F79ECDF8, x, y, z, p3, direction, p5, distToNxJunction); } // 0xF90125F1F79ECDF8 0xED35C094 b323
 	static void SET_IGNORE_NO_GPS_FLAG(BOOL toggle) { invoke<Void>(0x72751156E7678833, toggle); } // 0x72751156E7678833 0xB72CF194 b323
@@ -3980,7 +4020,7 @@ namespace PED
 	static void SET_PED_ALLOW_HURT_COMBAT_FOR_ALL_MISSION_PEDS(BOOL toggle) { invoke<Void>(0xF2BEBCDFAFDAA19E, toggle); } // 0xF2BEBCDFAFDAA19E 0x6CD58238 b323
 	static BOOL IS_PED_MALE(Ped ped) { return invoke<BOOL>(0x6D9F5FAA7488BA46, ped); } // 0x6D9F5FAA7488BA46 0x90950455 b323
 	static BOOL IS_PED_HUMAN(Ped ped) { return invoke<BOOL>(0xB980061DA992779D, ped); } // 0xB980061DA992779D 0x194BB7B0 b323
-	static Vehicle GET_VEHICLE_PED_IS_IN(Ped ped, BOOL includeLastVehicle) { return invoke<Vehicle>(0x9A9112A0FE9A4713, ped, includeLastVehicle); } // 0x9A9112A0FE9A4713 0xAFE92319 b323
+	static Vehicle GET_VEHICLE_PED_IS_IN(Ped ped, BOOL includeEntering) { return invoke<Vehicle>(0x9A9112A0FE9A4713, ped, includeEntering); } // 0x9A9112A0FE9A4713 0xAFE92319 b323
 	static void RESET_PED_LAST_VEHICLE(Ped ped) { invoke<Void>(0xBB8DE8CF6A8DD8BB, ped); } // 0xBB8DE8CF6A8DD8BB 0x5E3B5942 b323
 	static void SET_PED_DENSITY_MULTIPLIER_THIS_FRAME(float multiplier) { invoke<Void>(0x95E3D6257B166CF2, multiplier); } // 0x95E3D6257B166CF2 0x039C82BB b323
 	static void SET_SCENARIO_PED_DENSITY_MULTIPLIER_THIS_FRAME(float p0, float p1) { invoke<Void>(0x7A556143A1C03898, p0, p1); } // 0x7A556143A1C03898 0x2909ABF0 b323
@@ -4092,6 +4132,7 @@ namespace PED
 	static BOOL IS_PED_IN_HIGH_COVER(Ped ped) { return invoke<BOOL>(0x6A03BF943D767C93, ped); } // 0x6A03BF943D767C93 0xDD5D08A7 b323
 	static BOOL IS_PED_GOING_INTO_COVER(Ped ped) { return invoke<BOOL>(0x9F65DBC537E59AD5, ped); } // 0x9F65DBC537E59AD5 0xA3589628 b323
 	static BOOL SET_PED_PINNED_DOWN(Ped ped, BOOL pinned, int i) { return invoke<BOOL>(0xAAD6D1ACF08F4612, ped, pinned, i); } // 0xAAD6D1ACF08F4612 0xCC78999D b323
+	static BOOL HAS_PED_CLEAR_LOS_TO_ENTITY_(Ped ped, Entity entity, float x, float y, float z, int p5, BOOL p6, BOOL p7) { return invoke<BOOL>(0xA32ABFEB2A03B306, ped, entity, x, y, z, p5, p6, p7); } // 0xA32ABFEB2A03B306 b3095
 	static int GET_SEAT_PED_IS_TRYING_TO_ENTER(Ped ped) { return invoke<int>(0x6F4C85ACD641BCD2, ped); } // 0x6F4C85ACD641BCD2 0xACF162E0 b323
 	static Vehicle GET_VEHICLE_PED_IS_TRYING_TO_ENTER(Ped ped) { return invoke<Vehicle>(0x814FA8BE5449445D, ped); } // 0x814FA8BE5449445D 0x99968B37 b323
 	static Entity GET_PED_SOURCE_OF_DEATH(Ped ped) { return invoke<Entity>(0x93C8B64DEB84728C, ped); } // 0x93C8B64DEB84728C 0x84ADF9EB b323
@@ -4330,7 +4371,7 @@ namespace PED
 	static Vector3 GET_PED_BONE_COORDS(Ped ped, int boneId, float offsetX, float offsetY, float offsetZ) { return invoke<Vector3_t>(0x17C07FC640E86B4E, ped, boneId, offsetX, offsetY, offsetZ); } // 0x17C07FC640E86B4E 0x4579CAB1 b323
 	static void CREATE_NM_MESSAGE(BOOL startImmediately, int messageId) { invoke<Void>(0x418EF2A1BCE56685, startImmediately, messageId); } // 0x418EF2A1BCE56685 0x1CFBFD4B b323
 	static void GIVE_PED_NM_MESSAGE(Ped ped) { invoke<Void>(0xB158DFCCC56E5C5B, ped); } // 0xB158DFCCC56E5C5B 0x737C3689 b323
-	static int ADD_SCENARIO_BLOCKING_AREA(float x1, float y1, float z1, float x2, float y2, float z2, BOOL p6, BOOL p7, BOOL p8, BOOL p9) { return invoke<int>(0x1B5C85C612E5256E, x1, y1, z1, x2, y2, z2, p6, p7, p8, p9); } // 0x1B5C85C612E5256E 0xA38C0234 b323
+	static int ADD_SCENARIO_BLOCKING_AREA(float x1, float y1, float z1, float x2, float y2, float z2, BOOL p6, BOOL p7, BOOL p8, BOOL p9, Any p10) { return invoke<int>(0x1B5C85C612E5256E, x1, y1, z1, x2, y2, z2, p6, p7, p8, p9, p10); } // 0x1B5C85C612E5256E 0xA38C0234 b323
 	static void REMOVE_SCENARIO_BLOCKING_AREAS() { invoke<Void>(0xD37401D78A929A49); } // 0xD37401D78A929A49 0x4DDF845F b323
 	static void REMOVE_SCENARIO_BLOCKING_AREA(Any p0, BOOL p1) { invoke<Void>(0x31D16B74C6E29D66, p0, p1); } // 0x31D16B74C6E29D66 0x4483EF06 b323
 	static void SET_SCENARIO_PEDS_SPAWN_IN_SPHERE_AREA(float x, float y, float z, float range, int p4) { invoke<Void>(0x28157D43CF600981, x, y, z, range, p4); } // 0x28157D43CF600981 0x80EAD297 b323
@@ -4719,6 +4760,7 @@ namespace PLAYER
 	static void GIVE_PLAYER_RAGDOLL_CONTROL(Player player, BOOL toggle) { invoke<Void>(0x3C49C870E66F0A28, player, toggle); } // 0x3C49C870E66F0A28 0xC7B4D7AC b323
 	static void SET_PLAYER_LOCKON(Player player, BOOL toggle) { invoke<Void>(0x5C8B2F450EE4328E, player, toggle); } // 0x5C8B2F450EE4328E 0x0B270E0F b323
 	static void SET_PLAYER_TARGETING_MODE(int targetMode) { invoke<Void>(0xB1906895227793F3, targetMode); } // 0xB1906895227793F3 0x61CAE253 b323
+	static int GET_PLAYER_TARGETING_MODE() { return invoke<int>(0x875BDD898B99C8CE); } // 0x875BDD898B99C8CE b3095
 	static void SET_PLAYER_TARGET_LEVEL(int targetLevel) { invoke<Void>(0x5702B917B99DB1CD, targetLevel); } // 0x5702B917B99DB1CD 0x772DA539 b323
 	static BOOL GET_IS_USING_FPS_THIRD_PERSON_COVER() { return invoke<BOOL>(0xB9CF1F793A9F1BF1); } // 0xB9CF1F793A9F1BF1 b323
 	static BOOL GET_IS_USING_HOOD_CAMERA() { return invoke<BOOL>(0xCB645E85E97EA48B); } // 0xCB645E85E97EA48B b372
@@ -4802,7 +4844,7 @@ namespace PLAYER
 	static void SET_PLAYER_NOISE_MULTIPLIER(Player player, float multiplier) { invoke<Void>(0xDB89EF50FF25FCE9, player, multiplier); } // 0xDB89EF50FF25FCE9 0x15786DD1 b323
 	static void SET_PLAYER_SNEAKING_NOISE_MULTIPLIER(Player player, float multiplier) { invoke<Void>(0xB2C1A29588A9F47C, player, multiplier); } // 0xB2C1A29588A9F47C 0x8D2D89C4 b323
 	static BOOL CAN_PED_HEAR_PLAYER(Player player, Ped ped) { return invoke<BOOL>(0xF297383AA91DCA29, player, ped); } // 0xF297383AA91DCA29 0x1C70B2EB b323
-	static void SIMULATE_PLAYER_INPUT_GAIT(Player player, float amount, int gaitType, float speed, BOOL p4, BOOL p5) { invoke<Void>(0x477D5D63E63ECA5D, player, amount, gaitType, speed, p4, p5); } // 0x477D5D63E63ECA5D 0x0D77CC34 b323
+	static void SIMULATE_PLAYER_INPUT_GAIT(Player player, float amount, int gaitType, float speed, BOOL p4, BOOL p5, Any p6) { invoke<Void>(0x477D5D63E63ECA5D, player, amount, gaitType, speed, p4, p5, p6); } // 0x477D5D63E63ECA5D 0x0D77CC34 b323
 	static void RESET_PLAYER_INPUT_GAIT(Player player) { invoke<Void>(0x19531C47A2ABD691, player); } // 0x19531C47A2ABD691 0x4A701EE1 b323
 	static void SET_AUTO_GIVE_PARACHUTE_WHEN_ENTER_PLANE(Player player, BOOL toggle) { invoke<Void>(0x9F343285A00B4BB6, player, toggle); } // 0x9F343285A00B4BB6 0xA97C2059 b323
 	static void SET_AUTO_GIVE_SCUBA_GEAR_WHEN_EXIT_VEHICLE(Player player, BOOL toggle) { invoke<Void>(0xD2B315B6689D537D, player, toggle); } // 0xD2B315B6689D537D 0xA25D767E b323
@@ -4931,7 +4973,7 @@ namespace SCRIPT
 	static BOOL BG_DOES_LAUNCH_PARAM_EXIST(int scriptIndex, const char* p1) { return invoke<BOOL>(0x0F6F1EBBC4E1D5E6, scriptIndex, p1); } // 0x0F6F1EBBC4E1D5E6 0xF8E5F73A b323
 	static int BG_GET_LAUNCH_PARAM_VALUE(int scriptIndex, const char* p1) { return invoke<int>(0x22E21FBCFC88C149, scriptIndex, p1); } // 0x22E21FBCFC88C149 0x682CB7E1 b323
 	static int BG_GET_SCRIPT_ID_FROM_NAME_HASH(Hash p0) { return invoke<int>(0x829CD22E043A2577, p0); } // 0x829CD22E043A2577 0xC515E735 b323
-	static void SEND_TU_SCRIPT_EVENT(int eventGroup, Any* eventData, int eventDataSize, int playerBits) { invoke<Void>(0xA40CC53DF8E50837, eventGroup, eventData, eventDataSize, playerBits); } // 0xA40CC53DF8E50837 b1103
+	static void SEND_TU_SCRIPT_EVENT_NEW_(int eventGroup, Any* eventData, int eventDataSize, int playerBits, Hash eventType) { invoke<Void>(0x71A6F836422FDD2B, eventGroup, eventData, eventDataSize, playerBits, eventType); } // 0x71A6F836422FDD2B b3095
 }
 
 namespace SECURITY
@@ -4970,7 +5012,7 @@ namespace SOCIALCLUB
 	static void SC_INBOX_MESSAGE_PUSH_GAMER_T0_RECIP_LIST(Any* gamerHandle) { invoke<Void>(0xDA024BDBD600F44A, gamerHandle); } // 0xDA024BDBD600F44A 0x0B9A3512 b323
 	static void SC_INBOX_SEND_UGCSTATUPDATE_TO_RECIP_LIST(Any* data) { invoke<Void>(0xA68D3D229F4F3B06, data); } // 0xA68D3D229F4F3B06 0x75324674 b323
 	static BOOL SC_INBOX_MESSAGE_GET_UGCDATA(int p0, Any* p1) { return invoke<BOOL>(0x69D82604A1A5A254, p0, p1); } // 0x69D82604A1A5A254 0x88CA3BFC b323
-	static BOOL SC_INBOX_SEND_BOUNTY_TO_RECIP_LIST(Any* data) { return invoke<BOOL>(0x6AFD2CD753FEEF83, data); } // 0x6AFD2CD753FEEF83 0x628F489B b323
+
 	static BOOL SC_INBOX_GET_BOUNTY_DATA_AT_INDEX(int index, Any* outData) { return invoke<BOOL>(0x87E0052F08BD64E6, index, outData); } // 0x87E0052F08BD64E6 0xAB3346B5 b323
 	static void SC_EMAIL_RETRIEVE_EMAILS(int offset, int limit) { invoke<Void>(0x040ADDCBAFA1018A, offset, limit); } // 0x040ADDCBAFA1018A b323
 	static int SC_EMAIL_GET_RETRIEVAL_STATUS() { return invoke<int>(0x16DA8172459434AA); } // 0x16DA8172459434AA b323
@@ -5063,6 +5105,7 @@ namespace STATS
 	static BOOL STAT_LOAD_DIRTY_READ_DETECTED() { return invoke<BOOL>(0xECB41AC6AB754401); } // 0xECB41AC6AB754401 0xED7000C8 b323
 	static void STAT_CLEAR_DIRTY_READ_DETECTED() { invoke<Void>(0x9B4BD21D69B1E609); } // 0x9B4BD21D69B1E609 b323
 	static BOOL STAT_GET_LOAD_SAFE_TO_PROGRESS_TO_MP_FROM_SP() { return invoke<BOOL>(0xC0E0D686DDFC6EAE); } // 0xC0E0D686DDFC6EAE 0x099FCC86 b323
+	static Hash GET_STAT_HASH_FOR_CHARACTER_STAT_(int dataType, int statIndex, int charSlot) { return invoke<Hash>(0xD69CE161FE614531, dataType, statIndex, charSlot); } // 0xD69CE161FE614531 b2944
 	static BOOL STAT_SET_INT(Hash statName, int value, BOOL save) { return invoke<BOOL>(0xB3271D7AB655B441, statName, value, save); } // 0xB3271D7AB655B441 0xC9CC1C5C b323
 	static BOOL STAT_SET_FLOAT(Hash statName, float value, BOOL save) { return invoke<BOOL>(0x4851997F37FE9B3C, statName, value, save); } // 0x4851997F37FE9B3C 0x6CEA96F2 b323
 	static BOOL STAT_SET_BOOL(Hash statName, BOOL value, BOOL save) { return invoke<BOOL>(0x4B33C4243DE0C432, statName, value, save); } // 0x4B33C4243DE0C432 0x55D79DFB b323
@@ -5104,11 +5147,13 @@ namespace STATS
 	static void SET_PACKED_STAT_BOOL_CODE(int index, BOOL value, int characterSlot) { invoke<Void>(0xDB8A58AEAA67CD07, index, value, characterSlot); } // 0xDB8A58AEAA67CD07 b2545
 	static void SET_PACKED_STAT_INT_CODE(int index, int value, int characterSlot) { invoke<Void>(0x1581503AE529CD2E, index, value, characterSlot); } // 0x1581503AE529CD2E b2545
 	static void PLAYSTATS_BACKGROUND_SCRIPT_ACTION(const char* action, int value) { invoke<Void>(0x5009DFD741329729, action, value); } // 0x5009DFD741329729 0x61ECC465 b323
+	static void PLAYSTATS_FLOW_LOW_(float posX, float posY, float posZ, const char* p3, Any p4, int amount) { invoke<Void>(0xE6A27CDA42887F93, posX, posY, posZ, p3, p4, amount); } // 0xE6A27CDA42887F93 b2944
+	static void PLAYSTATS_FLOW_MEDIUM_(float x, float y, float z, const char* interiorAction, int p4, Hash p5) { invoke<Void>(0xC4493521BAA12CCE, x, y, z, interiorAction, p4, p5); } // 0xC4493521BAA12CCE b3095
 	static void PLAYSTATS_NPC_INVITE(const char* p0) { invoke<Void>(0x93054C88E6AA7C44, p0); } // 0x93054C88E6AA7C44 0x598C06F3 b323
 	static void PLAYSTATS_AWARD_XP(int amount, Hash type, Hash category) { invoke<Void>(0x46F917F6B4128FE4, amount, type, category); } // 0x46F917F6B4128FE4 0x8770017B b323
 	static void PLAYSTATS_RANK_UP(int rank) { invoke<Void>(0xC7F2DE41D102BFB4, rank); } // 0xC7F2DE41D102BFB4 0x56AFB9F5 b323
 	static void PLAYSTATS_STARTED_SESSION_IN_OFFLINEMODE() { invoke<Void>(0x098760C7461724CD); } // 0x098760C7461724CD 0x896CDF8D b323
-	static void PLAYSTATS_ACTIVITY_DONE(int p0, int activityId) { invoke<Void>(0xA071E0ED98F91286, p0, activityId); } // 0xA071E0ED98F91286 0x1A66945F b323
+	static void PLAYSTATS_ACTIVITY_DONE(int p0, int activityId, Any p2) { invoke<Void>(0xA071E0ED98F91286, p0, activityId, p2); } // 0xA071E0ED98F91286 0x1A66945F b323
 	static void PLAYSTATS_LEAVE_JOB_CHAIN(Any p0, Any p1, Any p2, Any p3, Any p4) { invoke<Void>(0xC5BE134EC7BA96A0, p0, p1, p2, p3, p4); } // 0xC5BE134EC7BA96A0 0xC960E161 b323
 	static void PLAYSTATS_MISSION_STARTED(const char* p0, Any p1, Any p2, BOOL p3) { invoke<Void>(0xC19A2925C34D2231, p0, p1, p2, p3); } // 0xC19A2925C34D2231 0x3AAB699C b323
 	static void PLAYSTATS_MISSION_OVER(const char* p0, Any p1, Any p2, BOOL p3, BOOL p4, BOOL p5) { invoke<Void>(0x7C4BB33A8CED7324, p0, p1, p2, p3, p4, p5); } // 0x7C4BB33A8CED7324 0x5B90B5FF b323
@@ -5143,7 +5188,7 @@ namespace STATS
 	static void PLAYSTATS_APPEND_DIRECTOR_METRIC(Any* p0) { invoke<Void>(0x46326E13DA4E0546, p0); } // 0x46326E13DA4E0546 b323
 	static void PLAYSTATS_AWARD_BAD_SPORT(int id) { invoke<Void>(0x47B32F5611E6E483, id); } // 0x47B32F5611E6E483 b463
 	static void PLAYSTATS_PEGASUS_AS_PERSONAL_AIRCRAFT(Hash modelHash) { invoke<Void>(0x9572BD4DD6B72122, modelHash); } // 0x9572BD4DD6B72122 b1180
-	static void _PLAYSTATS_SHOPMENU_NAV(Any p0, Any p1, Any p2) { invoke<Void>(0xF96E9EA876D9DC92, p0, p1, p2); } // 0xF96E9EA876D9DC92 b2802
+	static void _PLAYSTATS_SHOPMENU_NAV(Any p0, Any p1, Any p2, Any p3) { invoke<Void>(0xF96E9EA876D9DC92, p0, p1, p2, p3); } // 0xF96E9EA876D9DC92 b2802
 	static void PLAYSTATS_FM_EVENT_CHALLENGES(Any p0) { invoke<Void>(0x6A60E43998228229, p0); } // 0x6A60E43998228229 b463
 	static void PLAYSTATS_FM_EVENT_VEHICLETARGET(Any p0) { invoke<Void>(0xBFAFDB5FAAA5C5AB, p0); } // 0xBFAFDB5FAAA5C5AB b463
 	static void PLAYSTATS_FM_EVENT_URBANWARFARE(Any p0) { invoke<Void>(0x8C9D11605E59D955, p0); } // 0x8C9D11605E59D955 b463
@@ -5168,7 +5213,7 @@ namespace STATS
 	static BOOL LEADERBOARDS_READ_SUCCESSFUL(Any p0, Any p1, Any p2) { return invoke<BOOL>(0x2FB19228983E832C, p0, p1, p2); } // 0x2FB19228983E832C 0x3AC5B2F1 b323
 	static BOOL LEADERBOARDS2_READ_FRIENDS_BY_ROW(Any* p0, Any* p1, Any p2, BOOL p3, Any p4, Any p5) { return invoke<BOOL>(0x918B101666F9CB83, p0, p1, p2, p3, p4, p5); } // 0x918B101666F9CB83 0xBD91B136 b323
 	static BOOL LEADERBOARDS2_READ_BY_HANDLE(Any* p0, Any* p1) { return invoke<BOOL>(0xC30713A383BFBF0E, p0, p1); } // 0xC30713A383BFBF0E 0x6B553408 b323
-	static BOOL LEADERBOARDS2_READ_BY_ROW(Any* p0, Any* p1, Any p2, Any* p3, Any p4, Any* p5, Any p6) { return invoke<BOOL>(0xA9CDB1E3F0A49883, p0, p1, p2, p3, p4, p5, p6); } // 0xA9CDB1E3F0A49883 0xCA931F34 b323
+
 	static BOOL LEADERBOARDS2_READ_BY_RANK(Any* p0, Any p1, Any p2) { return invoke<BOOL>(0xBA2C7DB0C129449A, p0, p1, p2); } // 0xBA2C7DB0C129449A 0x1B03F59F b323
 	static BOOL LEADERBOARDS2_READ_BY_RADIUS(Any* p0, Any p1, Any* p2) { return invoke<BOOL>(0x5CE587FB5A42C8C4, p0, p1, p2); } // 0x5CE587FB5A42C8C4 0xC5B7E685 b323
 	static BOOL LEADERBOARDS2_READ_BY_SCORE_INT(Any* p0, Any p1, Any p2) { return invoke<BOOL>(0x7EEC7E4F6984A16A, p0, p1, p2); } // 0x7EEC7E4F6984A16A 0xAC020C18 b323
@@ -5265,9 +5310,9 @@ namespace STATS
 	static void PLAYSTATS_DEFEND_CONTRABAND_MISSION(Any* data) { invoke<Void>(0x2605663BD4F23B5D, data); } // 0x2605663BD4F23B5D b757
 	static void PLAYSTATS_RECOVER_CONTRABAND_MISSION(Any* data) { invoke<Void>(0x04D90BA8207ADA2D, data); } // 0x04D90BA8207ADA2D b757
 	static void PLAYSTATS_HIT_CONTRABAND_DESTROY_LIMIT(Any p0) { invoke<Void>(0x60EEDC12AF66E846, p0); } // 0x60EEDC12AF66E846 b757
-	static void START_BEING_BOSS(Any p0) { invoke<Void>(0x3EBEAC6C3F81F6BD, p0); } // 0x3EBEAC6C3F81F6BD b573
+	static void START_BEING_BOSS(Any p0, Any p1, Any p2) { invoke<Void>(0x3EBEAC6C3F81F6BD, p0, p1, p2); } // 0x3EBEAC6C3F81F6BD b573
 	static void START_BEING_GOON(Any p0, Any p1, Any p2) { invoke<Void>(0x96E6D5150DBF1C09, p0, p1, p2); } // 0x96E6D5150DBF1C09 b573
-	static void END_BEING_BOSS(Any p0, Any p1) { invoke<Void>(0xA3C53804BDB68ED2, p0, p1); } // 0xA3C53804BDB68ED2 b573
+	static void END_BEING_BOSS(Any p0, Any p1, Any p2) { invoke<Void>(0xA3C53804BDB68ED2, p0, p1, p2); } // 0xA3C53804BDB68ED2 b573
 	static void END_BEING_GOON(Any p0, Any p1, Any p2, Any p3, Any p4) { invoke<Void>(0x6BCCF9948492FD85, p0, p1, p2, p3, p4); } // 0x6BCCF9948492FD85 b573
 	static void HIRED_LIMO(Any p0, Any p1) { invoke<Void>(0x792271AB35C356A4, p0, p1); } // 0x792271AB35C356A4 b573
 	static void ORDER_BOSS_VEHICLE(Any p0, Any p1, Hash vehicleHash) { invoke<Void>(0xCEA553E35C2246E1, p0, p1, vehicleHash); } // 0xCEA553E35C2246E1 b573
@@ -5330,7 +5375,7 @@ namespace STATS
 	static void PLAYSTATS_FREEMODE_CASINO_MISSION_ENDED(Any* data) { invoke<Void>(0x1A0D4A6C336B7BC5, data); } // 0x1A0D4A6C336B7BC5 b1734
 	static void PLAYSTATS_HEIST3_DRONE(Any p0) { invoke<Void>(0xDFBD93BF2943E29B, p0); } // 0xDFBD93BF2943E29B b1868
 	static void PLAYSTATS_HEIST3_HACK(Any p0, Any p1, Any p2, Any p3, Any p4, Any p5) { invoke<Void>(0x92FC0EEDFAC04A14, p0, p1, p2, p3, p4, p5); } // 0x92FC0EEDFAC04A14 b1868
-	static void PLAYSTATS_NPC_PHONE(Any p0, Any p1, Any p2, Any p3, Any p4, Any p5, Any p6, Any p7, Any p8, Any p9, Any p10, Any p11, Any p12) { invoke<Void>(0x0077F15613D36993, p0, p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12); } // 0x0077F15613D36993 b1868
+	static void PLAYSTATS_NPC_PHONE(Any* p0) { invoke<Void>(0x0077F15613D36993, p0); } // 0x0077F15613D36993 b1868
 	static void PLAYSTATS_ARCADE_CABINET(Any p0) { invoke<Void>(0xF9096193DF1F99D4, p0); } // 0xF9096193DF1F99D4 b1868
 	static void PLAYSTATS_HEIST3_FINALE(Any p0) { invoke<Void>(0x2E0259BABC27A327, p0); } // 0x2E0259BABC27A327 b1868
 	static void PLAYSTATS_HEIST3_PREP(Any p0) { invoke<Void>(0x53C31853EC9531FF, p0); } // 0x53C31853EC9531FF b1868
@@ -5339,7 +5384,7 @@ namespace STATS
 	static void PLAYSTATS_MISSION_VOTE(Any p0) { invoke<Void>(0xC03FAB2C2F92289B, p0); } // 0xC03FAB2C2F92289B b1868
 	static void PLAYSTATS_NJVS_VOTE(Any p0) { invoke<Void>(0x5CDAED54B34B0ED0, p0); } // 0x5CDAED54B34B0ED0 b1868
 	static void PLAYSTATS_KILL_YOURSELF() { invoke<Void>(0x4AFF7E02E485E92B); } // 0x4AFF7E02E485E92B b1868
-	static void PLAYSTATS_FM_MISSION_END(Any p0, Any p1, Any p2) { invoke<Void>(0x46A70777BE6CEAB9, p0, p1, p2); } // 0x46A70777BE6CEAB9 b2545
+	static void PLAYSTATS_FM_MISSION_END(Any p0, Any p1, Any p2, Any p3) { invoke<Void>(0x46A70777BE6CEAB9, p0, p1, p2, p3); } // 0x46A70777BE6CEAB9 b2545
 	static void PLAYSTATS_HEIST4_PREP(Any p0) { invoke<Void>(0xDFCDB14317A9B361, p0); } // 0xDFCDB14317A9B361 b2189
 	static void PLAYSTATS_HEIST4_FINALE(Any p0) { invoke<Void>(0xC1E963C58664B556, p0); } // 0xC1E963C58664B556 b2189
 	static void PLAYSTATS_HEIST4_HACK(Any p0, Any p1, Any p2, Any p3, Any p4) { invoke<Void>(0x2FA3173480008493, p0, p1, p2, p3, p4); } // 0x2FA3173480008493 b2189
@@ -5356,11 +5401,17 @@ namespace STATS
 	static void PLAYSTATS_AWARD_NAV(Any p0, Any p1, Any p2, Any p3) { invoke<Void>(0x70F52471E758EBAE, p0, p1, p2, p3); } // 0x70F52471E758EBAE b2545
 	static void PLAYSTATS_INST_MISSION_END(Any p0) { invoke<Void>(0xFEA3F7E83C0610FA, p0); } // 0xFEA3F7E83C0610FA b2545
 	static void PLAYSTATS_HUB_EXIT(Any p0) { invoke<Void>(0x5A46ACE5C4661132, p0); } // 0x5A46ACE5C4661132 b2545
+	static void PLAYSTATS_VEH_DEL(int bossId1, int bossId2, int bossType, int vehicleID, int reason) { invoke<Void>(0x10A691F5756416D0, bossId1, bossId2, bossType, vehicleID, reason); } // 0x10A691F5756416D0 b2944
 	static void PLAYSTATS_INVENTORY(Any p0) { invoke<Void>(0x887DAD63CF5B7908, p0); } // 0x887DAD63CF5B7908 b2699
 	static void _PLAYSTATS_ACID_MISSION_END(Any p0) { invoke<Void>(0x8A23D1324F6B2BAC, p0); } // 0x8A23D1324F6B2BAC b2802
 	static void _PLAYSTATS_ACID_RND(Any p0) { invoke<Void>(0xCEACCF0550FDC5BA, p0); } // 0xCEACCF0550FDC5BA b2802
 	static void _PLAYSTATS_IDLE(Any p0, Any p1, Any p2) { invoke<Void>(0xEC9553A178E8F1D1, p0, p1, p2); } // 0xEC9553A178E8F1D1 b2802
 	static void _PLAYSTATS_PLAYER_STYLE(Any p0) { invoke<Void>(0x48FAC5DC7AC6EA99, p0); } // 0x48FAC5DC7AC6EA99 b2802
+	static void PLAYSTATS_RANDOM_EVENT_(Any p0) { invoke<Void>(0x7EA06F970F999394, p0); } // 0x7EA06F970F999394 b2944
+	static void PLAYSTATS_ALERT_(Any* data) { invoke<Void>(0x5649CA22AF74E019, data); } // 0x5649CA22AF74E019 b3095
+	static void PLAYSTATS_ATTRITION_STAGE_END_(Any p0) { invoke<Void>(0xBD642335A732F1A8, p0); } // 0xBD642335A732F1A8 b2944
+	static void PLAYSTATS_SHOWROOM_NAV_(Any p0, Any p1, Hash entity) { invoke<Void>(0x961D4157B9B428DB, p0, p1, entity); } // 0x961D4157B9B428DB b2944
+	static void PLAYSTATS_SHOWROOM_OVERVIEW_(Any* data) { invoke<Void>(0x151D6C04C9E2742F, data); } // 0x151D6C04C9E2742F b2944
 }
 
 namespace STREAMING
@@ -5624,7 +5675,7 @@ namespace TASK
 	static void TASK_SHOOT_AT_ENTITY(Entity entity, Entity target, int duration, Hash firingPattern) { invoke<Void>(0x08DA95E8298AE772, entity, target, duration, firingPattern); } // 0x08DA95E8298AE772 0xAC0631C9 b323
 	static void TASK_CLIMB(Ped ped, BOOL usePlayerLaunchForce) { invoke<Void>(0x89D9FCC2435112F1, ped, usePlayerLaunchForce); } // 0x89D9FCC2435112F1 0x90847790 b323
 	static void TASK_CLIMB_LADDER(Ped ped, BOOL fast) { invoke<Void>(0xB6C987F9285A3814, ped, fast); } // 0xB6C987F9285A3814 0x35BB4EE0 b323
-	static void TASK_RAPPEL_DOWN_WALL_USING_CLIPSET_OVERRIDE(Ped ped, float x1, float y1, float z1, float x2, float y2, float z2, float minZ, int ropeHandle, const char* clipSet, Any p10) { invoke<Void>(0xEAF66ACDDC794793, ped, x1, y1, z1, x2, y2, z2, minZ, ropeHandle, clipSet, p10); } // 0xEAF66ACDDC794793 b1868
+	static void TASK_RAPPEL_DOWN_WALL_USING_CLIPSET_OVERRIDE(Ped ped, float x1, float y1, float z1, float x2, float y2, float z2, float minZ, int ropeHandle, const char* clipSet, Any p10, Any p11) { invoke<Void>(0xEAF66ACDDC794793, ped, x1, y1, z1, x2, y2, z2, minZ, ropeHandle, clipSet, p10, p11); } // 0xEAF66ACDDC794793 b1868
 	static int GET_TASK_RAPPEL_DOWN_WALL_STATE(Ped ped) { return invoke<int>(0x9D252648778160DF, ped); } // 0x9D252648778160DF b1868
 	static void CLEAR_PED_TASKS_IMMEDIATELY(Ped ped) { invoke<Void>(0xAAA34F8A7CB32098, ped); } // 0xAAA34F8A7CB32098 0xBC045625 b323
 	static void TASK_PERFORM_SEQUENCE_FROM_PROGRESS(Ped ped, int taskIndex, int progress1, int progress2) { invoke<Void>(0x89221B16730234F0, ped, taskIndex, progress1, progress2); } // 0x89221B16730234F0 0xFA60601B b323
@@ -5775,6 +5826,7 @@ namespace TASK
 	static BOOL GET_TASK_MOVE_NETWORK_SIGNAL_BOOL(Ped ped, const char* signalName) { return invoke<BOOL>(0xA7FFBA498E4AAF67, ped, signalName); } // 0xA7FFBA498E4AAF67 0x1EBB6F3D b323
 	static BOOL GET_TASK_MOVE_NETWORK_EVENT(Ped ped, const char* eventName) { return invoke<BOOL>(0xB4F47213DF45A64C, ped, eventName); } // 0xB4F47213DF45A64C 0x72FA5EF2 b323
 	static BOOL SET_TASK_MOVE_NETWORK_ENABLE_COLLISION_ON_NETWORK_CLONE_WHEN_FIXED(Ped ped, BOOL enable) { return invoke<BOOL>(0x0FFB3C758E8C07B9, ped, enable); } // 0x0FFB3C758E8C07B9 b2060
+	static void SET_SCRIPT_TASK_ENABLE_COLLISION_ON_NETWORK_CLONE_WHEN_FIXED_(Ped ped, BOOL enable) { invoke<Void>(0x32F6EEF031F943DC, ped, enable); } // 0x32F6EEF031F943DC b3095
 	static BOOL IS_MOVE_BLEND_RATIO_STILL(Ped ped) { return invoke<BOOL>(0x349CE7B56DAFD95C, ped); } // 0x349CE7B56DAFD95C 0xE9DAF877 b323
 	static BOOL IS_MOVE_BLEND_RATIO_WALKING(Ped ped) { return invoke<BOOL>(0xF133BBBE91E1691F, ped); } // 0xF133BBBE91E1691F 0xD21639A8 b323
 	static BOOL IS_MOVE_BLEND_RATIO_RUNNING(Ped ped) { return invoke<BOOL>(0xD4D8636C0199A939, ped); } // 0xD4D8636C0199A939 0xE76A2353 b323
@@ -5846,6 +5898,8 @@ namespace VEHICLE
 	static void SET_VEHICLE_DOORS_LOCKED_FOR_TEAM(Vehicle vehicle, int team, BOOL toggle) { invoke<Void>(0xB81F6D4A8F5EEBA8, vehicle, team, toggle); } // 0xB81F6D4A8F5EEBA8 0x4F85E783 b323
 	static void SET_VEHICLE_DOORS_LOCKED_FOR_ALL_TEAMS(Vehicle vehicle, BOOL toggle) { invoke<Void>(0x203B527D1B77904C, vehicle, toggle); } // 0x203B527D1B77904C b1365
 	static void SET_VEHICLE_DONT_TERMINATE_TASK_WHEN_ACHIEVED(Vehicle vehicle) { invoke<Void>(0x76D26A22750E849E, vehicle); } // 0x76D26A22750E849E b1103
+	static void SET_VEHICLE_MAX_LAUNCH_ENGINE_REVS_(Vehicle vehicle, float modifier) { invoke<Void>(0x5AE614ECA5FDD423, vehicle, modifier); } // 0x5AE614ECA5FDD423 b3095
+	static float GET_VEHICLE_THROTTLE_(Vehicle vehicle) { return invoke<float>(0x92D96892FC06AF22, vehicle); } // 0x92D96892FC06AF22 b3095
 	static void EXPLODE_VEHICLE(Vehicle vehicle, BOOL isAudible, BOOL isInvisible) { invoke<Void>(0xBA71116ADF5B514C, vehicle, isAudible, isInvisible); } // 0xBA71116ADF5B514C 0xBEDEACEB b323
 	static void SET_VEHICLE_OUT_OF_CONTROL(Vehicle vehicle, BOOL killDriver, BOOL explodeOnImpact) { invoke<Void>(0xF19D095E42D430CC, vehicle, killDriver, explodeOnImpact); } // 0xF19D095E42D430CC 0x3764D734 b323
 	static void SET_VEHICLE_TIMED_EXPLOSION(Vehicle vehicle, Ped ped, BOOL toggle) { invoke<Void>(0x2E0A74E1002380B1, vehicle, ped, toggle); } // 0x2E0A74E1002380B1 0xDB8CB8E2 b323
@@ -5853,6 +5907,7 @@ namespace VEHICLE
 	static void CLEAR_VEHICLE_PHONE_EXPLOSIVE_DEVICE() { invoke<Void>(0xAA3F739ABDDCF21F); } // 0xAA3F739ABDDCF21F b463
 	static BOOL HAS_VEHICLE_PHONE_EXPLOSIVE_DEVICE() { return invoke<BOOL>(0x6ADAABD3068C5235); } // 0x6ADAABD3068C5235 0xA4E69134 b323
 	static void DETONATE_VEHICLE_PHONE_EXPLOSIVE_DEVICE() { invoke<Void>(0xEF49CF0270307CBE); } // 0xEF49CF0270307CBE 0x65255524 b323
+	static BOOL HAVE_VEHICLE_REAR_DOORS_BEEN_BLOWN_OPEN_BY_STICKYBOMB(Vehicle vehicle) { return invoke<BOOL>(0x6B407F2525E93644, vehicle); } // 0x6B407F2525E93644 b2944
 	static void SET_TAXI_LIGHTS(Vehicle vehicle, BOOL state) { invoke<Void>(0x598803E85E8448D9, vehicle, state); } // 0x598803E85E8448D9 0x68639D85 b323
 	static BOOL IS_TAXI_LIGHT_ON(Vehicle vehicle) { return invoke<BOOL>(0x7504C0F113AB50FC, vehicle); } // 0x7504C0F113AB50FC 0x6FC4924A b323
 	static BOOL IS_VEHICLE_IN_GARAGE_AREA(const char* garageName, Vehicle vehicle) { return invoke<BOOL>(0xCEE4490CD57BB3C2, garageName, vehicle); } // 0xCEE4490CD57BB3C2 0xA90EC257 b323
@@ -5878,7 +5933,7 @@ namespace VEHICLE
 	static BOOL GET_SUBMARINE_IS_UNDER_DESIGN_DEPTH(Vehicle submarine) { return invoke<BOOL>(0x3E71D0B300B7AA79, submarine); } // 0x3E71D0B300B7AA79 b2189
 	static int GET_SUBMARINE_NUMBER_OF_AIR_LEAKS(Vehicle submarine) { return invoke<int>(0x093D6DDCA5B8FBAE, submarine); } // 0x093D6DDCA5B8FBAE b2189
 	static void SET_BOAT_IGNORE_LAND_PROBES(Any p0, Any p1) { invoke<Void>(0xED5EDE9E676643C9, p0, p1); } // 0xED5EDE9E676643C9 b944
-	static void _0x85FC953F6C6CBDE1(Vehicle vehicle, BOOL p1) { invoke<Void>(0x85FC953F6C6CBDE1, vehicle, p1); } // 0x85FC953F6C6CBDE1 b2802
+	static void SET_BOUNDS_AFFECT_WATER_PROBES_(Vehicle vehicle, BOOL toggle) { invoke<Void>(0x85FC953F6C6CBDE1, vehicle, toggle); } // 0x85FC953F6C6CBDE1 b2802
 	static void SET_BOAT_ANCHOR(Vehicle vehicle, BOOL toggle) { invoke<Void>(0x75DBEC174AEEAD10, vehicle, toggle); } // 0x75DBEC174AEEAD10 0xA3906284 b323
 	static BOOL CAN_ANCHOR_BOAT_HERE(Vehicle vehicle) { return invoke<BOOL>(0x26C10ECBDA5D043B, vehicle); } // 0x26C10ECBDA5D043B 0xE97A4F5E b323
 	static BOOL CAN_ANCHOR_BOAT_HERE_IGNORE_PLAYERS(Vehicle vehicle) { return invoke<BOOL>(0x24F4121D07579880, vehicle); } // 0x24F4121D07579880 b678
@@ -6157,12 +6212,17 @@ namespace VEHICLE
 	static int GET_LANDING_GEAR_STATE(Vehicle vehicle) { return invoke<int>(0x9B0F3DCA3DB0F4CD, vehicle); } // 0x9B0F3DCA3DB0F4CD 0xA6F02670 b323
 	static BOOL IS_ANY_VEHICLE_NEAR_POINT(float x, float y, float z, float radius) { return invoke<BOOL>(0x61E1DD6125A3EEE6, x, y, z, radius); } // 0x61E1DD6125A3EEE6 0x2867A834 b323
 	static void REQUEST_VEHICLE_HIGH_DETAIL_MODEL(Vehicle vehicle) { invoke<Void>(0xA6E9FDCB2C76785E, vehicle); } // 0xA6E9FDCB2C76785E 0x9DA21956 b323
+	static int GET_VEHICLE_MODEL_NUM_DRIVE_GEARS_(Hash vehicleModel) { return invoke<int>(0x61F02E4E9A7A61EA, vehicleModel); } // 0x61F02E4E9A7A61EA b3095
+	static int GET_VEHICLE_MAX_DRIVE_GEAR_COUNT_(Vehicle vehicle) { return invoke<int>(0x24910C3D66BA770D, vehicle); } // 0x24910C3D66BA770D b3095
+	static int GET_VEHICLE_CURRENT_DRIVE_GEAR_(Vehicle vehicle) { return invoke<int>(0x56185A25D45A0DCD, vehicle); } // 0x56185A25D45A0DCD b3095
+	static float GET_VEHICLE_CURRENT_REV_RATIO_(Vehicle vehicle) { return invoke<float>(0xF9DDA40BC293A61E, vehicle); } // 0xF9DDA40BC293A61E b3095
 	static void REMOVE_VEHICLE_HIGH_DETAIL_MODEL(Vehicle vehicle) { invoke<Void>(0x00689CDE5F7C6787, vehicle); } // 0x00689CDE5F7C6787 0x382BE070 b323
 	static BOOL IS_VEHICLE_HIGH_DETAIL(Vehicle vehicle) { return invoke<BOOL>(0x1F25887F3C104278, vehicle); } // 0x1F25887F3C104278 0x55D41928 b323
 	static void REQUEST_VEHICLE_ASSET(Hash vehicleHash, int vehicleAsset) { invoke<Void>(0x81A15811460FAB3A, vehicleHash, vehicleAsset); } // 0x81A15811460FAB3A 0x902B4F06 b323
 	static BOOL HAS_VEHICLE_ASSET_LOADED(int vehicleAsset) { return invoke<BOOL>(0x1BBE0523B8DB9A21, vehicleAsset); } // 0x1BBE0523B8DB9A21 0x8DAAC3CB b323
 	static void REMOVE_VEHICLE_ASSET(int vehicleAsset) { invoke<Void>(0xACE699C71AB9DEB5, vehicleAsset); } // 0xACE699C71AB9DEB5 0x9620E9C6 b323
 	static void SET_VEHICLE_TOW_TRUCK_ARM_POSITION(Vehicle vehicle, float position) { invoke<Void>(0xFE54B92A344583CA, vehicle, position); } // 0xFE54B92A344583CA 0x88236E22 b323
+	static void SET_ATTACHED_VEHICLE_TO_TOW_TRUCK_ARM_(Vehicle towTruck, Vehicle vehicle) { invoke<Void>(0x48BD57D0DD17786A, towTruck, vehicle); } // 0x48BD57D0DD17786A b3095
 	static void ATTACH_VEHICLE_TO_TOW_TRUCK(Vehicle towTruck, Vehicle vehicle, BOOL rear, float hookOffsetX, float hookOffsetY, float hookOffsetZ) { invoke<Void>(0x29A16F8D621C4508, towTruck, vehicle, rear, hookOffsetX, hookOffsetY, hookOffsetZ); } // 0x29A16F8D621C4508 0x8151571A b323
 	static void DETACH_VEHICLE_FROM_TOW_TRUCK(Vehicle towTruck, Vehicle vehicle) { invoke<Void>(0xC2DB6B6708350ED8, towTruck, vehicle); } // 0xC2DB6B6708350ED8 0xC666CF33 b323
 	static BOOL DETACH_VEHICLE_FROM_ANY_TOW_TRUCK(Vehicle vehicle) { return invoke<BOOL>(0xD0E9CE05A1E68CD8, vehicle); } // 0xD0E9CE05A1E68CD8 0x3BF93651 b323
@@ -6265,6 +6325,8 @@ namespace VEHICLE
 	static int GET_VEHICLE_COLOURS_WHICH_CAN_BE_SET(Vehicle vehicle) { return invoke<int>(0xEEBFC7A7EFDC35B4, vehicle); } // 0xEEBFC7A7EFDC35B4 0x749DEEA2 b323
 	static Hash GET_VEHICLE_CAUSE_OF_DESTRUCTION(Vehicle vehicle) { return invoke<Hash>(0xE495D1EF4C91FD20, vehicle); } // 0xE495D1EF4C91FD20 0x7F8C20DD b323
 	static void OVERRIDE_PLANE_DAMAGE_THREHSOLD(Vehicle vehicle, float health) { invoke<Void>(0x5EE5632F47AE9695, vehicle, health); } // 0x5EE5632F47AE9695 b463
+	static void SET_TRANSMISSION_REDUCED_GEAR_RATIO_(Vehicle vehicle, BOOL toggle) { invoke<Void>(0x337EF33DA3DDB990, vehicle, toggle); } // 0x337EF33DA3DDB990 b3095
+	static int GET_VEHICLE_DESIRED_DRIVE_GEAR_(Vehicle vehicle) { return invoke<int>(0xFD8CE53356B5D745, vehicle); } // 0xFD8CE53356B5D745 b3095
 	static BOOL GET_IS_LEFT_VEHICLE_HEADLIGHT_DAMAGED(Vehicle vehicle) { return invoke<BOOL>(0x5EF77C9ADD3B11A3, vehicle); } // 0x5EF77C9ADD3B11A3 0xA0777943 b323
 	static BOOL GET_IS_RIGHT_VEHICLE_HEADLIGHT_DAMAGED(Vehicle vehicle) { return invoke<BOOL>(0xA7ECB73355EB2F20, vehicle); } // 0xA7ECB73355EB2F20 0xF178390B b323
 	static BOOL GET_BOTH_VEHICLE_HEADLIGHTS_DAMAGED(Vehicle vehicle) { return invoke<BOOL>(0xEC69ADF931AAE0C3, vehicle); } // 0xEC69ADF931AAE0C3 b505
@@ -6336,7 +6398,7 @@ namespace VEHICLE
 	static BOOL IS_VEHICLE_ATTACHED_TO_CARGOBOB(Vehicle cargobob, Vehicle vehicleAttached) { return invoke<BOOL>(0xD40148F22E81A1D9, cargobob, vehicleAttached); } // 0xD40148F22E81A1D9 0x5DEEC76C b323
 	static Vehicle GET_VEHICLE_ATTACHED_TO_CARGOBOB(Vehicle cargobob) { return invoke<Vehicle>(0x873B82D42AC2B9E5, cargobob); } // 0x873B82D42AC2B9E5 0x301A1D24 b323
 	static Entity GET_ENTITY_ATTACHED_TO_CARGOBOB(Any p0) { return invoke<Entity>(0x99093F60746708CA, p0); } // 0x99093F60746708CA b1103
-	static void ATTACH_VEHICLE_TO_CARGOBOB(Vehicle vehicle, Vehicle cargobob, int p2, float x, float y, float z) { invoke<Void>(0x4127F1D84E347769, vehicle, cargobob, p2, x, y, z); } // 0x4127F1D84E347769 0x607DC9D5 b323
+	static void ATTACH_VEHICLE_TO_CARGOBOB(Vehicle cargobob, Vehicle vehicle, int p2, float x, float y, float z) { invoke<Void>(0x4127F1D84E347769, cargobob, vehicle, p2, x, y, z); } // 0x4127F1D84E347769 0x607DC9D5 b323
 	static void ATTACH_ENTITY_TO_CARGOBOB(Any p0, Any p1, Any p2, Any p3, Any p4, Any p5) { invoke<Void>(0xA1DD82F3CCF9A01E, p0, p1, p2, p3, p4, p5); } // 0xA1DD82F3CCF9A01E 0xAEB29F98 b944
 	static void SET_CARGOBOB_FORCE_DONT_DETACH_VEHICLE(Vehicle cargobob, BOOL toggle) { invoke<Void>(0x571FEB383F629926, cargobob, toggle); } // 0x571FEB383F629926 0x49949FDA b323
 	static void SET_CARGOBOB_EXCLUDE_FROM_PICKUP_ENTITY(Any p0, Any p1) { invoke<Void>(0x1F34B0626C594380, p0, p1); } // 0x1F34B0626C594380 b757
@@ -6467,6 +6529,7 @@ namespace VEHICLE
 	static void VEHICLE_SET_JET_WASH_FORCE_ENABLED(Any p0) { invoke<Void>(0x9D30687C57BAA0BB, p0); } // 0x9D30687C57BAA0BB b1011
 	static void SET_VEHICLE_WEAPON_CAN_TARGET_OBJECTS(Vehicle vehicle, BOOL toggle) { invoke<Void>(0x86B4B6212CB8B627, vehicle, toggle); } // 0x86B4B6212CB8B627 b1011
 	static void SET_VEHICLE_USE_BOOST_BUTTON_FOR_WHEEL_RETRACT(BOOL toggle) { invoke<Void>(0x41290B40FA63E6DA, toggle); } // 0x41290B40FA63E6DA b1011
+	static void SET_VEHICLE_USE_HORN_BUTTON_FOR_NITROUS_(BOOL toggle) { invoke<Void>(0x1980F68872CC2C3D, toggle); } // 0x1980F68872CC2C3D b3095
 	static void VEHICLE_SET_PARACHUTE_MODEL_OVERRIDE(Vehicle vehicle, Hash modelHash) { invoke<Void>(0x4D610C6B56031351, vehicle, modelHash); } // 0x4D610C6B56031351 b1011
 	static void VEHICLE_SET_PARACHUTE_MODEL_TINT_INDEX(Vehicle vehicle, int textureVariation) { invoke<Void>(0xA74AD2439468C883, vehicle, textureVariation); } // 0xA74AD2439468C883 b1011
 	static int VEHICLE_SET_OVERRIDE_EXTENABLE_SIDE_RATIO(Any p0, Any p1) { return invoke<int>(0x0419B167EE128F33, p0, p1); } // 0x0419B167EE128F33 b1103
@@ -6504,6 +6567,8 @@ namespace VEHICLE
 	static Vector3 FIND_SPAWN_COORDINATES_FOR_HELI(Ped ped) { return invoke<Vector3_t>(0x8DC9675797123522, ped); } // 0x8DC9675797123522 b1290
 	static void SET_DEPLOY_FOLDING_WINGS(Vehicle vehicle, BOOL deploy, BOOL p2) { invoke<Void>(0xB251E0B33E58B424, vehicle, deploy, p2); } // 0xB251E0B33E58B424 b1290
 	static BOOL ARE_FOLDING_WINGS_DEPLOYED(Vehicle vehicle) { return invoke<BOOL>(0xAEF12960FA943792, vehicle); } // 0xAEF12960FA943792 b1290
+	static void SET_DEPLOY_MISSILE_BAYS_(Vehicle vehicle, BOOL deploy) { invoke<Void>(0x0C02468829E4AA65, vehicle, deploy); } // 0x0C02468829E4AA65 b2944
+	static BOOL ARE_MISSILE_BAYS_DEPLOYED_(Vehicle vehicle) { return invoke<BOOL>(0xEA4743874D515F13, vehicle); } // 0xEA4743874D515F13 b2944
 	static void SET_DIP_STRAIGHT_DOWN_WHEN_CRASHING_PLANE(Vehicle vehicle, BOOL toggle) { invoke<Void>(0xAA653AE61924B0A0, vehicle, toggle); } // 0xAA653AE61924B0A0 b1290
 	static void SET_TURRET_HIDDEN(Vehicle vehicle, int index, BOOL toggle) { invoke<Void>(0xC60060EB0D8AC7B1, vehicle, index, toggle); } // 0xC60060EB0D8AC7B1 b1290
 	static void SET_HOVER_MODE_WING_RATIO(Vehicle vehicle, float ratio) { invoke<Void>(0x70A252F60A3E036B, vehicle, ratio); } // 0x70A252F60A3E036B b1365
@@ -6519,11 +6584,20 @@ namespace VEHICLE
 	static Vehicle GET_LAST_SHUNT_VEHICLE(Vehicle vehicle) { return invoke<Vehicle>(0x04F2FA6E234162F7, vehicle); } // 0x04F2FA6E234162F7 b1604
 	static void SET_DISABLE_VEHICLE_EXPLOSIONS_DAMAGE(BOOL toggle) { invoke<Void>(0x143921E45EC44D62, toggle); } // 0x143921E45EC44D62 b1604
 	static void SET_OVERRIDE_NITROUS_LEVEL(Vehicle vehicle, BOOL toggle, float level, float power, float rechargeTime, BOOL disableSound) { invoke<Void>(0xC8E9B6B71B8E660D, vehicle, toggle, level, power, rechargeTime, disableSound); } // 0xC8E9B6B71B8E660D b1604
+	static void SET_NITROUS_IS_ACTIVE(Vehicle vehicle, BOOL enabled) { invoke<Void>(0x465EEA70AF251045, vehicle, enabled); } // 0x465EEA70AF251045 b3095
+	static void SET_OVERRIDE_TRACTION_LOSS_MULTIPLIER_(Vehicle vehicle, float modifier) { invoke<Void>(0xAFD262ACCA64479A, vehicle, modifier); } // 0xAFD262ACCA64479A b3095
+	static void SET_DRIFT_SLIP_ANGLE_LIMITS_(Vehicle vehicle, float durationScalar, float amplitudeScalar, float slipAngleLimit) { invoke<Void>(0xDAF4C98C18AC6F06, vehicle, durationScalar, amplitudeScalar, slipAngleLimit); } // 0xDAF4C98C18AC6F06 b3095
+	static void SET_MINIMUM_TIME_BETWEEN_GEAR_SHIFTS_(Vehicle vehicle, int time) { invoke<Void>(0x16CFBC5E7EB32861, vehicle, time); } // 0x16CFBC5E7EB32861 b3095
+	static void FULLY_CHARGE_NITROUS(Vehicle vehicle) { invoke<Void>(0x1A2BCC8C636F9226, vehicle); } // 0x1A2BCC8C636F9226 b3095
+	static float GET_REMAINING_NITROUS_DURATION_(Vehicle vehicle) { return invoke<float>(0xBEC4B8653462450E, vehicle); } // 0xBEC4B8653462450E b3095
+	static BOOL IS_NITROUS_ACTIVE(Vehicle vehicle) { return invoke<BOOL>(0x491E822B2C464FE4, vehicle); } // 0x491E822B2C464FE4 b3095
+	static void CLEAR_NITROUS(Vehicle vehicle) { invoke<Void>(0xC889AE921400E1ED, vehicle); } // 0xC889AE921400E1ED b3095
 	static void SET_INCREASE_WHEEL_CRUSH_DAMAGE(Vehicle vehicle, BOOL toggle) { invoke<Void>(0x2970EAA18FD5E42F, vehicle, toggle); } // 0x2970EAA18FD5E42F b1604
 	static void SET_DISABLE_WEAPON_BLADE_FORCES(BOOL toggle) { invoke<Void>(0x211E95CE9903940C, toggle); } // 0x211E95CE9903940C b1604
 	static void SET_USE_DOUBLE_CLICK_FOR_CAR_JUMP(BOOL toggle) { invoke<Void>(0x5BBCF35BF6E456F7, toggle); } // 0x5BBCF35BF6E456F7 b1604
 	static BOOL GET_DOES_VEHICLE_HAVE_TOMBSTONE(Vehicle vehicle) { return invoke<BOOL>(0x71AFB258CCED3A27, vehicle); } // 0x71AFB258CCED3A27 b1604
 	static void HIDE_TOMBSTONE(Vehicle vehicle, BOOL toggle) { invoke<Void>(0xAE71FB656C600587, vehicle, toggle); } // 0xAE71FB656C600587 b1604
+	static void APPLY_EMP_EFFECT(Vehicle vehicle) { invoke<Void>(0x249249D74F813EB2, vehicle); } // 0x249249D74F813EB2 b3095
 	static BOOL GET_IS_VEHICLE_DISABLED_BY_EMP(Vehicle vehicle) { return invoke<BOOL>(0x0506ED94363AD905, vehicle); } // 0x0506ED94363AD905 b1604
 	static void SET_DISABLE_RETRACTING_WEAPON_BLADES(BOOL toggle) { invoke<Void>(0x8F0D5BA1C2CC91D7, toggle); } // 0x8F0D5BA1C2CC91D7 b1604
 	static float GET_TYRE_HEALTH(Vehicle vehicle, int wheelIndex) { return invoke<float>(0x55EAB010FAEE9380, vehicle, wheelIndex); } // 0x55EAB010FAEE9380 b1868
@@ -6538,7 +6612,10 @@ namespace VEHICLE
 	static BOOL GET_DRIFT_TYRES_SET(Vehicle vehicle) { return invoke<BOOL>(0x2F5A72430E78C8D3, vehicle); } // 0x2F5A72430E78C8D3 b2372
 	static void NETWORK_USE_HIGH_PRECISION_TRAIN_BLENDING(Vehicle vehicle, BOOL toggle) { invoke<Void>(0xEC0C1D4922AF9754, vehicle, toggle); } // 0xEC0C1D4922AF9754 b2372
 	static void SET_CHECK_FOR_ENOUGH_ROOM_FOR_PED(Vehicle vehicle, BOOL p1) { invoke<Void>(0xEF9D388F8D377F44, vehicle, p1); } // 0xEF9D388F8D377F44 b2699
-	static BOOL IS_VEHICLE_GEN9_EXCLUSIVE_MODEL(Hash vehicleModel) { return invoke<BOOL>(0x6638C0F19DE692FE, vehicleModel); } // 0x6638C0F19DE692FE  b3095
+	static void SET_ALLOW_COLLISION_WHEN_IN_VEHICLE_(Vehicle vehicle, BOOL toggle) { invoke<Void>(0x27D27223E8EF22ED, vehicle, toggle); } // 0x27D27223E8EF22ED b3095
+	static BOOL IS_VEHICLE_GEN9_EXCLUSIVE_MODEL(Hash vehicleModel) { return invoke<BOOL>(0x6638C0F19DE692FE, vehicleModel); } // 0x6638C0F19DE692FE b3095
+	static int GET_VEHICLE_MAX_EXHAUST_BONE_COUNT_() { return invoke<int>(0x3EE18B00CD86C54F); } // 0x3EE18B00CD86C54F b3095
+	static BOOL GET_VEHICLE_EXHAUST_BONE_(Vehicle vehicle, int index, int* boneIndex, BOOL* axisX) { return invoke<BOOL>(0xE728F090D538CB18, vehicle, index, boneIndex, axisX); } // 0xE728F090D538CB18 b3095
 }
 
 namespace WATER
@@ -6654,6 +6731,7 @@ namespace WEAPON
 	static void SET_PED_CHANCE_OF_FIRING_BLANKS(Ped ped, float xBias, float yBias) { invoke<Void>(0x8378627201D5497D, ped, xBias, yBias); } // 0x8378627201D5497D 0xB4F44C6E b323
 	static Object SET_PED_SHOOT_ORDNANCE_WEAPON(Ped ped, float p1) { return invoke<Object>(0xB4C8D77C80C0421E, ped, p1); } // 0xB4C8D77C80C0421E 0xEC2E5304 b323
 	static void REQUEST_WEAPON_HIGH_DETAIL_MODEL(Entity weaponObject) { invoke<Void>(0x48164DBB970AC3F0, weaponObject); } // 0x48164DBB970AC3F0 0xE3BD00F9 b323
+	static void SET_WEAPON_PED_DAMAGE_MODIFIER_(Hash weapon, float damageModifier) { invoke<Void>(0x1091922715B68DF0, weapon, damageModifier); } // 0x1091922715B68DF0 b3095
 	static void SET_WEAPON_DAMAGE_MODIFIER(Hash weaponHash, float damageMultiplier) { invoke<Void>(0x4757F00BC6323CFE, weaponHash, damageMultiplier); } // 0x4757F00BC6323CFE b505
 	static void SET_WEAPON_AOE_MODIFIER(Hash weaponHash, float multiplier) { invoke<Void>(0x4AE5AC8B852D642C, weaponHash, multiplier); } // 0x4AE5AC8B852D642C b2372
 	static void SET_WEAPON_EFFECT_DURATION_MODIFIER(Hash p0, float p1) { invoke<Void>(0xE6D2CEDD370FF98E, p0, p1); } // 0xE6D2CEDD370FF98E b2372
