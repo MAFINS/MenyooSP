@@ -1,7 +1,7 @@
 [![GitHub Current Version)](https://img.shields.io/github/v/release/itsjustcurtis/MenyooSP?label=Release%20Version&logo=GitHub)](https://github.com/itsjustcurtis/MenyooSP/releases/latest/download/MenyooSP.zip)
 [![GitHub Latest nightly)](https://img.shields.io/github/v/release/itsjustcurtis/MenyooSP?include_prereleases&label=Pre-release%20Version&logo=GitHub)](https://github.com/itsjustcurtis/MenyooSP/releases/)
 [![GitHub latest release](https://img.shields.io/github/downloads/itsjustcurtis/MenyooSP/latest/total?label=Latest%20Downloads&logo=GitHub)](https://github.com/itsjustcurtis/MenyooSP/releases/latest)
-[![GitHub all releases](https://img.shields.io/github/downloads/itsjustcurtis/MenyooSP/total?label=Total%20Downloadss&logo=GitHub)](https://github.com/itsjustcurtis/MenyooSP/releases)
+[![GitHub all releases](https://img.shields.io/github/downloads/itsjustcurtis/MenyooSP/total?label=Total%20Downloads&logo=GitHub)](https://github.com/itsjustcurtis/MenyooSP/releases)
 
 ![image](https://github.com/itsjustcurtis/MenyooSP/assets/70447190/38f28c30-5585-4f77-b204-6a8c8149defe)
 
