@@ -90,13 +90,16 @@ jobs:
       - name: Extract version from macros.h
         id: extract_version
         run: |
-          grep '#define MENYOO_CURRENT_VER_' Solution/macros.h | awk '{print $3}' | tr -d '"' > version.txt
-          VERSION=$(cat version.txt)
-          echo "VERSION=$VERSION" >> $GITHUB_ENV
+          Select-String -Path "Solution\source\macros.h" -Pattern '#define MENYOO_CURRENT_VER_' | ForEach-Object {
+            $_.Line -match '#define MENYOO_CURRENT_VER_\s+"(.*?)"' | Out-Null
+            $matches[1]
+          } | Out-File -FilePath version.txt
+          $VERSION = Get-Content version.txt
+          echo "VERSION=$VERSION" >> $env:GITHUB_ENV
           echo "Extracted version: $VERSION"
+          
       - name: Zip artifact for deployment
         run: Compress-Archive -Path "MenyooSP/*" -DestinationPath "MenyooSP.zip"
-      
       - uses: "marvinpinto/action-automatic-releases@latest"
         with:
           repo_token: "${{ secrets.GITHUB_TOKEN }}"
