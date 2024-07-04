@@ -86,14 +86,21 @@ jobs:
          #name: MenyooSP
          #skip_unpack: true
       - uses: actions/download-artifact@v3
-      
+     
+      - name: Extract version from macros.h
+        id: extract_version
+        run: |
+          grep '#define MENYOO_CURRENT_VER_' Solution/macros.h | awk '{print $3}' | tr -d '"' > version.txt
+          VERSION=$(cat version.txt)
+          echo "VERSION=$VERSION" >> $GITHUB_ENV
+          echo "Extracted version: $VERSION"
       - name: Zip artifact for deployment
         run: Compress-Archive -Path "MenyooSP/*" -DestinationPath "MenyooSP.zip"
       
       - uses: "marvinpinto/action-automatic-releases@latest"
         with:
           repo_token: "${{ secrets.GITHUB_TOKEN }}"
-          automatic_release_tag: "latest"
+          automatic_release_tag: ${{ env.VERSION }}
           prerelease: true
           title: ${{ steps.version.outputs.version}}
           files: MenyooSP.zip
