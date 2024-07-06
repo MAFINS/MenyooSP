@@ -350,6 +350,7 @@ namespace sub
 		AddTitle("Model Changer");
 		AddOption("Randomize Ped Variation", ModelChangerRandomPedVariation_);
 		AddOption("Favourites", null, nullFunc, SUB::MODELCHANGER_FAVOURITES);
+		AddOption("Player", null, nullFunc, SUB::MODELCHANGER_PLAYER);
 		AddOption("Animals", null, nullFunc, SUB::MODELCHANGER_ANIMAL);
 		AddOption("Ambient Females", null, nullFunc, SUB::MODELCHANGER_AMBFEMALES);
 		AddOption("Ambient Males", null, nullFunc, SUB::MODELCHANGER_AMBMALES);
@@ -399,6 +400,14 @@ namespace sub
 
 
 
+	}
+	void ModelChanger_Player()
+	{
+		AddTitle("Player");
+		for (auto& pmn : g_pedModels_Player)
+		{
+			AddmodelOption_(pmn.second, (pmn.first));
+		}
 	}
 	void ModelChanger_Animal()
 	{

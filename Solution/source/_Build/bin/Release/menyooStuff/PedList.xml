@@ -3,7 +3,7 @@
 	<Category name="Player">
 		<Ped name="player_zero" caption="Michael" />
 		<Ped name="player_one" caption="Franklin" />
-		<Ped name="p_franklin_02" caption="Franklin 2" />
+		<Ped name="p_franklin_02" caption="Franklin Aged" />
 		<Ped name="player_two" caption="Trevor" />
 		<Ped name="mp_f_freemode_01" caption="Freemode MP Female" />
 		<Ped name="mp_m_freemode_01" caption="Freemode MP Male" />		

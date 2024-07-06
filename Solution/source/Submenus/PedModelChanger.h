@@ -36,6 +36,7 @@ namespace sub
 	void AddmodelOption_(const std::string& text, const GTAmodel::Model& model, bool *extra_option_code = nullptr);
 
 	void ModelChanger_();
+	void ModelChanger_Player();
 	void ModelChanger_Animal();
 	void ModelChanger_AmbientFemale();
 	void ModelChanger_AmbientMale();
