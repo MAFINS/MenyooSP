@@ -16,6 +16,7 @@
 - [Discord](https://discord.gg/v29AwqAemT)
 
 ## Requirements
+- [OpenIV and its ASI Loader](https://openiv.com/)
 - [ScriptHookV by Alexander Blade](http://www.dev-c.com/gtav/scripthookv/)
 - GTA V Version 3095.0 or newer.
 
