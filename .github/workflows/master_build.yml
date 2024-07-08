@@ -2,7 +2,7 @@ name: Master_Build
 
 on:
   push:
-    branches: [ "master", "pre_release" ]
+    branches: [ "main", "development" ]
   #workflow_run:
   #  workflows: ["MSBuild"]
   #  types:
