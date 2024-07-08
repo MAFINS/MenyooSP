@@ -2,7 +2,7 @@ name: Master_Build
 
 on:
   push:
-    branches: [ "master", "pre_release" ]
+    branches: [ "main", "Development" ]
   #workflow_run:
   #  workflows: ["MSBuild"]
   #  types:
@@ -86,14 +86,24 @@ jobs:
          #name: MenyooSP
          #skip_unpack: true
       - uses: actions/download-artifact@v3
-      
+     
+      - name: Extract version from macros.h
+        id: extract_version
+        run: |
+          Select-String -Path "Solution\source\macros.h" -Pattern '#define MENYOO_CURRENT_VER_' | ForEach-Object {
+            $_.Line -match '#define MENYOO_CURRENT_VER_\s+"(.*?)"' | Out-Null
+            $matches[1]
+          } | Out-File -FilePath version.txt
+          $VERSION = Get-Content version.txt
+          echo "VERSION=$VERSION" >> $env:GITHUB_ENV
+          echo "Extracted version: $VERSION"
+          
       - name: Zip artifact for deployment
         run: Compress-Archive -Path "MenyooSP/*" -DestinationPath "MenyooSP.zip"
-      
       - uses: "marvinpinto/action-automatic-releases@latest"
         with:
           repo_token: "${{ secrets.GITHUB_TOKEN }}"
-          automatic_release_tag: "latest"
+          automatic_release_tag: ${{ env.VERSION }}
           prerelease: true
           title: ${{ steps.version.outputs.version}}
           files: MenyooSP.zip

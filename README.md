@@ -16,6 +16,7 @@
 - [Discord](https://discord.gg/v29AwqAemT)
 
 ## Requirements
+- [OpenIV and its ASI Loader](https://openiv.com/)
 - [ScriptHookV by Alexander Blade](http://www.dev-c.com/gtav/scripthookv/)
 - GTA V Version 3095.0 or newer.
 
@@ -29,7 +30,7 @@ Visual Studio 2022 required
 
 ## Versioning
 vM.m.p-a/b/rcN
-- M - Major: Changes require complete re-install of Menyoo including all Menyoostuff items
+- M - Major: Changes to the core running of the script, and may not be compatible with older builds.
 - m - Minor: Feature update that adds functionality to the .asi only
 - p - Patch: Bug fixes with no new features.
 - a - Alpha: Unstable pre-release with new features not fully tested

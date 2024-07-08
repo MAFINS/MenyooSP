@@ -3,8 +3,8 @@ name: MSBuild
 on:
   push:
     branches-ignore:
-      - master
-      - pre_release
+      - main
+      - Development
 
 env:
   # Path to the solution file relative to the root of the project.
