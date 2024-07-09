@@ -62,6 +62,8 @@ std::ofstream& operator<<(std::ofstream& stream, ige::LogType logType)
 	tm t;
 	localtime_s(&t, &now);
 
+	stream << "[" << std::setfill('0') << std::setw(2) << t.tm_hour << ":" << std::setfill('0') << std::setw(2) << t.tm_min << ":" << std::setfill('0') << std::setw(2) << t.tm_sec << "] ";
+
 	switch (logType)
 	{
 	case ige::LogType::LOG_INIT: stream << "INIT: "; break;
@@ -71,8 +73,6 @@ std::ofstream& operator<<(std::ofstream& stream, ige::LogType logType)
 	case ige::LogType::LOG_DEBUG: stream << "DEBUG: "; break;
 	case ige::LogType::LOG_TRACE: stream << "TRACE: "; break;
 	}
-
-	stream << "[" << std::setfill('0') << std::setw(2) << t.tm_hour << ":" << std::setfill('0') << std::setw(2) << t.tm_min << ":" << std::setfill('0') << std::setw(2) << t.tm_sec << "] ";
 
 	return stream;
 }
