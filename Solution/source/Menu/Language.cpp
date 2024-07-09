@@ -40,6 +40,7 @@ namespace Language
 		}
 		catch (std::out_of_range)
 		{
+			addlog(loglevel, ige::LogType::LOG_ERROR, "Translate string out of range: " + text);
 			return text;
 		}
 	}
@@ -49,7 +50,9 @@ namespace Language
 		if (selectedLang != nullptr)
 			return selectedLang->Translate(text);
 		else
+		{
 			return text;
+		}
 	}
 
 	int Init()

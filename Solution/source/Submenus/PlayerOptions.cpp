@@ -16,6 +16,7 @@
 
 #include "..\Natives\natives2.h"
 #include "..\Util\GTAmath.h"
+#include "..\Util\FileLogger.h"
 #include "..\Scripting\GTAplayer.h"
 #include "..\Scripting\GTAped.h"
 #include "..\Scripting\Game.h"
@@ -349,7 +350,11 @@ namespace sub
 				if (inputStr.length() > 0)
 				{
 					try { flagID = stoi(inputStr); }
-					catch (...) { Game::Print::PrintError_InvalidInput(); }
+					catch (...) 
+					{ 
+						Game::Print::PrintError_InvalidInput();
+						addlog(loglevel, ige::LogType::LOG_ERROR, "Invalid flagID entered: " + inputStr);
+					}
 				}
 				//OnscreenKeyboard::State::Set(OnscreenKeyboard::Purpose::PedFlagIdInput, "", 9U);
 			}
