@@ -14,6 +14,7 @@
 #include <fstream>
 #include <iomanip>
 #include <time.h>
+#include "../Natives/natives.h"
 
 namespace ige
 {
@@ -31,6 +32,7 @@ namespace ige
 			localtime_s(&t, &now);
 
 			myFile << "Menyoo " << MENYOO_CURRENT_VER_ << std::endl;
+			myFile << "Player Name: " << PLAYER::GET_PLAYER_NAME(0);
 			myFile << "Log file created " << std::setfill('0') << std::setw(2) << t.tm_mday << "/" << std::setfill('0') << std::setw(2) << (t.tm_mon + 1) << "/" << t.tm_year + 1900 << std::endl << std::endl << std::endl;
 		}
 
