@@ -353,7 +353,7 @@ namespace sub
 					catch (...) 
 					{ 
 						Game::Print::PrintError_InvalidInput();
-						addlog(loglevel, ige::LogType::LOG_ERROR, "Invalid flagID entered: " + inputStr);
+						addlog(ige::LogType::LOG_ERROR, "Invalid flagID entered: " + inputStr, __FILENAME__);
 					}
 				}
 				//OnscreenKeyboard::State::Set(OnscreenKeyboard::Purpose::PedFlagIdInput, "", 9U);

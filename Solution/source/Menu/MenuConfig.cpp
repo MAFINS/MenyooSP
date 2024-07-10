@@ -51,10 +51,11 @@ void MenuConfig::ConfigInit()
 	SetFileAttributesW(GetPathffW(Pathff::Main, false).c_str(), GetFileAttributes(GetPathffW(Pathff::Main, false).c_str()) & ~FILE_ATTRIBUTE_READONLY);
 
 	if (MenuConfig::iniFile.LoadFile((GetPathffA(Pathff::Main, true) + "menyooConfig.ini").c_str()) < 0)
-		addlog(loglevel, ige::LogType::LOG_ERROR,  "Failed to load menyooConfig from " + GetPathffA(Pathff::Main, true) + "menyooConfig.ini.");
-	else
+		addlog(ige::LogType::LOG_ERROR,  "Failed to load menyooConfig from " + GetPathffA(Pathff::Main, true) + "menyooConfig.ini.", __FILENAME__);
+	else {
 		ConfigRead();
-	addlog(loglevel, ige::LogType::LOG_INFO, "Logging Type Detected:" + std::to_string(loglevel));
+		addlog(ige::LogType::LOG_INFO, "Config loaded from " + GetPathffA(Pathff::Main, true) + "menyooConfig.ini.", __FILENAME__);
+	}
 }
 
 void MenuConfig::ConfigRead()
@@ -78,7 +79,7 @@ void MenuConfig::ConfigRead()
 	Menu::bit_centre_breaks = ini.GetBoolValue(section_settings.c_str(), "centre_breaks", Menu::bit_centre_breaks);
 	Language::configLangName = ini.GetValue(section_settings.c_str(), "language", Language::configLangName.c_str());
 	Language::Init();
-	loglevel = ini.GetLongValue(section_settings.c_str(), "log level", loglevel);
+	g_loglevel = ini.GetLongValue(section_settings.c_str(), "log level", g_loglevel);
 
 
 	std::string section_general = "general";/////////
@@ -329,7 +330,7 @@ void MenuConfig::ConfigSave()
 	ini.SetBoolValue(section_settings.c_str(), "centre_options", Menu::bit_centre_options);
 	ini.SetBoolValue(section_settings.c_str(), "centre_breaks", Menu::bit_centre_breaks);
 	ini.SetValue(section_settings.c_str(), "language", Language::configLangName.c_str());
-	ini.SetLongValue(section_settings.c_str(), "log level", loglevel);
+	ini.SetLongValue(section_settings.c_str(), "log level", g_loglevel);
 
 
 	std::string section_general = "general";/////////

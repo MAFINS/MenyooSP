@@ -400,7 +400,7 @@ namespace sub
 				catch (...) 
 				{ 
 					Game::Print::PrintError_InvalidInput(); 
-					addlog(loglevel, ige::LogType::LOG_ERROR, "Invalid input radius entered: " + inputStr);
+					addlog(ige::LogType::LOG_ERROR, "Invalid input radius entered: " + inputStr, __FILENAME__);
 				}
 			}
 			//OnscreenKeyboard::State::Set(OnscreenKeyboard::Purpose::SetArg1Float, std::string(), 5U, std::string(), std::to_string(_globalClearArea_radius).substr(0, 5));
@@ -659,7 +659,7 @@ namespace sub
 					catch (...) 
 					{ 
 						radius = oldVal; 	
-						addlog(loglevel, ige::LogType::LOG_ERROR, "Invalid radius entered: " + std::to_string(radius) + ", returning to oldVal: " + std::to_string(oldVal));
+						addlog(ige::LogType::LOG_ERROR, "Invalid radius entered: " + std::to_string(radius) + ", returning to oldVal: " + std::to_string(oldVal), __FILENAME__);
 					}
 				}
 				//OnscreenKeyboard::State::Set(OnscreenKeyboard::Purpose::WaterHackRadius, std::string(), 9U, std::string(), std::to_string(radius).substr(0, 9));
@@ -687,7 +687,7 @@ namespace sub
 					}
 					catch (...)
 					{
-						addlog(loglevel, ige::LogType::LOG_ERROR, "Invalid height entered: " + std::to_string(height));
+						addlog(ige::LogType::LOG_ERROR, "Invalid height entered: " + std::to_string(height), __FILENAME__);
 					}
 				}
 				//OnscreenKeyboard::State::Set(OnscreenKeyboard::Purpose::WaterHackHeight, std::string(), 9U, std::string(), std::to_string(height).substr(0, 9));

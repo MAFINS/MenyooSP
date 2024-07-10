@@ -150,7 +150,7 @@ namespace _JumpAroundMode_
 		}
 		catch (std::exception& e)
 		{
-			addlog(loglevel, ige::LogType::LOG_ERROR,  "JumpAroundMode countered an exception -> " + static_cast<std::string>(e.what()));
+			addlog(ige::LogType::LOG_ERROR,  "JumpAroundMode countered an exception -> " + static_cast<std::string>(e.what()), __FILENAME__);
 		}
 	}
 

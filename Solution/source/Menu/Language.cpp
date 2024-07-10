@@ -40,7 +40,7 @@ namespace Language
 		}
 		catch (std::out_of_range)
 		{
-			addlog(loglevel, ige::LogType::LOG_ERROR, "Translate string out of range: " + text);
+			addlog(ige::LogType::LOG_ERROR, "Translate string out of range: " + text, __FILENAME__);
 			return text;
 		}
 	}
@@ -104,11 +104,11 @@ namespace Language
 				{
 					Json doc = Json::parse(stream);
 					lang.Dictionary() = doc;
-					addlog(loglevel, ige::LogType::LOG_INFO,  "Loaded language file " + lang.GetFilePath());
+					addlog(ige::LogType::LOG_INFO,  "Loaded language file " + lang.GetFilePath(), __FILENAME__);
 				}
 				catch (...)
 				{
-					addlog(loglevel, ige::LogType::LOG_ERROR,  "Unable to load language file " + lang.GetFilePath());
+					addlog(ige::LogType::LOG_ERROR,  "Unable to load language file " + lang.GetFilePath(), __FILENAME__);
 					return -1;
 				}
 
@@ -116,7 +116,7 @@ namespace Language
 			}
 		}
 
-		addlog(loglevel, ige::LogType::LOG_ERROR,  "Cannot find selected language in memory. Resetting to default");
+		addlog(ige::LogType::LOG_ERROR,  "Cannot find selected language in memory. Resetting to default", __FILENAME__);
 		ResetSelectedLang();
 		return -1;
 	}
