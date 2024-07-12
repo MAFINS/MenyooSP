@@ -1,0 +1,27 @@
+___  ___ _____ _   ___   _______  _____ 
+|  \/  ||  ___| \ | \ \ / /  _  ||  _  |
+| .  . || |__ |  \| |\ V /| | | || | | |
+| |\/| ||  __|| . ` | \ / | | | || | | |
+| |  | || |___| |\  | | | \ \_/ /\ \_/ /
+\_|  |_/\____/\_| \_/ \_/  \___/  \___/
+
+
+If you are reading this then Menyoo has been unable to initialise.
+
+Please ensure you have ScripthookV and an ASI Loader installed (available through the OpenIV app.
+
+If you have both of these installed, check the following logs:
+
+asiloader.log - Should have the below entry
+	ASI: Loading "[install path]\Grand Theft Auto V\Menyoo.asi"
+     "Menyoo.asi" => [HEX Value]
+	 
+ScriptHookV.log - Should have the below entries
+	[Time Stamp] INIT: Registering script 'Menyoo.asi' ([Hex Value])
+	[Time Stamp] INIT: Registering additional script thread 'Menyoo.asi' ([Hex Value])	
+	[Time Stamp] CORE: Started thread 'Menyoo.asi' ([Hex Value]), id [int] active 1
+	[Time Stamp] CORE: Started thread 'Menyoo.asi' ([Hex Value]), id [int] active 1
+	[Time Stamp] CORE: Launching main() for 'Menyoo.asi' ([Hex Value]), id [int]
+	
+
+If either of these files are missing and/or not showing information about menyoo, please check the installation of all three.
