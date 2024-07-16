@@ -40,14 +40,22 @@ jobs:
       - name: Check if tag already exists
         run: |
           VERSION=${{ env.VERSION }}
-          echo "Checking for tag: $VERSION"
-
-          if echo "$TAGS" | grep -x "$VERSION"; then
-            echo "Tag $VERSION already exists. Cancelling workflow."
-            exit 1
-          else
-            echo "Tag $VERSION does not exist. Proceeding."
-          fi
+          echo "Checking for tag: $VERSION"          
+          
+          echo "Extracted tags:"
+          TAGS=$(echo "$RELEASE_LIST" | awk '{print $1}')
+          echo "$TAGS"
+          
+           echo "Checking if tag exists:"
+          echo "$TAGS" | while IFS= read -r tag; do
+            echo "Comparing tag: '$tag' with version: '$VERSION'"
+            if [ "$tag" = "$VERSION" ]; then
+              echo "Tag $VERSION already exists. Cancelling workflow."
+              exit 1
+            fi
+          done
+          
+          echo "Tag $VERSION does not exist. Proceeding."
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           
