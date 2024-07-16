@@ -40,8 +40,9 @@ jobs:
       - name: Check if tag already exists
         run: |
           VERSION=${{ env.VERSION }}
-          TAG_EXISTS=$(gh release list | grep -w "$VERSION")
-          if [ -n "$TAG_EXISTS" ]; then
+          echo "Checking for tag: $VERSION"
+
+          if echo "$TAGS" | grep -x "$VERSION"; then
             echo "Tag $VERSION already exists. Cancelling workflow."
             exit 1
           else
@@ -80,7 +81,7 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
   build:
-    if: github.ref == 'refs/heads/main' || (github.ref == 'refs/heads/Development' && needs.check-version-and-merge.outputs.VERSION != '')
+    if: github.ref == 'refs/heads/main' || (github.ref == 'refs/heads/Development')
     runs-on: windows-latest
     needs: check-version-and-merge
 
@@ -148,12 +149,9 @@ jobs:
       - name: Extract version from macros.h
         id: extract_version
         run: |
-          Select-String -Path "Solution\source\macros.h" -Pattern '#define MENYOO_CURRENT_VER_' | ForEach-Object {
-            $_.Line -match '#define MENYOO_CURRENT_VER_\s+"(.*?)"' | Out-Null
-            $matches[1]
-          } | Out-File -FilePath version.txt
-          $VERSION = Get-Content version.txt
-          echo "VERSION=$VERSION" >> $env:GITHUB_ENV
+          VERSION=$(grep '#define MENYOO_CURRENT_VER_' Solution/source/macros.h | awk '{print $3}' | tr -d '"')
+          VERSION="v$VERSION"
+          echo "VERSION=$VERSION" >> $GITHUB_ENV
           echo "Extracted version: $VERSION"
           
       - name: Zip artifact for deployment
