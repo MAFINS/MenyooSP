@@ -149,9 +149,12 @@ jobs:
       - name: Extract version from macros.h
         id: extract_version
         run: |
-          VERSION=$(grep '#define MENYOO_CURRENT_VER_' Solution/source/macros.h | awk '{print $3}' | tr -d '"')
-          VERSION="v$VERSION"
-          echo "VERSION=$VERSION" >> $GITHUB_ENV
+          Select-String -Path "Solution\source\macros.h" -Pattern '#define MENYOO_CURRENT_VER_' | ForEach-Object {
+            $_.Line -match '#define MENYOO_CURRENT_VER_\s+"(.*?)"' | Out-Null
+            $matches[1]
+          } | Out-File -FilePath version.txt
+          $VERSION = Get-Content version.txt
+          echo "VERSION=v$VERSION" >> $env:GITHUB_ENV
           echo "Extracted version: $VERSION"
           
       - name: Zip artifact for deployment
