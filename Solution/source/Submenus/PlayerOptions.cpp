@@ -373,6 +373,7 @@ namespace sub
 		if (!playerPed.Exists())
 		{
 			Game::Print::PrintBottomCentre("~r~Error:~s~ No longer in memory.");
+			addlog(ige::LogType::LOG_WARNING, "Cannot start clone menu, playerPed No longer in memory", __FILENAME__);
 			Menu::SetSub_previous();
 			return;
 		}

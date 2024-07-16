@@ -57,13 +57,13 @@ namespace ige
 	{
 		if (static_cast<int>(logType) <= loglevel)
 		{
-			ige::myLog << logType << filename << ": " << message << std::endl;
+			ige::myLog << logType << (loglevel >= 3 ? filename : "") << ": " << message << std::endl;
 		}
 	}
 
 	//overloaded function to define default file and loglevels unless otherwise specified
 	void addlog(LogType logType, std::string& message) {
-		addlog(logType, message, __FILE__, g_loglevel);
+		addlog(logType, message, "", g_loglevel);
 	}
 }
 
