@@ -46,7 +46,7 @@ namespace sub
 						vCutsceneLabels.push_back(line);
 					}
 				}
-				addlog(loglevel, ige::LogType::LOG_INFO,  "Loaded cutscene names from " + filePath);
+				addlog(ige::LogType::LOG_INFO,  "Loaded cutscene names from " + filePath, __FILENAME__);
 				fin.close();
 			}
 		}

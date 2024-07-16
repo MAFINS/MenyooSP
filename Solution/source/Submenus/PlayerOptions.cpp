@@ -16,6 +16,7 @@
 
 #include "..\Natives\natives2.h"
 #include "..\Util\GTAmath.h"
+#include "..\Util\FileLogger.h"
 #include "..\Scripting\GTAplayer.h"
 #include "..\Scripting\GTAped.h"
 #include "..\Scripting\Game.h"
@@ -349,7 +350,11 @@ namespace sub
 				if (inputStr.length() > 0)
 				{
 					try { flagID = stoi(inputStr); }
-					catch (...) { Game::Print::PrintError_InvalidInput(); }
+					catch (...) 
+					{ 
+						Game::Print::PrintError_InvalidInput();
+						addlog(ige::LogType::LOG_ERROR, "Invalid flagID entered: " + inputStr, __FILENAME__);
+					}
 				}
 				//OnscreenKeyboard::State::Set(OnscreenKeyboard::Purpose::PedFlagIdInput, "", 9U);
 			}
@@ -368,6 +373,7 @@ namespace sub
 		if (!playerPed.Exists())
 		{
 			Game::Print::PrintBottomCentre("~r~Error:~s~ No longer in memory.");
+			addlog(ige::LogType::LOG_WARNING, "Cannot start clone menu, playerPed No longer in memory", __FILENAME__);
 			Menu::SetSub_previous();
 			return;
 		}

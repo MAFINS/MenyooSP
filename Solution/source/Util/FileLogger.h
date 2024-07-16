@@ -10,6 +10,10 @@
 #pragma once
 
 #include <fstream>
+#include "../Menu/Menu.h"
+
+#define __FILENAME__ strrchr("\\" __FILE__, '\\') + 1
+
 //namespace std {
 //	class ofstream;
 //}
@@ -32,10 +36,12 @@ namespace ige
 		FileLogger& operator= (const FileLogger&) = delete;
 	};
 
-	extern ige::FileLogger menyooLogObject;
+	extern FileLogger menyooLogObject;
 	extern std::ofstream& myLog;
-	extern void addlog(int loglevel, ige::LogType logType, std::string message);
-
+	extern void addlog(LogType logType, std::string message, std::string filename, int loglevel = g_loglevel);
+	inline void addlog(LogType logType, std::string message) {
+		addlog(logType, message, __FILENAME__, g_loglevel);
+	}
 }
 
 std::ofstream& operator << (std::ofstream& stream, ige::LogType logType);
