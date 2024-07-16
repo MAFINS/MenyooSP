@@ -34,7 +34,7 @@ jobs:
         id: extract_version
         run: |
           VERSION=$(grep '#define MENYOO_CURRENT_VER_' Solution/source/macros.h | awk '{print $3}' | tr -d '"')
-          echo "VERSION=$VERSION" >> $GITHUB_ENV
+          echo "VERSION=v$VERSION" >> $GITHUB_ENV
           echo "Extracted version: $VERSION"
           
       - name: Check if tag already exists
