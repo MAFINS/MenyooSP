@@ -15,6 +15,7 @@
 #include "..\Scripting\enums.h"
 #include "..\Scripting\Game.h"
 #include "..\Menu\Menu.h"
+#include "..\Util\FileLogger.h"
 
 // death model check
 #include "..\Scripting\Model.h"
@@ -59,7 +60,9 @@ namespace _ManualRespawn_
 	{
 		std::string bindsname = "button";
 		try { bindsname = ControllerInputs::vNames.at(respawnbinds); }
-		catch (...) {}
+		catch (...) {
+			addlog(ige::LogType::LOG_ERROR, "Unable to set new bindsname, respawnbinds = " + std::to_string(respawnbinds), __FILENAME__);
+		}
 
 		Game::Print::setupdraw(GTAfont::Arial, Vector2(0, 0.4f), false, true, false, RGBA(255, 255, 255, 190));
 		Game::Print::drawstring("Press ~b~[" + bindsname + "]~s~ to respawn.", NULL, 0.1f);

@@ -25,6 +25,7 @@
 #include "..\..\Scripting\World.h"
 #include "..\..\Util\StringManip.h"
 #include "..\..\Util\keyboard.h"
+#include "..\..\Util\FileLogger.h"
 #include "..\..\Scripting\GTAblip.h"
 #include "..\..\Scripting\Camera.h"
 #include "..\..\Scripting\WeaponIndivs.h"
@@ -1557,6 +1558,7 @@ namespace sub::Spooner
 			if (!isThisEntityInDb)
 			{
 				Game::Print::PrintBottomLeft("~r~Error:~s~ Entity is not in the Spooner Database");
+				addlog(ige::LogType::LOG_WARNING, "Cannot display task list, Entity not in Spooner Database",__FILENAME__);
 				Menu::SetSub_previous();
 				return;
 			}
@@ -1582,6 +1584,7 @@ namespace sub::Spooner
 				else
 				{
 					Game::Print::PrintBottomCentre("~r~Error:~s~ Task list is empty.");
+					addlog(ige::LogType::LOG_WARNING, "Cannot start tasks, Task list is empty", __FILENAME__);
 				}
 			}
 			else if (bStopPressed)

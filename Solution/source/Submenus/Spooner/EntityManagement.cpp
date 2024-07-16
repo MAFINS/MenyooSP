@@ -21,6 +21,7 @@
 #include "..\..\Scripting\GTAvehicle.h"
 #include "..\..\Scripting\GTAped.h"
 #include "..\..\Util\StringManip.h"
+#include "..\..\Util\FileLogger.h"
 #include "..\..\Scripting\World.h"
 #include "..\..\Scripting\Model.h"
 #include "..\..\Scripting\Game.h"
@@ -289,6 +290,7 @@ namespace sub::Spooner
 			if (Databases::EntityDb.size() >= GTA_MAX_ENTITIES)
 			{
 				Game::Print::PrintBottomLeft("~r~Error:~s~ Max spawn count reached.");
+				addlog(ige::LogType::LOG_WARNING, "Failed to add prop, max spawn count " + std::to_string(GTA_MAX_ENTITIES) + " Reached", __FILENAME__);
 				return SpoonerEntity();
 			}
 			if (!model.IsInCdImage())
@@ -413,6 +415,7 @@ namespace sub::Spooner
 			if (Databases::EntityDb.size() >= GTA_MAX_ENTITIES)
 			{
 				Game::Print::PrintBottomLeft("~r~Error:~s~ Max spawn count reached.");
+				addlog(ige::LogType::LOG_WARNING, "Failed to spawn ped, max spawn count " + std::to_string(GTA_MAX_ENTITIES) + " Reached", __FILENAME__);
 				return SpoonerEntity();
 			}
 			if (!model.IsInCdImage())
@@ -500,6 +503,7 @@ namespace sub::Spooner
 			if (Databases::EntityDb.size() >= GTA_MAX_ENTITIES)
 			{
 				Game::Print::PrintBottomLeft("~r~Error:~s~ Max spawn count reached.");
+				addlog(ige::LogType::LOG_WARNING, "Failed to add vehicle, max spawn count " + std::to_string(GTA_MAX_ENTITIES) + " Reached", __FILENAME__);
 				return SpoonerEntity();
 			}
 			if (!model.IsInCdImage())

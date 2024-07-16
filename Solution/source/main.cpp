@@ -32,7 +32,7 @@ BOOL APIENTRY DllMain(HMODULE hInstance, DWORD reason, LPVOID lpReserved)
 		g_MainModule = GetModuleHandle(NULL);
 
 		if (!GetModuleInformation(GetCurrentProcess(), g_MainModule, &g_MainModuleInfo, sizeof(g_MainModuleInfo)))
-			addlog(loglevel, ige::LogType::LOG_INIT, "Unable to get MODULEINFO from GTA5.exe");
+			addlog(ige::LogType::LOG_INIT, "Unable to get MODULEINFO from GTA5.exe", __FILENAME__);
 		else
 		{
 			std::ostringstream moduleinfostream;
@@ -40,7 +40,7 @@ BOOL APIENTRY DllMain(HMODULE hInstance, DWORD reason, LPVOID lpReserved)
 				<< ", SizeOfImage=" << g_MainModuleInfo.SizeOfImage
 				<< ", EntryPoint=" << g_MainModuleInfo.EntryPoint;
 
-			addlog(loglevel, ige::LogType::LOG_INIT, moduleinfostream.str());
+			addlog(ige::LogType::LOG_INIT, moduleinfostream.str(), __FILENAME__);
 		}
 
 		GTAmemory::Init();

@@ -123,7 +123,7 @@ void Menu::justopened()
 	g_menuNotOpenedYet = false;
 }
 inline void MenyooMain()
-{
+{	
 	DxHookIMG::LoadAllMenyooTexturesInit();
 	sub::AnimationSub_catind::PopulateAllPedAnimsList();
 	sub::WeaponFavourites_catind::PopulateFavouritesInfo();
@@ -140,10 +140,10 @@ inline void MenyooMain()
 	SET_RANDOM_SEED(GetTickCount());
 	//_initialProgramTick = GetTickCount();
 
-	MenuConfig::ConfigInit();
+	//MenuConfig::ConfigInit();
 	g_MenyooConfigTick = GetTickCount();
 	g_FaderTick = GetTickCount();
-	
+
 	if (!NETWORK_IS_SESSION_STARTED())
 	{
 		if (GTAmemory::FindShopController())

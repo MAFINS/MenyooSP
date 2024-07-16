@@ -183,7 +183,7 @@ Scaleform Menu::scaleform_menuGlare;
 Scaleform Menu::instructional_buttons;
 std::vector<Scaleform_IbT> Menu::vIB;
 std::function<void()> Menu::OnSubBack = nullptr;
-INT8 loglevel = 2;
+INT8 g_loglevel = 2;
 
 
 void Menu::SetInputMethods()

@@ -18,6 +18,7 @@
 #include "..\Util\StringManip.h"
 #include "..\Util\keyboard.h"
 #include "..\Util\GTAmath.h"
+#include "..\Util\FileLogger.h"
 #include "..\Scripting\Game.h"
 #include "..\Scripting\World.h"
 #include "..\Scripting\Camera.h"
@@ -396,7 +397,11 @@ namespace sub
 				{
 					_globalClearArea_radius = stof(inputStr);
 				}
-				catch (...) { Game::Print::PrintError_InvalidInput(); }
+				catch (...) 
+				{ 
+					Game::Print::PrintError_InvalidInput(); 
+					addlog(ige::LogType::LOG_ERROR, "Invalid input radius entered: " + inputStr, __FILENAME__);
+				}
 			}
 			//OnscreenKeyboard::State::Set(OnscreenKeyboard::Purpose::SetArg1Float, std::string(), 5U, std::string(), std::to_string(_globalClearArea_radius).substr(0, 5));
 			//OnscreenKeyboard::State::arg1._ptr = reinterpret_cast<void*>(&_globalClearArea_radius);
@@ -651,7 +656,11 @@ namespace sub
 						else if (radius < 0.0f)
 							radius = 0.0f;
 					}
-					catch (...) { radius = oldVal; }
+					catch (...) 
+					{ 
+						radius = oldVal; 	
+						addlog(ige::LogType::LOG_ERROR, "Invalid radius entered: " + std::to_string(radius) + ", returning to oldVal: " + std::to_string(oldVal), __FILENAME__);
+					}
 				}
 				//OnscreenKeyboard::State::Set(OnscreenKeyboard::Purpose::WaterHackRadius, std::string(), 9U, std::string(), std::to_string(radius).substr(0, 9));
 				return;
@@ -676,11 +685,14 @@ namespace sub
 						height = stof(inputStr);
 						height = (std::min)(800.0f, (std::max)(-800.0f, height));
 					}
-					catch (...) {  }
+					catch (...)
+					{
+						addlog(ige::LogType::LOG_ERROR, "Invalid height entered: " + std::to_string(height), __FILENAME__);
+					}
 				}
 				//OnscreenKeyboard::State::Set(OnscreenKeyboard::Purpose::WaterHackHeight, std::string(), 9U, std::string(), std::to_string(height).substr(0, 9));
 				return;
-			}
+				}
 
 
 		}
