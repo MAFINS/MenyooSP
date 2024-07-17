@@ -570,7 +570,7 @@ namespace BlipIcon {
 		{ BlipIcon::Squadee, "Squadee" },
 		{ BlipIcon::Alkonost, "Alkonost" },
 		{ BlipIcon::AnnihilatorStealth, "AnnihilatorStealth" },
-		{ BlipIcon::Kostatka, "Kostatka" },
+		{ BlipIcon::Kostatka, "Kosatka" },
 		{ BlipIcon::BoltCutter, "BoltCutter" },
 		{ BlipIcon::KeyCard, "KeyCard" },
 		{ BlipIcon::Password, "Password" },
