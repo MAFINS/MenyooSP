@@ -101,6 +101,7 @@ std::map<Hash, std::string> WeaponIndivs::vWeaponLabels
 	{ WEAPON_COMBATMG_MK2, "Combat MG Mk2" },
 	{ WEAPON_GUSENBERG, "Gusenberg Sweeper" },
 	{ WEAPON_MINISMG, "Mini SMG" },
+	{ WEAPON_TECPISTOL, "Technical SMG" },
 	//slot Rifle (14)
 	{ WEAPON_ASSAULTRIFLE, "Assault Rifle" },
 	{ WEAPON_ASSAULTRIFLE_MK2, "Assault Rifle Mk2" },
@@ -113,6 +114,7 @@ std::map<Hash, std::string> WeaponIndivs::vWeaponLabels
 	{ WEAPON_BULLPUPRIFLE_MK2, "Bullpup Rifle Mk2" },
 	{ WEAPON_COMPACTRIFLE, "Compact Rifle" },
 	{ WEAPON_RAYCARBINE, "Ray Carbine Rifle" },
+	{ WEAPON_BATTLERIFLE, "Battle Rifle" },
     // 1.0.2189.0
 	{ WEAPON_MILITARYRIFLE, "Military Rifle" },
 	{ WEAPON_HEAVYRIFLE, "Heavy Rifle" }, //2545
@@ -140,6 +142,7 @@ std::map<Hash, std::string> WeaponIndivs::vWeaponLabels
 	{ WEAPON_ACIDPACKAGE, "Acid Package" }, //2802
 	// 1.0.1868.0
 	{ WEAPON_HAZARDCAN, "Hazardous Jerry Can" },
+	{ WEAPON_BATTLERIFLE, "Battle Rifle" },
 	//slot launcher (10)
 	{ WEAPON_GRENADELAUNCHER, "Grenade Launcher" },
 	{ WEAPON_RPG, "RPG" },
@@ -497,7 +500,9 @@ std::vector<WeaponAndComponents> WeaponIndivs::wc_PISTOLS
 	}, &WeaponIndivs::vCaptions_Tints },   
 
 	{ WEAPON_STUNGUN_MP,{
+		//{ "Bottom Dollar Bail Enforcement", GET_HASH_KEY("COMPONENT_STUNGUN_VARMOD_BAIL") },
 	}, &WeaponIndivs::vCaptions_Tints },
+
 	{ WEAPON_PISTOLXM3,{
 		{ "Standard_Clip", GET_HASH_KEY("COMPONENT_PISTOLXM3_CLIP_01") },
 		{ "Suppressor", GET_HASH_KEY("COMPONENT_PISTOLXM3_SUPP") },
@@ -590,6 +595,13 @@ std::vector<WeaponAndComponents> WeaponIndivs::wc_SMGS
 	{ WEAPON_MINISMG,{
 		{ "Standard_Clip", COMPONENT_MINISMG_CLIP_01 },
 		{ "Extended_Clip", COMPONENT_MINISMG_CLIP_02 },
+	}, &WeaponIndivs::vCaptions_Tints },
+
+	{ WEAPON_TECPISTOL,{
+		{ "Standard_Clip", COMPONENT_TECPISTOL_CLIP_01 },
+		{ "Drum Magazine", COMPONENT_TECPISTOL_CLIP_02 },
+		{ "Suppressor", COMPONENT_AT_AR_SUPP_02 },
+		{ "Scope", COMPONENT_AT_SCOPE_MACRO },
 	}, &WeaponIndivs::vCaptions_Tints },
 };
 #pragma endregion
@@ -926,6 +938,11 @@ std::vector<WeaponAndComponents> WeaponIndivs::wc_ASSAULTRIFLES
 		{ "Flashlight", GET_HASH_KEY("COMPONENT_AT_AR_FLSH_REH") },
 		{ "Suppressor", GET_HASH_KEY("COMPONENT_AT_AR_SUPP_02") },
 		{ "Grip", GET_HASH_KEY("COMPONENT_AT_AR_AFGRIP") },
+	}, &WeaponIndivs::vCaptions_Tints },
+	{ WEAPON_BATTLERIFLE,{
+		{ "Standard_Clip", GET_HASH_KEY("COMPONENT_BATTLERIFLE_CLIP_01") },
+		{ "Extended_Clip", GET_HASH_KEY("COMPONENT_BATTLERIFLE_CLIP_02") },
+		{ "Suppressor", GET_HASH_KEY("COMPONENT_AT_AR_SUPP") },
 	}, &WeaponIndivs::vCaptions_Tints },
 };
 #pragma endregion
