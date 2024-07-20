@@ -1006,6 +1006,7 @@ std::vector<WeaponAndComponents> WeaponIndivs::wc_SHOTGUNS
 	{ WEAPON_ASSAULTSHOTGUN,{
 		{ "Extended_Clip", COMPONENT_ASSAULTSHOTGUN_CLIP_02 },
 		{ "Suppressor", COMPONENT_AT_AR_SUPP },
+		{ "Flashlight", COMPONENT_AT_AR_FLSH},
 		{ "Grip", COMPONENT_AT_AR_AFGRIP },
 	}, &WeaponIndivs::vCaptions_Tints },
 
