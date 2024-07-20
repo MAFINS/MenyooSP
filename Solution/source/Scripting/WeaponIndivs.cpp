@@ -29,6 +29,7 @@ std::map<Hash, std::string> WeaponIndivs::vWeaponLabels
 	//slot gadget (2)
 	{ GADGET_PARACHUTE, "Parachute" },
 	{ GADGET_NIGHTVISION, "Nightvision" },
+	{ WEAPON_HACKINGDEVICE, "Hacking Device"},
 	//slot melee (19)
 	{ WEAPON_UNARMED, "Unarmed" },
 	{ WEAPON_KNIFE, "Knife" },
@@ -51,6 +52,7 @@ std::map<Hash, std::string> WeaponIndivs::vWeaponLabels
 	{ WEAPON_FERTILIZERCAN, "Fertilizer Can" }, //2545
 	{ WEAPON_METALDETECTOR, "Metal Detector" }, //2699
 	{ WEAPON_CANDYCANE, "Candy Cane" }, //2802
+	{ WEAPON_STUNROD, "Stun Rod"},
 	//slot pistol (22)
 	{ WEAPON_PISTOL, "Pistol" },
 	{ WEAPON_PISTOL_MK2, "Pistol Mk2" },
@@ -149,6 +151,7 @@ std::map<Hash, std::string> WeaponIndivs::vWeaponLabels
 	{ WEAPON_RAYMINIGUN, "Ray Minigun" },
 	{ WEAPON_EMPLAUNCHER, "EMP Launcher" }, //2545
 	{ WEAPON_RAILGUNXM3, "Railgun XM3" }, //2802
+	{ WEAPON_SNOWLAUNCHER , "Snow Launcher"},
 
 };
 #pragma endregion
@@ -296,6 +299,8 @@ std::vector<WeaponAndComponents> WeaponIndivs::wc_MELEE
 	}, nullptr },
 	{ WEAPON_CANDYCANE,{
 	}, nullptr },
+	{ WEAPON_STUNROD,{
+	}, &WeaponIndivs::vCaptions_Tints },
 };
 #pragma endregion
 #pragma region pistols/stun
@@ -1152,6 +1157,8 @@ std::vector<WeaponAndComponents> WeaponIndivs::wc_HEAVY
 	}, &WeaponIndivs::vCaptions_Tints },
 	{ WEAPON_RAILGUNXM3,{
 		{ "Standard_Clip", GET_HASH_KEY("COMPONENT_RAILGUNXM3_CLIP_01") },
+	}, &WeaponIndivs::vCaptions_Tints },
+	{ WEAPON_SNOWLAUNCHER,{
 	}, &WeaponIndivs::vCaptions_Tints },
 };
 #pragma endregion
