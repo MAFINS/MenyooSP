@@ -2,7 +2,7 @@ name: Master_Build
 
 on:
   push:
-    branches: [ "main", "Development" ]
+    branches: [ "main", "Development", "fix_masterrelease" ]
   #workflow_run:
   #  workflows: ["MSBuild"]
   #  types:
@@ -21,6 +21,7 @@ env:
 
 permissions:
   contents: write
+  pull-requests: write
 
 jobs:
   check-version-and-merge:
@@ -67,15 +68,23 @@ jobs:
             echo "Already on main branch. Skipping merge check."
             exit 0
           fi
+
+          # Function to check for existing PR with the same version
+          check_pr_exists() {
+            PR_LIST=$(gh pr list --head Development --base main --state open --json title,body)
+            PR_EXIST=$(echo "$PR_LIST" | jq -r --arg VERSION "$VERSION" '.[] | select((.title | contains($VERSION)) or (.body | contains($VERSION)))')
+            [ -n "$PR_EXIST" ]
+          }
+
           if [[ $VERSION =~ ^v?[0-9]+\.[0-9]+\.[0-9]+$ ]]; then
             echo "Version is a full release. Creating pull request to merge into main."
             echo "## Check for existing PR"
-            if gh pr list --head development --base main --state open --json number --jq .[0].number; then
-              echo "PR already exists."
+            if check_pr_exists; then
+              echo "PR already exists with version $VERSION."
               exit 0
             fi
             echo "Creating new PR."
-            gh pr create --title "Release $VERSION" --body "Merging development into main for release $VERSION" --base main --head development
+            gh pr create --title "Release $VERSION" --body "Merging development into main for release $VERSION" --base main --head Development
             exit 1
           elif [[ $VERSION =~ ^v?[0-9]+\.[0-9]+\.[0-9]+(a|b|rc)[0-9]+$ ]]; then
             echo "Version is a pre-release. Proceeding with pre-release build."
