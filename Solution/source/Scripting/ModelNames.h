@@ -53,6 +53,7 @@ struct NamedRgbS{ std::string name; RgbS rgb; };
 extern const std::vector<NamedRgbS> _vNeonColours;
 
 extern std::vector<std::pair<std::string, std::string>> g_pedModels;
+extern std::vector<std::pair<std::string, std::string>> g_pedModels_Player;
 extern std::vector<std::pair<std::string, std::string>> g_pedModels_Animal;
 extern std::vector<std::pair<std::string, std::string>> g_pedModels_AmbientFemale;
 extern std::vector<std::pair<std::string, std::string>> g_pedModels_AmbientMale;

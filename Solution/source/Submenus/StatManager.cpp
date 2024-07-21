@@ -16,6 +16,7 @@
 
 #include "..\Natives\natives2.h"
 #include "..\Scripting\Game.h"
+#include "..\Util\FileLogger.h"
 
 #include <string>
 #include <vector>
@@ -33,7 +34,7 @@ namespace sub
 		const std::array<NamedCharStatList_t, 5> vCharStatLists
 		{ {
 			{ "Cash",{
-				{ "TOTAL_CASH", "Total Cash", StatDataType_t::INT, 0, INT_MAX }
+				{ "TOTAL_CASH", "Total Cash", StatDataType_t::INT, 0, static_cast<float>(INT_MAX) }
 				//{ "TOTAL_CASH_EARNED", "Earned Cash", StatDataType_t::INT, 0, INT_MAX }
 			} },
 			{ "Abilities (ALPHA)",{
@@ -50,8 +51,8 @@ namespace sub
 				{ "SPECIAL_ABILITY_UNLOCKED", "Special Capacity", StatDataType_t::INT, 0, 100 }
 			} },
 			{ "K/D Ratio",{
-				{ "KILLS", "Kill Count", StatDataType_t::INT, 0, INT_MAX },
-				{ "DEATHS", "Death Count", StatDataType_t::INT, 0, INT_MAX }
+				{ "KILLS", "Kill Count", StatDataType_t::INT, 0, static_cast<float>(INT_MAX) },
+				{ "DEATHS", "Death Count", StatDataType_t::INT, 0, static_cast<float>(INT_MAX) }
 			} },
 			{ "Properties",{
 				{ "PROP_BOUGHT_TRAF", "Arms Trafficking", StatDataType_t::BOOL, 0, 0 },
@@ -149,7 +150,10 @@ namespace sub
 							statValue = stoi(inputStr);
 							StatSetInt(statName, statValue);
 						}
-						catch (...) { Game::Print::PrintError_InvalidInput(); }
+						catch (...) { 
+							Game::Print::PrintError_InvalidInput(); 
+							addlog(ige::LogType::LOG_ERROR, "Invalid Stat Integer for " + stat.caption + " Entered", __FILENAME__);
+						}
 					}
 					//OnscreenKeyboard::State::Set(OnscreenKeyboard::Purpose::SpStatManagerInputInt, std::string(), (int)std::to_string((int)stat.max).length(), "Enter integer value:", std::to_string(statValue));
 					//OnscreenKeyboard::State::arg1._uint = GET_HASH_KEY(statName);
@@ -172,7 +176,10 @@ namespace sub
 							statValue = stof(inputStr);
 							StatSetFloat(statName, statValue);
 						}
-						catch (...) { Game::Print::PrintError_InvalidInput(); }
+						catch (...) { 
+							Game::Print::PrintError_InvalidInput();
+							addlog(ige::LogType::LOG_ERROR, "Invalid Stat Float for " + stat.caption + " Entered", __FILENAME__);
+						}
 					}
 					//OnscreenKeyboard::State::Set(OnscreenKeyboard::Purpose::SpStatManagerInputFloat, std::string(), 13U, "Enter floating point value:", std::to_string(statValue));
 					//OnscreenKeyboard::State::arg1._uint = GET_HASH_KEY(statName);

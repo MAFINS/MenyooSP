@@ -2,7 +2,7 @@ name: Master_Build
 
 on:
   push:
-    branches: [ "main", "Development" ]
+    branches: [ "main", "Development", "fix_masterrelease" ]
   #workflow_run:
   #  workflows: ["MSBuild"]
   #  types:
@@ -20,11 +20,86 @@ env:
   BUILD_CONFIGURATION: Release
 
 permissions:
-  contents: read
+  contents: write
+  pull-requests: write
 
 jobs:
+  check-version-and-merge:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Extract version from macros.h
+        id: extract_version
+        run: |
+          VERSION=$(grep '#define MENYOO_CURRENT_VER_' Solution/source/macros.h | awk '{print $3}' | tr -d '"')
+          echo "VERSION=v$VERSION" >> $GITHUB_ENV
+          echo "Extracted version: $VERSION"
+          
+      - name: Check if tag already exists
+        run: |
+          VERSION=${{ env.VERSION }}
+          echo "Checking for tag: $VERSION"  
+          RELEASE_LIST=$(gh release list)
+          TAGS=$(echo "$RELEASE_LIST" | awk '{print $1}')
+          echo "$TAGS"
+          
+           echo "Checking if tag exists:"
+          echo "$TAGS" | while IFS= read -r tag; do
+            echo "Comparing tag: '$tag' with version: '$VERSION'"
+            if [ "$tag" = "$VERSION" ]; then
+              echo "Tag $VERSION already exists. Cancelling workflow."
+              exit 1
+            fi
+          done
+          
+          echo "Tag $VERSION does not exist. Proceeding."
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          
+      - name: Check version pattern and merge
+        id: check_version
+        run: |
+          VERSION=${{ env.VERSION }}
+          echo "Checking version pattern: $VERSION"
+          if [[ $GITHUB_REF == "refs/heads/main" ]]; then
+            echo "Already on main branch. Skipping merge check."
+            exit 0
+          fi
+
+          # Function to check for existing PR with the same version
+          check_pr_exists() {
+            PR_LIST=$(gh pr list --head Development --base main --state open --json title,body)
+            PR_EXIST=$(echo "$PR_LIST" | jq -r --arg VERSION "$VERSION" '.[] | select((.title | contains($VERSION)) or (.body | contains($VERSION)))')
+            [ -n "$PR_EXIST" ]
+          }
+
+          if [[ $VERSION =~ ^v?[0-9]+\.[0-9]+\.[0-9]+$ ]]; then
+            echo "Version is a full release. Creating pull request to merge into main."
+            echo "## Check for existing PR"
+            if check_pr_exists; then
+              echo "PR already exists with version $VERSION."
+              exit 0
+            fi
+            echo "Creating new PR."
+            gh pr create --title "Release $VERSION" --body "Merging development into main for release $VERSION" --base main --head Development
+            exit 1
+          elif [[ $VERSION =~ ^v?[0-9]+\.[0-9]+\.[0-9]+(a|b|rc)[0-9]+$ ]]; then
+            echo "Version is a pre-release. Proceeding with pre-release build."
+          else
+            echo "Version is invalid or a development version. Cancelling workflow."
+            exit 1
+          fi
+        shell: bash
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
   build:
+    if: github.ref == 'refs/heads/main' || (github.ref == 'refs/heads/Development')
     runs-on: windows-latest
+    needs: check-version-and-merge
 
     steps:
     - uses: actions/checkout@v3
@@ -95,15 +170,15 @@ jobs:
             $matches[1]
           } | Out-File -FilePath version.txt
           $VERSION = Get-Content version.txt
-          echo "VERSION=$VERSION" >> $env:GITHUB_ENV
+          echo "VERSION=v$VERSION" >> $env:GITHUB_ENV
           echo "Extracted version: $VERSION"
-
       - name: Zip artifact for deployment
         run: Compress-Archive -Path "MenyooSP/*" -DestinationPath "MenyooSP.zip"
       - uses: "marvinpinto/action-automatic-releases@latest"
         with:
           repo_token: "${{ secrets.GITHUB_TOKEN }}"
           automatic_release_tag: ${{ env.VERSION }}
-          prerelease: true
+          prerelease: ${{ github.ref_name != 'main' }}
           title: ${{ steps.version.outputs.version}}
           files: MenyooSP.zip
+          dry-run: true

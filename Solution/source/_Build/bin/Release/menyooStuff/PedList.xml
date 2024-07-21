@@ -3,7 +3,7 @@
 	<Category name="Player">
 		<Ped name="player_zero" caption="Michael" />
 		<Ped name="player_one" caption="Franklin" />
-		<Ped name="p_franklin_02" caption="Franklin 2" />
+		<Ped name="p_franklin_02" caption="Franklin Aged" />
 		<Ped name="player_two" caption="Trevor" />
 		<Ped name="mp_f_freemode_01" caption="Freemode MP Female" />
 		<Ped name="mp_m_freemode_01" caption="Freemode MP Male" />		
@@ -560,6 +560,12 @@
 		<Ped name="ig_benny_02" caption="Benny (Los Santos Tuners)" />
 		<Ped name="ig_bestmen" caption="Best Man" />
 		<Ped name="ig_beverly" caption="Beverly Felton" />
+		<Ped name="ig_bountytarget_01" caption="Bottom Dollar Bounty 1" />
+		<Ped name="ig_bountytarget_05" caption="Bottom Dollar Bounty 5" />
+		<Ped name="ig_bountytarget_02" caption="Bottom Dollar Bounty 2" />
+		<Ped name="ig_bountytarget_03" caption="Bottom Dollar Bounty 3" />
+		<Ped name="ig_bountytarget_04" caption="Bottom Dollar Bounty 4" />
+		<Ped name="ig_bountytarget_06" caption="Bottom Dollar Bounty 6" />
 		<Ped name="ig_brad" caption="Brad" />
 		<Ped name="ig_bride" caption="Bride" />
 		<Ped name="ig_brucie2" caption="Brucie Kibbutz" />
@@ -620,6 +626,7 @@
 		<Ped name="ig_jamalamir" caption="Jamal Amir" />
 		<Ped name="ig_janet" caption="Janet" />
 		<Ped name="ig_jay_norris" caption="Jay Norris" />
+		<Ped name="ig_jenetteE" caption="Jenette" />
 		<Ped name="ig_jewelass" caption="Jeweller Assistant" />
 		<Ped name="ig_jimmyboston" caption="Jimmy Boston" />
 		<Ped name="ig_jimmyboston_02" caption="Jimmy Boston 2" />
@@ -650,6 +657,7 @@
 		<Ped name="ig_marnie" caption="Marnie Allen" />
 		<Ped name="ig_maryann" caption="Mary-Ann Quinn" />
 		<Ped name="ig_maude" caption="Maude" />
+		<Ped name="ig_maudebf" caption="Murph" />
 		<Ped name="ig_mechanic_01" caption="Mechanic Male (Red's Auto Parts)" />
 		<Ped name="ig_mechanic_02" caption="Mechanic Female (Red's Auto Parts)" />
 		<Ped name="ig_michelle" caption="Michelle" />
@@ -784,6 +792,7 @@
 		<Ped name="mp_m_forgery_01" caption="Biker Forgery Male" />
 		<Ped name="mp_m_g_vagfun_01" caption="Vagos Funeral" />
 		<Ped name="mp_m_marston_01" caption="John Marston" />
+		<Ped name="ig_mechanic_03" caption="Vinewood Car Club Mechanic" />
 		<Ped name="mp_m_meth_01" caption="Biker Meth Male" />
 		<Ped name="mp_m_niko_01" caption="Niko Bellic" />
 		<Ped name="mp_m_securoguard_01" caption="Securoserve Guard (Male)" />
@@ -834,6 +843,7 @@
 		<Ped name="s_m_m_armoured_02" caption="Armoured Van Security 2" />
 		<Ped name="s_m_m_autoshop_01" caption="Autoshop Worker" />
 		<Ped name="s_m_m_autoshop_02" caption="Autoshop Worker 2" />
+		<Ped name="s_m_m_bailoffice_01" caption="Bail Office Worker" />
 		<Ped name="s_m_m_bouncer_01" caption="Bouncer" />
 		<Ped name="s_m_m_ccrew_01" caption="Crew Member" />
 		<Ped name="s_m_m_ccrew_02" caption="Crew Member 2" />
@@ -951,7 +961,7 @@
 		<Ped name="u_f_m_casinocash_01" caption="Casino Cashier" />
 		<Ped name="u_f_m_casinoshop_01" caption="Casino shop owner" />
 		<Ped name="u_f_m_corpse_01" caption="Corpse Female" />
-		<Ped name="u_f_m_debbie_01" caption="Debbie (AgathaÂ´s Secretary)" />
+		<Ped name="u_f_m_debbie_01" caption="Debbie (AgathaÃ‚Â´s Secretary)" />
 		<Ped name="u_f_m_drowned_01" caption="Drowned Victim Female" />
 		<Ped name="u_f_m_miranda" caption="Miranda" />
 		<Ped name="u_f_m_miranda_02" caption="Miranda 2" />
@@ -1051,5 +1061,8 @@
 		<Ped name="hc_driver" caption="Jewel Heist Driver" />
 		<Ped name="hc_gunman" caption="Jewel Heist Gunman" />
 		<Ped name="hc_hacker" caption="Jewel Heist Hacker" />
+		<Ped name="g_m_m_zombie_01" caption="Zombie 1" />
+		<Ped name="g_m_m_zombie_02" caption="Zombie 2" />
+		<Ped name="g_m_m_zombie_03" caption="Zombie 3" />
 	</Category>
 </PedList>

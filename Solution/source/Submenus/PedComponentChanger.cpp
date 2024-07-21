@@ -613,7 +613,7 @@ namespace sub
 			pugi::xml_document doc;
 			if (doc.load_file((const char*)(GetPathffA(Pathff::Main, true) + "PedDecalOverlays.xml").c_str()).status != pugi::status_ok)
 			{
-				ige::myLog << ige::LogType::LOG_ERROR << "Unable to open PedDecalOverlays.xml";
+				addlog(ige::LogType::LOG_ERROR,  "Unable to open PedDecalOverlays.xml", __FILENAME__);
 				return;
 			}
 
@@ -1649,6 +1649,7 @@ namespace sub
 				else
 				{
 					Game::Print::PrintBottomCentre("~r~Failed~s~ to create folder.");
+					addlog(ige::LogType::LOG_ERROR, "Attempt to create folder " + inputStr + " failed", __FILENAME__);
 				}
 			}
 			else Game::Print::PrintError_InvalidInput();
@@ -1696,7 +1697,11 @@ namespace sub
 		{
 			if (ComponentChanger_Outfit_catind::Create(Static_241, filePath))
 				Game::Print::PrintBottomLeft("File ~b~overwritten~s~.");
-			else Game::Print::PrintBottomCentre("~r~Error:~s~ Unable to overwrite file.");
+			else
+			{
+				Game::Print::PrintBottomCentre("~r~Error:~s~ Unable to overwrite file.");
+				addlog(ige::LogType::LOG_ERROR, "Attempt to overwrite file " + filePath + " failed", __FILENAME__);
+			}
 		}
 
 		if (outfits2_rename)
@@ -1710,6 +1715,7 @@ namespace sub
 					Game::Print::PrintBottomLeft("File ~b~renamed~s~.");
 				}
 				else Game::Print::PrintBottomCentre("~r~Error:~s~ Unable to rename file.");
+				addlog(ige::LogType::LOG_ERROR, "Attempt to rename file " + _name + " to " + newName + "failed", __FILENAME__);
 			}
 			else Game::Print::PrintError_InvalidInput();
 			//OnscreenKeyboard::State::Set(OnscreenKeyboard::Purpose::RenameOutfitFile, std::string(), 28U, "FMMC_KEY_TIP9", _name);
@@ -1722,7 +1728,10 @@ namespace sub
 			if (remove(filePath.c_str()) == 0)
 				Game::Print::PrintBottomLeft("File ~b~deleted~s~.");
 			else
+			{
 				Game::Print::PrintBottomCentre("~r~Error:~s~ Unable to delete file.");
+				addlog(ige::LogType::LOG_ERROR, "Attempt to delete file " + filePath + " failed", __FILENAME__);
+			}
 			Menu::SetSub_previous();
 			Menu::Up();
 			return;

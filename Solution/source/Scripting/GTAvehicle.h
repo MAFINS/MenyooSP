@@ -330,6 +330,10 @@ public:
 	void RetractCargobobHook();
 	void CargoBobMagnetGrabVehicle();
 	void CargoBobMagnetReleaseVehicle();
+	
+	bool IsBoatAnchored();
+	bool CanBoatAnchorHere();
+	void AnchorBoat(bool anchored);
 
 	bool IsTyreBursted(int wheel, bool completely = false) const;
 	void BurstTyre(int wheel);

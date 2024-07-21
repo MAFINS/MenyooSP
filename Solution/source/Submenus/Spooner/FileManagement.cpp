@@ -81,7 +81,7 @@ namespace sub::Spooner
 
 		void AddEntityToXmlNode(SpoonerEntity& e, pugi::xml_node& nodeEntity)
 		{
-			//ige::myLog << ige::LogType::LOG_INFO << "Adding entity " << e.HashName << " of type " << (int)e.Type << " to xml node.";
+			//addlog(ige::LogType::LOG_INFO,  "Adding entity " + e.HashName + " of type " + (int)e.Type + " to xml node.", __FILENAME__);
 
 			GTAped myPed = PLAYER_PED_ID();
 
@@ -972,7 +972,7 @@ namespace sub::Spooner
 
 		void AddMarkerToXmlNode(SpoonerMarker& m, pugi::xml_node& nodeMarker)
 		{
-			ige::myLog << ige::LogType::LOG_INFO << "Adding marker " << m.m_name << " of type " << m.m_type << "to xml node.";
+			addlog(ige::LogType::LOG_INFO,  "Adding marker " + m.m_name + " of type " + std::to_string(m.m_type) + "to xml node.", __FILENAME__);
 
 			nodeMarker.append_child("Name").text() = m.m_name.c_str();
 			nodeMarker.append_child("InitialHandle").text() = m.m_id;
@@ -1147,7 +1147,7 @@ namespace sub::Spooner
 
 		bool SaveDbToFile(const std::string& filePath, bool bForceReferenceCoords)
 		{
-			ige::myLog << ige::LogType::LOG_INFO << "Saving Spooner database to xml file " << filePath;
+			addlog(ige::LogType::LOG_INFO,  "Saving Spooner database to xml file " + filePath, __FILENAME__);
 
 			auto& spoocam = SpoonerMode::spoonerModeCamera;
 			GTAentity myPed = PLAYER_PED_ID();
@@ -1405,7 +1405,7 @@ namespace sub::Spooner
 		}
 		bool SaveWorldToFile(const std::string& filePath, std::vector<Entity>& vEntityHandles, std::vector<SpoonerMarker>& vMarkers)
 		{
-			ige::myLog << ige::LogType::LOG_INFO << "Saving World to xml file " << filePath;
+			addlog(ige::LogType::LOG_INFO,  "Saving World to xml file " + filePath, __FILENAME__);
 
 			//GTAentity myPed = PLAYER_PED_ID();
 			//auto& myPos = myPed.Position_get();

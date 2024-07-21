@@ -100,6 +100,7 @@ void Menu::submenu_switch()
 	case SUB::MOVEMENTGROUP:			sub::MovementGroup_(); break;
 	case SUB::MODELCHANGER:							sub::ModelChanger_(); break;
 	case SUB::MODELCHANGER_FAVOURITES:				sub::PedFavourites_catind::Sub_PedFavourites(); break;
+	case SUB::MODELCHANGER_PLAYER:					sub::ModelChanger_Player(); break;
 	case SUB::MODELCHANGER_ANIMAL:					sub::ModelChanger_Animal(); break;
 	case SUB::MODELCHANGER_AMBFEMALES:				sub::ModelChanger_AmbientFemale(); break;
 	case SUB::MODELCHANGER_AMBMALES:				sub::ModelChanger_AmbientMale(); break;

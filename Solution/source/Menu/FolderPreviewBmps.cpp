@@ -16,6 +16,8 @@
 #include "..\Util\ExePath.h"
 #include "..\Scripting\DxHookIMG.h"
 #include "..\Util\GTAmath.h"
+#include "..\Util\FileLogger.h"
+#include "..\Menu\Menu.h"
 
 #include <Shlwapi.h>
 #pragma comment(lib, "Shlwapi.lib")
@@ -44,16 +46,16 @@ namespace sub
 
 		void GetThisFolderBmpPaths(const std::string& path, decltype(vFolderBmps)& newBmps)
 		{
-			//ige::myLog << ige::LogType::LOG_INFO << "GetThisFolderBmpPaths in " + path;
+			//addlog(ige::LogType::LOG_INFO,  "GetThisFolderBmpPaths in " + path, __FILENAME__);
 			std::vector<std::string> fileNames;
 			get_all_filenames_with_extension(path, std::string(), fileNames, false);
 
-			//for(auto& s : fileNames) ige::myLog << ige::LogType::LOG_INFO << "In " << path << ", found " <<  s;
+			//for(auto& s : fileNames) addlog(ige::LogType::LOG_INFO,  "In " + path + ", found " +  s, __FILENAME__);
 
 			if (std::find(fileNames.begin(), fileNames.end(), previewPng) != fileNames.end())
 			{
 				std::string pathBmp = path + "\\" + previewPng;
-				//ige::myLog << ige::LogType::LOG_INFO << "Registering " << previewPng << " in " + pathBmp;
+				//addlog(ige::LogType::LOG_INFO,  "Registering " + previewPng + " in " + pathBmp, __FILENAME__);
 				newBmps.push_back(std::make_pair(pathBmp, DxHookIMG::DxTexture()));
 			}
 

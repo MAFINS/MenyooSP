@@ -391,9 +391,9 @@ namespace sub
 				return curr;
 			}
 
-			bool operator ==(MenyooTheme const& value2)
+			bool operator ==(const MenyooTheme& value2) const
 			{
-				MenyooTheme& value1 = *this;
+				const MenyooTheme& value1 = *this;
 
 				return
 					value1.grads == value2.grads &&
@@ -461,11 +461,12 @@ namespace sub
 		{
 			AddTitle("Themes");
 
-			bool pressed = 0;
+			bool pressed = false;
 			for (auto& them : vValues_MenyooThemes)
 			{
-				pressed = 0;
-				AddTickol(them.name, them.theme == MenyooTheme::CurrentlyActiveTheme(), pressed, pressed, TICKOL::MAKEUPTHING, TICKOL::NONE);
+				pressed = false;
+				BOOL isActive = (them.theme == MenyooTheme::CurrentlyActiveTheme()) ? TRUE : FALSE;
+				AddTickol(them.name, isActive, pressed, pressed, TICKOL::MAKEUPTHING, TICKOL::NONE, false);
 				if (pressed)
 				{
 					them.theme.SetActive();

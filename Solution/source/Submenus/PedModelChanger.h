@@ -32,10 +32,11 @@ namespace sub
 	// Model changer
 
 	void ChangeModel_(GTAmodel::Model model);
-	void AddmodelchangerOption_(const std::string& text, const GTAmodel::Model& model);
-	void AddmodelOption_(const std::string& text, const GTAmodel::Model& model, bool *extra_option_code = nullptr);
+	void AddmodelchangerOption_(const std::string& text, const GTAmodel::Model& model, int tickTrue = 1);
+	void AddmodelOption_(const std::string& text, const GTAmodel::Model& model, bool *extra_option_code = nullptr, int tickTrue = 1);
 
 	void ModelChanger_();
+	void ModelChanger_Player();
 	void ModelChanger_Animal();
 	void ModelChanger_AmbientFemale();
 	void ModelChanger_AmbientMale();

@@ -304,26 +304,26 @@ namespace sub
 			}
 		}
 	}
-	void AddmodelchangerOption_(const std::string& text, const GTAmodel::Model& model)
+	void AddmodelchangerOption_(const std::string& text, const GTAmodel::Model& model, int tickTrue)
 	{
 		const GTAped& ped = Game::PlayerPed();
 		const Model& pedModel = ped.Model();
 
 		bool pressed = false;
-		AddTickol(text, model.Equals(pedModel), pressed, pressed); if (pressed)
+		AddTickol(text, model.Equals(pedModel), pressed, pressed, static_cast<TICKOL>(tickTrue)); if (pressed)
 		{
 			PTFX::trigger_ptfx_1("scr_solomon3", "scr_trev4_747_blood_impact", 0, ped.GetOffsetInWorldCoords(0.37, -0.32f, -1.32f), Vector3(90.0f, 0, 0), 0.7f);
 			ChangeModel_(model);
 		}
 	}
-	void AddmodelOption_(const std::string& text, const GTAmodel::Model& model, bool *extra_option_code)
+	void AddmodelOption_(const std::string& text, const GTAmodel::Model& model, bool* extra_option_code, int tickTrue)
 	{
 		if (model.IsInCdImage())
 		{
 			switch (Menu::currentsub_ar[Menu::currentsub_ar_index])
 			{
 			case SUB::MODELCHANGER:
-				AddmodelchangerOption_(text, model.hash);
+				AddmodelchangerOption_(text, model.hash, tickTrue);
 				break;
 			case SUB::PEDGUN_ALLPEDS:
 				AddpgunOption_(text, model.hash, extra_option_code);
@@ -337,7 +337,7 @@ namespace sub
 				PedFavourites_catind::ShowInstructionalButton(model);
 		}
 	}
-	
+
 	void ModelChanger_()
 	{
 		bool ModelChangerRandomPedVariation_ = 0,
@@ -350,6 +350,7 @@ namespace sub
 		AddTitle("Model Changer");
 		AddOption("Randomize Ped Variation", ModelChangerRandomPedVariation_);
 		AddOption("Favourites", null, nullFunc, SUB::MODELCHANGER_FAVOURITES);
+		AddOption("Player", null, nullFunc, SUB::MODELCHANGER_PLAYER);
 		AddOption("Animals", null, nullFunc, SUB::MODELCHANGER_ANIMAL);
 		AddOption("Ambient Females", null, nullFunc, SUB::MODELCHANGER_AMBFEMALES);
 		AddOption("Ambient Males", null, nullFunc, SUB::MODELCHANGER_AMBMALES);
@@ -400,9 +401,28 @@ namespace sub
 
 
 	}
+	// I would really like this whole section to be refactored into one function - IJC
+	void ModelChanger_Player()
+	{
+		AddTitle("Player");
+		std::pair<std::string, std::string> rngped;
+		do {
+			rngped = g_pedModels_Player[std::rand() % g_pedModels_Player.size()];
+		} while (rngped.first == Game::PlayerPed().Model());
+		AddmodelOption_("Random", (rngped.first), nullptr, 0);
+		for (auto& pmn : g_pedModels_Player)
+		{
+			AddmodelOption_(pmn.second, (pmn.first));
+		}
+	}
 	void ModelChanger_Animal()
 	{
 		AddTitle("Animals");
+		std::pair<std::string, std::string> rngped;
+		do {
+			rngped = g_pedModels_Animal[std::rand() % g_pedModels_Animal.size()];
+		} while (rngped.first == Game::PlayerPed().Model());
+		AddmodelOption_("Random", (rngped.first), nullptr, 0);
 		for (auto& pmn : g_pedModels_Animal)
 		{
 			AddmodelOption_(pmn.second, (pmn.first));
@@ -411,6 +431,11 @@ namespace sub
 	void ModelChanger_AmbientFemale()
 	{
 		AddTitle("Ambient Females");
+		std::pair<std::string, std::string> rngped;
+		do {
+			rngped = g_pedModels_AmbientFemale[std::rand() % g_pedModels_AmbientFemale.size()];
+		} while (rngped.first == Game::PlayerPed().Model());
+		AddmodelOption_("Random", (rngped.first), nullptr, 0);
 		for (auto& pmn : g_pedModels_AmbientFemale)
 		{
 			AddmodelOption_(pmn.second, (pmn.first));
@@ -419,6 +444,11 @@ namespace sub
 	void ModelChanger_AmbientMale()
 	{
 		AddTitle("Ambient Males");
+		std::pair<std::string, std::string> rngped;
+		do {
+			rngped = g_pedModels_AmbientMale[std::rand() % g_pedModels_AmbientMale.size()];
+		} while (rngped.first == Game::PlayerPed().Model());
+		AddmodelOption_("Random", (rngped.first), nullptr, 0);
 		for (auto& pmn : g_pedModels_AmbientMale)
 		{
 			AddmodelOption_(pmn.second, (pmn.first));
@@ -427,6 +457,11 @@ namespace sub
 	void ModelChanger_Cutscene()
 	{
 		AddTitle("Cutscene Models");
+		std::pair<std::string, std::string> rngped;
+		do {
+			rngped = g_pedModels_Cutscene[std::rand() % g_pedModels_Cutscene.size()];
+		} while (rngped.first == Game::PlayerPed().Model());
+		AddmodelOption_("Random", (rngped.first), nullptr, 0);
 		for (auto& pmn : g_pedModels_Cutscene)
 		{
 			AddmodelOption_(pmn.second, (pmn.first));
@@ -435,6 +470,11 @@ namespace sub
 	void ModelChanger_GangFemale()
 	{
 		AddTitle("Gang Females");
+		std::pair<std::string, std::string> rngped;
+		do {
+			rngped = g_pedModels_GangFemale[std::rand() % g_pedModels_GangFemale.size()];
+		} while (rngped.first == Game::PlayerPed().Model());
+		AddmodelOption_("Random", (rngped.first), nullptr, 0);
 		for (auto& pmn : g_pedModels_GangFemale)
 		{
 			AddmodelOption_(pmn.second, (pmn.first));
@@ -443,6 +483,11 @@ namespace sub
 	void ModelChanger_GangMale()
 	{
 		AddTitle("Gang Males");
+		std::pair<std::string, std::string> rngped;
+		do {
+			rngped = g_pedModels_GangMale[std::rand() % g_pedModels_GangMale.size()];
+		} while (rngped.first == Game::PlayerPed().Model());
+		AddmodelOption_("Random", (rngped.first), nullptr, 0);
 		for (auto& pmn : g_pedModels_GangMale)
 		{
 			AddmodelOption_(pmn.second, (pmn.first));
@@ -451,6 +496,11 @@ namespace sub
 	void ModelChanger_Story()
 	{
 		AddTitle("Story Models");
+		std::pair<std::string, std::string> rngped;
+		do {
+			rngped = g_pedModels_Story[std::rand() % g_pedModels_Story.size()];
+		} while (rngped.first == Game::PlayerPed().Model());
+		AddmodelOption_("Random", (rngped.first), nullptr, 0);
 		for (auto& pmn : g_pedModels_Story)
 		{
 			AddmodelOption_(pmn.second, (pmn.first));
@@ -459,6 +509,11 @@ namespace sub
 	void ModelChanger_Multiplayer()
 	{
 		AddTitle("Multiplayer Models");
+		std::pair<std::string, std::string> rngped;
+		do {
+			rngped = g_pedModels_Multiplayer[std::rand() % g_pedModels_Multiplayer.size()];
+		} while (rngped.first == Game::PlayerPed().Model());
+		AddmodelOption_("Random", (rngped.first), nullptr, 0);
 		for (auto& pmn : g_pedModels_Multiplayer)
 		{
 			AddmodelOption_(pmn.second, (pmn.first));
@@ -467,6 +522,11 @@ namespace sub
 	void ModelChanger_ScenarioFemale()
 	{
 		AddTitle("Scenario Females");
+		std::pair<std::string, std::string> rngped;
+		do {
+			rngped = g_pedModels_ScenarioFemale[std::rand() % g_pedModels_ScenarioFemale.size()];
+		} while (rngped.first == Game::PlayerPed().Model());
+		AddmodelOption_("Random", (rngped.first), nullptr, 0);
 		for (auto& pmn : g_pedModels_ScenarioFemale)
 		{
 			AddmodelOption_(pmn.second, (pmn.first));
@@ -475,6 +535,11 @@ namespace sub
 	void ModelChanger_ScenarioMale()
 	{
 		AddTitle("Scenario Males");
+		std::pair<std::string, std::string> rngped;
+		do {
+			rngped = g_pedModels_ScenarioMale[std::rand() % g_pedModels_ScenarioMale.size()];
+		} while (rngped.first == Game::PlayerPed().Model());
+		AddmodelOption_("Random", (rngped.first), nullptr, 0);
 		for (auto& pmn : g_pedModels_ScenarioMale)
 		{
 			AddmodelOption_(pmn.second, (pmn.first));
@@ -483,6 +548,11 @@ namespace sub
 	void ModelChanger_Story_ScenarioFemale()
 	{
 		AddTitle("Story Scenario Females");
+		std::pair<std::string, std::string> rngped;
+		do {
+			rngped = g_pedModels_StoryScenarioFemale[std::rand() % g_pedModels_StoryScenarioFemale.size()];
+		} while (rngped.first == Game::PlayerPed().Model());
+		AddmodelOption_("Random", (rngped.first), nullptr, 0);
 		for (auto& pmn : g_pedModels_StoryScenarioFemale)
 		{
 			AddmodelOption_(pmn.second, (pmn.first));
@@ -491,6 +561,11 @@ namespace sub
 	void ModelChanger_Story_ScenarioMale()
 	{
 		AddTitle("Story Scenario Males");
+		std::pair<std::string, std::string> rngped;
+		do {
+			rngped = g_pedModels_StoryScenarioMale[std::rand() % g_pedModels_StoryScenarioMale.size()];
+		} while (rngped.first == Game::PlayerPed().Model());
+		AddmodelOption_("Random", (rngped.first), nullptr, 0);
 		for (auto& pmn : g_pedModels_StoryScenarioMale)
 		{
 			AddmodelOption_(pmn.second, (pmn.first));
@@ -499,6 +574,11 @@ namespace sub
 	void ModelChanger_Others()
 	{
 		AddTitle("Others");
+		std::pair<std::string, std::string> rngped;
+		do {
+			rngped = g_pedModels_Others[std::rand() % g_pedModels_Others.size()];
+		} while (rngped.first == Game::PlayerPed().Model());
+		AddmodelOption_("Random", (rngped.first), nullptr, 0);
 		for (auto& pmn : g_pedModels_Others)
 		{
 			AddmodelOption_(pmn.second, (pmn.first));

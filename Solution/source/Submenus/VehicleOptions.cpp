@@ -82,6 +82,7 @@ namespace sub
 	{
 		bool set_ent_12 = 0,
 			bToggleCargobobMagnet = 0,
+			bToggleBoatAnchor = 0,
 			goToSlamItSub = 0,
 			obj_funny_veh_so_frz__off = 0,
 			disableSiren_off = 0,
@@ -145,6 +146,8 @@ namespace sub
 			AddToggle("Disable Vehicle Siren", loop_vehicle_disableSiren, null, disableSiren_off);
 		if (bMyPedIsInVehicle)
 			AddTexter("CMOD_MOD_MNT", fixCarTexterVal, fixCarTexter, VehicleOpsFixCar_, bFixCar_plus, bFixCar_minus, true); // Fix & Wash
+		if (myVehicleModel.IsBoat())
+			AddLocal("Anchor Boat", myVehicle.IsBoatAnchored(), bToggleBoatAnchor, bToggleBoatAnchor);
 		AddOption("Teleport Into Closest Vehicle", VehicleOpsTeleportClosestCar_);
 		AddOption("Vehicle Spawner", obj_funny_veh_so_frz__off, nullFunc, SUB::SPAWNVEHICLE);
 		AddOption("Menyoo Customs", VehicleOps_sub_modshop, nullFunc, -1, true);
@@ -213,6 +216,11 @@ namespace sub
 			}
 		}
 
+		if (bToggleBoatAnchor)
+		{
+				myVehicle.AnchorBoat(!myVehicle.IsBoatAnchored());
+		}
+		
 		if (disableSiren_off) SET_VEHICLE_HAS_MUTED_SIRENS(g_myVeh, FALSE);
 
 		if (VehicleOps_Slam_On) { Game::Print::PrintBottomCentre("~b~Note:~s~ If you try hard enough, you can drive on walls too!"); return; }

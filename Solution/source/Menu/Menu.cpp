@@ -22,6 +22,8 @@
 #include "..\Scripting\ModelNames.h" // _vNeonColours
 #include "Routine.h" // (loop_no_clip_toggle, loop_hide_hud)
 #include "Language.h"
+#include "..\Util\FileLogger.h"
+#include "..\Menu\Menu.h"
 
 #include <Windows.h>
 #include <utility>
@@ -181,6 +183,7 @@ Scaleform Menu::scaleform_menuGlare;
 Scaleform Menu::instructional_buttons;
 std::vector<Scaleform_IbT> Menu::vIB;
 std::function<void()> Menu::OnSubBack = nullptr;
+INT8 g_loglevel = 2;
 
 
 void Menu::SetInputMethods()

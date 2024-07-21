@@ -79,6 +79,7 @@ const std::vector<NamedRgbS> _vNeonColours
 
 #pragma region Ped model labels and names
 std::vector<std::pair<std::string, std::string>> g_pedModels;
+std::vector<std::pair<std::string, std::string>> g_pedModels_Player;
 std::vector<std::pair<std::string, std::string>> g_pedModels_Animal;
 std::vector<std::pair<std::string, std::string>> g_pedModels_AmbientFemale;
 std::vector<std::pair<std::string, std::string>> g_pedModels_AmbientMale;
@@ -105,6 +106,7 @@ void PopulatePedModelsArray()
 		g_pedModels.clear();
 		auto nodeRoot = doc.document_element();//doc.child("PedList");
 		for (auto& cta : std::vector<std::pair<std::string, std::vector<std::pair<std::string, std::string>>*>>{
+			{ "Player", &g_pedModels_Player },
 			{ "Animal", &g_pedModels_Animal },
 			{ "AmbientFemale", &g_pedModels_AmbientFemale },
 			{ "AmbientMale", &g_pedModels_AmbientMale },
@@ -137,6 +139,7 @@ void PopulatePedModelsArray()
 	std::vector<std::vector<std::pair<std::string, std::string>>*> vHashLists
 	{
 		{ &g_pedModels },
+		{ &g_pedModels_Player },
 		{ &g_pedModels_Animal },
 		{ &g_pedModels_AmbientFemale },
 		{ &g_pedModels_AmbientMale },

@@ -12,15 +12,20 @@
 #include "..\macros.h"
 
 #include <fstream>
+#include <iomanip>
 #include <time.h>
+#include "../Natives/natives.h"
+#include "../Menu/Menu.h"
+#include "../Menu/MenuConfig.h"
 
 namespace ige
 {
-	ige::FileLogger menyooLogObject("menyooLog.txt");
+	FileLogger menyooLogObject("menyooLog.txt");
 	std::ofstream& myLog = menyooLogObject.myFile;
 
 	FileLogger::FileLogger(std::string fname)
 	{
+		MenuConfig::ConfigInit();
 		myFile.open(fname.c_str());
 
 		if (myFile.is_open())
@@ -30,7 +35,9 @@ namespace ige
 			localtime_s(&t, &now);
 
 			myFile << "Menyoo " << MENYOO_CURRENT_VER_ << std::endl;
-			myFile << "Log file created " << t.tm_mday << "/" << t.tm_mon + 1 << "/" << t.tm_year + 1900 << std::endl << std::endl << std::endl;
+			//myFile << "Player Name: " << PLAYER::GET_PLAYER_NAME(-1) << std::endl;
+			myFile << "Log file created " << std::setfill('0') << std::setw(2) << t.tm_mday << "/" << std::setfill('0') << std::setw(2) << (t.tm_mon + 1) << "/" << t.tm_year + 1900 << std::endl;
+			myFile << "Logging level " << std::to_string(g_loglevel) << " active. Edit loglevel in menyooconfig.ini to change." << std::endl << std::endl;
 		}
 
 	}
@@ -46,6 +53,18 @@ namespace ige
 
 	}
 
+	void addlog(LogType logType, std::string message, std::string filename, int loglevel)
+	{
+		if (static_cast<int>(logType) <= loglevel)
+		{
+			ige::myLog << logType << (loglevel >= 3 ? filename : "") << ": " << message << std::endl;
+		}
+	}
+
+	//overloaded function to define default file and loglevels unless otherwise specified
+	void addlog(LogType logType, std::string& message) {
+		addlog(logType, message, "", g_loglevel);
+	}
 }
 
 std::ofstream& operator<<(std::ofstream& stream, ige::LogType logType)
@@ -54,16 +73,17 @@ std::ofstream& operator<<(std::ofstream& stream, ige::LogType logType)
 	tm t;
 	localtime_s(&t, &now);
 
-	stream << std::endl;
+	stream << "[" << std::setfill('0') << std::setw(2) << t.tm_hour << ":" << std::setfill('0') << std::setw(2) << t.tm_min << ":" << std::setfill('0') << std::setw(2) << t.tm_sec << "] ";
 
 	switch (logType)
 	{
-	case ige::LogType::LOG_ERROR: stream << "ERROR: "; break;
-	case ige::LogType::LOG_WARNING: stream << "WARNING: "; break;
-	case ige::LogType::LOG_INFO: stream << "INFO: "; break;
+	case ige::LogType::LOG_INIT: stream << "INIT - "; break;
+	case ige::LogType::LOG_ERROR: stream << "ERROR - "; break;
+	case ige::LogType::LOG_WARNING: stream << "WARNING - "; break;
+	case ige::LogType::LOG_INFO: stream << "INFO - "; break;
+	case ige::LogType::LOG_DEBUG: stream << "DEBUG - "; break;
+	case ige::LogType::LOG_TRACE: stream << "TRACE - "; break;
 	}
-
-	stream << "[" << t.tm_hour << ":" << t.tm_min << ":" << t.tm_sec << "] ";
 
 	return stream;
 }

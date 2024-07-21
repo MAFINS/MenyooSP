@@ -10,6 +10,10 @@
 #pragma once
 
 #include <fstream>
+#include "../Menu/Menu.h"
+
+#define __FILENAME__ strrchr("\\" __FILE__, '\\') + 1
+
 //namespace std {
 //	class ofstream;
 //}
@@ -17,7 +21,7 @@
 // One time use only
 namespace ige
 {
-	enum class LogType { LOG_ERROR, LOG_WARNING, LOG_INFO, LOG_NORMAL };
+	enum class LogType { LOG_INIT = -1, LOG_ERROR, LOG_WARNING, LOG_INFO, LOG_DEBUG, LOG_TRACE };
 	class FileLogger
 	{
 	public:
@@ -32,13 +36,13 @@ namespace ige
 		FileLogger& operator= (const FileLogger&) = delete;
 	};
 
-	extern ige::FileLogger menyooLogObject;
+	extern FileLogger menyooLogObject;
 	extern std::ofstream& myLog;
-
+	extern void addlog(LogType logType, std::string message, std::string filename, int loglevel = g_loglevel);
+	inline void addlog(LogType logType, std::string message) {
+		addlog(logType, message, __FILENAME__, g_loglevel);
+	}
 }
 
 std::ofstream& operator << (std::ofstream& stream, ige::LogType logType);
-
-
-
 
