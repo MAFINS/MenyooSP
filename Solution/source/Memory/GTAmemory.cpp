@@ -19,6 +19,7 @@
 * Copyright (C) 2019  MAFINS
 */
 #include "GTAmemory.h"
+#include "Hooking.h"
 
 #include "..\macros.h"
 
@@ -43,6 +44,33 @@ MODULEINFO g_MainModuleInfo = { 0 };
 ScriptTable* scriptTable;
 ScriptHeader* shopController;
 
+typedef CVehicleModelInfo*(*GetModelInfo_t)(unsigned int modelHash, int* index);
+typedef CVehicleModelInfo*(*InitVehicleArchetype_t)(const char*, bool, unsigned int);
+
+GetModelInfo_t GetModelInfo;
+
+std::unordered_map<unsigned int, std::string> g_vehicleHashes;
+CallHook<InitVehicleArchetype_t> * g_InitVehicleArchetype = nullptr;
+CVehicleModelInfo* initVehicleArchetype_stub(const char* name, bool a2, unsigned int a3) {
+	g_vehicleHashes.insert({ GET_HASH_KEY(name), name });
+	return g_InitVehicleArchetype->fn(name, a2, a3);
+}
+void setupHooks() {
+	auto addr = GTAmemory::FindPattern("\xE8\x00\x00\x00\x00\x48\x8B\x4D\xE0\x48\x8B\x11", "x????xxxxxxx");
+	if (!addr) {
+		addlog(ige::LogType::LOG_ERROR, "Couldn't find InitVehicleArchetype", __FILENAME__);
+		return;
+	}
+	addlog(ige::LogType::LOG_INFO, "Found InitVehicleArchetype at "+std::to_string(addr),  __FILENAME__);
+	g_InitVehicleArchetype = HookManager::SetCall(addr, initVehicleArchetype_stub);
+}
+
+void removeHooks() {
+	if (g_InitVehicleArchetype) {
+		delete g_InitVehicleArchetype;
+		g_InitVehicleArchetype = nullptr;
+	}
+}
 template<typename R> R GetMultilayerPointer(void* base, const std::vector<DWORD>& offsets)
 {
 	DWORD64 addr = (UINT64)base;
@@ -803,8 +831,6 @@ void GTAmemory::Init()
 	address = FindPattern("\x48\x8B\xC8\xEB\x02\x33\xC9\x48\x85\xC9\x74\x26", "xxxxxxxxxxxx") - 9;
 	_cameraPoolAddress = reinterpret_cast<UINT64*>(*reinterpret_cast<int*>(address) + address + 4);
 
-	GenerateVehicleModelList();
-
 	// Bypass model requests block
 	address = MemryScan::PatternScanner::FindPattern("48 85 C0 0F 84 ? ? ? ? 8B 48 50");
 	if (address) memset(reinterpret_cast<void*>(address), 0x90, 24);
@@ -813,6 +839,35 @@ void GTAmemory::Init()
 	address = MemryScan::PatternScanner::FindPattern("48 8B C8 FF 52 30 84 C0 74 05 48");
 	if (address) memset(reinterpret_cast<void*>(address + 0x8), 0x90, 2);
 
+	//GetModelInfo
+	if (getGameVersion() <= 57) {
+		address = FindPattern(
+			"\x0F\xB7\x05\x00\x00\x00\x00"
+			"\x45\x33\xC9\x4C\x8B\xDA\x66\x85\xC0"
+			"\x0F\x84\x00\x00\x00\x00"
+			"\x44\x0F\xB7\xC0\x33\xD2\x8B\xC1\x41\xF7\xF0\x48"
+			"\x8B\x05\x00\x00\x00\x00"
+			"\x4C\x8B\x14\xD0\xEB\x09\x41\x3B\x0A\x74\x54",
+			"xxx????"
+			"xxxxxxxxx"
+			"xx????"
+			"xxxxxxxxxxxx"
+			"xx????"
+			"xxxxxxxxxxx");
+
+		if (!address) {
+			addlog(ige::LogType::LOG_ERROR,  "Couldn't find GetModelInfo", __FILENAME__);
+		}
+	}
+	else {
+		address = FindPattern("\xEB\x09\x41\x3B\x0A\x74\x54", "xxxxxxx");
+		if (!address) {
+			addlog(ige::LogType::LOG_ERROR,   "Couldn't find GetModelInfo (v58+)", __FILENAME__);
+		}
+		address = address - 0x2C;
+	}
+	GetModelInfo = (GetModelInfo_t)(address);
+	
 	_SpSnow = SpSnow();
 
 }
@@ -858,8 +913,8 @@ void GTAmemory::GenerateVehicleModelList()
 		HashNode** HashMap = reinterpret_cast<HashNode**>(modelHashTable);
 		//I know 0x20 items are defined but there are only 0x16 vehicle classes.
 		//But keeping it at 0x20 is just being safe as the & 0x1F in theory supports up to 0x20
-		auto& hashes = GTAmemory::vehicleModels;
-		for (auto& vec : hashes)
+		auto& vehicleHashes = GTAmemory::vehicleModels;
+		for (auto& vec : vehicleHashes)
 			vec.clear();
 		for (int i = 0; i < modelHashEntries; i++)
 		{
@@ -874,9 +929,9 @@ void GTAmemory::GenerateVehicleModelList()
 						UINT64 addr2 = *reinterpret_cast<PUINT64>(addr1);
 						if (addr2)
 						{
-							if ((*reinterpret_cast<PBYTE>(addr2 + 157) & 0x1F) == 5)
+							if ((*reinterpret_cast<PBYTE>(addr2 + 157) & 0x1F) == 5) // Vehicle
 							{
-								hashes[*reinterpret_cast<PBYTE>(addr2 + classOffset) & 0x1F].push_back((unsigned int)cur->hash);
+								vehicleHashes[*reinterpret_cast<PBYTE>(addr2 + classOffset) & 0x1F].push_back((unsigned int)cur->hash);
 							}
 						}
 					}
@@ -1855,4 +1910,18 @@ float* GeneralGlobalHax::GetVehicleBoostChargePtr()
 	return nullptr;
 }
 
+std::string GTAmemory::GetVehicleModelName(Hash hash) {
+	auto modelIt = g_vehicleHashes.find(hash);
+	if (modelIt != g_vehicleHashes.end()) return modelIt->second;
+	return "NOTFOUND";
+}
 
+//Example for the use of GetModelInfo
+std::string GTAmemory::GetVehicleMakeName(Hash modelHash) {
+	int index = 0xFFFF;
+	void* modelInfo = GetModelInfo(modelHash, &index);
+	if (getGameVersion() < 38) {
+		return ((CVehicleModelInfo*)modelInfo)->m_manufacturerName;
+	}
+	return ((CVehicleModelInfo1290*)modelInfo)->m_manufacturerName;
+}

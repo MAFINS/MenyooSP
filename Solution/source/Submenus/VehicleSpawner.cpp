@@ -836,7 +836,7 @@ namespace sub
 			FLOAT y_coord = OptionY + menuPos.y;
 
 			Game::Print::setupdraw(font_selection, Vector2(0.0f, (font_options == 0? 0.33f:0.4f)), false, true, false, selectedtext,{0, x_coord});
-			Game::Print::drawstring("GXTName: " + vehModel.VehicleDisplayName(false), 0, y_coord);
+			Game::Print::drawstring("ModelName: " + vehModel.VehicleSpawnName(), 0, y_coord);
 		}
 
 		void AddvcatOption_(const std::string& text, UINT8 index, bool *extra_option_code)

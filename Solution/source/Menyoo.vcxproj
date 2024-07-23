@@ -12,6 +12,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\external\pugixml\src\pugixml.cpp" />
+    <ClCompile Include="Memory\Hooking.cpp" />
     <ClCompile Include="Menu\FolderPreviewBmps.cpp" />
     <ClCompile Include="Menu\Language.cpp" />
     <ClCompile Include="Menu\MenuConfig.cpp" />
@@ -122,6 +123,7 @@
   <ItemGroup>
     <ClInclude Include="..\external\pugixml\src\pugiconfig.hpp" />
     <ClInclude Include="..\external\pugixml\src\pugixml.hpp" />
+    <ClInclude Include="Memory\Hooking.h" />
     <ClInclude Include="Menu\FolderPreviewBmps.h" />
     <ClInclude Include="Menu\Language.h" />
     <ClInclude Include="Menu\MenuConfig.h" />

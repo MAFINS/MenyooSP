@@ -47,6 +47,7 @@ namespace GTAmodel
 		UINT64 MemoryAddress() const;
 
 		std::string VehicleDisplayName(bool properName) const;
+		std::string VehicleSpawnName() const;
 
 		ModelDimensions Dimensions() const;
 		void Dimensions(Vector3& dim1C, Vector3& dim2C) const;

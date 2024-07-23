@@ -43,6 +43,7 @@ BOOL APIENTRY DllMain(HMODULE hInstance, DWORD reason, LPVOID lpReserved)
 			addlog(ige::LogType::LOG_INIT, moduleinfostream.str(), __FILENAME__);
 		}
 
+		setupHooks();
 		GTAmemory::Init();
 
 		scriptRegister(hInstance, ThreadMenyooMain);
