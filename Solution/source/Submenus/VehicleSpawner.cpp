@@ -830,13 +830,13 @@ namespace sub
 				Game::Print::drawstring("No preview available", x_coord, y_coord - 0.0043f);
 			}
 		}
-		void DrawVehicleSpawnName(const GTAmodel::Model& vehModel)
+		void DrawVehicleModelName(const GTAmodel::Model& vehModel)
 		{
 			FLOAT x_coord = menuPos.x + 0.25f;
 			FLOAT y_coord = OptionY + menuPos.y;
 
 			Game::Print::setupdraw(font_selection, Vector2(0.0f, (font_options == 0? 0.33f:0.4f)), false, true, false, selectedtext,{0, x_coord});
-			Game::Print::drawstring("ModelName: " + vehModel.VehicleSpawnName(), 0, y_coord);
+			Game::Print::drawstring("ModelName: " + vehModel.VehicleModelName(), 0, y_coord);
 		}
 
 		void AddvcatOption_(const std::string& text, UINT8 index, bool *extra_option_code)
@@ -1229,7 +1229,7 @@ namespace sub
 				if (_globalSpawnVehicle_drawBmps)
 					DrawVehicleBmp(vehModel);
 				
-				DrawVehicleSpawnName(vehModel);
+				DrawVehicleModelName(vehModel);
 
 				bool bIsAFav = SpawnVehicle_IsVehicleModelAFavourite(vehModel);
 				if (Menu::bit_controller)
@@ -1426,7 +1426,7 @@ namespace sub
 					if (_globalSpawnVehicle_drawBmps)
 						DrawVehicleBmp(vehModel);
 
-					DrawVehicleSpawnName(vehModel);
+					DrawVehicleModelName(vehModel);
 
 					if (Menu::bit_controller)
 					{

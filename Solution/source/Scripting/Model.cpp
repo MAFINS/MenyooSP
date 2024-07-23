@@ -102,7 +102,7 @@ namespace GTAmodel
 		return "CARNOTFOUND";
 	}
 
-	std::string Model::VehicleSpawnName() const
+	std::string Model::VehicleModelName() const
 	{
 		return GTAmemory::GetVehicleModelName(this->hash);
 	}
