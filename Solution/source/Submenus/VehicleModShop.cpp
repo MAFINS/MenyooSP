@@ -17,6 +17,7 @@
 #include "..\Natives\natives2.h"
 #include "..\Util\GTAmath.h"
 #include "..\Util\StringManip.h"
+#include "..\Util\FileLogger.h"
 #include "..\Scripting\enums.h"
 #include "..\main.h"
 #include "..\Scripting\GTAvehicle.h"
@@ -1799,7 +1800,6 @@ namespace sub
 
 		FLOAT ms_dirtLevel = GET_VEHICLE_DIRT_LEVEL(Static_12);
 
-
 		AddTitle("Menyoo Customs");
 
 		if (Static_12_veh_model.IsPlane()) {
@@ -1812,7 +1812,7 @@ namespace sub
 			AddOption(Game::GetGXTEntry("S_MO_09", "Benny's Lowrider Mods"), null, nullFunc, SUB::MS_BENNYS); // Use 25 to 48 here.
 		}
 
-		if (Static_12_veh_model.IsWheelChangingSupportedVehicle())
+		if (Static_12_veh_model.IsWheelChangingSupportedVehicle() && 65535 != GET_VEHICLE_MOD_KIT(Static_12))
 		{
 			AddOption(Game::GetGXTEntry("CMOD_MOD_WHEM", "Wheels"), null, nullFunc, SUB::MSWHEELS, true);
 		}
