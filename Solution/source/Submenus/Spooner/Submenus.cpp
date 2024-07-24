@@ -1551,16 +1551,25 @@ namespace sub
 						{
 							if (e.Handle.Exists())
 							{
-								bool bEntityPressed = false;
-								AddOption(e.HashName, bEntityPressed); if (bEntityPressed)
+								if (!SelectedEntity.Handle.IsAttachedTo(e.Handle))
 								{
-									EntityManagement::AttachEntityInit(SelectedEntity, e.Handle, Settings::bKeepPositionWhenAttaching);
-									Menu::SetSub_previous();
-									return;
+									bool bEntityPressed = false;
+									AddOption(e.HashName, bEntityPressed); if (bEntityPressed)
+									{
+										EntityManagement::AttachEntityInit(SelectedEntity, e.Handle, Settings::bKeepPositionWhenAttaching);
+										Menu::SetSub_previous();
+										return;
+									}
+									if (*Menu::currentopATM == Menu::printingop)
+										EntityManagement::ShowArrowAboveEntity(e.Handle, RGBA(0, 255, 0, 200));
 								}
-
-								if (*Menu::currentopATM == Menu::printingop)
-									EntityManagement::ShowArrowAboveEntity(e.Handle, RGBA(0, 255, 0, 200));
+								else
+								{
+									AddOption(e.HashName + " (already attached)", null);
+									if (*Menu::currentopATM == Menu::printingop)
+										EntityManagement::ShowArrowAboveEntity(e.Handle, RGBA(255, 0, 0, 200));
+								}
+								
 							}
 							else
 							{
