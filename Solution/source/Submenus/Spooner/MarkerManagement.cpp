@@ -40,7 +40,7 @@ namespace sub::Spooner
 			GTAentity myPed = PLAYER_PED_ID();
 			GTAentity myVehicle = GET_VEHICLE_PED_IS_IN(myPed.Handle(), false);
 			GTAentity* entityToTeleport = &myPed;
-			bool bMyPedIsInVehicle = myVehicle.Exists();
+			bool bMyPedIsInVehicle = IS_PED_IN_VEHICLE(myPed.Handle(), myVehicle.Handle(), false);
 
 			const Vector3& myDim1 = myPed.Dim1();
 			Vector3 myVehicleDim1;
