@@ -2833,11 +2833,15 @@ void Menu::loops()
 
 	MenuInput::UpdateDeltaCursorNormal();
 
-	if (IS_PED_IN_ANY_VEHICLE(PLAYER_PED_ID(), 0))
+	if (IS_PED_IN_ANY_VEHICLE(PLAYER_PED_ID(), 0)) // Store current vehicle
 	{
-		g_myVeh = GET_VEHICLE_PED_IS_IN(PLAYER_PED_ID(), 0);
+		g_myVeh = GET_VEHICLE_PED_IS_IN(PLAYER_PED_ID(), false); //GET_VEHICLE_PED_IS_IN(PLAYER_PED_ID(), 0);
 		g_myVeh_model = GET_ENTITY_MODEL(g_myVeh);
-	} // Store current vehicle
+	}
+	else
+	{
+		g_myVeh = 0;
+	}
 
 	if (!IS_PLAYER_DEAD(PLAYER_ID()))
 	{

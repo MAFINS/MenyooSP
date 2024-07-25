@@ -38,6 +38,8 @@
 #include <sstream>
 #include <utility>
 
+#include "../Util/StringManip.h"
+
 HMODULE g_MainModule = 0;
 MODULEINFO g_MainModuleInfo = { 0 };
 
@@ -52,7 +54,7 @@ GetModelInfo_t GetModelInfo;
 std::unordered_map<unsigned int, std::string> g_vehicleHashes;
 CallHook<InitVehicleArchetype_t> * g_InitVehicleArchetype = nullptr;
 CVehicleModelInfo* initVehicleArchetype_stub(const char* name, bool a2, unsigned int a3) {
-	g_vehicleHashes.insert({ GET_HASH_KEY(name), name });
+	g_vehicleHashes.insert({ GET_HASH_KEY(name), boost::to_lower_copy(name) });
 	return g_InitVehicleArchetype->fn(name, a2, a3);
 }
 void setupHooks() {

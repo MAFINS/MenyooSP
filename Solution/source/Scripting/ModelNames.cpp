@@ -210,8 +210,7 @@ void PopulateVehicleModelsArray()
 			{
 				if (!isMinGameVersion3095 || !IS_VEHICLE_GEN9_EXCLUSIVE_MODEL(dd))
 				{
-					std::string ModelName = boost::to_lower_copy(Model(dd).VehicleModelName());
-					if (ModelName.starts_with("drift"))
+					if (Model(dd).VehicleModelName().starts_with("drift"))
 					{
 						g_vehHashes_DRIFT.push_back(dd);
 					}
