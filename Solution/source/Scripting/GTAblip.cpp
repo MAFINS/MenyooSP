@@ -595,6 +595,7 @@ namespace BlipIcon {
 		{ BlipIcon::Patriot3, "Patriot3" },
 		{ BlipIcon::RecordStudio, "RecordStudio" },
 		{ BlipIcon::Jubilee, "Jubilee" },
+		{ BlipIcon::Granger2, "Granger 3600XL" },
 		{ BlipIcon::Dynamite, "Dynamite" },
 		{ BlipIcon::Deity, "Deity" },
 		{ BlipIcon::Champion, "Champion" },
