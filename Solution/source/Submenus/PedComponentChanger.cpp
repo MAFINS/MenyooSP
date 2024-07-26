@@ -337,9 +337,9 @@ namespace sub
             || compon_texture_old != compon_texture_current
             || compon_palette_old != compon_palette_current)
         {
-        	if (Static_12 == PV_COMP_ACCS && !GET_PED_CONFIG_FLAG(Static_241, 409, true)) //checks if accessory category
+        	if (Static_12 == PV_COMP_ACCS && !GET_PED_CONFIG_FLAG(Static_241, ePedConfigFlags::DisableTakeOffScubaGear, true)) //checks if accessory category & DisableTakeOffScubaGear is false
         	{
-        		SET_PED_CONFIG_FLAG(Static_241, 409, true); //DisableTakeOffScubaGear to prevent accessory skipping to 0
+        		SET_PED_CONFIG_FLAG(Static_241, ePedConfigFlags::DisableTakeOffScubaGear, true);
         	}
         	SET_PED_COMPONENT_VARIATION(Static_241, Static_12, compon_drawable_current, compon_texture_current, compon_palette_current);
             while (!HasPedSpecificDrawable(compon_drawable_current))
