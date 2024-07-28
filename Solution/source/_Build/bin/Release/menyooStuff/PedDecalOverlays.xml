@@ -1692,19 +1692,6 @@
         <OVERLAY collection="mptuner_overlays" name="MP_Tuner_Tee_014_F" caption="MP_Tuner_Tee_014_F" />
         <OVERLAY collection="mptuner_overlays" name="MP_Tuner_Tee_015_F" caption="MP_Tuner_Tee_015_F" />
         <OVERLAY collection="mptuner_overlays" name="MP_Tuner_Tee_016_F" caption="MP_Tuner_Tee_016_F" />
-        <OVERLAY collection="mpsecurity_overlays" name="MP_Security_Tee_000_F" caption="The_Contract_Tee_000_F" />
-        <OVERLAY collection="mpsecurity_overlays" name="MP_Security_Tee_001_F" caption="The_Contract_Tee_001_F" />
-        <OVERLAY collection="mpsum2_overlays" name="MP_Sum2_Tee_000_F" caption="CriminalEnterprise_Tee_000_F" />
-        <OVERLAY collection="mpsum2_overlays" name="MP_Sum2_Tee_001_F" caption="CriminalEnterprise_Tee_001_F" />
-        <OVERLAY collection="mpchristmas3_overlays" name="MP_Christmas3_Tee_000_F" caption="Drug_Wars_Tee_000_F" />        <OVERLAY collection="mpchristmas3_overlays" name="MP_Christmas3_Tee_001_F" caption="Drug_Wars_Tee_001_F" />
-        <OVERLAY collection="mp2023_01_overlays" name="MP_2023_01_Tee_000_F" caption="Andreas_Mercenaries_Tee_000_F" />
-        <OVERLAY collection="mp2023_01_overlays" name="MP_2023_01_Tee_001_F" caption="Andreas_Mercenaries_Tee_001_F" />
-        <OVERLAY collection="mp2023_01_overlays" name="MP_2023_01_Tee_002_F" caption="Andreas_Mercenaries_Tee_002_F" />
-        <OVERLAY collection="mp2023_01_overlays" name="MP_2023_01_Tee_003_F" caption="Andreas_Mercenaries_Tee_003_F" />
-        <OVERLAY collection="mp2023_01_overlays" name="MP_2023_01_Tee_004_F" caption="Andreas_Mercenaries_Tee_004_F" />
-        <OVERLAY collection="mp2023_01_overlays" name="MP_2023_01_Tee_005_F" caption="Andreas_Mercenaries_Tee_005_F" />
-        <OVERLAY collection="mp2023_01_overlays" name="MP_2023_01_Tee_006_F" caption="Andreas_Mercenaries_Tee_006_F" />
-        <OVERLAY collection="mp2023_01_overlays" name="MP_2023_01_Tee_007_F" caption="Andreas_Mercenaries_Tee_007_F" />
       </ZONE_TORSO>
     </TYPE_BADGE>
   </Ped>
@@ -3270,19 +3257,6 @@
         <OVERLAY collection="mptuner_overlays" name="MP_Tuner_Tee_014_M" caption="MP_Tuner_Tee_014_M" />
         <OVERLAY collection="mptuner_overlays" name="MP_Tuner_Tee_015_M" caption="MP_Tuner_Tee_015_M" />
         <OVERLAY collection="mptuner_overlays" name="MP_Tuner_Tee_016_M" caption="MP_Tuner_Tee_016_M" />
-        <OVERLAY collection="mpsecurity_overlays" name="MP_Security_Tee_000_M" caption="The_Contract_Tee_000_M" />
-        <OVERLAY collection="mpsecurity_overlays" name="MP_Security_Tee_001_M" caption="The_Contract_Tee_001_M" />
-        <OVERLAY collection="mpsum2_overlays" name="MP_Sum2_Tee_000_M" caption="CriminalEnterprise_Tee_000_M" />
-        <OVERLAY collection="mpsum2_overlays" name="MP_Sum2_Tee_001_M" caption="CriminalEnterprise_Tee_001_M" />
-        <OVERLAY collection="mpchristmas3_overlays" name="MP_Christmas3_Tee_000_M" caption="Drug_Wars_Tee_000_M" />        <OVERLAY collection="mpchristmas3_overlays" name="MP_Christmas3_Tee_001_M" caption="Drug_Wars_Tee_001_M" />
-        <OVERLAY collection="mp2023_01_overlays" name="MP_2023_01_Tee_000_M" caption="Andreas_Mercenaries_Tee_000_M" />
-        <OVERLAY collection="mp2023_01_overlays" name="MP_2023_01_Tee_001_M" caption="Andreas_Mercenaries_Tee_001_M" />
-        <OVERLAY collection="mp2023_01_overlays" name="MP_2023_01_Tee_002_M" caption="Andreas_Mercenaries_Tee_002_M" />
-        <OVERLAY collection="mp2023_01_overlays" name="MP_2023_01_Tee_003_M" caption="Andreas_Mercenaries_Tee_003_M" />
-        <OVERLAY collection="mp2023_01_overlays" name="MP_2023_01_Tee_004_M" caption="Andreas_Mercenaries_Tee_004_M" />
-        <OVERLAY collection="mp2023_01_overlays" name="MP_2023_01_Tee_005_M" caption="Andreas_Mercenaries_Tee_005_M" />
-        <OVERLAY collection="mp2023_01_overlays" name="MP_2023_01_Tee_006_M" caption="Andreas_Mercenaries_Tee_006_M" />
-        <OVERLAY collection="mp2023_01_overlays" name="MP_2023_01_Tee_007_M" caption="Andreas_Mercenaries_Tee_007_M" />
       </ZONE_TORSO>
     </TYPE_BADGE>
   </Ped>
