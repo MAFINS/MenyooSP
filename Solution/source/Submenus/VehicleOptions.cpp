@@ -42,39 +42,36 @@ namespace sub
 	// Vehicle - ped task
 	void task_rappel(GTAped ped, GTAvehicle vehicle)
 	{
-		if (vehicle.Model().IsHeli())
+		//if (vehicle.Speed_get() < 10.0f && vehicle.HeightAboveGround() < 40.0f)
+		ped.RequestControl();
+		ped.Task().ClearAll();
+		ped.SetIntoVehicle(vehicle, VehicleSeat::SEAT_LEFTREAR);
+
+		GTAped newPed;
+		if (vehicle.IsSeatFree(VehicleSeat::SEAT_DRIVER))
 		{
-			//if (vehicle.Speed_get() < 10.0f && vehicle.HeightAboveGround() < 40.0f)
-			ped.RequestControl();
-			ped.Task().ClearAll();
-			ped.SetIntoVehicle(vehicle, VehicleSeat::SEAT_LEFTREAR);
+			newPed = World::CreatePedInsideVehicle(PedHash::PrologueDriver, vehicle, VehicleSeat::SEAT_DRIVER);
+		}
 
-			GTAped newPed;
-			if (vehicle.IsSeatFree(VehicleSeat::SEAT_DRIVER))
-			{
-				newPed = World::CreatePedInsideVehicle(PedHash::PrologueDriver, vehicle, VehicleSeat::SEAT_DRIVER);
-			}
+		WAIT(100);
 
-			WAIT(100);
+		if (newPed.Exists())
+		{
+			const Vector3& vehPos = vehicle.Position_get();
+			newPed.BlockPermanentEvents_set(true);
+			TASK_HELI_MISSION(newPed.Handle(), vehicle.Handle(), 0, 0, vehPos.x, vehPos.y, vehPos.z, 4, 0.0f, 50.0f, -1.0f, 10000, 100, -1082130432, 0);
+			newPed.AlwaysKeepTask_set(true);
+		}
 
-			if (newPed.Exists())
-			{
-				const Vector3& vehPos = vehicle.Position_get();
-				newPed.BlockPermanentEvents_set(true);
-				TASK_HELI_MISSION(newPed.Handle(), vehicle.Handle(), 0, 0, vehPos.x, vehPos.y, vehPos.z, 4, 0.0f, 50.0f, -1.0f, 10000, 100, -1082130432, 0);
-				newPed.AlwaysKeepTask_set(true);
-			}
+		vehicle.Velocity_set(Vector3::Zero());
 
-			vehicle.Velocity_set(Vector3::Zero());
+		ped.RequestControl();
+		TASK_RAPPEL_FROM_HELI(ped.Handle(), 1); // 1092616192 0x41200000
 
-			ped.RequestControl();
-			TASK_RAPPEL_FROM_HELI(ped.Handle(), 1); // 1092616192 0x41200000
-
-			WAIT(100);
-			if (newPed.Exists())
-			{
-				newPed.NoLongerNeeded(); // Too soon, maybe?
-			}
+		WAIT(100);
+		if (newPed.Exists())
+		{
+			newPed.NoLongerNeeded(); // Too soon, maybe?
 		}
 	}
 
@@ -138,9 +135,9 @@ namespace sub
 
 		AddTitle("Vehicle Options");
 
-		if (myVehicleModel.VehicleDisplayName(false).find("CARGOBOB") != std::string::npos)
+		if (myVehicleModel.IsCargobob())
 			AddLocal("Cargobob Magnet", myVehicle.IsCargobobHookActive(CargobobHook::Magnet), bToggleCargobobMagnet, bToggleCargobobMagnet);
-		if (myVehicleModel.hash == VEHICLE_MAVERICK || myVehicleModel.hash == VEHICLE_POLMAV)
+		if (DOES_VEHICLE_ALLOW_RAPPEL(g_myVeh))
 			AddOption("Rappel From Helicopter", VehicleOpsRappelHeli);
 		if (myVehicle.HasSiren_get())
 			AddToggle("Disable Vehicle Siren", loop_vehicle_disableSiren, null, disableSiren_off);
@@ -246,9 +243,7 @@ namespace sub
 		if (VehicleOpsRappelHeli) {
 			if (myPed.IsInVehicle())
 			{
-				if (!myPed.IsInHeli()) Game::Print::PrintBottomCentre("~r~Error:~s~ You are not in a helicopter.");
-				else
-					task_rappel(myPed.Handle(), myPed.CurrentVehicle());
+				task_rappel(myPed.Handle(), myPed.CurrentVehicle());
 				return;
 			}
 		}

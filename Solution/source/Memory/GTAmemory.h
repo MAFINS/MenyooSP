@@ -37,6 +37,227 @@ typedef unsigned __int64 DWORD64, UINT64;
 typedef void *LPVOID;
 typedef const char *LPCSTR;
 typedef int Entity;
+typedef unsigned long Hash;
+typedef uint8_t eModelType;
+typedef uint32_t eVehicleType;
+typedef uint32_t eVehicleFlag1;
+typedef uint32_t eVehicleFlag2;
+typedef uint32_t eVehicleFlag3;
+typedef uint32_t eVehicleFlag4;
+typedef uint32_t eVehicleFlag5;
+typedef uint32_t eVehicleFlag6;
+// Various snippets from FiveM source and Unknown Modder
+namespace rage {
+    class fwArchetype {
+    public:
+        virtual ~fwArchetype() = default;
+
+        char _0x0008[0x10]; // 0x0000
+        Hash m_hash; // 0x0018
+        char _0x001C[0x10]; // 0x001C
+        float m_radius; // 0x002C
+        float m_aabbMin[4]; // 0x0030
+        float m_aabbMax[4]; // 0x0040
+        uint32_t m_flags; // 0x0050
+        char _0x0054[0x12]; // 0x0054
+        uint16_t m_index; // 0x0066
+    };
+
+    class fwEntity
+    {
+    public:
+        virtual ~fwEntity() = 0;
+    };
+
+    class fwArchetypeDef
+    {
+    public:
+        virtual ~fwArchetypeDef();
+
+        virtual int64_t GetTypeIdentifier();
+
+        float lodDist;
+        uint32_t flags; // 0x10000 = alphaclip
+        uint32_t specialAttribute; // lower 5 bits == 31 -> use alpha clip, get masked to 31 in InitializeFromArchetypeDef
+        uint32_t pad;
+        void* pad2;
+        float bbMin[4];
+        float bbMax[4];
+        float bsCentre[4];
+        float bsRadius;
+        float hdTextureDist;
+        uint32_t name;
+        uint32_t textureDictionary;
+        uint32_t clipDictionary;
+        uint32_t drawableDictionary;
+        uint32_t physicsDictionary;
+        uint32_t assetType;
+        uint32_t assetName;
+        uint32_t pad5[7];
+
+    public:
+        fwArchetypeDef()
+        {
+            flags = 0x10000; // was 0x2000
+            lodDist = 299.0f;
+            hdTextureDist = 375.0f;
+
+            drawableDictionary = 0;
+            assetType = 3;
+            assetName = 0x12345678;
+
+            specialAttribute = 31;
+
+            pad = 0;
+            pad2 = 0;
+            clipDictionary = 0;
+            physicsDictionary = 0;
+            memset(pad5, 0, sizeof(physicsDictionary));
+        }
+    };
+
+}
+
+class CBaseModelInfo : public rage::fwArchetype
+{
+public:
+    virtual ~CBaseModelInfo() {}
+    virtual void Initialize() {}
+    virtual void InitializeFromArchetypeDef(uint32_t, rage::fwArchetypeDef*, bool) {}
+    virtual rage::fwEntity* CreateEntity() { return nullptr; }
+    // and lots of other functions...
+
+public:
+    eModelType GetModelType() const
+    {
+        return m_modelType & 0x1F;
+    }
+
+protected:
+    char _0x0068[0x35];    // 0x0068
+    eModelType m_modelType;    // 0x009D (& 0x1F)
+    char _0x009E[0x2];    // 0x009E
+    uint32_t m_unkFlag;    // 0x00A0
+    char _0x00A4[0x4];    // 0x00A4
+    void* m_0x00A8;        // 0x00A8
+};
+
+class CVehicleModelInfo : public CBaseModelInfo
+{
+public:
+    virtual ~CVehicleModelInfo() {}
+    virtual void Initialize() {}
+    virtual void InitializeFromArchetypeDef(uint32_t, rage::fwArchetypeDef*, bool) {}
+    virtual rage::fwEntity* CreateEntity() { return nullptr; }
+    // and lots of other functions...
+
+public:
+    void* m_0x00B0; // 0x00B0
+    char _0x00B8[0x40]; // 0x00B8
+    uint8_t m_primaryColorCombinations[25]; // 0x00F8
+    uint8_t m_secondaryColorCombinations[25]; // 0x0111
+    uint8_t m_unkColor1Combinations[25]; // 0x012A
+    uint8_t m_unkColor2Combinations[25]; // 0x0143
+    uint8_t m_interiorColorCombinations[25]; // 0x015C
+    uint8_t m_dashboardColorCombinations[25]; // 0x0175
+    char _0x018E[0xE2]; // 0x018E
+    char m_displayName[12]; // 0x0270 (aka gameName)
+    char m_manufacturerName[12]; // 0x027C (aka makeName)
+    uint8_t* m_modKits; // 0x0288
+    uint16_t m_modKitsCount; // 0x0290
+    char _0x0292[0x46]; // 0x0292
+    void* m_driverInfo; // 0x02D8
+    uint8_t m_numDrivers; // 0x02E0
+    char _0x02E1[0x37]; // 0x02E1
+    eVehicleType m_vehicleType; // 0x0318
+    uint32_t m_unkVehicleType; // 0x031C
+    uint32_t m_diffuseTint; // 0x0320
+    char _0x0324[0x90]; // 0x0324
+    uint8_t m_unkModKitVal; // 0x03B4
+    char _0x03B5[0xA7]; // 0x03B5
+    float m_wheelScale; // 0x045C
+    float m_wheelScaleRear; // 0x0460
+    float m_defaultBodyHealth; // 0x0464
+    char _0x0468[0x20]; // 0x0468
+    uint32_t m_handlingIndex; // 0x0488
+    uint32_t m_identicalModelSpawnDistance; // 0x048C
+    char _0x0490[0x4]; // 0x0490
+    uint32_t m_numColorCombinations; // 0x0494
+    char _0x0498[0x30]; // 0x0498
+    void* m_0x04C8; // 0x04C8 (wheel data? 0xAC -> burnout mult?)
+    char _0x04D0[0x3B]; // 0x04D0
+    uint8_t m_sirenInfoId; // 0x050B
+    char _0x050C[0xC]; // 0x050C
+    uint8_t m_vehicleClass; // 0x0518 (& 0x1F; (>> 5) & 3 -> plate type)
+    char _0x0519[0x2F]; // 0x0519
+    int m_seatCount; // 0x0548
+    eVehicleFlag1 m_flags1; // 0x054C
+    eVehicleFlag2 m_flags2; // 0x0550
+    eVehicleFlag3 m_flags3; // 0x0554
+    eVehicleFlag4 m_flags4; // 0x0558
+    eVehicleFlag5 m_flags5; // 0x055C
+};
+
+class CVehicleModelInfo1290 : public CBaseModelInfo
+{
+public:
+    virtual ~CVehicleModelInfo1290() {}
+    virtual void Initialize() {}
+    virtual void InitializeFromArchetypeDef(uint32_t, rage::fwArchetypeDef*, bool) {}
+    virtual rage::fwEntity* CreateEntity() { return nullptr; }
+    // and lots of other functions...
+
+public:
+    void* m_0x00B0; // 0x00B0
+    char _0x00B8[0x40]; // 0x00B8
+    uint8_t m_primaryColorCombinations[25]; // 0x00F8
+    uint8_t m_secondaryColorCombinations[25]; // 0x0111
+    uint8_t m_unkColor1Combinations[25]; // 0x012A
+    uint8_t m_unkColor2Combinations[25]; // 0x0143
+    uint8_t m_interiorColorCombinations[25]; // 0x015C
+    uint8_t m_dashboardColorCombinations[25]; // 0x0175
+    char _0x018E[0x10A]; // 0x018E
+    char m_displayName[12]; // 0x0298 (aka gameName)
+    char m_manufacturerName[12]; // 0x02A4 (aka makeName)
+    uint16_t* m_modKits; // 0x02B0
+    uint16_t m_modKitsCount; // 0x02B8
+    char _0x02BA[0x46]; // 0x02BA
+    void* m_driverInfo; // 0x0300
+    uint8_t m_numDrivers; // 0x0308
+    char _0x0309[0x37]; // 0x02E3
+    eVehicleType m_vehicleType; // 0x0340
+    uint32_t m_unkVehicleType; // 0x0344
+    uint32_t m_diffuseTint; // 0x0348
+    char _0x034C[0x90]; // 0x034C
+    uint8_t m_unkModKitVal; // 0x03DC (also uint16_t now?)
+    char _0x03DD[0xA7]; // 0x03DD
+    float m_wheelScale; // 0x0484
+    float m_wheelScaleRear; // 0x0488
+    float m_defaultBodyHealth; // 0x048C
+    char _0x0490[0x20]; // 0x0490
+    uint32_t m_handlingIndex; // 0x04B8
+    uint32_t m_identicalModelSpawnDistance; // 0x04BC
+    char _0x04C0[0x4]; // 0x04C0
+    uint32_t m_numColorCombinations; // 0x04C4
+    uint32_t m_fragmentIndex; // 0x04C8
+    char _0x04CC[0x2C]; // 0x04CC
+    void* m_0x04F8; // 0x04F8 (wheel data? 0xAC -> burnout mult?)
+    char _0x0500[0x3B]; // 0x0500
+    uint8_t m_sirenInfoId; // 0x053B
+    char _0x053C[0x7]; // 0x053C
+    uint8_t m_0x0543; // 0x0543
+    char _0x0544_[0x4]; // 0x0544
+    uint8_t m_vehicleClass; // 0x0548 (& 0x1F; (>> 5) & 3 -> plate type)
+    char _0x0549[0x2F]; // 0x0549
+    int m_seatCount; // 0x0578 (use only if unk_0x00B0->seatCount can't be used)
+    eVehicleFlag1 m_flags1; // 0x057C
+    eVehicleFlag2 m_flags2; // 0x0580
+    eVehicleFlag3 m_flags3; // 0x0584
+    eVehicleFlag4 m_flags4; // 0x0588
+    eVehicleFlag5 m_flags5; // 0x058C
+    eVehicleFlag6 m_flags6; // 0x0590
+    char _0x0594[0xC]; // 0x0594
+};
 
 struct ScriptHeader {
 	char padding1[16];                    //0x0
@@ -389,6 +610,8 @@ public:
 	static uintptr_t FindPattern(const char *pattern, const char *mask);
 	
     static bool FindShopController();
+	static std::string GetVehicleModelName(Hash modelHash);
+	static std::string GetVehicleMakeName(Hash modelHash);
 
 private:
 	static UINT64 modelHashTable, modelNum2, modelNum3, modelNum4;
@@ -446,7 +669,8 @@ public:
 
 };
 
-
+void setupHooks();
+void removeHooks();
 
 
 

@@ -173,9 +173,10 @@ namespace sub::Spooner
 						nodePedHeadFeatures.append_child("HairColourStreaks").text() = pedHead.hairColourStreaks;
 						nodePedHeadFeatures.append_child("EyeColour").text() = pedHead.eyeColour;
 
-						auto nodePedFacialFeatures = nodePedHeadFeatures.append_child("FacialFeatures");
+						auto nodePedFacialFeatures = nodePedHeadFeatures.append_child("FacialFeatures"); //currently returning 0 to xml file for all values
 						for (int i = 0; i < pedHead.facialFeatureData.size(); i++)
 						{
+							addlog(ige::LogType::LOG_DEBUG, "Saving Facial feature " + std::to_string(i) + " as value " + std::to_string(pedHead.facialFeatureData[i]));
 							nodePedFacialFeatures.append_child(("_" + std::to_string(i)).c_str()).text() = std::to_string(pedHead.facialFeatureData[i]).c_str();
 						}
 

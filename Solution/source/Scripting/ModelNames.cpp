@@ -208,32 +208,20 @@ void PopulateVehicleModelsArray()
 		{
 			if (std::find(g_vehHashes.begin(), g_vehHashes.end(), Model(dd)) == g_vehHashes.end())
 			{
-				switch (dd)
+				if (!isMinGameVersion3095 || !IS_VEHICLE_GEN9_EXCLUSIVE_MODEL(dd))
 				{
-					//drift vehicles from Chop Shop DLC
-					case VEHICLE_DRIFTTAMPA:
-					case VEHICLE_DRIFTYOSEMITE:
-					case VEHICLE_DRIFTJESTER:
-					case VEHICLE_DRIFTEUROS:
-					case VEHICLE_DRIFTREMUS:
-					case VEHICLE_DRIFTFUTO:
-					case VEHICLE_DRIFTZR350:
-					case VEHICLE_DRIFTFR36:
-					case VEHICLE_DRIFTCYPHER:
-					case VEHICLE_DRIFTNEBULA:
-					case VEHICLE_DRIFTSENTINEL:
-					case VEHICLE_DRIFTVORSCHLAG:
+					if (Model(dd).VehicleModelName().starts_with("drift"))
+					{
 						g_vehHashes_DRIFT.push_back(dd);
-					break;
-				default:
-					if(!isMinGameVersion3095 || !IS_VEHICLE_GEN9_EXCLUSIVE_MODEL(dd))
+					}
+					else
 					{
 						auto dit = vDestMap.find(VehicleClass(d));
 						if (dit != vDestMap.end())
 							dit->second->push_back(dd);
 						else g_vehHashes_OTHER.push_back(dd);
-						g_vehHashes.push_back(dd);
 					}
+					g_vehHashes.push_back(dd);
 				}
 			}
 		}

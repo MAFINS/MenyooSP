@@ -655,7 +655,7 @@ namespace sub
 				return;
 			}
 
-			AddTitle("Decal OVerlays");
+			AddTitle("Decal Overlays");
 
 			for (auto& type : vPed->second)
 			{

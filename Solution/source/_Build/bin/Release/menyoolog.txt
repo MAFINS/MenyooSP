@@ -1,0 +1,20 @@
+Menyoo failed to initialise.
+
+Be sure that
+- ScripthookV (www.dev-c.com/gtav/scripthookv/) is installed. 
+- An ASI Loader is installed. This is available through the OpenIV app (openiv.com).
+
+If so, check the following logs on GTAV's root folder:
+
+asiloader.log - Should have the below entry
+    ASI: Loading "[install path]\Grand Theft Auto V\Menyoo.asi"
+     "Menyoo.asi" => [HEX Value]
+     
+ScriptHookV.log - Should have the below entries
+    [Time Stamp] INIT: Registering script 'Menyoo.asi' ([Hex Value])
+    [Time Stamp] INIT: Registering additional script thread 'Menyoo.asi' ([Hex Value])    
+    [Time Stamp] CORE: Started thread 'Menyoo.asi' ([Hex Value]), id [int] active 1
+    [Time Stamp] CORE: Started thread 'Menyoo.asi' ([Hex Value]), id [int] active 1
+    [Time Stamp] CORE: Launching main() for 'Menyoo.asi' ([Hex Value]), id [int]
+    
+If either file is missing you're missing ScripthookV or an ASI loader. If they dont mention Menyoo, its not installed in the right folder.
