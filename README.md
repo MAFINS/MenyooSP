@@ -18,6 +18,7 @@
 ## Requirements
 - [OpenIV and its ASI Loader](https://openiv.com/)
 - [ScriptHookV by Alexander Blade](http://www.dev-c.com/gtav/scripthookv/)
+- [Battleye disabled in the Rockstar Launcher Settings](https://staticg.sportskeeda.com/editor/2024/11/bdc35-17305620610616-1920.jpg)
 - GTA V Version 3095.0 or newer.
 
 ## Build
