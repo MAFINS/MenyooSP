@@ -58,7 +58,7 @@ extern std::vector<Entity> _nearbyPeds, _nearbyVehicles, _worldPeds, _worldVehic
 
 namespace World
 {
-	extern const std::vector<std::string> sWeatherNames;
+	extern const std::vector<std::pair<std::string, std::string>> sWeatherNames;
 	
 	void GravityLevel_set(int value);
 

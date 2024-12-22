@@ -453,11 +453,11 @@ void GTAped::CanSufferCriticalHits_set(bool value)
 
 bool GTAped::CanFlyThroughWindscreen_get() const
 {
-	return GET_PED_CONFIG_FLAG(this->mHandle, 32, true) != 0;
+	return GET_PED_CONFIG_FLAG(this->mHandle, ePedConfigFlags::WillFlyThruWindscreen, true) != 0;
 }
 void GTAped::CanFlyThroughWindscreen_set(bool value)
 {
-	SET_PED_CONFIG_FLAG(this->mHandle, 32, value);
+	SET_PED_CONFIG_FLAG(this->mHandle, ePedConfigFlags::WillFlyThruWindscreen, value);
 }
 
 void GTAped::CanBeKnockedOffBike_set(int state)

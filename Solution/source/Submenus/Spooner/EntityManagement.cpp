@@ -666,7 +666,7 @@ namespace sub::Spooner
 				//GTAped(newEntity.Handle).GiveWeaponsFromArray(weaponsBackup);
 				SET_NETWORK_ID_CAN_MIGRATE(ep.NetID(), true);
 				ep.BlockPermanentEvents_set(orig.IsStill);
-				SET_PED_CONFIG_FLAG(ep.Handle(), 223, GET_PED_CONFIG_FLAG(origPed.Handle(), 223, false));
+				SET_PED_CONFIG_FLAG(ep.Handle(), ePedConfigFlags::_Shrink, GET_PED_CONFIG_FLAG(origPed.Handle(), ePedConfigFlags::_Shrink, false));
 
 				SET_PED_CAN_PLAY_AMBIENT_ANIMS(ep.Handle(), true);
 				SET_PED_CAN_PLAY_AMBIENT_BASE_ANIMS(ep.Handle(), true);

@@ -707,6 +707,7 @@ namespace sub
 			{ VEHICLE_PBUS2, "sssa_dlc_battle", "pbus2" },
 			{ VEHICLE_PATRIOT, "sssa_dlc_battle", "patriot" },
 			{ VEHICLE_PATRIOT2, "sssa_dlc_battle", "patriot2" },
+			{ VEHICLE_FUTO, "sssa_dlc_battle", "futo" },
 			{ VEHICLE_TERBYTE, "candc_hacker", "banner0" },
 			{ VEHICLE_POUNDER2, "candc_battle", "pounder2" },
 			{ VEHICLE_MULE4, "candc_battle", "mule4" },
@@ -1014,6 +1015,27 @@ namespace sub
 			{ VEHICLE_DRIFTNEBULA, "sssa_dlc_vinewood", "nebula" },
 			{ VEHICLE_DRIFTSENTINEL, "lsc_dlc_sum2", "sentinel3_b" },
 			//{ VEHICLE_POLICET3, "ytd", "vehModel" },
+
+			//Agents of Sabotage
+			{ VEHICLE_BANSHEE3, "lgm_dlc_2024_2", "banshee3" },
+			{ VEHICLE_CARGOBOB5, "candc_dlc_2024_2", "cargobob5" },
+			{ VEHICLE_CHAVOSV6, "sssa_dlc_2024_2", "chavosv6" },
+			{ VEHICLE_COQUETTE6, "lgm_dlc_2024_2", "coquette6" },
+			{ VEHICLE_DRIFTCHEBUREK, "sssa_dlc_assault", "cheburek" },
+			{ VEHICLE_DRIFTFUTO2, "sssa_dlc_battle", "futo" },
+			{ VEHICLE_DRIFTJESTER3, "lgm_dlc_assault", "jester3" },
+			{ VEHICLE_DUSTER2, "elt_dlc_2024_2", "duster2" },
+			{ VEHICLE_FIREBOLT, "sssa_dlc_2024_2", "firebolt" },
+			// { VEHICLE_FREIGHTCAR3, "ytd", "vehModel" },
+			{ VEHICLE_JESTER5, "lgm_dlc_2024_2", "jester5" },
+			{ VEHICLE_POLCARACARA, "candc_dlc_2024_2", "polcaracar" },
+			{ VEHICLE_POLCOQUETTE4, "candc_dlc_2024_2", "polcoqutt4" },
+			{ VEHICLE_POLFACTION2, "candc_dlc_2024_2", "polfation2" },
+			{ VEHICLE_POLTERMINUS, "candc_dlc_2024_2", "polterminu" },
+			{ VEHICLE_URANUS, "sssa_dlc_2024_2", "uranus" },
+			// { VEHICLE_YOUGA5, "ytd", "vehModel" },
+			{ VEHICLE_TITAN2, "candc_dlc_2024_2", "titan2" },
+			{ VEHICLE_TACO, "candc_dlc_2024_2", "taco" },
 		};
 #pragma endregion
 		void PopulateVehicleBmps()

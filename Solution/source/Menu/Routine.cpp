@@ -88,7 +88,7 @@
 
 DWORD g_MenyooConfigTick = 0UL;
 DWORD g_FaderTick = 0UL;
-
+bool defaultPedSet = false;
 
 void Menu::justopened()
 {
@@ -993,8 +993,8 @@ void set_self_resurrectionGun()
 				targPed.MaxHealth_set(400);
 				targPed.Health_set(200);
 				SET_PED_GENERATES_DEAD_BODY_EVENTS(targPed.Handle(), false);
-				SET_PED_CONFIG_FLAG(targPed.Handle(), 166, 0);
-				SET_PED_CONFIG_FLAG(targPed.Handle(), 187, 0);
+				SET_PED_CONFIG_FLAG(targPed.Handle(), ePedConfigFlags::IsInjured, 0);
+				SET_PED_CONFIG_FLAG(targPed.Handle(), ePedConfigFlags::HasHurtStarted, 0);
 
 				targPed.Task().ClearAllImmediately();
 				TaskSequence seq;
@@ -1476,12 +1476,12 @@ void set_ped_seatbelt_on(Ped ped)
 {
 	SET_PED_CAN_BE_KNOCKED_OFF_VEHICLE(ped, 1); // state cantFollOff
 	//SET_PED_CONFIG_FLAG(ped, 32, true);
-	SET_PED_CONFIG_FLAG(ped, 32, false);
+	SET_PED_CONFIG_FLAG(ped, ePedConfigFlags::WillFlyThruWindscreen, false);
 }
 void set_ped_seatbelt_off(Ped ped)
 {
 	SET_PED_CAN_BE_KNOCKED_OFF_VEHICLE(ped, 0); // state canFallOff
-	SET_PED_CONFIG_FLAG(ped, 32, true);
+	SET_PED_CONFIG_FLAG(ped, ePedConfigFlags::WillFlyThruWindscreen, true);
 }
 
 // Misc - FreeCam
@@ -2706,9 +2706,9 @@ void Set_Walkunderwater(Entity PlayerPed)
 {
 	if (IS_ENTITY_IN_WATER(PlayerPed))
 	{
-		SET_PED_CONFIG_FLAG(PlayerPed, 65, false);
-		SET_PED_CONFIG_FLAG(PlayerPed, 66, false);
-		SET_PED_CONFIG_FLAG(PlayerPed, 168, false);
+		SET_PED_CONFIG_FLAG(PlayerPed, ePedConfigFlags::IsSwimming, false);
+		SET_PED_CONFIG_FLAG(PlayerPed, ePedConfigFlags::WasSwimming, false);
+		SET_PED_CONFIG_FLAG(PlayerPed, ePedConfigFlags::_0xD8072639, false);
 		
 		Vector3 PlayerPos = GET_ENTITY_COORDS(PlayerPed, 0);
 		DRAW_LIGHT_WITH_RANGEEX(PlayerPos.x, PlayerPos.y, (PlayerPos.z + 1.5f), 255, 255, 251, 100.0f, 1.5f, 0.0f);
@@ -2721,11 +2721,11 @@ void Set_Walkunderwater(Entity PlayerPed)
 
 		if (GET_ENTITY_HEIGHT_ABOVE_GROUND(PlayerPed) > 1) //Do falling down
 		{
-			SET_PED_CONFIG_FLAG(PlayerPed, 60, false);
-			SET_PED_CONFIG_FLAG(PlayerPed, 61, false);
-			SET_PED_CONFIG_FLAG(PlayerPed, 104, false);
-			SET_PED_CONFIG_FLAG(PlayerPed, 276, false);
-			SET_PED_CONFIG_FLAG(PlayerPed, 76, true);
+			SET_PED_CONFIG_FLAG(PlayerPed, ePedConfigFlags::IsStanding, false);
+			SET_PED_CONFIG_FLAG(PlayerPed, ePedConfigFlags::WasStanding, false);
+			SET_PED_CONFIG_FLAG(PlayerPed, ePedConfigFlags::OpenDoorArmIK, false);
+			SET_PED_CONFIG_FLAG(PlayerPed, ePedConfigFlags::EdgeDetected, false);
+			SET_PED_CONFIG_FLAG(PlayerPed, ePedConfigFlags::IsInTheAir, true);
 			APPLY_FORCE_TO_ENTITY(PlayerPed, true, 0, 0, -0.7f, 0, 0, 0, true, true, true, true, false, true);
 		}
 
@@ -2803,7 +2803,11 @@ void Menu::loops()
 	bool gameIsPaused = IS_PAUSE_MENU_ACTIVE() != 0;
 	int iped, player;
 	GTAplayer player2;
-
+	if (!GET_IS_LOADING_SCREEN_ACTIVE() && !defaultPedSet) {//This will load a preset Outfit XML from the menyooStuff folder on startup
+	sub::ComponentChanger_Outfit_catind::Apply(PLAYER_PED_ID(), "menyooStuff/defaultPed.xml", true, false, false, false, false, false);
+	sub::ComponentChanger_Outfit_catind::Apply(PLAYER_PED_ID(), "menyooStuff/defaultPed.xml", false, true, true, true, true, true);
+	defaultPedSet = true;
+}
 	Game::CustomHelpText::Tick();
 
 	update_nearby_stuff_arrays_tick();

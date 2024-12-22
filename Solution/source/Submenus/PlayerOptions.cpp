@@ -300,14 +300,14 @@ namespace sub
 		std::vector<NamedPedFlagS> vPedFlags
 		{
 			//{ 227, "Play Dead" },
-			{ 32, "Can Fall Out Through Windscreen" },
-			{ 62, "Is (Nearby) Car (MAY CRASH)" },
-			{ 78, "Is Aiming Check" },
-			{ 101, "Is Aiming" },
-			{ 125, "Has Overflowing Diaper (MAY CRASH)" },
-			{ 166, "Is Injured" },
-			{ 187, "Is Injured In Combat" },
-			{ 223, "Is Short Heighted (Small)" },
+			{ ePedConfigFlags::WillFlyThruWindscreen, "Can Fall Out Through Windscreen" },
+			{ ePedConfigFlags::InVehicle, "Is (Nearby) Car (MAY CRASH)" },
+			{ ePedConfigFlags::IsAimingGun, "Is Aiming Check" },
+			{ ePedConfigFlags::ForcedAim, "Is Aiming" },
+			{ ePedConfigFlags::_0x5FED6BFD, "Has Overflowing Diaper (MAY CRASH)" },
+			{ ePedConfigFlags::IsInjured, "Is Injured" },
+			{ ePedConfigFlags::HasHurtStarted, "Is Injured In Combat" },
+			{ ePedConfigFlags::_Shrink, "Is Short Heighted (Small)" },
 			//{ 000000, "" },
 
 		};

@@ -1114,7 +1114,22 @@ namespace MarkerType
 		{ "Thin Circle" },
 		{ "Thin Circle With Arrow" },
 		{ "Split Arrow Circle" },
-		{ "Sphere" }
+		{ "Sphere" },
+		{ "Dollar Sign" },
+		{ "Horizontal Bars" },
+		{ "Beast" },
+		{ "Question Mark" },
+		{ "Plane" },
+		{ "Helicopter" },
+		{ "Boat" },
+		{ "Car" },
+		{ "Motorcycle" },
+		{ "Bicycle" },
+		{ "Truck" },
+		{ "Parachute" },
+		{ "Jetpack" },
+		{ "Saw Blade" },
+		{ "Vertical Cylinder 2" },
 	};
 }
 
@@ -1140,5 +1155,3 @@ namespace YachtPropPaintVariation
 		{ "Voyager" }
 	};
 }
-
-

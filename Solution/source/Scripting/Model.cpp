@@ -259,6 +259,10 @@ namespace GTAmodel
 		case VEHICLE_POLIMPALER6:
 		case VEHICLE_POLDORADO:
 		case VEHICLE_POLDOMINATOR10:
+		case VEHICLE_POLCARACARA:
+		case VEHICLE_POLCOQUETTE4:
+		case VEHICLE_POLFACTION2:
+		case VEHICLE_POLTERMINUS:
 			return true;
 		}
 		return false;

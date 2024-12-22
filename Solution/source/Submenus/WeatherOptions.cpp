@@ -17,6 +17,7 @@
 #include "..\Natives\natives2.h"
 #include "..\Memory\GTAmemory.h"
 #include "..\Scripting\World.h"
+#include "..\Util\FileLogger.h"
 
 #include <string>
 #include <map>
@@ -61,11 +62,13 @@ namespace sub
 		for (auto& weatherName : World::sWeatherNames)
 		{
 			bool bWeatherPressed = false;
-			AddTickol(weatherName, GET_PREV_WEATHER_TYPE_HASH_NAME() == GET_HASH_KEY(weatherName), bWeatherPressed, bWeatherPressed); if (bWeatherPressed)
+			AddTickol(weatherName.first, GET_PREV_WEATHER_TYPE_HASH_NAME() == GET_HASH_KEY(weatherName.second), bWeatherPressed, bWeatherPressed); if (bWeatherPressed)
 			{
-				World::SetWeatherOverride(weatherName);
+				addlog(ige::LogType::LOG_DEBUG, "Setting weather to " + weatherName.first, __FILENAME__);
+				World::SetWeatherOverride(weatherName.second);
 			}
 		}
+		
 		//AddweatherOption_("Clear");
 		//AddweatherOption_("ExtraSunny");
 		//AddweatherOption_("Clouds");

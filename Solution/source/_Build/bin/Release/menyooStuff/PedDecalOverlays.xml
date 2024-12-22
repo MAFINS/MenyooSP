@@ -358,6 +358,10 @@
         <OVERLAY collection="mpsum2_overlays" name="MP_Sum2_Tat_025_F" caption="MP_Sum2_Tat_025_F" />
         <OVERLAY collection="mpsum2_overlays" name="MP_Sum2_Tat_026_F" caption="MP_Sum2_Tat_026_F" />
         <OVERLAY collection="mpsum2_overlays" name="MP_Sum2_Tat_027_F" caption="MP_Sum2_Tat_027_F" />
+        <OVERLAY collection="mp2023_02_overlays" name="MP_2023_02_Tat_008_F" caption="Chop_Shop_Tat_008_F" />
+        <OVERLAY collection="mp2023_02_overlays" name="MP_2023_02_Tat_009_F" caption="Chop_Shop_Tat_009_F" />
+        <OVERLAY collection="mp2023_02_overlays" name="MP_2023_02_Tat_010_F" caption="Chop_Shop_Tat_010_F" />
+        <OVERLAY collection="mp2023_02_overlays" name="MP_2023_02_Tat_011_F" caption="Chop_Shop_Tat_011_F" />
       </ZONE_HEAD>
       <ZONE_RIGHT_ARM>
         <OVERLAY collection="mpheist4_overlays" name="MP_Heist4_Tat_032_F" caption="K.U.L.T.99.1 FM" />
@@ -475,6 +479,9 @@
         <OVERLAY collection="mpsum2_overlays" name="MP_Sum2_Tat_046_F" caption="MP_Sum2_Tat_046_F" />
         <OVERLAY collection="mpsum2_overlays" name="MP_Sum2_Tat_047_F" caption="MP_Sum2_Tat_047_F" />
         <OVERLAY collection="mpsum2_overlays" name="MP_Sum2_Tat_048_F" caption="MP_Sum2_Tat_048_F" />
+        <OVERLAY collection="mp2023_02_overlays" name="MP_2023_02_Tat_005_F" caption="Chop_Shop_Tat_005_F" />
+        <OVERLAY collection="mp2023_02_overlays" name="MP_2023_02_Tat_006_F" caption="Chop_Shop_Tat_006_F" />
+        <OVERLAY collection="mp2023_02_overlays" name="MP_2023_02_Tat_007_F" caption="Chop_Shop_Tat_007_F" />
       </ZONE_RIGHT_ARM>
       <ZONE_LEFT_ARM>
         <OVERLAY collection="mpheist4_overlays" name="MP_Heist4_Tat_009_F" caption="Scratch Panther" />
@@ -578,6 +585,10 @@
         <OVERLAY collection="mpsum2_overlays" name="MP_Sum2_Tat_028_F" caption="MP_Sum2_Tat_028_F" />
         <OVERLAY collection="mpsum2_overlays" name="MP_Sum2_Tat_029_F" caption="MP_Sum2_Tat_029_F" />
         <OVERLAY collection="mpsum2_overlays" name="MP_Sum2_Tat_049_F" caption="MP_Sum2_Tat_049_F" />
+        <OVERLAY collection="mp2023_02_overlays" name="MP_2023_02_Tat_000_F" caption="Chop_Shop_Tat_000_F" />
+        <OVERLAY collection="mp2023_02_overlays" name="MP_2023_02_Tat_001_F" caption="Chop_Shop_Tat_001_F" />
+        <OVERLAY collection="mp2023_02_overlays" name="MP_2023_02_Tat_002_F" caption="Chop_Shop_Tat_002_F" />
+        <OVERLAY collection="mp2023_02_overlays" name="MP_2023_02_Tat_003_F" caption="Chop_Shop_Tat_003_F" />
       </ZONE_LEFT_ARM>
       <ZONE_RIGHT_LEG>
         <OVERLAY collection="mpheist4_overlays" name="MP_Heist4_Tat_027_F" caption="Skullphones" />
@@ -629,6 +640,8 @@
         <OVERLAY collection="mpsum2_overlays" name="MP_Sum2_Tat_050_F" caption="MP_Sum2_Tat_050_F" />
         <OVERLAY collection="mpsum2_overlays" name="MP_Sum2_Tat_051_F" caption="MP_Sum2_Tat_051_F" />
         <OVERLAY collection="mpsum2_overlays" name="MP_Sum2_Tat_052_F" caption="MP_Sum2_Tat_052_F" />
+        <OVERLAY collection="mp2023_02_overlays" name="MP_2023_02_Tat_016_F" caption="Chop_Shop_Tat_016_F" />
+        <OVERLAY collection="mp2023_02_overlays" name="MP_2023_02_Tat_017_F" caption="Chop_Shop_Tat_017_F" />
       </ZONE_RIGHT_LEG>
       <ZONE_LEFT_LEG>
         <OVERLAY collection="mpheist4_overlays" name="MP_Heist4_Tat_029_F" caption="Soundwaves" />
@@ -692,6 +705,9 @@
         <OVERLAY collection="mpsum2_overlays" name="MP_Sum2_Tat_054_F" caption="MP_Sum2_Tat_054_F" />
         <OVERLAY collection="mpsum2_overlays" name="MP_Sum2_Tat_055_F" caption="MP_Sum2_Tat_055_F" />
         <OVERLAY collection="mpsum2_overlays" name="MP_Sum2_Tat_056_F" caption="MP_Sum2_Tat_056_F" />
+        <OVERLAY collection="mp2023_02_overlays" name="MP_2023_02_Tat_013_F" caption="Chop_Shop_Tat_013_F" />
+        <OVERLAY collection="mp2023_02_overlays" name="MP_2023_02_Tat_014_F" caption="Chop_Shop_Tat_014_F" />
+        <OVERLAY collection="mp2023_02_overlays" name="MP_2023_02_Tat_015_F" caption="Chop_Shop_Tat_015_F" />
       </ZONE_LEFT_LEG>
       <ZONE_TORSO>
         <OVERLAY collection="mpheist4_overlays" name="MP_Heist4_Tat_023_F" caption="Techno Glitch" />
@@ -881,6 +897,20 @@
         <OVERLAY collection="mpsum2_overlays" name="MP_Sum2_Tat_060_F" caption="MP_Sum2_Tat_060_F" />
         <OVERLAY collection="mpsum2_overlays" name="MP_Sum2_Tat_061_F" caption="MP_Sum2_Tat_061_F" />
         <OVERLAY collection="mpsum2_overlays" name="MP_Sum2_Tat_062_F" caption="MP_Sum2_Tat_062_F" />
+        <OVERLAY collection="mp2023_02_overlays" name="MP_2023_02_Tat_004_F" caption="Chop_Shop_Tat_004_F" />
+        <OVERLAY collection="mp2023_02_overlays" name="MP_2023_02_Tat_012_F" caption="Chop_Shop_Tat_012_F" />
+        <OVERLAY collection="mp2023_02_overlays" name="MP_2023_02_Tat_018_F" caption="Chop_Shop_Tat_018_F" />
+        <OVERLAY collection="mp2023_02_overlays" name="MP_2023_02_Tat_020_F" caption="Chop_Shop_Tat_020_F" />
+        <OVERLAY collection="mp2023_02_overlays" name="MP_2023_02_Tat_021_F" caption="Chop_Shop_Tat_021_F" />
+        <OVERLAY collection="mp2023_02_overlays" name="MP_2023_02_Tat_023_F" caption="Chop_Shop_Tat_023_F" />
+        <OVERLAY collection="mp2023_02_overlays" name="MP_2023_02_Tat_024_F" caption="Chop_Shop_Tat_024_F" />
+        <OVERLAY collection="mp2023_02_overlays" name="MP_2023_02_Tat_025_F" caption="Chop_Shop_Tat_025_F" />
+        <OVERLAY collection="mp2023_02_overlays" name="MP_2023_02_Tat_026_F" caption="Chop_Shop_Tat_026_F" />
+        <OVERLAY collection="mp2023_02_overlays" name="MP_2023_02_Tat_027_F" caption="Chop_Shop_Tat_027_F" />
+        <OVERLAY collection="mp2023_02_overlays" name="MP_2023_02_Tat_028_F" caption="Chop_Shop_Tat_028_F" />
+        <OVERLAY collection="mp2023_02_overlays" name="MP_2023_02_Tat_029_F" caption="Chop_Shop_Tat_029_F" />
+        <OVERLAY collection="mp2023_02_overlays" name="MP_2023_02_Tat_030_F" caption="Chop_Shop_Tat_030_F" />
+        <OVERLAY collection="mp2023_02_overlays" name="MP_2023_02_Tat_031_F" caption="Chop_Shop_Tat_031_F" />
       </ZONE_TORSO>
     </TYPE_TATTOO>
     <USERTYPE_HAIR>
@@ -1692,6 +1722,20 @@
         <OVERLAY collection="mptuner_overlays" name="MP_Tuner_Tee_014_F" caption="MP_Tuner_Tee_014_F" />
         <OVERLAY collection="mptuner_overlays" name="MP_Tuner_Tee_015_F" caption="MP_Tuner_Tee_015_F" />
         <OVERLAY collection="mptuner_overlays" name="MP_Tuner_Tee_016_F" caption="MP_Tuner_Tee_016_F" />
+        <OVERLAY collection="mpsecurity_overlays" name="MP_Security_Tee_000_F" caption="The_Contract_Tee_000_F" />
+        <OVERLAY collection="mpsecurity_overlays" name="MP_Security_Tee_001_F" caption="The_Contract_Tee_001_F" />
+        <OVERLAY collection="mpsum2_overlays" name="MP_Sum2_Tee_000_F" caption="CriminalEnterprise_Tee_000_F" />
+        <OVERLAY collection="mpsum2_overlays" name="MP_Sum2_Tee_001_F" caption="CriminalEnterprise_Tee_001_F" />
+	      <OVERLAY collection="mpchristmas3_overlays" name="MP_Christmas3_Tee_000_F" caption="Drug_Wars_Tee_000_F" />
+	      <OVERLAY collection="mpchristmas3_overlays" name="MP_Christmas3_Tee_001_F" caption="Drug_Wars_Tee_001_F" />
+	      <OVERLAY collection="mp2023_01_overlays" name="MP_2023_01_Tee_000_F" caption="Andreas_Mercenaries_Tee_000_F" />
+        <OVERLAY collection="mp2023_01_overlays" name="MP_2023_01_Tee_001_F" caption="Andreas_Mercenaries_Tee_001_F" />
+        <OVERLAY collection="mp2023_01_overlays" name="MP_2023_01_Tee_002_F" caption="Andreas_Mercenaries_Tee_002_F" />
+        <OVERLAY collection="mp2023_01_overlays" name="MP_2023_01_Tee_003_F" caption="Andreas_Mercenaries_Tee_003_F" />
+        <OVERLAY collection="mp2023_01_overlays" name="MP_2023_01_Tee_004_F" caption="Andreas_Mercenaries_Tee_004_F" />
+        <OVERLAY collection="mp2023_01_overlays" name="MP_2023_01_Tee_005_F" caption="Andreas_Mercenaries_Tee_005_F" />
+        <OVERLAY collection="mp2023_01_overlays" name="MP_2023_01_Tee_006_F" caption="Andreas_Mercenaries_Tee_006_F" />
+        <OVERLAY collection="mp2023_01_overlays" name="MP_2023_01_Tee_007_F" caption="Andreas_Mercenaries_Tee_007_F" />
       </ZONE_TORSO>
     </TYPE_BADGE>
   </Ped>
@@ -1905,6 +1949,10 @@
         <OVERLAY collection="mpsum2_overlays" name="MP_Sum2_Tat_025_M" caption="MP_Sum2_Tat_025_M" />
         <OVERLAY collection="mpsum2_overlays" name="MP_Sum2_Tat_026_M" caption="MP_Sum2_Tat_026_M" />
         <OVERLAY collection="mpsum2_overlays" name="MP_Sum2_Tat_027_M" caption="MP_Sum2_Tat_027_M" />
+        <OVERLAY collection="mp2023_02_overlays" name="MP_2023_02_Tat_008_M" caption="Chop_Shop_Tat_008_M" />
+        <OVERLAY collection="mp2023_02_overlays" name="MP_2023_02_Tat_009_M" caption="Chop_Shop_Tat_009_M" />
+        <OVERLAY collection="mp2023_02_overlays" name="MP_2023_02_Tat_010_M" caption="Chop_Shop_Tat_010_M" />
+        <OVERLAY collection="mp2023_02_overlays" name="MP_2023_02_Tat_011_M" caption="Chop_Shop_Tat_011_M" />
       </ZONE_HEAD>
       <ZONE_RIGHT_ARM>
         <OVERLAY collection="mpheist4_overlays" name="MP_Heist4_Tat_032_M" caption="K.U.L.T.99.1 FM" />
@@ -2025,6 +2073,9 @@
         <OVERLAY collection="mpsum2_overlays" name="MP_Sum2_Tat_046_M" caption="MP_Sum2_Tat_046_M" />
         <OVERLAY collection="mpsum2_overlays" name="MP_Sum2_Tat_047_M" caption="MP_Sum2_Tat_047_M" />
         <OVERLAY collection="mpsum2_overlays" name="MP_Sum2_Tat_048_M" caption="MP_Sum2_Tat_048_M" />
+	<OVERLAY collection="mp2023_02_overlays" name="MP_2023_02_Tat_005_M" caption="Chop_Shop_Tat_005_M" />
+        <OVERLAY collection="mp2023_02_overlays" name="MP_2023_02_Tat_006_M" caption="Chop_Shop_Tat_006_M" />
+        <OVERLAY collection="mp2023_02_overlays" name="MP_2023_02_Tat_007_M" caption="Chop_Shop_Tat_007_M" />
       </ZONE_RIGHT_ARM>
       <ZONE_LEFT_ARM>
         <OVERLAY collection="mpheist4_overlays" name="MP_Heist4_Tat_009_M" caption="Scratch Panther" />
@@ -2129,6 +2180,10 @@
         <OVERLAY collection="mpsum2_overlays" name="MP_Sum2_Tat_028_M" caption="MP_Sum2_Tat_028_M" />
         <OVERLAY collection="mpsum2_overlays" name="MP_Sum2_Tat_029_M" caption="MP_Sum2_Tat_029_M" />
         <OVERLAY collection="mpsum2_overlays" name="MP_Sum2_Tat_049_M" caption="MP_Sum2_Tat_049_M" />
+        <OVERLAY collection="mp2023_02_overlays" name="MP_2023_02_Tat_000_M" caption="Chop_Shop_Tat_000_M" />
+        <OVERLAY collection="mp2023_02_overlays" name="MP_2023_02_Tat_001_M" caption="Chop_Shop_Tat_001_M" />
+        <OVERLAY collection="mp2023_02_overlays" name="MP_2023_02_Tat_002_M" caption="Chop_Shop_Tat_002_M" />
+        <OVERLAY collection="mp2023_02_overlays" name="MP_2023_02_Tat_003_M" caption="Chop_Shop_Tat_003_M" />
       </ZONE_LEFT_ARM>
       <ZONE_RIGHT_LEG>
         <OVERLAY collection="mpheist4_overlays" name="MP_Heist4_Tat_027_M" caption="Skullphones" />
@@ -2179,6 +2234,8 @@
         <OVERLAY collection="mpsum2_overlays" name="MP_Sum2_Tat_050_M" caption="MP_Sum2_Tat_050_M" />
         <OVERLAY collection="mpsum2_overlays" name="MP_Sum2_Tat_051_M" caption="MP_Sum2_Tat_051_M" />
         <OVERLAY collection="mpsum2_overlays" name="MP_Sum2_Tat_052_M" caption="MP_Sum2_Tat_052_M" />
+	<OVERLAY collection="mp2023_02_overlays" name="MP_2023_02_Tat_016_M" caption="Chop_Shop_Tat_016_M" />
+        <OVERLAY collection="mp2023_02_overlays" name="MP_2023_02_Tat_017_M" caption="Chop_Shop_Tat_017_M" />
       </ZONE_RIGHT_LEG>
       <ZONE_LEFT_LEG>
         <OVERLAY collection="mpheist4_overlays" name="MP_Heist4_Tat_029_M" caption="Soundwaves" />
@@ -2242,6 +2299,9 @@
         <OVERLAY collection="mpsum2_overlays" name="MP_Sum2_Tat_054_M" caption="MP_Sum2_Tat_054_M" />
         <OVERLAY collection="mpsum2_overlays" name="MP_Sum2_Tat_055_M" caption="MP_Sum2_Tat_055_M" />
         <OVERLAY collection="mpsum2_overlays" name="MP_Sum2_Tat_056_M" caption="MP_Sum2_Tat_056_M" />
+        <OVERLAY collection="mp2023_02_overlays" name="MP_2023_02_Tat_013_M" caption="Chop_Shop_Tat_013_M" />
+        <OVERLAY collection="mp2023_02_overlays" name="MP_2023_02_Tat_014_M" caption="Chop_Shop_Tat_014_M" />
+        <OVERLAY collection="mp2023_02_overlays" name="MP_2023_02_Tat_015_M" caption="Chop_Shop_Tat_015_M" />
       </ZONE_LEFT_LEG>
       <ZONE_TORSO>
         <OVERLAY collection="mpheist4_overlays" name="MP_Heist4_Tat_023_M" caption="Techno Glitch" />
@@ -2425,6 +2485,20 @@
         <OVERLAY collection="mpsum2_overlays" name="MP_Sum2_Tat_060_M" caption="MP_Sum2_Tat_060_M" />
         <OVERLAY collection="mpsum2_overlays" name="MP_Sum2_Tat_061_M" caption="MP_Sum2_Tat_061_M" />
         <OVERLAY collection="mpsum2_overlays" name="MP_Sum2_Tat_062_M" caption="MP_Sum2_Tat_062_M" />
+        <OVERLAY collection="mp2023_02_overlays" name="MP_2023_02_Tat_004_M" caption="Chop_Shop_Tat_004_M" />
+        <OVERLAY collection="mp2023_02_overlays" name="MP_2023_02_Tat_012_M" caption="Chop_Shop_Tat_012_M" />
+        <OVERLAY collection="mp2023_02_overlays" name="MP_2023_02_Tat_018_M" caption="Chop_Shop_Tat_018_M" />
+        <OVERLAY collection="mp2023_02_overlays" name="MP_2023_02_Tat_020_M" caption="Chop_Shop_Tat_020_M" />
+        <OVERLAY collection="mp2023_02_overlays" name="MP_2023_02_Tat_021_M" caption="Chop_Shop_Tat_021_M" />
+        <OVERLAY collection="mp2023_02_overlays" name="MP_2023_02_Tat_023_M" caption="Chop_Shop_Tat_023_M" />
+        <OVERLAY collection="mp2023_02_overlays" name="MP_2023_02_Tat_024_M" caption="Chop_Shop_Tat_024_M" />
+        <OVERLAY collection="mp2023_02_overlays" name="MP_2023_02_Tat_025_M" caption="Chop_Shop_Tat_025_M" />
+        <OVERLAY collection="mp2023_02_overlays" name="MP_2023_02_Tat_026_M" caption="Chop_Shop_Tat_026_M" />
+        <OVERLAY collection="mp2023_02_overlays" name="MP_2023_02_Tat_027_M" caption="Chop_Shop_Tat_027_M" />
+        <OVERLAY collection="mp2023_02_overlays" name="MP_2023_02_Tat_028_M" caption="Chop_Shop_Tat_028_M" />
+        <OVERLAY collection="mp2023_02_overlays" name="MP_2023_02_Tat_029_M" caption="Chop_Shop_Tat_029_M" />
+        <OVERLAY collection="mp2023_02_overlays" name="MP_2023_02_Tat_030_M" caption="Chop_Shop_Tat_030_M" />
+        <OVERLAY collection="mp2023_02_overlays" name="MP_2023_02_Tat_031_M" caption="Chop_Shop_Tat_031_M" />
       </ZONE_TORSO>
     </TYPE_TATTOO>
     <USERTYPE_HAIR>
@@ -3257,6 +3331,20 @@
         <OVERLAY collection="mptuner_overlays" name="MP_Tuner_Tee_014_M" caption="MP_Tuner_Tee_014_M" />
         <OVERLAY collection="mptuner_overlays" name="MP_Tuner_Tee_015_M" caption="MP_Tuner_Tee_015_M" />
         <OVERLAY collection="mptuner_overlays" name="MP_Tuner_Tee_016_M" caption="MP_Tuner_Tee_016_M" />
+        <OVERLAY collection="mpsecurity_overlays" name="MP_Security_Tee_000_M" caption="The_Contract_Tee_000_M" />
+        <OVERLAY collection="mpsecurity_overlays" name="MP_Security_Tee_001_M" caption="The_Contract_Tee_001_M" />
+        <OVERLAY collection="mpsum2_overlays" name="MP_Sum2_Tee_000_M" caption="CriminalEnterprise_Tee_000_M" />
+        <OVERLAY collection="mpsum2_overlays" name="MP_Sum2_Tee_001_M" caption="CriminalEnterprise_Tee_001_M" />
+	      <OVERLAY collection="mpchristmas3_overlays" name="MP_Christmas3_Tee_000_M" caption="Drug_Wars_Tee_000_M" />
+	      <OVERLAY collection="mpchristmas3_overlays" name="MP_Christmas3_Tee_001_M" caption="Drug_Wars_Tee_001_M" />
+        <OVERLAY collection="mp2023_01_overlays" name="MP_2023_01_Tee_000_M" caption="Andreas_Mercenaries_Tee_000_M" />
+        <OVERLAY collection="mp2023_01_overlays" name="MP_2023_01_Tee_001_M" caption="Andreas_Mercenaries_Tee_001_M" />
+        <OVERLAY collection="mp2023_01_overlays" name="MP_2023_01_Tee_002_M" caption="Andreas_Mercenaries_Tee_002_M" />
+        <OVERLAY collection="mp2023_01_overlays" name="MP_2023_01_Tee_003_M" caption="Andreas_Mercenaries_Tee_003_M" />
+        <OVERLAY collection="mp2023_01_overlays" name="MP_2023_01_Tee_004_M" caption="Andreas_Mercenaries_Tee_004_M" />
+        <OVERLAY collection="mp2023_01_overlays" name="MP_2023_01_Tee_005_M" caption="Andreas_Mercenaries_Tee_005_M" />
+        <OVERLAY collection="mp2023_01_overlays" name="MP_2023_01_Tee_006_M" caption="Andreas_Mercenaries_Tee_006_M" />
+        <OVERLAY collection="mp2023_01_overlays" name="MP_2023_01_Tee_007_M" caption="Andreas_Mercenaries_Tee_007_M" />
       </ZONE_TORSO>
     </TYPE_BADGE>
   </Ped>

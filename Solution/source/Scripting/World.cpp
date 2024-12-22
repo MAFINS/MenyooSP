@@ -50,7 +50,26 @@ std::vector<Entity> _nearbyPeds, _nearbyVehicles, _worldPeds, _worldVehicles, _w
 
 namespace World
 {
-	const std::vector<std::string> World::sWeatherNames{ "ExtraSunny", "Clear", "Clouds", "Smog", "Foggy", "Overcast", "Rain", "Thunder", "Clearing", "Neutral", "Snow", "Blizzard", "SnowLight", "Halloween" };
+	//const std::vector<std::string> World::sWeatherNames{ "ExtraSunny", "Clear", "Clouds", "Smog", "Foggy", "Overcast", "Rain", "Thunder", "Clearing", "Neutral", "Snow", "Blizzard", "SnowLight", "Christmas", "Halloween", "Halloween Snow", "Halloween Rain"};
+	const std::vector<std::pair<std::string, std::string>> World::sWeatherNames{
+	{"ExtraSunny", "ExtraSunny"},
+	{"Clear", "Clear"},
+	{"Clouds", "Clouds"},
+	{"Smog", "Smog"},
+	{"Foggy", "Foggy"},
+	{"Overcast", "Overcast"},
+	{"Rain", "Rain"},
+	{"Thunder", "Thunder"},
+	{"Clearing", "Clearing"},
+	{"Neutral", "Neutral"},
+	{"Snow", "Snow"},
+	{"Blizzard", "Blizzard"},
+	{"SnowLight", "SnowLight"},
+	//{"Christmas", "XMAS"},          // Still not working for some reason
+	{"Halloween", "Halloween"},
+	{"Halloween Snow", "SNOW_HALLOWEEN"},  // Different internal name
+	{"Halloween Rain", "RAIN_HALLOWEEN"}   // Different internal name
+	};
 
 	void GravityLevel_set(int value)
 	{
@@ -78,7 +97,7 @@ namespace World
 	void Weather_set(WeatherType weather)
 	{
 		CLEAR_OVERRIDE_WEATHER();
-		SET_WEATHER_TYPE_NOW((PCHAR)sWeatherNames[static_cast<int>(weather)].c_str());
+		SET_WEATHER_TYPE_NOW((PCHAR)sWeatherNames[static_cast<int>(weather)].second.c_str());
 	}
 	void Weather_set(const std::string& weatherName)
 	{
@@ -87,7 +106,7 @@ namespace World
 	}
 	void SetWeatherOverTime(WeatherType weather, DWORD ms)
 	{
-		SET_WEATHER_TYPE_OVERTIME_PERSIST((PCHAR)sWeatherNames[static_cast<int>(weather)].c_str(), float(ms) / 1000.0f);
+		SET_WEATHER_TYPE_OVERTIME_PERSIST((PCHAR)sWeatherNames[static_cast<int>(weather)].second.c_str(), float(ms) / 1000.0f);
 	}
 	void SetWeatherOverTime(const std::string& weatherName, DWORD ms)
 	{
@@ -95,7 +114,7 @@ namespace World
 	}
 	void SetWeatherOverride(WeatherType weather)
 	{
-		SET_OVERRIDE_WEATHER(sWeatherNames[static_cast<int>(weather)].c_str());
+		SET_OVERRIDE_WEATHER(sWeatherNames[static_cast<int>(weather)].second.c_str());
 		//SET_WEATHER_TYPE_NOW(sWeatherNames[static_cast<int>(weather)].c_str());
 	}
 	void SetWeatherOverride(const std::string& weatherName)
@@ -109,7 +128,7 @@ namespace World
 	}
 	void SetWeatherTransition(WeatherType from, WeatherType to, DWORD ms)
 	{
-		SET_CURR_WEATHER_STATE(GET_HASH_KEY(sWeatherNames[static_cast<int>(from)]), GET_HASH_KEY(sWeatherNames[static_cast<int>(to)]), float(ms) / 1000.0f);
+		SET_CURR_WEATHER_STATE(GET_HASH_KEY(sWeatherNames[static_cast<int>(from)].second), GET_HASH_KEY(sWeatherNames[static_cast<int>(to)].second), float(ms) / 1000.0f);
 	}
 	void GetWeatherTransition(WeatherType& from, WeatherType& to, DWORD& time)
 	{
@@ -121,11 +140,11 @@ namespace World
 
 		for (UINT8 i = 0; i < sWeatherNames.size(); i++)
 		{
-			if (fr == GET_HASH_KEY(sWeatherNames[i]))
+			if (fr == GET_HASH_KEY(sWeatherNames[i].second))
 			{
 				from = (WeatherType)i;
 			}
-			if (t == GET_HASH_KEY(sWeatherNames[i]))
+			if (t == GET_HASH_KEY(sWeatherNames[i].second))
 			{
 				to = (WeatherType)i;
 			}
@@ -136,7 +155,7 @@ namespace World
 		Hash currentWeatherHash = GET_PREV_WEATHER_TYPE_HASH_NAME();
 		for (int i = 0; i < sWeatherNames.size(); i++)
 		{
-			if (currentWeatherHash == GET_HASH_KEY(sWeatherNames[i]))
+			if (currentWeatherHash == GET_HASH_KEY(sWeatherNames[i].second))
 			{
 				return static_cast<WeatherType>(i);
 			}
@@ -147,7 +166,7 @@ namespace World
 	{
 		for (int i = 0; i < sWeatherNames.size(); i++)
 		{
-			if (weatherName.compare(sWeatherNames[i]) == 0)
+			if (weatherName.compare(sWeatherNames[i].second) == 0)
 			{
 				return static_cast<WeatherType>(i);
 			}
@@ -159,9 +178,9 @@ namespace World
 		Hash currentWeatherHash = GET_PREV_WEATHER_TYPE_HASH_NAME();
 		for (auto& weatherName : sWeatherNames)
 		{
-			if (currentWeatherHash == GET_HASH_KEY(weatherName))
+			if (currentWeatherHash == GET_HASH_KEY(weatherName.second))
 			{
-				return weatherName;
+				return weatherName.first;
 			}
 		}
 		return std::string();
@@ -170,7 +189,7 @@ namespace World
 	{
 		auto weatherTypeInt = static_cast<int>(weatherType);
 		if (weatherTypeInt >= 0 && weatherTypeInt < sWeatherNames.size())
-			return sWeatherNames[weatherTypeInt];
+			return sWeatherNames[weatherTypeInt].first;
 		else return std::string();
 	}
 

@@ -131,7 +131,7 @@ namespace sub::Spooner
 
 				nodePedStuff.append_child("CanRagdoll").text() = ep.CanRagdoll_get();
 
-				nodePedStuff.append_child("HasShortHeight").text() = GET_PED_CONFIG_FLAG(ep.Handle(), 223, false) != 0;
+				nodePedStuff.append_child("HasShortHeight").text() = GET_PED_CONFIG_FLAG(ep.Handle(), ePedConfigFlags::_Shrink, false) != 0;
 
 				nodePedStuff.append_child("Armour").text() = ep.Armour_get();
 
@@ -518,7 +518,7 @@ namespace sub::Spooner
 				ep.CanRagdoll_set(nodePedStuff.child("CanRagdoll").text().as_bool(true));
 				SET_PED_RAGDOLL_ON_COLLISION(ep.Handle(), nodePedStuff.child("CanRagdoll").text().as_bool(false));
 
-				if (nodePedStuff.child("HasShortHeight").text().as_bool()) SET_PED_CONFIG_FLAG(ep.Handle(), 223, 1);
+				if (nodePedStuff.child("HasShortHeight").text().as_bool()) SET_PED_CONFIG_FLAG(ep.Handle(), ePedConfigFlags::_Shrink, 1);
 
 				ep.Armour_set(nodePedStuff.child("Armour").text().as_int());
 				ep.Weapon_set(nodePedStuff.child("CurrentWeapon").text().as_uint());

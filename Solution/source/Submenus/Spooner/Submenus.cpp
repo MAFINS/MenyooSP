@@ -805,9 +805,9 @@ namespace sub
 					for (auto& ws : World::sWeatherNames)
 					{
 						bool bWeatherNamePressed = false;
-						AddTickol(ws, weatherToSetStr == ws, bWeatherNamePressed, bWeatherNamePressed); if (bWeatherNamePressed)
+						AddTickol(ws.first, weatherToSetStr == ws.second, bWeatherNamePressed, bWeatherNamePressed); if (bWeatherNamePressed)
 						{
-							nodeWeatherToSet.text() = ws.c_str();
+							nodeWeatherToSet.text() = ws.second.c_str();
 							doc.save_file((const char*)filePath.c_str());
 						}
 					}
@@ -2255,7 +2255,7 @@ namespace sub
 			GTAped thisPed = SelectedEntity.Handle;
 			bool butAmIOnline = NETWORK_IS_IN_SESSION() != 0;
 			bool isPedMyPed = thisPed.Handle() == myPed.Handle();
-			bool bIsPedShortHeighted = GET_PED_CONFIG_FLAG(thisPed.Handle(), 223, false) != 0;
+			bool bIsPedShortHeighted = GET_PED_CONFIG_FLAG(thisPed.Handle(), ePedConfigFlags::_Shrink, false) != 0;
 			PedGroup myPedGroup = myPed.CurrentPedGroup_get();
 
 			bool pedops_isStill_toggle = false,
@@ -2275,7 +2275,7 @@ namespace sub
 				MenuOptions::AddOption_RelationshipTextScroller();
 			AddToggle("Is Still (Block Fleeing)", SelectedEntity.IsStill, pedops_isStill_toggle, pedops_isStill_toggle); if (pedops_isStill_toggle) { thisPed.BlockPermanentEvents_set(SelectedEntity.IsStill); }
 			AddLocal("Can Ragdoll", thisPed.CanRagdoll_get(), pedops_canRagdoll_toggle, pedops_canRagdoll_toggle); if (pedops_canRagdoll_toggle) { bool ns = !thisPed.CanRagdoll_get(); thisPed.CanRagdoll_set(ns); SET_PED_RAGDOLL_ON_COLLISION(thisPed.Handle(), ns); }
-			AddLocal("Is Short Heighted (Small)", bIsPedShortHeighted, pedops_shortHeighted_toggle, pedops_shortHeighted_toggle); if (pedops_shortHeighted_toggle) { SET_PED_CONFIG_FLAG(SelectedEntity.Handle.Handle(), 223, bIsPedShortHeighted ? 0 : 1); }
+			AddLocal("Is Short Heighted (Small)", bIsPedShortHeighted, pedops_shortHeighted_toggle, pedops_shortHeighted_toggle); if (pedops_shortHeighted_toggle) { SET_PED_CONFIG_FLAG(SelectedEntity.Handle.Handle(), ePedConfigFlags::_Shrink, bIsPedShortHeighted ? 0 : 1); }
 
 			int thisArmour = thisPed.Armour_get();
 			bool bArmour_plus = false, bArmour_minus = false, bArmour_input = false;
