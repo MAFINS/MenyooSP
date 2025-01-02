@@ -155,37 +155,26 @@ namespace sub::TeleportLocations_catind
 			{
 				Vector3 blipCoords = GTAblip(GET_FIRST_BLIP_INFO_ID(BlipIcon::Waypoint)).Position_get();
 
-				GET_GROUND_Z_FOR_3D_COORD(blipCoords.x, blipCoords.y, 800.0f, &blipCoords.z, 0, 0);
-				blipCoords.z += 20.0f;
-				if (!ped.IsInVehicle())
-				{
-					Game::RequestControlOfId(ped.NetID());
-					ped.RequestControl(1000);
+				GTAentity e = ped;
+				if (ped.IsInVehicle())
+					e = ped.CurrentVehicle();
 
-					for (int i = 0; i < sizeof(____gtaGroundCheckHeight) / sizeof(float); i++)
-					{
-						SET_ENTITY_COORDS(ped.Handle(), blipCoords.x, blipCoords.y, blipCoords.z, 0, 0, 0, 1);
-						WAIT(100);
-						if (GET_GROUND_Z_FOR_3D_COORD(blipCoords.x, blipCoords.y, ____gtaGroundCheckHeight[i], &blipCoords.z, 0, 0))
-							break;
-					}
-					SET_ENTITY_COORDS(ped.Handle(), blipCoords.x, blipCoords.y, blipCoords.z, 0, 0, 0, 1);
-				}
-				else
-				{
-					GTAvehicle vehicle = ped.CurrentVehicle();
-					Game::RequestControlOfId(vehicle.NetID());
-					vehicle.RequestControl(1000);
+				GET_GROUND_Z_FOR_3D_COORD(blipCoords.x, blipCoords.y, 810.0, &blipCoords.z, 0, 0);
 
-					for (int i = 0; i < sizeof(____gtaGroundCheckHeight) / sizeof(float); i++)
-					{
-						SET_ENTITY_COORDS(vehicle.Handle(), blipCoords.x, blipCoords.y, blipCoords.z, 0, 0, 0, 1);
-						WAIT(100);
-						if (GET_GROUND_Z_FOR_3D_COORD(blipCoords.x, blipCoords.y, ____gtaGroundCheckHeight[i], &blipCoords.z, 0, 0))
-							break;
-					}
-					SET_ENTITY_COORDS(vehicle.Handle(), blipCoords.x, blipCoords.y, blipCoords.z, 0, 0, 0, 1);
+				Game::RequestControlOfId(e.NetID());
+				e.RequestControl(1000);
+
+				for (int height : ____gtaGroundCheckHeight)
+				{
+					SET_ENTITY_COORDS(e.Handle(), blipCoords.x, blipCoords.y, height, 0, 0, 0, 1);
+					WAIT(100);
+					if (GET_GROUND_Z_FOR_3D_COORD(blipCoords.x, blipCoords.y, height, &blipCoords.z, 0, 0))
+						break;
 				}
+				SET_ENTITY_COORDS(e.Handle(), blipCoords.x, blipCoords.y, blipCoords.z, 0, 0, 0, 1);
+			}
+			else {
+				Game::Print::PrintBottomCentre("~r~Error:~s~ No Waypoint set.");
 			}
 		}
 		void ToWaypoint241()
