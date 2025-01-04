@@ -108,11 +108,38 @@ void Menu::justopened()
 		IS_DLC_PRESENT(GET_HASH_KEY("patch2023_01_g9ec")) or
 		IS_DLC_PRESENT(GET_HASH_KEY("patchday27g9ecng")) or
 		IS_DLC_PRESENT(GET_HASH_KEY("patchday28g9ecng")) or
-		IS_DLC_PRESENT(GET_HASH_KEY("patchdayg9ecng"))			//this hardcoding needs to get in the bin.
+		IS_DLC_PRESENT(GET_HASH_KEY("patchdayg9ecng")) or
+		IS_DLC_PRESENT(GET_HASH_KEY("patch2024_01_g9ec")) or
+		IS_DLC_PRESENT(GET_HASH_KEY("mp2024_01_g9ec")) or
+		IS_DLC_PRESENT(GET_HASH_KEY("mp2024_02_g9ec"))			//this hardcoding needs to get in the bin.
 		)
 	{
-		Game::Print::PrintBottomCentre("~r~Warning~s~: 9th Gen content detected, some instability may occur. See MenyooLog for details.");
-		ige::myLog << ige::LogType::LOG_WARNING << "Gen9 Content found in dlcpacks, this can cause crashes if attempted to be loaded by Menyoo." << std::endl << "				    You can find these in your dlclist.xml by searching for \"g9\" and removing these lines or using a comment." << std::endl << "				    For example: <!--<Item>dlcpacks:/mpg9ec/</Item>-->" << std::endl;
+		Game::Print::PrintBottomCentre("~r~Warning~s~: 9th Gen content detected, Game may crash. Read Menyoolog for fix instructions.");
+		ige::myLog << ige::LogType::LOG_WARNING << "Gen9 Content found in dlcpacks, this can cause instability when attempted to be loaded by Menyoo." << std::endl 
+			<< "			You can find these in your dlclist.xml by searching for \"g9\" and removing these lines or using a comment." << std::endl 
+			<< "				    		For example: <!--<Item>dlcpacks:/mpg9ec/</Item>-->" << std::endl << std::endl
+			<< "				    Current known Gen9 Packs:" << std::endl
+			<< "				    		patchdayg9ecng" << std::endl
+			<< "				    		mpsum2_g9ec" << std::endl
+			<< "				   	 	patchday27g9ecng" << std::endl
+			<< "				   	 	mpchristmas3_g9ec" << std::endl
+			<< "				   	 	patchday28g9ecng" << std::endl
+			<< "				   	 	mp2023_01_g9ec" << std::endl
+			<< "				   	 	mp2023_02_g9ec" << std::endl
+			<< "				   	 	patch2024_01_g9ec" << std::endl
+			<< "				   	 	mp2024_01_g9ec" << std::endl
+			<< "				  	  	mp2024_02_g9ec" << std::endl << std::endl
+			<< "				    Note: mp2024_02 also contains bugged content. If you continue to experience issues, removing this may help" << std::endl << std::endl;
+	}
+	else if (
+		IS_DLC_PRESENT(GET_HASH_KEY("mp2024_02")) 		//f*cking rockstar cocked up some clothes, this warning is the only protection. 
+		)
+	{
+		Game::Print::PrintBottomCentre("~r~Warning~s~: DLCPack mp2024_02 present, Game may crash. Read Menyoolog for fix instructions.");
+		ige::myLog << ige::LogType::LOG_WARNING << "mp2024_02 found in dlcpacks, certain bugged clothing can cause instability when attempted to be loaded by Menyoo." << std::endl 
+			<< "				    You can find this in your dlclist.xml by searching for \"mp2024_02\" and removing these lines or using a comment." << std::endl 
+			<< "				    		For example: <!--<Item>dlcpacks:/mp2024_02/</Item>-->" << std::endl << std::endl
+			<< "				    Note: this issue can be ignored if bugged content has been fixed by a mod" << std::endl;
 	}
 
 
