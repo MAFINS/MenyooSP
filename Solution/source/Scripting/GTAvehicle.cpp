@@ -1538,12 +1538,12 @@ bool GTAvehicle::HasTowArm_get() const
 void GTAvehicle::OpenDoor(VehicleDoor door, bool loose, bool instantly, bool playSound)
 {
 	SET_VEHICLE_DOOR_OPEN(this->mHandle, static_cast<int>(door), loose, instantly);
-	if (playSound) PLAY_VEHICLE_DOOR_OPEN_SOUND(this->mHandle, 1);
+	//if (playSound) PLAY_VEHICLE_DOOR_OPEN_SOUND(this->mHandle, 1);
 }
 void GTAvehicle::CloseDoor(VehicleDoor door, bool instantly, bool playSound)
 {
 	SET_VEHICLE_DOOR_SHUT(this->mHandle, static_cast<int>(door), instantly);
-	if (playSound) PLAY_VEHICLE_DOOR_CLOSE_SOUND(this->mHandle, 1);
+	//if (playSound) PLAY_VEHICLE_DOOR_CLOSE_SOUND(this->mHandle, 1);
 }
 void GTAvehicle::CloseAllDoors(bool instantly)
 {
