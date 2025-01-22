@@ -571,7 +571,7 @@ namespace BlipIcon {
 		{ BlipIcon::SeaSparrow2, "Sparrow" },
 		{ BlipIcon::Dinghy2, "Weaponized Dinghy" },
 		{ BlipIcon::PatrolBoat, "PatrolBoat" },
-		{ BlipIcon::Deluxo, "Deluxo" },
+		{ BlipIcon::Toreador, "Toreador" },
 		{ BlipIcon::Squadee, "Squadee" },
 		{ BlipIcon::Alkonost, "Alkonost" },
 		{ BlipIcon::AnnihilatorStealth, "AnnihilatorStealth" },
