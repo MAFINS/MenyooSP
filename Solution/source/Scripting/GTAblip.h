@@ -706,7 +706,7 @@ namespace BlipIcon {
 		WeaponizedConada = 862,
 		Streamer216 = 865,
 		SignalJammer = 866,
-		WalkieTalkie = 875
+		WalkieTalkie = 875,
 		SalvageYard = 867,
 		SalvageYardHeist = 868,
 		SalvageYardPlans = 879,
