@@ -695,6 +695,7 @@ namespace BlipIcon {
 		AcidLab = 840,
 		MysteryPackage = 842,
 		GunVan = 844,
+		StashHouse = 845,
 		Tractor = 846,
 		JuggaloWarehouse = 847,
 		Duffelbag = 850,
@@ -705,6 +706,7 @@ namespace BlipIcon {
 		WeaponizedConada = 862,
 		Streamer216 = 865,
 		SignalJammer = 866,
+		WalkieTalkie = 875
 		SalvageYard = 867,
 		SalvageYardHeist = 868,
 		SalvageYardPlans = 879,
@@ -723,6 +725,19 @@ namespace BlipIcon {
 		ZombieFire = 897,
 		PossessedAnimal = 898,
 		MobilePhone = 899,
+		DarnellBrosGarmentFactory = 900,
+		DarnellBrosGarmentFactoryForSale = 901,
+		FieldHanger = 903,
+		FieldHangerForSale = 904,
+		DH7IronMule = 905,
+		Cargoship = 911,
+		Torpedo = 912,
+		Propellor = 913,
+		SharkTiger = 914,
+		FastTravel = 915,
+		Duster300H = 916,
+		Titan250D = 917,
+		Collectible = 918,
 	};
 
 	extern const std::map<int, std::string> vNames;
