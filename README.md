@@ -1,3 +1,13 @@
+# NOTE: This repository is no longer maintained. Please do not download 'updated' binaries uploaded and distributed by strangers you do not trust. Please refer to the  [@itsjustcurtis](https://github.com/itsjustcurtis) fork for updated releases (muy bueno):
+# https://github.com/itsjustcurtis/MenyooSP
+
+-------------------------
+\
+\
+\
+\
+old readme:
+
 [![Build status](https://github.com/MAFINS/MenyooSP/actions/workflows/master_build.yml/badge.svg)](https://github.com/MAFINS/MenyooSP/actions)
 [![GitHub Latest nightly)](https://img.shields.io/github/v/release/MAFINS/MenyooSP?include_prereleases&label=pre-release&logo=GitHub)](https://github.com/MAFINS/MenyooSP/releases/tag/latest)
 [![GitHub latest release](https://img.shields.io/github/downloads/MAFINS/MenyooSP/latest/total?label=latest-release&logo=GitHub)](https://github.com/MAFINS/MenyooSP/releases/latest)
