@@ -2,7 +2,7 @@ name: Master_Build
 
 on:
   push:
-    branches: [ "main", "Development", "fix_masterrelease" ]
+    branches: [ "main", "Development" ]
   #workflow_run:
   #  workflows: ["MSBuild"]
   #  types:
@@ -18,6 +18,7 @@ env:
   # You can convert this to a build matrix if you need coverage of multiple configuration types.
   # https://docs.github.com/actions/learn-github-actions/managing-complex-workflows#using-a-build-matrix
   BUILD_CONFIGURATION: Release
+  CANCELJOB: false
 
 permissions:
   contents: write
@@ -26,19 +27,24 @@ permissions:
 jobs:
   check-version-and-merge:
     runs-on: ubuntu-latest
+    outputs:
+      CANCELJOB: ${{ steps.set_output.outputs.CANCELJOB }}
 
     steps:
       - name: Checkout repository
+        if: env.CANCELJOB != 'true'  
         uses: actions/checkout@v3
 
       - name: Extract version from macros.h
         id: extract_version
+        if: env.CANCELJOB != 'true' 
         run: |
           VERSION=$(grep '#define MENYOO_CURRENT_VER_' Solution/source/macros.h | awk '{print $3}' | tr -d '"')
           echo "VERSION=v$VERSION" >> $GITHUB_ENV
           echo "Extracted version: $VERSION"
           
       - name: Check if tag already exists
+        if: env.CANCELJOB != 'true' 
         run: |
           VERSION=${{ env.VERSION }}
           echo "Checking for tag: $VERSION"  
@@ -47,11 +53,11 @@ jobs:
           echo "$TAGS"
           
            echo "Checking if tag exists:"
-          echo "$TAGS" | while IFS= read -r tag; do
-            echo "Comparing tag: '$tag' with version: '$VERSION'"
+          for tag in $TAGS; do
             if [ "$tag" = "$VERSION" ]; then
               echo "Tag $VERSION already exists. Cancelling workflow."
-              exit 1
+              echo "CANCELJOB=true" >> $GITHUB_ENV
+              exit 0
             fi
           done
           
@@ -61,6 +67,7 @@ jobs:
           
       - name: Check version pattern and merge
         id: check_version
+        if: env.CANCELJOB != 'true' 
         run: |
           VERSION=${{ env.VERSION }}
           echo "Checking version pattern: $VERSION"
@@ -81,23 +88,31 @@ jobs:
             echo "## Check for existing PR"
             if check_pr_exists; then
               echo "PR already exists with version $VERSION."
+              echo "CANCELJOB=true" >> $GITHUB_ENV
               exit 0
             fi
             echo "Creating new PR."
             gh pr create --title "Release $VERSION" --body "Merging development into main for release $VERSION" --base main --head Development
-            exit 1
+            echo "CANCELJOB=true" >> $GITHUB_ENV
+            exit 0
           elif [[ $VERSION =~ ^v?[0-9]+\.[0-9]+\.[0-9]+(a|b|rc)[0-9]+$ ]]; then
             echo "Version is a pre-release. Proceeding with pre-release build."
           else
             echo "Version is invalid or a development version. Cancelling workflow."
-            exit 1
+            echo "CANCELJOB=true" >> $GITHUB_ENV
+            exit 0
           fi
         shell: bash
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
+      - name: Set output
+        id: set_output
+        if: env.CANCELJOB != 'true' 
+        run: echo "CANCELJOB=${{ env.CANCELJOB }}" >> $GITHUB_OUTPUT
+
   build:
-    if: github.ref == 'refs/heads/main' || (github.ref == 'refs/heads/Development')
+    if: github.ref == 'refs/heads/main' || (github.ref == 'refs/heads/Development' && needs.check-version-and-merge.outputs.CANCELJOB != 'true')
     runs-on: windows-latest
     needs: check-version-and-merge
 
@@ -118,7 +133,7 @@ jobs:
       # BaseOutputPath should be /Solution/source/_Build/bin/Release/
       
     - name: Upload a Build Artifact
-      uses: actions/upload-artifact@v3.1.0
+      uses: actions/upload-artifact@v4
       with:
         # Artifact name
         name: MenyooSP
