@@ -664,7 +664,7 @@ namespace BlipIcon {
 		{ BlipIcon::FastTravel, "Fast Travel" },
 		{ BlipIcon::Duster300H, "Duster 300-H" },
 		{ BlipIcon::Titan250D, "Titan 250 D" },
-		{ BlipIcon::Collectible, "Collectible" },
+		{ BlipIcon::Collectible, "Collectible" }
 	};
 }
 
