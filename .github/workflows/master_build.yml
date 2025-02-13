@@ -85,7 +85,7 @@ jobs:
          #workflow_conclusion: ""
          #name: MenyooSP
          #skip_unpack: true
-      - uses: actions/download-artifact@v3
+      - uses: actions/download-artifact@v4.1.7
       
       - name: Zip artifact for deployment
         run: Compress-Archive -Path "MenyooSP/*" -DestinationPath "MenyooSP.zip"
